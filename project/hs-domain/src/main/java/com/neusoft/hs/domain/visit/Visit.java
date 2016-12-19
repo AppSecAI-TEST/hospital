@@ -62,14 +62,25 @@ public class Visit extends SuperEntity {
 
 	@OneToOne(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private MedicalRecordClip medicalRecordClip;
-	
+
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private List<Order> orders;
-	
+
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private List<VisitChargeItem> visitChargeItems;
-	private OrderExecute executes[];
+
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
+	private List<OrderExecute> executes;
+
+	@OneToOne(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private ChargeBill chargeBill;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "doctor_id")
 	private Doctor respDoctor;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "dept_id")
 	private Dept respDept;
 
 	/**

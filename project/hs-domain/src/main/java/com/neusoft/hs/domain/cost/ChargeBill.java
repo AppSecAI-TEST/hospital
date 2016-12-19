@@ -2,85 +2,116 @@
 
 package com.neusoft.hs.domain.cost;
 
-import com.neusoft.hs.domain.visit.Visit;
+import java.util.List;
 
-public class ChargeBill 
-{
-   private float balance;
-   private int type;
-   private int state;
-   public ChargeRecord chargeRecord[];
-   public Visit visit;
-   
-   /**
-    * @roseuid 58573EC60164
-    */
-   public ChargeBill() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584E035D01D1
-    */
-   public void setVisit() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 5850A31301AE
-    */
-   public void addChargeRecords() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 5850A3D500DE
-    */
-   public void charging() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 5850A40703E7
-    */
-   public void save() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 5850BDE60140
-    */
-   public void unCharging() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 5850D5B402D2
-    */
-   public void setBalance() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 5853417903C7
-    */
-   public void balance() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 585341CE038F
-    */
-   public void setState() 
-   {
-    
-   }
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.entity.IdEntity;
+
+@Entity
+@Table(name = "domain_charge_bill")
+public class ChargeBill extends IdEntity {
+
+	private float balance;
+
+	private String type;
+
+	@NotEmpty(message = "状态不能为空")
+	@Column(length = 32)
+	private String state;
+
+	@OneToMany(mappedBy = "chargeBill", cascade = { CascadeType.ALL })
+	@OrderBy("createDate DESC")
+	private List<ChargeRecord> chargeRecords;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "visit_id")
+	private Visit visit;
+
+	/**
+	 * @roseuid 5850A31301AE
+	 */
+	public void addChargeRecords() {
+
+	}
+
+	/**
+	 * @roseuid 5850A3D500DE
+	 */
+	public void charging() {
+
+	}
+
+	/**
+	 * @roseuid 5850A40703E7
+	 */
+	public void save() {
+
+	}
+
+	/**
+	 * @roseuid 5850BDE60140
+	 */
+	public void unCharging() {
+
+	}
+
+	/**
+	 * @roseuid 5853417903C7
+	 */
+	public void balance() {
+
+	}
+
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public List<ChargeRecord> getChargeRecords() {
+		return chargeRecords;
+	}
+
+	public void setChargeRecords(List<ChargeRecord> chargeRecords) {
+		this.chargeRecords = chargeRecords;
+	}
+
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
+	}
+
 }

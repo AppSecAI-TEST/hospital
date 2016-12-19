@@ -42332,9 +42332,9 @@
 					quidu      	"584DF2760205"
 					client_cardinality 	(value cardinality "1")
 					is_navigable 	TRUE)
-				    (object Role "theOrder"
+				    (object Role "orders"
 					quid       	"584E5EE30038"
-					label      	"theOrder"
+					label      	"orders"
 					supplier   	"Logical View::DesignModel::DesignElement::domain::order::Order"
 					quidu      	"584E52EC03B3"
 					client_cardinality 	(value cardinality "0..n")
@@ -42394,9 +42394,9 @@
 			    (object Association "$UNNAMED$408"
 				quid       	"584F529F0128"
 				roles      	(list role_list
-				    (object Role "orderExecute"
+				    (object Role "orderExecutes"
 					quid       	"584F52A00068"
-					label      	"orderExecute"
+					label      	"orderExecutes"
 					supplier   	"Logical View::DesignModel::DesignElement::domain::order::OrderExecute"
 					quidu      	"584F4E5B00F9"
 					client_cardinality 	(value cardinality "0..n")
@@ -42503,9 +42503,9 @@
 					quidu      	"584FBD5E02AB"
 					client_cardinality 	(value cardinality "0..n")
 					is_navigable 	TRUE)
-				    (object Role "theOrderExecute"
+				    (object Role "orderExecute"
 					quid       	"584FBDBA0257"
-					label      	"theOrderExecute"
+					label      	"orderExecute"
 					supplier   	"Logical View::DesignModel::DesignElement::domain::order::OrderExecute"
 					quidu      	"584F4E5B00F9"
 					client_cardinality 	(value cardinality "0..1")
@@ -42513,9 +42513,9 @@
 			    (object Association "$UNNAMED$415"
 				quid       	"584FC02F003E"
 				roles      	(list role_list
-				    (object Role "theCostRecord"
+				    (object Role "costRecord"
 					quid       	"584FC02F029A"
-					label      	"theCostRecord"
+					label      	"costRecord"
 					supplier   	"Logical View::DesignModel::DesignElement::domain::cost::CostRecord"
 					quidu      	"584FC00E03B5"
 					client_cardinality 	(value cardinality "1")
@@ -42586,9 +42586,9 @@
 					quidu      	"584FBD5E02AB"
 					client_cardinality 	(value cardinality "0..n")
 					is_navigable 	TRUE)
-				    (object Role "theChargeBill"
+				    (object Role "chargeBill"
 					quid       	"5850A32F035E"
-					label      	"theChargeBill"
+					label      	"chargeBill"
 					supplier   	"Logical View::DesignModel::DesignElement::domain::cost::ChargeBill"
 					quidu      	"584DFE36010A"
 					client_cardinality 	(value cardinality "1")
@@ -45808,7 +45808,7 @@
 				zoom       	100
 				max_height 	28350
 				max_width  	21600
-				origin_x   	4682
+				origin_x   	6062
 				origin_y   	0
 				items      	(list diagram_item_list
 				    (object ClassView "Class" "Logical View::DesignModel::DesignElement::domain::organization::Org" @1921
@@ -46777,7 +46777,7 @@
 					ShowCompartmentStereotypes 	TRUE
 					IncludeAttribute 	TRUE
 					IncludeOperation 	TRUE
-					location   	(3958, 4433)
+					location   	(3991, 4427)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -46789,7 +46789,7 @@
 					    default_color 	TRUE)
 					label      	(object ItemLabel
 					    Parent_View 	@1958
-					    location   	(3811, 4254)
+					    location   	(3844, 4248)
 					    fill_color 	13434879
 					    nlines     	1
 					    max_width  	294
@@ -46801,7 +46801,7 @@
 					quidu      	"584FC00E03B5"
 					compartment 	(object Compartment
 					    Parent_View 	@1958
-					    location   	(3811, 4359)
+					    location   	(3844, 4353)
 					    font       	(object Font
 						size       	10
 						face       	"Arial"
@@ -47431,14 +47431,14 @@
 					annotation 	8
 					autoResize 	TRUE)
 				    (object AssociationViewNew "$UNNAMED$415" @1984
-					location   	(3531, 4438)
+					location   	(3547, 4431)
 					stereotype 	TRUE
 					line_color 	3342489
 					quidu      	"584FC02F003E"
 					roleview_list 	(list RoleViews
-					    (object RoleView "theCostRecord" @1985
+					    (object RoleView "costRecord" @1985
 						Parent_View 	@1984
-						location   	(-417, 534)
+						location   	(-401, 527)
 						font       	(object Font
 						    size       	10
 						    face       	"Arial"
@@ -47450,7 +47450,7 @@
 						    default_color 	TRUE)
 						label      	(object SegLabel @1986
 						    Parent_View 	@1985
-						    location   	(3748, 4397)
+						    location   	(3718, 4394)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -47465,9 +47465,9 @@
 						    nlines     	1
 						    max_width  	298
 						    justify    	0
-						    label      	"+theCostRecord"
-						    pctDist    	0.800000
-						    height     	42
+						    label      	"+costRecord"
+						    pctDist    	0.594096
+						    height     	38
 						    orientation 	0)
 						stereotype 	TRUE
 						line_color 	3342489
@@ -47475,14 +47475,14 @@
 						client     	@1984
 						supplier   	@1958
 						vertices   	(list Points
-						    (3531, 4438)
-						    (3802, 4438))
+						    (3547, 4431)
+						    (3835, 4431))
 						line_style 	3
-						origin_attachment 	(3531, 4438)
-						terminal_attachment 	(3802, 4438)
+						origin_attachment 	(3547, 4431)
+						terminal_attachment 	(3868, 4425)
 						label      	(object SegLabel @1987
 						    Parent_View 	@1985
-						    location   	(3743, 4494)
+						    location   	(3772, 4487)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -47503,7 +47503,7 @@
 						    orientation 	1))
 					    (object RoleView "chargeRecord" @1988
 						Parent_View 	@1984
-						location   	(-417, 534)
+						location   	(-401, 527)
 						font       	(object Font
 						    size       	10
 						    face       	"Arial"
@@ -47515,7 +47515,7 @@
 						    default_color 	TRUE)
 						label      	(object SegLabel @1989
 						    Parent_View 	@1988
-						    location   	(3436, 4392)
+						    location   	(3413, 4385)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -47531,8 +47531,8 @@
 						    max_width  	349
 						    justify    	0
 						    label      	"+chargeRecord"
-						    pctDist    	0.351648
-						    height     	47
+						    pctDist    	0.466899
+						    height     	46
 						    orientation 	1)
 						stereotype 	TRUE
 						line_color 	3342489
@@ -47540,14 +47540,14 @@
 						client     	@1984
 						supplier   	@1983
 						vertices   	(list Points
-						    (3531, 4438)
-						    (3260, 4438))
+						    (3547, 4431)
+						    (3260, 4431))
 						line_style 	3
-						origin_attachment 	(3531, 4438)
-						terminal_attachment 	(3260, 4438)
+						origin_attachment 	(3547, 4431)
+						terminal_attachment 	(3260, 4431)
 						label      	(object SegLabel @1990
 						    Parent_View 	@1988
-						    location   	(3341, 4490)
+						    location   	(3345, 4483)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -48692,7 +48692,7 @@
 					line_color 	3342489
 					quidu      	"584F529F0128"
 					roleview_list 	(list RoleViews
-					    (object RoleView "orderExecute" @2042
+					    (object RoleView "orderExecutes" @2042
 						Parent_View 	@2041
 						location   	(2142, 943)
 						font       	(object Font
@@ -48721,7 +48721,7 @@
 						    nlines     	1
 						    max_width  	338
 						    justify    	0
-						    label      	"+orderExecute"
+						    label      	"+orderExecutes"
 						    pctDist    	0.800000
 						    height     	42
 						    orientation 	0)
@@ -48896,7 +48896,7 @@
 						    pctDist    	0.900000
 						    height     	54
 						    orientation 	0))
-					    (object RoleView "theOrderExecute" @2052
+					    (object RoleView "orderExecute" @2052
 						Parent_View 	@2048
 						location   	(366, 683)
 						font       	(object Font
@@ -48910,7 +48910,7 @@
 						    default_color 	TRUE)
 						label      	(object SegLabel @2053
 						    Parent_View 	@2052
-						    location   	(4021, 3717)
+						    location   	(4036, 3804)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -48925,10 +48925,10 @@
 						    nlines     	1
 						    max_width  	338
 						    justify    	0
-						    label      	"+theOrderExecute"
-						    pctDist    	0.800000
-						    height     	42
-						    orientation 	0)
+						    label      	"+orderExecute"
+						    pctDist    	0.820833
+						    height     	46
+						    orientation 	1)
 						stereotype 	TRUE
 						line_color 	3342489
 						quidu      	"584FBDBA0257"
@@ -49010,7 +49010,7 @@
 					annotation 	8
 					autoResize 	TRUE)
 				    (object AssociationViewNew "$UNNAMED$419" @2056
-					location   	(3898, 3788)
+					location   	(3900, 3788)
 					font       	(object Font
 					    size       	10
 					    face       	"Arial"
@@ -49026,7 +49026,7 @@
 					roleview_list 	(list RoleViews
 					    (object RoleView "chargeRecord" @2057
 						Parent_View 	@2056
-						location   	(1056, 2031)
+						location   	(1058, 2031)
 						font       	(object Font
 						    size       	10
 						    face       	"Arial"
@@ -49038,7 +49038,7 @@
 						    default_color 	TRUE)
 						label      	(object SegLabel @2058
 						    Parent_View 	@2057
-						    location   	(3465, 4135)
+						    location   	(3465, 4134)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -49063,15 +49063,15 @@
 						client     	@2056
 						supplier   	@1983
 						vertices   	(list Points
-						    (3898, 3788)
-						    (3898, 4176)
-						    (3260, 4176))
+						    (3900, 3788)
+						    (3900, 4175)
+						    (3260, 4175))
 						line_style 	3
-						origin_attachment 	(3898, 3788)
-						terminal_attachment 	(3260, 4176)
+						origin_attachment 	(3900, 3788)
+						terminal_attachment 	(3260, 4175)
 						label      	(object SegLabel @2059
 						    Parent_View 	@2057
-						    location   	(3363, 4230)
+						    location   	(3363, 4229)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -49090,9 +49090,9 @@
 						    pctDist    	0.900000
 						    height     	54
 						    orientation 	0))
-					    (object RoleView "theChargeBill" @2060
+					    (object RoleView "chargeBill" @2060
 						Parent_View 	@2056
-						location   	(1056, 2031)
+						location   	(1058, 2031)
 						font       	(object Font
 						    size       	10
 						    face       	"Arial"
@@ -49104,7 +49104,7 @@
 						    default_color 	TRUE)
 						label      	(object SegLabel @2061
 						    Parent_View 	@2060
-						    location   	(3857, 2967)
+						    location   	(3772, 2839)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -49119,9 +49119,9 @@
 						    nlines     	1
 						    max_width  	266
 						    justify    	0
-						    label      	"+theChargeBill"
-						    pctDist    	0.800000
-						    height     	42
+						    label      	"+chargeBill"
+						    pctDist    	0.924051
+						    height     	128
 						    orientation 	0)
 						stereotype 	TRUE
 						line_color 	3342489
@@ -49129,14 +49129,14 @@
 						client     	@2056
 						supplier   	@2055
 						vertices   	(list Points
-						    (3898, 3788)
-						    (3898, 2761))
+						    (3900, 3788)
+						    (3900, 2761))
 						line_style 	3
-						origin_attachment 	(3898, 3788)
-						terminal_attachment 	(3898, 2761)
+						origin_attachment 	(3900, 3788)
+						terminal_attachment 	(3900, 2761)
 						label      	(object SegLabel @2062
 						    Parent_View 	@2060
-						    location   	(3950, 2848)
+						    location   	(3952, 2848)
 						    font       	(object Font
 							size       	10
 							face       	"Arial"
@@ -49274,7 +49274,7 @@
 						    pctDist    	0.961694
 						    height     	40
 						    orientation 	1))
-					    (object RoleView "theOrder" @2068
+					    (object RoleView "orders" @2068
 						Parent_View 	@2064
 						location   	(3431, 519)
 						font       	(object Font
@@ -49303,7 +49303,7 @@
 						    nlines     	1
 						    max_width  	179
 						    justify    	0
-						    label      	"+theOrder"
+						    label      	"+orders"
 						    pctDist    	0.902707
 						    height     	42
 						    orientation 	1)
@@ -53234,7 +53234,7 @@
 					line_color 	3342489
 					quidu      	"584FC02F003E"
 					roleview_list 	(list RoleViews
-					    (object RoleView "theCostRecord" @2259
+					    (object RoleView "costRecord" @2259
 						Parent_View 	@2258
 						location   	(-436, 340)
 						font       	(object Font
@@ -53263,7 +53263,7 @@
 						    nlines     	1
 						    max_width  	298
 						    justify    	0
-						    label      	"+theCostRecord"
+						    label      	"+costRecord"
 						    pctDist    	0.800000
 						    height     	42
 						    orientation 	0)
@@ -54382,7 +54382,7 @@
 					line_color 	3342489
 					quidu      	"584F529F0128"
 					roleview_list 	(list RoleViews
-					    (object RoleView "orderExecute" @2316
+					    (object RoleView "orderExecutes" @2316
 						Parent_View 	@2315
 						location   	(2124, 749)
 						font       	(object Font
@@ -54411,7 +54411,7 @@
 						    nlines     	1
 						    max_width  	338
 						    justify    	0
-						    label      	"+orderExecute"
+						    label      	"+orderExecutes"
 						    pctDist    	0.800000
 						    height     	42
 						    orientation 	0)
@@ -54586,7 +54586,7 @@
 						    pctDist    	0.900000
 						    height     	54
 						    orientation 	0))
-					    (object RoleView "theOrderExecute" @2326
+					    (object RoleView "orderExecute" @2326
 						Parent_View 	@2322
 						location   	(349, 489)
 						font       	(object Font
@@ -54615,7 +54615,7 @@
 						    nlines     	1
 						    max_width  	338
 						    justify    	0
-						    label      	"+theOrderExecute"
+						    label      	"+orderExecute"
 						    pctDist    	0.800000
 						    height     	42
 						    orientation 	0)
@@ -54762,7 +54762,7 @@
 						    pctDist    	0.900000
 						    height     	54
 						    orientation 	0))
-					    (object RoleView "theChargeBill" @2334
+					    (object RoleView "chargeBill" @2334
 						Parent_View 	@2330
 						location   	(1038, 1843)
 						font       	(object Font
@@ -54791,7 +54791,7 @@
 						    nlines     	1
 						    max_width  	266
 						    justify    	0
-						    label      	"+theChargeBill"
+						    label      	"+chargeBill"
 						    pctDist    	0.800000
 						    height     	42
 						    orientation 	0)
@@ -54928,7 +54928,7 @@
 						    pctDist    	0.961694
 						    height     	40
 						    orientation 	1))
-					    (object RoleView "theOrder" @2342
+					    (object RoleView "orders" @2342
 						Parent_View 	@2338
 						location   	(3413, 308)
 						font       	(object Font
@@ -54957,7 +54957,7 @@
 						    nlines     	1
 						    max_width  	179
 						    justify    	0
-						    label      	"+theOrder"
+						    label      	"+orders"
 						    pctDist    	0.902707
 						    height     	42
 						    orientation 	1)

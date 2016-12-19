@@ -52,6 +52,9 @@ public abstract class Order extends IdEntity {
 	@JoinColumn(name = "creator_id")
 	private Doctor creator;
 
+	@Column(name = "create_date")
+	private Date createDate;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
@@ -145,6 +148,14 @@ public abstract class Order extends IdEntity {
 
 	public void setCreator(Doctor creator) {
 		this.creator = creator;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public Visit getVisit() {
