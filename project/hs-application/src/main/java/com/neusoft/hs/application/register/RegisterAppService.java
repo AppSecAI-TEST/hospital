@@ -2,24 +2,24 @@
 
 package com.neusoft.hs.application.register;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.neusoft.hs.domain.visit.VisitDomainService;
 
-public class RegisterAppService 
-{
-   
-   /**
-    * @roseuid 58573EC7002B
-    */
-   public RegisterAppService() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584A697D031B
-    */
-   public void register() 
-   {
-    
-   }
+@Service
+@Transactional(rollbackFor = Exception.class)
+public class RegisterAppService {
+
+	@Autowired
+	private VisitDomainService visitDomainService;
+
+	/**
+	 * @roseuid 584A697D031B
+	 */
+	public void register() {
+		visitDomainService.create();
+
+	}
 }

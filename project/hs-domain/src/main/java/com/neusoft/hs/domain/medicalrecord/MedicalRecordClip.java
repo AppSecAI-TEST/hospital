@@ -2,18 +2,44 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
-import com.neusoft.hs.domain.visit.Visit;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public class MedicalRecordClip 
-{
-   private int state;
-   public Visit visit;
-   
-   /**
-    * @roseuid 58573EC5027D
-    */
-   public MedicalRecordClip() 
-   {
-    
-   }
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.entity.IdEntity;
+
+@Entity
+@Table(name = "domain_medical_record_clip")
+public class MedicalRecordClip extends IdEntity {
+
+	@NotEmpty(message = "状态不能为空")
+	@Column(length = 32)
+	private String state;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "visit_id")
+	private Visit visit;
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
+	}
+
 }

@@ -2,23 +2,10 @@
 
 package com.neusoft.hs.domain.visit;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public class VisitRepo 
+
+public interface VisitRepo extends PagingAndSortingRepository<Visit, String>
 {
-   
-   /**
-    * @roseuid 58573EC702BF
-    */
-   public VisitRepo() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584A6AE70293
-    */
-   public void save() 
-   {
-    
-   }
+ 
 }

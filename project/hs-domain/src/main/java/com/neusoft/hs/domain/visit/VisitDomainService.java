@@ -2,24 +2,26 @@
 
 package com.neusoft.hs.domain.visit;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.platform.user.User;
+
+@Service
+@Transactional(rollbackFor = Exception.class)
 public class VisitDomainService 
 {
-   
-   /**
-    * @roseuid 58573EC701DB
-    */
-   public VisitDomainService() 
-   {
-    
-   }
+	@Autowired
+	private VisitRepo visitRepo;
    
    /**
     * @roseuid 584A6AAC03AB
     */
-   public void create() 
+   public void create(Visit visit, User user) 
    {
-    
+	   
+	   visitRepo.save(visit);
    }
    
    /**
