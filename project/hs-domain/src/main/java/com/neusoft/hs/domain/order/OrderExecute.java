@@ -40,33 +40,38 @@ public class OrderExecute extends IdEntity {
 
 	@Column(name = "plan_start_date")
 	private Date planStartDate;
-	
+
 	@Column(name = "plan_end_date")
 	private Date planEndDate;
-	
+
 	@Column(name = "start_date")
 	private Date startDate;
-	
+
 	@Column(name = "end_date")
 	private Date endDate;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
 	private Role executeRole;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "actual_executor_id")
 	private User actualExecutor;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private Order order;
-	
+
 	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
 	private List<ChargeRecord> chargeRecords;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "execute_dept_id")
 	private Dept executeDept;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
 	/**
