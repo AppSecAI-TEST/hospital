@@ -11,10 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.Application;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Org;
 import com.neusoft.hs.domain.organization.OrganizationDomainService;
+import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
+import com.neusoft.hs.domain.organization.UserDomainService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
@@ -41,12 +44,19 @@ public class AppTestService {
 
 	public static void clear() {
 
+		// 清空组织机构信息
 		ApplicationContextUtil.getApplicationContext()
 				.getBean(OrganizationDomainService.class).clear();
 
 	}
 
 	public static void initData() {
+
+		initOrgs();
+
+	}
+
+	private static void initOrgs() {
 
 		List<Unit> units = new ArrayList<Unit>();
 
@@ -86,7 +96,30 @@ public class AppTestService {
 
 		ApplicationContextUtil.getApplicationContext()
 				.getBean(OrganizationDomainService.class).create(units);
+	}
 
+	private static void initUsers() {
+
+		List<AbstractUser> users = new ArrayList<AbstractUser>();
+
+		Staff user111 = new Staff();
+		
+		user111.setId("staff111");
+		user111.setName("住院处送诊人-曹操");
+		user111.setDept(new Dept("dept111"));
+
+		users.add(user111);
+		
+		Staff user222 = new Staff();
+		
+		user222.setId("staff222");
+		user222.setName("收费处-张飞");
+		user222.setDept(new Dept("dept222"));
+
+		users.add(user222);
+
+		ApplicationContextUtil.getApplicationContext()
+				.getBean(UserDomainService.class).create(users);
 	}
 
 	/**

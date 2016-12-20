@@ -32,6 +32,13 @@ public class Dept extends Unit {
 	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.ALL })
 	private List<Visit> visits;
 
+	public Dept() {
+	}
+
+	public Dept(String id) {
+		this.setId(id);
+	}
+
 	public List<Nurse> getNurses() {
 		return nurses;
 	}
