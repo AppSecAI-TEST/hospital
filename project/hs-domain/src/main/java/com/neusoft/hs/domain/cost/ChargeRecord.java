@@ -38,8 +38,12 @@ public class ChargeRecord extends IdEntity {
 	@JoinColumn(name = "charge_item_id")
 	private ChargeItem chargeItem;
 
-	@OneToOne(mappedBy = "original", cascade = { CascadeType.ALL })
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "original_id")
 	private ChargeRecord original;
+
+	@OneToOne(mappedBy = "original", cascade = { CascadeType.ALL })
+	private ChargeRecord newChargeRecord;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_execute_id")
@@ -145,6 +149,14 @@ public class ChargeRecord extends IdEntity {
 
 	public void setChargeDept(Dept chargeDept) {
 		this.chargeDept = chargeDept;
+	}
+
+	public ChargeRecord getNewChargeRecord() {
+		return newChargeRecord;
+	}
+
+	public void setNewChargeRecord(ChargeRecord newChargeRecord) {
+		this.newChargeRecord = newChargeRecord;
 	}
 
 }
