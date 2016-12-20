@@ -24,15 +24,19 @@ public class DomainTestService {
 	 */
 	public void testDomain() throws HsException {
 
-		this.clear();
-
 		DateUtil.setSysDate(DateUtil.createDate("2016-01-15"));
+
+		this.execute();
 
 		DateUtil.setSysDate(DateUtil.createDate("2016-06-15"));
 
 		DateUtil.setSysDate(DateUtil.createDate("2016-12-01"));
 
 		DateUtil.setSysDate(DateUtil.createDate("2017-01-20"));
+
+	}
+
+	protected void initData() {
 
 	}
 

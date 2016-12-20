@@ -1,18 +1,111 @@
 package com.neusoft.hs.application;
 
-import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.neusoft.hs.domain.DomainTestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.neusoft.hs.application.register.RegisterAppService;
+import com.neusoft.hs.domain.Application;
+import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.Org;
+import com.neusoft.hs.domain.organization.OrganizationDomainService;
+import com.neusoft.hs.domain.organization.Unit;
+import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.user.User;
+import com.neusoft.hs.platform.user.UserImpl;
 
 @Service
-public class AppTestService extends DomainTestService {
-	
+@Transactional(rollbackFor = Exception.class)
+public class AppTestService {
+
+	@Autowired
+	private RegisterAppService registerAppService;
+
+	public static void testInit() {
+		// 初始化Context
+		ApplicationContext applicationContext = SpringApplication
+				.run(Application.class);
+		ApplicationContextUtil.setApplicationContext(applicationContext);
+
+		clear();
+
+		initData();
+	}
+
+	public static void clear() {
+
+		ApplicationContextUtil.getApplicationContext()
+				.getBean(OrganizationDomainService.class).clear();
+
+	}
+
+	public static void initData() {
+
+		List<Unit> units = new ArrayList<Unit>();
+
+		Org org = new Org();
+		org.setId("org000");
+		org.setName("哈医大二院");
+
+		units.add(org);
+
+		Dept dept111 = new Dept();
+		dept111.setId("dept111");
+		dept111.setName("住院处");
+		dept111.setParent(org);
+
+		units.add(dept111);
+
+		Dept dept222 = new Dept();
+		dept222.setId("dept222");
+		dept222.setName("收费处");
+		dept222.setParent(org);
+
+		units.add(dept222);
+
+		Dept dept333 = new Dept();
+		dept333.setId("dept333");
+		dept333.setName("药房");
+		dept333.setParent(org);
+
+		units.add(dept333);
+
+		Dept dept000 = new Dept();
+		dept000.setId("dept000");
+		dept000.setName("内泌五");
+		dept000.setParent(org);
+
+		units.add(dept000);
+
+		ApplicationContextUtil.getApplicationContext()
+				.getBean(OrganizationDomainService.class).create(units);
+
+	}
+
 	/**
+	 * 
 	 * @throws HsException
 	 */
-	@Override
-	protected void execute() {
+	public void execute() {
+
+		User registerUser111 = new UserImpl();
+		registerUser111.setId("user111");
+		registerUser111.setName("住院处送诊用户111");
+		registerUser111.setOrgId("org000");
+		registerUser111.setDeptId("dept111");
+
+		Visit visit = new Visit();
+		visit.setName("测试患者aaa");
+		// visit.setRespDept("dept222");
+
+		registerAppService.register(visit, registerUser111);
 
 	}
 

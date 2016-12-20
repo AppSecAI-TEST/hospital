@@ -22,8 +22,8 @@ public class AppTest {
 	}
 
 	@Test
-	public void testDomain() throws HsException {
-		appTestService.testDomain();
+	public void testExecute() throws HsException {
+		appTestService.execute();
 	}
 
 }

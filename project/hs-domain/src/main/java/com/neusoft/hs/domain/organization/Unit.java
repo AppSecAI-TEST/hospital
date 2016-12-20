@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -17,15 +18,19 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
 @Table(name = "domain_unit")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Unit extends IdEntity {
+public abstract class Unit extends SuperEntity {
+
+	@Id
+	@Column(name = "id", unique = true, nullable = false, length = 36)
+	private String id;
 
 	@NotEmpty(message = "名称不能为空")
-	@Column(length = 16)
+	@Column(length = 32)
 	private String name;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -34,6 +39,14 @@ public abstract class Unit extends IdEntity {
 
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
 	private List<Unit> children;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
