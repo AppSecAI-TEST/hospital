@@ -2,8 +2,13 @@ package com.neusoft.hs.platform.user;
 
 import java.util.List;
 
-public interface User {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public interface User {
+	
+	@Id
 	public String getId();
 
 	public void setId(String id);
