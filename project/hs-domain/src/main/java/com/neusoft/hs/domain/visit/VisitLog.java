@@ -27,8 +27,8 @@ public class VisitLog extends IdEntity {
 	private String type;
 
 	@NotEmpty(message = "描述不能为空")
-	@Column(length = 128)
-	private String desc;
+	@Column(length = 256)
+	private String info;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -49,12 +49,12 @@ public class VisitLog extends IdEntity {
 		this.type = type;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getInfo() {
+		return info;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setInfo(String info) {
+		this.info = info;
 	}
 
 	public Date getCreateDate() {
