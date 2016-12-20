@@ -21,15 +21,55 @@ public class Dept extends Unit {
 	private List<Nurse> nurses;
 
 	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
-	private List<OrderExecute> orderExecutes;
-
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
-	private List<ChargeRecord> chargeRecords;
-
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
 	private List<Doctor> doctors;
 
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.ALL })
+	private List<OrderExecute> orderExecutes;
+
+	@OneToMany(mappedBy = "chargeDept", cascade = { CascadeType.ALL })
+	private List<ChargeRecord> chargeRecords;
+
+	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.ALL })
 	private List<Visit> visits;
+
+	public List<Nurse> getNurses() {
+		return nurses;
+	}
+
+	public void setNurses(List<Nurse> nurses) {
+		this.nurses = nurses;
+	}
+
+	public List<Doctor> getDoctors() {
+		return doctors;
+	}
+
+	public void setDoctors(List<Doctor> doctors) {
+		this.doctors = doctors;
+	}
+
+	public List<OrderExecute> getOrderExecutes() {
+		return orderExecutes;
+	}
+
+	public void setOrderExecutes(List<OrderExecute> orderExecutes) {
+		this.orderExecutes = orderExecutes;
+	}
+
+	public List<ChargeRecord> getChargeRecords() {
+		return chargeRecords;
+	}
+
+	public void setChargeRecords(List<ChargeRecord> chargeRecords) {
+		this.chargeRecords = chargeRecords;
+	}
+
+	public List<Visit> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<Visit> visits) {
+		this.visits = visits;
+	}
 
 }
