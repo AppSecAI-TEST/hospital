@@ -18,11 +18,11 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeRecord;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Role;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
-import com.neusoft.hs.platform.user.User;
 
 @Entity
 @Table(name = "domain_order_execute")
@@ -56,7 +56,7 @@ public class OrderExecute extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "actual_executor_id")
-	private User actualExecutor;
+	private AbstractUser actualExecutor;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
@@ -73,20 +73,6 @@ public class OrderExecute extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
-
-	/**
-	 * @roseuid 58573EC6009B
-	 */
-	public OrderExecute() {
-
-	}
-
-	/**
-	 * @roseuid 584F62150363
-	 */
-	public void setState() {
-
-	}
 
 	/**
 	 * @roseuid 584F624D0233
@@ -110,37 +96,9 @@ public class OrderExecute extends IdEntity {
 	}
 
 	/**
-	 * @roseuid 584FB716018C
-	 */
-	private void setEndDate() {
-
-	}
-
-	/**
-	 * @roseuid 584FB84E0224
-	 */
-	private void setActualExecutor() {
-
-	}
-
-	/**
 	 * @roseuid 58509B990022
 	 */
 	public void createChargeRecords() {
-
-	}
-
-	/**
-	 * @roseuid 5850B0720293
-	 */
-	public void setChargeState() {
-
-	}
-
-	/**
-	 * @roseuid 5850B08602BB
-	 */
-	public void setCostState() {
 
 	}
 
@@ -150,4 +108,109 @@ public class OrderExecute extends IdEntity {
 	public void cancel() {
 
 	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getChargeState() {
+		return chargeState;
+	}
+
+	public void setChargeState(String chargeState) {
+		this.chargeState = chargeState;
+	}
+
+	public String getCostState() {
+		return costState;
+	}
+
+	public void setCostState(String costState) {
+		this.costState = costState;
+	}
+
+	public Date getPlanStartDate() {
+		return planStartDate;
+	}
+
+	public void setPlanStartDate(Date planStartDate) {
+		this.planStartDate = planStartDate;
+	}
+
+	public Date getPlanEndDate() {
+		return planEndDate;
+	}
+
+	public void setPlanEndDate(Date planEndDate) {
+		this.planEndDate = planEndDate;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Role getExecuteRole() {
+		return executeRole;
+	}
+
+	public void setExecuteRole(Role executeRole) {
+		this.executeRole = executeRole;
+	}
+
+	public AbstractUser getActualExecutor() {
+		return actualExecutor;
+	}
+
+	public void setActualExecutor(AbstractUser actualExecutor) {
+		this.actualExecutor = actualExecutor;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public List<ChargeRecord> getChargeRecords() {
+		return chargeRecords;
+	}
+
+	public void setChargeRecords(List<ChargeRecord> chargeRecords) {
+		this.chargeRecords = chargeRecords;
+	}
+
+	public Dept getExecuteDept() {
+		return executeDept;
+	}
+
+	public void setExecuteDept(Dept executeDept) {
+		this.executeDept = executeDept;
+	}
+
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
+	}
+
 }

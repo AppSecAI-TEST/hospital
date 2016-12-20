@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -20,26 +21,15 @@ import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.user.User;
 
 @Entity
-@Table(name = "domain_nurse")
-public class Nurse extends IdEntity implements User {
-
-	@NotEmpty(message = "名称不能为空")
-	@Column(length = 16)
-	private String name;
-
+@DiscriminatorValue("Nurse")
+public class Nurse extends AbstractUser {
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
 
 	@OneToMany(mappedBy = "respNurse", cascade = { CascadeType.ALL })
 	private List<Visit> visits;
-
-	/**
-	 * @roseuid 58573EC501AE
-	 */
-	public Nurse() {
-
-	}
 
 	@Override
 	public String getDeptId() {
@@ -77,28 +67,20 @@ public class Nurse extends IdEntity implements User {
 
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Dept getDept() {
-		return dept;
-	}
-
-	public void setDept(Dept dept) {
-		this.dept = dept;
-	}
-
 	public List<Visit> getVisits() {
 		return visits;
 	}
 
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
+	}
+	
+	public Dept getDept() {
+		return dept;
+	}
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
 	}
 
 }

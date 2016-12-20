@@ -17,17 +17,17 @@ public class UserRole extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private AbstractUser user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
 	private Role role;
 
-	public User getUser() {
+	public AbstractUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(AbstractUser user) {
 		this.user = user;
 	}
 

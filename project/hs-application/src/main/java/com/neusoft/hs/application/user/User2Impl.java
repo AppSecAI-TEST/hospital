@@ -10,7 +10,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.user.User;
 
