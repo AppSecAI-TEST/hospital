@@ -2,15 +2,10 @@
 
 package com.neusoft.hs.domain.organization;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
-public class Org extends Unit 
-{
-   
-   /**
-    * @roseuid 58573EC400F0
-    */
-   public Org() 
-   {
-    
-   }
+@Entity
+@DiscriminatorValue("Org")
+public class Org extends Unit {
 }

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
+import com.neusoft.hs.platform.user.User;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -18,8 +20,8 @@ public class RegisterAppService {
 	/**
 	 * @roseuid 584A697D031B
 	 */
-	public void register() {
-		visitDomainService.create();
+	public void register(Visit visit, User user) {
+		visitDomainService.create(visit, user);
 
 	}
 }

@@ -2,23 +2,34 @@
 
 package com.neusoft.hs.domain.organization;
 
-import com.neusoft.hs.domain.order.OrderExecute;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
 import com.neusoft.hs.domain.cost.ChargeRecord;
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.visit.Visit;
 
-public class Dept extends Unit 
-{
-   public Nurse nurse;
-   public OrderExecute theOrderExecute[];
-   public ChargeRecord chargeRecord[];
-   public Doctor doctor;
-   public Visit visits[];
-   
-   /**
-    * @roseuid 58573EC6023B
-    */
-   public Dept() 
-   {
-    
-   }
+@Entity
+@DiscriminatorValue("Dept")
+public class Dept extends Unit {
+
+	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
+	private List<Nurse> nurses;
+
+	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
+	private List<OrderExecute> orderExecutes;
+
+	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
+	private List<ChargeRecord> chargeRecords;
+
+	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
+	private List<Doctor> doctors;
+
+	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
+	private List<Visit> visits;
+
 }
