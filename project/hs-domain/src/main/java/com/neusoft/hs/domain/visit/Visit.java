@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -31,6 +32,10 @@ import com.neusoft.hs.platform.entity.SuperEntity;
 @Entity
 @Table(name = "domain_visit")
 public class Visit extends SuperEntity {
+
+	@Id
+	@Column(name = "id", unique = true, nullable = false, length = 36)
+	private String id;
 
 	@NotEmpty(message = "名称不能为空")
 	@Column(length = 16)
@@ -84,51 +89,9 @@ public class Visit extends SuperEntity {
 	private Dept respDept;
 
 	/**
-	 * @roseuid 58573EC602EB
-	 */
-	public Visit() {
-
-	}
-
-	/**
-	 * @roseuid 584E0FAD00A9
-	 */
-	public void setState() {
-
-	}
-
-	/**
-	 * @roseuid 584E13DB03E1
-	 */
-	public void setNurse() {
-
-	}
-
-	/**
-	 * @roseuid 584E14180159
-	 */
-	public void setBed() {
-
-	}
-
-	/**
-	 * @roseuid 584E17B0019F
-	 */
-	public void setIntoWardDate() {
-
-	}
-
-	/**
 	 * @roseuid 5852526403A5
 	 */
 	public void intoWard() {
-
-	}
-
-	/**
-	 * @roseuid 585252D80085
-	 */
-	public void save() {
 
 	}
 
@@ -140,30 +103,9 @@ public class Visit extends SuperEntity {
 	}
 
 	/**
-	 * @roseuid 58525F4D0122
+	 * @roseuid 585252D80085
 	 */
-	public void setLeaveWardDate() {
-
-	}
-
-	/**
-	 * @roseuid 58537EBF0298
-	 */
-	public void setRespDept() {
-
-	}
-
-	/**
-	 * @roseuid 58537EE0008F
-	 */
-	public void setDoctor() {
-
-	}
-
-	/**
-	 * @roseuid 585381610380
-	 */
-	public void setChargeBill() {
+	public void save() {
 
 	}
 
@@ -173,4 +115,133 @@ public class Visit extends SuperEntity {
 	public void addVisitChargeItem() {
 
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getStateDesc() {
+		return stateDesc;
+	}
+
+	public void setStateDesc(String stateDesc) {
+		this.stateDesc = stateDesc;
+	}
+
+	public String getBed() {
+		return bed;
+	}
+
+	public void setBed(String bed) {
+		this.bed = bed;
+	}
+
+	public Date getIntoWardDate() {
+		return intoWardDate;
+	}
+
+	public void setIntoWardDate(Date intoWardDate) {
+		this.intoWardDate = intoWardDate;
+	}
+
+	public Date getLeaveWardDate() {
+		return leaveWardDate;
+	}
+
+	public void setLeaveWardDate(Date leaveWardDate) {
+		this.leaveWardDate = leaveWardDate;
+	}
+
+	public Nurse getRespNurse() {
+		return respNurse;
+	}
+
+	public void setRespNurse(Nurse respNurse) {
+		this.respNurse = respNurse;
+	}
+
+	public List<VisitLog> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(List<VisitLog> logs) {
+		this.logs = logs;
+	}
+
+	public MedicalRecordClip getMedicalRecordClip() {
+		return medicalRecordClip;
+	}
+
+	public void setMedicalRecordClip(MedicalRecordClip medicalRecordClip) {
+		this.medicalRecordClip = medicalRecordClip;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public List<VisitChargeItem> getVisitChargeItems() {
+		return visitChargeItems;
+	}
+
+	public void setVisitChargeItems(List<VisitChargeItem> visitChargeItems) {
+		this.visitChargeItems = visitChargeItems;
+	}
+
+	public List<OrderExecute> getExecutes() {
+		return executes;
+	}
+
+	public void setExecutes(List<OrderExecute> executes) {
+		this.executes = executes;
+	}
+
+	public ChargeBill getChargeBill() {
+		return chargeBill;
+	}
+
+	public void setChargeBill(ChargeBill chargeBill) {
+		this.chargeBill = chargeBill;
+	}
+
+	public Doctor getRespDoctor() {
+		return respDoctor;
+	}
+
+	public void setRespDoctor(Doctor respDoctor) {
+		this.respDoctor = respDoctor;
+	}
+
+	public Dept getRespDept() {
+		return respDept;
+	}
+
+	public void setRespDept(Dept respDept) {
+		this.respDept = respDept;
+	}
+
 }

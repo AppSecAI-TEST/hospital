@@ -2,48 +2,74 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
-import com.neusoft.hs.domain.order.DrugOrderType;
-import com.neusoft.hs.domain.cost.ChargeItem;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public class DrugType 
-{
-   private int stock;
-   private int withhold;
-   public DrugType parent;
-   public DrugType children[];
-   public DrugOrderType drugOrderType;
-   public Pharmacy pharmacy[];
-   public ChargeItem chargeItem;
-   
-   /**
-    * @roseuid 58573EC40366
-    */
-   public DrugType() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584E67B10025
-    */
-   public void getStock() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584E6965031C
-    */
-   public void setStock() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584F57C40186
-    */
-   public void setWithhold() 
-   {
-    
-   }
+import com.neusoft.hs.domain.order.DrugOrderType;
+import com.neusoft.hs.platform.entity.IdEntity;
+
+@Entity
+@Table(name = "domain_drug_type")
+public class DrugType extends IdEntity {
+
+	private Integer stock;
+
+	private Integer withhold;
+
+	@OneToOne(mappedBy = "drugType", cascade = { CascadeType.ALL })
+	private DrugOrderType drugOrderType;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pharmacy_id")
+	private Pharmacy pharmacy;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "drug_type_spec_id")
+	private DrugTypeSpec drugTypeSpec;
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
+	public Integer getWithhold() {
+		return withhold;
+	}
+
+	public void setWithhold(Integer withhold) {
+		this.withhold = withhold;
+	}
+
+	public DrugOrderType getDrugOrderType() {
+		return drugOrderType;
+	}
+
+	public void setDrugOrderType(DrugOrderType drugOrderType) {
+		this.drugOrderType = drugOrderType;
+	}
+
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
+	}
+
+	public DrugTypeSpec getDrugTypeSpec() {
+		return drugTypeSpec;
+	}
+
+	public void setDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
+		this.drugTypeSpec = drugTypeSpec;
+	}
+
 }

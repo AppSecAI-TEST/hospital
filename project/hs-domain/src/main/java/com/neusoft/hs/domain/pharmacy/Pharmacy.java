@@ -2,16 +2,43 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.List;
 
-public class Pharmacy 
-{
-   public DrugType drugType[];
-   
-   /**
-    * @roseuid 58573EC40309
-    */
-   public Pharmacy() 
-   {
-    
-   }
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.neusoft.hs.platform.entity.IdEntity;
+
+@Entity
+@Table(name = "domain_pharmacy")
+public class Pharmacy extends IdEntity {
+
+	@NotEmpty(message = "名称不能为空")
+	@Column(length = 64)
+	private String name;
+
+	@OneToMany(mappedBy = "pharmacy", cascade = { CascadeType.ALL })
+	private List<DrugType> drugTypes;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<DrugType> getDrugTypes() {
+		return drugTypes;
+	}
+
+	public void setDrugTypes(List<DrugType> drugTypes) {
+		this.drugTypes = drugTypes;
+	}
+
 }
