@@ -13,18 +13,18 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<start-class>com.rofine.gp.test.Application</start-class>
+		<start-class>com.neusoft.hs.application.Application</start-class>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-portal</artifactId>
+			<artifactId>hs-application</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-mobile</artifactId>
+			<artifactId>hs-listener</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
