@@ -7,23 +7,29 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
-import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
 @Table(name = "domain_charge_item")
-public class ChargeItem extends IdEntity {
+public class ChargeItem extends SuperEntity {
+
+	@Id
+	@Column(name = "id", unique = true, nullable = false, length = 36)
+	private String id;
 
 	@NotEmpty(message = "代码不能为空")
 	@Column(length = 16)
 	private String code;
+
+	private String name;
 
 	private float price;
 
@@ -38,6 +44,16 @@ public class ChargeItem extends IdEntity {
 
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<VisitChargeItem> visitChargeItems;
+	
+	public static final String ChargingMode_Day = "每天";
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getCode() {
 		return code;
@@ -45,6 +61,14 @@ public class ChargeItem extends IdEntity {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public float getPrice() {

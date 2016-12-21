@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.cost;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
-import com.neusoft.hs.domain.visit.VisitLog;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CostDomainService {
+
+	@Autowired
+	private ChargeItemRepo chargeItemRepo;
 	@Autowired
 	private VisitDomainService visitDomainService;
 
@@ -42,10 +44,20 @@ public class CostDomainService {
 	}
 
 	/**
+	 * @param visit
 	 * @roseuid 584E2630028C
 	 */
-	public void createVisitChargeItem() {
+	public void createVisitChargeItem(Visit visit, ChargeItem item,
+			Date startDate) {
 
+		VisitChargeItem visitChargeItem = new VisitChargeItem();
+
+		visitChargeItem.setChargeItem(item);
+		visitChargeItem.setVisit(visit);
+		visitChargeItem.setState(VisitChargeItem.State_Normal);
+		visitChargeItem.setStartDate(startDate);
+
+		visitChargeItem.save();
 	}
 
 	/**
@@ -67,6 +79,14 @@ public class CostDomainService {
 	 */
 	public void balance() {
 
+	}
+
+	public void create(List<ChargeItem> chargeItems) {
+		chargeItemRepo.save(chargeItems);
+	}
+
+	public void clearChargeItems() {
+		chargeItemRepo.deleteAll();
 	}
 
 }

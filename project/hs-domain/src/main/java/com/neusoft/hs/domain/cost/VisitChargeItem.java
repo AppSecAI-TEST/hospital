@@ -35,6 +35,8 @@ public class VisitChargeItem extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	public static final String State_Normal = "正常";
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -65,6 +67,10 @@ public class VisitChargeItem extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	public void save() {
+		this.getRepo(VisitChargeItemRepo.class).save(this);
 	}
 
 }

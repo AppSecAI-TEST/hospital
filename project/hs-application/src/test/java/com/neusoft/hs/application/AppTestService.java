@@ -17,6 +17,8 @@ import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.Application;
+import com.neusoft.hs.domain.cost.ChargeItem;
+import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -51,6 +53,9 @@ public class AppTestService {
 	private UserDomainService userDomainService;
 
 	@Autowired
+	private CostDomainService costDomainService;
+
+	@Autowired
 	private VisitDomainService visitDomainService;
 
 	private Org org;// 哈医大二院
@@ -65,6 +70,8 @@ public class AppTestService {
 	private Staff user001;// 内泌五接诊护士-大乔
 	private Doctor user002;// 内泌五医生-貂蝉
 	private Nurse user003;// 内泌五护士-小乔
+
+	private ChargeItem bedChargeItem;// 床位费计费项目
 
 	private Visit visit001;
 
@@ -81,6 +88,9 @@ public class AppTestService {
 
 	public void clear() {
 
+		//清空计费项目
+		costDomainService.clearChargeItems();
+		
 		// 清空患者一次住院
 		visitDomainService.clear();
 		// 清空用户信息
@@ -96,6 +106,8 @@ public class AppTestService {
 		initOrgs();
 
 		initUsers();
+
+		initChargeItems();
 
 	}
 
@@ -193,6 +205,21 @@ public class AppTestService {
 		users.add(user003);
 
 		userDomainService.create(users);
+	}
+
+	private void initChargeItems() {
+		List<ChargeItem> chargeItems = new ArrayList<ChargeItem>();
+
+		bedChargeItem = new ChargeItem();
+		bedChargeItem.setId("bed");
+		bedChargeItem.setCode("bed");
+		bedChargeItem.setName("床位费");
+		bedChargeItem.setPrice(20F);
+		bedChargeItem.setChargingMode(ChargeItem.ChargingMode_Day);
+
+		chargeItems.add(bedChargeItem);
+
+		costDomainService.create(chargeItems);
 	}
 
 	/**
