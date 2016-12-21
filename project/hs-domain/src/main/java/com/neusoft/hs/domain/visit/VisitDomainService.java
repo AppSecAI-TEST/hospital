@@ -2,49 +2,63 @@
 
 package com.neusoft.hs.domain.visit;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.platform.user.User;
+import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class VisitDomainService 
-{
+public class VisitDomainService {
 	@Autowired
 	private VisitRepo visitRepo;
-   
-   /**
-    * @roseuid 584A6AAC03AB
-    */
-   public void create(Visit visit, User user) 
-   {
-	   
-	   visitRepo.save(visit);
-   }
-   
-   /**
-    * @roseuid 584E03140020
-    */
-   public void find() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584E135F0389
-    */
-   public void intoWard() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 5852564401AC
-    */
-   public void leaveWard() 
-   {
-    
-   }
+	
+	@Autowired
+	private VisitRepo visitLogRepo;
+
+	/**
+	 * @roseuid 584A6AAC03AB
+	 */
+	public void create(Visit visit, AbstractUser user) {
+		
+		visit.setState(Visit.State_NeedInitAccount);
+		visit.save();
+		
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(visit);
+		visitLog.setType(VisitLog.Type_Create);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(DateUtil.getSysDate());
+		
+		visitLog.save();
+	}
+
+	/**
+	 * @roseuid 584E03140020
+	 */
+	public void find() {
+
+	}
+
+	/**
+	 * @roseuid 584E135F0389
+	 */
+	public void intoWard() {
+
+	}
+
+	/**
+	 * @roseuid 5852564401AC
+	 */
+	public void leaveWard() {
+
+	}
+	
+	public void clear(){
+		visitRepo.deleteAll();
+	}
 }

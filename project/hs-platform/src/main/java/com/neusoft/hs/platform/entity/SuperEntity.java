@@ -9,12 +9,21 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 
-public abstract class SuperEntity implements Serializable{
-	
-	protected CrudRepository getRepo(String name){
-		return (CrudRepository)ApplicationContextUtil.getApplicationContext().getBean(name);
+public abstract class SuperEntity implements Serializable {
+
+	protected CrudRepository getRepo(String name) {
+		return (CrudRepository) ApplicationContextUtil.getApplicationContext()
+				.getBean(name);
 	}
-	/* (non-Javadoc)
+
+	protected CrudRepository getRepo(Class className) {
+		return (CrudRepository) ApplicationContextUtil.getApplicationContext()
+				.getBean(className);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -22,7 +31,9 @@ public abstract class SuperEntity implements Serializable{
 		return EqualsBuilder.reflectionEquals(this, obj, false);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -30,7 +41,9 @@ public abstract class SuperEntity implements Serializable{
 		return HashCodeBuilder.reflectionHashCode(this, false);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

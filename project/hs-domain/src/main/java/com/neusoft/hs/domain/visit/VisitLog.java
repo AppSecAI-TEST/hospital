@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
@@ -26,12 +27,17 @@ public class VisitLog extends IdEntity {
 	@Column(length = 16)
 	private String type;
 
-	@NotEmpty(message = "描述不能为空")
 	@Column(length = 256)
 	private String info;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "operator_id")
+	private AbstractUser operator;
+
 	@Column(name = "create_date")
 	private Date createDate;
+
+	public static final String Type_Create = "送诊";
 
 	public Visit getVisit() {
 		return visit;
@@ -57,12 +63,24 @@ public class VisitLog extends IdEntity {
 		this.info = info;
 	}
 
+	public AbstractUser getOperator() {
+		return operator;
+	}
+
+	public void setOperator(AbstractUser operator) {
+		this.operator = operator;
+	}
+
 	public Date getCreateDate() {
 		return createDate;
 	}
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public void save() {
+		this.getRepo(VisitLogRepo.class).save(this);
 	}
 
 }

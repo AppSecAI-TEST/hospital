@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDomainService {
 
 	@Autowired
-	private UserRepo userRepo;
+	private AbstractUserRepo userRepo;
 
 	public void create(List<AbstractUser> users) {
 		userRepo.save(users);

@@ -2,15 +2,9 @@
 
 package com.neusoft.hs.domain.visit;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public class VisitLogRepo 
-{
-   
-   /**
-    * @roseuid 58573EC702E3
-    */
-   public VisitLogRepo() 
-   {
-    
-   }
+public interface VisitLogRepo extends
+		PagingAndSortingRepository<VisitLog, String> {
+
 }

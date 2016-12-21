@@ -27,15 +27,11 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.platform.entity.SuperEntity;
+import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
 @Table(name = "domain_visit")
-public class Visit extends SuperEntity {
-
-	@Id
-	@Column(name = "id", unique = true, nullable = false, length = 36)
-	private String id;
+public class Visit extends IdEntity {
 
 	@NotEmpty(message = "名称不能为空")
 	@Column(length = 16)
@@ -88,6 +84,8 @@ public class Visit extends SuperEntity {
 	@JoinColumn(name = "dept_id")
 	private Dept respDept;
 
+	public static final String State_NeedInitAccount = "待预存费用";
+
 	/**
 	 * @roseuid 5852526403A5
 	 */
@@ -106,7 +104,7 @@ public class Visit extends SuperEntity {
 	 * @roseuid 585252D80085
 	 */
 	public void save() {
-
+		this.getRepo(VisitRepo.class).save(this);
 	}
 
 	/**
@@ -114,14 +112,6 @@ public class Visit extends SuperEntity {
 	 */
 	public void addVisitChargeItem() {
 
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getName() {
