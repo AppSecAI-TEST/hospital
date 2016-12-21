@@ -1,15 +1,21 @@
 package com.neusoft.hs.application;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.cashier.CashierAppService;
+import com.neusoft.hs.application.inpatientdept.InPatientAppService;
+import com.neusoft.hs.application.inpatientdept.ReceiveVisitVO;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.Application;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -34,6 +40,9 @@ public class AppTestService {
 
 	@Autowired
 	private CashierAppService cashierAppService;
+
+	@Autowired
+	private InPatientAppService inPatientAppService;
 
 	@Autowired
 	private OrganizationDomainService organizationDomainService;
@@ -201,8 +210,23 @@ public class AppTestService {
 		// 送诊
 		registerAppService.register(visit001, user111);
 
+		Pageable pageable = new PageRequest(0, 15);
+		List<Visit> visits = cashierAppService.getNeedInitAccount(pageable);
+		
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+		
+		// 预存费用
 		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
+		
+		
+		// 接诊
+		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
+		receiveVisitVO.setVisitId(visit001.getId());
+		receiveVisitVO.setBed("bed001");
+		receiveVisitVO.setNurseId(user003.getId());
 
+		inPatientAppService.receive(receiveVisitVO, user001);
 	}
 
 }

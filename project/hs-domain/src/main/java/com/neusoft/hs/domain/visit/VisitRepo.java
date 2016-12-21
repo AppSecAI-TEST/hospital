@@ -2,10 +2,13 @@
 
 package com.neusoft.hs.domain.visit;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+public interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 
-public interface VisitRepo extends PagingAndSortingRepository<Visit, String>
-{
- 
+	List<Visit> findByState(String state, Pageable pageable);
+
 }

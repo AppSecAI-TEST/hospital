@@ -2,13 +2,18 @@
 
 package com.neusoft.hs.application.cashier;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Service
@@ -18,11 +23,8 @@ public class CashierAppService {
 	@Autowired
 	private CostDomainService costDomainService;
 
-	/**
-	 * @roseuid 58573EC603E5
-	 */
-	public CashierAppService() {
-
+	public List<Visit> getNeedInitAccount(Pageable pageable) {
+		return costDomainService.getNeedInitAccount(pageable);
 	}
 
 	/**

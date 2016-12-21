@@ -2,7 +2,10 @@
 
 package com.neusoft.hs.domain.cost;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,11 @@ import com.neusoft.hs.platform.exception.HsException;
 public class CostDomainService {
 	@Autowired
 	private VisitDomainService visitDomainService;
+
+	public List<Visit> getNeedInitAccount(Pageable pageable) {
+		return visitDomainService.findByState(Visit.State_NeedInitAccount,
+				pageable);
+	}
 
 	/**
 	 * @throws HsException
@@ -73,4 +81,5 @@ public class CostDomainService {
 	public void balance() {
 
 	}
+
 }
