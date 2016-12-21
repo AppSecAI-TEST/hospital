@@ -19,7 +19,7 @@ import com.neusoft.hs.domain.visit.Visit;
 @Entity
 @DiscriminatorValue("Doctor")
 public class Doctor extends AbstractUser {
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
@@ -33,7 +33,7 @@ public class Doctor extends AbstractUser {
 
 	@OneToMany(mappedBy = "respDoctor", cascade = { CascadeType.ALL })
 	private List<Visit> visits;
-	
+
 	@OneToMany(mappedBy = "creator", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
 	private List<Order> orders;
@@ -105,7 +105,7 @@ public class Doctor extends AbstractUser {
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
-	
+
 	public Dept getDept() {
 		return dept;
 	}

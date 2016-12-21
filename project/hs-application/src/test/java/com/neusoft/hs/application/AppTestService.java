@@ -24,11 +24,8 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.user.User;
-import com.neusoft.hs.platform.user.UserImpl;
 
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class AppTestService {
 
 	@Autowired
@@ -80,6 +77,7 @@ public class AppTestService {
 
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public void initData() {
 
 		initOrgs();
@@ -188,6 +186,7 @@ public class AppTestService {
 	 * 
 	 * @throws HsException
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public void execute() {
 
 		// 创建测试患者
