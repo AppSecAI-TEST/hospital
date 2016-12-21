@@ -71,7 +71,7 @@ public class AppTestService {
 	private Doctor user002;// 内泌五医生-貂蝉
 	private Nurse user003;// 内泌五护士-小乔
 
-	private ChargeItem bedChargeItem;// 床位费计费项目
+	private ChargeItem bedChargeItem;// 床位费计费项目【暂时床位费只设一个计费项目】
 
 	private Visit visit001;
 
@@ -88,9 +88,9 @@ public class AppTestService {
 
 	public void clear() {
 
-		//清空计费项目
+		// 清空计费项目
 		costDomainService.clearChargeItems();
-		
+
 		// 清空患者一次住院
 		visitDomainService.clear();
 		// 清空用户信息
