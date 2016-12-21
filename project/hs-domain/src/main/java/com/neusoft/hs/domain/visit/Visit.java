@@ -146,6 +146,13 @@ public class Visit extends IdEntity {
 		visitLog.setCreateDate(sysDate);
 
 		visitLog.save();
+		
+		
+		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
+		medicalRecordClip.setVisit(this);
+		medicalRecordClip.setState(MedicalRecordClip.State_Normal);
+		
+		medicalRecordClip.save();
 
 	}
 

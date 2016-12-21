@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.visit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,9 @@ public class VisitDomainService {
 
 	@Autowired
 	private VisitRepo visitLogRepo;
+
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	/**
 	 * @roseuid 584A6AAC03AB
@@ -67,8 +71,10 @@ public class VisitDomainService {
 			throw new HsException("visitId=[" + receiveVisitVO.getVisitId()
 					+ "]不存在");
 		}
-		
+
 		visit.intoWard(receiveVisitVO, user);
+
+		applicationContext.publishEvent(new VisitIntoWardedEvent(visit));
 
 	}
 

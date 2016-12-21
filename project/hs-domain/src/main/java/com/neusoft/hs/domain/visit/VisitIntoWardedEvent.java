@@ -2,15 +2,11 @@
 
 package com.neusoft.hs.domain.visit;
 
+import org.springframework.context.ApplicationEvent;
 
-public class VisitIntoWardedEvent 
-{
-   
-   /**
-    * @roseuid 58573EC70302
-    */
-   public VisitIntoWardedEvent() 
-   {
-    
-   }
+public class VisitIntoWardedEvent extends ApplicationEvent {
+
+	public VisitIntoWardedEvent(Object source) {
+		super(source);
+	}
 }

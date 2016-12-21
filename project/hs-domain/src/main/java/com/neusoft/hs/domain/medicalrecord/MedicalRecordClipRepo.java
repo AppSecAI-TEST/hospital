@@ -2,15 +2,9 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public class MedicalRecordClipRepo 
-{
-   
-   /**
-    * @roseuid 58573EC703A8
-    */
-   public MedicalRecordClipRepo() 
-   {
-    
-   }
+public interface MedicalRecordClipRepo extends
+		PagingAndSortingRepository<MedicalRecordClip, String> {
+
 }

@@ -25,6 +25,8 @@ public class MedicalRecordClip extends IdEntity {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
+	
+	public static final String State_Normal = "正常";
 
 	public String getState() {
 		return state;
@@ -40,6 +42,10 @@ public class MedicalRecordClip extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	public void save() {
+		this.getRepo(MedicalRecordClipRepo.class).save(this);
 	}
 
 }
