@@ -23,10 +23,13 @@ import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_visit")
@@ -85,11 +88,64 @@ public class Visit extends IdEntity {
 
 	public static final String State_NeedInitAccount = "待预存费用";
 	public static final String State_NeedIntoWard = "待接诊";
+	public static final String State_IntoWard = "在病房";
+
+	public ChargeBill initAccount(float balance, AbstractUser user)
+			throws HsException {
+		if (!Visit.State_NeedInitAccount.equals(state)) {
+			throw new HsException("visit=[" + name + "]的状态应为["
+					+ Visit.State_NeedInitAccount + "]");
+		}
+		
+		ChargeBill chargeBill = new ChargeBill();
+		chargeBill.setBalance(balance);
+		chargeBill.setState(ChargeBill.State_Normal);
+		chargeBill.setVisit(this);
+
+		chargeBill.save();
+
+		this.setState(Visit.State_NeedIntoWard);
+		this.save();
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_InitAccount);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(DateUtil.getSysDate());
+
+		visitLog.save();
+		
+		return chargeBill;
+	}
 
 	/**
+	 * @param user
+	 * @param receiveVisitVO
+	 * @throws HsException
 	 * @roseuid 5852526403A5
 	 */
-	public void intoWard() {
+	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
+			throws HsException {
+		if (!Visit.State_NeedIntoWard.equals(this.state)) {
+			throw new HsException("visit=[" + name + "]的状态应为["
+					+ Visit.State_NeedIntoWard + "]");
+		}
+
+		Date sysDate = DateUtil.getSysDate();
+		this.setRespNurse(new Nurse(receiveVisitVO.getNurseId()));
+		this.setBed(receiveVisitVO.getBed());
+		this.setState(State_IntoWard);
+		this.setIntoWardDate(sysDate);
+		
+		this.save();
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_IntoWard);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(sysDate);
+
+		visitLog.save();
 
 	}
 

@@ -38,6 +38,8 @@ public class VisitLog extends IdEntity {
 	private Date createDate;
 
 	public static final String Type_Create = "送诊";
+	public static final String Type_InitAccount = "初始账户";
+	public static final String Type_IntoWard = "进入病房";
 
 	public Visit getVisit() {
 		return visit;

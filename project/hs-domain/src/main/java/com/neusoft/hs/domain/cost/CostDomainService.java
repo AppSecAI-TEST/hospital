@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
+import com.neusoft.hs.domain.visit.VisitLog;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -35,23 +37,8 @@ public class CostDomainService {
 		if (visit == null) {
 			throw new HsException("visitId=[" + visitId + "]不存在");
 		}
-		if (!Visit.State_NeedInitAccount.equals(visit.getState())) {
-			throw new HsException("visit=[" + visit.getName() + "]的状态应为["
-					+ Visit.State_NeedInitAccount + "]");
-		}
 
-		ChargeBill chargeBill = new ChargeBill();
-		chargeBill.setBalance(balance);
-		chargeBill.setState(ChargeBill.State_Normal);
-		chargeBill.setVisit(visit);
-
-		chargeBill.save();
-
-		visit.setState(Visit.State_NeedIntoWard);
-		visit.save();
-
-		return chargeBill;
-
+		return visit.initAccount(balance, user);
 	}
 
 	/**

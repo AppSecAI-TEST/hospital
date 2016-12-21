@@ -199,7 +199,6 @@ public class AppTestService {
 	 * 
 	 * @throws HsException
 	 */
-	@Transactional(rollbackFor = Exception.class)
 	public void execute() throws HsException {
 
 		// 创建测试患者
@@ -209,22 +208,22 @@ public class AppTestService {
 		visit001.setRespDoctor(user002);
 		// 送诊
 		registerAppService.register(visit001, user111);
-		
+
 		Pageable pageable;
 		List<Visit> visits;
 
 		pageable = new PageRequest(0, 15);
 		visits = cashierAppService.getNeedInitAccount(pageable);
-		
+
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-		
+
 		// 预存费用
 		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
-		
+
 		pageable = new PageRequest(0, 15);
 		visits = inPatientAppService.getNeedReceive(pageable);
-		
+
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
 		// 接诊

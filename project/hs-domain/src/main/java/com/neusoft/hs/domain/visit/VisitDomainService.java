@@ -67,10 +67,8 @@ public class VisitDomainService {
 			throw new HsException("visitId=[" + receiveVisitVO.getVisitId()
 					+ "]不存在");
 		}
-		if (!Visit.State_NeedIntoWard.equals(visit.getState())) {
-			throw new HsException("visit=[" + visit.getName() + "]的状态应为["
-					+ Visit.State_NeedIntoWard + "]");
-		}
+		
+		visit.intoWard(receiveVisitVO, user);
 
 	}
 
