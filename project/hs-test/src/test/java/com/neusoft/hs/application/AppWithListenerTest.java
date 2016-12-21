@@ -1,6 +1,6 @@
-package com.neusoft.hs.domain;
+package com.neusoft.hs.application;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +11,19 @@ import com.neusoft.hs.platform.exception.HsException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-public class DomainTest {
+public class AppWithListenerTest {
 
 	@Autowired
-	private DomainTestService domainTestService;
+	private AppTestService appTestService;
 
-	@BeforeClass
-	public static void testInit() {
-		DomainTestService.testInit();
+	@Before
+	public void testInit() {
+		appTestService.testInit();
 	}
 
 	@Test
-	public void testDomain() throws HsException {
-		domainTestService.testDomain();
+	public void testExecute() throws HsException {
+		appTestService.execute();
 	}
 
 }
