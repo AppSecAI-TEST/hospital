@@ -2,7 +2,6 @@
 
 package com.neusoft.hs.domain.visit;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -54,9 +54,23 @@ public class VisitDomainService {
 	}
 
 	/**
+	 * @param user
+	 * @param receiveVisitVO
+	 * @throws HsException
 	 * @roseuid 584E135F0389
 	 */
-	public void intoWard() {
+	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
+			throws HsException {
+
+		Visit visit = visitRepo.findOne(receiveVisitVO.getVisitId());
+		if (visit == null) {
+			throw new HsException("visitId=[" + receiveVisitVO.getVisitId()
+					+ "]不存在");
+		}
+		if (!Visit.State_NeedIntoWard.equals(visit.getState())) {
+			throw new HsException("visit=[" + visit.getName() + "]的状态应为["
+					+ Visit.State_NeedIntoWard + "]");
+		}
 
 	}
 

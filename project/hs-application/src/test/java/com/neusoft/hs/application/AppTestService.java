@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
-import com.neusoft.hs.application.inpatientdept.ReceiveVisitVO;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.Application;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -27,6 +26,7 @@ import com.neusoft.hs.domain.organization.OrganizationDomainService;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
 import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
@@ -209,9 +209,12 @@ public class AppTestService {
 		visit001.setRespDoctor(user002);
 		// 送诊
 		registerAppService.register(visit001, user111);
+		
+		Pageable pageable;
+		List<Visit> visits;
 
-		Pageable pageable = new PageRequest(0, 15);
-		List<Visit> visits = cashierAppService.getNeedInitAccount(pageable);
+		pageable = new PageRequest(0, 15);
+		visits = cashierAppService.getNeedInitAccount(pageable);
 		
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
@@ -219,7 +222,11 @@ public class AppTestService {
 		// 预存费用
 		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
 		
+		pageable = new PageRequest(0, 15);
+		visits = inPatientAppService.getNeedReceive(pageable);
 		
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
 		// 接诊
 		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
 		receiveVisitVO.setVisitId(visit001.getId());

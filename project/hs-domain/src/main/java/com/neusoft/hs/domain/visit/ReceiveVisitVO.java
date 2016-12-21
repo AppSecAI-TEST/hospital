@@ -1,4 +1,4 @@
-package com.neusoft.hs.application.inpatientdept;
+package com.neusoft.hs.domain.visit;
 
 public class ReceiveVisitVO {
 
