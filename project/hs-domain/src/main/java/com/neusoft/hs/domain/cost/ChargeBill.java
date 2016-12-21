@@ -39,6 +39,8 @@ public class ChargeBill extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	public static final String State_Normal = "正常";
+
 	/**
 	 * @roseuid 5850A31301AE
 	 */
@@ -57,7 +59,7 @@ public class ChargeBill extends IdEntity {
 	 * @roseuid 5850A40703E7
 	 */
 	public void save() {
-
+		this.getRepo(ChargeBillRepo.class).save(this);
 	}
 
 	/**

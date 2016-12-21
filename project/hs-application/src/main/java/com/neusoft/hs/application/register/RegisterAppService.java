@@ -20,8 +20,7 @@ public class RegisterAppService {
 	/**
 	 * @roseuid 584A697D031B
 	 */
-	public void register(Visit visit, AbstractUser user) {
-		visitDomainService.create(visit, user);
-
+	public Visit register(Visit visit, AbstractUser user) {
+		return visitDomainService.create(visit, user);
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.Application;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -30,6 +31,9 @@ public class AppTestService {
 
 	@Autowired
 	private RegisterAppService registerAppService;
+
+	@Autowired
+	private CashierAppService cashierAppService;
 
 	@Autowired
 	private OrganizationDomainService organizationDomainService;
@@ -187,7 +191,7 @@ public class AppTestService {
 	 * @throws HsException
 	 */
 	@Transactional(rollbackFor = Exception.class)
-	public void execute() {
+	public void execute() throws HsException {
 
 		// 创建测试患者
 		visit001 = new Visit();
@@ -196,6 +200,8 @@ public class AppTestService {
 		visit001.setRespDoctor(user002);
 		// 送诊
 		registerAppService.register(visit001, user111);
+
+		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
 
 	}
 

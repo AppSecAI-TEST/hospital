@@ -9,7 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -85,6 +84,7 @@ public class Visit extends IdEntity {
 	private Dept respDept;
 
 	public static final String State_NeedInitAccount = "待预存费用";
+	public static final String State_NeedIntoWard = "待接诊";
 
 	/**
 	 * @roseuid 5852526403A5

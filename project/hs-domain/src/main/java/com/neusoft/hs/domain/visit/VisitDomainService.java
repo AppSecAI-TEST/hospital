@@ -2,8 +2,6 @@
 
 package com.neusoft.hs.domain.visit;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,32 +14,35 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class VisitDomainService {
 	@Autowired
 	private VisitRepo visitRepo;
-	
+
 	@Autowired
 	private VisitRepo visitLogRepo;
 
 	/**
 	 * @roseuid 584A6AAC03AB
 	 */
-	public void create(Visit visit, AbstractUser user) {
-		
+	public Visit create(Visit visit, AbstractUser user) {
+
 		visit.setState(Visit.State_NeedInitAccount);
 		visit.save();
-		
+
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(visit);
 		visitLog.setType(VisitLog.Type_Create);
 		visitLog.setOperator(user);
 		visitLog.setCreateDate(DateUtil.getSysDate());
-		
+
 		visitLog.save();
+
+		return visit;
 	}
 
 	/**
+	 * @param visitId
 	 * @roseuid 584E03140020
 	 */
-	public void find() {
-
+	public Visit find(String visitId) {
+		return visitRepo.findOne(visitId);
 	}
 
 	/**
@@ -57,8 +58,8 @@ public class VisitDomainService {
 	public void leaveWard() {
 
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		visitRepo.deleteAll();
 	}
 }

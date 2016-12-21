@@ -2,15 +2,9 @@
 
 package com.neusoft.hs.domain.cost;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public class ChargeBillRepo 
-{
-   
-   /**
-    * @roseuid 58573EC80005
-    */
-   public ChargeBillRepo() 
-   {
-    
-   }
+public interface ChargeBillRepo extends
+		PagingAndSortingRepository<ChargeBill, String> {
+
 }
