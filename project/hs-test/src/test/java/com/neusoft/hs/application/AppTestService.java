@@ -109,17 +109,20 @@ public class AppTestService {
 	}
 
 	public void clear() {
-
+		// 清空药品类型
+		pharmacyDomainService.clearDrugTypes();
+		// 清空药房
+		pharmacyDomainService.clearPharmacys();
+		// 清空药品规格
+		pharmacyDomainService.clearDrugTypeSpecs();
 		// 清空计费项目
 		costDomainService.clearChargeItems();
-
 		// 清空患者一次住院
 		visitDomainService.clear();
 		// 清空用户信息
 		userDomainService.clear();
 		// 清空组织机构信息
 		organizationDomainService.clear();
-
 	}
 
 	@Transactional(rollbackFor = Exception.class)

@@ -21,18 +21,6 @@ public class PharmacyDomainService {
 	@Autowired
 	private DrugTypeRepo drugTypeRepo;
 
-	public void createDrugTypeSpecs(List<DrugTypeSpec> drugTypeSpecs) {
-		drugTypeSpecRepo.save(drugTypeSpecs);
-	}
-
-	public void createPharmacys(List<Pharmacy> pharmacys) {
-		pharmacyRepo.save(pharmacys);
-	}
-
-	public void createDrugTypes(List<DrugType> drugTypes) {
-		drugTypeRepo.save(drugTypes);
-	}
-
 	/**
 	 * @roseuid 584F43B3013B
 	 */
@@ -52,6 +40,30 @@ public class PharmacyDomainService {
 	 */
 	public void unSend() {
 
+	}
+
+	public void createDrugTypeSpecs(List<DrugTypeSpec> drugTypeSpecs) {
+		drugTypeSpecRepo.save(drugTypeSpecs);
+	}
+
+	public void clearDrugTypeSpecs() {
+		drugTypeSpecRepo.deleteAll();
+	}
+
+	public void createPharmacys(List<Pharmacy> pharmacys) {
+		pharmacyRepo.save(pharmacys);
+	}
+
+	public void clearPharmacys() {
+		pharmacyRepo.deleteAll();
+	}
+
+	public void createDrugTypes(List<DrugType> drugTypes) {
+		drugTypeRepo.save(drugTypes);
+	}
+
+	public void clearDrugTypes() {
+		drugTypeRepo.deleteAll();
 	}
 
 }
