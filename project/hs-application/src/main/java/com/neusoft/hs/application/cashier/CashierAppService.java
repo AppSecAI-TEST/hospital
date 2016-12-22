@@ -23,7 +23,7 @@ public class CashierAppService {
 	@Autowired
 	private CostDomainService costDomainService;
 
-	public List<Visit> getNeedInitAccount(Pageable pageable) {
+	public List<Visit> getNeedInitAccountVisits(Pageable pageable) {
 		return costDomainService.getNeedInitAccount(pageable);
 	}
 

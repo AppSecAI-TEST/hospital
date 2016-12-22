@@ -239,7 +239,7 @@ public class AppTestService {
 		List<Visit> visits;
 
 		pageable = new PageRequest(0, 15);
-		visits = cashierAppService.getNeedInitAccount(pageable);
+		visits = cashierAppService.getNeedInitAccountVisits(pageable);
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
@@ -248,10 +248,11 @@ public class AppTestService {
 		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
 
 		pageable = new PageRequest(0, 15);
-		visits = inPatientAppService.getNeedReceive(pageable);
+		visits = inPatientAppService.getNeedReceiveVisits(pageable);
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+		
 		// 接诊
 		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
 		receiveVisitVO.setVisitId(visit001.getId());
@@ -259,6 +260,12 @@ public class AppTestService {
 		receiveVisitVO.setNurseId(user003.getId());
 
 		inPatientAppService.receive(receiveVisitVO, user001);
+		
+		pageable = new PageRequest(0, 15);
+		visits = inPatientAppService.InWardVisits(pageable);
+		
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
 	}
 
 }

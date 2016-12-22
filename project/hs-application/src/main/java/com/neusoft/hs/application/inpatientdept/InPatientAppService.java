@@ -22,9 +22,13 @@ public class InPatientAppService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	public List<Visit> getNeedReceive(Pageable pageable) {
+	public List<Visit> getNeedReceiveVisits(Pageable pageable) {
 		return visitDomainService.findByState(Visit.State_NeedIntoWard,
 				pageable);
+	}
+
+	public List<Visit> InWardVisits(Pageable pageable) {
+		return visitDomainService.findByState(Visit.State_IntoWard, pageable);
 	}
 
 	/**
