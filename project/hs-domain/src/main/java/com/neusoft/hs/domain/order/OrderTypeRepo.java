@@ -4,6 +4,7 @@ package com.neusoft.hs.domain.order;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface OrderRepo extends PagingAndSortingRepository<Order, String> {
+public interface OrderTypeRepo extends
+		PagingAndSortingRepository<OrderType, String> {
 
 }

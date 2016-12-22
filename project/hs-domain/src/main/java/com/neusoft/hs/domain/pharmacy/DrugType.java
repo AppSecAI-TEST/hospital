@@ -12,14 +12,15 @@ import javax.persistence.Table;
 
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
 @Table(name = "domain_drug_type")
 public class DrugType extends IdEntity {
 
-	private Integer stock;
+	private int stock;
 
-	private Integer withhold;
+	private int withhold;
 
 	@OneToOne(mappedBy = "drugType", cascade = { CascadeType.ALL })
 	private DrugOrderType drugOrderType;
@@ -32,19 +33,19 @@ public class DrugType extends IdEntity {
 	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
 
-	public Integer getStock() {
+	public int getStock() {
 		return stock;
 	}
 
-	public void setStock(Integer stock) {
+	public void setStock(int stock) {
 		this.stock = stock;
 	}
 
-	public Integer getWithhold() {
+	public int getWithhold() {
 		return withhold;
 	}
 
-	public void setWithhold(Integer withhold) {
+	public void setWithhold(int withhold) {
 		this.withhold = withhold;
 	}
 
@@ -70,6 +71,21 @@ public class DrugType extends IdEntity {
 
 	public void setDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
 		this.drugTypeSpec = drugTypeSpec;
+	}
+
+	public void withhold(int count) throws HsException {
+		if (this.stock >= count) {
+			this.stock = this.stock - count;
+			this.withhold += count;
+
+			this.save();
+		} else {
+			throw new HsException("drugTypeId[" + this.getId() + "]库存不足");
+		}
+	}
+
+	private void save() {
+		this.getService(DrugTypeRepo.class).save(this);
 	}
 
 }

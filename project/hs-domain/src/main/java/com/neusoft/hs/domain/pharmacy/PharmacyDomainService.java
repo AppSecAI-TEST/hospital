@@ -21,11 +21,8 @@ public class PharmacyDomainService {
 	@Autowired
 	private DrugTypeRepo drugTypeRepo;
 
-	/**
-	 * @roseuid 584F43B3013B
-	 */
-	public void find() {
-
+	public List<DrugType> findByDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
+		return drugTypeRepo.findByDrugTypeSpec(drugTypeSpec);
 	}
 
 	/**
@@ -64,6 +61,10 @@ public class PharmacyDomainService {
 
 	public void clearDrugTypes() {
 		drugTypeRepo.deleteAll();
+	}
+
+	public DrugTypeSpec findDrugTypeSpec(String drugTypeSpecId) {
+		return drugTypeSpecRepo.findOne(drugTypeSpecId);
 	}
 
 }

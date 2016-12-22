@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.pharmacy.DrugTypeRepo;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -77,6 +78,12 @@ public abstract class Order extends IdEntity {
 		}
 
 		this.setVisit(visit);
+
+		if (this.type == null) {
+			throw new HsException("orderType不能为空");
+		}
+
+		this.type.check(this);
 	}
 
 	/**
@@ -97,7 +104,7 @@ public abstract class Order extends IdEntity {
 	 * @roseuid 584F5C1E019C
 	 */
 	public void save() {
-
+		this.getService(OrderRepo.class).save(this);
 	}
 
 	/**

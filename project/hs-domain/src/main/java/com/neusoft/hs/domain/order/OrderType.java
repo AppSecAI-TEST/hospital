@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
 @Table(name = "domain_order_type")
@@ -40,9 +41,10 @@ public abstract class OrderType extends IdEntity {
 
 	/**
 	 * @param order
+	 * @throws HsException 
 	 * @roseuid 584E66D50265
 	 */
-	public void check(Order order) {
+	public void check(Order order) throws HsException {
 
 	}
 

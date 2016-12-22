@@ -31,6 +31,8 @@ public class OrderDomainService {
 	public void create(Order order, Doctor doctor) throws HsException {
 
 		order.check();
+		
+		order.save();
 	}
 
 	/**
