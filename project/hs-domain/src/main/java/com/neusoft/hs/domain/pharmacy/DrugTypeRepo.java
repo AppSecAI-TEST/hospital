@@ -2,15 +2,9 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public class DrugTypeRepo 
-{
-   
-   /**
-    * @roseuid 58573EC70323
-    */
-   public DrugTypeRepo() 
-   {
-    
-   }
+public interface DrugTypeRepo extends
+		PagingAndSortingRepository<DrugType, String> {
+
 }

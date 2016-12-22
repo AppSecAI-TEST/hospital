@@ -15,9 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
+import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.order.DrugOrderType;
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -27,11 +31,16 @@ import com.neusoft.hs.domain.organization.OrganizationDomainService;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
 import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
+import com.neusoft.hs.domain.pharmacy.Pharmacy;
+import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 public class AppTestService {
@@ -46,6 +55,9 @@ public class AppTestService {
 	private InPatientAppService inPatientAppService;
 
 	@Autowired
+	private OrderAppService orderAppService;
+
+	@Autowired
 	private OrganizationDomainService organizationDomainService;
 
 	@Autowired
@@ -53,6 +65,9 @@ public class AppTestService {
 
 	@Autowired
 	private CostDomainService costDomainService;
+
+	@Autowired
+	private PharmacyDomainService pharmacyDomainService;
 
 	@Autowired
 	private VisitDomainService visitDomainService;
@@ -71,6 +86,14 @@ public class AppTestService {
 	private Nurse user003;// 内泌五护士-小乔
 
 	private ChargeItem bedChargeItem;// 床位费计费项目【暂时床位费只设一个计费项目】
+
+	private ChargeItem drugTypeSpec001ChargeItem;// 药品001计费项目
+
+	private DrugTypeSpec drugTypeSpec001;// 药品规格001
+
+	private Pharmacy pharmacy001;// 药房001
+
+	private DrugType drugType001;// 药房下的药品类型001（有库存属性）
 
 	private Visit visit001;
 
@@ -107,6 +130,12 @@ public class AppTestService {
 		initUsers();
 
 		initChargeItems();
+
+		initDrugTypeSpecs();
+
+		initPharmacys();
+
+		initDrugTypes();
 
 	}
 
@@ -207,6 +236,7 @@ public class AppTestService {
 	}
 
 	private void initChargeItems() {
+
 		List<ChargeItem> chargeItems = new ArrayList<ChargeItem>();
 
 		bedChargeItem = new ChargeItem();
@@ -218,7 +248,58 @@ public class AppTestService {
 
 		chargeItems.add(bedChargeItem);
 
+		drugTypeSpec001ChargeItem = new ChargeItem();
+		drugTypeSpec001ChargeItem.setId("drugTypeSpec001");
+		drugTypeSpec001ChargeItem.setCode("drugTypeSpec001");
+		drugTypeSpec001ChargeItem.setName("阿司匹林");
+		drugTypeSpec001ChargeItem.setPrice(30F);
+		drugTypeSpec001ChargeItem
+				.setChargingMode(ChargeItem.ChargingMode_Amount);
+
+		chargeItems.add(drugTypeSpec001ChargeItem);
+
 		costDomainService.create(chargeItems);
+	}
+
+	private void initDrugTypeSpecs() {
+
+		List<DrugTypeSpec> drugTypeSpecs = new ArrayList<DrugTypeSpec>();
+
+		drugTypeSpec001 = new DrugTypeSpec();
+		drugTypeSpec001.setId("drugTypeSpec001");
+		drugTypeSpec001.setName("阿司匹林");
+		drugTypeSpec001.setChargeItem(drugTypeSpec001ChargeItem);
+
+		drugTypeSpecs.add(drugTypeSpec001);
+
+		pharmacyDomainService.createDrugTypeSpecs(drugTypeSpecs);
+	}
+
+	private void initPharmacys() {
+
+		List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
+
+		pharmacy001 = new Pharmacy();
+		pharmacy001.setId("pharmacy001");
+		pharmacy001.setName("药房001");
+
+		pharmacys.add(pharmacy001);
+
+		pharmacyDomainService.createPharmacys(pharmacys);
+	}
+
+	private void initDrugTypes() {
+
+		List<DrugType> drugTypes = new ArrayList<DrugType>();
+
+		drugType001 = new DrugType();
+		drugType001.setDrugTypeSpec(drugTypeSpec001);
+		drugType001.setPharmacy(pharmacy001);
+		drugType001.setStock(100);
+
+		drugTypes.add(drugType001);
+
+		pharmacyDomainService.createDrugTypes(drugTypes);
 	}
 
 	/**
@@ -252,7 +333,7 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-		
+
 		// 接诊
 		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
 		receiveVisitVO.setVisitId(visit001.getId());
@@ -260,12 +341,22 @@ public class AppTestService {
 		receiveVisitVO.setNurseId(user003.getId());
 
 		inPatientAppService.receive(receiveVisitVO, user001);
-		
+
 		pageable = new PageRequest(0, 15);
 		visits = inPatientAppService.InWardVisits(pageable);
-		
+
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+
+		// 开立药品临时医嘱
+		Order order = new TemporaryOrder();
+		order.setVisit(visit001);
+		order.setPlanStartDate(DateUtil.getSysDate());
+
+		DrugOrderType orderType = new DrugOrderType();
+		orderType.setDrugType(drugType001);
+
+		orderAppService.create(order, user002);
 	}
 
 }

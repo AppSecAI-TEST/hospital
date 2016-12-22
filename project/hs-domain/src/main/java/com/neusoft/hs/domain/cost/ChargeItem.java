@@ -29,9 +29,13 @@ public class ChargeItem extends SuperEntity {
 	@Column(length = 16)
 	private String code;
 
+	@Column(length = 64)
 	private String name;
 
 	private float price;
+
+	@Column(length = 16)
+	private String unit;
 
 	@Column(name = "charging_mode", length = 16)
 	private String chargingMode;
@@ -44,8 +48,9 @@ public class ChargeItem extends SuperEntity {
 
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<VisitChargeItem> visitChargeItems;
-	
+
 	public static final String ChargingMode_Day = "每天";
+	public static final String ChargingMode_Amount = "数量";
 
 	public String getId() {
 		return id;
@@ -77,6 +82,14 @@ public class ChargeItem extends SuperEntity {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 
 	public String getChargingMode() {
