@@ -16,12 +16,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
 @Table(name = "domain_order")
@@ -59,11 +62,21 @@ public abstract class Order extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	@Transient
+	private String visitId;
+
 	/**
+	 * @throws HsException
 	 * @roseuid 584E6696009D
 	 */
-	public void check() {
+	public void check() throws HsException {
 
+		Visit visit = this.getService(VisitDomainService.class).find(visitId);
+		if (visit == null) {
+			throw new HsException("visitId=[" + visitId + "]不存在");
+		}
+
+		this.setVisit(visit);
 	}
 
 	/**
@@ -164,6 +177,14 @@ public abstract class Order extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	public String getVisitId() {
+		return visitId;
+	}
+
+	public void setVisitId(String visitId) {
+		this.visitId = visitId;
 	}
 
 }

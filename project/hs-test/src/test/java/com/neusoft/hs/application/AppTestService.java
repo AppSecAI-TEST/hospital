@@ -353,11 +353,14 @@ public class AppTestService {
 
 		// 开立药品临时医嘱
 		Order order = new TemporaryOrder();
-		order.setVisit(visit001);
+		order.setVisitId(visit001.getId());
 		order.setPlanStartDate(DateUtil.getSysDate());
+		order.setCount(2);
 
 		DrugOrderType orderType = new DrugOrderType();
-		orderType.setDrugType(drugType001);
+		orderType.setDrugTypeSpecId(drugTypeSpec001.getId());
+
+		order.setType(orderType);
 
 		orderAppService.create(order, user002);
 	}

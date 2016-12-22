@@ -167,7 +167,7 @@ public class Visit extends IdEntity {
 	 * @roseuid 585252D80085
 	 */
 	public void save() {
-		this.getRepo(VisitRepo.class).save(this);
+		this.getService(VisitRepo.class).save(this);
 	}
 
 	/**

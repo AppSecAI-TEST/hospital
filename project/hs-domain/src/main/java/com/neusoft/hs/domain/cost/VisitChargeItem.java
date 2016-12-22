@@ -70,7 +70,7 @@ public class VisitChargeItem extends IdEntity {
 	}
 
 	public void save() {
-		this.getRepo(VisitChargeItemRepo.class).save(this);
+		this.getService(VisitChargeItemRepo.class).save(this);
 	}
 
 }

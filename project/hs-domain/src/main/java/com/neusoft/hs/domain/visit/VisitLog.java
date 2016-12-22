@@ -82,7 +82,7 @@ public class VisitLog extends IdEntity {
 	}
 
 	public void save() {
-		this.getRepo(VisitLogRepo.class).save(this);
+		this.getService(VisitLogRepo.class).save(this);
 	}
 
 }

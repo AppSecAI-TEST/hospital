@@ -5,20 +5,14 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.springframework.data.repository.CrudRepository;
 
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 
 public abstract class SuperEntity implements Serializable {
 
-	protected CrudRepository getRepo(String name) {
-		return (CrudRepository) ApplicationContextUtil.getApplicationContext()
-				.getBean(name);
-	}
-
-	protected CrudRepository getRepo(Class className) {
-		return (CrudRepository) ApplicationContextUtil.getApplicationContext()
-				.getBean(className);
+	protected <T> T getService(Class<T> className) {
+		return (T) ApplicationContextUtil.getApplicationContext().getBean(
+				className);
 	}
 
 	/*

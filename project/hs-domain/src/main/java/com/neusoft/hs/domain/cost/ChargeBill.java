@@ -59,7 +59,7 @@ public class ChargeBill extends IdEntity {
 	 * @roseuid 5850A40703E7
 	 */
 	public void save() {
-		this.getRepo(ChargeBillRepo.class).save(this);
+		this.getService(ChargeBillRepo.class).save(this);
 	}
 
 	/**

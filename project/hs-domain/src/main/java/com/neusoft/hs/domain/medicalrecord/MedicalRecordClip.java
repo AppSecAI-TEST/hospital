@@ -45,7 +45,7 @@ public class MedicalRecordClip extends IdEntity {
 	}
 
 	public void save() {
-		this.getRepo(MedicalRecordClipRepo.class).save(this);
+		this.getService(MedicalRecordClipRepo.class).save(this);
 	}
 
 }
