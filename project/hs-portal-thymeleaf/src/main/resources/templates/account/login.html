@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login</title>
+</head>
+<body>
+<div class="layout">
+	<div class="login">
+		<div class="login-form">
+			<form name="f" th:action="@{/login}" method="POST">
+			    <p style="color: red; margin-left: 10px;" th:text="${msg}" />
+				<div class="control-group">
+					<div class="controls">
+						<div
+							class="input-prepend ${not empty param.login_error ? 'error' : ''}">
+							<span class="add-on">邮箱&nbsp;</span> <input id="username"	name='username' type="text"></input>
+						</div>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<div
+							class="input-prepend ${not empty param.login_error ? 'error' : ''}">
+							<span class="add-on">密码&nbsp;</span> <input id="password"	name='password' type="password"></input>
+						</div>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls rememberme">
+						<label> <input type="checkbox" name="rememberMe" value="true"></input>
+						<span>两周内记住我</span></label>
+						<div style="clear:both"></div>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls submit-a">
+						<input name="submit" type="submit" class="btn-primary-new" value="登录" ></input>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<style type="text/css">
+.login {
+	font-family: '微软雅黑';
+	width: 400px;
+	margin: auto;
+	margin-top: 10%;
+}
+
+.login .name h2 {
+	margin-top: 0;
+	border-top: 1px solid #fff;
+}
+
+.login .name h3 {
+	border-bottom: 1px solid #ddd;
+	padding: 0 0 20px 0;
+	margin-bottom: 0;
+	margin-top: 12px;
+	color: #444;
+	font-size: 24px;
+	font-weight: normal;
+}
+
+.login .name h3 span {
+	font-size: 15px;
+}
+
+.login .input-prepend .add-on {
+	font-size: 16px;
+	color: #666;
+}
+
+.login .rememberme label span {
+	float: left;
+	margin: -1px 0 0 4px;
+}
+
+.login .rememberme label input {
+	margin-left: 0;
+	float: left;
+}
+
+.login .rememberme {
+	font-size: 14px;
+	color: #666;
+	margin-left: 43px;
+}
+
+.login .input-prepend input:focus {
+	border-color: #2795DC !important;
+}
+
+.login .login_error {
+	color: #E54245;
+}
+
+.login .input-prepend.error input {
+	border-color: #E54245 !important;
+}
+
+.login .input-prepend input {
+	color: #555 !important;
+	border-radius: 3px;
+	width: 260px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 15px;
+	border: 1px solid #ccc !important;
+	padding: 2px !important;
+	background: white !important;
+}
+
+.login .control-group {
+	padding-top: 12px;
+	margin: 8px 0 10px 0;
+}
+
+.login .control-group a.link:hover {
+	text-decoration: underline;
+}
+
+.login .control-group a.link {
+	color: #666;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.login .control-group .submit-a a.link {
+	margin-left: 12px;
+}
+
+.submit-a {
+	margin-top: -6px;
+}
+
+.submit-a .btn-primary-new:hover {
+	background: #1F86C9;
+}
+
+.submit-a .btn-primary-new {
+	padding: 6px 30px !important;
+	background: #2795dc;
+	border-bottom: 3px solid #0078b3;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 16px;
+}
+</style>
+</body>
+</html>
