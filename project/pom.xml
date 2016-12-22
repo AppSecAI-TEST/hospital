@@ -45,7 +45,7 @@
 		<module>hs-mobile</module>
 		<module>hs-rest</module>
 		<module>hs-listener</module>
-		<module>hs-portal</module>
+		<module>hs-portal-thymeleaf</module>
     	<module>hs-portal-swing</module>
   </modules>
 
