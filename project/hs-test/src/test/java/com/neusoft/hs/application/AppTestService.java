@@ -22,6 +22,7 @@ import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -381,6 +382,13 @@ public class AppTestService {
 
 		// 核对医嘱
 		orderAppService.verify(order.getId(), user003);
+
+//		pageable = new PageRequest(0, 15);
+//		List<OrderExecute> executes = orderAppService.getNeedSendOrderExecutes(
+//				user003, pageable);
+//		
+//		assertTrue(executes.size() == 1);
+//		assertTrue(executes.get(0).getExecuteDept().equals(dept333));
 
 	}
 
