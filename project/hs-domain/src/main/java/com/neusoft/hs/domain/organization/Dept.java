@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.neusoft.hs.domain.cost.ChargeRecord;
+import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.visit.Visit;
 
@@ -22,6 +23,9 @@ public class Dept extends Unit {
 
 	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
 	private List<Doctor> doctors;
+
+	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.ALL })
+	private List<Order> orders;
 
 	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.ALL })
 	private List<OrderExecute> orderExecutes;
@@ -53,6 +57,14 @@ public class Dept extends Unit {
 
 	public void setDoctors(List<Doctor> doctors) {
 		this.doctors = doctors;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public List<OrderExecute> getOrderExecutes() {

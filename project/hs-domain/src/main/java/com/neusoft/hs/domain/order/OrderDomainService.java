@@ -41,11 +41,12 @@ public class OrderDomainService {
 	 */
 	public void create(Order order, Doctor doctor) throws HsException {
 
-		order.check();
-		
 		order.setCreateDate(DateUtil.getSysDate());
 		order.setCreator(doctor);
+		order.setBelongDept(doctor.getDept());
 		order.setState(Order.State_Created);
+		
+		order.check();
 		
 		order.save();
 		

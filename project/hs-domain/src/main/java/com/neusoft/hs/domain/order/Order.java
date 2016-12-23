@@ -20,8 +20,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.pharmacy.DrugTypeRepo;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -56,6 +56,10 @@ public abstract class Order extends IdEntity {
 	@JoinColumn(name = "creator_id")
 	private Doctor creator;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "belong_dept_id")
+	private Dept belongDept;
+
 	@Column(name = "create_date")
 	private Date createDate;
 
@@ -65,7 +69,7 @@ public abstract class Order extends IdEntity {
 
 	@Transient
 	private String visitId;
-	
+
 	public static final String State_Created = "已创建/待核对";
 
 	/**
@@ -170,6 +174,14 @@ public abstract class Order extends IdEntity {
 
 	public void setCreator(Doctor creator) {
 		this.creator = creator;
+	}
+
+	public Dept getBelongDept() {
+		return belongDept;
+	}
+
+	public void setBelongDept(Dept belongDept) {
+		this.belongDept = belongDept;
 	}
 
 	public Date getCreateDate() {
