@@ -2,7 +2,6 @@
 
 package com.neusoft.hs.domain.order;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -98,7 +97,6 @@ public abstract class Order extends IdEntity {
 	public void verify() {
 		this.resolve();
 		this.setState(State_Executing);
-		this.save();
 	}
 
 	/**
