@@ -71,6 +71,8 @@ public abstract class Order extends IdEntity {
 	private String visitId;
 
 	public static final String State_Created = "已创建/待核对";
+	
+	public static final String State_Executing = "执行中";
 
 	/**
 	 * @throws HsException

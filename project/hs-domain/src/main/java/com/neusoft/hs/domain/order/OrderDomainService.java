@@ -60,8 +60,7 @@ public class OrderDomainService {
 	}
 
 	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return orderRepo.findByStateAndBelongDept(Order.State_Created, nurse.getDept(), pageable);
 	}
 
 	/**
