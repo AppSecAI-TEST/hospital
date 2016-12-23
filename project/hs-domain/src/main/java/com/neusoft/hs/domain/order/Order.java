@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public abstract class Order extends IdEntity {
 	private OrderType type;
 
 	@OneToMany(mappedBy = "order", cascade = { CascadeType.ALL })
-	@OrderBy("planStartDate DESC")
+	@OrderBy("planStartDate ASC")
 	private List<OrderExecute> orderExecutes;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -71,7 +72,7 @@ public abstract class Order extends IdEntity {
 	private String visitId;
 
 	public static final String State_Created = "已创建/待核对";
-	
+
 	public static final String State_Executing = "执行中";
 
 	/**
@@ -94,18 +95,27 @@ public abstract class Order extends IdEntity {
 		this.type.check(this);
 	}
 
+	public void verify() {
+		this.resolve();
+		this.setState(State_Executing);
+		this.save();
+	}
+
 	/**
 	 * @roseuid 584F494100C2
 	 */
 	public void resolve() {
-
+		this.addExecutes(this.type.resolveOrder(this));
 	}
 
 	/**
 	 * @roseuid 584F5A920055
 	 */
-	public void addExecutes() {
-
+	public void addExecutes(List<OrderExecute> orderExecutes) {
+		if (this.orderExecutes == null) {
+			this.orderExecutes = new ArrayList<OrderExecute>();
+		}
+		this.orderExecutes.addAll(orderExecutes);
 	}
 
 	/**

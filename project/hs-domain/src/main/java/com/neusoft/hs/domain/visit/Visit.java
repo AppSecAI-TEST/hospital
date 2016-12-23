@@ -26,6 +26,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
@@ -84,7 +85,7 @@ public class Visit extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
-	private Dept respDept;
+	private InPatientDept respDept;
 
 	public static final String State_NeedInitAccount = "待预存费用";
 	public static final String State_NeedIntoWard = "待接诊";
@@ -289,11 +290,11 @@ public class Visit extends IdEntity {
 		this.respDoctor = respDoctor;
 	}
 
-	public Dept getRespDept() {
+	public InPatientDept getRespDept() {
 		return respDept;
 	}
 
-	public void setRespDept(Dept respDept) {
+	public void setRespDept(InPatientDept respDept) {
 		this.respDept = respDept;
 	}
 

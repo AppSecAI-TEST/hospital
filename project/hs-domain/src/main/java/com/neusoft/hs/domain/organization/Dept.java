@@ -18,53 +18,17 @@ import com.neusoft.hs.domain.visit.Visit;
 @DiscriminatorValue("Dept")
 public class Dept extends Unit {
 
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
-	private List<Nurse> nurses;
-
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
-	private List<Doctor> doctors;
-
-	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.ALL })
-	private List<Order> orders;
-
 	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.ALL })
 	private List<OrderExecute> orderExecutes;
 
 	@OneToMany(mappedBy = "chargeDept", cascade = { CascadeType.ALL })
 	private List<ChargeRecord> chargeRecords;
 
-	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.ALL })
-	private List<Visit> visits;
-
 	public Dept() {
 	}
 
 	public Dept(String id) {
 		this.setId(id);
-	}
-
-	public List<Nurse> getNurses() {
-		return nurses;
-	}
-
-	public void setNurses(List<Nurse> nurses) {
-		this.nurses = nurses;
-	}
-
-	public List<Doctor> getDoctors() {
-		return doctors;
-	}
-
-	public void setDoctors(List<Doctor> doctors) {
-		this.doctors = doctors;
-	}
-
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
 	}
 
 	public List<OrderExecute> getOrderExecutes() {
@@ -82,13 +46,4 @@ public class Dept extends Unit {
 	public void setChargeRecords(List<ChargeRecord> chargeRecords) {
 		this.chargeRecords = chargeRecords;
 	}
-
-	public List<Visit> getVisits() {
-		return visits;
-	}
-
-	public void setVisits(List<Visit> visits) {
-		this.visits = visits;
-	}
-
 }

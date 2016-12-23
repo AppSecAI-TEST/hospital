@@ -55,11 +55,10 @@ public abstract class OrderType extends SuperEntity {
 
 	/**
 	 * @param order
+	 * @return
 	 * @roseuid 584F4A3201B9
 	 */
-	public void resolveOrder(Order order) {
-
-	}
+	public abstract List<OrderExecute> resolveOrder(Order order);
 
 	public String getId() {
 		return id;

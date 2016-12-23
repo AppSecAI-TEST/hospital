@@ -20,7 +20,7 @@ public class Nurse extends AbstractUser {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
-	private Dept dept;
+	private InPatientDept dept;
 
 	@OneToMany(mappedBy = "respNurse", cascade = { CascadeType.ALL })
 	private List<Visit> visits;
@@ -76,11 +76,11 @@ public class Nurse extends AbstractUser {
 		this.visits = visits;
 	}
 
-	public Dept getDept() {
+	public InPatientDept getDept() {
 		return dept;
 	}
 
-	public void setDept(Dept dept) {
+	public void setDept(InPatientDept dept) {
 		this.dept = dept;
 	}
 

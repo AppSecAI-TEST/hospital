@@ -2,6 +2,8 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -15,6 +17,7 @@ import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @DiscriminatorValue("DrugOrderType")
@@ -65,6 +68,25 @@ public class DrugOrderType extends OrderType {
 		order.setType(this.drugType.getDrugOrderType());
 	}
 
+	@Override
+	public List<OrderExecute> resolveOrder(Order order) {
+		List<OrderExecute> orderExecutes = new ArrayList<OrderExecute>();
+		OrderExecute orderExecute;
+		Date sysDate;
+		
+		orderExecute = new OrderExecute();
+		orderExecute.setOrder(order);
+		
+		sysDate = DateUtil.getSysDate();
+		orderExecute.setPlanStartDate(sysDate);
+		orderExecute.setPlanEndDate(sysDate);
+		
+		orderExecute.setExecuteDept(drugType.getPharmacy());
+		
+
+		return orderExecutes;
+	}
+
 	public DrugType getDrugType() {
 		return drugType;
 	}
@@ -80,4 +102,5 @@ public class DrugOrderType extends OrderType {
 	public void setDrugTypeSpecId(String drugTypeSpecId) {
 		this.drugTypeSpecId = drugTypeSpecId;
 	}
+
 }

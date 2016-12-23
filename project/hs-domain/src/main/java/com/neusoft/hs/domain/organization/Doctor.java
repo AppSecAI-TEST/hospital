@@ -22,7 +22,7 @@ public class Doctor extends AbstractUser {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
-	private Dept dept;
+	private InPatientDept dept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "superior_id")
@@ -106,11 +106,11 @@ public class Doctor extends AbstractUser {
 		this.visits = visits;
 	}
 
-	public Dept getDept() {
+	public InPatientDept getDept() {
 		return dept;
 	}
 
-	public void setDept(Dept dept) {
+	public void setDept(InPatientDept dept) {
 		this.dept = dept;
 	}
 

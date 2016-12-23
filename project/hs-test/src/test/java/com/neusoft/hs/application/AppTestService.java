@@ -27,6 +27,7 @@ import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Org;
 import com.neusoft.hs.domain.organization.OrganizationDomainService;
@@ -80,8 +81,8 @@ public class AppTestService {
 	private Org org;// 哈医大二院
 	private Dept dept111;// 住院处
 	private Dept dept222;// 收费处
-	private Dept dept333;// 药房
-	private Dept dept000;// 内泌五
+	private Pharmacy dept333;// 药房
+	private InPatientDept dept000;// 内泌五
 
 	private Staff user111;// 住院处送诊人-曹操
 	private Staff user222;// 收费处-张飞
@@ -121,7 +122,7 @@ public class AppTestService {
 		// 清空药品类型
 		pharmacyDomainService.clearDrugTypes();
 		// 清空药房
-		pharmacyDomainService.clearPharmacys();
+		// pharmacyDomainService.clearPharmacys();
 		// 清空药品规格
 		pharmacyDomainService.clearDrugTypeSpecs();
 		// 清空计费项目
@@ -145,7 +146,7 @@ public class AppTestService {
 
 		initDrugTypeSpecs();
 
-		initPharmacys();
+		// initPharmacys();
 
 		initDrugTypes();
 
@@ -177,14 +178,14 @@ public class AppTestService {
 
 		units.add(dept222);
 
-		dept333 = new Dept();
+		dept333 = new Pharmacy();
 		dept333.setId("dept333");
 		dept333.setName("药房");
 		dept333.setParent(org);
 
 		units.add(dept333);
 
-		dept000 = new Dept();
+		dept000 = new InPatientDept();
 		dept000.setId("dept000");
 		dept000.setName("内泌五");
 		dept000.setParent(org);
@@ -202,7 +203,7 @@ public class AppTestService {
 
 		user111.setId("staff111");
 		user111.setName("住院处送诊人-曹操");
-		user111.setDept(new Dept("dept111"));
+		user111.setDept(dept111);
 
 		users.add(user111);
 
@@ -210,7 +211,7 @@ public class AppTestService {
 
 		user222.setId("staff222");
 		user222.setName("收费处-张飞");
-		user222.setDept(new Dept("dept222"));
+		user222.setDept(dept222);
 
 		users.add(user222);
 
@@ -218,7 +219,7 @@ public class AppTestService {
 
 		user333.setId("staff333");
 		user333.setName("药房摆药岗位-赵云");
-		user333.setDept(new Dept("dept333"));
+		user333.setDept(dept333);
 
 		users.add(user333);
 
@@ -226,7 +227,7 @@ public class AppTestService {
 
 		user001.setId("staff001");
 		user001.setName("内泌五接诊护士-大乔");
-		user001.setDept(new Dept("dept000"));
+		user001.setDept(dept000);
 
 		users.add(user001);
 
@@ -234,7 +235,7 @@ public class AppTestService {
 
 		user002.setId("doctor002");
 		user002.setName("内泌五医生-貂蝉");
-		user002.setDept(new Dept("dept000"));
+		user002.setDept(dept000);
 
 		users.add(user002);
 
@@ -242,7 +243,7 @@ public class AppTestService {
 
 		user003.setId("nurse003");
 		user003.setName("内泌五护士-小乔");
-		user003.setDept(new Dept("dept000"));
+		user003.setDept(dept000);
 
 		users.add(user003);
 
@@ -289,18 +290,18 @@ public class AppTestService {
 		pharmacyDomainService.createDrugTypeSpecs(drugTypeSpecs);
 	}
 
-	private void initPharmacys() {
-
-		List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
-
-		pharmacy001 = new Pharmacy();
-		pharmacy001.setId("pharmacy001");
-		pharmacy001.setName("药房001");
-
-		pharmacys.add(pharmacy001);
-
-		pharmacyDomainService.createPharmacys(pharmacys);
-	}
+	// private void initPharmacys() {
+	//
+	// List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
+	//
+	// pharmacy001 = new Pharmacy();
+	// pharmacy001.setId("pharmacy001");
+	// pharmacy001.setName("药房001");
+	//
+	// pharmacys.add(pharmacy001);
+	//
+	// pharmacyDomainService.createPharmacys(pharmacys);
+	// }
 
 	private void initDrugTypes() {
 
@@ -396,10 +397,10 @@ public class AppTestService {
 
 		assertTrue(orders.size() == 1);
 		assertTrue(orders.get(0).getId().equals(order.getId()));
-		
+
 		// 核对医嘱
 		orderAppService.verify(order.getId(), user003);
-		
+
 	}
 
 }

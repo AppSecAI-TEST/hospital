@@ -76,6 +76,8 @@ public class OrderDomainService {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
 		}
 
+		order.verify();
+
 		return order;
 	}
 
