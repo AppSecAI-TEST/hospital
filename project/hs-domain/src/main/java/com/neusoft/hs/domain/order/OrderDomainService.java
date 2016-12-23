@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
@@ -19,7 +18,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
-@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+@Transactional(rollbackFor = Exception.class)
 public class OrderDomainService {
 
 	@Autowired

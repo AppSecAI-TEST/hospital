@@ -9,7 +9,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.visit.Visit;
@@ -26,6 +25,9 @@ public class InPatientDept extends Dept {
 
 	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.ALL })
 	private List<Order> orders;
+
+	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.ALL })
+	private List<OrderExecute> orderExecutes;
 
 	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.ALL })
 	private List<Visit> visits;
@@ -59,6 +61,14 @@ public class InPatientDept extends Dept {
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	public List<OrderExecute> getOrderExecutes() {
+		return orderExecutes;
+	}
+
+	public void setOrderExecutes(List<OrderExecute> orderExecutes) {
+		this.orderExecutes = orderExecutes;
 	}
 
 	public List<Visit> getVisits() {

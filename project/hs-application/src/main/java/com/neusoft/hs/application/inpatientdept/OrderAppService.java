@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderException;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.exception.HsException;
@@ -22,6 +24,9 @@ public class OrderAppService {
 
 	@Autowired
 	private OrderDomainService orderDomainService;
+
+	@Autowired
+	private OrderExecuteDomainService orderExecuteDomainService;
 
 	/**
 	 * @param doctor
@@ -59,6 +64,12 @@ public class OrderAppService {
 	 */
 	public void resolve() {
 
+	}
+
+	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
+			Pageable pageable) {
+		return orderExecuteDomainService.getNeedSendOrderExecutes(nurse,
+				pageable);
 	}
 
 }

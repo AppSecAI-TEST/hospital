@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Role;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -65,6 +66,10 @@ public class OrderExecute extends IdEntity {
 	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
 	private List<ChargeRecord> chargeRecords;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "belong_dept_id")
+	private InPatientDept belongDept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "execute_dept_id")
@@ -203,6 +208,14 @@ public class OrderExecute extends IdEntity {
 
 	public void setChargeRecords(List<ChargeRecord> chargeRecords) {
 		this.chargeRecords = chargeRecords;
+	}
+
+	public InPatientDept getBelongDept() {
+		return belongDept;
+	}
+
+	public void setBelongDept(InPatientDept belongDept) {
+		this.belongDept = belongDept;
 	}
 
 	public Dept getExecuteDept() {

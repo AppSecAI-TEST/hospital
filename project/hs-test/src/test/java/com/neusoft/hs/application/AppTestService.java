@@ -383,12 +383,12 @@ public class AppTestService {
 		// 核对医嘱
 		orderAppService.verify(order.getId(), user003);
 
-//		pageable = new PageRequest(0, 15);
-//		List<OrderExecute> executes = orderAppService.getNeedSendOrderExecutes(
-//				user003, pageable);
-//		
-//		assertTrue(executes.size() == 1);
-//		assertTrue(executes.get(0).getExecuteDept().equals(dept333));
+		pageable = new PageRequest(0, 15);
+		List<OrderExecute> executes = orderAppService.getNeedSendOrderExecutes(
+				user003, pageable);
+		
+		assertTrue(executes.size() == 1);
+		assertTrue(executes.get(0).getExecuteDept().equals(dept333));
 
 	}
 
