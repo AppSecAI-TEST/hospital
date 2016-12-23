@@ -1,3 +1,15 @@
+2016.12.--
+
+1、实现模型：将hs-portal修改为hs-portal-thymeleaf，并创建hs-portal-swing，希望内核代码即可以运行在BS结构中也可以运行在CS结构中
+2、实现模型：初始化药品规格、药房、药品、医嘱类型基础数据
+3、实现模型：初始完成开立药品临时医嘱用例（仅指定药品规格和数量，程序自动分析药房和药品，并将其转化成医嘱类型）
+4、实现模型：创建OrderCreatedEvent事件用于扩展业务逻辑
+5、设计模型：在医嘱条目（Order）直接关联科室（Dept），用以记录医嘱条目所属的科室（不通过Doctor间接关联的原因是Doctor换科室就不能准确记录了）
+6、实现模型：修正缺欠 获得需要接诊的患者列表（getNeedReceiveVisits）增加参数人员（Staff）
+7、实现模型：创建OrderException 继承 HsException，用以更精确记录医嘱相关异常信息
+8、设计模型：更新【核对药品临时医嘱】用例实现
+9、设计模型：将原Dept拆分为Dept和InPatientDept，将Pharmacy继承新的Dept
+
 2016.12.21
 
 1、实现模型：增加initData，用于初始化组织、用户、药品类型、医嘱类型等基础数据
