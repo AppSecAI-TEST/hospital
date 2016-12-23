@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -21,7 +22,7 @@ public class VisitDomainService {
 	private VisitRepo visitRepo;
 
 	@Autowired
-	private VisitRepo visitLogRepo;
+	private VisitLogRepo visitLogRepo;
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -54,7 +55,12 @@ public class VisitDomainService {
 	}
 
 	public List<Visit> findByState(String state, Pageable pageable) {
-		return visitLogRepo.findByState(state, pageable);
+		return visitRepo.findByState(state, pageable);
+	}
+
+	public List<Visit> findByStateAndRespDept(String state, Dept dept,
+			Pageable pageable) {
+		return visitRepo.findByStateAndRespDept(state, dept, pageable);
 	}
 
 	/**

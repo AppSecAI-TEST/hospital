@@ -6,20 +6,24 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.visit.VisitDomainService;
-import com.neusoft.hs.domain.visit.VisitIntoWardedEvent;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
-@Transactional(rollbackFor = Exception.class, propagation=Propagation.REQUIRED)
+@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 public class OrderDomainService {
+
+	@Autowired
+	private OrderRepo orderRepo;
 
 	@Autowired
 	private OrderTypeRepo orderTypeRepo;
@@ -29,7 +33,7 @@ public class OrderDomainService {
 
 	@Autowired
 	private VisitDomainService visitDomainService;
-	
+
 	@Autowired
 	private ApplicationContext applicationContext;
 
@@ -39,24 +43,31 @@ public class OrderDomainService {
 	 * @throws HsException
 	 * @roseuid 584E526102FB
 	 */
-	public void create(Order order, Doctor doctor) throws HsException {
+	public Order create(Order order, Doctor doctor) throws HsException {
 
 		order.setCreateDate(DateUtil.getSysDate());
 		order.setCreator(doctor);
 		order.setBelongDept(doctor.getDept());
 		order.setState(Order.State_Created);
-		
+
 		order.check();
-		
+
 		order.save();
-		
+
 		applicationContext.publishEvent(new OrderCreatedEvent(order));
+
+		return order;
+	}
+
+	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
 	 * @roseuid 584F489E03D2
 	 */
-	public void check() {
+	public void verify() {
 
 	}
 
@@ -88,4 +99,5 @@ public class OrderDomainService {
 	public void clearOrderTypes() {
 		orderTypeRepo.deleteAll();
 	}
+
 }

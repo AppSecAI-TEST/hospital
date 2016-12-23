@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -22,13 +24,14 @@ public class InPatientAppService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	public List<Visit> getNeedReceiveVisits(Pageable pageable) {
-		return visitDomainService.findByState(Visit.State_NeedIntoWard,
-				pageable);
+	public List<Visit> getNeedReceiveVisits(Staff staff, Pageable pageable) {
+		return visitDomainService.findByStateAndRespDept(
+				Visit.State_NeedIntoWard, staff.getDept(), pageable);
 	}
 
-	public List<Visit> InWardVisits(Pageable pageable) {
-		return visitDomainService.findByState(Visit.State_IntoWard, pageable);
+	public List<Visit> InWardVisits(Dept dept, Pageable pageable) {
+		return visitDomainService.findByStateAndRespDept(Visit.State_IntoWard,
+				dept, pageable);
 	}
 
 	/**

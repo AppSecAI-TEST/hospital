@@ -7,8 +7,13 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import com.neusoft.hs.domain.organization.Dept;
+
 public interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 
 	List<Visit> findByState(String state, Pageable pageable);
+
+	List<Visit> findByStateAndRespDept(String state, Dept dept,
+			Pageable pageable);
 
 }
