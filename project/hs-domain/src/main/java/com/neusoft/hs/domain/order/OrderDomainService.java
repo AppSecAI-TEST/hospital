@@ -43,7 +43,7 @@ public class OrderDomainService {
 	 * @throws HsException
 	 * @roseuid 584E526102FB
 	 */
-	public Order create(Order order, Doctor doctor) throws HsException {
+	public Order create(Order order, Doctor doctor) throws OrderException {
 
 		order.setCreateDate(DateUtil.getSysDate());
 		order.setCreator(doctor);
@@ -60,14 +60,23 @@ public class OrderDomainService {
 	}
 
 	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {
-		return orderRepo.findByStateAndBelongDept(Order.State_Created, nurse.getDept(), pageable);
+		return orderRepo.findByStateAndBelongDept(Order.State_Created,
+				nurse.getDept(), pageable);
 	}
 
 	/**
+	 * @param nurse
+	 * @param orderId
+	 * @throws HsException
 	 * @roseuid 584F489E03D2
 	 */
-	public void verify() {
+	public Order verify(String orderId, Nurse nurse) throws OrderException {
+		Order order = orderRepo.findOne(orderId);
+		if (order == null) {
+			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+		}
 
+		return order;
 	}
 
 	/**

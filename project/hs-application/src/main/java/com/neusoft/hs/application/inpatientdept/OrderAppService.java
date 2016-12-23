@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
+import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.exception.HsException;
@@ -28,7 +29,7 @@ public class OrderAppService {
 	 * @throws HsException
 	 * @roseuid 584E5239011A
 	 */
-	public Order create(Order order, Doctor doctor) throws HsException {
+	public Order create(Order order, Doctor doctor) throws OrderException {
 		return orderDomainService.create(order, doctor);
 	}
 
@@ -37,10 +38,13 @@ public class OrderAppService {
 	}
 
 	/**
+	 * @param nurse
+	 * @param orderId
+	 * @throws HsException
 	 * @roseuid 584F48660279
 	 */
-	public void verify() {
-
+	public Order verify(String orderId, Nurse nurse) throws OrderException {
+		return orderDomainService.verify(orderId, nurse);
 	}
 
 	/**

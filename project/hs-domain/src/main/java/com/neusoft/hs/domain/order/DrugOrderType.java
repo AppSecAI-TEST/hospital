@@ -28,9 +28,9 @@ public class DrugOrderType extends OrderType {
 	private String drugTypeSpecId;
 
 	@Override
-	public void check(Order order) throws HsException {
+	public void check(Order order) throws OrderException {
 		if (drugTypeSpecId == null) {
-			throw new HsException("drugTypeSpecId不能为空");
+			throw new OrderException(order, "drugTypeSpecId不能为空");
 		}
 
 		DrugTypeSpec drugTypeSpec = this
@@ -38,7 +38,8 @@ public class DrugOrderType extends OrderType {
 						drugTypeSpecId);
 
 		if (drugTypeSpec == null) {
-			throw new HsException("drugTypeSpecId=[" + drugTypeSpecId + "]不存在");
+			throw new OrderException(order, "drugTypeSpecId=[" + drugTypeSpecId
+					+ "]不存在");
 		}
 
 		List<DrugType> drugTypes = this.getService(PharmacyDomainService.class)
@@ -51,11 +52,15 @@ public class DrugOrderType extends OrderType {
 			}
 		}
 		if (this.drugType == null) {
-			throw new HsException("drugTypeSpecId=[" + drugTypeSpecId + "]库存不足");
+			throw new OrderException(order, "drugTypeSpecId=[" + drugTypeSpecId
+					+ "]库存不足");
 		}
 
-		this.drugType.withhold(order.getCount());
-
+		try {
+			this.drugType.withhold(order.getCount());
+		} catch (HsException e) {
+			throw new OrderException(order, e);
+		}
 		// 根据计算的药品类型找到合适的医嘱类型
 		order.setType(this.drugType.getDrugOrderType());
 	}

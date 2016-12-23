@@ -49,7 +49,7 @@ public abstract class OrderType extends SuperEntity {
 	 * @throws HsException
 	 * @roseuid 584E66D50265
 	 */
-	public void check(Order order) throws HsException {
+	public void check(Order order) throws OrderException {
 
 	}
 

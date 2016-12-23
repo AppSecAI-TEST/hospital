@@ -78,17 +78,17 @@ public abstract class Order extends IdEntity {
 	 * @throws HsException
 	 * @roseuid 584E6696009D
 	 */
-	public void check() throws HsException {
+	public void check() throws OrderException {
 
 		Visit visit = this.getService(VisitDomainService.class).find(visitId);
 		if (visit == null) {
-			throw new HsException("visitId=[" + visitId + "]不存在");
+			throw new OrderException(this, "visitId=[" + visitId + "]不存在");
 		}
 
 		this.setVisit(visit);
 
 		if (this.type == null) {
-			throw new HsException("orderType不能为空");
+			throw new OrderException(this, "orderType不能为空");
 		}
 
 		this.type.check(this);

@@ -17,7 +17,6 @@ import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
-import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.order.DrugOrderType;
@@ -397,6 +396,10 @@ public class AppTestService {
 
 		assertTrue(orders.size() == 1);
 		assertTrue(orders.get(0).getId().equals(order.getId()));
+		
+		// 核对医嘱
+		orderAppService.verify(order.getId(), user003);
+		
 	}
 
 }
