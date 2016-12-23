@@ -97,8 +97,6 @@ public class AppTestService {
 
 	private DrugTypeSpec drugTypeSpec001;// 药品规格001
 
-	private Pharmacy pharmacy001;// 药房001
-
 	private DrugType drugType001;// 药房下的药品类型001（有库存属性）
 
 	private DrugOrderType drugOrderType001;// 药品医嘱类型001
@@ -121,8 +119,6 @@ public class AppTestService {
 		orderDomainService.clearOrderTypes();
 		// 清空药品类型
 		pharmacyDomainService.clearDrugTypes();
-		// 清空药房
-		// pharmacyDomainService.clearPharmacys();
 		// 清空药品规格
 		pharmacyDomainService.clearDrugTypeSpecs();
 		// 清空计费项目
@@ -145,8 +141,6 @@ public class AppTestService {
 		initChargeItems();
 
 		initDrugTypeSpecs();
-
-		// initPharmacys();
 
 		initDrugTypes();
 
@@ -290,19 +284,6 @@ public class AppTestService {
 		pharmacyDomainService.createDrugTypeSpecs(drugTypeSpecs);
 	}
 
-	// private void initPharmacys() {
-	//
-	// List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
-	//
-	// pharmacy001 = new Pharmacy();
-	// pharmacy001.setId("pharmacy001");
-	// pharmacy001.setName("药房001");
-	//
-	// pharmacys.add(pharmacy001);
-	//
-	// pharmacyDomainService.createPharmacys(pharmacys);
-	// }
-
 	private void initDrugTypes() {
 
 		List<DrugType> drugTypes = new ArrayList<DrugType>();
@@ -310,7 +291,7 @@ public class AppTestService {
 		drugType001 = new DrugType();
 		drugType001.setId("drugType001");
 		drugType001.setDrugTypeSpec(drugTypeSpec001);
-		drugType001.setPharmacy(pharmacy001);
+		drugType001.setPharmacy(dept333);
 		drugType001.setStock(100);
 
 		drugTypes.add(drugType001);

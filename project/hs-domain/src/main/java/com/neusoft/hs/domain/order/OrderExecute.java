@@ -74,6 +74,14 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	public static final String State_NeedSend = "待发送";
+
+	public static final String State_NeedExecute = "待执行";
+
+	public static final String ChargeState_NoCharge = "未收费";
+
+	public static final String CostState_NoCost = "未发生成本";
+
 	/**
 	 * @roseuid 584F624D0233
 	 */

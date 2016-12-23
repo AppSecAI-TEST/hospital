@@ -73,16 +73,38 @@ public class DrugOrderType extends OrderType {
 		List<OrderExecute> orderExecutes = new ArrayList<OrderExecute>();
 		OrderExecute orderExecute;
 		Date sysDate;
-		
+
+		// 摆药执行条目
 		orderExecute = new OrderExecute();
 		orderExecute.setOrder(order);
-		
+		orderExecute.setVisit(order.getVisit());
+
 		sysDate = DateUtil.getSysDate();
 		orderExecute.setPlanStartDate(sysDate);
 		orderExecute.setPlanEndDate(sysDate);
-		
+
 		orderExecute.setExecuteDept(drugType.getPharmacy());
-		
+		orderExecute.setState(OrderExecute.State_NeedSend);
+		orderExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
+		orderExecute.setCostState(OrderExecute.CostState_NoCost);
+
+		orderExecutes.add(orderExecute);
+
+		// 取药执行条目
+		orderExecute = new OrderExecute();
+		orderExecute.setOrder(order);
+		orderExecute.setVisit(order.getVisit());
+
+		sysDate = DateUtil.getSysDate();
+		orderExecute.setPlanStartDate(sysDate);
+		orderExecute.setPlanEndDate(sysDate);
+
+		orderExecute.setExecuteDept(order.getBelongDept());
+		orderExecute.setState(OrderExecute.State_NeedExecute);
+		orderExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
+		orderExecute.setCostState(OrderExecute.CostState_NoCost);
+
+		orderExecutes.add(orderExecute);
 
 		return orderExecutes;
 	}

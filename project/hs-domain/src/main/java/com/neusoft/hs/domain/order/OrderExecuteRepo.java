@@ -2,23 +2,9 @@
 
 package com.neusoft.hs.domain.order;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public class OrderExecuteRepo 
-{
-   
-   /**
-    * @roseuid 58573EC70364
-    */
-   public OrderExecuteRepo() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584F69510362
-    */
-   public void start() 
-   {
-    
-   }
+public interface OrderExecuteRepo extends
+		PagingAndSortingRepository<OrderExecute, String> {
+
 }
