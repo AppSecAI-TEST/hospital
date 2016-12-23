@@ -25,6 +25,7 @@ import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -60,6 +61,9 @@ public class AppTestService {
 
 	@Autowired
 	private OrderAppService orderAppService;
+
+	@Autowired
+	private OrderExecuteAppService orderExecuteAppService;
 
 	@Autowired
 	private OrganizationDomainService organizationDomainService;
@@ -113,6 +117,86 @@ public class AppTestService {
 		clear();
 
 		initData();
+	}
+
+	/**
+	 * 
+	 * @throws HsException
+	 */
+	public void execute() throws HsException {
+
+		// 创建测试患者
+		visit001 = new Visit();
+		visit001.setName("测试患者001");
+		visit001.setRespDept(dept000);
+		visit001.setRespDoctor(user002);
+		// 送诊
+		registerAppService.register(visit001, user111);
+
+		Pageable pageable;
+		List<Visit> visits;
+
+		pageable = new PageRequest(0, 15);
+		visits = cashierAppService.getNeedInitAccountVisits(pageable);
+
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+
+		// 预存费用
+		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
+
+		pageable = new PageRequest(0, 15);
+		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
+
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+
+		// 接诊
+		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
+		receiveVisitVO.setVisitId(visit001.getId());
+		receiveVisitVO.setBed("bed001");
+		receiveVisitVO.setNurseId(user003.getId());
+
+		inPatientAppService.receive(receiveVisitVO, user001);
+
+		pageable = new PageRequest(0, 15);
+		visits = inPatientAppService.InWardVisits(dept000, pageable);
+
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+
+		// 开立药品临时医嘱
+		Order order = new TemporaryOrder();
+		order.setVisitId(visit001.getId());
+		order.setPlanStartDate(DateUtil.getSysDate());
+		order.setCount(2);
+
+		DrugOrderType orderType = new DrugOrderType();
+		orderType.setDrugTypeSpecId(drugTypeSpec001.getId());
+
+		order.setType(orderType);
+
+		orderAppService.create(order, user002);
+
+		pageable = new PageRequest(0, 15);
+		List<Order> orders = orderAppService.getNeedVerifyOrders(user003,
+				pageable);
+
+		assertTrue(orders.size() == 1);
+		assertTrue(orders.get(0).getId().equals(order.getId()));
+
+		// 核对医嘱
+		orderAppService.verify(order.getId(), user003);
+
+		pageable = new PageRequest(0, 15);
+		List<OrderExecute> executes = orderAppService.getNeedSendOrderExecutes(
+				user003, pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 发送医嘱
+		orderExecuteAppService.send(executes.get(0).getId(), user003);
+
 	}
 
 	public void clear() {
@@ -312,83 +396,6 @@ public class AppTestService {
 		drugOrderTypes.add(drugOrderType001);
 
 		orderDomainService.createOrderTypes(drugOrderTypes);
-	}
-
-	/**
-	 * 
-	 * @throws HsException
-	 */
-	public void execute() throws HsException {
-
-		// 创建测试患者
-		visit001 = new Visit();
-		visit001.setName("测试患者001");
-		visit001.setRespDept(dept000);
-		visit001.setRespDoctor(user002);
-		// 送诊
-		registerAppService.register(visit001, user111);
-
-		Pageable pageable;
-		List<Visit> visits;
-
-		pageable = new PageRequest(0, 15);
-		visits = cashierAppService.getNeedInitAccountVisits(pageable);
-
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
-		// 预存费用
-		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
-
-		pageable = new PageRequest(0, 15);
-		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
-
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
-		// 接诊
-		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
-		receiveVisitVO.setVisitId(visit001.getId());
-		receiveVisitVO.setBed("bed001");
-		receiveVisitVO.setNurseId(user003.getId());
-
-		inPatientAppService.receive(receiveVisitVO, user001);
-
-		pageable = new PageRequest(0, 15);
-		visits = inPatientAppService.InWardVisits(dept000, pageable);
-
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
-		// 开立药品临时医嘱
-		Order order = new TemporaryOrder();
-		order.setVisitId(visit001.getId());
-		order.setPlanStartDate(DateUtil.getSysDate());
-		order.setCount(2);
-
-		DrugOrderType orderType = new DrugOrderType();
-		orderType.setDrugTypeSpecId(drugTypeSpec001.getId());
-
-		order.setType(orderType);
-
-		orderAppService.create(order, user002);
-
-		pageable = new PageRequest(0, 15);
-		List<Order> orders = orderAppService.getNeedVerifyOrders(user003,
-				pageable);
-
-		assertTrue(orders.size() == 1);
-		assertTrue(orders.get(0).getId().equals(order.getId()));
-
-		// 核对医嘱
-		orderAppService.verify(order.getId(), user003);
-
-		pageable = new PageRequest(0, 15);
-		List<OrderExecute> executes = orderAppService.getNeedSendOrderExecutes(
-				user003, pageable);
-		
-		assertTrue(executes.size() == 1);
-
 	}
 
 }

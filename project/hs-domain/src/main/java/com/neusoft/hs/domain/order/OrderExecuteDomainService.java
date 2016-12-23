@@ -25,10 +25,19 @@ public class OrderExecuteDomainService {
 	}
 
 	/**
+	 * @param nurse
+	 * @param executeId
+	 * @throws OrderExecuteException
 	 * @roseuid 584F6150022C
 	 */
-	public void send() {
-
+	public void send(String executeId, Nurse nurse)
+			throws OrderExecuteException {
+		OrderExecute execute = orderExecuteRepo.findOne(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
+		execute.send();
 	}
 
 	/**

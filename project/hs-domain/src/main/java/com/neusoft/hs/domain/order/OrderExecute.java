@@ -24,6 +24,7 @@ import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Role;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_order_execute")
@@ -44,6 +45,9 @@ public class OrderExecute extends IdEntity {
 
 	@Column(name = "plan_end_date")
 	private Date planEndDate;
+
+	@Column(name = "send_date")
+	private Date sendDate;
 
 	@Column(name = "start_date")
 	private Date startDate;
@@ -88,10 +92,14 @@ public class OrderExecute extends IdEntity {
 	public static final String CostState_NoCost = "未发生成本";
 
 	/**
+	 * @param nurse
 	 * @roseuid 584F624D0233
 	 */
 	public void send() {
-
+		this.state = State_NeedExecute;
+		this.sendDate = DateUtil.getSysDate();
+		
+		this.order.setStateDesc("摆药执行条目已发送");
 	}
 
 	/**
@@ -160,6 +168,14 @@ public class OrderExecute extends IdEntity {
 
 	public void setPlanEndDate(Date planEndDate) {
 		this.planEndDate = planEndDate;
+	}
+
+	public Date getSendDate() {
+		return sendDate;
+	}
+
+	public void setSendDate(Date sendDate) {
+		this.sendDate = sendDate;
 	}
 
 	public Date getStartDate() {
