@@ -56,6 +56,8 @@ public class DrugOrderType extends OrderType {
 
 		this.drugType.withhold(order.getCount());
 
+		// 根据计算的药品类型找到合适的医嘱类型
+		order.setType(this.drugType.getDrugOrderType());
 	}
 
 	public DrugType getDrugType() {

@@ -65,6 +65,8 @@ public abstract class Order extends IdEntity {
 
 	@Transient
 	private String visitId;
+	
+	public static final String State_Created = "已创建/待核对";
 
 	/**
 	 * @throws HsException

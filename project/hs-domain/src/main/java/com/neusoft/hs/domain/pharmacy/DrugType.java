@@ -3,20 +3,26 @@
 package com.neusoft.hs.domain.pharmacy;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.neusoft.hs.domain.order.DrugOrderType;
-import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
 @Table(name = "domain_drug_type")
-public class DrugType extends IdEntity {
+public class DrugType extends SuperEntity {
+
+	@Id
+	@Column(name = "id", unique = true, nullable = false, length = 36)
+	private String id;
 
 	private int stock;
 
@@ -32,6 +38,14 @@ public class DrugType extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public int getStock() {
 		return stock;

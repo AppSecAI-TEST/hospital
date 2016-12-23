@@ -17,10 +17,13 @@ import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
+import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderDomainService;
+import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
@@ -72,6 +75,9 @@ public class AppTestService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
+	@Autowired
+	private OrderDomainService orderDomainService;
+
 	private Org org;// 哈医大二院
 	private Dept dept111;// 住院处
 	private Dept dept222;// 收费处
@@ -95,6 +101,8 @@ public class AppTestService {
 
 	private DrugType drugType001;// 药房下的药品类型001（有库存属性）
 
+	private DrugOrderType drugOrderType001;// 药品医嘱类型001
+
 	private Visit visit001;
 
 	public void testInit() {
@@ -109,6 +117,8 @@ public class AppTestService {
 	}
 
 	public void clear() {
+		// 清空医嘱类型
+		orderDomainService.clearOrderTypes();
 		// 清空药品类型
 		pharmacyDomainService.clearDrugTypes();
 		// 清空药房
@@ -139,6 +149,8 @@ public class AppTestService {
 		initPharmacys();
 
 		initDrugTypes();
+
+		initDrugOrderTypes();
 
 	}
 
@@ -296,6 +308,7 @@ public class AppTestService {
 		List<DrugType> drugTypes = new ArrayList<DrugType>();
 
 		drugType001 = new DrugType();
+		drugType001.setId("drugType001");
 		drugType001.setDrugTypeSpec(drugTypeSpec001);
 		drugType001.setPharmacy(pharmacy001);
 		drugType001.setStock(100);
@@ -303,6 +316,20 @@ public class AppTestService {
 		drugTypes.add(drugType001);
 
 		pharmacyDomainService.createDrugTypes(drugTypes);
+	}
+
+	private void initDrugOrderTypes() {
+
+		List<OrderType> drugOrderTypes = new ArrayList<OrderType>();
+
+		drugOrderType001 = new DrugOrderType();
+		drugOrderType001.setId("drugOrderType001");
+		drugOrderType001.setCode("drugOrderType001");
+		drugOrderType001.setDrugType(drugType001);
+
+		drugOrderTypes.add(drugOrderType001);
+
+		orderDomainService.createOrderTypes(drugOrderTypes);
 	}
 
 	/**
@@ -336,7 +363,7 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
+		
 		// 接诊
 		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
 		receiveVisitVO.setVisitId(visit001.getId());
