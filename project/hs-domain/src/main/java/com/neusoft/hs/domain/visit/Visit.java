@@ -97,16 +97,14 @@ public class Visit extends IdEntity {
 			throw new HsException("visit=[" + name + "]的状态应为["
 					+ Visit.State_NeedInitAccount + "]");
 		}
-		
+
 		ChargeBill chargeBill = new ChargeBill();
 		chargeBill.setBalance(balance);
 		chargeBill.setState(ChargeBill.State_Normal);
 		chargeBill.setVisit(this);
 
-		chargeBill.save();
-
+		this.setChargeBill(chargeBill);
 		this.setState(Visit.State_NeedIntoWard);
-		this.save();
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
@@ -115,7 +113,7 @@ public class Visit extends IdEntity {
 		visitLog.setCreateDate(DateUtil.getSysDate());
 
 		visitLog.save();
-		
+
 		return chargeBill;
 	}
 
@@ -137,8 +135,12 @@ public class Visit extends IdEntity {
 		this.setBed(receiveVisitVO.getBed());
 		this.setState(State_IntoWard);
 		this.setIntoWardDate(sysDate);
-		
-		this.save();
+
+		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
+		medicalRecordClip.setVisit(this);
+		medicalRecordClip.setState(MedicalRecordClip.State_Normal);
+
+		this.setMedicalRecordClip(medicalRecordClip);
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
@@ -147,14 +149,6 @@ public class Visit extends IdEntity {
 		visitLog.setCreateDate(sysDate);
 
 		visitLog.save();
-		
-		
-		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
-		medicalRecordClip.setVisit(this);
-		medicalRecordClip.setState(MedicalRecordClip.State_Normal);
-		
-		medicalRecordClip.save();
-
 	}
 
 	/**
