@@ -388,7 +388,6 @@ public class AppTestService {
 				user003, pageable);
 		
 		assertTrue(executes.size() == 1);
-		assertTrue(executes.get(0).getExecuteDept().equals(dept333));
 
 	}
 
