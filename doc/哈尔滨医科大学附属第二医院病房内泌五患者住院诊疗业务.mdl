@@ -4562,9 +4562,6 @@
 						(object State "$UNNAMED$194"
 						    quid       	"583287B20317"
 						    type       	"EndState")
-						(object State "已发送"
-						    quid       	"583287B5003E"
-						    type       	"Normal")
 						(object State "执行中"
 						    quid       	"583287D90350"
 						    type       	"Normal")
@@ -4574,7 +4571,7 @@
 						(object State "欠费挂起"
 						    quid       	"58328879015F"
 						    type       	"Normal")
-						(object State "已创建/待执行"
+						(object State "待执行"
 						    quid       	"58339E2A03CC"
 						    type       	"Normal")
 						(object State "已作废"
@@ -4610,7 +4607,7 @@
 						(object State "待退费"
 						    quid       	"5840EC3F03DD"
 						    type       	"Normal")
-						(object State "已创建/待发送"
+						(object State "待发送"
 						    quid       	"58463F2B006A"
 						    type       	"Normal"))
 					    partitions 	(list Partitions)
@@ -4619,7 +4616,7 @@
 						(object State_Transition
 						    quid       	"583287EC0006"
 						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待执行"
+						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待执行"
 						    supplier_quidu 	"58339E2A03CC"
 						    client     	"$UNNAMED$193"
 						    client_quidu 	"583287B00178"
@@ -4627,17 +4624,6 @@
 							quid       	"583287EC0007")
 						    sendEvent  	(object sendEvent
 							quid       	"583287EC0009"))
-						(object State_Transition
-						    quid       	"58328828010F"
-						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::执行中"
-						    supplier_quidu 	"583287D90350"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已发送"
-						    client_quidu 	"583287B5003E"
-						    Event      	(object Event "执行（不欠费）"
-							quid       	"583288280110")
-						    sendEvent  	(object sendEvent
-							quid       	"583288280112"))
 						(object State_Transition
 						    quid       	"5832886F01A5"
 						    supplier   	"$UNNAMED$194"
@@ -4647,33 +4633,11 @@
 						    sendEvent  	(object sendEvent
 							quid       	"5832886F01A8"))
 						(object State_Transition
-						    quid       	"5832888B009E"
-						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::欠费挂起"
-						    supplier_quidu 	"58328879015F"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已发送"
-						    client_quidu 	"583287B5003E"
-						    Event      	(object Event "执行（欠费）"
-							quid       	"5832888B009F")
-						    sendEvent  	(object sendEvent
-							quid       	"5832888B00A1"))
-						(object State_Transition
-						    quid       	"58339EE500D3"
-						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已发送"
-						    supplier_quidu 	"583287B5003E"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待发送"
-						    client_quidu 	"58463F2B006A"
-						    Event      	(object Event "发送"
-							quid       	"58339EE500D4")
-						    sendEvent  	(object sendEvent
-							quid       	"58339EE500D6"))
-						(object State_Transition
 						    quid       	"58339F3301DB"
 						    label      	""
 						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::执行中"
 						    supplier_quidu 	"583287D90350"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待执行"
+						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待执行"
 						    client_quidu 	"58339E2A03CC"
 						    Event      	(object Event "执行（不欠费）"
 							quid       	"58339F3301DC")
@@ -4684,7 +4648,7 @@
 						    label      	""
 						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::欠费挂起"
 						    supplier_quidu 	"58328879015F"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待执行"
+						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待执行"
 						    client_quidu 	"58339E2A03CC"
 						    Event      	(object Event "执行（欠费）"
 							quid       	"58339F99008B")
@@ -4695,7 +4659,7 @@
 						    label      	""
 						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已作废"
 						    supplier_quidu 	"5833A14C00FA"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待执行"
+						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待执行"
 						    client_quidu 	"58339E2A03CC"
 						    Event      	(object Event "医嘱作废"
 							quid       	"5833A178016A")
@@ -4709,17 +4673,6 @@
 						    client_quidu 	"5833A14C00FA"
 						    sendEvent  	(object sendEvent
 							quid       	"5833A1A1008C"))
-						(object State_Transition
-						    quid       	"5833A1C901E9"
-						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已作废"
-						    supplier_quidu 	"5833A14C00FA"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已发送"
-						    client_quidu 	"583287B5003E"
-						    Event      	(object Event "医嘱作废"
-							quid       	"5833A1C901EA")
-						    sendEvent  	(object sendEvent
-							quid       	"5833A1C901EC"))
 						(object State_Transition
 						    quid       	"5833A205011A"
 						    label      	""
@@ -4740,42 +4693,20 @@
 						    sendEvent  	(object sendEvent
 							quid       	"583504490272"))
 						(object State_Transition
-						    quid       	"583504820347"
-						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已停止"
-						    supplier_quidu 	"583504380380"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已发送"
-						    client_quidu 	"583287B5003E"
-						    Event      	(object Event "医嘱停止"
-							quid       	"583504820348")
-						    sendEvent  	(object sendEvent
-							quid       	"58350482034A"))
-						(object State_Transition
 						    quid       	"583504BB02A7"
 						    label      	""
 						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已停止"
 						    supplier_quidu 	"583504380380"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待执行"
+						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待执行"
 						    client_quidu 	"58339E2A03CC"
 						    Event      	(object Event "医嘱停止"
 							quid       	"583504BB02A8")
 						    sendEvent  	(object sendEvent
 							quid       	"583504BB02AA"))
 						(object State_Transition
-						    quid       	"583B7D3C02FE"
-						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已发送"
-						    supplier_quidu 	"583287B5003E"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::欠费挂起"
-						    client_quidu 	"58328879015F"
-						    Event      	(object Event "补费"
-							quid       	"583B7D3C02FF")
-						    sendEvent  	(object sendEvent
-							quid       	"583B7D3C0301"))
-						(object State_Transition
 						    quid       	"583D13250314"
 						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待执行"
+						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待执行"
 						    supplier_quidu 	"58339E2A03CC"
 						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::欠费挂起"
 						    client_quidu 	"58328879015F"
@@ -4988,7 +4919,7 @@
 						(object State_Transition
 						    quid       	"58463F480075"
 						    label      	""
-						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待发送"
+						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待发送"
 						    supplier_quidu 	"58463F2B006A"
 						    client     	"$UNNAMED$193"
 						    client_quidu 	"583287B00178"
@@ -5001,7 +4932,7 @@
 						    label      	""
 						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已作废"
 						    supplier_quidu 	"5833A14C00FA"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待发送"
+						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待发送"
 						    client_quidu 	"58463F2B006A"
 						    Event      	(object Event "医嘱作废"
 							quid       	"58463F4F006C")
@@ -5012,12 +4943,23 @@
 						    label      	""
 						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已停止"
 						    supplier_quidu 	"583504380380"
-						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::已创建/待发送"
+						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待发送"
 						    client_quidu 	"58463F2B006A"
 						    Event      	(object Event "医嘱停止"
 							quid       	"58463F5401B6")
 						    sendEvent  	(object sendEvent
-							quid       	"58463F5401B8")))
+							quid       	"58463F5401B8"))
+						(object State_Transition
+						    quid       	"585CBD4002C9"
+						    label      	""
+						    supplier   	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待执行"
+						    supplier_quidu 	"58339E2A03CC"
+						    client     	"Logical View::02.业务分析模型::业务系统::内泌五::执行条目::State/Activity Model3::待发送"
+						    client_quidu 	"58463F2B006A"
+						    Event      	(object Event "发送"
+							quid       	"585CBD4002CA")
+						    sendEvent  	(object sendEvent
+							quid       	"585CBD4002CC")))
 					    objectflows 	(list objectflow_list)
 					    statediagrams 	(list StateDiagrams
 						(object State_Diagram "主状态-本科执行"
@@ -5119,7 +5061,7 @@
 							    quidu      	"58328879015F"
 							    height     	134
 							    autoResize 	TRUE)
-							(object StateView "Normal" "已创建/待执行" @190
+							(object StateView "Normal" "待执行" @190
 							    location   	(1617, 701)
 							    font       	(object Font
 								size       	10
@@ -5138,7 +5080,7 @@
 								nlines     	2
 								max_width  	204
 								justify    	0
-								label      	"已创建/待执行")
+								label      	"待执行")
 							    icon_style 	"Icon"
 							    line_color 	3342489
 							    fill_color 	13434879
@@ -5700,34 +5642,7 @@
 							    line_color 	3342489
 							    quidu      	"583287B20317"
 							    autoResize 	TRUE)
-							(object StateView "Normal" "已发送" @221
-							    Parent_View 	@218
-							    location   	(1617, 1070)
-							    font       	(object Font
-								size       	10
-								face       	"Arial"
-								bold       	FALSE
-								italics    	FALSE
-								underline  	FALSE
-								strike     	FALSE
-								color      	0
-								default_color 	TRUE)
-							    label      	(object ItemLabel
-								Parent_View 	@221
-								location   	(1617, 1059)
-								fill_color 	13434879
-								anchor_loc 	1
-								nlines     	2
-								max_width  	204
-								justify    	0
-								label      	"已发送")
-							    icon_style 	"Icon"
-							    line_color 	3342489
-							    fill_color 	13434879
-							    quidu      	"583287B5003E"
-							    height     	134
-							    autoResize 	TRUE)
-							(object StateView "Normal" "执行中" @222
+							(object StateView "Normal" "执行中" @221
 							    Parent_View 	@218
 							    location   	(1617, 1633)
 							    font       	(object Font
@@ -5740,7 +5655,7 @@
 								color      	0
 								default_color 	TRUE)
 							    label      	(object ItemLabel
-								Parent_View 	@222
+								Parent_View 	@221
 								location   	(1617, 1622)
 								fill_color 	13434879
 								anchor_loc 	1
@@ -5754,47 +5669,7 @@
 							    quidu      	"583287D90350"
 							    height     	134
 							    autoResize 	TRUE)
-							(object TransView "" @223
-							    font       	(object Font
-								size       	10
-								face       	"Arial"
-								bold       	FALSE
-								italics    	FALSE
-								underline  	FALSE
-								strike     	FALSE
-								color      	0
-								default_color 	TRUE)
-							    label      	(object SegLabel @224
-								Parent_View 	@223
-								location   	(1462, 1278)
-								font       	(object Font
-								    size       	10
-								    face       	"Arial"
-								    bold       	FALSE
-								    italics    	FALSE
-								    underline  	FALSE
-								    strike     	FALSE
-								    color      	0
-								    default_color 	TRUE)
-								anchor_loc 	1
-								nlines     	1
-								max_width  	360
-								justify    	0
-								label      	"执行（不欠费）"
-								pctDist    	0.328671
-								height     	155
-								orientation 	1)
-							    stereotype 	TRUE
-							    line_color 	3342489
-							    quidu      	"58328828010F"
-							    client     	@221
-							    supplier   	@222
-							    vertices   	(list Points
-								(1617, 1137)
-								(1617, 1566))
-							    line_style 	0
-							    x_offset   	FALSE)
-							(object StateView "Normal" "已完成" @225
+							(object StateView "Normal" "已完成" @222
 							    Parent_View 	@218
 							    location   	(1614, 1963)
 							    font       	(object Font
@@ -5807,7 +5682,7 @@
 								color      	0
 								default_color 	TRUE)
 							    label      	(object ItemLabel
-								Parent_View 	@225
+								Parent_View 	@222
 								location   	(1614, 1952)
 								fill_color 	13434879
 								anchor_loc 	1
@@ -5821,11 +5696,11 @@
 							    quidu      	"583287E10207"
 							    height     	134
 							    autoResize 	TRUE)
-							(object TransView "" @226
+							(object TransView "" @223
 							    stereotype 	TRUE
 							    line_color 	3342489
 							    quidu      	"5832886F01A5"
-							    client     	@225
+							    client     	@222
 							    supplier   	@220
 							    vertices   	(list Points
 								(1618, 2030)
@@ -5834,7 +5709,7 @@
 							    origin_attachment 	(1618, 2030)
 							    terminal_attachment 	(1618, 2175)
 							    x_offset   	FALSE)
-							(object TransView "" @227
+							(object TransView "" @224
 							    font       	(object Font
 								size       	10
 								face       	"Arial"
@@ -5844,8 +5719,8 @@
 								strike     	FALSE
 								color      	0
 								default_color 	TRUE)
-							    label      	(object SegLabel @228
-								Parent_View 	@227
+							    label      	(object SegLabel @225
+								Parent_View 	@224
 								location   	(1660, 1798)
 								font       	(object Font
 								    size       	10
@@ -5867,14 +5742,14 @@
 							    stereotype 	TRUE
 							    line_color 	3342489
 							    quidu      	"583D27060184"
-							    client     	@222
-							    supplier   	@225
+							    client     	@221
+							    supplier   	@222
 							    vertices   	(list Points
 								(1616, 1700)
 								(1614, 1895))
 							    line_style 	0
 							    x_offset   	FALSE)
-							(object StateView "Normal" "欠费挂起" @229
+							(object StateView "Normal" "欠费挂起" @226
 							    Parent_View 	@218
 							    location   	(2254, 1386)
 							    font       	(object Font
@@ -5887,7 +5762,7 @@
 								color      	0
 								default_color 	TRUE)
 							    label      	(object ItemLabel
-								Parent_View 	@229
+								Parent_View 	@226
 								location   	(2254, 1375)
 								fill_color 	13434879
 								anchor_loc 	1
@@ -5901,95 +5776,7 @@
 							    quidu      	"58328879015F"
 							    height     	134
 							    autoResize 	TRUE)
-							(object TransView "" @230
-							    font       	(object Font
-								size       	10
-								face       	"Arial"
-								bold       	FALSE
-								italics    	FALSE
-								underline  	FALSE
-								strike     	FALSE
-								color      	0
-								default_color 	TRUE)
-							    label      	(object SegLabel @231
-								Parent_View 	@230
-								location   	(2489, 1313)
-								font       	(object Font
-								    size       	10
-								    face       	"Arial"
-								    bold       	FALSE
-								    italics    	FALSE
-								    underline  	FALSE
-								    strike     	FALSE
-								    color      	0
-								    default_color 	TRUE)
-								anchor_loc 	1
-								nlines     	1
-								max_width  	450
-								justify    	0
-								label      	"补费"
-								pctDist    	0.045657
-								height     	55
-								orientation 	0)
-							    stereotype 	TRUE
-							    line_color 	3342489
-							    quidu      	"583B7D3C02FE"
-							    client     	@229
-							    supplier   	@221
-							    vertices   	(list Points
-								(2404, 1367)
-								(2737, 1367)
-								(2737, 934)
-								(1699, 934)
-								(1699, 1003))
-							    line_style 	3
-							    origin_attachment 	(2404, 1367)
-							    terminal_attachment 	(1699, 1003)
-							    x_offset   	FALSE)
-							(object TransView "" @232
-							    font       	(object Font
-								size       	10
-								face       	"Arial"
-								bold       	FALSE
-								italics    	FALSE
-								underline  	FALSE
-								strike     	FALSE
-								color      	0
-								default_color 	TRUE)
-							    label      	(object SegLabel @233
-								Parent_View 	@232
-								location   	(2079, 1023)
-								font       	(object Font
-								    size       	10
-								    face       	"Arial"
-								    bold       	FALSE
-								    italics    	FALSE
-								    underline  	FALSE
-								    strike     	FALSE
-								    color      	0
-								    default_color 	TRUE)
-								anchor_loc 	1
-								nlines     	1
-								max_width  	450
-								justify    	0
-								label      	"执行（欠费）"
-								pctDist    	0.414523
-								height     	43
-								orientation 	0)
-							    stereotype 	TRUE
-							    line_color 	3342489
-							    quidu      	"5832888B009E"
-							    client     	@221
-							    supplier   	@229
-							    vertices   	(list Points
-								(1767, 1065)
-								(2268, 1065)
-								(2268, 1319))
-							    line_style 	3
-							    origin_attachment 	(1767, 1065)
-							    terminal_attachment 	(2268, 1319)
-							    x_offset   	FALSE)
-							(object StateView "Normal" "已作废" @234
+							(object StateView "Normal" "已作废" @227
 							    Parent_View 	@218
 							    location   	(469, 470)
 							    font       	(object Font
@@ -6002,7 +5789,7 @@
 								color      	0
 								default_color 	TRUE)
 							    label      	(object ItemLabel
-								Parent_View 	@234
+								Parent_View 	@227
 								location   	(469, 459)
 								fill_color 	13434879
 								anchor_loc 	1
@@ -6016,7 +5803,7 @@
 							    quidu      	"5833A14C00FA"
 							    height     	134
 							    autoResize 	TRUE)
-							(object TransView "" @235
+							(object TransView "" @228
 							    font       	(object Font
 								size       	10
 								face       	"Arial"
@@ -6026,51 +5813,8 @@
 								strike     	FALSE
 								color      	0
 								default_color 	TRUE)
-							    label      	(object SegLabel @236
-								Parent_View 	@235
-								location   	(872, 1344)
-								font       	(object Font
-								    size       	10
-								    face       	"Arial"
-								    bold       	FALSE
-								    italics    	FALSE
-								    underline  	FALSE
-								    strike     	FALSE
-								    color      	0
-								    default_color 	TRUE)
-								anchor_loc 	1
-								nlines     	1
-								max_width  	450
-								justify    	0
-								label      	"医嘱作废"
-								pctDist    	0.493995
-								height     	49
-								orientation 	1)
-							    stereotype 	TRUE
-							    line_color 	3342489
-							    quidu      	"5833A205011A"
-							    client     	@229
-							    supplier   	@234
-							    vertices   	(list Points
-								(2104, 1392)
-								(465, 1392)
-								(465, 537))
-							    line_style 	3
-							    origin_attachment 	(2104, 1392)
-							    terminal_attachment 	(465, 537)
-							    x_offset   	FALSE)
-							(object TransView "" @237
-							    font       	(object Font
-								size       	10
-								face       	"Arial"
-								bold       	FALSE
-								italics    	FALSE
-								underline  	FALSE
-								strike     	FALSE
-								color      	0
-								default_color 	TRUE)
-							    label      	(object SegLabel @238
-								Parent_View 	@237
+							    label      	(object SegLabel @229
+								Parent_View 	@228
 								location   	(879, 1594)
 								font       	(object Font
 								    size       	10
@@ -6092,8 +5836,8 @@
 							    stereotype 	TRUE
 							    line_color 	3342489
 							    quidu      	"583D2CD90389"
-							    client     	@222
-							    supplier   	@234
+							    client     	@221
+							    supplier   	@227
 							    vertices   	(list Points
 								(1467, 1639)
 								(388, 1639)
@@ -6102,62 +5846,19 @@
 							    origin_attachment 	(1467, 1639)
 							    terminal_attachment 	(388, 537)
 							    x_offset   	FALSE)
-							(object TransView "" @239
-							    font       	(object Font
-								size       	10
-								face       	"Arial"
-								bold       	FALSE
-								italics    	FALSE
-								underline  	FALSE
-								strike     	FALSE
-								color      	0
-								default_color 	TRUE)
-							    label      	(object SegLabel @240
-								Parent_View 	@239
-								location   	(868, 1017)
-								font       	(object Font
-								    size       	10
-								    face       	"Arial"
-								    bold       	FALSE
-								    italics    	FALSE
-								    underline  	FALSE
-								    strike     	FALSE
-								    color      	0
-								    default_color 	TRUE)
-								anchor_loc 	1
-								nlines     	1
-								max_width  	450
-								justify    	0
-								label      	"医嘱作废"
-								pctDist    	0.409904
-								height     	51
-								orientation 	1)
-							    stereotype 	TRUE
-							    line_color 	3342489
-							    quidu      	"5833A1C901E9"
-							    client     	@221
-							    supplier   	@234
-							    vertices   	(list Points
-								(1467, 1067)
-								(534, 1067)
-								(534, 537))
-							    line_style 	3
-							    origin_attachment 	(1467, 1067)
-							    terminal_attachment 	(534, 537)
-							    x_offset   	FALSE)
-							(object StateView "EndState" "$UNNAMED$195" @241
+							(object StateView "EndState" "$UNNAMED$195" @230
 							    Parent_View 	@218
 							    location   	(114, 473)
 							    icon_style 	"Icon"
 							    line_color 	3342489
 							    quidu      	"5833A19E02CA"
 							    autoResize 	TRUE)
-							(object TransView "" @242
+							(object TransView "" @231
 							    stereotype 	TRUE
 							    line_color 	3342489
 							    quidu      	"5833A1A10089"
-							    client     	@234
-							    supplier   	@241
+							    client     	@227
+							    supplier   	@230
 							    vertices   	(list Points
 								(319, 465)
 								(156, 465))
@@ -6165,7 +5866,7 @@
 							    origin_attachment 	(319, 465)
 							    terminal_attachment 	(156, 465)
 							    x_offset   	FALSE)
-							(object StateView "Normal" "已停止" @243
+							(object StateView "Normal" "已停止" @232
 							    Parent_View 	@218
 							    location   	(2255, 1649)
 							    font       	(object Font
@@ -6178,7 +5879,7 @@
 								color      	0
 								default_color 	TRUE)
 							    label      	(object ItemLabel
-								Parent_View 	@243
+								Parent_View 	@232
 								location   	(2255, 1638)
 								fill_color 	13434879
 								anchor_loc 	1
@@ -6192,7 +5893,7 @@
 							    quidu      	"583504380380"
 							    height     	134
 							    autoResize 	TRUE)
-							(object TransView "" @244
+							(object TransView "" @233
 							    font       	(object Font
 								size       	10
 								face       	"Arial"
@@ -6202,8 +5903,8 @@
 								strike     	FALSE
 								color      	0
 								default_color 	TRUE)
-							    label      	(object SegLabel @245
-								Parent_View 	@244
+							    label      	(object SegLabel @234
+								Parent_View 	@233
 								location   	(1936, 1596)
 								font       	(object Font
 								    size       	10
@@ -6225,8 +5926,8 @@
 							    stereotype 	TRUE
 							    line_color 	3342489
 							    quidu      	"583D2D0B03C8"
-							    client     	@222
-							    supplier   	@243
+							    client     	@221
+							    supplier   	@232
 							    vertices   	(list Points
 								(1767, 1640)
 								(2105, 1640))
@@ -6234,63 +5935,19 @@
 							    origin_attachment 	(1767, 1640)
 							    terminal_attachment 	(2105, 1640)
 							    x_offset   	FALSE)
-							(object TransView "" @246
-							    font       	(object Font
-								size       	10
-								face       	"Arial"
-								bold       	FALSE
-								italics    	FALSE
-								underline  	FALSE
-								strike     	FALSE
-								color      	0
-								default_color 	TRUE)
-							    label      	(object SegLabel @247
-								Parent_View 	@246
-								location   	(2002, 1457)
-								font       	(object Font
-								    size       	10
-								    face       	"Arial"
-								    bold       	FALSE
-								    italics    	FALSE
-								    underline  	FALSE
-								    strike     	FALSE
-								    color      	0
-								    default_color 	TRUE)
-								anchor_loc 	1
-								nlines     	1
-								max_width  	450
-								justify    	0
-								label      	"医嘱停止"
-								pctDist    	0.666303
-								height     	44
-								orientation 	0)
-							    stereotype 	TRUE
-							    line_color 	3342489
-							    quidu      	"583504820347"
-							    client     	@221
-							    supplier   	@243
-							    vertices   	(list Points
-								(1690, 1137)
-								(1690, 1500)
-								(2259, 1500)
-								(2259, 1582))
-							    line_style 	3
-							    origin_attachment 	(1690, 1137)
-							    terminal_attachment 	(2259, 1582)
-							    x_offset   	FALSE)
-							(object StateView "EndState" "$UNNAMED$196" @248
+							(object StateView "EndState" "$UNNAMED$196" @235
 							    Parent_View 	@218
 							    location   	(2259, 1961)
 							    icon_style 	"Icon"
 							    line_color 	3342489
 							    quidu      	"583504460221"
 							    autoResize 	TRUE)
-							(object TransView "" @249
+							(object TransView "" @236
 							    stereotype 	TRUE
 							    line_color 	3342489
 							    quidu      	"58350449026F"
-							    client     	@243
-							    supplier   	@248
+							    client     	@232
+							    supplier   	@235
 							    vertices   	(list Points
 								(2258, 1716)
 								(2258, 1919))
@@ -6298,7 +5955,7 @@
 							    origin_attachment 	(2258, 1716)
 							    terminal_attachment 	(2258, 1919)
 							    x_offset   	FALSE)
-							(object StateView "Normal" "已创建/待发送" @250
+							(object StateView "Normal" "待发送" @237
 							    Parent_View 	@218
 							    location   	(1615, 492)
 							    font       	(object Font
@@ -6311,21 +5968,21 @@
 								color      	0
 								default_color 	TRUE)
 							    label      	(object ItemLabel
-								Parent_View 	@250
+								Parent_View 	@237
 								location   	(1615, 481)
 								fill_color 	13434879
 								anchor_loc 	1
 								nlines     	2
 								max_width  	204
 								justify    	0
-								label      	"已创建/待发送")
+								label      	"待发送")
 							    icon_style 	"Icon"
 							    line_color 	3342489
 							    fill_color 	13434879
 							    quidu      	"58463F2B006A"
 							    height     	134
 							    autoResize 	TRUE)
-							(object TransView "" @251
+							(object TransView "" @238
 							    font       	(object Font
 								size       	10
 								face       	"Arial"
@@ -6335,8 +5992,8 @@
 								strike     	FALSE
 								color      	0
 								default_color 	TRUE)
-							    label      	(object SegLabel @252
-								Parent_View 	@251
+							    label      	(object SegLabel @239
+								Parent_View 	@238
 								location   	(1792, 291)
 								font       	(object Font
 								    size       	10
@@ -6359,13 +6016,13 @@
 							    line_color 	3342489
 							    quidu      	"58463F480075"
 							    client     	@219
-							    supplier   	@250
+							    supplier   	@237
 							    vertices   	(list Points
 								(1616, 251)
 								(1615, 424))
 							    line_style 	0
 							    x_offset   	FALSE)
-							(object TransView "" @253
+							(object TransView "" @240
 							    font       	(object Font
 								size       	10
 								face       	"Arial"
@@ -6375,48 +6032,8 @@
 								strike     	FALSE
 								color      	0
 								default_color 	TRUE)
-							    label      	(object SegLabel @254
-								Parent_View 	@253
-								location   	(1707, 682)
-								font       	(object Font
-								    size       	10
-								    face       	"Arial"
-								    bold       	FALSE
-								    italics    	FALSE
-								    underline  	FALSE
-								    strike     	FALSE
-								    color      	0
-								    default_color 	TRUE)
-								anchor_loc 	1
-								nlines     	1
-								max_width  	116
-								justify    	0
-								label      	"发送"
-								pctDist    	0.280851
-								height     	92
-								orientation 	0)
-							    stereotype 	TRUE
-							    line_color 	3342489
-							    quidu      	"58339EE500D3"
-							    client     	@250
-							    supplier   	@221
-							    vertices   	(list Points
-								(1615, 558)
-								(1616, 1003))
-							    line_style 	0
-							    x_offset   	FALSE)
-							(object TransView "" @255
-							    font       	(object Font
-								size       	10
-								face       	"Arial"
-								bold       	FALSE
-								italics    	FALSE
-								underline  	FALSE
-								strike     	FALSE
-								color      	0
-								default_color 	TRUE)
-							    label      	(object SegLabel @256
-								Parent_View 	@255
+							    label      	(object SegLabel @241
+								Parent_View 	@240
 								location   	(2558, 1579)
 								font       	(object Font
 								    size       	10
@@ -6438,8 +6055,8 @@
 							    stereotype 	TRUE
 							    line_color 	3342489
 							    quidu      	"58463F5401B5"
-							    client     	@250
-							    supplier   	@243
+							    client     	@237
+							    supplier   	@232
 							    vertices   	(list Points
 								(1765, 512)
 								(2921, 512)
@@ -6449,7 +6066,7 @@
 							    origin_attachment 	(1765, 512)
 							    terminal_attachment 	(2405, 1624)
 							    x_offset   	FALSE)
-							(object TransView "" @257
+							(object TransView "" @242
 							    font       	(object Font
 								size       	10
 								face       	"Arial"
@@ -6459,9 +6076,9 @@
 								strike     	FALSE
 								color      	0
 								default_color 	TRUE)
-							    label      	(object SegLabel @258
-								Parent_View 	@257
-								location   	(789, 459)
+							    label      	(object SegLabel @243
+								Parent_View 	@242
+								location   	(870, 454)
 								font       	(object Font
 								    size       	10
 								    face       	"Arial"
@@ -6476,20 +6093,349 @@
 								max_width  	450
 								justify    	0
 								label      	"医嘱作废"
-								pctDist    	0.800000
-								height     	45
+								pctDist    	0.703310
+								height     	50
 								orientation 	1)
 							    stereotype 	TRUE
 							    line_color 	3342489
 							    quidu      	"58463F4F006B"
-							    client     	@250
-							    supplier   	@234
+							    client     	@237
+							    supplier   	@227
 							    vertices   	(list Points
 								(1465, 503)
 								(619, 503))
 							    line_style 	3
 							    origin_attachment 	(1465, 503)
 							    terminal_attachment 	(619, 503)
+							    x_offset   	FALSE)
+							(object StateView "Normal" "待执行" @244
+							    Parent_View 	@218
+							    location   	(1612, 942)
+							    font       	(object Font
+								size       	10
+								face       	"Arial"
+								bold       	FALSE
+								italics    	FALSE
+								underline  	FALSE
+								strike     	FALSE
+								color      	0
+								default_color 	TRUE)
+							    label      	(object ItemLabel
+								Parent_View 	@244
+								location   	(1612, 931)
+								fill_color 	13434879
+								anchor_loc 	1
+								nlines     	2
+								max_width  	204
+								justify    	0
+								label      	"待执行")
+							    icon_style 	"Icon"
+							    line_color 	3342489
+							    fill_color 	13434879
+							    quidu      	"58339E2A03CC"
+							    height     	134
+							    autoResize 	TRUE)
+							(object TransView "" @245
+							    font       	(object Font
+								size       	10
+								face       	"Arial"
+								bold       	FALSE
+								italics    	FALSE
+								underline  	FALSE
+								strike     	FALSE
+								color      	0
+								default_color 	TRUE)
+							    label      	(object SegLabel @246
+								Parent_View 	@245
+								location   	(1658, 717)
+								font       	(object Font
+								    size       	10
+								    face       	"Arial"
+								    bold       	FALSE
+								    italics    	FALSE
+								    underline  	FALSE
+								    strike     	FALSE
+								    color      	0
+								    default_color 	TRUE)
+								anchor_loc 	1
+								nlines     	1
+								max_width  	450
+								justify    	0
+								label      	"发送"
+								pctDist    	0.500000
+								height     	45
+								orientation 	0)
+							    stereotype 	TRUE
+							    line_color 	3342489
+							    quidu      	"585CBD4002C9"
+							    client     	@237
+							    supplier   	@244
+							    vertices   	(list Points
+								(1613, 559)
+								(1613, 875))
+							    line_style 	3
+							    origin_attachment 	(1613, 559)
+							    terminal_attachment 	(1613, 875)
+							    x_offset   	FALSE)
+							(object TransView "" @247
+							    font       	(object Font
+								size       	10
+								face       	"Arial"
+								bold       	FALSE
+								italics    	FALSE
+								underline  	FALSE
+								strike     	FALSE
+								color      	0
+								default_color 	TRUE)
+							    label      	(object SegLabel @248
+								Parent_View 	@247
+								location   	(872, 1344)
+								font       	(object Font
+								    size       	10
+								    face       	"Arial"
+								    bold       	FALSE
+								    italics    	FALSE
+								    underline  	FALSE
+								    strike     	FALSE
+								    color      	0
+								    default_color 	TRUE)
+								anchor_loc 	1
+								nlines     	1
+								max_width  	450
+								justify    	0
+								label      	"医嘱作废"
+								pctDist    	0.493995
+								height     	49
+								orientation 	1)
+							    stereotype 	TRUE
+							    line_color 	3342489
+							    quidu      	"5833A205011A"
+							    client     	@226
+							    supplier   	@227
+							    vertices   	(list Points
+								(2104, 1392)
+								(465, 1392)
+								(465, 537))
+							    line_style 	3
+							    origin_attachment 	(2104, 1392)
+							    terminal_attachment 	(465, 537)
+							    x_offset   	FALSE)
+							(object TransView "" @249
+							    font       	(object Font
+								size       	10
+								face       	"Arial"
+								bold       	FALSE
+								italics    	FALSE
+								underline  	FALSE
+								strike     	FALSE
+								color      	0
+								default_color 	TRUE)
+							    label      	(object SegLabel @250
+								Parent_View 	@249
+								location   	(2462, 726)
+								font       	(object Font
+								    size       	10
+								    face       	"Arial"
+								    bold       	FALSE
+								    italics    	FALSE
+								    underline  	FALSE
+								    strike     	FALSE
+								    color      	0
+								    default_color 	TRUE)
+								anchor_loc 	1
+								nlines     	1
+								max_width  	450
+								justify    	0
+								label      	"补费"
+								pctDist    	0.510791
+								height     	43
+								orientation 	1)
+							    stereotype 	TRUE
+							    line_color 	3342489
+							    quidu      	"583D13250314"
+							    client     	@226
+							    supplier   	@244
+							    vertices   	(list Points
+								(2404, 1384)
+								(2587, 1384)
+								(2587, 769)
+								(1684, 769)
+								(1684, 875))
+							    line_style 	3
+							    origin_attachment 	(2404, 1384)
+							    terminal_attachment 	(1684, 875)
+							    x_offset   	FALSE)
+							(object TransView "" @251
+							    font       	(object Font
+								size       	10
+								face       	"Arial"
+								bold       	FALSE
+								italics    	FALSE
+								underline  	FALSE
+								strike     	FALSE
+								color      	0
+								default_color 	TRUE)
+							    label      	(object SegLabel @252
+								Parent_View 	@251
+								location   	(1454, 1120)
+								font       	(object Font
+								    size       	10
+								    face       	"Arial"
+								    bold       	FALSE
+								    italics    	FALSE
+								    underline  	FALSE
+								    strike     	FALSE
+								    color      	0
+								    default_color 	TRUE)
+								anchor_loc 	1
+								nlines     	1
+								max_width  	450
+								justify    	0
+								label      	"执行（不欠费）"
+								pctDist    	0.199004
+								height     	161
+								orientation 	1)
+							    stereotype 	TRUE
+							    line_color 	3342489
+							    quidu      	"58339F3301DB"
+							    client     	@244
+							    supplier   	@221
+							    vertices   	(list Points
+								(1614, 1009)
+								(1614, 1566))
+							    line_style 	3
+							    origin_attachment 	(1614, 1009)
+							    terminal_attachment 	(1614, 1566)
+							    x_offset   	FALSE)
+							(object TransView "" @253
+							    font       	(object Font
+								size       	10
+								face       	"Arial"
+								bold       	FALSE
+								italics    	FALSE
+								underline  	FALSE
+								strike     	FALSE
+								color      	0
+								default_color 	TRUE)
+							    label      	(object SegLabel @254
+								Parent_View 	@253
+								location   	(2101, 898)
+								font       	(object Font
+								    size       	10
+								    face       	"Arial"
+								    bold       	FALSE
+								    italics    	FALSE
+								    underline  	FALSE
+								    strike     	FALSE
+								    color      	0
+								    default_color 	TRUE)
+								anchor_loc 	1
+								nlines     	1
+								max_width  	450
+								justify    	0
+								label      	"执行（欠费）"
+								pctDist    	0.399764
+								height     	45
+								orientation 	0)
+							    stereotype 	TRUE
+							    line_color 	3342489
+							    quidu      	"58339F99008A"
+							    client     	@244
+							    supplier   	@226
+							    vertices   	(list Points
+								(1762, 943)
+								(2234, 943)
+								(2234, 1319))
+							    line_style 	3
+							    origin_attachment 	(1762, 943)
+							    terminal_attachment 	(2234, 1319)
+							    x_offset   	FALSE)
+							(object TransView "" @255
+							    font       	(object Font
+								size       	10
+								face       	"Arial"
+								bold       	FALSE
+								italics    	FALSE
+								underline  	FALSE
+								strike     	FALSE
+								color      	0
+								default_color 	TRUE)
+							    label      	(object SegLabel @256
+								Parent_View 	@255
+								location   	(879, 907)
+								font       	(object Font
+								    size       	10
+								    face       	"Arial"
+								    bold       	FALSE
+								    italics    	FALSE
+								    underline  	FALSE
+								    strike     	FALSE
+								    color      	0
+								    default_color 	TRUE)
+								anchor_loc 	1
+								nlines     	1
+								max_width  	450
+								justify    	0
+								label      	"医嘱作废"
+								pctDist    	0.436051
+								height     	58
+								orientation 	1)
+							    stereotype 	TRUE
+							    line_color 	3342489
+							    quidu      	"5833A1780169"
+							    client     	@244
+							    supplier   	@227
+							    vertices   	(list Points
+								(1462, 965)
+								(553, 965)
+								(553, 537))
+							    line_style 	3
+							    origin_attachment 	(1462, 965)
+							    terminal_attachment 	(553, 537)
+							    x_offset   	FALSE)
+							(object TransView "" @257
+							    font       	(object Font
+								size       	10
+								face       	"Arial"
+								bold       	FALSE
+								italics    	FALSE
+								underline  	FALSE
+								strike     	FALSE
+								color      	0
+								default_color 	TRUE)
+							    label      	(object SegLabel @258
+								Parent_View 	@257
+								location   	(1974, 1463)
+								font       	(object Font
+								    size       	10
+								    face       	"Arial"
+								    bold       	FALSE
+								    italics    	FALSE
+								    underline  	FALSE
+								    strike     	FALSE
+								    color      	0
+								    default_color 	TRUE)
+								anchor_loc 	1
+								nlines     	1
+								max_width  	450
+								justify    	0
+								label      	"医嘱停止"
+								pctDist    	0.685204
+								height     	44
+								orientation 	0)
+							    stereotype 	TRUE
+							    line_color 	3342489
+							    quidu      	"583504BB02A7"
+							    client     	@244
+							    supplier   	@232
+							    vertices   	(list Points
+								(1712, 1009)
+								(1712, 1506)
+								(2246, 1506)
+								(2246, 1582))
+							    line_style 	3
+							    origin_attachment 	(1712, 1009)
+							    terminal_attachment 	(2246, 1582)
 							    x_offset   	FALSE)))
 						(object State_Diagram "是否发生成本"
 						    quid       	"583D333D02FF"
@@ -21757,7 +21703,7 @@
 					zoom       	100
 					max_height 	28350
 					max_width  	21600
-					origin_x   	76
+					origin_x   	75
 					origin_y   	366
 					items      	(list diagram_item_list
 					    (object CategoryView "Logical View::04.分析模型::分析元素::领域层::组织" @933
