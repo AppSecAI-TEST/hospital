@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.order;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.visit.VisitDomainService;
+import com.neusoft.hs.domain.visit.VisitIntoWardedEvent;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -27,6 +29,9 @@ public class OrderDomainService {
 
 	@Autowired
 	private VisitDomainService visitDomainService;
+	
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	/**
 	 * @param doctor
@@ -43,6 +48,8 @@ public class OrderDomainService {
 		order.setState(Order.State_Created);
 		
 		order.save();
+		
+		applicationContext.publishEvent(new OrderCreatedEvent(order));
 	}
 
 	/**
