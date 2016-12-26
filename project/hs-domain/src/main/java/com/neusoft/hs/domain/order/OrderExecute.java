@@ -109,6 +109,8 @@ public class OrderExecute extends SuperEntity {
 
 	public static final String State_Executing = "执行中";
 
+	public static final String State_Finished = "已完成";
+
 	public static final String ChargeState_NoCharge = "未收费";
 
 	public static final String CostState_NoCost = "未发生成本";
@@ -136,9 +138,20 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	/**
+	 * @param user
 	 * @roseuid 584FB6EB03E5
 	 */
-	public void finish() {
+	public void finish(AbstractUser user) {
+		this.endDate = DateUtil.getSysDate();
+		this.state = State_Finished;
+		this.actualExecutor = user;
+
+		OrderExecute next = this.getNext();
+		if (next != null) {
+			next.setState(OrderExecute.State_Executing);
+		}
+
+		this.order.setStateDesc(this.type + "执行条目已完成");
 
 	}
 
@@ -322,6 +335,14 @@ public class OrderExecute extends SuperEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	public OrderExecute getNext() {
+		if (this.nextId != null) {
+			return this.getService(OrderExecuteRepo.class).findOne(this.nextId);
+		} else {
+			return null;
+		}
 	}
 
 }
