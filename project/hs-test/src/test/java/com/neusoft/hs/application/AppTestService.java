@@ -194,17 +194,21 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 
-		// 发送医嘱
+		// 发送医嘱条目
 		orderExecuteAppService.send(executes.get(0).getId(), user003);
 
 		// 采用API启动符合条件的执行条目
 		int startedCount = orderExecuteAppService.start();
-		
+
 		assertTrue(startedCount == 1);
-		
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user333, pageable);
-		
+
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user333,
+				pageable);
+
 		assertTrue(executes.size() == 1);
+
+		// 完成摆药医嘱条目
+		orderExecuteAppService.finish(executes.get(0).getId(), user333);
 
 	}
 

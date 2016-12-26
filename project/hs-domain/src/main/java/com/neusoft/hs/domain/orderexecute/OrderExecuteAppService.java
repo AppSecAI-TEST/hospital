@@ -14,8 +14,6 @@ import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.domain.organization.Staff;
-import com.neusoft.hs.domain.cost.CostDomainService;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -38,7 +36,7 @@ public class OrderExecuteAppService {
 	/**
 	 * @roseuid 584F67A6034B
 	 */
-	public int start() {
+	public int start() throws OrderExecuteException{
 		return orderExecuteDomainService.start();
 	}
 
@@ -49,9 +47,12 @@ public class OrderExecuteAppService {
 	}
 
 	/**
+	 * @param user
+	 * @param executeId
 	 * @roseuid 584FB68C010C
 	 */
-	public void finish() {
+	public void finish(String executeId, AbstractUser user)
+			throws OrderExecuteException {
 
 	}
 

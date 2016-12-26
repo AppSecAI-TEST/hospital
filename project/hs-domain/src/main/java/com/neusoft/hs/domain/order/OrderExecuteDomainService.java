@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.order;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,9 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class OrderExecuteDomainService {
 
 	@Autowired
+	private ApplicationContext applicationContext;
+
+	@Autowired
 	private OrderExecuteRepo orderExecuteRepo;
 
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
@@ -29,7 +33,6 @@ public class OrderExecuteDomainService {
 
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
 			Pageable pageable) {
-		// TODO Auto-generated method stub
 		return orderExecuteRepo.findByStateAndExecuteDept(
 				OrderExecute.State_Executing, user.getDept(), pageable);
 	}
@@ -48,12 +51,15 @@ public class OrderExecuteDomainService {
 					+ "]不存在");
 		}
 		execute.send();
+
+		applicationContext.publishEvent(new OrderExecuteSendedEvent(execute));
+
 	}
 
 	/**
 	 * @roseuid 584F691702B2
 	 */
-	public int start() {
+	public int start() throws OrderExecuteException {
 		return orderExecuteRepo.start(OrderExecute.State_Executing,
 				OrderExecute.State_NeedExecute, ChargeBill.State_Normal,
 				DateUtil.getSysDate());
