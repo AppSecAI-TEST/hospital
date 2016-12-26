@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.order;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -73,6 +74,8 @@ public class DrugOrderType extends OrderType {
 		List<OrderExecute> orderExecutes = new ArrayList<OrderExecute>();
 		OrderExecute orderExecute;
 		Date sysDate;
+		
+		String teamId = UUID.randomUUID().toString();
 
 		// 摆药执行条目
 		orderExecute = new OrderExecute();
@@ -80,6 +83,8 @@ public class DrugOrderType extends OrderType {
 		orderExecute.setVisit(order.getVisit());
 		orderExecute.setBelongDept(order.getBelongDept());
 		orderExecute.setType(OrderExecute.Type_Dispense_Drug);
+		orderExecute.setTeamId(teamId);
+		orderExecute.setTeamFirst(true);
 
 		sysDate = DateUtil.getSysDate();
 		orderExecute.setPlanStartDate(sysDate);
@@ -98,6 +103,8 @@ public class DrugOrderType extends OrderType {
 		orderExecute.setVisit(order.getVisit());
 		orderExecute.setBelongDept(order.getBelongDept());
 		orderExecute.setType(OrderExecute.Type_Take_Drug);
+		orderExecute.setTeamId(teamId);
+		orderExecute.setTeamFirst(false);
 
 		sysDate = DateUtil.getSysDate();
 		orderExecute.setPlanStartDate(sysDate);

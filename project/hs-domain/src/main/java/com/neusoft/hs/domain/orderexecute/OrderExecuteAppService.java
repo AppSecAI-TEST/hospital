@@ -32,8 +32,8 @@ public class OrderExecuteAppService {
 	/**
 	 * @roseuid 584F67A6034B
 	 */
-	public void start() {
-
+	public int start() {
+		return orderExecuteDomainService.start();
 	}
 
 	/**

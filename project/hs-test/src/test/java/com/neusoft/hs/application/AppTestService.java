@@ -135,6 +135,7 @@ public class AppTestService {
 
 		Pageable pageable;
 		List<Visit> visits;
+		List<OrderExecute> executes;
 
 		pageable = new PageRequest(0, 15);
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
@@ -189,13 +190,17 @@ public class AppTestService {
 		orderAppService.verify(order.getId(), user003);
 
 		pageable = new PageRequest(0, 15);
-		List<OrderExecute> executes = orderAppService.getNeedSendOrderExecutes(
-				user003, pageable);
+		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
 		assertTrue(executes.size() == 1);
 
 		// 发送医嘱
 		orderExecuteAppService.send(executes.get(0).getId(), user003);
+
+		// 采用API启动符合条件的执行条目
+		int startedCount = orderExecuteAppService.start();
+		
+		assertTrue(startedCount == 1);
 
 	}
 

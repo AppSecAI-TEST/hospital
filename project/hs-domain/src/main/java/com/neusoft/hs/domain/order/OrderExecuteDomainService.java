@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -43,8 +45,10 @@ public class OrderExecuteDomainService {
 	/**
 	 * @roseuid 584F691702B2
 	 */
-	public void start() {
-
+	public int start() {
+		return orderExecuteRepo.start(OrderExecute.State_Executing,
+				OrderExecute.State_NeedExecute, ChargeBill.State_Normal,
+				DateUtil.getSysDate());
 	}
 
 	/**

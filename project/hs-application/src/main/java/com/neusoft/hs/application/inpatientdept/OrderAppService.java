@@ -71,5 +71,4 @@ public class OrderAppService {
 		return orderExecuteDomainService.getNeedSendOrderExecutes(nurse,
 				pageable);
 	}
-
 }

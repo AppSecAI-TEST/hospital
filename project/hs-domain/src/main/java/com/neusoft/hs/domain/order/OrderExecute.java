@@ -38,6 +38,13 @@ public class OrderExecute extends IdEntity {
 	@Column(length = 32)
 	private String type;
 
+	@NotEmpty(message = "组标识不能为空")
+	@Column(name = "team_id", length = 36)
+	private String teamId;
+
+	@Column(name = "is_team_first")
+	private boolean isTeamFirst;
+
 	@Column(name = "charge_state", length = 32)
 	private String chargeState;
 
@@ -90,6 +97,8 @@ public class OrderExecute extends IdEntity {
 	public static final String State_NeedSend = "待发送";
 
 	public static final String State_NeedExecute = "待执行";
+	
+	public static final String State_Executing = "执行中";
 
 	public static final String ChargeState_NoCharge = "未收费";
 
@@ -144,6 +153,22 @@ public class OrderExecute extends IdEntity {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
+
+	public boolean isTeamFirst() {
+		return isTeamFirst;
+	}
+
+	public void setTeamFirst(boolean isTeamFirst) {
+		this.isTeamFirst = isTeamFirst;
 	}
 
 	public String getState() {
