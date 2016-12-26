@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -23,7 +24,14 @@ public class OrderExecuteDomainService {
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
 			Pageable pageable) {
 		return orderExecuteRepo.findByStateAndBelongDept(
-				OrderExecute.State_NeedSend, nurse.getDept());
+				OrderExecute.State_NeedSend, nurse.getDept(), pageable);
+	}
+
+	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
+			Pageable pageable) {
+		// TODO Auto-generated method stub
+		return orderExecuteRepo.findByStateAndExecuteDept(
+				OrderExecute.State_Executing, user.getDept(), pageable);
 	}
 
 	/**

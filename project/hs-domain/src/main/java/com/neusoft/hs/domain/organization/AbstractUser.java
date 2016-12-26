@@ -40,4 +40,9 @@ public abstract class AbstractUser extends SuperEntity implements User {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public abstract Dept getDept();
+
+	public abstract void setDept(Dept dept);
+
 }

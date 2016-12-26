@@ -80,8 +80,8 @@ public class Nurse extends AbstractUser {
 		return dept;
 	}
 
-	public void setDept(InPatientDept dept) {
-		this.dept = dept;
+	public void setDept(Dept dept) {
+		this.dept = (InPatientDept) dept;
 	}
 
 }

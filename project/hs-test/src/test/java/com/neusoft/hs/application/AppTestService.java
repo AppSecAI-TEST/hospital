@@ -201,6 +201,10 @@ public class AppTestService {
 		int startedCount = orderExecuteAppService.start();
 		
 		assertTrue(startedCount == 1);
+		
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user333, pageable);
+		
+		assertTrue(executes.size() == 1);
 
 	}
 

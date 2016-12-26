@@ -2,13 +2,19 @@
 
 package com.neusoft.hs.domain.orderexecute;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.cost.CostDomainService;
 
 @Service
@@ -36,6 +42,12 @@ public class OrderExecuteAppService {
 		return orderExecuteDomainService.start();
 	}
 
+	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
+			Pageable pageable) {
+		return orderExecuteDomainService.getNeedExecuteOrderExecutes(user,
+				pageable);
+	}
+
 	/**
 	 * @roseuid 584FB68C010C
 	 */
@@ -49,4 +61,5 @@ public class OrderExecuteAppService {
 	public void unCharging() {
 
 	}
+
 }
