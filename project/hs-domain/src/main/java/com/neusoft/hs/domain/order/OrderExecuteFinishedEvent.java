@@ -2,15 +2,13 @@
 
 package com.neusoft.hs.domain.order;
 
+import org.springframework.context.ApplicationEvent;
 
-public class OrderExecuteFinishedEvent 
-{
-   
-   /**
-    * @roseuid 58573EC70343
-    */
-   public OrderExecuteFinishedEvent() 
-   {
-    
-   }
+
+public class OrderExecuteFinishedEvent extends ApplicationEvent {
+
+	public OrderExecuteFinishedEvent(Object source) {
+		super(source);
+	}
+
 }

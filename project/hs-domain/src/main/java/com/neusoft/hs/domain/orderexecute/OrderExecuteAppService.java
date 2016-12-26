@@ -53,7 +53,7 @@ public class OrderExecuteAppService {
 	 */
 	public void finish(String executeId, AbstractUser user)
 			throws OrderExecuteException {
-
+		orderExecuteDomainService.finish(executeId, user);
 	}
 
 	/**

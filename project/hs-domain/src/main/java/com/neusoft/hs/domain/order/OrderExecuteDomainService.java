@@ -66,10 +66,20 @@ public class OrderExecuteDomainService {
 	}
 
 	/**
+	 * @param user 
+	 * @param executeId 
+	 * @throws OrderExecuteException 
 	 * @roseuid 584FB6AF013C
 	 */
-	public void finish() {
+	public void finish(String executeId, AbstractUser user) throws OrderExecuteException {
+		OrderExecute execute = orderExecuteRepo.findOne(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
+		execute.finish();
 
+		applicationContext.publishEvent(new OrderExecuteFinishedEvent(execute));
 	}
 
 	/**
