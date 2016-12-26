@@ -34,6 +34,10 @@ public class OrderExecute extends IdEntity {
 	@Column(length = 32)
 	private String state;
 
+	@NotEmpty(message = "类型不能为空")
+	@Column(length = 32)
+	private String type;
+
 	@Column(name = "charge_state", length = 32)
 	private String chargeState;
 
@@ -91,6 +95,10 @@ public class OrderExecute extends IdEntity {
 
 	public static final String CostState_NoCost = "未发生成本";
 
+	public static final String Type_Dispense_Drug = "摆药";
+
+	public static final String Type_Take_Drug = "取药";
+
 	/**
 	 * @param nurse
 	 * @roseuid 584F624D0233
@@ -98,8 +106,8 @@ public class OrderExecute extends IdEntity {
 	public void send() {
 		this.state = State_NeedExecute;
 		this.sendDate = DateUtil.getSysDate();
-		
-		this.order.setStateDesc("摆药执行条目已发送");
+
+		this.order.setStateDesc(this.type + "执行条目已发送");
 	}
 
 	/**
@@ -128,6 +136,14 @@ public class OrderExecute extends IdEntity {
 	 */
 	public void cancel() {
 
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getState() {

@@ -79,6 +79,7 @@ public class DrugOrderType extends OrderType {
 		orderExecute.setOrder(order);
 		orderExecute.setVisit(order.getVisit());
 		orderExecute.setBelongDept(order.getBelongDept());
+		orderExecute.setType(OrderExecute.Type_Dispense_Drug);
 
 		sysDate = DateUtil.getSysDate();
 		orderExecute.setPlanStartDate(sysDate);
@@ -96,6 +97,7 @@ public class DrugOrderType extends OrderType {
 		orderExecute.setOrder(order);
 		orderExecute.setVisit(order.getVisit());
 		orderExecute.setBelongDept(order.getBelongDept());
+		orderExecute.setType(OrderExecute.Type_Take_Drug);
 
 		sysDate = DateUtil.getSysDate();
 		orderExecute.setPlanStartDate(sysDate);
