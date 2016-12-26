@@ -70,54 +70,48 @@ public class DrugOrderType extends OrderType {
 	}
 
 	@Override
-	public List<OrderExecute> resolveOrder(Order order) {
-		List<OrderExecute> orderExecutes = new ArrayList<OrderExecute>();
-		OrderExecute orderExecute;
+	public OrderExecuteTeam resolveOrder(Order order) {
+		OrderExecuteTeam team = new OrderExecuteTeam();
+		OrderExecute execute;
 		Date sysDate;
-		
-		String teamId = UUID.randomUUID().toString();
 
 		// 摆药执行条目
-		orderExecute = new OrderExecute();
-		orderExecute.setOrder(order);
-		orderExecute.setVisit(order.getVisit());
-		orderExecute.setBelongDept(order.getBelongDept());
-		orderExecute.setType(OrderExecute.Type_Dispense_Drug);
-		orderExecute.setTeamId(teamId);
-		orderExecute.setTeamFirst(true);
+		execute = new OrderExecute();
+		execute.setOrder(order);
+		execute.setVisit(order.getVisit());
+		execute.setBelongDept(order.getBelongDept());
+		execute.setType(OrderExecute.Type_Dispense_Drug);
 
 		sysDate = DateUtil.getSysDate();
-		orderExecute.setPlanStartDate(sysDate);
-		orderExecute.setPlanEndDate(sysDate);
+		execute.setPlanStartDate(sysDate);
+		execute.setPlanEndDate(sysDate);
 
-		orderExecute.setExecuteDept(drugType.getPharmacy());
-		orderExecute.setState(OrderExecute.State_NeedSend);
-		orderExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
-		orderExecute.setCostState(OrderExecute.CostState_NoCost);
+		execute.setExecuteDept(drugType.getPharmacy());
+		execute.setState(OrderExecute.State_NeedSend);
+		execute.setChargeState(OrderExecute.ChargeState_NoCharge);
+		execute.setCostState(OrderExecute.CostState_NoCost);
 
-		orderExecutes.add(orderExecute);
+		team.addOrderExecute(execute);
 
 		// 取药执行条目
-		orderExecute = new OrderExecute();
-		orderExecute.setOrder(order);
-		orderExecute.setVisit(order.getVisit());
-		orderExecute.setBelongDept(order.getBelongDept());
-		orderExecute.setType(OrderExecute.Type_Take_Drug);
-		orderExecute.setTeamId(teamId);
-		orderExecute.setTeamFirst(false);
+		execute = new OrderExecute();
+		execute.setOrder(order);
+		execute.setVisit(order.getVisit());
+		execute.setBelongDept(order.getBelongDept());
+		execute.setType(OrderExecute.Type_Take_Drug);
 
 		sysDate = DateUtil.getSysDate();
-		orderExecute.setPlanStartDate(sysDate);
-		orderExecute.setPlanEndDate(sysDate);
+		execute.setPlanStartDate(sysDate);
+		execute.setPlanEndDate(sysDate);
 
-		orderExecute.setExecuteDept(order.getBelongDept());
-		orderExecute.setState(OrderExecute.State_NeedExecute);
-		orderExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
-		orderExecute.setCostState(OrderExecute.CostState_NoCost);
+		execute.setExecuteDept(order.getBelongDept());
+		execute.setState(OrderExecute.State_NeedExecute);
+		execute.setChargeState(OrderExecute.ChargeState_NoCharge);
+		execute.setCostState(OrderExecute.CostState_NoCost);
 
-		orderExecutes.add(orderExecute);
+		team.addOrderExecute(execute);
 
-		return orderExecutes;
+		return team;
 	}
 
 	public DrugType getDrugType() {

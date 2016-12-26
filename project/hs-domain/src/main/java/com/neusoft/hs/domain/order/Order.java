@@ -103,7 +103,7 @@ public abstract class Order extends IdEntity {
 	 * @roseuid 584F494100C2
 	 */
 	public void resolve() {
-		this.addExecutes(this.type.resolveOrder(this));
+		this.addExecutes(this.type.resolveOrder(this).getExecutes());
 	}
 
 	/**

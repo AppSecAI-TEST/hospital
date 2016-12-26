@@ -24,7 +24,7 @@ public interface OrderExecuteRepo extends
 			Pageable pageable);
 
 	@Modifying
-	@Query("update OrderExecute e set e.state = :newState where e.planStartDate <= :sysDate AND e.state = :oldState AND e.isTeamFirst = true AND e.visit in (select b.visit from ChargeBill b where b.balance > 0 AND b.state = :chargeBillState)")
+	@Query("update OrderExecute e set e.state = :newState, e.startDate = :sysDate where e.planStartDate <= :sysDate AND e.state = :oldState AND e.previousId = null AND e.visit in (select b.visit from ChargeBill b where b.balance > 0 AND b.state = :chargeBillState)")
 	int start(@Param("newState") String newState,
 			@Param("oldState") String oldState,
 			@Param("chargeBillState") String chargeBillState,

@@ -9,9 +9,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
@@ -23,12 +25,16 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Role;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_order_execute")
-public class OrderExecute extends IdEntity {
+public class OrderExecute extends SuperEntity {
+
+	@Id
+	@Column(name = "id", unique = true, nullable = false, length = 36)
+	private String id;
 
 	@NotEmpty(message = "状态不能为空")
 	@Column(length = 32)
@@ -42,8 +48,11 @@ public class OrderExecute extends IdEntity {
 	@Column(name = "team_id", length = 36)
 	private String teamId;
 
-	@Column(name = "is_team_first")
-	private boolean isTeamFirst;
+	@Column(name = "previous_id", length = 36)
+	private String previousId;
+
+	@Column(name = "next_id", length = 36)
+	private String nextId;
 
 	@Column(name = "charge_state", length = 32)
 	private String chargeState;
@@ -97,7 +106,7 @@ public class OrderExecute extends IdEntity {
 	public static final String State_NeedSend = "待发送";
 
 	public static final String State_NeedExecute = "待执行";
-	
+
 	public static final String State_Executing = "执行中";
 
 	public static final String ChargeState_NoCharge = "未收费";
@@ -147,6 +156,22 @@ public class OrderExecute extends IdEntity {
 
 	}
 
+	public OrderExecute() {
+		super();
+	}
+
+	public OrderExecute(String id) {
+		this.setId(id);
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -163,12 +188,20 @@ public class OrderExecute extends IdEntity {
 		this.teamId = teamId;
 	}
 
-	public boolean isTeamFirst() {
-		return isTeamFirst;
+	public String getPreviousId() {
+		return previousId;
 	}
 
-	public void setTeamFirst(boolean isTeamFirst) {
-		this.isTeamFirst = isTeamFirst;
+	public void setPreviousId(String previousId) {
+		this.previousId = previousId;
+	}
+
+	public String getNextId() {
+		return nextId;
+	}
+
+	public void setNextId(String nextId) {
+		this.nextId = nextId;
 	}
 
 	public String getState() {
