@@ -82,8 +82,8 @@ public class DrugOrderType extends OrderType {
 		dispensingDrugExecute.setBelongDept(order.getBelongDept());
 		dispensingDrugExecute.setType(OrderExecute.Type_Dispense_Drug);
 
-		dispensingDrugExecute.setPrice(((DrugOrderType) order.getType())
-				.getDrugType().getDrugTypeSpec().getChargeItem().getPrice());
+		dispensingDrugExecute.setChargeItem(((DrugOrderType) order.getType())
+				.getDrugType().getDrugTypeSpec().getChargeItem());
 		dispensingDrugExecute.setCount(order.getCount());
 
 		sysDate = DateUtil.getSysDate();

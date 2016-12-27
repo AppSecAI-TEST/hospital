@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
@@ -45,6 +46,9 @@ public class ChargeItem extends SuperEntity {
 
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<ChargeRecord> chargeRecords;
+
+	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	private List<OrderExecute> executes;
 
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<VisitChargeItem> visitChargeItems;
@@ -122,6 +126,14 @@ public class ChargeItem extends SuperEntity {
 
 	public void setVisitChargeItems(List<VisitChargeItem> visitChargeItems) {
 		this.visitChargeItems = visitChargeItems;
+	}
+
+	public List<OrderExecute> getExecutes() {
+		return executes;
+	}
+
+	public void setExecutes(List<OrderExecute> executes) {
+		this.executes = executes;
 	}
 
 }

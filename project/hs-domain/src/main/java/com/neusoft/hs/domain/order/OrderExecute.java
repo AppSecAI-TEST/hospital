@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
@@ -86,6 +87,10 @@ public class OrderExecute extends SuperEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private Order order;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "charge_item_id")
+	private ChargeItem chargeItem;
 
 	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
@@ -323,6 +328,14 @@ public class OrderExecute extends SuperEntity {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public ChargeItem getChargeItem() {
+		return chargeItem;
+	}
+
+	public void setChargeItem(ChargeItem chargeItem) {
+		this.chargeItem = chargeItem;
 	}
 
 	public List<ChargeRecord> getChargeRecords() {
