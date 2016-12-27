@@ -74,6 +74,10 @@ public abstract class Order extends IdEntity {
 
 	public static final String State_Executing = "执行中";
 
+	public static final String State_Finished = "已完成";
+
+	public static final String State_Canceled = "已作废";
+
 	/**
 	 * @throws HsException
 	 * @roseuid 584E6696009D
@@ -125,10 +129,14 @@ public abstract class Order extends IdEntity {
 	}
 
 	/**
+	 * @param doctor
 	 * @roseuid 5850AF1E016C
 	 */
-	public void cancel() {
-
+	public void cancel(Doctor doctor) {
+		for (OrderExecute execute : this.orderExecutes) {
+			execute.cancel();
+		}
+		this.state = State_Canceled;
 	}
 
 	public String getState() {

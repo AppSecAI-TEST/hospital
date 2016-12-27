@@ -53,10 +53,13 @@ public class OrderAppService {
 	}
 
 	/**
+	 * @param doctor
+	 * @param orderId
+	 * @throws OrderException
 	 * @roseuid 5850ADFE001C
 	 */
-	public void cancel() {
-
+	public void cancel(String orderId, Doctor doctor) throws OrderException {
+		orderDomainService.cancel(orderId, doctor);
 	}
 
 	/**

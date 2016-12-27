@@ -216,6 +216,12 @@ public class AppTestService {
 				pageable);
 
 		assertTrue(executes.size() == 1);
+		
+		//完成取药医嘱条目
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		
+		//取消医嘱条目
+		orderAppService.cancel(order.getId(), user002);
 
 	}
 

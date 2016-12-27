@@ -111,12 +111,18 @@ public class OrderExecute extends SuperEntity {
 
 	public static final String State_Finished = "已完成";
 
+	public static final String State_Canceled = "已作废";
+
 	public static final String ChargeState_NoCharge = "未收费";
-	
+
 	public static final String ChargeState_Charge = "已收费";
 
+	public static final String ChargeState_NeedBackCharge = "待退费";
+
+	public static final String ChargeState_BackCharge = "已退费";
+
 	public static final String CostState_NoCost = "未发生成本";
-	
+
 	public static final String CostState_Cost = "已发生成本";
 
 	public static final String Type_Dispense_Drug = "摆药";
@@ -155,16 +161,18 @@ public class OrderExecute extends SuperEntity {
 		if (next != null) {
 			next.setState(OrderExecute.State_Executing);
 			next.setStartDate(sysDate);
-			
+
 			next.save();
+
+			this.order.setStateDesc(this.type + "执行条目已完成");
+		} else {
+			this.order.setState(Order.State_Finished);
+			this.order.setStateDesc("已完成");
 		}
-
-		this.order.setStateDesc(this.type + "执行条目已完成");
-
 	}
 
 	/**
-	 * @return 
+	 * @return
 	 * @roseuid 58509B990022
 	 */
 	public List<ChargeRecord> createChargeRecords() {
@@ -175,7 +183,10 @@ public class OrderExecute extends SuperEntity {
 	 * @roseuid 5850B1970103
 	 */
 	public void cancel() {
-
+		this.state = State_Canceled;
+		if (this.chargeState.equals(ChargeState_Charge)) {
+			this.chargeState = ChargeState_NeedBackCharge;
+		}
 	}
 
 	public OrderExecute() {

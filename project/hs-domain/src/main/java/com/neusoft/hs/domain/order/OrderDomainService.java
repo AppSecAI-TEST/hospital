@@ -88,10 +88,18 @@ public class OrderDomainService {
 	}
 
 	/**
+	 * @param doctor 
+	 * @param orderId 
+	 * @throws OrderException 
 	 * @roseuid 5850AE8E022C
 	 */
-	public void cancel() {
-
+	public void cancel(String orderId, Doctor doctor) throws OrderException {
+		Order order = orderRepo.findOne(orderId);
+		if (order == null) {
+			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+		}
+		
+		order.cancel(doctor);
 	}
 
 	/**
