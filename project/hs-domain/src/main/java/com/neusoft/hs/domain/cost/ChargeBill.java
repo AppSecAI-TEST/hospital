@@ -62,6 +62,7 @@ public class ChargeBill extends IdEntity {
 
 		float theBalance = 0F;
 		for (ChargeRecord chargeRecord : chargeRecords) {
+			chargeRecord.setChargeBill(this);
 			theBalance += chargeRecord.getAmount();
 		}
 
@@ -88,7 +89,7 @@ public class ChargeBill extends IdEntity {
 			this.addChargeRecord(newChargeRecord);
 			balance += newChargeRecord.getAmount();
 		}
-		
+
 		this.balance += balance;
 
 	}
