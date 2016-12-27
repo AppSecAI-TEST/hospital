@@ -33,6 +33,8 @@ public class CostRecord extends IdEntity {
 
 	public static final String State_Normal = "正常";
 
+	public static final String State_Back = "收回";
+
 	public float getCost() {
 		return cost;
 	}

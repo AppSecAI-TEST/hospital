@@ -76,6 +76,8 @@ public class OrderDomainService {
 		}
 
 		order.verify();
+		
+		applicationContext.publishEvent(new OrderVerifyedEvent(order));
 
 		return order;
 	}
@@ -88,9 +90,9 @@ public class OrderDomainService {
 	}
 
 	/**
-	 * @param doctor 
-	 * @param orderId 
-	 * @throws OrderException 
+	 * @param doctor
+	 * @param orderId
+	 * @throws OrderException
 	 * @roseuid 5850AE8E022C
 	 */
 	public void cancel(String orderId, Doctor doctor) throws OrderException {
@@ -98,8 +100,11 @@ public class OrderDomainService {
 		if (order == null) {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
 		}
-		
+
 		order.cancel(doctor);
+
+		applicationContext.publishEvent(new OrderCanceledEvent(order));
+
 	}
 
 	/**

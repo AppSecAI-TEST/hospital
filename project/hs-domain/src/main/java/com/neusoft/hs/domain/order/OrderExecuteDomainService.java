@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -35,6 +36,12 @@ public class OrderExecuteDomainService {
 			Pageable pageable) {
 		return orderExecuteRepo.findByStateAndExecuteDept(
 				OrderExecute.State_Executing, user.getDept(), pageable);
+	}
+
+	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,
+			Pageable pageable) {
+		return orderExecuteRepo.findByChargeState(
+				OrderExecute.ChargeState_NeedBackCharge, pageable);
 	}
 
 	/**
@@ -84,10 +91,20 @@ public class OrderExecuteDomainService {
 	}
 
 	/**
+	 * @param user
+	 * @param isBackCost
+	 * @param execute
 	 * @roseuid 5850D8510101
 	 */
-	public void unCharging() {
+	public void unCharging(OrderExecute execute, boolean isBackCost, Staff user) {
+		execute.setChargeState(OrderExecute.ChargeState_BackCharge);
+		if (isBackCost) {
+			execute.setCostState(OrderExecute.CostState_NoCost);
+		}
+	}
 
+	public OrderExecute find(String executeId) {
+		return orderExecuteRepo.findOne(executeId);
 	}
 
 }

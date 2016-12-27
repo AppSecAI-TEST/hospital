@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_charge_record")
@@ -58,30 +59,40 @@ public class ChargeRecord extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_dept_id")
 	private Dept chargeDept;
-	
+
 	/**
 	 * @roseuid 5850A1CD019F
 	 */
 	public CostRecord createCostRecord() {
 		CostRecord costRecord = new CostRecord();
-		
+
 		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
 		chargeRecords.add(this);
 		costRecord.setChargeRecords(chargeRecords);
-		
+
 		costRecord.setCost(this.getAmount());
 		costRecord.setState(CostRecord.State_Normal);
 		costRecord.setCreateDate(createDate);
-		
+
 		return costRecord;
-		
+
 	}
 
 	/**
+	 * @return
 	 * @roseuid 5850BE360360
 	 */
-	public void undo() {
+	public ChargeRecord undo() {
+		ChargeRecord chargeRecord = new ChargeRecord();
+		chargeRecord.setCount(count);
+		chargeRecord.setPrice(price);
+		chargeRecord.setAmount(-amount);
+		chargeRecord.setOriginal(this);
+		chargeRecord.setCreateDate(DateUtil.getSysDate());
 
+		this.setNewChargeRecord(chargeRecord);
+
+		return chargeRecord;
 	}
 
 	public float getAmount() {

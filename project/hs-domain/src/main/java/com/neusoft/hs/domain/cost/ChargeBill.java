@@ -44,8 +44,8 @@ public class ChargeBill extends IdEntity {
 	/**
 	 * @roseuid 5850A31301AE
 	 */
-	public void addChargeRecords() {
-
+	public void addChargeRecord(ChargeRecord chargeRecord) {
+		this.chargeRecords.add(chargeRecord);
 	}
 
 	/**
@@ -53,18 +53,18 @@ public class ChargeBill extends IdEntity {
 	 * @roseuid 5850A3D500DE
 	 */
 	public void charging(List<ChargeRecord> chargeRecords) {
-		
-		if(chargeRecords.size() == 0){
+
+		if (chargeRecords.size() == 0) {
 			this.chargeRecords = chargeRecords;
-		}else{
+		} else {
 			this.chargeRecords.addAll(chargeRecords);
 		}
-		
+
 		float theBalance = 0F;
-		for(ChargeRecord chargeRecord : chargeRecords){
+		for (ChargeRecord chargeRecord : chargeRecords) {
 			theBalance += chargeRecord.getAmount();
 		}
-		
+
 		this.balance -= theBalance;
 
 	}
@@ -77,9 +77,19 @@ public class ChargeBill extends IdEntity {
 	}
 
 	/**
+	 * @param chargeRecords
 	 * @roseuid 5850BDE60140
 	 */
-	public void unCharging() {
+	public void unCharging(List<ChargeRecord> chargeRecords) {
+		float balance = 0F;
+		ChargeRecord newChargeRecord = null;
+		for (ChargeRecord chargeRecord : chargeRecords) {
+			newChargeRecord = chargeRecord.undo();
+			this.addChargeRecord(newChargeRecord);
+			balance += newChargeRecord.getAmount();
+		}
+		
+		this.balance += balance;
 
 	}
 

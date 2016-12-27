@@ -9,11 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.organization.Staff;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -21,6 +23,9 @@ public class OrderExecuteAppService {
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
+
+	@Autowired
+	private CostDomainService costDomainService;
 
 	/**
 	 * @param user003
@@ -36,7 +41,7 @@ public class OrderExecuteAppService {
 	/**
 	 * @roseuid 584F67A6034B
 	 */
-	public int start() throws OrderExecuteException{
+	public int start() throws OrderExecuteException {
 		return orderExecuteDomainService.start();
 	}
 
@@ -56,11 +61,30 @@ public class OrderExecuteAppService {
 		orderExecuteDomainService.finish(executeId, user);
 	}
 
+	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,
+			Pageable pageable) {
+		return orderExecuteDomainService.getNeedBackChargeOrderExecutes(user,
+				pageable);
+	}
+
 	/**
+	 * @param user
+	 * @param executeId
+	 * @throws OrderExecuteException
 	 * @roseuid 5850BC9B0098
 	 */
-	public void unCharging() {
+	public void unCharging(String executeId, boolean isBackCost, Staff user)
+			throws OrderExecuteException {
 
+		OrderExecute execute = orderExecuteDomainService.find(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
+		costDomainService.unCharging(execute, isBackCost, user);
+		
+		orderExecuteDomainService.unCharging(execute, isBackCost, user);
+		
 	}
 
 }

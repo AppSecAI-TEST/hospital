@@ -210,18 +210,27 @@ public class AppTestService {
 
 		// 完成摆药医嘱条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user333);
-		
+
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
 		assertTrue(executes.size() == 1);
-		
-		//完成取药医嘱条目
+
+		// 完成取药医嘱条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
-		
-		//取消医嘱条目
+
+		// 取消医嘱条目
 		orderAppService.cancel(order.getId(), user002);
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedBackChargeOrderExecutes(
+				user222, pageable);
+
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.unCharging(executes.get(0).getId(), true,
+				user222);
 
 	}
 
