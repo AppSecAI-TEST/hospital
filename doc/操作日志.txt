@@ -2,7 +2,12 @@
 
 1、设计模型：创建OrderExecuteTeam用于分解医嘱时使用
 2、实现模型：优化医嘱分解逻辑
-3、
+3、设计模型：完成执行条目发送、启动、完成（不携带收费）三个用例
+4、实现模型：通过OrderExecuteFinishedEventListenter实现了自动收费
+5、实现模型：完成作废临时医嘱用例（自动退费）
+6、设计模型：建立医嘱执行条目（OrderExecute）与计费项目（ChargeItem）间的关联
+
+
 2016.12.23
 
 1、实现模型：将hs-portal修改为hs-portal-thymeleaf，并创建hs-portal-swing，希望内核代码即可以运行在BS结构中也可以运行在CS结构中
