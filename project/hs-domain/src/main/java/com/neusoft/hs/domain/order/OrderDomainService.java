@@ -74,7 +74,7 @@ public class OrderDomainService {
 		if (order == null) {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
 		}
-
+		
 		order.verify();
 		
 		applicationContext.publishEvent(new OrderVerifyedEvent(order));
