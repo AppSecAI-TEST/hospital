@@ -98,6 +98,17 @@ public class DrugType extends SuperEntity {
 		}
 	}
 
+	public void send(int count) throws HsException {
+		if (this.withhold >= count) {
+			this.withhold -= count;
+		} else if (this.withhold + this.stock >= count) {
+			this.stock -= (count - this.withhold);
+			this.withhold = 0;
+		} else {
+			throw new HsException("drugTypeId[" + this.getId() + "]库存不足");
+		}
+	}
+
 	private void save() {
 		this.getService(DrugTypeRepo.class).save(this);
 	}

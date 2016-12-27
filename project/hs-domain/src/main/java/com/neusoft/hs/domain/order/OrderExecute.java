@@ -154,9 +154,13 @@ public class OrderExecute extends SuperEntity {
 
 	/**
 	 * @param user
+	 * @throws OrderExecuteException
 	 * @roseuid 584FB6EB03E5
 	 */
-	public void finish(AbstractUser user) {
+	public void finish(AbstractUser user) throws OrderExecuteException {
+
+		this.doFinish(user);
+
 		Date sysDate = DateUtil.getSysDate();
 		this.endDate = sysDate;
 		this.state = State_Finished;
@@ -176,6 +180,10 @@ public class OrderExecute extends SuperEntity {
 		}
 	}
 
+	protected void doFinish(AbstractUser user) throws OrderExecuteException {
+
+	}
+
 	/**
 	 * @return
 	 * @roseuid 58509B990022
@@ -188,10 +196,17 @@ public class OrderExecute extends SuperEntity {
 	 * @roseuid 5850B1970103
 	 */
 	public void cancel() {
+
+		this.doCancel();
+
 		this.state = State_Canceled;
 		if (this.chargeState.equals(ChargeState_Charge)) {
 			this.chargeState = ChargeState_NeedBackCharge;
 		}
+	}
+
+	protected void doCancel() {
+
 	}
 
 	public OrderExecute() {
