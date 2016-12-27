@@ -90,7 +90,7 @@ public class ChargeBill extends IdEntity {
 			balance += newChargeRecord.getAmount();
 		}
 
-		this.balance += balance;
+		this.balance -= balance;
 
 	}
 
