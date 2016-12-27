@@ -17,6 +17,7 @@ import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -76,6 +77,13 @@ public class CostDomainService {
 		// 生成收费项目
 		List<ChargeRecord> chargeRecords = execute.createChargeRecords();
 		if (chargeRecords.size() > 0) {
+			Date sysDate = DateUtil.getSysDate();
+			// 设置数据
+			for (ChargeRecord chargeRecord : chargeRecords) {
+				chargeRecord.setOrderExecute(execute);
+				chargeRecord.setCreateDate(sysDate);
+				chargeRecord.setChargeDept(execute.getExecuteDept());
+			}
 			// 收费
 			execute.getVisit().getChargeBill().charging(chargeRecords);
 			execute.setChargeState(OrderExecute.ChargeState_Charge);

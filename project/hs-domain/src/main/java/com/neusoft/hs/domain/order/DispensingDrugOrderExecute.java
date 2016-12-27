@@ -29,8 +29,7 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 		chargeRecord.setCount(count);
 		chargeRecord.setPrice(price);
 		chargeRecord.setAmount(count * price);
-		chargeRecord.setCreateDate(DateUtil.getSysDate());
-
+		
 		chargeRecords.add(chargeRecord);
 
 		return chargeRecords;

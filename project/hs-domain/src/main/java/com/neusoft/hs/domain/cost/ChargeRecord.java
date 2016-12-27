@@ -69,6 +69,8 @@ public class ChargeRecord extends IdEntity {
 		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
 		chargeRecords.add(this);
 		costRecord.setChargeRecords(chargeRecords);
+		
+		this.setCostRecord(costRecord);
 
 		costRecord.setCost(this.getAmount());
 		costRecord.setState(CostRecord.State_Normal);
