@@ -138,7 +138,7 @@ public class OrderExecute extends SuperEntity {
 	 * @roseuid 584F62CB0254
 	 */
 	public void save() {
-
+		this.getService(OrderExecuteRepo.class).save(this);
 	}
 
 	/**
@@ -146,13 +146,17 @@ public class OrderExecute extends SuperEntity {
 	 * @roseuid 584FB6EB03E5
 	 */
 	public void finish(AbstractUser user) {
-		this.endDate = DateUtil.getSysDate();
+		Date sysDate = DateUtil.getSysDate();
+		this.endDate = sysDate;
 		this.state = State_Finished;
 		this.actualExecutor = user;
 
 		OrderExecute next = this.getNext();
 		if (next != null) {
 			next.setState(OrderExecute.State_Executing);
+			next.setStartDate(sysDate);
+			
+			next.save();
 		}
 
 		this.order.setStateDesc(this.type + "执行条目已完成");

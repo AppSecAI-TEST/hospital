@@ -202,6 +202,7 @@ public class AppTestService {
 
 		assertTrue(startedCount == 1);
 
+		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user333,
 				pageable);
 
@@ -209,6 +210,12 @@ public class AppTestService {
 
 		// 完成摆药医嘱条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user333);
+		
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
 
 	}
 

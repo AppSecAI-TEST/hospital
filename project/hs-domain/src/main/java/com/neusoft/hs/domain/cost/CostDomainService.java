@@ -26,7 +26,7 @@ public class CostDomainService {
 
 	@Autowired
 	private CostRecordRepo costRecordRepo;
-	
+
 	@Autowired
 	private VisitDomainService visitDomainService;
 
@@ -72,20 +72,20 @@ public class CostDomainService {
 	 */
 	public void charging(OrderExecute execute) {
 
+		// 生成收费项目
 		List<ChargeRecord> chargeRecords = execute.createChargeRecords();
-
-		execute.getVisit().getChargeBill().charging(chargeRecords);
-
-		execute.setChargeState(OrderExecute.ChargeState_Charge);
-
-		List<CostRecord> costRecords = new ArrayList<CostRecord>();
-		for (ChargeRecord chargeRecord : chargeRecords) {
-			costRecords.add(chargeRecord.createCostRecord());
+		if (chargeRecords.size() > 0) {
+			// 收费
+			execute.getVisit().getChargeBill().charging(chargeRecords);
+			execute.setChargeState(OrderExecute.ChargeState_Charge);
+			// 记录成本
+			List<CostRecord> costRecords = new ArrayList<CostRecord>();
+			for (ChargeRecord chargeRecord : chargeRecords) {
+				costRecords.add(chargeRecord.createCostRecord());
+			}
+			costRecordRepo.save(costRecords);
+			execute.setCostState(OrderExecute.CostState_Cost);
 		}
-		costRecordRepo.save(costRecords);
-		
-		execute.setCostState(OrderExecute.CostState_Cost);
-
 	}
 
 	/**
