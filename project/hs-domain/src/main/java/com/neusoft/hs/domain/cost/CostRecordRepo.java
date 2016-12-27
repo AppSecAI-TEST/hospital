@@ -2,15 +2,9 @@
 
 package com.neusoft.hs.domain.cost;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public class CostRecordRepo 
-{
-   
-   /**
-    * @roseuid 58573EC80044
-    */
-   public CostRecordRepo() 
-   {
-    
-   }
+public interface CostRecordRepo extends
+		PagingAndSortingRepository<CostRecord, String> {
+
 }

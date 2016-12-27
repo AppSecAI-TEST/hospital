@@ -2,7 +2,9 @@
 
 package com.neusoft.hs.domain.cost;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -56,12 +58,23 @@ public class ChargeRecord extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_dept_id")
 	private Dept chargeDept;
-
+	
 	/**
 	 * @roseuid 5850A1CD019F
 	 */
-	public void createCostRecord() {
-
+	public CostRecord createCostRecord() {
+		CostRecord costRecord = new CostRecord();
+		
+		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
+		chargeRecords.add(this);
+		costRecord.setChargeRecords(chargeRecords);
+		
+		costRecord.setCost(this.getAmount());
+		costRecord.setState(CostRecord.State_Normal);
+		costRecord.setCreateDate(createDate);
+		
+		return costRecord;
+		
 	}
 
 	/**

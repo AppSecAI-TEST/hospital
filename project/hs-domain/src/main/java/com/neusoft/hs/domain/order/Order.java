@@ -44,7 +44,7 @@ public abstract class Order extends IdEntity {
 
 	private Integer count;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
 	private OrderType type;
 

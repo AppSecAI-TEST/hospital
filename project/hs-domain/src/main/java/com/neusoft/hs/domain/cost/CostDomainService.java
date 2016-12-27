@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.cost;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -21,6 +23,10 @@ public class CostDomainService {
 
 	@Autowired
 	private ChargeItemRepo chargeItemRepo;
+
+	@Autowired
+	private CostRecordRepo costRecordRepo;
+	
 	@Autowired
 	private VisitDomainService visitDomainService;
 
@@ -61,9 +67,24 @@ public class CostDomainService {
 	}
 
 	/**
+	 * @param execute
 	 * @roseuid 584FBC02036D
 	 */
-	public void charging() {
+	public void charging(OrderExecute execute) {
+
+		List<ChargeRecord> chargeRecords = execute.createChargeRecords();
+
+		execute.getVisit().getChargeBill().charging(chargeRecords);
+
+		execute.setChargeState(OrderExecute.ChargeState_Charge);
+
+		List<CostRecord> costRecords = new ArrayList<CostRecord>();
+		for (ChargeRecord chargeRecord : chargeRecords) {
+			costRecords.add(chargeRecord.createCostRecord());
+		}
+		costRecordRepo.save(costRecords);
+		
+		execute.setCostState(OrderExecute.CostState_Cost);
 
 	}
 

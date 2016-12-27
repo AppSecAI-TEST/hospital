@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.cost;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,6 +28,11 @@ public class CostRecord extends IdEntity {
 	@OneToMany(mappedBy = "costRecord", cascade = { CascadeType.ALL })
 	private List<ChargeRecord> chargeRecords;
 
+	@Column(name = "create_date")
+	private Date createDate;
+
+	public static final String State_Normal = "正常";
+
 	public float getCost() {
 		return cost;
 	}
@@ -49,6 +55,14 @@ public class CostRecord extends IdEntity {
 
 	public void setChargeRecords(List<ChargeRecord> chargeRecords) {
 		this.chargeRecords = chargeRecords;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 }

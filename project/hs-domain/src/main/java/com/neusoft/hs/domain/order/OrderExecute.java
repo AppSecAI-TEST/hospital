@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
@@ -112,8 +112,12 @@ public class OrderExecute extends SuperEntity {
 	public static final String State_Finished = "已完成";
 
 	public static final String ChargeState_NoCharge = "未收费";
+	
+	public static final String ChargeState_Charge = "已收费";
 
 	public static final String CostState_NoCost = "未发生成本";
+	
+	public static final String CostState_Cost = "已发生成本";
 
 	public static final String Type_Dispense_Drug = "摆药";
 
@@ -156,10 +160,11 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	/**
+	 * @return 
 	 * @roseuid 58509B990022
 	 */
-	public void createChargeRecords() {
-
+	public List<ChargeRecord> createChargeRecords() {
+		return new ArrayList<ChargeRecord>();
 	}
 
 	/**

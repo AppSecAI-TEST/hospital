@@ -49,9 +49,23 @@ public class ChargeBill extends IdEntity {
 	}
 
 	/**
+	 * @param chargeRecords2
 	 * @roseuid 5850A3D500DE
 	 */
-	public void charging() {
+	public void charging(List<ChargeRecord> chargeRecords) {
+		
+		if(chargeRecords.size() == 0){
+			this.chargeRecords = chargeRecords;
+		}else{
+			this.chargeRecords.addAll(chargeRecords);
+		}
+		
+		float theBalance = 0F;
+		for(ChargeRecord chargeRecord : chargeRecords){
+			theBalance += chargeRecord.getAmount();
+		}
+		
+		this.balance -= theBalance;
 
 	}
 
