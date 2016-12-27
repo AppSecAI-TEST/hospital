@@ -129,4 +129,8 @@ public class CostDomainService {
 		chargeItemRepo.deleteAll();
 	}
 
+	public void clearCostRecords() {
+		costRecordRepo.deleteAll();
+	}
+
 }

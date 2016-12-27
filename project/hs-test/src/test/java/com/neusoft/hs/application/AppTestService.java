@@ -245,6 +245,8 @@ public class AppTestService {
 		costDomainService.clearChargeItems();
 		// 清空患者一次住院
 		visitDomainService.clear();
+		// 清空成本记录
+		costDomainService.clearCostRecords();
 		// 清空用户信息
 		userDomainService.clear();
 		// 清空组织机构信息
