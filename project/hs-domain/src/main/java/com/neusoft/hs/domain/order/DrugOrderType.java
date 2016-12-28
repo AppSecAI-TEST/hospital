@@ -73,8 +73,6 @@ public class DrugOrderType extends OrderType {
 	public OrderExecuteTeam resolveOrder(Order order) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
-		Date sysDate;
-
 		// 摆药执行条目
 		DispensingDrugOrderExecute dispensingDrugExecute = new DispensingDrugOrderExecute();
 		dispensingDrugExecute.setOrder(order);
@@ -87,9 +85,8 @@ public class DrugOrderType extends OrderType {
 				.getDrugTypeSpec().getChargeItem());
 		dispensingDrugExecute.setCount(order.getCount());
 
-		sysDate = DateUtil.getSysDate();
-		dispensingDrugExecute.setPlanStartDate(sysDate);
-		dispensingDrugExecute.setPlanEndDate(sysDate);
+		dispensingDrugExecute.setPlanStartDate(order.getPlanStartDate());
+		dispensingDrugExecute.setPlanEndDate(order.getPlanStartDate());
 
 		dispensingDrugExecute.setExecuteDept(drugType.getPharmacy());
 		dispensingDrugExecute.setState(OrderExecute.State_NeedSend);
@@ -105,9 +102,8 @@ public class DrugOrderType extends OrderType {
 		taskDrugExecute.setBelongDept(order.getBelongDept());
 		taskDrugExecute.setType(OrderExecute.Type_Take_Drug);
 
-		sysDate = DateUtil.getSysDate();
-		taskDrugExecute.setPlanStartDate(sysDate);
-		taskDrugExecute.setPlanEndDate(sysDate);
+		taskDrugExecute.setPlanStartDate(order.getPlanStartDate());
+		taskDrugExecute.setPlanEndDate(order.getPlanStartDate());
 
 		taskDrugExecute.setExecuteDept(order.getBelongDept());
 		taskDrugExecute.setState(OrderExecute.State_NeedExecute);

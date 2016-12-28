@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.visit.Visit;
@@ -31,6 +32,10 @@ import com.neusoft.hs.platform.exception.HsException;
 @Table(name = "domain_order")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Order extends IdEntity {
+
+	@NotEmpty(message = "名称不能为空")
+	@Column(length = 128)
+	private String name;
 
 	@NotEmpty(message = "状态不能为空")
 	@Column(length = 32)
@@ -59,6 +64,10 @@ public abstract class Order extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "belong_dept_id")
 	private InPatientDept belongDept;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "execute_dept_id")
+	private Dept executeDept;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -138,6 +147,14 @@ public abstract class Order extends IdEntity {
 			execute.cancel();
 		}
 		this.state = State_Canceled;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getState() {
@@ -228,4 +245,11 @@ public abstract class Order extends IdEntity {
 		this.visitId = visitId;
 	}
 
+	public Dept getExecuteDept() {
+		return executeDept;
+	}
+
+	public void setExecuteDept(Dept executeDept) {
+		this.executeDept = executeDept;
+	}
 }

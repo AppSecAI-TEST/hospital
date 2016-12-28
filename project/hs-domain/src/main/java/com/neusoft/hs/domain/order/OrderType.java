@@ -31,7 +31,7 @@ public abstract class OrderType extends SuperEntity {
 	private String id;
 
 	@NotEmpty(message = "代码不能为空")
-	@Column(length = 16)
+	@Column(length = 32)
 	private String code;
 
 	@ManyToOne(fetch = FetchType.LAZY)

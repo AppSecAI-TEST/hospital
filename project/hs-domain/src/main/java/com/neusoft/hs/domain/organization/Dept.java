@@ -19,6 +19,9 @@ import com.neusoft.hs.domain.visit.Visit;
 public class Dept extends Unit {
 
 	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.ALL })
+	private List<Order> orders;
+
+	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.ALL })
 	private List<OrderExecute> orderExecutes;
 
 	@OneToMany(mappedBy = "chargeDept", cascade = { CascadeType.ALL })
@@ -29,6 +32,14 @@ public class Dept extends Unit {
 
 	public Dept(String id) {
 		this.setId(id);
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public List<OrderExecute> getOrderExecutes() {

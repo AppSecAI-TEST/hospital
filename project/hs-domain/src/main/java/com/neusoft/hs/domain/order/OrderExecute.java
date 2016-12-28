@@ -134,11 +134,20 @@ public class OrderExecute extends SuperEntity {
 
 	public static final String Type_Take_Drug = "取药";
 
+	public static final String Type_Leave_Hospital_Register = "出院登记";
+
+	public static final String Type_Leave_Hospital_Balance = "出院结算";
+
 	/**
 	 * @param nurse
+	 * @throws OrderExecuteException
 	 * @roseuid 584F624D0233
 	 */
-	public void send() {
+	public void send() throws OrderExecuteException {
+		if (!this.state.equals(State_NeedSend)) {
+			throw new OrderExecuteException(this, "state=[" + this.state
+					+ "]不是" + State_NeedSend);
+		}
 		this.state = State_NeedExecute;
 		this.sendDate = DateUtil.getSysDate();
 

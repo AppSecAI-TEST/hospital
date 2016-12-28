@@ -20,6 +20,7 @@ import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.order.DrugOrderType;
+import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -106,6 +107,8 @@ public class AppTestService {
 
 	private DrugOrderType drugOrderType001;// 药品医嘱类型001
 
+	private LeaveHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
+
 	private Visit visit001;
 
 	public void testInit() {
@@ -125,6 +128,8 @@ public class AppTestService {
 	 */
 	public void execute() throws HsException {
 
+		DateUtil.setSysDate(DateUtil.createDate("2016-12-28"));
+
 		// 创建测试患者
 		visit001 = new Visit();
 		visit001.setName("测试患者001");
@@ -136,6 +141,9 @@ public class AppTestService {
 		Pageable pageable;
 		List<Visit> visits;
 		List<OrderExecute> executes;
+		Order order;
+		List<Order> orders;
+		int startedCount;
 
 		pageable = new PageRequest(0, 15);
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
@@ -166,22 +174,24 @@ public class AppTestService {
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
 
+		DateUtil.setSysDate(DateUtil.createDate("2016-12-29"));
+
 		// 开立药品临时医嘱
-		Order order = new TemporaryOrder();
+		order = new TemporaryOrder();
 		order.setVisitId(visit001.getId());
+		order.setName("药品001");
 		order.setPlanStartDate(DateUtil.getSysDate());
 		order.setCount(2);
 
-		DrugOrderType orderType = new DrugOrderType();
-		orderType.setDrugTypeSpecId(drugTypeSpec001.getId());
+		DrugOrderType drugOrderType = new DrugOrderType();
+		drugOrderType.setDrugTypeSpecId(drugTypeSpec001.getId());
 
-		order.setType(orderType);
+		order.setType(drugOrderType);
 
 		orderAppService.create(order, user002);
 
 		pageable = new PageRequest(0, 15);
-		List<Order> orders = orderAppService.getNeedVerifyOrders(user003,
-				pageable);
+		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
 		assertTrue(orders.size() == 1);
 		assertTrue(orders.get(0).getId().equals(order.getId()));
@@ -198,7 +208,7 @@ public class AppTestService {
 		orderExecuteAppService.send(executes.get(0).getId(), user003);
 
 		// 采用API启动符合条件的执行条目
-		int startedCount = orderExecuteAppService.start();
+		startedCount = orderExecuteAppService.start();
 
 		assertTrue(startedCount == 1);
 
@@ -231,6 +241,49 @@ public class AppTestService {
 
 		orderExecuteAppService.unCharging(executes.get(0).getId(), true,
 				user222);
+
+		DateUtil.setSysDate(DateUtil.createDate("2017-01-10"));
+
+		// 开立出院临时医嘱
+		order = new TemporaryOrder();
+		order.setVisitId(visit001.getId());
+		order.setName("出院医嘱");
+		order.setPlanStartDate(DateUtil.createDate("2017-01-12"));
+		order.setExecuteDept(dept222);
+
+		order.setType(leaveHospitalOrderType);
+
+		orderAppService.create(order, user002);
+
+		pageable = new PageRequest(0, 15);
+		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
+
+		assertTrue(orders.size() == 1);
+		assertTrue(orders.get(0).getId().equals(order.getId()));
+
+		// 核对医嘱
+		orderAppService.verify(order.getId(), user003);
+
+		// 采用API启动符合条件的执行条目
+		startedCount = orderExecuteAppService.start();
+
+		assertTrue(startedCount == 0);
+
+		DateUtil.setSysDate(DateUtil.createDate("2017-01-12"));
+
+		// 采用API启动符合条件的执行条目
+		startedCount = orderExecuteAppService.start();
+
+		assertTrue(startedCount == 1);
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成出院登记医嘱条目
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
 
 	}
 
@@ -431,6 +484,12 @@ public class AppTestService {
 		drugOrderType001.setDrugType(drugType001);
 
 		drugOrderTypes.add(drugOrderType001);
+
+		leaveHospitalOrderType = new LeaveHospitalOrderType();
+		leaveHospitalOrderType.setId("leaveHospitalOrderType");
+		leaveHospitalOrderType.setCode("leaveHospitalOrderType");
+
+		drugOrderTypes.add(leaveHospitalOrderType);
 
 		orderDomainService.createOrderTypes(drugOrderTypes);
 	}
