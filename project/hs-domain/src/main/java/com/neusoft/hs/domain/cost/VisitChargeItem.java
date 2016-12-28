@@ -23,6 +23,9 @@ public class VisitChargeItem extends IdEntity {
 	@Column(name = "start_date")
 	private Date startDate;
 
+	@Column(name = "end_date")
+	private Date endDate;
+
 	@NotEmpty(message = "状态不能为空")
 	@Column(length = 32)
 	private String state;
@@ -37,12 +40,22 @@ public class VisitChargeItem extends IdEntity {
 
 	public static final String State_Normal = "正常";
 
+	public static final String State_Stop = "已停止";
+
 	public Date getStartDate() {
 		return startDate;
 	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getState() {

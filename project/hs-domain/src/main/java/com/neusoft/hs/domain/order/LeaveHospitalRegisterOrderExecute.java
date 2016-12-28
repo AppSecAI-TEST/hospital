@@ -4,6 +4,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
 @DiscriminatorValue("LeaveHospitalRegister")
@@ -11,11 +13,20 @@ public class LeaveHospitalRegisterOrderExecute extends OrderExecute {
 
 	@Override
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
-		for (Order order : this.getVisit().getOrders()) {
-			if (order.getState().equals(order.State_Executing)) {
+
+		Visit visit = this.getVisit();
+
+		for (Order order : visit.getOrders()) {
+			if (!this.getOrder().getId().equals(order.getId())
+					&& order.getState().equals(order.State_Executing)) {
 				throw new OrderExecuteException(this, "医嘱[" + order.getName()
 						+ "]状态处于执行中");
 			}
+		}
+		try {
+			visit.leaveWard(user);
+		} catch (HsException e) {
+			throw new OrderExecuteException(this, e);
 		}
 	}
 

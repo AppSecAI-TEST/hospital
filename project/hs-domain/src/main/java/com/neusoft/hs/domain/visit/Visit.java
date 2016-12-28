@@ -88,8 +88,12 @@ public class Visit extends IdEntity {
 	private InPatientDept respDept;
 
 	public static final String State_NeedInitAccount = "待预存费用";
+
 	public static final String State_NeedIntoWard = "待接诊";
+
 	public static final String State_IntoWard = "在病房";
+
+	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
 
 	public ChargeBill initAccount(float balance, AbstractUser user)
 			throws HsException {
@@ -125,22 +129,22 @@ public class Visit extends IdEntity {
 	 */
 	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
 			throws HsException {
-		if (!Visit.State_NeedIntoWard.equals(this.state)) {
+		if (!State_NeedIntoWard.equals(this.state)) {
 			throw new HsException("visit=[" + name + "]的状态应为["
-					+ Visit.State_NeedIntoWard + "]");
+					+ State_NeedIntoWard + "]");
 		}
 
 		Date sysDate = DateUtil.getSysDate();
-		this.setRespNurse(new Nurse(receiveVisitVO.getNurseId()));
-		this.setBed(receiveVisitVO.getBed());
-		this.setState(State_IntoWard);
-		this.setIntoWardDate(sysDate);
+		this.respNurse = new Nurse(receiveVisitVO.getNurseId());
+		this.bed = receiveVisitVO.getBed();
+		this.state = State_IntoWard;
+		this.intoWardDate = sysDate;
 
 		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
 		medicalRecordClip.setVisit(this);
 		medicalRecordClip.setState(MedicalRecordClip.State_Normal);
 
-		this.setMedicalRecordClip(medicalRecordClip);
+		this.medicalRecordClip = medicalRecordClip;
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
@@ -152,9 +156,31 @@ public class Visit extends IdEntity {
 	}
 
 	/**
+	 * @throws HsException
 	 * @roseuid 58525F0D0273
 	 */
-	public void leaveWard() {
+	public void leaveWard(AbstractUser user) throws HsException {
+		if (!State_IntoWard.equals(this.state)) {
+			throw new HsException("visit=[" + name + "]的状态应为[" + State_IntoWard
+					+ "]");
+		}
+
+		Date sysDate = DateUtil.getSysDate();
+
+		this.state = State_NeedLeaveHospitalBalance;
+
+		for (VisitChargeItem visitChargeItem : this.visitChargeItems) {
+			visitChargeItem.setState(VisitChargeItem.State_Stop);
+			visitChargeItem.setEndDate(sysDate);
+		}
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_LeaveWard);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(sysDate);
+
+		visitLog.save();
 
 	}
 
