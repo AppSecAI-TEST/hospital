@@ -130,9 +130,10 @@ public abstract class Order extends IdEntity {
 
 	/**
 	 * @param doctor
+	 * @throws OrderExecuteException
 	 * @roseuid 5850AF1E016C
 	 */
-	public void cancel(Doctor doctor) {
+	public void cancel(Doctor doctor) throws OrderExecuteException {
 		for (OrderExecute execute : this.orderExecutes) {
 			execute.cancel();
 		}

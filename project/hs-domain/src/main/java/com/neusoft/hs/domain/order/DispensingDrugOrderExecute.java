@@ -43,6 +43,16 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 		}
 	}
 
+	@Override
+	protected void doCancel() throws OrderExecuteException {
+		DrugOrderType type = (DrugOrderType) this.getOrder().getType();
+		try {
+			type.getDrugType().unSend(count);
+		} catch (HsException e) {
+			throw new OrderExecuteException(this, e);
+		}
+	}
+
 	public int getCount() {
 		return count;
 	}

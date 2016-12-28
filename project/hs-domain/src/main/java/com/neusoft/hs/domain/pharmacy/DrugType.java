@@ -109,8 +109,11 @@ public class DrugType extends SuperEntity {
 		}
 	}
 
+	public void unSend(int count) throws HsException {
+		this.stock += count;
+	}
+
 	private void save() {
 		this.getService(DrugTypeRepo.class).save(this);
 	}
-
 }

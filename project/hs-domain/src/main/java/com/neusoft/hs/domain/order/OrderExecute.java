@@ -193,9 +193,10 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	/**
+	 * @throws OrderExecuteException
 	 * @roseuid 5850B1970103
 	 */
-	public void cancel() {
+	public void cancel() throws OrderExecuteException {
 
 		this.doCancel();
 
@@ -205,7 +206,7 @@ public class OrderExecute extends SuperEntity {
 		}
 	}
 
-	protected void doCancel() {
+	protected void doCancel() throws OrderExecuteException {
 
 	}
 

@@ -74,9 +74,9 @@ public class OrderDomainService {
 		if (order == null) {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
 		}
-		
+
 		order.verify();
-		
+
 		applicationContext.publishEvent(new OrderVerifyedEvent(order));
 
 		return order;
@@ -101,7 +101,11 @@ public class OrderDomainService {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
 		}
 
-		order.cancel(doctor);
+		try {
+			order.cancel(doctor);
+		} catch (OrderExecuteException e) {
+			throw new OrderException(order, e);
+		}
 
 		applicationContext.publishEvent(new OrderCanceledEvent(order));
 
