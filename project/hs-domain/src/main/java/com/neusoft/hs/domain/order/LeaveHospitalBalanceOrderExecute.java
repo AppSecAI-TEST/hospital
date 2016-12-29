@@ -23,6 +23,7 @@ public class LeaveHospitalBalanceOrderExecute extends OrderExecute {
 		ChargeRecord chargeRecord = new ChargeRecord();
 		chargeRecord.setAmount(-this.getVisit().getChargeBill().getBalance());
 		chargeRecord.setHaveCost(false);
+		chargeRecord.setHaveCharge(false);
 
 		chargeRecords.add(chargeRecord);
 

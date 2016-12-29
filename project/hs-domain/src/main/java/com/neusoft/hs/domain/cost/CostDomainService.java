@@ -78,15 +78,23 @@ public class CostDomainService {
 		List<ChargeRecord> chargeRecords = execute.createChargeRecords();
 		if (chargeRecords.size() > 0) {
 			Date sysDate = DateUtil.getSysDate();
+			boolean haveCharge = false;
 			// 设置数据
 			for (ChargeRecord chargeRecord : chargeRecords) {
 				chargeRecord.setOrderExecute(execute);
 				chargeRecord.setCreateDate(sysDate);
 				chargeRecord.setChargeDept(execute.getExecuteDept());
+
+				if (chargeRecord.isHaveCharge()) {
+					haveCharge = true;
+				}
 			}
-			// 收费
+			// 生成费用记录
 			execute.getVisit().getChargeBill().charging(chargeRecords);
-			execute.setChargeState(OrderExecute.ChargeState_Charge);
+			// 修改执行条目状态
+			if (haveCharge) {
+				execute.setChargeState(OrderExecute.ChargeState_Charge);
+			}
 			// 记录成本
 			List<CostRecord> costRecords = new ArrayList<CostRecord>();
 			CostRecord costRecord;

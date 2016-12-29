@@ -64,6 +64,9 @@ public class ChargeRecord extends IdEntity {
 	@Transient
 	private boolean haveCost = true;
 
+	@Transient
+	private boolean haveCharge = true;
+
 	/**
 	 * @roseuid 5850A1CD019F
 	 */
@@ -94,10 +97,14 @@ public class ChargeRecord extends IdEntity {
 	 */
 	public ChargeRecord undo() {
 		ChargeRecord chargeRecord = new ChargeRecord();
+		
 		chargeRecord.setCount(count);
 		chargeRecord.setPrice(price);
 		chargeRecord.setAmount(-amount);
 		chargeRecord.setOriginal(this);
+		chargeRecord.setChargeItem(chargeItem);
+		chargeRecord.setCostRecord(costRecord);
+		chargeRecord.setOrderExecute(orderExecute);
 		chargeRecord.setCreateDate(DateUtil.getSysDate());
 
 		this.setNewChargeRecord(chargeRecord);
@@ -200,4 +207,13 @@ public class ChargeRecord extends IdEntity {
 	public void setHaveCost(boolean haveCost) {
 		this.haveCost = haveCost;
 	}
+
+	public boolean isHaveCharge() {
+		return haveCharge;
+	}
+
+	public void setHaveCharge(boolean haveCharge) {
+		this.haveCharge = haveCharge;
+	}
+
 }
