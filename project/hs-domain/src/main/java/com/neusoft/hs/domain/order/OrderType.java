@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -34,9 +35,17 @@ public abstract class OrderType extends SuperEntity {
 	@Column(length = 32)
 	private String code;
 
+	@NotEmpty(message = "名称不能为空")
+	@Column(length = 64)
+	private String name;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
 	private OrderType parent;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "charge_item_id")
+	private ChargeItem chargeItem;
 
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
 	private List<OrderType> children;
@@ -74,6 +83,22 @@ public abstract class OrderType extends SuperEntity {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ChargeItem getChargeItem() {
+		return chargeItem;
+	}
+
+	public void setChargeItem(ChargeItem chargeItem) {
+		this.chargeItem = chargeItem;
 	}
 
 	public OrderType getParent() {

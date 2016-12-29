@@ -21,10 +21,12 @@ import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
+import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.SecondNursingOrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -101,6 +103,10 @@ public class AppTestService {
 
 	private ChargeItem drugTypeSpec001ChargeItem;// 药品001计费项目
 
+	private ChargeItem secondNursingChargeItem;// 二级护理计费项目
+
+	private SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
+
 	private DrugTypeSpec drugTypeSpec001;// 药品规格001
 
 	private DrugType drugType001;// 药房下的药品类型001（有库存属性）
@@ -141,7 +147,6 @@ public class AppTestService {
 		Pageable pageable;
 		List<Visit> visits;
 		List<OrderExecute> executes;
-		Order order;
 		List<Order> orders;
 		int startedCount;
 
@@ -150,7 +155,7 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10"));
 
 		// 预存费用
@@ -161,7 +166,7 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30"));
 
 		// 接诊
@@ -180,36 +185,47 @@ public class AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:50"));
 
+		// 开立二级护理长期医嘱
+		LongOrder secondNursingOrder = new LongOrder();
+		secondNursingOrder.setVisitId(visit001.getId());
+		secondNursingOrder.setName("二级护理");
+		secondNursingOrder.setFrequencyType(LongOrder.FrequencyType_Day);
+		secondNursingOrder.setPlanStartDate(DateUtil.getSysDate());
+
+		secondNursingOrder.setType(secondNursingOrderType);
+
+		orderAppService.create(secondNursingOrder, user002);
+
 		// 开立药品临时医嘱
-		order = new TemporaryOrder();
-		order.setVisitId(visit001.getId());
-		order.setName("药品001");
-		order.setPlanStartDate(DateUtil.getSysDate());
-		order.setCount(2);
+		Order drug001Order = new TemporaryOrder();
+		drug001Order.setVisitId(visit001.getId());
+		drug001Order.setName("药品001");
+		drug001Order.setPlanStartDate(DateUtil.getSysDate());
+		drug001Order.setCount(2);
 
 		DrugOrderType drugOrderType = new DrugOrderType();
 		drugOrderType.setDrugTypeSpecId(drugTypeSpec001.getId());
 
-		order.setType(drugOrderType);
+		drug001Order.setType(drugOrderType);
 
-		orderAppService.create(order, user002);
+		orderAppService.create(drug001Order, user002);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
 		assertTrue(orders.size() == 1);
-		assertTrue(orders.get(0).getId().equals(order.getId()));
-		
+		assertTrue(orders.get(0).getId().equals(drug001Order.getId()));
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
 
 		// 核对医嘱
-		orderAppService.verify(order.getId(), user003);
+		orderAppService.verify(drug001Order.getId(), user003);
 
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
 		assertTrue(executes.size() == 1);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:05"));
 
 		// 发送医嘱执行条目
@@ -219,7 +235,7 @@ public class AppTestService {
 		startedCount = orderExecuteAppService.start();
 
 		assertTrue(startedCount == 1);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15"));
 
 		pageable = new PageRequest(0, 15);
@@ -236,17 +252,17 @@ public class AppTestService {
 				pageable);
 
 		assertTrue(executes.size() == 1);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30"));
 
 		// 完成取药医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:45"));
 
 		// 取消医嘱条目
-		orderAppService.cancel(order.getId(), user002);
-		
+		orderAppService.cancel(drug001Order.getId(), user002);
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 13:45"));
 
 		pageable = new PageRequest(0, 15);
@@ -259,28 +275,28 @@ public class AppTestService {
 				user222);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 10:10"));
-	
+
 		// 开立出院临时医嘱
-		order = new TemporaryOrder();
-		order.setVisitId(visit001.getId());
-		order.setName("出院医嘱");
-		order.setPlanStartDate(DateUtil.createDay("2017-01-12"));
-		order.setExecuteDept(dept222);
+		Order leaveHospitalOrder = new TemporaryOrder();
+		leaveHospitalOrder.setVisitId(visit001.getId());
+		leaveHospitalOrder.setName("出院医嘱");
+		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-12"));
+		leaveHospitalOrder.setExecuteDept(dept222);
 
-		order.setType(leaveHospitalOrderType);
+		leaveHospitalOrder.setType(leaveHospitalOrderType);
 
-		orderAppService.create(order, user002);
+		orderAppService.create(leaveHospitalOrder, user002);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
 		assertTrue(orders.size() == 1);
-		assertTrue(orders.get(0).getId().equals(order.getId()));
-		
+		assertTrue(orders.get(0).getId().equals(leaveHospitalOrder.getId()));
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 10:30"));
 
 		// 核对医嘱
-		orderAppService.verify(order.getId(), user003);
+		orderAppService.verify(leaveHospitalOrder.getId(), user003);
 
 		// 采用API启动符合条件的执行条目
 		startedCount = orderExecuteAppService.start();
@@ -293,7 +309,7 @@ public class AppTestService {
 		startedCount = orderExecuteAppService.start();
 
 		assertTrue(startedCount == 1);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-12 09:30"));
 
 		pageable = new PageRequest(0, 15);
@@ -310,14 +326,14 @@ public class AppTestService {
 				pageable);
 
 		assertTrue(executes.size() == 1);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-12 10:30"));
 
 		// 完成出院结算医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user222);
-		
+
 		Visit visit = visitDomainService.find(visit001.getId());
-		
+
 		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
 
 	}
@@ -354,7 +370,7 @@ public class AppTestService {
 
 		initDrugTypes();
 
-		initDrugOrderTypes();
+		initOrderTypes();
 
 	}
 
@@ -472,10 +488,20 @@ public class AppTestService {
 		drugTypeSpec001ChargeItem.setCode("drugTypeSpec001");
 		drugTypeSpec001ChargeItem.setName("阿司匹林");
 		drugTypeSpec001ChargeItem.setPrice(30F);
+		drugTypeSpec001ChargeItem.setUnit("盒");
 		drugTypeSpec001ChargeItem
 				.setChargingMode(ChargeItem.ChargingMode_Amount);
 
 		chargeItems.add(drugTypeSpec001ChargeItem);
+
+		secondNursingChargeItem = new ChargeItem();
+		secondNursingChargeItem.setId("secondNursingChargeItem");
+		secondNursingChargeItem.setCode("secondNursingChargeItem");
+		secondNursingChargeItem.setName("二级护理");
+		secondNursingChargeItem.setPrice(8);
+		secondNursingChargeItem.setChargingMode(ChargeItem.ChargingMode_Day);
+
+		chargeItems.add(secondNursingChargeItem);
 
 		costDomainService.create(chargeItems);
 	}
@@ -509,24 +535,34 @@ public class AppTestService {
 		pharmacyDomainService.createDrugTypes(drugTypes);
 	}
 
-	private void initDrugOrderTypes() {
+	private void initOrderTypes() {
 
-		List<OrderType> drugOrderTypes = new ArrayList<OrderType>();
+		List<OrderType> orderTypes = new ArrayList<OrderType>();
 
 		drugOrderType001 = new DrugOrderType();
 		drugOrderType001.setId("drugOrderType001");
 		drugOrderType001.setCode("drugOrderType001");
+		drugOrderType001.setName("阿司匹林");
 		drugOrderType001.setDrugType(drugType001);
 
-		drugOrderTypes.add(drugOrderType001);
+		orderTypes.add(drugOrderType001);
 
 		leaveHospitalOrderType = new LeaveHospitalOrderType();
 		leaveHospitalOrderType.setId("leaveHospitalOrderType");
 		leaveHospitalOrderType.setCode("leaveHospitalOrderType");
+		leaveHospitalOrderType.setName("出院医嘱");
 
-		drugOrderTypes.add(leaveHospitalOrderType);
+		orderTypes.add(leaveHospitalOrderType);
 
-		orderDomainService.createOrderTypes(drugOrderTypes);
+		secondNursingOrderType = new SecondNursingOrderType();
+		secondNursingOrderType.setId("secondNursingOrderType");
+		secondNursingOrderType.setCode("secondNursingOrderType");
+		secondNursingOrderType.setName("二级护理");
+		secondNursingOrderType.setChargeItem(secondNursingChargeItem);
+
+		orderTypes.add(secondNursingOrderType);
+
+		orderDomainService.createOrderTypes(orderTypes);
 	}
 
 }

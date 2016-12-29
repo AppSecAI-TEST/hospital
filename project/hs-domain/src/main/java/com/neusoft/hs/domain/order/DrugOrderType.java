@@ -2,7 +2,6 @@
 
 package com.neusoft.hs.domain.order;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -12,16 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import org.hibernate.Hibernate;
-
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
-@DiscriminatorValue("DrugOrderType")
+@DiscriminatorValue("Drug")
 public class DrugOrderType extends OrderType {
 
 	@OneToOne(fetch = FetchType.LAZY)
