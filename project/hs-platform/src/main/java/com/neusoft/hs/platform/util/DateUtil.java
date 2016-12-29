@@ -33,8 +33,18 @@ public class DateUtil {
 		return a.get(Calendar.YEAR);
 	}
 
-	public static Date createDate(String dateStr) throws HsException {
+	public static Date createDay(String dateStr) throws HsException {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			return simpleDateFormat.parse(dateStr);
+		} catch (ParseException e) {
+			throw new HsException(e);
+		}
+	}
+
+	public static Date createMinute(String dateStr) throws HsException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm");
 		try {
 			return simpleDateFormat.parse(dateStr);
 		} catch (ParseException e) {

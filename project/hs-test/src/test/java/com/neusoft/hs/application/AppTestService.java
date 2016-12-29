@@ -128,7 +128,7 @@ public class AppTestService {
 	 */
 	public void execute() throws HsException {
 
-		DateUtil.setSysDate(DateUtil.createDate("2016-12-28"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
 
 		// 创建测试患者
 		visit001 = new Visit();
@@ -150,6 +150,8 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10"));
 
 		// 预存费用
 		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
@@ -159,6 +161,8 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30"));
 
 		// 接诊
 		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
@@ -174,7 +178,7 @@ public class AppTestService {
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
 
-		DateUtil.setSysDate(DateUtil.createDate("2016-12-29"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:50"));
 
 		// 开立药品临时医嘱
 		order = new TemporaryOrder();
@@ -195,6 +199,8 @@ public class AppTestService {
 
 		assertTrue(orders.size() == 1);
 		assertTrue(orders.get(0).getId().equals(order.getId()));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
 
 		// 核对医嘱
 		orderAppService.verify(order.getId(), user003);
@@ -203,14 +209,18 @@ public class AppTestService {
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
 		assertTrue(executes.size() == 1);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:05"));
 
-		// 发送医嘱条目
+		// 发送医嘱执行条目
 		orderExecuteAppService.send(executes.get(0).getId(), user003);
 
 		// 采用API启动符合条件的执行条目
 		startedCount = orderExecuteAppService.start();
 
 		assertTrue(startedCount == 1);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user333,
@@ -226,12 +236,18 @@ public class AppTestService {
 				pageable);
 
 		assertTrue(executes.size() == 1);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30"));
 
 		// 完成取药医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:45"));
 
 		// 取消医嘱条目
 		orderAppService.cancel(order.getId(), user002);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 13:45"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedBackChargeOrderExecutes(
@@ -242,13 +258,13 @@ public class AppTestService {
 		orderExecuteAppService.unCharging(executes.get(0).getId(), true,
 				user222);
 
-		DateUtil.setSysDate(DateUtil.createDate("2017-01-10"));
-
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 10:10"));
+	
 		// 开立出院临时医嘱
 		order = new TemporaryOrder();
 		order.setVisitId(visit001.getId());
 		order.setName("出院医嘱");
-		order.setPlanStartDate(DateUtil.createDate("2017-01-12"));
+		order.setPlanStartDate(DateUtil.createDay("2017-01-12"));
 		order.setExecuteDept(dept222);
 
 		order.setType(leaveHospitalOrderType);
@@ -260,6 +276,8 @@ public class AppTestService {
 
 		assertTrue(orders.size() == 1);
 		assertTrue(orders.get(0).getId().equals(order.getId()));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 10:30"));
 
 		// 核对医嘱
 		orderAppService.verify(order.getId(), user003);
@@ -269,12 +287,14 @@ public class AppTestService {
 
 		assertTrue(startedCount == 0);
 
-		DateUtil.setSysDate(DateUtil.createDate("2017-01-12"));
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-12"));
 
 		// 采用API启动符合条件的执行条目
 		startedCount = orderExecuteAppService.start();
 
 		assertTrue(startedCount == 1);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-12 09:30"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -290,6 +310,8 @@ public class AppTestService {
 				pageable);
 
 		assertTrue(executes.size() == 1);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-12 10:30"));
 
 		// 完成出院结算医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user222);
