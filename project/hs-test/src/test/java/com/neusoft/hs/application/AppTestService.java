@@ -218,7 +218,7 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 
-		// 完成摆药医嘱条目
+		// 完成摆药医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user333);
 
 		pageable = new PageRequest(0, 15);
@@ -227,7 +227,7 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 
-		// 完成取药医嘱条目
+		// 完成取药医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
 
 		// 取消医嘱条目
@@ -282,8 +282,21 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 
-		// 完成出院登记医嘱条目
+		// 完成出院登记医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user222,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成出院结算医嘱执行条目
+		orderExecuteAppService.finish(executes.get(0).getId(), user222);
+		
+		Visit visit = visitDomainService.find(visit001.getId());
+		
+		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
 
 	}
 

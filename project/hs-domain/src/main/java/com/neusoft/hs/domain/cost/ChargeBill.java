@@ -16,8 +16,10 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_charge_bill")
@@ -91,13 +93,6 @@ public class ChargeBill extends IdEntity {
 		}
 
 		this.balance -= balance;
-
-	}
-
-	/**
-	 * @roseuid 5853417903C7
-	 */
-	public void balance() {
 
 	}
 

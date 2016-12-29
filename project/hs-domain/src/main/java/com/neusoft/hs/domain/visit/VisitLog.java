@@ -41,6 +41,8 @@ public class VisitLog extends IdEntity {
 	public static final String Type_InitAccount = "初始账户";
 	public static final String Type_IntoWard = "进入病房";
 	public static final String Type_LeaveWard = "出院登记";
+	public static final String Type_LeaveHospital = "出院结算";
+	
 
 	public Visit getVisit() {
 		return visit;

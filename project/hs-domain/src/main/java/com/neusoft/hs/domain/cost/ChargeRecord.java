@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.Dept;
@@ -60,23 +61,30 @@ public class ChargeRecord extends IdEntity {
 	@JoinColumn(name = "charge_dept_id")
 	private Dept chargeDept;
 
+	@Transient
+	private boolean haveCost = true;
+
 	/**
 	 * @roseuid 5850A1CD019F
 	 */
 	public CostRecord createCostRecord() {
-		CostRecord costRecord = new CostRecord();
+		if (this.haveCost) {
+			CostRecord costRecord = new CostRecord();
 
-		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
-		chargeRecords.add(this);
-		costRecord.setChargeRecords(chargeRecords);
-		
-		this.setCostRecord(costRecord);
+			List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
+			chargeRecords.add(this);
+			costRecord.setChargeRecords(chargeRecords);
 
-		costRecord.setCost(this.getAmount());
-		costRecord.setState(CostRecord.State_Normal);
-		costRecord.setCreateDate(createDate);
+			this.setCostRecord(costRecord);
 
-		return costRecord;
+			costRecord.setCost(this.getAmount());
+			costRecord.setState(CostRecord.State_Normal);
+			costRecord.setCreateDate(createDate);
+
+			return costRecord;
+		} else {
+			return null;
+		}
 
 	}
 
@@ -185,4 +193,11 @@ public class ChargeRecord extends IdEntity {
 		this.newChargeRecord = newChargeRecord;
 	}
 
+	public boolean isHaveCost() {
+		return haveCost;
+	}
+
+	public void setHaveCost(boolean haveCost) {
+		this.haveCost = haveCost;
+	}
 }

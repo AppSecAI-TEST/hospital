@@ -89,8 +89,12 @@ public class CostDomainService {
 			execute.setChargeState(OrderExecute.ChargeState_Charge);
 			// 记录成本
 			List<CostRecord> costRecords = new ArrayList<CostRecord>();
+			CostRecord costRecord;
 			for (ChargeRecord chargeRecord : chargeRecords) {
-				costRecords.add(chargeRecord.createCostRecord());
+				costRecord = chargeRecord.createCostRecord();
+				if (costRecord != null) {
+					costRecords.add(costRecord);
+				}
 			}
 			costRecordRepo.save(costRecords);
 			execute.setCostState(OrderExecute.CostState_Cost);
