@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.cost;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,6 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -44,39 +44,21 @@ public class ChargeBill extends IdEntity {
 	public static final String State_Normal = "正常";
 
 	/**
-	 * @roseuid 5850A31301AE
-	 */
-	public void addChargeRecord(ChargeRecord chargeRecord) {
-		this.chargeRecords.add(chargeRecord);
-	}
-
-	/**
 	 * @param chargeRecords2
 	 * @roseuid 5850A3D500DE
 	 */
 	public void charging(List<ChargeRecord> chargeRecords) {
 
-		if (chargeRecords.size() == 0) {
-			this.chargeRecords = chargeRecords;
-		} else {
-			this.chargeRecords.addAll(chargeRecords);
+		for (ChargeRecord chargeRecord : chargeRecords) {
+			this.addChargeRecord(chargeRecord);
 		}
 
 		float theBalance = 0F;
 		for (ChargeRecord chargeRecord : chargeRecords) {
-			chargeRecord.setChargeBill(this);
 			theBalance += chargeRecord.getAmount();
 		}
 
-		this.balance -= theBalance;
-
-	}
-
-	/**
-	 * @roseuid 5850A40703E7
-	 */
-	public void save() {
-		this.getService(ChargeBillRepo.class).save(this);
+		this.balance += theBalance;
 	}
 
 	/**
@@ -92,8 +74,34 @@ public class ChargeBill extends IdEntity {
 			balance += newChargeRecord.getAmount();
 		}
 
-		this.balance -= balance;
+		this.balance += balance;
+	}
 
+	public void init() {
+		ChargeRecord chargeRecord = new ChargeRecord();
+		chargeRecord.setAmount(balance);
+		chargeRecord.setCreateDate(DateUtil.getSysDate());
+		chargeRecord.setHaveCost(false);
+
+		this.addChargeRecord(chargeRecord);
+	}
+
+	/**
+	 * @roseuid 5850A40703E7
+	 */
+	public void save() {
+		this.getService(ChargeBillRepo.class).save(this);
+	}
+
+	/**
+	 * @roseuid 5850A31301AE
+	 */
+	public void addChargeRecord(ChargeRecord chargeRecord) {
+		if (this.chargeRecords == null) {
+			this.chargeRecords = new ArrayList<ChargeRecord>();
+		}
+		this.chargeRecords.add(chargeRecord);
+		chargeRecord.setChargeBill(this);
 	}
 
 	public float getBalance() {
@@ -135,5 +143,4 @@ public class ChargeBill extends IdEntity {
 	public void setVisit(Visit visit) {
 		this.visit = visit;
 	}
-
 }

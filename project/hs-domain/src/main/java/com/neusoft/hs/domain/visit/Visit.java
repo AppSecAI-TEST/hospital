@@ -108,6 +108,7 @@ public class Visit extends IdEntity {
 		chargeBill.setBalance(balance);
 		chargeBill.setState(ChargeBill.State_Normal);
 		chargeBill.setVisit(this);
+		chargeBill.init();
 
 		this.setChargeBill(chargeBill);
 		this.setState(Visit.State_NeedIntoWard);

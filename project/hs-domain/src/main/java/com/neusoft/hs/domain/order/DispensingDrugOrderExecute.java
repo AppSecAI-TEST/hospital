@@ -25,7 +25,7 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 		ChargeRecord chargeRecord = new ChargeRecord();
 		chargeRecord.setCount(count);
 		chargeRecord.setPrice(this.getChargeItem().getPrice());
-		chargeRecord.setAmount(count * this.getChargeItem().getPrice());
+		chargeRecord.setAmount(-count * this.getChargeItem().getPrice());
 		chargeRecord.setChargeItem(this.getChargeItem());
 
 		chargeRecords.add(chargeRecord);
