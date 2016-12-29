@@ -96,8 +96,10 @@ public class CostDomainService {
 					costRecords.add(costRecord);
 				}
 			}
-			costRecordRepo.save(costRecords);
-			execute.setCostState(OrderExecute.CostState_Cost);
+			if (costRecords.size() > 0) {
+				costRecordRepo.save(costRecords);
+				execute.setCostState(OrderExecute.CostState_Cost);
+			}
 		}
 	}
 
@@ -110,8 +112,10 @@ public class CostDomainService {
 
 		List<ChargeRecord> chargeRecords = execute.getChargeRecords();
 		execute.getVisit().getChargeBill().unCharging(chargeRecords);
+		execute.setChargeState(OrderExecute.ChargeState_BackCharge);
 
 		if (isBackCost) {
+			execute.setCostState(OrderExecute.CostState_NoCost);
 			for (ChargeRecord chargeRecord : chargeRecords) {
 				chargeRecord.getCostRecord().setState(CostRecord.State_Back);
 			}

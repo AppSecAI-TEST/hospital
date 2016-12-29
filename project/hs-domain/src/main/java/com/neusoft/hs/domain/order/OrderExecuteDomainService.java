@@ -90,19 +90,6 @@ public class OrderExecuteDomainService {
 		applicationContext.publishEvent(new OrderExecuteFinishedEvent(execute));
 	}
 
-	/**
-	 * @param user
-	 * @param isBackCost
-	 * @param execute
-	 * @roseuid 5850D8510101
-	 */
-	public void unCharging(OrderExecute execute, boolean isBackCost, Staff user) {
-		execute.setChargeState(OrderExecute.ChargeState_BackCharge);
-		if (isBackCost) {
-			execute.setCostState(OrderExecute.CostState_NoCost);
-		}
-	}
-
 	public OrderExecute find(String executeId) {
 		return orderExecuteRepo.findOne(executeId);
 	}

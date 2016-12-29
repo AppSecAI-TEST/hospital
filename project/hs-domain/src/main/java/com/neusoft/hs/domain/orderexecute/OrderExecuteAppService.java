@@ -82,9 +82,6 @@ public class OrderExecuteAppService {
 					+ "]不存在");
 		}
 		costDomainService.unCharging(execute, isBackCost, user);
-		
-		orderExecuteDomainService.unCharging(execute, isBackCost, user);
-		
 	}
 
 }
