@@ -133,7 +133,7 @@ public class OrderExecute extends SuperEntity {
 	public static final String Type_Dispense_Drug = "摆药";
 
 	public static final String Type_Take_Drug = "取药";
-	
+
 	public static final String Type_SecondNursing = "二级护理";
 
 	public static final String Type_Leave_Hospital_Register = "出院登记";
@@ -200,7 +200,18 @@ public class OrderExecute extends SuperEntity {
 	 * @roseuid 58509B990022
 	 */
 	public List<ChargeRecord> createChargeRecords() {
-		return new ArrayList<ChargeRecord>();
+		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
+
+		if (this.chargeItem != null) {
+			ChargeRecord chargeRecord = new ChargeRecord();
+			chargeRecord.setPrice(this.chargeItem.getPrice());
+			chargeRecord.setAmount(-this.chargeItem.getPrice());
+			chargeRecord.setChargeItem(this.chargeItem);
+
+			chargeRecords.add(chargeRecord);
+		}
+
+		return chargeRecords;
 	}
 
 	/**

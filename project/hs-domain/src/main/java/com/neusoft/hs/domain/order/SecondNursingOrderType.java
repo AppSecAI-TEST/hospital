@@ -23,6 +23,8 @@ public class SecondNursingOrderType extends OrderType {
 		
 		return team;
 	}
+	
+	
 
 	private OrderExecute create(Order order, Date startDate) {
 

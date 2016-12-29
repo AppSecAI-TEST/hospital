@@ -214,7 +214,7 @@ public class AppTestService {
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
 		assertTrue(orders.size() == 2);
-		//assertTrue(orders.get(0).getId().equals(drug001Order.getId()));
+		// assertTrue(orders.get(0).getId().equals(drug001Order.getId()));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
 
@@ -252,12 +252,14 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30"));
 
-		// 完成取药医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		// 完成医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user003);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:45"));
 
