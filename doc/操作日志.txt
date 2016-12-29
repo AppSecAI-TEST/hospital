@@ -3,6 +3,7 @@
 1、实现模型：编写出院登记用例
 2、设计模型：更新实体结构图（LeaveHospitalOrderType、LeaveHospitalRegisterOrderExecute、LeaveHospitalBalanceOrderExecute）
 3、设计模型：更新了出院登记用例实现
+4、设计模型：更新同意退费用例实现
 
 
 2016.12.28
