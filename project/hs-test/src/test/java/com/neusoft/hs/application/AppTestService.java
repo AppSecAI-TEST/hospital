@@ -213,12 +213,13 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
-		assertTrue(orders.size() == 1);
-		assertTrue(orders.get(0).getId().equals(drug001Order.getId()));
+		assertTrue(orders.size() == 2);
+		//assertTrue(orders.get(0).getId().equals(drug001Order.getId()));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
 
 		// 核对医嘱
+		orderAppService.verify(secondNursingOrder.getId(), user003);
 		orderAppService.verify(drug001Order.getId(), user003);
 
 		pageable = new PageRequest(0, 15);
@@ -234,7 +235,7 @@ public class AppTestService {
 		// 采用API启动符合条件的执行条目
 		startedCount = orderExecuteAppService.start();
 
-		assertTrue(startedCount == 1);
+		assertTrue(startedCount == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15"));
 

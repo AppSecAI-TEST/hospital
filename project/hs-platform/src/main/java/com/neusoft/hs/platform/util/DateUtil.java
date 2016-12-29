@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -50,5 +51,12 @@ public class DateUtil {
 		} catch (ParseException e) {
 			throw new HsException(e);
 		}
+	}
+
+	public static Date addDay(Date date) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(calendar.DATE, 1);
+		return calendar.getTime();
 	}
 }
