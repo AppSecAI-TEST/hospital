@@ -283,7 +283,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2016-12-29 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -298,7 +298,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2016-12-30 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -313,7 +313,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2016-12-31 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -328,7 +328,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-01 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -343,7 +343,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-02 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -358,7 +358,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-03 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -373,7 +373,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-04 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-04 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -388,7 +388,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-05 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -403,7 +403,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-06 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -460,7 +460,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-08 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-08 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
