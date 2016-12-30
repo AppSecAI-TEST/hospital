@@ -26,7 +26,7 @@ public interface OrderExecuteRepo extends
 	List<OrderExecute> findByChargeState(String chargeState, Pageable pageable);
 
 	@Modifying
-	@Query("update OrderExecute e set e.state = :newState, e.startDate = :sysDate where e.planStartDate <= :startDate AND e.state = :oldState AND e.previousId = null AND e.visit in (select b.visit from ChargeBill b where b.balance > 0 AND b.state = :chargeBillState)")
+	@Query("update OrderExecute e set e.state = :newState, e.startDate = :sysDate where e.planStartDate < :startDate AND e.state = :oldState AND e.previousId = null AND e.visit in (select b.visit from ChargeBill b where b.balance > 0 AND b.state = :chargeBillState)")
 	int start(@Param("newState") String newState,
 			@Param("oldState") String oldState,
 			@Param("chargeBillState") String chargeBillState,

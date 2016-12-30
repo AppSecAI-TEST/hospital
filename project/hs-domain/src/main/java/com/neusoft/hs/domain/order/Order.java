@@ -272,4 +272,6 @@ public abstract class Order extends IdEntity {
 		this.executeDept = executeDept;
 	}
 
+	public abstract void updateState();
+
 }

@@ -475,7 +475,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		assertTrue(startedCount == 1);
+		assertTrue(startedCount == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 09:30"));
 
@@ -483,10 +483,12 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
-		// 完成出院登记医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		// 完成医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user003);
+		}
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user222,

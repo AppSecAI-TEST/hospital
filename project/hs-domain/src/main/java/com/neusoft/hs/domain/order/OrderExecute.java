@@ -186,8 +186,7 @@ public class OrderExecute extends SuperEntity {
 
 			this.order.setStateDesc(this.type + "执行条目已完成");
 		} else {
-			this.order.setState(Order.State_Finished);
-			this.order.setStateDesc("已完成");
+			this.order.updateState();
 		}
 	}
 

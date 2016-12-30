@@ -40,4 +40,10 @@ public class LongOrder extends Order {
 	public void setPlanEndDate(Date planEndDate) {
 		this.planEndDate = planEndDate;
 	}
+
+	@Override
+	public void updateState() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -7,14 +7,11 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Temporary")
-public class TemporaryOrder extends Order 
-{
-   
-   /**
-    * @roseuid 58573EC401CF
-    */
-   public TemporaryOrder() 
-   {
-    
-   }
+public class TemporaryOrder extends Order {
+
+	@Override
+	public void updateState() {
+		this.setState(Order.State_Finished);
+		this.setStateDesc("已完成");
+	}
 }
