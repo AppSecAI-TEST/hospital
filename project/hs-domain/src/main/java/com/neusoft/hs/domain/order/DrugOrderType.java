@@ -66,7 +66,7 @@ public class DrugOrderType extends OrderType {
 	}
 
 	@Override
-	public OrderExecuteTeam resolveOrder(Order order) {
+	public List<OrderExecute> resolveOrder(Order order) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
 		// 摆药执行条目
@@ -108,7 +108,7 @@ public class DrugOrderType extends OrderType {
 
 		team.addOrderExecute(taskDrugExecute);
 
-		return team;
+		return team.getExecutes();
 	}
 
 	public DrugType getDrugType() {

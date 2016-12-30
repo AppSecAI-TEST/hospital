@@ -67,7 +67,7 @@ public abstract class OrderType extends SuperEntity {
 	 * @return
 	 * @roseuid 584F4A3201B9
 	 */
-	public abstract OrderExecuteTeam resolveOrder(Order order);
+	public abstract List<OrderExecute> resolveOrder(Order order);
 
 	public String getId() {
 		return id;

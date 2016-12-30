@@ -57,6 +57,9 @@ public abstract class Order extends IdEntity {
 	@OrderBy("planStartDate ASC")
 	private List<OrderExecute> orderExecutes;
 
+	@Column(name = "last_execute_id", length = 36)
+	private String lastOrderExecuteId;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id")
 	private Doctor creator;
@@ -117,9 +120,12 @@ public abstract class Order extends IdEntity {
 	 * @roseuid 584F494100C2
 	 */
 	public int resolve() {
-		List<OrderExecute> orderExecutes = this.type.resolveOrder(this)
-				.getExecutes();
-		this.addExecutes(orderExecutes);
+		List<OrderExecute> orderExecutes = this.type.resolveOrder(this);
+		if (orderExecutes.size() > 0) {
+			this.addExecutes(orderExecutes);
+			this.lastOrderExecuteId = orderExecutes.get(
+					orderExecutes.size() - 1).getId();
+		}
 		return orderExecutes.size();
 	}
 
@@ -151,11 +157,6 @@ public abstract class Order extends IdEntity {
 			execute.cancel();
 		}
 		this.state = State_Canceled;
-	}
-
-	public OrderExecute getLastOrderExecute() {
-		return this.getService(OrderExecuteRepo.class).findByLastExecute(
-				this.getId());
 	}
 
 	public String getName() {
@@ -214,6 +215,15 @@ public abstract class Order extends IdEntity {
 		this.orderExecutes = orderExecutes;
 	}
 
+	public OrderExecute getLastOrderExecute() {
+		if (this.lastOrderExecuteId == null) {
+			return null;
+		} else {
+			return this.getService(OrderExecuteRepo.class).findOne(
+					this.lastOrderExecuteId);
+		}
+	}
+
 	public Doctor getCreator() {
 		return creator;
 	}
@@ -261,4 +271,5 @@ public abstract class Order extends IdEntity {
 	public void setExecuteDept(Dept executeDept) {
 		this.executeDept = executeDept;
 	}
+
 }

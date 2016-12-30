@@ -1,5 +1,7 @@
 package com.neusoft.hs.domain.order;
 
+import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -8,7 +10,7 @@ import javax.persistence.Entity;
 public class LeaveHospitalOrderType extends OrderType {
 
 	@Override
-	public OrderExecuteTeam resolveOrder(Order order) {
+	public List<OrderExecute> resolveOrder(Order order) {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
@@ -46,7 +48,7 @@ public class LeaveHospitalOrderType extends OrderType {
 
 		team.addOrderExecute(balance);
 
-		return team;
+		return team.getExecutes();
 	}
 
 }
