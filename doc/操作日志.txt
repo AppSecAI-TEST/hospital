@@ -4,6 +4,8 @@
 2、设计模型：更新实体结构图（LeaveHospitalOrderType、LeaveHospitalRegisterOrderExecute、LeaveHospitalBalanceOrderExecute）
 3、设计模型：更新了出院登记用例实现
 4、设计模型：更新同意退费用例实现
+5、实现模型：创建了一个二级护理长嘱（完成长期医嘱的分解、执行、自动收费）
+6、实现模型：
 
 
 2016.12.28
