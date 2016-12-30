@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +68,11 @@ public class OrderExecuteDomainService {
 	 * @roseuid 584F691702B2
 	 */
 	public int start() throws OrderExecuteException {
+		Date sysDate = DateUtil.getSysDate();
+		Date startDate = DateUtil.addDay(sysDate, 1);
 		return orderExecuteRepo.start(OrderExecute.State_Executing,
 				OrderExecute.State_NeedExecute, ChargeBill.State_Normal,
-				DateUtil.getSysDate());
+				sysDate, startDate);
 	}
 
 	/**

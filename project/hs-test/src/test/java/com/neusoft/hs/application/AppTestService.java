@@ -281,7 +281,6 @@ public class AppTestService {
 		// 2016-12-29
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-29"));
 		resolveCount = orderAppService.resolve();
-		// 采用API启动符合条件的执行条目
 		startedCount = orderExecuteAppService.start();
 
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-29 09:10"));
@@ -296,7 +295,8 @@ public class AppTestService {
 
 		// 2016-12-30
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-30"));
-		orderAppService.resolve();
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
 
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-30 09:10"));
 
@@ -310,7 +310,8 @@ public class AppTestService {
 
 		// 2016-12-31
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-31"));
-		orderAppService.resolve();
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
 
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-31 09:10"));
 
@@ -324,7 +325,8 @@ public class AppTestService {
 
 		// 2017-01-01
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-01"));
-		orderAppService.resolve();
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
 
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-01 09:10"));
 
@@ -336,13 +338,93 @@ public class AppTestService {
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 10:10"));
+		// 2017-01-02
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-02"));
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
+
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-02 09:10"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		// 2017-01-03
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-03"));
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
+
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-03 09:10"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		// 2017-01-04
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-04"));
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
+
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-04 09:10"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		// 2017-01-05
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-05"));
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
+
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-05 09:10"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		// 2017-01-06
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-06"));
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
+
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-06 09:10"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		// 2017-01-07
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-07"));
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
+
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:10"));
 
 		// 开立出院临时医嘱
 		Order leaveHospitalOrder = new TemporaryOrder();
 		leaveHospitalOrder.setVisitId(visit001.getId());
 		leaveHospitalOrder.setName("出院医嘱");
-		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-12"));
+		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-09"));
 		leaveHospitalOrder.setExecuteDept(dept222);
 
 		leaveHospitalOrder.setType(leaveHospitalOrderType);
@@ -355,7 +437,7 @@ public class AppTestService {
 		assertTrue(orders.size() == 1);
 		assertTrue(orders.get(0).getId().equals(leaveHospitalOrder.getId()));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 10:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:30"));
 
 		// 核对医嘱
 		orderAppService.verify(leaveHospitalOrder.getId(), user003);
@@ -365,14 +447,37 @@ public class AppTestService {
 
 		assertTrue(startedCount == 0);
 
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-12"));
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
 
-		// 采用API启动符合条件的执行条目
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		// 2017-01-08
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-08"));
+		resolveCount = orderAppService.resolve();
+		startedCount = orderExecuteAppService.start();
+
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-08 09:10"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		// 2017-01-09
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-09"));
+		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
 		assertTrue(startedCount == 1);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-12 09:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 09:30"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -389,7 +494,7 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-12 10:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 10:30"));
 
 		// 完成出院结算医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user222);
@@ -397,10 +502,6 @@ public class AppTestService {
 		Visit visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
-
-	}
-
-	private void daily() {
 
 	}
 
