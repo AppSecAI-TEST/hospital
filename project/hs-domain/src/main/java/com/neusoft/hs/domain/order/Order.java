@@ -90,6 +90,8 @@ public abstract class Order extends IdEntity {
 
 	public static final String State_Canceled = "已作废";
 
+	public static final String State_Stoped = "已停止";
+
 	/**
 	 * @throws HsException
 	 * @roseuid 584E6696009D

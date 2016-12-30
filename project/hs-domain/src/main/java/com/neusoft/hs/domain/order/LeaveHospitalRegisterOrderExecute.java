@@ -17,10 +17,15 @@ public class LeaveHospitalRegisterOrderExecute extends OrderExecute {
 		Visit visit = this.getVisit();
 
 		for (Order order : visit.getOrders()) {
-			if (!this.getOrder().getId().equals(order.getId())
-					&& order.getState().equals(order.State_Executing)) {
-				throw new OrderExecuteException(this, "医嘱[" + order.getName()
-						+ "]状态处于执行中");
+			if (!this.getOrder().getId().equals(order.getId())) {
+				if (order.getState().equals(order.State_Executing)) {
+					if (order instanceof LongOrder) {
+						((LongOrder) order).stop();
+					} else {
+						throw new OrderExecuteException(this, "医嘱["
+								+ order.getName() + "]状态处于执行中");
+					}
+				}
 			}
 		}
 		try {

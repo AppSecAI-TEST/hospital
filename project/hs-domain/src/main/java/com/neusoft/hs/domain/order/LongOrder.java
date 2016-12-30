@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.platform.util.DateUtil;
+
 @Entity
 @DiscriminatorValue("Long")
 public class LongOrder extends Order {
@@ -20,7 +22,7 @@ public class LongOrder extends Order {
 
 	@Column(name = "plan_end_date")
 	private Date planEndDate;
-	
+
 	public static final int ResolveDays = 2;
 
 	public static final String FrequencyType_Day = "每天";
@@ -44,6 +46,14 @@ public class LongOrder extends Order {
 	@Override
 	public void updateState() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	public void stop() throws OrderExecuteException {
+		for (OrderExecute execute : this.getOrderExecutes()) {
+			execute.stop();
+		}
+		this.setState(State_Stoped);
+		this.setPlanEndDate(DateUtil.getSysDate());
 	}
 }

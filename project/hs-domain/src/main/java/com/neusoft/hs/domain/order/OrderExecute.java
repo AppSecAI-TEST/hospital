@@ -118,6 +118,8 @@ public class OrderExecute extends SuperEntity {
 
 	public static final String State_Canceled = "已作废";
 
+	public static final String State_Stoped = "已停止";
+
 	public static final String ChargeState_NoCharge = "未收费";
 
 	public static final String ChargeState_Charge = "已收费";
@@ -228,6 +230,21 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	protected void doCancel() throws OrderExecuteException {
+
+	}
+
+	public void stop() throws OrderExecuteException {
+
+		doStop();
+
+		if (this.state.equals(State_NeedSend)
+				|| this.state.equals(State_NeedExecute)
+				|| this.state.equals(State_Executing)) {
+			this.state = State_Stoped;
+		}
+	}
+
+	protected void doStop() throws OrderExecuteException {
 
 	}
 
@@ -414,5 +431,4 @@ public class OrderExecute extends SuperEntity {
 			return null;
 		}
 	}
-
 }
