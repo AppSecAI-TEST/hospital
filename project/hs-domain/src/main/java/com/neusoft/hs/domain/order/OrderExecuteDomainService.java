@@ -69,7 +69,7 @@ public class OrderExecuteDomainService {
 	 */
 	public int start() throws OrderExecuteException {
 		Date sysDate = DateUtil.getSysDate();
-		Date startDate = DateUtil.addDay(sysDate, 1);
+		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
 		return orderExecuteRepo.start(OrderExecute.State_Executing,
 				OrderExecute.State_NeedExecute, ChargeBill.State_Normal,
 				sysDate, startDate);

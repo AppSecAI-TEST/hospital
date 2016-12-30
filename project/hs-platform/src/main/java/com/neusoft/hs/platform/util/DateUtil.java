@@ -59,4 +59,18 @@ public class DateUtil {
 		calendar.add(calendar.DATE, day);
 		return calendar.getTime();
 	}
+
+	public static Date getSysDateStart() {
+
+		Date sysDate = getSysDate();
+
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(sysDate);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		return calendar.getTime();
+	}
 }
