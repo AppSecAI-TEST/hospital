@@ -85,8 +85,14 @@ public class OrderDomainService {
 	/**
 	 * @roseuid 584F49010391
 	 */
-	public void resolve() {
-
+	public int resolve() {
+		List<LongOrder> longOrders = orderRepo
+				.findLongOrderByState(Order.State_Executing);
+		int count = 0;
+		for (LongOrder longOrder : longOrders) {
+			count += longOrder.resolve();
+		}
+		return count;
 	}
 
 	/**

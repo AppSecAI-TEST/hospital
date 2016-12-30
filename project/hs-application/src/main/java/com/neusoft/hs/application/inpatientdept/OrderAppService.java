@@ -65,8 +65,8 @@ public class OrderAppService {
 	/**
 	 * @roseuid 5850EE16024D
 	 */
-	public void resolve() {
-
+	public int resolve() {
+		return orderDomainService.resolve();
 	}
 
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,

@@ -32,4 +32,7 @@ public interface OrderExecuteRepo extends
 			@Param("chargeBillState") String chargeBillState,
 			@Param("sysDate") Date sysDate);
 
+	@Query("select e from OrderExecute e where e.order.id = :orderId and e.nextId = null")
+	OrderExecute findByLastExecute(@Param("orderId") String orderId);
+
 }

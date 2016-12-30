@@ -20,6 +20,8 @@ public class LongOrder extends Order {
 
 	@Column(name = "plan_end_date")
 	private Date planEndDate;
+	
+	public static final int ResolveDays = 2;
 
 	public static final String FrequencyType_Day = "每天";
 

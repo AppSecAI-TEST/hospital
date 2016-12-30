@@ -1,6 +1,7 @@
 package com.neusoft.hs.domain.order;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -15,16 +16,24 @@ public class SecondNursingOrderType extends OrderType {
 	public OrderExecuteTeam resolveOrder(Order order) {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
-
 		// 分解两天的护理执行条目
-		OrderExecute execute = this.create(order, order.getPlanStartDate());
-		team.addOrderExecute(execute);
-		team.addOrderExecute(this.create(order, execute.getPlanEndDate()));
-		
+		OrderExecute lastExecute = order.getLastOrderExecute();
+		if (lastExecute == null) {
+			OrderExecute execute = this.create(order, order.getPlanStartDate());
+			team.addOrderExecute(execute);
+			lastExecute = execute;
+		}
+
+		Date needResolveDate = DateUtil.addDay(DateUtil.getSysDate(),
+				LongOrder.ResolveDays);
+		while (lastExecute.getPlanEndDate().before(needResolveDate)) {
+			OrderExecute execute = this.create(order,
+					lastExecute.getPlanEndDate());
+			team.addOrderExecute(execute);
+			lastExecute = execute;
+		}
 		return team;
 	}
-	
-	
 
 	private OrderExecute create(Order order, Date startDate) {
 
@@ -42,7 +51,7 @@ public class SecondNursingOrderType extends OrderType {
 		execute.setCostState(OrderExecute.CostState_NoCost);
 
 		execute.setPlanStartDate(startDate);
-		execute.setPlanEndDate(DateUtil.addDay(startDate));
+		execute.setPlanEndDate(DateUtil.addDay(startDate, 1));
 
 		return execute;
 	}

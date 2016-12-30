@@ -107,16 +107,20 @@ public abstract class Order extends IdEntity {
 		this.type.check(this);
 	}
 
-	public void verify() {
-		this.resolve();
+	public int verify() {
+		int count = this.resolve();
 		this.setState(State_Executing);
+		return count;
 	}
 
 	/**
 	 * @roseuid 584F494100C2
 	 */
-	public void resolve() {
-		this.addExecutes(this.type.resolveOrder(this).getExecutes());
+	public int resolve() {
+		List<OrderExecute> orderExecutes = this.type.resolveOrder(this)
+				.getExecutes();
+		this.addExecutes(orderExecutes);
+		return orderExecutes.size();
 	}
 
 	/**
@@ -147,6 +151,11 @@ public abstract class Order extends IdEntity {
 			execute.cancel();
 		}
 		this.state = State_Canceled;
+	}
+
+	public OrderExecute getLastOrderExecute() {
+		return this.getService(OrderExecuteRepo.class).findByLastExecute(
+				this.getId());
 	}
 
 	public String getName() {

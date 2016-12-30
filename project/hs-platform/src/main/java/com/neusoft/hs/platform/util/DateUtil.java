@@ -53,10 +53,10 @@ public class DateUtil {
 		}
 	}
 
-	public static Date addDay(Date date) {
+	public static Date addDay(Date date, int day) {
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(date);
-		calendar.add(calendar.DATE, 1);
+		calendar.add(calendar.DATE, day);
 		return calendar.getTime();
 	}
 }
