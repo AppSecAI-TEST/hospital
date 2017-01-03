@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -116,7 +117,7 @@ public class CostDomainService {
 	 * @param executeId
 	 * @roseuid 5850BD170158
 	 */
-	public void unCharging(OrderExecute execute, boolean isBackCost, Staff user) {
+	public void unCharging(OrderExecute execute, boolean isBackCost, Nurse nurse) {
 
 		List<ChargeRecord> chargeRecords = execute.getChargeRecords();
 		execute.getVisit().getChargeBill().unCharging(chargeRecords);

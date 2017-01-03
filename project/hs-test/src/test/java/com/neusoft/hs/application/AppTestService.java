@@ -150,12 +150,17 @@ public class AppTestService {
 		List<Order> orders;
 		int startedCount;
 		int resolveCount;
+		Visit visit;
 
 		pageable = new PageRequest(0, 15);
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+		
+		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10"));
 
@@ -167,6 +172,10 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+		
+		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30"));
 
@@ -183,6 +192,10 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+		
+		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_IntoWard));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:50"));
 
@@ -276,7 +289,7 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		orderExecuteAppService.unCharging(executes.get(0).getId(), true,
-				user222);
+				user003);
 
 		// 2016-12-29
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-29"));
@@ -489,6 +502,10 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), user003);
 		}
+		
+		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_NeedLeaveHospitalBalance));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user222,
@@ -501,7 +518,7 @@ public class AppTestService {
 		// 完成出院结算医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user222);
 
-		Visit visit = visitDomainService.find(visit001.getId());
+		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
 

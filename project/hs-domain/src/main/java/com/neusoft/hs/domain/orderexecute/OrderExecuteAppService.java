@@ -73,7 +73,7 @@ public class OrderExecuteAppService {
 	 * @throws OrderExecuteException
 	 * @roseuid 5850BC9B0098
 	 */
-	public void unCharging(String executeId, boolean isBackCost, Staff user)
+	public void unCharging(String executeId, boolean isBackCost, Nurse nurse)
 			throws OrderExecuteException {
 
 		OrderExecute execute = orderExecuteDomainService.find(executeId);
@@ -81,7 +81,7 @@ public class OrderExecuteAppService {
 			throw new OrderExecuteException(null, "executeId=[" + executeId
 					+ "]不存在");
 		}
-		costDomainService.unCharging(execute, isBackCost, user);
+		costDomainService.unCharging(execute, isBackCost, nurse);
 	}
 
 }
