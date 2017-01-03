@@ -74,10 +74,19 @@ public class LongOrder extends Order {
 
 	public List<Date> calExecuteDates(int numDays) {
 		List<Date> dates = new ArrayList<Date>();
+		// 分解的日期
 		Date currentDate = DateUtil.addDay(DateUtil.getSysDateStart(), numDays);
+		// 大于计划截至时间不分解
 		if (currentDate.after(this.planEndDate)) {
 			return dates;
 		}
+		// 已分解的日期就不分解了
+		OrderExecute lastOrderExecute = this.getLastOrderExecute();
+		if (lastOrderExecute != null
+				&& lastOrderExecute.getPlanEndDate().after(currentDate)) {
+			return dates;
+		}
+		// 分解
 		if (frequencyType.equals(LongOrder.FrequencyType_9H15H)) {
 			dates.add(DateUtil.addHour(currentDate, 9));
 			dates.add(DateUtil.addHour(currentDate, 15));

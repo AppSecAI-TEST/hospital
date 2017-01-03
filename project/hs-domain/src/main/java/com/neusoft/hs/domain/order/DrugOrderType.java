@@ -17,7 +17,6 @@ import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @DiscriminatorValue("Drug")
