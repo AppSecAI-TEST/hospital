@@ -60,6 +60,13 @@ public class DateUtil {
 		return calendar.getTime();
 	}
 
+	public static Date addHour(Date date, int hour) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(calendar.HOUR, hour);
+		return calendar.getTime();
+	}
+
 	public static Date getSysDateStart() {
 
 		Date sysDate = getSysDate();

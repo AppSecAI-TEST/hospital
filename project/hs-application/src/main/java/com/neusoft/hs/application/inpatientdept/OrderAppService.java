@@ -28,6 +28,8 @@ public class OrderAppService {
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
 
+	public static final int NeedSendOrderExecuteDay = 2;// 今天和明天
+
 	/**
 	 * @param doctor
 	 * @param order
@@ -72,6 +74,6 @@ public class OrderAppService {
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
 			Pageable pageable) {
 		return orderExecuteDomainService.getNeedSendOrderExecutes(nurse,
-				pageable);
+				NeedSendOrderExecuteDay, pageable);
 	}
 }

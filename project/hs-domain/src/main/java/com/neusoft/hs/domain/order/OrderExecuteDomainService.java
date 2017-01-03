@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,10 +28,17 @@ public class OrderExecuteDomainService {
 	@Autowired
 	private OrderExecuteRepo orderExecuteRepo;
 
-	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
+	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse, int day,
 			Pageable pageable) {
-		return orderExecuteRepo.findByStateAndBelongDept(
-				OrderExecute.State_NeedSend, nurse.getDept(), pageable);
+		if (day <= 0) {
+			return new ArrayList<OrderExecute>();
+		} else {
+			Date date = DateUtil.addDay(DateUtil.getSysDateStart(), day);
+			return orderExecuteRepo
+					.findByStateAndBelongDeptAndPlanStartDateLessThan(
+							OrderExecute.State_NeedSend, nurse.getDept(), date,
+							pageable);
+		}
 	}
 
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,

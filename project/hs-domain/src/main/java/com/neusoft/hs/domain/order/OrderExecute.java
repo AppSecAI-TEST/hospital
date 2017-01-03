@@ -135,6 +135,10 @@ public class OrderExecute extends SuperEntity {
 	public static final String Type_Dispense_Drug = "摆药";
 
 	public static final String Type_Take_Drug = "取药";
+	
+	public static final String Type_Configure_Fluid = "配液";
+
+	public static final String Type_Transport_Fluid = "输液";
 
 	public static final String Type_SecondNursing = "二级护理";
 

@@ -53,6 +53,9 @@ public abstract class Order extends IdEntity {
 	@JoinColumn(name = "type_id")
 	private OrderType type;
 
+	@Column(name = "use_type", length = 32)
+	private String useType;
+
 	@OneToMany(mappedBy = "order", cascade = { CascadeType.ALL })
 	@OrderBy("planStartDate ASC")
 	private List<OrderExecute> orderExecutes;
@@ -92,6 +95,10 @@ public abstract class Order extends IdEntity {
 
 	public static final String State_Stoped = "已停止";
 
+	public static final String UserType_Oral = "口服";
+
+	public static final String UserType_Infusion = "输液";
+
 	/**
 	 * @throws HsException
 	 * @roseuid 584E6696009D
@@ -112,16 +119,17 @@ public abstract class Order extends IdEntity {
 		this.type.check(this);
 	}
 
-	public int verify() {
+	public int verify() throws OrderException {
 		int count = this.resolve();
 		this.setState(State_Executing);
 		return count;
 	}
 
 	/**
+	 * @throws OrderException 
 	 * @roseuid 584F494100C2
 	 */
-	public int resolve() {
+	public int resolve() throws OrderException {
 		List<OrderExecute> orderExecutes = this.type.resolveOrder(this);
 		if (orderExecutes.size() > 0) {
 			this.addExecutes(orderExecutes);
@@ -207,6 +215,14 @@ public abstract class Order extends IdEntity {
 
 	public void setType(OrderType type) {
 		this.type = type;
+	}
+
+	public String getUseType() {
+		return useType;
+	}
+
+	public void setUseType(String useType) {
+		this.useType = useType;
 	}
 
 	public List<OrderExecute> getOrderExecutes() {

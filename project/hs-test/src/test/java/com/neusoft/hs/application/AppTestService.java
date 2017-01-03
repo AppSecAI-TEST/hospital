@@ -3,6 +3,7 @@ package com.neusoft.hs.application;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,15 +104,23 @@ public class AppTestService {
 
 	private ChargeItem drugTypeSpec001ChargeItem;// 药品001计费项目
 
+	private ChargeItem drugTypeSpec002ChargeItem;// 药品002计费项目
+
 	private ChargeItem secondNursingChargeItem;// 二级护理计费项目
 
 	private SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
 
 	private DrugTypeSpec drugTypeSpec001;// 药品规格001
 
+	private DrugTypeSpec drugTypeSpec002;// 药品规格002
+
 	private DrugType drugType001;// 药房下的药品类型001（有库存属性）
 
+	private DrugType drugType002;// 药房下的药品类型002（有库存属性）
+
 	private DrugOrderType drugOrderType001;// 药品医嘱类型001
+
+	private DrugOrderType drugOrderType002;// 药品医嘱类型002
 
 	private LeaveHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
 
@@ -151,13 +160,14 @@ public class AppTestService {
 		int startedCount;
 		int resolveCount;
 		Visit visit;
+		Date sysDate;
 
 		pageable = new PageRequest(0, 15);
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-		
+
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
@@ -172,7 +182,7 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-		
+
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
@@ -192,7 +202,7 @@ public class AppTestService {
 
 		assertTrue(visits.size() == 1);
 		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-		
+
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_IntoWard));
@@ -216,6 +226,7 @@ public class AppTestService {
 		drug001Order.setName("药品001");
 		drug001Order.setPlanStartDate(DateUtil.getSysDate());
 		drug001Order.setCount(2);
+		drug001Order.setUseType(Order.UserType_Oral);
 
 		DrugOrderType drugOrderType = new DrugOrderType();
 		drugOrderType.setDrugTypeSpecId(drugTypeSpec001.getId());
@@ -305,6 +316,49 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 10:10"));
+
+		// 开立药品002长期医嘱
+		LongOrder drug002Order = new LongOrder();
+		drug002Order.setVisitId(visit001.getId());
+		drug002Order.setName("头孢3");
+		drug002Order.setCount(2);
+		drug002Order.setUseType(Order.UserType_Infusion);
+		drug002Order.setFrequencyType(LongOrder.FrequencyType_9H15H);
+
+		sysDate = DateUtil.getSysDate();
+		drug002Order.setPlanStartDate(sysDate);
+		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 3));
+
+		drug002Order.setType(drugOrderType002);
+
+		orderAppService.create(drug002Order, user002);
+
+		pageable = new PageRequest(0, 15);
+		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
+
+		assertTrue(orders.size() == 1);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 10:30"));
+
+		// 核对医嘱
+		for (Order order : orders) {
+			orderAppService.verify(order.getId(), user003);
+		}
+
+		pageable = new PageRequest(0, 15);
+		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
+
+		assertTrue(executes.size() == 4);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:05"));
+
+		// 发送医嘱执行条目
+		orderExecuteAppService.send(executes.get(0).getId(), user003);
+
+		// 采用API启动符合条件的执行条目
+		startedCount = orderExecuteAppService.start();
 
 		// 2016-12-30
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-30"));
@@ -502,10 +556,11 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), user003);
 		}
-		
+
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState().equals(Visit.State_NeedLeaveHospitalBalance));
+		assertTrue(visit.getState()
+				.equals(Visit.State_NeedLeaveHospitalBalance));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user222,
@@ -670,8 +725,8 @@ public class AppTestService {
 		chargeItems.add(bedChargeItem);
 
 		drugTypeSpec001ChargeItem = new ChargeItem();
-		drugTypeSpec001ChargeItem.setId("drugTypeSpec001");
-		drugTypeSpec001ChargeItem.setCode("drugTypeSpec001");
+		drugTypeSpec001ChargeItem.setId("drugTypeSpec001ChargeItem");
+		drugTypeSpec001ChargeItem.setCode("drugTypeSpec001ChargeItem");
 		drugTypeSpec001ChargeItem.setName("阿司匹林");
 		drugTypeSpec001ChargeItem.setPrice(30F);
 		drugTypeSpec001ChargeItem.setUnit("盒");
@@ -689,6 +744,17 @@ public class AppTestService {
 
 		chargeItems.add(secondNursingChargeItem);
 
+		drugTypeSpec002ChargeItem = new ChargeItem();
+		drugTypeSpec002ChargeItem.setId("drugTypeSpec002ChargeItem");
+		drugTypeSpec002ChargeItem.setCode("drugTypeSpec002ChargeItem");
+		drugTypeSpec002ChargeItem.setName("头孢3");
+		drugTypeSpec002ChargeItem.setPrice(120);
+		drugTypeSpec002ChargeItem.setUnit("支");
+		drugTypeSpec002ChargeItem
+				.setChargingMode(ChargeItem.ChargingMode_Amount);
+
+		chargeItems.add(drugTypeSpec002ChargeItem);
+
 		costDomainService.create(chargeItems);
 	}
 
@@ -702,6 +768,13 @@ public class AppTestService {
 		drugTypeSpec001.setChargeItem(drugTypeSpec001ChargeItem);
 
 		drugTypeSpecs.add(drugTypeSpec001);
+
+		drugTypeSpec002 = new DrugTypeSpec();
+		drugTypeSpec002.setId("drugTypeSpec002");
+		drugTypeSpec002.setName("头孢3");
+		drugTypeSpec002.setChargeItem(drugTypeSpec002ChargeItem);
+
+		drugTypeSpecs.add(drugTypeSpec002);
 
 		pharmacyDomainService.createDrugTypeSpecs(drugTypeSpecs);
 	}
@@ -718,6 +791,14 @@ public class AppTestService {
 
 		drugTypes.add(drugType001);
 
+		drugType002 = new DrugType();
+		drugType002.setId("drugType002");
+		drugType002.setDrugTypeSpec(drugTypeSpec002);
+		drugType002.setPharmacy(dept333);
+		drugType002.setStock(1200);
+
+		drugTypes.add(drugType002);
+
 		pharmacyDomainService.createDrugTypes(drugTypes);
 	}
 
@@ -732,6 +813,14 @@ public class AppTestService {
 		drugOrderType001.setDrugType(drugType001);
 
 		orderTypes.add(drugOrderType001);
+
+		drugOrderType002 = new DrugOrderType();
+		drugOrderType002.setId("drugOrderType002");
+		drugOrderType002.setCode("drugOrderType002");
+		drugOrderType002.setName("头孢3");
+		drugOrderType002.setDrugType(drugType002);
+
+		orderTypes.add(drugOrderType002);
 
 		leaveHospitalOrderType = new LeaveHospitalOrderType();
 		leaveHospitalOrderType.setId("leaveHospitalOrderType");

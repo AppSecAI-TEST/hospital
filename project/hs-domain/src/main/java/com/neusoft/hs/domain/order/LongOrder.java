@@ -2,7 +2,9 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -23,9 +25,14 @@ public class LongOrder extends Order {
 	@Column(name = "plan_end_date")
 	private Date planEndDate;
 
+	@Column(name = "end_date")
+	public Date endDate;
+
 	public static final int ResolveDays = 2;
 
 	public static final String FrequencyType_Day = "每天";
+
+	public static final String FrequencyType_9H15H = "每天2次/早9/下3";
 
 	public String getFrequencyType() {
 		return frequencyType;
@@ -43,6 +50,14 @@ public class LongOrder extends Order {
 		this.planEndDate = planEndDate;
 	}
 
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
 	@Override
 	public void updateState() {
 		// TODO Auto-generated method stub
@@ -54,6 +69,19 @@ public class LongOrder extends Order {
 			execute.stop();
 		}
 		this.setState(State_Stoped);
-		this.setPlanEndDate(DateUtil.getSysDate());
+		this.setEndDate(DateUtil.getSysDate());
+	}
+
+	public List<Date> calExecuteDates(int numDays) {
+		List<Date> dates = new ArrayList<Date>();
+		Date currentDate = DateUtil.addDay(DateUtil.getSysDateStart(), numDays);
+		if (currentDate.after(this.planEndDate)) {
+			return dates;
+		}
+		if (frequencyType.equals(LongOrder.FrequencyType_9H15H)) {
+			dates.add(DateUtil.addHour(currentDate, 9));
+			dates.add(DateUtil.addHour(currentDate, 15));
+		}
+		return dates;
 	}
 }

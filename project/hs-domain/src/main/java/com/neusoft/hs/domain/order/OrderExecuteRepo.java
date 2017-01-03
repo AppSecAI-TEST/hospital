@@ -17,8 +17,9 @@ import com.neusoft.hs.domain.organization.InPatientDept;
 public interface OrderExecuteRepo extends
 		PagingAndSortingRepository<OrderExecute, String> {
 
-	List<OrderExecute> findByStateAndBelongDept(String state,
-			InPatientDept dept, Pageable pageable);
+	List<OrderExecute> findByStateAndBelongDeptAndPlanStartDateLessThan(
+			String state, InPatientDept dept, Date planStartDate,
+			Pageable pageable);
 
 	List<OrderExecute> findByStateAndExecuteDept(String state, Dept dept,
 			Pageable pageable);

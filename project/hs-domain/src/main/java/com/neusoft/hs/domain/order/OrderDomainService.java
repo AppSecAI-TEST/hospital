@@ -90,7 +90,11 @@ public class OrderDomainService {
 				.findLongOrderByState(Order.State_Executing);
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
-			count += longOrder.resolve();
+			try {
+				count += longOrder.resolve();
+			} catch (OrderException e) {
+				e.printStackTrace();
+			}
 		}
 		return count;
 	}
