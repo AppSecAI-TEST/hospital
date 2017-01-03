@@ -96,6 +96,7 @@ public class AppTestService {
 	private Staff user111;// 住院处送诊人-曹操
 	private Staff user222;// 收费处-张飞
 	private Staff user333;// 药房摆药岗位-赵云
+	private Staff user444;// 药房配液岗位-关羽
 	private Staff user001;// 内泌五接诊护士-大乔
 	private Doctor user002;// 内泌五医生-貂蝉
 	private Nurse user003;// 内泌五护士-小乔
@@ -352,13 +353,43 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 4);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:05"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 11:05"));
 
 		// 发送医嘱执行条目
-		orderExecuteAppService.send(executes.get(0).getId(), user003);
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.send(execute.getId(), user003);
+		}
 
 		// 采用API启动符合条件的执行条目
 		startedCount = orderExecuteAppService.start();
+
+		assertTrue(startedCount == 2);
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
+				pageable);
+
+		assertTrue(executes.size() == 2);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
+
+		// 完成配液医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user444);
+		}
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 2);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30"));
+
+		// 完成医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user003);
+		}
 
 		// 2016-12-30
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-30"));
@@ -683,6 +714,14 @@ public class AppTestService {
 		user333.setDept(dept333);
 
 		users.add(user333);
+
+		user444 = new Staff();
+
+		user444.setId("staff444");
+		user444.setName("药房配液岗位-关羽");
+		user444.setDept(dept333);
+
+		users.add(user444);
 
 		user001 = new Staff();
 
