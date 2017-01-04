@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -63,6 +64,7 @@ public class OrderExecute extends SuperEntity {
 	@Column(name = "cost_state", length = 32)
 	private String costState;
 
+	@NotNull(message = "计划开始时间不能为空")
 	@Column(name = "plan_start_date")
 	private Date planStartDate;
 
