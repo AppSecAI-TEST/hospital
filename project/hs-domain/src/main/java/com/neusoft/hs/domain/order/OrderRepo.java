@@ -11,11 +11,11 @@ import org.springframework.data.repository.query.Param;
 
 import com.neusoft.hs.domain.organization.Dept;
 
-public interface OrderRepo extends PagingAndSortingRepository<Order, String> {
+interface OrderRepo extends PagingAndSortingRepository<Order, String> {
 
 	List<Order> findByStateAndBelongDept(String state, Dept dept,
 			Pageable pageable);
-	
+
 	@Query("select o from LongOrder o where o.state = :state")
 	List<LongOrder> findLongOrderByState(@Param("state") String state);
 

@@ -4,7 +4,7 @@ package com.neusoft.hs.domain.pharmacy;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface DrugTypeSpecRepo extends
+interface DrugTypeSpecRepo extends
 		PagingAndSortingRepository<DrugTypeSpec, String> {
 
 }

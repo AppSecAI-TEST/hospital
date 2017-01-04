@@ -17,7 +17,7 @@ public class OralOrderResolver implements DrugTypeOrderResolver {
 		dispensingDrugExecute.setType(OrderExecute.Type_Dispense_Drug);
 
 		DrugOrderType type = (DrugOrderType) order.getType();
-		dispensingDrugExecute.setChargeItem(type.getDrugType()
+		dispensingDrugExecute.addChargeItem(type.getDrugType()
 				.getDrugTypeSpec().getChargeItem());
 		dispensingDrugExecute.setCount(order.getCount());
 

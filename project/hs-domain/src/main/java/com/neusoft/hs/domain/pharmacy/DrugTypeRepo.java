@@ -6,8 +6,7 @@ import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface DrugTypeRepo extends
-		PagingAndSortingRepository<DrugType, String> {
+interface DrugTypeRepo extends PagingAndSortingRepository<DrugType, String> {
 
 	List<DrugType> findByDrugTypeSpec(DrugTypeSpec drugTypeSpec);
 

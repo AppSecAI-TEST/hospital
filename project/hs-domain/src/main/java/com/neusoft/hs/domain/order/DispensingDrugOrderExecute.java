@@ -20,15 +20,11 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 
 	@Override
 	public List<ChargeRecord> createChargeRecords() {
-		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
+		List<ChargeRecord> chargeRecords = super.createChargeRecords();
 
-		ChargeRecord chargeRecord = new ChargeRecord();
-		chargeRecord.setCount(count);
-		chargeRecord.setPrice(this.getChargeItem().getPrice());
-		chargeRecord.setAmount(-count * this.getChargeItem().getPrice());
-		chargeRecord.setChargeItem(this.getChargeItem());
-
-		chargeRecords.add(chargeRecord);
+		for (ChargeRecord chargeRecord : chargeRecords) {
+			chargeRecord.setCount(count);
+		}
 
 		return chargeRecords;
 	}

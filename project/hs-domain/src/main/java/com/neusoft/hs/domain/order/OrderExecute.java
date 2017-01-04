@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -88,9 +90,9 @@ public class OrderExecute extends SuperEntity {
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "charge_item_id")
-	private ChargeItem chargeItem;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "domain_order_execute_charge_item", joinColumns = { @JoinColumn(name = "order_execute_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "charge_item_id", referencedColumnName = "id") })
+	private List<ChargeItem> chargeItems;
 
 	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
@@ -135,7 +137,7 @@ public class OrderExecute extends SuperEntity {
 	public static final String Type_Dispense_Drug = "摆药";
 
 	public static final String Type_Take_Drug = "取药";
-	
+
 	public static final String Type_Configure_Fluid = "配液";
 
 	public static final String Type_Transport_Fluid = "输液";
@@ -207,13 +209,15 @@ public class OrderExecute extends SuperEntity {
 	public List<ChargeRecord> createChargeRecords() {
 		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
 
-		if (this.chargeItem != null) {
-			ChargeRecord chargeRecord = new ChargeRecord();
-			chargeRecord.setPrice(this.chargeItem.getPrice());
-			chargeRecord.setAmount(-this.chargeItem.getPrice());
-			chargeRecord.setChargeItem(this.chargeItem);
+		if (this.chargeItems != null && this.chargeItems.size() > 0) {
+			for (ChargeItem chargeItem : this.chargeItems) {
+				ChargeRecord chargeRecord = new ChargeRecord();
+				chargeRecord.setPrice(chargeItem.getPrice());
+				chargeRecord.setAmount(-chargeItem.getPrice());
+				chargeRecord.setChargeItem(chargeItem);
 
-			chargeRecords.add(chargeRecord);
+				chargeRecords.add(chargeRecord);
+			}
 		}
 
 		return chargeRecords;
@@ -388,12 +392,19 @@ public class OrderExecute extends SuperEntity {
 		this.order = order;
 	}
 
-	public ChargeItem getChargeItem() {
-		return chargeItem;
+	public List<ChargeItem> getChargeItems() {
+		return chargeItems;
 	}
 
-	public void setChargeItem(ChargeItem chargeItem) {
-		this.chargeItem = chargeItem;
+	public void setChargeItems(List<ChargeItem> chargeItems) {
+		this.chargeItems = chargeItems;
+	}
+
+	public void addChargeItem(ChargeItem chargeItem) {
+		if (this.chargeItems == null) {
+			this.chargeItems = new ArrayList<ChargeItem>();
+		}
+		this.chargeItems.add(chargeItem);
 	}
 
 	public List<ChargeRecord> getChargeRecords() {

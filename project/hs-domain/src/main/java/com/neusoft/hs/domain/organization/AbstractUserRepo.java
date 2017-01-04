@@ -4,6 +4,7 @@ package com.neusoft.hs.domain.organization;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface AbstractUserRepo extends PagingAndSortingRepository<AbstractUser, String> {
+interface AbstractUserRepo extends
+		PagingAndSortingRepository<AbstractUser, String> {
 
 }

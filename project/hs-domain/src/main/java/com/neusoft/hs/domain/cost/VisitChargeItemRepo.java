@@ -4,7 +4,7 @@ package com.neusoft.hs.domain.cost;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface VisitChargeItemRepo extends
+interface VisitChargeItemRepo extends
 		PagingAndSortingRepository<VisitChargeItem, String> {
 
 }

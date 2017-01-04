@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.neusoft.hs.domain.organization.Dept;
 
-public interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
+interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 
 	List<Visit> findByState(String state, Pageable pageable);
 

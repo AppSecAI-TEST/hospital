@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.InPatientDept;
 
-public interface OrderExecuteRepo extends
+interface OrderExecuteRepo extends
 		PagingAndSortingRepository<OrderExecute, String> {
 
 	List<OrderExecute> findByStateAndBelongDeptAndPlanStartDateLessThan(

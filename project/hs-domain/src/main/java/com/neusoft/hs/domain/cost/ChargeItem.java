@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -51,7 +52,7 @@ public class ChargeItem extends SuperEntity {
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<OrderType> orderTypes;
 
-	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	@ManyToMany(mappedBy = "chargeItems", cascade = { CascadeType.ALL })
 	private List<OrderExecute> executes;
 
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })

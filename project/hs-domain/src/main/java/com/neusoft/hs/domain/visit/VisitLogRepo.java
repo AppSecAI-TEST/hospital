@@ -4,7 +4,6 @@ package com.neusoft.hs.domain.visit;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface VisitLogRepo extends
-		PagingAndSortingRepository<VisitLog, String> {
+interface VisitLogRepo extends PagingAndSortingRepository<VisitLog, String> {
 
 }

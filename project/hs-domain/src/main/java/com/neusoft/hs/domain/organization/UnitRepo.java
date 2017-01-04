@@ -4,6 +4,6 @@ package com.neusoft.hs.domain.organization;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface UnitRepo extends PagingAndSortingRepository<Unit, String> {
+interface UnitRepo extends PagingAndSortingRepository<Unit, String> {
 
 }

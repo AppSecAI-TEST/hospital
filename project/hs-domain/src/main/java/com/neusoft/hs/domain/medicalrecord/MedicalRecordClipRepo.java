@@ -4,7 +4,7 @@ package com.neusoft.hs.domain.medicalrecord;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface MedicalRecordClipRepo extends
+interface MedicalRecordClipRepo extends
 		PagingAndSortingRepository<MedicalRecordClip, String> {
 
 }

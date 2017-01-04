@@ -1,6 +1,5 @@
 package com.neusoft.hs.domain.order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -13,20 +12,16 @@ import com.neusoft.hs.platform.exception.HsException;
 @Entity
 @DiscriminatorValue("ConfigureFluid")
 public class ConfigureFluidOrderExecute extends OrderExecute {
-	
+
 	private int count;
 
 	@Override
 	public List<ChargeRecord> createChargeRecords() {
-		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
+		List<ChargeRecord> chargeRecords = super.createChargeRecords();
 
-		ChargeRecord chargeRecord = new ChargeRecord();
-		chargeRecord.setCount(count);
-		chargeRecord.setPrice(this.getChargeItem().getPrice());
-		chargeRecord.setAmount(-count * this.getChargeItem().getPrice());
-		chargeRecord.setChargeItem(this.getChargeItem());
-
-		chargeRecords.add(chargeRecord);
+		for (ChargeRecord chargeRecord : chargeRecords) {
+			chargeRecord.setCount(count);
+		}
 
 		return chargeRecords;
 	}

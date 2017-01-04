@@ -16,7 +16,7 @@ public class InfusionOrderResolver implements DrugTypeOrderResolver {
 		configureFluidDrugExecute.setType(OrderExecute.Type_Configure_Fluid);
 
 		DrugOrderType type = (DrugOrderType) order.getType();
-		configureFluidDrugExecute.setChargeItem(type.getDrugType()
+		configureFluidDrugExecute.addChargeItem(type.getDrugType()
 				.getDrugTypeSpec().getChargeItem());
 		configureFluidDrugExecute.setCount(order.getCount());
 
