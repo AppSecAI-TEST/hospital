@@ -59,9 +59,27 @@ public class LongOrder extends Order {
 	}
 
 	@Override
-	public void updateState() {
-		// TODO Auto-generated method stub
-
+	public void updateState(OrderExecute orderExecute) {
+		if (this.planEndDate != null) {
+			Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
+			if (this.planEndDate.before(startDate)) {
+				boolean isAllFinished = true;
+				L: for (OrderExecute execute : this.getOrderExecutes()) {
+					if (!execute.equals(orderExecute)
+							&& !execute.getState().equals(
+									OrderExecute.State_Finished)
+							&& !execute.getState().equals(
+									OrderExecute.State_Canceled)) {
+						isAllFinished = false;
+						break L;
+					}
+				}
+				if (isAllFinished) {
+					this.setState(Order.State_Finished);
+					this.setStateDesc("已完成");
+				}
+			}
+		}
 	}
 
 	public void stop() throws OrderExecuteException {

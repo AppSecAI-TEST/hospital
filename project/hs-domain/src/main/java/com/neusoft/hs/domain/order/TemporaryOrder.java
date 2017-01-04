@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 public class TemporaryOrder extends Order {
 
 	@Override
-	public void updateState() {
+	public void updateState(OrderExecute orderExecute) {
 		this.setState(Order.State_Finished);
 		this.setStateDesc("已完成");
 	}

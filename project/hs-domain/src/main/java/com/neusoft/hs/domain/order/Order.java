@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -44,6 +45,7 @@ public abstract class Order extends IdEntity {
 	@Column(name = "state_desc", length = 128)
 	private String stateDesc;
 
+	@NotNull(message = "计划开始时间不能为空")
 	@Column(name = "plan_start_date")
 	private Date planStartDate;
 
@@ -297,6 +299,6 @@ public abstract class Order extends IdEntity {
 		this.executeDept = executeDept;
 	}
 
-	public abstract void updateState();
+	public abstract void updateState(OrderExecute orderExecute);
 
 }
