@@ -258,11 +258,6 @@ public class AppTestService {
 		// 发送医嘱执行条目
 		orderExecuteAppService.send(executes.get(0).getId(), user003);
 
-		// 采用API启动符合条件的执行条目
-		startedCount = orderExecuteAppService.start();
-
-		assertTrue(startedCount == 2);
-
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15"));
 
 		pageable = new PageRequest(0, 15);
@@ -351,7 +346,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 4);
+		assertTrue(executes.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 11:05"));
 
@@ -360,17 +355,12 @@ public class AppTestService {
 			orderExecuteAppService.send(execute.getId(), user003);
 		}
 
-		// 采用API启动符合条件的执行条目
-		startedCount = orderExecuteAppService.start();
-
-		assertTrue(startedCount == 2);
-
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
 				pageable);
 
 		assertTrue(executes.size() == 2);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
 
 		// 完成配液医嘱执行条目
@@ -396,15 +386,43 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:30"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
+
+		assertTrue(executes.size() == 2);
+
+		// 发送医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.send(execute.getId(), user003);
+		}
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
+				pageable);
+
+		assertTrue(executes.size() == 2);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:50"));
+
+		// 完成配液医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user444);
+		}
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 09:10"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 3);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		// 完成医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user003);
+		}
 
 		// 2016-12-31
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-31"));

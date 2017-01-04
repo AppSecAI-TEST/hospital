@@ -126,12 +126,19 @@ public abstract class Order extends IdEntity {
 	}
 
 	/**
-	 * @throws OrderException 
+	 * @throws OrderException
 	 * @roseuid 584F494100C2
 	 */
 	public int resolve() throws OrderException {
 		List<OrderExecute> orderExecutes = this.type.resolveOrder(this);
 		if (orderExecutes.size() > 0) {
+			// 更新状态
+			for (OrderExecute orderExecute : orderExecutes) {
+				if (!orderExecute.getState()
+						.equals(OrderExecute.State_NeedSend)) {
+					orderExecute.updateState();
+				}
+			}
 			this.addExecutes(orderExecutes);
 			this.lastOrderExecuteId = orderExecutes.get(
 					orderExecutes.size() - 1).getId();

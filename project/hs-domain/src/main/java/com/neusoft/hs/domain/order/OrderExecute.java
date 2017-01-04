@@ -158,10 +158,21 @@ public class OrderExecute extends SuperEntity {
 			throw new OrderExecuteException(this, "state=[" + this.state
 					+ "]不是" + State_NeedSend);
 		}
-		this.state = State_NeedExecute;
+		this.updateState();
 		this.sendDate = DateUtil.getSysDate();
 
 		this.order.setStateDesc(this.type + "执行条目已发送");
+	}
+
+	public void updateState() {
+		Date sysDate = DateUtil.getSysDate();
+		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
+		if (this.planStartDate.before(startDate)) {
+			this.state = State_Executing;
+			this.startDate = sysDate;
+		} else {
+			this.state = State_NeedExecute;
+		}
 	}
 
 	/**

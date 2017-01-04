@@ -28,7 +28,7 @@ public class OrderAppService {
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
 
-	public static final int NeedSendOrderExecuteDay = 2;// 今天和明天
+	public static final int NeedSendOrderExecuteDay = 1;// 今天
 
 	/**
 	 * @param doctor
