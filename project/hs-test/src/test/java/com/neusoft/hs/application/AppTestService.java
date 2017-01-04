@@ -325,7 +325,7 @@ public class AppTestService {
 
 		sysDate = DateUtil.getSysDate();
 		drug002Order.setPlanStartDate(sysDate);
-		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 3));
+		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
 		drug002Order.setType(drugOrderType002);
 

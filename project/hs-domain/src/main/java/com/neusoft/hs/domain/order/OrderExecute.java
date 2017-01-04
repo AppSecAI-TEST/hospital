@@ -58,6 +58,9 @@ public class OrderExecute extends SuperEntity {
 	@Column(name = "next_id", length = 36)
 	private String nextId;
 
+	@Column(name = "is_last")
+	private boolean isLast = false;
+
 	@Column(name = "charge_state", length = 32)
 	private String chargeState;
 
@@ -315,6 +318,14 @@ public class OrderExecute extends SuperEntity {
 
 	public void setNextId(String nextId) {
 		this.nextId = nextId;
+	}
+
+	public boolean isLast() {
+		return isLast;
+	}
+
+	public void setLast(boolean isLast) {
+		this.isLast = isLast;
 	}
 
 	public String getState() {

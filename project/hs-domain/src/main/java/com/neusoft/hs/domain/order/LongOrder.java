@@ -60,25 +60,9 @@ public class LongOrder extends Order {
 
 	@Override
 	public void updateState(OrderExecute orderExecute) {
-		if (this.planEndDate != null) {
-			Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
-			if (this.planEndDate.before(startDate)) {
-				boolean isAllFinished = true;
-				L: for (OrderExecute execute : this.getOrderExecutes()) {
-					if (!execute.equals(orderExecute)
-							&& !execute.getState().equals(
-									OrderExecute.State_Finished)
-							&& !execute.getState().equals(
-									OrderExecute.State_Canceled)) {
-						isAllFinished = false;
-						break L;
-					}
-				}
-				if (isAllFinished) {
-					this.setState(Order.State_Finished);
-					this.setStateDesc("已完成");
-				}
-			}
+		if (orderExecute.isLast()) {
+			this.setState(Order.State_Finished);
+			this.setStateDesc("已完成");
 		}
 	}
 
@@ -90,10 +74,12 @@ public class LongOrder extends Order {
 		this.setEndDate(DateUtil.getSysDate());
 	}
 
-	public List<Date> calExecuteDates(int numDays) {
-		List<Date> dates = new ArrayList<Date>();
+	public List<LongOrderExecuteDateVO> calExecuteDates(int numDays) {
+		List<LongOrderExecuteDateVO> dates = new ArrayList<LongOrderExecuteDateVO>();
+		LongOrderExecuteDateVO date;
 		// 分解的日期
-		Date currentDate = DateUtil.addDay(DateUtil.getSysDateStart(), numDays);
+		Date sysDateStart = DateUtil.getSysDateStart();
+		Date currentDate = DateUtil.addDay(sysDateStart, numDays);
 		// 大于计划截至时间不分解
 		if (currentDate.after(this.planEndDate)) {
 			return dates;
@@ -106,8 +92,18 @@ public class LongOrder extends Order {
 		}
 		// 分解
 		if (frequencyType.equals(LongOrder.FrequencyType_9H15H)) {
-			dates.add(DateUtil.addHour(currentDate, 9));
-			dates.add(DateUtil.addHour(currentDate, 15));
+
+			date = new LongOrderExecuteDateVO();
+			date.setPlanStartDate(DateUtil.addHour(currentDate, 9));
+			dates.add(date);
+
+			date = new LongOrderExecuteDateVO();
+			date.setPlanStartDate(DateUtil.addHour(currentDate, 15));
+			if (DateUtil.addDay(currentDate, 1).after(this.planEndDate)) {
+				date.setLast(true);
+			}
+
+			dates.add(date);
 		}
 		return dates;
 	}

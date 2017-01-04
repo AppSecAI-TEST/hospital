@@ -84,6 +84,9 @@ public class DrugOrderType extends OrderType {
 			// 分解执行条目
 			List<OrderExecute> tempExecutes = this.getDrugTypeOrderResolver(
 					order).resolve(order, this);
+			if (tempExecutes.size() == 0) {
+				throw new OrderException(order, "没有分解出执行条目");
+			}
 			// 设置执行时间
 			for (OrderExecute execute : tempExecutes) {
 				execute.setPlanStartDate(order.getPlanStartDate());
@@ -96,17 +99,23 @@ public class DrugOrderType extends OrderType {
 			LongOrder longOrder = (LongOrder) order;
 			for (int day = 0; day < LongOrder.ResolveDays; day++) {
 				// 计算执行时间
-				List<Date> executeDates = longOrder.calExecuteDates(day);
+				List<LongOrderExecuteDateVO> executeDates = longOrder
+						.calExecuteDates(day);
 
-				for (Date executeDate : executeDates) {
+				for (LongOrderExecuteDateVO executeDate : executeDates) {
 					// 分解执行条目
 					tempExecutes = this.getDrugTypeOrderResolver(order)
 							.resolve(order, this);
+					if (tempExecutes.size() == 0) {
+						throw new OrderException(order, "没有分解出执行条目");
+					}
 					// 设置执行时间
 					for (OrderExecute execute : tempExecutes) {
-						execute.setPlanStartDate(executeDate);
-						execute.setPlanEndDate(executeDate);
+						execute.setPlanStartDate(executeDate.getPlanStartDate());
+						execute.setPlanEndDate(executeDate.getPlanStartDate());
 					}
+					tempExecutes.get(tempExecutes.size() - 1).setLast(
+							executeDate.isLast());
 					// 收集执行条目
 					executes.addAll(tempExecutes);
 				}
