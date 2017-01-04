@@ -99,10 +99,9 @@ public class DrugOrderType extends OrderType {
 			LongOrder longOrder = (LongOrder) order;
 			for (int day = 0; day < LongOrder.ResolveDays; day++) {
 				// 计算执行时间
-				List<LongOrderExecuteDateVO> executeDates = longOrder
-						.calExecuteDates(day);
+				List<Date> executeDates = longOrder.calExecuteDates(day);
 
-				for (LongOrderExecuteDateVO executeDate : executeDates) {
+				for (Date executeDate : executeDates) {
 					// 分解执行条目
 					tempExecutes = this.getDrugTypeOrderResolver(order)
 							.resolve(order, this);
@@ -111,14 +110,16 @@ public class DrugOrderType extends OrderType {
 					}
 					// 设置执行时间
 					for (OrderExecute execute : tempExecutes) {
-						execute.setPlanStartDate(executeDate.getPlanStartDate());
-						execute.setPlanEndDate(executeDate.getPlanStartDate());
+						execute.setPlanStartDate(executeDate);
+						execute.setPlanEndDate(executeDate);
 					}
-					tempExecutes.get(tempExecutes.size() - 1).setLast(
-							executeDate.isLast());
 					// 收集执行条目
 					executes.addAll(tempExecutes);
 				}
+			}
+			// 没有分解出执行条目，设置之前分解的最后一条为last
+			if (executes.size() == 0) {
+				order.getLastOrderExecute().setLast(true);
 			}
 		}
 

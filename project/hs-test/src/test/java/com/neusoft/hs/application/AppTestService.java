@@ -346,7 +346,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 1);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 11:05"));
 
@@ -359,7 +359,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
 				pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 1);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
 
@@ -372,7 +372,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 1);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30"));
 
@@ -434,7 +434,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 1);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -445,7 +445,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
 				pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 1);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 08:50"));
 
@@ -460,7 +460,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 3);
+		assertTrue(executes.size() == 2);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {

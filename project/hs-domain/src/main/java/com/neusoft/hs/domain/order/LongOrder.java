@@ -74,36 +74,40 @@ public class LongOrder extends Order {
 		this.setEndDate(DateUtil.getSysDate());
 	}
 
-	public List<LongOrderExecuteDateVO> calExecuteDates(int numDays) {
-		List<LongOrderExecuteDateVO> dates = new ArrayList<LongOrderExecuteDateVO>();
-		LongOrderExecuteDateVO date;
+	/*
+	 * 以天为单位计算频次对应的时间
+	 */
+	public List<Date> calExecuteDates(int numDays) {
+		List<Date> dates = new ArrayList<Date>();
 		// 分解的日期
 		Date sysDateStart = DateUtil.getSysDateStart();
 		Date currentDate = DateUtil.addDay(sysDateStart, numDays);
-		// 大于计划截至时间不分解
-		if (currentDate.after(this.planEndDate)) {
-			return dates;
-		}
-		// 已分解的日期就不分解了
+		// 如果已分解完毕就不再分解
 		OrderExecute lastOrderExecute = this.getLastOrderExecute();
-		if (lastOrderExecute != null
-				&& lastOrderExecute.getPlanEndDate().after(currentDate)) {
-			return dates;
+		if (lastOrderExecute != null) {
+			if (lastOrderExecute.isLast()
+					|| lastOrderExecute.getPlanStartDate().after(currentDate)) {
+				return dates;
+			}
 		}
+
+		Date date;
 		// 分解
 		if (frequencyType.equals(LongOrder.FrequencyType_9H15H)) {
 
-			date = new LongOrderExecuteDateVO();
-			date.setPlanStartDate(DateUtil.addHour(currentDate, 9));
-			dates.add(date);
+			date = DateUtil.addHour(currentDate, 9);
 
-			date = new LongOrderExecuteDateVO();
-			date.setPlanStartDate(DateUtil.addHour(currentDate, 15));
-			if (DateUtil.addDay(currentDate, 1).after(this.planEndDate)) {
-				date.setLast(true);
+			if (date.before(this.planEndDate)
+					&& date.after(this.getPlanStartDate())) {
+				dates.add(date);
 			}
 
-			dates.add(date);
+			date = DateUtil.addHour(currentDate, 15);
+
+			if (date.before(this.planEndDate)
+					&& date.after(this.getPlanStartDate())) {
+				dates.add(date);
+			}
 		}
 		return dates;
 	}
