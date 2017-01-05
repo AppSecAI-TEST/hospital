@@ -359,7 +359,7 @@ public class AppTestService {
 		drug003Order.setPlanStartDate(sysDate);
 		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
-		drug002Order.setType(drugOrderType003);
+		drug003Order.setType(drugOrderType003);
 
 		CompsiteOrder drug002003Order = new CompsiteOrder();
 		drug002003Order.addOrder(drug002Order);
