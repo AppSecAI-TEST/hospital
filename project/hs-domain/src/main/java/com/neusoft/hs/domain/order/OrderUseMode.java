@@ -93,6 +93,10 @@ public abstract class OrderUseMode extends SuperEntity {
 		return chargeItems;
 	}
 
+	public ChargeItem getTheChargeItem(String key) {
+		return this.chargeItems.get(key);
+	}
+
 	public void setChargeItems(Map<String, ChargeItem> chargeItems) {
 		this.chargeItems = chargeItems;
 	}

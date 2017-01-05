@@ -45,6 +45,8 @@ public class InfusionOrderUseMode extends OrderUseMode {
 		transportFluidExecute.setVisit(order.getVisit());
 		transportFluidExecute.setBelongDept(order.getBelongDept());
 		transportFluidExecute.setType(OrderExecute.Type_Transport_Fluid);
+		transportFluidExecute.addChargeItem(this
+				.getTheChargeItem(transportFluid));
 
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
