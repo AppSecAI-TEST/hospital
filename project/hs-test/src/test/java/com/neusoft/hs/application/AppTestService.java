@@ -20,6 +20,7 @@ import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.InfusionOrderUseMode;
 import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
@@ -106,11 +107,11 @@ public class AppTestService {
 
 	private ChargeItem bedChargeItem;// 床位费计费项目【暂时床位费只设一个计费项目】
 
-	private ChargeItem drugTypeSpec001ChargeItem;// 药品001计费项目
+	private ChargeItem drugTypeSpec001ChargeItem;// 药品001计费项目（阿司匹林）
 
-	private ChargeItem drugTypeSpec002ChargeItem;// 药品002计费项目
+	private ChargeItem drugTypeSpec002ChargeItem;// 药品002计费项目（头孢3）
 
-	private ChargeItem drugTypeSpec003ChargeItem;// 药品003计费项目
+	private ChargeItem drugTypeSpec003ChargeItem;// 药品003计费项目(5%葡萄糖液)
 
 	private ChargeItem transportFluidMaterialChargeItem;// 输液材料费
 
@@ -122,13 +123,19 @@ public class AppTestService {
 
 	private DrugTypeSpec drugTypeSpec002;// 药品规格002
 
+	private DrugTypeSpec drugTypeSpec003;// 药品规格002
+
 	private DrugType drugType001;// 药房下的药品类型001（有库存属性）
 
 	private DrugType drugType002;// 药房下的药品类型002（有库存属性）
 
+	private DrugType drugType003;// 药房下的药品类型003（有库存属性）
+
 	private DrugOrderType drugOrderType001;// 药品医嘱类型001
 
 	private DrugOrderType drugOrderType002;// 药品医嘱类型002
+
+	private DrugOrderType drugOrderType003;// 药品医嘱类型003
 
 	private LeaveHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
 
@@ -326,7 +333,9 @@ public class AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 10:10"));
 
-		// 开立药品002长期医嘱
+		// 创建药品002长期医嘱
+		sysDate = DateUtil.getSysDate();
+
 		LongOrder drug002Order = new LongOrder();
 		drug002Order.setVisitId(visit001.getId());
 		drug002Order.setName("头孢3");
@@ -334,13 +343,29 @@ public class AppTestService {
 		drug002Order.setUseMode(infusionOrderUseMode);
 		drug002Order.setFrequencyType(LongOrder.FrequencyType_9H15H);
 
-		sysDate = DateUtil.getSysDate();
 		drug002Order.setPlanStartDate(sysDate);
 		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
 		drug002Order.setType(drugOrderType002);
 
-		orderAppService.create(drug002Order, user002);
+		// 创建药品003长期医嘱
+		LongOrder drug003Order = new LongOrder();
+		drug003Order.setVisitId(visit001.getId());
+		drug003Order.setName("5%葡萄糖");
+		drug003Order.setCount(1);
+		drug003Order.setUseMode(infusionOrderUseMode);
+		drug003Order.setFrequencyType(LongOrder.FrequencyType_9H15H);
+
+		drug003Order.setPlanStartDate(sysDate);
+		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
+
+		drug002Order.setType(drugOrderType003);
+
+		CompsiteOrder drug002003Order = new CompsiteOrder();
+		drug002003Order.addOrder(drug002Order);
+		drug002003Order.addOrder(drug003Order);
+
+		orderAppService.create(drug002003Order, user002);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
@@ -855,6 +880,17 @@ public class AppTestService {
 
 		chargeItems.add(drugTypeSpec002ChargeItem);
 
+		drugTypeSpec003ChargeItem = new ChargeItem();
+		drugTypeSpec003ChargeItem.setId("drugTypeSpec003ChargeItem");
+		drugTypeSpec003ChargeItem.setCode("drugTypeSpec003ChargeItem");
+		drugTypeSpec003ChargeItem.setName("5%葡萄糖液");
+		drugTypeSpec003ChargeItem.setPrice(15);
+		drugTypeSpec003ChargeItem.setUnit("袋");
+		drugTypeSpec003ChargeItem
+				.setChargingMode(ChargeItem.ChargingMode_Amount);
+
+		chargeItems.add(drugTypeSpec003ChargeItem);
+
 		transportFluidMaterialChargeItem = new ChargeItem();
 		transportFluidMaterialChargeItem
 				.setId("transportFluidMaterialChargeItem");
@@ -889,6 +925,13 @@ public class AppTestService {
 
 		drugTypeSpecs.add(drugTypeSpec002);
 
+		drugTypeSpec003 = new DrugTypeSpec();
+		drugTypeSpec003.setId("drugTypeSpec003");
+		drugTypeSpec003.setName("5%葡萄糖液");
+		drugTypeSpec003.setChargeItem(drugTypeSpec003ChargeItem);
+
+		drugTypeSpecs.add(drugTypeSpec003);
+
 		pharmacyDomainService.createDrugTypeSpecs(drugTypeSpecs);
 	}
 
@@ -912,6 +955,14 @@ public class AppTestService {
 
 		drugTypes.add(drugType002);
 
+		drugType003 = new DrugType();
+		drugType003.setId("drugType003");
+		drugType003.setDrugTypeSpec(drugTypeSpec003);
+		drugType003.setPharmacy(dept333);
+		drugType003.setStock(3000);
+
+		drugTypes.add(drugType003);
+
 		pharmacyDomainService.createDrugTypes(drugTypes);
 	}
 
@@ -934,6 +985,14 @@ public class AppTestService {
 		drugOrderType002.setDrugType(drugType002);
 
 		orderTypes.add(drugOrderType002);
+
+		drugOrderType003 = new DrugOrderType();
+		drugOrderType003.setId("drugOrderType003");
+		drugOrderType003.setCode("drugOrderType003");
+		drugOrderType003.setName("5%葡萄糖液");
+		drugOrderType003.setDrugType(drugType003);
+
+		orderTypes.add(drugOrderType003);
 
 		leaveHospitalOrderType = new LeaveHospitalOrderType();
 		leaveHospitalOrderType.setId("leaveHospitalOrderType");

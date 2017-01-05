@@ -85,6 +85,10 @@ public abstract class Order extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "compsite_order_id")
+	private CompsiteOrder compsiteOrder;
+
 	@Transient
 	private String visitId;
 
@@ -103,6 +107,10 @@ public abstract class Order extends IdEntity {
 	 * @roseuid 584E6696009D
 	 */
 	public void check() throws OrderException {
+
+		if (visitId == null) {
+			throw new OrderException(this, "visitId不能为空");
+		}
 
 		Visit visit = this.getService(VisitDomainService.class).find(visitId);
 		if (visit == null) {
@@ -146,24 +154,6 @@ public abstract class Order extends IdEntity {
 	}
 
 	/**
-	 * @roseuid 584F5A920055
-	 */
-	public void addExecutes(List<OrderExecute> orderExecutes) {
-		if (this.orderExecutes.size() == 0) {
-			this.orderExecutes = orderExecutes;
-		} else {
-			this.orderExecutes.addAll(orderExecutes);
-		}
-	}
-
-	/**
-	 * @roseuid 584F5C1E019C
-	 */
-	public void save() {
-		this.getService(OrderRepo.class).save(this);
-	}
-
-	/**
 	 * @param doctor
 	 * @throws OrderExecuteException
 	 * @roseuid 5850AF1E016C
@@ -173,6 +163,26 @@ public abstract class Order extends IdEntity {
 			execute.cancel();
 		}
 		this.state = State_Canceled;
+	}
+
+	public abstract void updateState(OrderExecute orderExecute);
+
+	/**
+	 * @roseuid 584F5C1E019C
+	 */
+	public void save() {
+		this.getService(OrderRepo.class).save(this);
+	}
+
+	/**
+	 * @roseuid 584F5A920055
+	 */
+	public void addExecutes(List<OrderExecute> orderExecutes) {
+		if (this.orderExecutes.size() == 0) {
+			this.orderExecutes = orderExecutes;
+		} else {
+			this.orderExecutes.addAll(orderExecutes);
+		}
 	}
 
 	public String getName() {
@@ -296,6 +306,21 @@ public abstract class Order extends IdEntity {
 		this.executeDept = executeDept;
 	}
 
-	public abstract void updateState(OrderExecute orderExecute);
+	public CompsiteOrder getCompsiteOrder() {
+		return compsiteOrder;
+	}
 
+	public void setCompsiteOrder(CompsiteOrder compsiteOrder) {
+		this.compsiteOrder = compsiteOrder;
+	}
+
+	public void compsiteMatch(Order order) throws OrderException {
+		if (getClass() != order.getClass()) {
+			throw new OrderException(this, "医嘱类型不同");
+		}
+
+		if (!this.planStartDate.equals(order.planStartDate)) {
+			throw new OrderException(this, "计划开始时间不同");
+		}
+	}
 }

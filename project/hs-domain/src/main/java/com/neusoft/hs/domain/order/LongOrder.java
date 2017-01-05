@@ -111,4 +111,27 @@ public class LongOrder extends Order {
 		}
 		return dates;
 	}
+
+	@Override
+	public void compsiteMatch(Order order) throws OrderException {
+		super.compsiteMatch(order);
+
+		LongOrder longOrder = (LongOrder) order;
+
+		if (this.planEndDate == null && longOrder.planEndDate != null) {
+			throw new OrderException(this, "计划结束时间不同");
+		}
+
+		if (this.planEndDate != null && longOrder.planEndDate == null) {
+			throw new OrderException(this, "计划结束时间不同");
+		}
+
+		if (!this.planEndDate.equals(longOrder.planEndDate)) {
+			throw new OrderException(this, "计划结束时间不同");
+		}
+
+		if (!this.frequencyType.equals(longOrder.frequencyType)) {
+			throw new OrderException(this, "频次不同");
+		}
+	}
 }
