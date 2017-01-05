@@ -5,9 +5,13 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.neusoft.hs.domain.pharmacy.DrugType;
+
 @Entity
 @DiscriminatorValue("Infusion")
 public class InfusionOrderUseMode extends OrderUseMode {
+
+	public static final String transportFluid = "transportFluid";
 
 	@Override
 	public List<OrderExecute> resolve(Order order, DrugOrderType drugOrderType) {
@@ -20,10 +24,11 @@ public class InfusionOrderUseMode extends OrderUseMode {
 		configureFluidDrugExecute.setBelongDept(order.getBelongDept());
 		configureFluidDrugExecute.setType(OrderExecute.Type_Configure_Fluid);
 
-		DrugOrderType type = (DrugOrderType) order.getType();
-		configureFluidDrugExecute.addChargeItem(type.getDrugType()
-				.getDrugTypeSpec().getChargeItem());
+		DrugType drugType = drugOrderType.getDrugType();
+		configureFluidDrugExecute.addChargeItem(drugType.getDrugTypeSpec()
+				.getChargeItem());
 		configureFluidDrugExecute.setCount(order.getCount());
+		configureFluidDrugExecute.setDrugType(drugType);
 
 		configureFluidDrugExecute.setExecuteDept(drugOrderType.getDrugType()
 				.getPharmacy());

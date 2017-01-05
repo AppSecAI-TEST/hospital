@@ -2,8 +2,9 @@
 
 package com.neusoft.hs.domain.order;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,7 +46,7 @@ public abstract class OrderUseMode extends SuperEntity {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "domain_order_use_mode_charge_item", joinColumns = { @JoinColumn(name = "order_use_mode_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "charge_item_id", referencedColumnName = "id") })
-	private List<ChargeItem> chargeItems;
+	private Map<String, ChargeItem> chargeItems;
 
 	/**
 	 * @param drugOrderType
@@ -88,18 +89,18 @@ public abstract class OrderUseMode extends SuperEntity {
 		this.orders = orders;
 	}
 
-	public List<ChargeItem> getChargeItems() {
+	public Map<String, ChargeItem> getChargeItems() {
 		return chargeItems;
 	}
 
-	public void setChargeItems(List<ChargeItem> chargeItems) {
+	public void setChargeItems(Map<String, ChargeItem> chargeItems) {
 		this.chargeItems = chargeItems;
 	}
 
-	public void addChargeItem(ChargeItem chargeItem) {
+	public void addChargeItem(String key, ChargeItem chargeItem) {
 		if (this.chargeItems == null) {
-			this.chargeItems = new ArrayList<ChargeItem>();
+			this.chargeItems = new HashMap<String, ChargeItem>();
 		}
-		this.chargeItems.add(chargeItem);
+		this.chargeItems.put(key, chargeItem);
 	}
 }

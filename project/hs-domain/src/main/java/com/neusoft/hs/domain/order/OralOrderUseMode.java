@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.neusoft.hs.domain.pharmacy.DrugType;
+
 @Entity
 @DiscriminatorValue("Oral")
 public class OralOrderUseMode extends OrderUseMode {
@@ -21,10 +23,11 @@ public class OralOrderUseMode extends OrderUseMode {
 		dispensingDrugExecute.setBelongDept(order.getBelongDept());
 		dispensingDrugExecute.setType(OrderExecute.Type_Dispense_Drug);
 
-		DrugOrderType type = (DrugOrderType) order.getType();
-		dispensingDrugExecute.addChargeItem(type.getDrugType()
-				.getDrugTypeSpec().getChargeItem());
+		DrugType drugType = drugOrderType.getDrugType();
+		dispensingDrugExecute.addChargeItem(drugType.getDrugTypeSpec()
+				.getChargeItem());
 		dispensingDrugExecute.setCount(order.getCount());
+		dispensingDrugExecute.setDrugType(drugType);
 
 		dispensingDrugExecute.setExecuteDept(drugOrderType.getDrugType()
 				.getPharmacy());

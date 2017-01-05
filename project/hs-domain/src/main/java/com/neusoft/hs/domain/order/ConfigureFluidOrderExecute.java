@@ -4,9 +4,13 @@ import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
@@ -14,6 +18,10 @@ import com.neusoft.hs.platform.exception.HsException;
 public class ConfigureFluidOrderExecute extends OrderExecute {
 
 	private int count;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "drug_type_id")
+	private DrugType drugType;
 
 	@Override
 	public List<ChargeRecord> createChargeRecords() {
@@ -28,9 +36,8 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 
 	@Override
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
-		DrugOrderType type = (DrugOrderType) this.getOrder().getType();
 		try {
-			type.getDrugType().send(count);
+			drugType.send(count);
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
@@ -38,9 +45,8 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 
 	@Override
 	protected void doCancel() throws OrderExecuteException {
-		DrugOrderType type = (DrugOrderType) this.getOrder().getType();
 		try {
-			type.getDrugType().unSend(count);
+			drugType.unSend(count);
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
@@ -52,5 +58,13 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public DrugType getDrugType() {
+		return drugType;
+	}
+
+	public void setDrugType(DrugType drugType) {
+		this.drugType = drugType;
 	}
 }

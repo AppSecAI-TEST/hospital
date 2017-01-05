@@ -968,7 +968,8 @@ public class AppTestService {
 		infusionOrderUseMode.setId("infusionOrderUseMode");
 		infusionOrderUseMode.setCode("infusionOrderUseMode");
 		infusionOrderUseMode.setName("输液");
-		infusionOrderUseMode.addChargeItem(transportFluidMaterialChargeItem);
+		infusionOrderUseMode.addChargeItem(InfusionOrderUseMode.transportFluid,
+				transportFluidMaterialChargeItem);
 
 		orderUseModes.add(infusionOrderUseMode);
 

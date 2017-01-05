@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -65,10 +66,11 @@ public abstract class OrderType extends SuperEntity {
 	/**
 	 * @param order
 	 * @return
-	 * @throws OrderException 
+	 * @throws OrderException
 	 * @roseuid 584F4A3201B9
 	 */
-	public abstract List<OrderExecute> resolveOrder(Order order) throws OrderException;
+	public abstract List<OrderExecute> resolveOrder(Order order)
+			throws OrderException;
 
 	public String getId() {
 		return id;
