@@ -2,7 +2,12 @@ package com.neusoft.hs.domain.order;
 
 import java.util.List;
 
-public class OralOrderResolver implements DrugTypeOrderResolver {
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("Oral")
+public class OralOrderUseMode extends OrderUseMode {
 
 	@Override
 	public List<OrderExecute> resolve(Order order, DrugOrderType drugOrderType) {

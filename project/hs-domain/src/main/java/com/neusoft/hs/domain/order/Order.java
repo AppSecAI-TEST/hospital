@@ -55,8 +55,9 @@ public abstract class Order extends IdEntity {
 	@JoinColumn(name = "type_id")
 	private OrderType type;
 
-	@Column(name = "use_type", length = 32)
-	private String useType;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "use_mode_id")
+	private OrderUseMode useMode;
 
 	@OneToMany(mappedBy = "order", cascade = { CascadeType.ALL })
 	@OrderBy("planStartDate ASC")
@@ -96,10 +97,6 @@ public abstract class Order extends IdEntity {
 	public static final String State_Canceled = "已作废";
 
 	public static final String State_Stoped = "已停止";
-
-	public static final String UserType_Oral = "口服";
-
-	public static final String UserType_Infusion = "输液";
 
 	/**
 	 * @throws HsException
@@ -226,12 +223,12 @@ public abstract class Order extends IdEntity {
 		this.type = type;
 	}
 
-	public String getUseType() {
-		return useType;
+	public OrderUseMode getUseMode() {
+		return useMode;
 	}
 
-	public void setUseType(String useType) {
-		this.useType = useType;
+	public void setUseMode(OrderUseMode useMode) {
+		this.useMode = useMode;
 	}
 
 	public List<OrderExecute> getOrderExecutes() {

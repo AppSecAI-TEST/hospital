@@ -28,6 +28,9 @@ public class OrderDomainService {
 	private OrderTypeRepo orderTypeRepo;
 
 	@Autowired
+	private OrderUseModeRepo orderUseModeRepo;
+
+	@Autowired
 	private PharmacyDomainService pharmacyDomainService;
 
 	@Autowired
@@ -134,6 +137,14 @@ public class OrderDomainService {
 
 	public void clearOrderTypes() {
 		orderTypeRepo.deleteAll();
+	}
+
+	public void createOrderUseModes(List<OrderUseMode> orderUseModes) {
+		orderUseModeRepo.save(orderUseModes);
+	}
+
+	public void clearOrderUseModes() {
+		orderUseModeRepo.deleteAll();
 	}
 
 }

@@ -21,12 +21,15 @@ import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.order.DrugOrderType;
+import com.neusoft.hs.domain.order.InfusionOrderUseMode;
 import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
+import com.neusoft.hs.domain.order.OralOrderUseMode;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.OrderUseMode;
 import com.neusoft.hs.domain.order.SecondNursingOrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
@@ -107,6 +110,10 @@ public class AppTestService {
 
 	private ChargeItem drugTypeSpec002ChargeItem;// 药品002计费项目
 
+	private ChargeItem drugTypeSpec003ChargeItem;// 药品003计费项目
+
+	private ChargeItem transportFluidMaterialChargeItem;// 输液材料费
+
 	private ChargeItem secondNursingChargeItem;// 二级护理计费项目
 
 	private SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
@@ -124,6 +131,10 @@ public class AppTestService {
 	private DrugOrderType drugOrderType002;// 药品医嘱类型002
 
 	private LeaveHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
+
+	private OralOrderUseMode oralOrderUseMode;// 口服用法
+
+	private InfusionOrderUseMode infusionOrderUseMode;// 输液用法
 
 	private Visit visit001;
 
@@ -227,7 +238,7 @@ public class AppTestService {
 		drug001Order.setName("药品001");
 		drug001Order.setPlanStartDate(DateUtil.getSysDate());
 		drug001Order.setCount(2);
-		drug001Order.setUseType(Order.UserType_Oral);
+		drug001Order.setUseMode(oralOrderUseMode);
 
 		DrugOrderType drugOrderType = new DrugOrderType();
 		drugOrderType.setDrugTypeSpecId(drugTypeSpec001.getId());
@@ -320,7 +331,7 @@ public class AppTestService {
 		drug002Order.setVisitId(visit001.getId());
 		drug002Order.setName("头孢3");
 		drug002Order.setCount(2);
-		drug002Order.setUseType(Order.UserType_Infusion);
+		drug002Order.setUseMode(infusionOrderUseMode);
 		drug002Order.setFrequencyType(LongOrder.FrequencyType_9H15H);
 
 		sysDate = DateUtil.getSysDate();
@@ -428,7 +439,7 @@ public class AppTestService {
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-31"));
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 08:30"));
 
 		pageable = new PageRequest(0, 15);
@@ -657,6 +668,8 @@ public class AppTestService {
 	}
 
 	public void clear() {
+		// 清空医嘱用法
+		orderDomainService.clearOrderUseModes();
 		// 清空医嘱类型
 		orderDomainService.clearOrderTypes();
 		// 清空药品类型
@@ -689,6 +702,8 @@ public class AppTestService {
 		initDrugTypes();
 
 		initOrderTypes();
+
+		initOrderUseModes();
 
 	}
 
@@ -840,6 +855,19 @@ public class AppTestService {
 
 		chargeItems.add(drugTypeSpec002ChargeItem);
 
+		transportFluidMaterialChargeItem = new ChargeItem();
+		transportFluidMaterialChargeItem
+				.setId("transportFluidMaterialChargeItem");
+		transportFluidMaterialChargeItem
+				.setCode("transportFluidMaterialChargeItem");
+		transportFluidMaterialChargeItem.setName("输液材料费");
+		transportFluidMaterialChargeItem.setPrice(7);
+		transportFluidMaterialChargeItem.setUnit("件");
+		transportFluidMaterialChargeItem
+				.setChargingMode(ChargeItem.ChargingMode_Amount);
+
+		chargeItems.add(transportFluidMaterialChargeItem);
+
 		costDomainService.create(chargeItems);
 	}
 
@@ -923,6 +951,29 @@ public class AppTestService {
 		orderTypes.add(secondNursingOrderType);
 
 		orderDomainService.createOrderTypes(orderTypes);
+	}
+
+	private void initOrderUseModes() {
+
+		List<OrderUseMode> orderUseModes = new ArrayList<OrderUseMode>();
+
+		oralOrderUseMode = new OralOrderUseMode();
+		oralOrderUseMode.setId("oralOrderUseMode");
+		oralOrderUseMode.setCode("oralOrderUseMode");
+		oralOrderUseMode.setName("口服");
+
+		orderUseModes.add(oralOrderUseMode);
+
+		infusionOrderUseMode = new InfusionOrderUseMode();
+		infusionOrderUseMode.setId("infusionOrderUseMode");
+		infusionOrderUseMode.setCode("infusionOrderUseMode");
+		infusionOrderUseMode.setName("输液");
+		infusionOrderUseMode.addChargeItem(transportFluidMaterialChargeItem);
+
+		orderUseModes.add(infusionOrderUseMode);
+
+		orderDomainService.createOrderUseModes(orderUseModes);
+
 	}
 
 }

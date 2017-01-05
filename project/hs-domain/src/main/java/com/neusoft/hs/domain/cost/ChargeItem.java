@@ -17,6 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.OrderUseMode;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
@@ -51,6 +52,9 @@ public class ChargeItem extends SuperEntity {
 
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<OrderType> orderTypes;
+
+	@ManyToMany(mappedBy = "chargeItems", cascade = { CascadeType.ALL })
+	private List<OrderUseMode> useModes;
 
 	@ManyToMany(mappedBy = "chargeItems", cascade = { CascadeType.ALL })
 	private List<OrderExecute> executes;
@@ -139,6 +143,14 @@ public class ChargeItem extends SuperEntity {
 
 	public void setOrderTypes(List<OrderType> orderTypes) {
 		this.orderTypes = orderTypes;
+	}
+
+	public List<OrderUseMode> getUseModes() {
+		return useModes;
+	}
+
+	public void setUseModes(List<OrderUseMode> useModes) {
+		this.useModes = useModes;
 	}
 
 	public List<OrderExecute> getExecutes() {

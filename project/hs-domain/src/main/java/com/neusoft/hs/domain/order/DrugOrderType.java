@@ -82,8 +82,8 @@ public class DrugOrderType extends OrderType {
 		List<OrderExecute> executes = new ArrayList<OrderExecute>();
 		if (order instanceof TemporaryOrder) {
 			// 分解执行条目
-			List<OrderExecute> tempExecutes = this.getDrugTypeOrderResolver(
-					order).resolve(order, this);
+			List<OrderExecute> tempExecutes = order.getUseMode().resolve(order,
+					this);
 			if (tempExecutes.size() == 0) {
 				throw new OrderException(order, "没有分解出执行条目");
 			}
@@ -103,8 +103,7 @@ public class DrugOrderType extends OrderType {
 
 				for (Date executeDate : executeDates) {
 					// 分解执行条目
-					tempExecutes = this.getDrugTypeOrderResolver(order)
-							.resolve(order, this);
+					tempExecutes = order.getUseMode().resolve(order, this);
 					if (tempExecutes.size() == 0) {
 						throw new OrderException(order, "没有分解出执行条目");
 					}
@@ -126,18 +125,6 @@ public class DrugOrderType extends OrderType {
 		}
 
 		return executes;
-	}
-
-	private DrugTypeOrderResolver getDrugTypeOrderResolver(Order order)
-			throws OrderException {
-		if (order.getUseType().equals(Order.UserType_Oral)) {
-			return new OralOrderResolver();
-		} else if (order.getUseType().equals(Order.UserType_Infusion)) {
-			return new InfusionOrderResolver();
-		} else {
-			throw new OrderException(order, "医嘱用法有问题userType=["
-					+ order.getUseType() + "]");
-		}
 	}
 
 	public DrugType getDrugType() {
