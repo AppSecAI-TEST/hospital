@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -36,8 +37,9 @@ public class OrderAppService {
 	 * @throws HsException
 	 * @roseuid 584E5239011A
 	 */
-	public Order create(Order order, Doctor doctor) throws OrderException {
-		return orderDomainService.create(order, doctor);
+	public List<Order> create(OrderCreateCommand orderCommand, Doctor doctor)
+			throws OrderException {
+		return orderDomainService.create(orderCommand, doctor);
 	}
 
 	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {

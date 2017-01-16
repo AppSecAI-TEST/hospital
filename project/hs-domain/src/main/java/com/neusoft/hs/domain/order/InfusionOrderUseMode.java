@@ -17,6 +17,7 @@ public class InfusionOrderUseMode extends OrderUseMode {
 	public List<OrderExecute> resolve(Order order, DrugOrderType drugOrderType) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
+		DrugType drugType = drugOrderType.getDrugType();
 		// 配液执行条目
 		ConfigureFluidOrderExecute configureFluidDrugExecute = new ConfigureFluidOrderExecute();
 		configureFluidDrugExecute.setOrder(order);
@@ -24,7 +25,6 @@ public class InfusionOrderUseMode extends OrderUseMode {
 		configureFluidDrugExecute.setBelongDept(order.getBelongDept());
 		configureFluidDrugExecute.setType(OrderExecute.Type_Configure_Fluid);
 
-		DrugType drugType = drugOrderType.getDrugType();
 		configureFluidDrugExecute.addChargeItem(drugType.getDrugTypeSpec()
 				.getChargeItem());
 		configureFluidDrugExecute.setCount(order.getCount());
@@ -47,6 +47,7 @@ public class InfusionOrderUseMode extends OrderUseMode {
 		transportFluidExecute.setType(OrderExecute.Type_Transport_Fluid);
 		transportFluidExecute.addChargeItem(this
 				.getTheChargeItem(transportFluid));
+		transportFluidExecute.setDrugType(drugType);
 
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);

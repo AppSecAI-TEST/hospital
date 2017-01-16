@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class OrderDomainService {
 	private OrderUseModeRepo orderUseModeRepo;
 
 	@Autowired
+	private CompsiteOrderRepo compsiteOrderRepo;
+
+	@Autowired
 	private PharmacyDomainService pharmacyDomainService;
 
 	@Autowired
@@ -45,20 +49,27 @@ public class OrderDomainService {
 	 * @throws HsException
 	 * @roseuid 584E526102FB
 	 */
-	public Order create(Order order, Doctor doctor) throws OrderException {
+	public List<Order> create(OrderCreateCommand orderCommand, Doctor doctor)
+			throws OrderException {
 
-		order.setCreateDate(DateUtil.getSysDate());
-		order.setCreator(doctor);
-		order.setBelongDept(doctor.getDept());
-		order.setState(Order.State_Created);
+		List<Order> orders = new ArrayList<Order>();
 
-		order.check();
+		for (Order order : orderCommand.getOrders()) {
+			order.setCreateDate(DateUtil.getSysDate());
+			order.setCreator(doctor);
+			order.setBelongDept(doctor.getDept());
+			order.setState(Order.State_Created);
 
-		order.save();
+			order.check();
 
-		applicationContext.publishEvent(new OrderCreatedEvent(order));
+			orders.add(order);
+		}
 
-		return order;
+		orderCommand.save();
+
+		applicationContext.publishEvent(new OrderCreatedEvent(orderCommand));
+
+		return orders;
 	}
 
 	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {
@@ -135,12 +146,16 @@ public class OrderDomainService {
 		orderTypeRepo.save(orderTypes);
 	}
 
+	public void createOrderUseModes(List<OrderUseMode> orderUseModes) {
+		orderUseModeRepo.save(orderUseModes);
+	}
+
 	public void clearOrderTypes() {
 		orderTypeRepo.deleteAll();
 	}
 
-	public void createOrderUseModes(List<OrderUseMode> orderUseModes) {
-		orderUseModeRepo.save(orderUseModes);
+	public void clearCompsiteOrdes() {
+		compsiteOrderRepo.deleteAll();
 	}
 
 	public void clearOrderUseModes() {

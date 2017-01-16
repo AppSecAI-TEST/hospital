@@ -25,11 +25,11 @@ import com.neusoft.hs.platform.util.DateUtil;
 @Table(name = "domain_charge_record")
 public class ChargeRecord extends IdEntity {
 
-	private float amount;
+	private Float amount;
 
-	private int count;
+	private Integer count;
 
-	private float price;
+	private Float price;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -97,7 +97,7 @@ public class ChargeRecord extends IdEntity {
 	 */
 	public ChargeRecord undo() {
 		ChargeRecord chargeRecord = new ChargeRecord();
-		
+
 		chargeRecord.setCount(count);
 		chargeRecord.setPrice(price);
 		chargeRecord.setAmount(-amount);
@@ -112,27 +112,27 @@ public class ChargeRecord extends IdEntity {
 		return chargeRecord;
 	}
 
-	public float getAmount() {
+	public Float getAmount() {
 		return amount;
 	}
 
-	public void setAmount(float amount) {
+	public void setAmount(Float amount) {
 		this.amount = amount;
 	}
 
-	public int getCount() {
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(int count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 
-	public float getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 

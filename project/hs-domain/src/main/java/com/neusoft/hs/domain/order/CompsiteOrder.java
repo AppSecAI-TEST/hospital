@@ -4,30 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
-@DiscriminatorValue("Compsite")
-public class CompsiteOrder extends Order {
+@Table(name = "domain_order_team")
+public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 
 	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.ALL })
 	private List<Order> orders;
-
-	@Override
-	public void check() throws OrderException {
-		for (Order order : orders) {
-			order.check();
-		}
-	}
-
-	@Override
-	public void updateState(OrderExecute orderExecute) {
-		for (Order order : orders) {
-			order.updateState(orderExecute);
-		}
-	}
 
 	public void addOrder(Order order) throws OrderException {
 		if (this.orders == null) {
@@ -37,7 +25,19 @@ public class CompsiteOrder extends Order {
 			this.orders.get(0).compsiteMatch(order);
 		}
 		this.orders.add(order);
-
+		order.setCompsiteOrder(this);
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	@Override
+	public void save() {
+		this.getService(CompsiteOrderRepo.class).save(this);
+	}
 }

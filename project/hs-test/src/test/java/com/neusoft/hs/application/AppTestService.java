@@ -123,7 +123,7 @@ public class AppTestService {
 
 	private DrugTypeSpec drugTypeSpec002;// 药品规格002
 
-	private DrugTypeSpec drugTypeSpec003;// 药品规格002
+	private DrugTypeSpec drugTypeSpec003;// 药品规格003
 
 	private DrugType drugType001;// 药房下的药品类型001（有库存属性）
 
@@ -370,7 +370,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
-		assertTrue(orders.size() == 1);
+		assertTrue(orders.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 10:30"));
 
@@ -382,7 +382,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 11:05"));
 
@@ -395,7 +395,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
 
@@ -408,7 +408,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30"));
 
@@ -427,7 +427,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 4);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -438,7 +438,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
 				pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 4);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:50"));
 
@@ -453,7 +453,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 3);
+		assertTrue(executes.size() == 5);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -470,7 +470,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -481,7 +481,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 08:50"));
 
@@ -496,7 +496,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 3);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -697,6 +697,8 @@ public class AppTestService {
 		orderDomainService.clearOrderUseModes();
 		// 清空医嘱类型
 		orderDomainService.clearOrderTypes();
+		// 清空组合医嘱
+		orderDomainService.clearCompsiteOrdes();
 		// 清空药品类型
 		pharmacyDomainService.clearDrugTypes();
 		// 清空药品规格
@@ -929,6 +931,7 @@ public class AppTestService {
 		drugTypeSpec003.setId("drugTypeSpec003");
 		drugTypeSpec003.setName("5%葡萄糖液");
 		drugTypeSpec003.setChargeItem(drugTypeSpec003ChargeItem);
+		drugTypeSpec003.setTransportFluidCharge(true);
 
 		drugTypeSpecs.add(drugTypeSpec003);
 

@@ -19,27 +19,14 @@ import com.neusoft.hs.platform.exception.HsException;
 @DiscriminatorValue("DispensingDrug")
 public class DispensingDrugOrderExecute extends OrderExecute {
 
-	private int count;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_type_id")
 	private DrugType drugType;
 
 	@Override
-	public List<ChargeRecord> createChargeRecords() {
-		List<ChargeRecord> chargeRecords = super.createChargeRecords();
-
-		for (ChargeRecord chargeRecord : chargeRecords) {
-			chargeRecord.setCount(count);
-		}
-
-		return chargeRecords;
-	}
-
-	@Override
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
 		try {
-			drugType.send(count);
+			drugType.send(getCount());
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
@@ -48,18 +35,10 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 	@Override
 	protected void doCancel() throws OrderExecuteException {
 		try {
-			drugType.unSend(count);
+			drugType.unSend(getCount());
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
 	}
 
 	public DrugType getDrugType() {

@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ import com.neusoft.hs.platform.exception.HsException;
 @Entity
 @Table(name = "domain_order")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Order extends IdEntity {
+public abstract class Order extends IdEntity implements OrderCreateCommand{
 
 	@NotEmpty(message = "名称不能为空")
 	@Column(length = 128)
@@ -312,6 +313,15 @@ public abstract class Order extends IdEntity {
 
 	public void setCompsiteOrder(CompsiteOrder compsiteOrder) {
 		this.compsiteOrder = compsiteOrder;
+	}
+	
+	
+
+	@Override
+	public List<Order> getOrders() {
+		List<Order> orders = new ArrayList<Order>();
+		orders.add(this);
+		return orders;
 	}
 
 	public void compsiteMatch(Order order) throws OrderException {

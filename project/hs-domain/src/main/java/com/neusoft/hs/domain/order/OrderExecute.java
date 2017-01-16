@@ -48,6 +48,8 @@ public class OrderExecute extends SuperEntity {
 	@Column(length = 32)
 	private String type;
 
+	private Integer count;
+
 	@NotEmpty(message = "组标识不能为空")
 	@Column(name = "team_id", length = 36)
 	private String teamId;
@@ -229,7 +231,8 @@ public class OrderExecute extends SuperEntity {
 			for (ChargeItem chargeItem : this.chargeItems) {
 				ChargeRecord chargeRecord = new ChargeRecord();
 				chargeRecord.setPrice(chargeItem.getPrice());
-				chargeRecord.setAmount(-chargeItem.getPrice());
+				chargeRecord.setCount(count);
+				chargeRecord.setAmount(-this.calAmout(chargeItem));
 				chargeRecord.setChargeItem(chargeItem);
 
 				chargeRecords.add(chargeRecord);
@@ -237,6 +240,15 @@ public class OrderExecute extends SuperEntity {
 		}
 
 		return chargeRecords;
+	}
+
+	private Float calAmout(ChargeItem chargeItem) {
+		if (this.getOrder().getCount() == null
+				|| this.getOrder().getCount() == 0) {
+			return chargeItem.getPrice();
+		} else {
+			return chargeItem.getPrice() * this.getOrder().getCount();
+		}
 	}
 
 	/**
@@ -294,6 +306,14 @@ public class OrderExecute extends SuperEntity {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	public String getTeamId() {

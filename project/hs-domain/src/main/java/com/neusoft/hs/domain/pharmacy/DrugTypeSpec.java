@@ -35,6 +35,9 @@ public class DrugTypeSpec extends SuperEntity {
 	@Column(length = 256)
 	private String effect;
 
+	@Column(name = "is_transport_fluid_charge")
+	private boolean isTransportFluidCharge = false;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
 	private DrugTypeSpec parent;
@@ -71,6 +74,14 @@ public class DrugTypeSpec extends SuperEntity {
 
 	public void setEffect(String effect) {
 		this.effect = effect;
+	}
+
+	public boolean isTransportFluidCharge() {
+		return isTransportFluidCharge;
+	}
+
+	public void setTransportFluidCharge(boolean isTransportFluidCharge) {
+		this.isTransportFluidCharge = isTransportFluidCharge;
 	}
 
 	public DrugTypeSpec getParent() {
