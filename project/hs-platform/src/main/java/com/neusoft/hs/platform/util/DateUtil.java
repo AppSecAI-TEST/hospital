@@ -67,6 +67,13 @@ public class DateUtil {
 		return calendar.getTime();
 	}
 
+	public static Date addMinute(Date date, int minute) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(calendar.MINUTE, minute);
+		return calendar.getTime();
+	}
+
 	public static Date getSysDateStart() {
 
 		Date sysDate = getSysDate();

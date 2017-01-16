@@ -21,8 +21,8 @@ interface OrderExecuteRepo extends
 			String state, InPatientDept dept, Date planStartDate,
 			Pageable pageable);
 
-	List<OrderExecute> findByStateAndExecuteDept(String state, Dept dept,
-			Pageable pageable);
+	List<OrderExecute> findByStateAndExecuteDeptAndPlanStartDateLessThan(
+			String state, Dept dept, Date planStartDate, Pageable pageable);
 
 	List<OrderExecute> findByChargeState(String chargeState, Pageable pageable);
 

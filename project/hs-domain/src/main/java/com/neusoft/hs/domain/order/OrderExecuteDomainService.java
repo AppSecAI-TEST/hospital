@@ -28,6 +28,8 @@ public class OrderExecuteDomainService {
 	@Autowired
 	private OrderExecuteRepo orderExecuteRepo;
 
+	public static int NeedExecuteOrderMinute = 30;// 医嘱执行可提前分钟数
+
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse, int day,
 			Pageable pageable) {
 		if (day <= 0) {
@@ -43,8 +45,12 @@ public class OrderExecuteDomainService {
 
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
 			Pageable pageable) {
-		return orderExecuteRepo.findByStateAndExecuteDept(
-				OrderExecute.State_Executing, user.getDept(), pageable);
+		Date planStartDate = DateUtil.addMinute(DateUtil.getSysDate(),
+				NeedExecuteOrderMinute);
+		return orderExecuteRepo
+				.findByStateAndExecuteDeptAndPlanStartDateLessThan(
+						OrderExecute.State_Executing, user.getDept(),
+						planStartDate, pageable);
 	}
 
 	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,

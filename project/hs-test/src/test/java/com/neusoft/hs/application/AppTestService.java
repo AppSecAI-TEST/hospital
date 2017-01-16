@@ -233,7 +233,7 @@ public class AppTestService {
 		secondNursingOrder.setVisitId(visit001.getId());
 		secondNursingOrder.setName("二级护理");
 		secondNursingOrder.setFrequencyType(LongOrder.FrequencyType_Day);
-		secondNursingOrder.setPlanStartDate(DateUtil.getSysDate());
+		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 
 		secondNursingOrder.setType(secondNursingOrderType);
 
@@ -286,14 +286,14 @@ public class AppTestService {
 
 		// 完成摆药医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user333);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
 		assertTrue(executes.size() == 2);
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30"));
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -390,6 +390,8 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.send(execute.getId(), user003);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
@@ -397,20 +399,18 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 2);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
-
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), user444);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
 		assertTrue(executes.size() == 2);
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30"));
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -433,14 +433,14 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.send(execute.getId(), user003);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:50"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
 				pageable);
 
-		assertTrue(executes.size() == 4);
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:50"));
+		assertTrue(executes.size() == 2);
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -453,7 +453,33 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 5);
+		assertTrue(executes.size() == 3);
+
+		// 完成医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user003);
+		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 14:00"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
+				pageable);
+
+		assertTrue(executes.size() == 2);
+
+		// 完成配液医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user444);
+		}
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 15:10"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 2);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {

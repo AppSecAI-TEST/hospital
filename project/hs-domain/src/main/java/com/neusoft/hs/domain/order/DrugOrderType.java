@@ -89,8 +89,8 @@ public class DrugOrderType extends OrderType {
 			}
 			// 设置执行时间
 			for (OrderExecute execute : tempExecutes) {
-				execute.setPlanStartDate(order.getPlanStartDate());
-				execute.setPlanEndDate(order.getPlanStartDate());
+				execute.fillPlanDate(order.getPlanStartDate(),
+						order.getPlanStartDate());
 			}
 			// 收集执行条目
 			executes.addAll(tempExecutes);
@@ -109,8 +109,7 @@ public class DrugOrderType extends OrderType {
 					}
 					// 设置执行时间
 					for (OrderExecute execute : tempExecutes) {
-						execute.setPlanStartDate(executeDate);
-						execute.setPlanEndDate(executeDate);
+						execute.fillPlanDate(executeDate, executeDate);
 					}
 					// 收集执行条目
 					executes.addAll(tempExecutes);
