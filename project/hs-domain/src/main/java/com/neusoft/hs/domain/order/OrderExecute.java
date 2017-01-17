@@ -54,6 +54,10 @@ public class OrderExecute extends SuperEntity {
 	@Column(name = "team_id", length = 36)
 	private String teamId;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "compsite_order_id")
+	private CompsiteOrder compsiteOrder;
+
 	@Column(name = "previous_id", length = 36)
 	private String previousId;
 
@@ -327,6 +331,14 @@ public class OrderExecute extends SuperEntity {
 
 	public void setTeamId(String teamId) {
 		this.teamId = teamId;
+	}
+
+	public CompsiteOrder getCompsiteOrder() {
+		return compsiteOrder;
+	}
+
+	public void setCompsiteOrder(CompsiteOrder compsiteOrder) {
+		this.compsiteOrder = compsiteOrder;
 	}
 
 	public String getPreviousId() {

@@ -29,6 +29,9 @@ import com.neusoft.hs.domain.order.OralOrderUseMode;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderFrequencyType;
+import com.neusoft.hs.domain.order.OrderFrequencyType9H15H;
+import com.neusoft.hs.domain.order.OrderFrequencyTypeDay;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderUseMode;
 import com.neusoft.hs.domain.order.SecondNursingOrderType;
@@ -143,6 +146,10 @@ public class AppTestService {
 
 	private InfusionOrderUseMode infusionOrderUseMode;// 输液用法
 
+	private OrderFrequencyType orderFrequencyType_Day;// 每天
+
+	private OrderFrequencyType orderFrequencyType_9H15H;// 每天2次/早9/下3
+
 	private Visit visit001;
 
 	public void testInit() {
@@ -232,7 +239,7 @@ public class AppTestService {
 		LongOrder secondNursingOrder = new LongOrder();
 		secondNursingOrder.setVisitId(visit001.getId());
 		secondNursingOrder.setName("二级护理");
-		secondNursingOrder.setFrequencyType(LongOrder.FrequencyType_Day);
+		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 
 		secondNursingOrder.setType(secondNursingOrderType);
@@ -286,7 +293,7 @@ public class AppTestService {
 
 		// 完成摆药医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user333);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30"));
 
 		pageable = new PageRequest(0, 15);
@@ -341,7 +348,7 @@ public class AppTestService {
 		drug002Order.setName("头孢3");
 		drug002Order.setCount(2);
 		drug002Order.setUseMode(infusionOrderUseMode);
-		drug002Order.setFrequencyType(LongOrder.FrequencyType_9H15H);
+		drug002Order.setFrequencyType(orderFrequencyType_9H15H);
 
 		drug002Order.setPlanStartDate(sysDate);
 		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
@@ -354,7 +361,7 @@ public class AppTestService {
 		drug003Order.setName("5%葡萄糖");
 		drug003Order.setCount(1);
 		drug003Order.setUseMode(infusionOrderUseMode);
-		drug003Order.setFrequencyType(LongOrder.FrequencyType_9H15H);
+		drug003Order.setFrequencyType(orderFrequencyType_9H15H);
 
 		drug003Order.setPlanStartDate(sysDate);
 		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
@@ -390,7 +397,7 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.send(execute.getId(), user003);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
 
 		pageable = new PageRequest(0, 15);
@@ -403,7 +410,7 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), user444);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30"));
 
 		pageable = new PageRequest(0, 15);
@@ -433,7 +440,7 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.send(execute.getId(), user003);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:50"));
 
 		pageable = new PageRequest(0, 15);
@@ -459,7 +466,7 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), user003);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 14:00"));
 
 		pageable = new PageRequest(0, 15);
@@ -725,6 +732,8 @@ public class AppTestService {
 		orderDomainService.clearOrderTypes();
 		// 清空组合医嘱
 		orderDomainService.clearCompsiteOrdes();
+		// 清空频次类型
+		orderDomainService.clearOrderFrequencyTypes();
 		// 清空药品类型
 		pharmacyDomainService.clearDrugTypes();
 		// 清空药品规格
@@ -757,6 +766,8 @@ public class AppTestService {
 		initOrderTypes();
 
 		initOrderUseModes();
+
+		initOrderFrequencyTypes();
 
 	}
 
@@ -869,8 +880,8 @@ public class AppTestService {
 		List<ChargeItem> chargeItems = new ArrayList<ChargeItem>();
 
 		bedChargeItem = new ChargeItem();
-		bedChargeItem.setId("bed");
-		bedChargeItem.setCode("bed");
+		bedChargeItem.setId("bedChargeItem");
+		bedChargeItem.setCode("bedChargeItem");
 		bedChargeItem.setName("床位费");
 		bedChargeItem.setPrice(20F);
 		bedChargeItem.setChargingMode(ChargeItem.ChargingMode_Day);
@@ -1062,6 +1073,22 @@ public class AppTestService {
 		orderUseModes.add(infusionOrderUseMode);
 
 		orderDomainService.createOrderUseModes(orderUseModes);
+
+	}
+
+	private void initOrderFrequencyTypes() {
+
+		List<OrderFrequencyType> orderFrequencyTypes = new ArrayList<OrderFrequencyType>();
+
+		orderFrequencyType_Day = new OrderFrequencyTypeDay();
+
+		orderFrequencyTypes.add(orderFrequencyType_Day);
+
+		orderFrequencyType_9H15H = new OrderFrequencyType9H15H();
+
+		orderFrequencyTypes.add(orderFrequencyType_9H15H);
+
+		orderDomainService.createOrderFrequencyTypes(orderFrequencyTypes);
 
 	}
 

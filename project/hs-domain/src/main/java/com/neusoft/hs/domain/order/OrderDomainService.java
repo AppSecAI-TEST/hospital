@@ -35,6 +35,9 @@ public class OrderDomainService {
 	private CompsiteOrderRepo compsiteOrderRepo;
 
 	@Autowired
+	private OrderFrequencyTypeRepo orderFrequencyTypeRepo;
+
+	@Autowired
 	private PharmacyDomainService pharmacyDomainService;
 
 	@Autowired
@@ -150,6 +153,11 @@ public class OrderDomainService {
 		orderUseModeRepo.save(orderUseModes);
 	}
 
+	public void createOrderFrequencyTypes(
+			List<OrderFrequencyType> orderFrequencyTypes) {
+		orderFrequencyTypeRepo.save(orderFrequencyTypes);
+	}
+
 	public void clearOrderTypes() {
 		orderTypeRepo.deleteAll();
 	}
@@ -160,6 +168,10 @@ public class OrderDomainService {
 
 	public void clearOrderUseModes() {
 		orderUseModeRepo.deleteAll();
+	}
+
+	public void clearOrderFrequencyTypes() {
+		orderFrequencyTypeRepo.deleteAll();
 	}
 
 }

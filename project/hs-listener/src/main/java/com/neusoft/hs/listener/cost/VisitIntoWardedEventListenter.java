@@ -25,7 +25,7 @@ public class VisitIntoWardedEventListenter implements
 		Visit visit = (Visit) event.getSource();
 		// 暂时床位费只有一个计费项目
 		ChargeItem item = new ChargeItem();
-		item.setId("bed");
+		item.setId("bedChargeItem");
 
 		costDomainService.createVisitChargeItem(visit, item,
 				DateUtil.getSysDate());

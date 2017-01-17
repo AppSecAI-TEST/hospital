@@ -9,8 +9,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -18,9 +20,10 @@ import com.neusoft.hs.platform.util.DateUtil;
 @DiscriminatorValue("Long")
 public class LongOrder extends Order {
 
-	@NotEmpty(message = "频次不能为空")
-	@Column(name = "frequency_type", length = 32)
-	private String frequencyType;
+	@NotNull(message = "频次不能为空")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "frequency_type_id")
+	private OrderFrequencyType frequencyType;
 
 	@Column(name = "plan_end_date")
 	private Date planEndDate;
@@ -30,15 +33,11 @@ public class LongOrder extends Order {
 
 	public static final int ResolveDays = 2;
 
-	public static final String FrequencyType_Day = "每天";
-
-	public static final String FrequencyType_9H15H = "每天2次/早9/下3";
-
-	public String getFrequencyType() {
+	public OrderFrequencyType getFrequencyType() {
 		return frequencyType;
 	}
 
-	public void setFrequencyType(String frequencyType) {
+	public void setFrequencyType(OrderFrequencyType frequencyType) {
 		this.frequencyType = frequencyType;
 	}
 
@@ -78,7 +77,6 @@ public class LongOrder extends Order {
 	 * 以天为单位计算频次对应的时间
 	 */
 	public List<Date> calExecuteDates(int numDays) {
-		List<Date> dates = new ArrayList<Date>();
 		// 分解的日期
 		Date sysDateStart = DateUtil.getSysDateStart();
 		Date currentDate = DateUtil.addDay(sysDateStart, numDays);
@@ -89,31 +87,12 @@ public class LongOrder extends Order {
 					|| lastOrderExecute.getPlanStartDate().compareTo(
 							currentDate) == 0
 					|| lastOrderExecute.getPlanStartDate().after(currentDate)) {
-				return dates;
+				return new ArrayList<Date>();
 			}
 		}
 
-		Date date;
 		// 分解
-		if (frequencyType.equals(LongOrder.FrequencyType_9H15H)) {
-
-			date = DateUtil.addHour(currentDate, 9);
-
-			if (date.before(this.planEndDate)
-					&& date.after(this.getPlanStartDate())) {
-				dates.add(date);
-			}
-
-			date = DateUtil.addHour(currentDate, 15);
-
-			if (date.before(this.planEndDate)
-					&& date.after(this.getPlanStartDate())) {
-				dates.add(date);
-			}
-		} else if (frequencyType.equals(LongOrder.FrequencyType_Day)) {
-			dates.add(currentDate);
-		}
-		return dates;
+		return frequencyType.calExecuteDates(this, currentDate);
 	}
 
 	@Override

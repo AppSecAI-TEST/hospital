@@ -33,7 +33,7 @@ import com.neusoft.hs.platform.exception.HsException;
 @Entity
 @Table(name = "domain_order")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Order extends IdEntity implements OrderCreateCommand{
+public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	@NotEmpty(message = "名称不能为空")
 	@Column(length = 128)
@@ -140,11 +140,15 @@ public abstract class Order extends IdEntity implements OrderCreateCommand{
 	public int resolve() throws OrderException {
 		List<OrderExecute> orderExecutes = this.type.resolveOrder(this);
 		if (orderExecutes.size() > 0) {
-			// 更新状态
 			for (OrderExecute orderExecute : orderExecutes) {
+				// 更新状态
 				if (!orderExecute.getState()
 						.equals(OrderExecute.State_NeedSend)) {
 					orderExecute.updateState();
+				}
+				// 设置医嘱组合
+				if (this.getCompsiteOrder() != null) {
+					orderExecute.setCompsiteOrder(this.getCompsiteOrder());
 				}
 			}
 			this.addExecutes(orderExecutes);
@@ -314,8 +318,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand{
 	public void setCompsiteOrder(CompsiteOrder compsiteOrder) {
 		this.compsiteOrder = compsiteOrder;
 	}
-	
-	
 
 	@Override
 	public List<Order> getOrders() {
