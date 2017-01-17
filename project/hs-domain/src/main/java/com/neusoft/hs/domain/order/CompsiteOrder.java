@@ -17,6 +17,9 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.ALL })
 	private List<Order> orders;
 
+	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.ALL })
+	private List<OrderExecute> orderExecutes;
+
 	public void addOrder(Order order) throws OrderException {
 		if (this.orders == null) {
 			this.orders = new ArrayList<Order>();
@@ -34,6 +37,14 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	public List<OrderExecute> getOrderExecutes() {
+		return orderExecutes;
+	}
+
+	public void setOrderExecutes(List<OrderExecute> orderExecutes) {
+		this.orderExecutes = orderExecutes;
 	}
 
 	@Override
