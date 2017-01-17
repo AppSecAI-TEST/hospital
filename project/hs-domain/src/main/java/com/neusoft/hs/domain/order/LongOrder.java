@@ -86,6 +86,8 @@ public class LongOrder extends Order {
 		OrderExecute lastOrderExecute = this.getLastOrderExecute();
 		if (lastOrderExecute != null) {
 			if (lastOrderExecute.isLast()
+					|| lastOrderExecute.getPlanStartDate().compareTo(
+							currentDate) == 0
 					|| lastOrderExecute.getPlanStartDate().after(currentDate)) {
 				return dates;
 			}
@@ -108,6 +110,8 @@ public class LongOrder extends Order {
 					&& date.after(this.getPlanStartDate())) {
 				dates.add(date);
 			}
+		} else if (frequencyType.equals(LongOrder.FrequencyType_Day)) {
+			dates.add(currentDate);
 		}
 		return dates;
 	}

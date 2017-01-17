@@ -19,21 +19,20 @@ public class SecondNursingOrderType extends OrderType {
 
 		List<OrderExecute> executes = new ArrayList<OrderExecute>();
 		// 分解两天的护理执行条目
-		OrderExecute lastExecute = order.getLastOrderExecute();
-		if (lastExecute == null) {
-			OrderExecute execute = this.create(order, order.getPlanStartDate());
-			executes.add(execute);
-			lastExecute = execute;
+		LongOrder longOrder = (LongOrder) order;
+		for (int day = 0; day < LongOrder.ResolveDays; day++) {
+			// 计算执行时间
+			List<Date> executeDates = longOrder.calExecuteDates(day);
+
+			for (Date executeDate : executeDates) {
+				OrderExecute execute = this.create(order, executeDate);
+				// 设置执行时间
+				execute.fillPlanDate(executeDate, executeDate);
+				// 收集执行条目
+				executes.add(execute);
+			}
 		}
 
-		Date needResolveDate = DateUtil.addDay(DateUtil.getSysDate(),
-				LongOrder.ResolveDays);
-		while (lastExecute.getPlanEndDate().before(needResolveDate)) {
-			OrderExecute execute = this.create(order,
-					lastExecute.getPlanEndDate());
-			executes.add(execute);
-			lastExecute = execute;
-		}
 		return executes;
 	}
 
