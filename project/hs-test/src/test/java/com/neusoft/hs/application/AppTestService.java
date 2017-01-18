@@ -386,19 +386,17 @@ public class AppTestService {
 
 		assertTrue(orders.size() == 2);
 
-		Set<String> ids = orderUtil.integration(orders);
-
 		// 核对医嘱
 		for (Order order : orders) {
 			orderAppService.verify(order.getId(), user003);
 		}
 
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 11:05"));
+
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 2);
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 11:05"));
+		assertTrue(executes.size() == 6);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -441,7 +439,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 4);
+		assertTrue(executes.size() == 2);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -510,7 +508,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 0);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {

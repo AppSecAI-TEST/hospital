@@ -2,7 +2,6 @@
 
 package com.neusoft.hs.domain.order;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,25 +27,16 @@ public class OrderExecuteDomainService {
 	@Autowired
 	private OrderExecuteRepo orderExecuteRepo;
 
-	public static int NeedExecuteOrderMinute = 30;// 医嘱执行可提前分钟数
-
-	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse, int day,
-			Pageable pageable) {
-		if (day <= 0) {
-			return new ArrayList<OrderExecute>();
-		} else {
-			Date date = DateUtil.addDay(DateUtil.getSysDateStart(), day);
-			return orderExecuteRepo
-					.findByStateAndBelongDeptAndPlanStartDateLessThan(
-							OrderExecute.State_NeedSend, nurse.getDept(), date,
-							pageable);
-		}
+	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
+			Date planStartDate, Pageable pageable) {
+		return orderExecuteRepo
+				.findByStateAndBelongDeptAndPlanStartDateLessThan(
+						OrderExecute.State_NeedSend, nurse.getDept(),
+						planStartDate, pageable);
 	}
 
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
-			Pageable pageable) {
-		Date planStartDate = DateUtil.addMinute(DateUtil.getSysDate(),
-				NeedExecuteOrderMinute);
+			Date planStartDate, Pageable pageable) {
 		return orderExecuteRepo
 				.findByStateAndExecuteDeptAndPlanStartDateLessThan(
 						OrderExecute.State_Executing, user.getDept(),

@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.orderexecute;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -26,6 +28,8 @@ public class OrderExecuteAppService {
 
 	@Autowired
 	private CostDomainService costDomainService;
+
+	public static int NeedExecuteOrderMinute = 30;// 医嘱执行可提前分钟数
 
 	/**
 	 * @param user003
@@ -47,8 +51,10 @@ public class OrderExecuteAppService {
 
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
 			Pageable pageable) {
+		Date planStartDate = DateUtil.addMinute(DateUtil.getSysDate(),
+				NeedExecuteOrderMinute);
 		return orderExecuteDomainService.getNeedExecuteOrderExecutes(user,
-				pageable);
+				planStartDate, pageable);
 	}
 
 	/**
