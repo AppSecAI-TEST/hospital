@@ -55,11 +55,13 @@ public abstract class OrderType extends SuperEntity {
 	private List<Order> orders;
 
 	/**
+	 * 医嘱创建时的检查回调函数
+	 * 
 	 * @param order
-	 * @throws HsException
+	 * @throws OrderException
 	 * @roseuid 584E66D50265
 	 */
-	public void check(Order order) throws OrderException {
+	protected void check(Order order) throws OrderException {
 
 	}
 
@@ -71,6 +73,16 @@ public abstract class OrderType extends SuperEntity {
 	 */
 	public abstract List<OrderExecute> resolveOrder(Order order)
 			throws OrderException;
+
+	/**
+	 * 医嘱核对后的回调函数
+	 * 
+	 * @param order
+	 * @throws OrderException
+	 */
+	protected void verify(Order order) throws OrderException {
+
+	}
 
 	public String getId() {
 		return id;
@@ -127,5 +139,4 @@ public abstract class OrderType extends SuperEntity {
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
-
 }

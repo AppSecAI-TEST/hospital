@@ -80,6 +80,13 @@ public class LongOrder extends Order {
 		// 分解的日期
 		Date sysDateStart = DateUtil.getSysDateStart();
 		Date currentDate = DateUtil.addDay(sysDateStart, numDays);
+		// 如果分解时间大于患者计划出院时间将不分解医嘱
+		if (this.getVisit().getPlanLeaveWardDate() != null
+				&& (this.getVisit().getPlanLeaveWardDate()
+						.compareTo(currentDate) == 0 || this.getVisit()
+						.getPlanLeaveWardDate().before(currentDate))) {
+			return new ArrayList<Date>();
+		}
 		// 如果已分解完毕就不再分解
 		OrderExecute lastOrderExecute = this.getLastOrderExecute();
 		if (lastOrderExecute != null) {

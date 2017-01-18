@@ -3,6 +3,7 @@
 package com.neusoft.hs.domain.order;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,8 +142,15 @@ public class OrderDomainService {
 	/**
 	 * @roseuid 585250700266
 	 */
-	public void find() {
+	public Order find(String orderId) {
+		return orderRepo.findOne(orderId);
+	}
 
+	/**
+	 * @roseuid 585250700266
+	 */
+	public Iterator<Order> find(List<String> orderIds) {
+		return orderRepo.findAll(orderIds).iterator();
 	}
 
 	public void createOrderTypes(List<OrderType> orderTypes) {

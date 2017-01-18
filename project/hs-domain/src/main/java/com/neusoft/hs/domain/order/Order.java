@@ -128,8 +128,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	}
 
 	public int verify() throws OrderException {
-		int count = this.resolve();
 		this.setState(State_Executing);
+		int count = this.resolve();
+		this.type.verify(this);
 		return count;
 	}
 
@@ -138,6 +139,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * @roseuid 584F494100C2
 	 */
 	public int resolve() throws OrderException {
+		if (!this.state.equals(State_Executing)) {
+			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
+					+ this.state + "],不能分解");
+		}
 		List<OrderExecute> orderExecutes = this.type.resolveOrder(this);
 		if (orderExecutes.size() > 0) {
 			for (OrderExecute orderExecute : orderExecutes) {

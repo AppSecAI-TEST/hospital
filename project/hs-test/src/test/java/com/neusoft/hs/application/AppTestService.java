@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -34,6 +35,7 @@ import com.neusoft.hs.domain.order.OrderFrequencyType9H15H;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDay;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderUseMode;
+import com.neusoft.hs.domain.order.OrderUtil;
 import com.neusoft.hs.domain.order.SecondNursingOrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
@@ -93,6 +95,9 @@ public class AppTestService {
 
 	@Autowired
 	private OrderDomainService orderDomainService;
+
+	@Autowired
+	private OrderUtil orderUtil;
 
 	private Org org;// 哈医大二院
 	private Dept dept111;// 住院处
@@ -374,12 +379,14 @@ public class AppTestService {
 
 		orderAppService.create(drug002003Order, user002);
 
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 10:30"));
+
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
 		assertTrue(orders.size() == 2);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 10:30"));
+		Set<String> ids = orderUtil.integration(orders);
 
 		// 核对医嘱
 		for (Order order : orders) {
@@ -688,7 +695,7 @@ public class AppTestService {
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		assertTrue(startedCount == 2);
+		assertTrue(startedCount == 1);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 09:30"));
 
@@ -696,7 +703,7 @@ public class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 1);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {

@@ -53,6 +53,9 @@ public class Visit extends IdEntity {
 	@Column(name = "into_ward_date")
 	private Date intoWardDate;
 
+	@Column(name = "plan_leave_ward_date")
+	private Date planLeaveWardDate;
+
 	@Column(name = "leave_ward_date")
 	private Date leaveWardDate;
 
@@ -257,6 +260,14 @@ public class Visit extends IdEntity {
 
 	public void setIntoWardDate(Date intoWardDate) {
 		this.intoWardDate = intoWardDate;
+	}
+
+	public Date getPlanLeaveWardDate() {
+		return planLeaveWardDate;
+	}
+
+	public void setPlanLeaveWardDate(Date planLeaveWardDate) {
+		this.planLeaveWardDate = planLeaveWardDate;
 	}
 
 	public Date getLeaveWardDate() {
