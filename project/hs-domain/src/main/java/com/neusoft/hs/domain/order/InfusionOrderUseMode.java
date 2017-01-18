@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.neusoft.hs.domain.cost.OrderUseModeChargeItem;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 
 @Entity
@@ -45,9 +46,15 @@ public class InfusionOrderUseMode extends OrderUseMode {
 		transportFluidExecute.setVisit(order.getVisit());
 		transportFluidExecute.setBelongDept(order.getBelongDept());
 		transportFluidExecute.setType(OrderExecute.Type_Transport_Fluid);
-		transportFluidExecute.addChargeItem(this
-				.getTheChargeItem(transportFluid));
 		transportFluidExecute.setDrugType(drugType);
+
+		OrderUseModeChargeItem orderUseModeChargeItem = this
+				.getTheOrderUseModeChargeItem(transportFluid);
+		if (orderUseModeChargeItem.getChargeMode().equals(
+				OrderUseModeChargeItem.everyOne)) {
+			transportFluidExecute.addChargeItem(orderUseModeChargeItem
+					.getChargeItem());
+		}
 
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);

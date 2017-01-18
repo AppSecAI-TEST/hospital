@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +20,7 @@ import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.cost.OrderUseModeChargeItem;
 import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.InfusionOrderUseMode;
@@ -150,6 +150,12 @@ public class AppTestService {
 	private OralOrderUseMode oralOrderUseMode;// 口服用法
 
 	private InfusionOrderUseMode infusionOrderUseMode;// 输液用法
+
+	private OrderUseModeChargeItem everyOneOrderUseModeChargeItem;// 按频次收费
+
+	private OrderUseModeChargeItem everyDayOrderUseModeChargeItem;// 按天收费
+
+	private OrderUseModeChargeItem onlyOneOrderUseModeChargeItem;// 只收一次
 
 	private OrderFrequencyType orderFrequencyType_Day;// 每天
 
@@ -772,8 +778,9 @@ public class AppTestService {
 
 		initOrderUseModes();
 
-		initOrderFrequencyTypes();
+		initOrderUseModeChargeItems();
 
+		initOrderFrequencyTypes();
 	}
 
 	private void initOrgs() {
@@ -1072,12 +1079,61 @@ public class AppTestService {
 		infusionOrderUseMode.setId("infusionOrderUseMode");
 		infusionOrderUseMode.setCode("infusionOrderUseMode");
 		infusionOrderUseMode.setName("输液");
-		infusionOrderUseMode.addChargeItem(InfusionOrderUseMode.transportFluid,
-				transportFluidMaterialChargeItem);
+
+		// infusionOrderUseMode.addChargeItem(InfusionOrderUseMode.transportFluid,
+		// transportFluidMaterialChargeItem);
 
 		orderUseModes.add(infusionOrderUseMode);
 
 		orderDomainService.createOrderUseModes(orderUseModes);
+
+	}
+
+	private void initOrderUseModeChargeItems() {
+
+		List<OrderUseModeChargeItem> orderUseModeChargeItems = new ArrayList<OrderUseModeChargeItem>();
+
+		everyOneOrderUseModeChargeItem = new OrderUseModeChargeItem();
+		everyOneOrderUseModeChargeItem.setId("everyOne");
+		everyOneOrderUseModeChargeItem.setCode("everyOne");
+		everyOneOrderUseModeChargeItem
+				.setChargeItem(transportFluidMaterialChargeItem);
+		everyOneOrderUseModeChargeItem.setOrderUseMode(infusionOrderUseMode);
+		everyOneOrderUseModeChargeItem
+				.setChargeMode(OrderUseModeChargeItem.everyOne);
+		everyOneOrderUseModeChargeItem
+				.setSign(InfusionOrderUseMode.transportFluid);
+
+		orderUseModeChargeItems.add(everyOneOrderUseModeChargeItem);
+
+		// everyDayOrderUseModeChargeItem = new OrderUseModeChargeItem();
+		// everyDayOrderUseModeChargeItem.setId("everyDay");
+		// everyDayOrderUseModeChargeItem.setCode("everyDay");
+		// everyDayOrderUseModeChargeItem
+		// .setChargeItem(transportFluidMaterialChargeItem);
+		// everyDayOrderUseModeChargeItem.setOrderUseMode(infusionOrderUseMode);
+		// everyDayOrderUseModeChargeItem
+		// .setChargeMode(OrderUseModeChargeItem.everyDay);
+		// everyDayOrderUseModeChargeItem
+		// .setSign(InfusionOrderUseMode.transportFluid);
+		//
+		// orderUseModeChargeItems.add(everyDayOrderUseModeChargeItem);
+		//
+		// onlyOneOrderUseModeChargeItem = new OrderUseModeChargeItem();
+		// onlyOneOrderUseModeChargeItem.setId("onlyOne");
+		// onlyOneOrderUseModeChargeItem.setCode("onlyOne");
+		// onlyOneOrderUseModeChargeItem
+		// .setChargeItem(transportFluidMaterialChargeItem);
+		// onlyOneOrderUseModeChargeItem.setOrderUseMode(infusionOrderUseMode);
+		// onlyOneOrderUseModeChargeItem
+		// .setChargeMode(OrderUseModeChargeItem.onlyOne);
+		// onlyOneOrderUseModeChargeItem
+		// .setSign(InfusionOrderUseMode.transportFluid);
+		//
+		// orderUseModeChargeItems.add(onlyOneOrderUseModeChargeItem);
+
+		costDomainService
+				.createOrderUseModeChargeItems(orderUseModeChargeItems);
 
 	}
 

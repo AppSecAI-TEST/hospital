@@ -29,6 +29,9 @@ public class CostDomainService {
 
 	@Autowired
 	private CostRecordRepo costRecordRepo;
+	
+	@Autowired
+	private OrderUseModeChargeItemRepo orderUseModeChargeItemRepo;
 
 	@Autowired
 	private VisitDomainService visitDomainService;
@@ -148,6 +151,11 @@ public class CostDomainService {
 
 	public void clearCostRecords() {
 		costRecordRepo.deleteAll();
+	}
+
+	public void createOrderUseModeChargeItems(
+			List<OrderUseModeChargeItem> orderUseModeChargeItems) {
+		orderUseModeChargeItemRepo.save(orderUseModeChargeItems);
 	}
 
 }

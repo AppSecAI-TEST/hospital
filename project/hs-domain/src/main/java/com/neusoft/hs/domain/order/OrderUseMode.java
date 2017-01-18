@@ -15,13 +15,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
+import com.neusoft.hs.domain.cost.OrderUseModeChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
@@ -44,9 +44,8 @@ public abstract class OrderUseMode extends SuperEntity {
 	@OneToMany(mappedBy = "useMode", cascade = { CascadeType.ALL })
 	private List<Order> orders;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "domain_order_use_mode_charge_item", joinColumns = { @JoinColumn(name = "order_use_mode_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "charge_item_id", referencedColumnName = "id") })
-	private Map<String, ChargeItem> chargeItems;
+	@OneToMany(mappedBy = "orderUseMode", cascade = { CascadeType.ALL })
+	private List<OrderUseModeChargeItem> orderUseModeChargeItems;
 
 	/**
 	 * @param drugOrderType
@@ -89,22 +88,22 @@ public abstract class OrderUseMode extends SuperEntity {
 		this.orders = orders;
 	}
 
-	public Map<String, ChargeItem> getChargeItems() {
-		return chargeItems;
-	}
-
-	public ChargeItem getTheChargeItem(String key) {
-		return this.chargeItems.get(key);
-	}
-
-	public void setChargeItems(Map<String, ChargeItem> chargeItems) {
-		this.chargeItems = chargeItems;
-	}
-
-	public void addChargeItem(String key, ChargeItem chargeItem) {
-		if (this.chargeItems == null) {
-			this.chargeItems = new HashMap<String, ChargeItem>();
+	public OrderUseModeChargeItem getTheOrderUseModeChargeItem(String key) {
+		for (OrderUseModeChargeItem orderUseModeChargeItem : orderUseModeChargeItems) {
+			if (orderUseModeChargeItem.getSign().equals(key)) {
+				return orderUseModeChargeItem;
+			}
 		}
-		this.chargeItems.put(key, chargeItem);
+		return null;
 	}
+
+	public List<OrderUseModeChargeItem> getOrderUseModeChargeItems() {
+		return orderUseModeChargeItems;
+	}
+
+	public void setOrderUseModeChargeItems(
+			List<OrderUseModeChargeItem> orderUseModeChargeItems) {
+		this.orderUseModeChargeItems = orderUseModeChargeItems;
+	}
+
 }

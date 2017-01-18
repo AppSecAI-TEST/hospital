@@ -53,8 +53,8 @@ public class ChargeItem extends SuperEntity {
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<OrderType> orderTypes;
 
-	@ManyToMany(mappedBy = "chargeItems", cascade = { CascadeType.ALL })
-	private List<OrderUseMode> useModes;
+	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	private List<OrderUseModeChargeItem> orderUseModeChargeItem;
 
 	@ManyToMany(mappedBy = "chargeItems", cascade = { CascadeType.ALL })
 	private List<OrderExecute> executes;
@@ -145,12 +145,13 @@ public class ChargeItem extends SuperEntity {
 		this.orderTypes = orderTypes;
 	}
 
-	public List<OrderUseMode> getUseModes() {
-		return useModes;
+	public List<OrderUseModeChargeItem> getOrderUseModeChargeItem() {
+		return orderUseModeChargeItem;
 	}
 
-	public void setUseModes(List<OrderUseMode> useModes) {
-		this.useModes = useModes;
+	public void setOrderUseModeChargeItem(
+			List<OrderUseModeChargeItem> orderUseModeChargeItem) {
+		this.orderUseModeChargeItem = orderUseModeChargeItem;
 	}
 
 	public List<OrderExecute> getExecutes() {
