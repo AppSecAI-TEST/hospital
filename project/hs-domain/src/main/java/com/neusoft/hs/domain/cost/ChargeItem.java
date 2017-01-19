@@ -15,9 +15,9 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
-import com.neusoft.hs.domain.order.OrderUseMode;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
@@ -53,8 +53,8 @@ public class ChargeItem extends SuperEntity {
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<OrderType> orderTypes;
 
-	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
-	private List<OrderUseModeChargeItem> orderUseModeChargeItem;
+	@OneToOne(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	private AssistMaterial assistMaterial;
 
 	@ManyToMany(mappedBy = "chargeItems", cascade = { CascadeType.ALL })
 	private List<OrderExecute> executes;
@@ -145,13 +145,12 @@ public class ChargeItem extends SuperEntity {
 		this.orderTypes = orderTypes;
 	}
 
-	public List<OrderUseModeChargeItem> getOrderUseModeChargeItem() {
-		return orderUseModeChargeItem;
+	public AssistMaterial getAssistMaterial() {
+		return assistMaterial;
 	}
 
-	public void setOrderUseModeChargeItem(
-			List<OrderUseModeChargeItem> orderUseModeChargeItem) {
-		this.orderUseModeChargeItem = orderUseModeChargeItem;
+	public void setAssistMaterial(AssistMaterial assistMaterial) {
+		this.assistMaterial = assistMaterial;
 	}
 
 	public List<OrderExecute> getExecutes() {

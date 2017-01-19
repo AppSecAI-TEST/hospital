@@ -21,7 +21,6 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
-import com.neusoft.hs.domain.cost.OrderUseModeChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
@@ -45,7 +44,7 @@ public abstract class OrderUseMode extends SuperEntity {
 	private List<Order> orders;
 
 	@OneToMany(mappedBy = "orderUseMode", cascade = { CascadeType.ALL })
-	private List<OrderUseModeChargeItem> orderUseModeChargeItems;
+	private List<OrderUseModeAssistMaterial> orderUseModeAssistMaterials;
 
 	/**
 	 * @param drugOrderType
@@ -88,22 +87,22 @@ public abstract class OrderUseMode extends SuperEntity {
 		this.orders = orders;
 	}
 
-	public OrderUseModeChargeItem getTheOrderUseModeChargeItem(String key) {
-		for (OrderUseModeChargeItem orderUseModeChargeItem : orderUseModeChargeItems) {
-			if (orderUseModeChargeItem.getSign().equals(key)) {
-				return orderUseModeChargeItem;
+	public OrderUseModeAssistMaterial getTheOrderUseModeChargeItem(String key) {
+		for (OrderUseModeAssistMaterial orderUseModeAssistMaterial : orderUseModeAssistMaterials) {
+			if (orderUseModeAssistMaterial.getSign().equals(key)) {
+				return orderUseModeAssistMaterial;
 			}
 		}
 		return null;
 	}
 
-	public List<OrderUseModeChargeItem> getOrderUseModeChargeItems() {
-		return orderUseModeChargeItems;
+	public List<OrderUseModeAssistMaterial> getOrderUseModeChargeItems() {
+		return orderUseModeAssistMaterials;
 	}
 
 	public void setOrderUseModeChargeItems(
-			List<OrderUseModeChargeItem> orderUseModeChargeItems) {
-		this.orderUseModeChargeItems = orderUseModeChargeItems;
+			List<OrderUseModeAssistMaterial> orderUseModeChargeItems) {
+		this.orderUseModeAssistMaterials = orderUseModeChargeItems;
 	}
 
 }

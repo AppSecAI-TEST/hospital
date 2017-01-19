@@ -20,7 +20,7 @@ import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
-import com.neusoft.hs.domain.cost.OrderUseModeChargeItem;
+import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.InfusionOrderUseMode;
@@ -35,6 +35,7 @@ import com.neusoft.hs.domain.order.OrderFrequencyType9H15H;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDay;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderUseMode;
+import com.neusoft.hs.domain.order.OrderUseModeAssistMaterial;
 import com.neusoft.hs.domain.order.OrderUtil;
 import com.neusoft.hs.domain.order.SecondNursingOrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
@@ -151,11 +152,13 @@ public class AppTestService {
 
 	private InfusionOrderUseMode infusionOrderUseMode;// 输液用法
 
-	private OrderUseModeChargeItem everyOneOrderUseModeChargeItem;// 按频次收费
+	private AssistMaterial transportFluidAssistMaterial;// 输液辅材
 
-	private OrderUseModeChargeItem everyDayOrderUseModeChargeItem;// 按天收费
+	private OrderUseModeAssistMaterial everyOneOrderUseModeAssistMaterial;// 按频次收费
 
-	private OrderUseModeChargeItem onlyOneOrderUseModeChargeItem;// 只收一次
+	private OrderUseModeAssistMaterial everyDayOrderUseModeAssistMaterial;// 按天收费
+
+	private OrderUseModeAssistMaterial onlyOneOrderUseModeAssistMaterial;// 只收一次
 
 	private OrderFrequencyType orderFrequencyType_Day;// 每天
 
@@ -778,7 +781,9 @@ public class AppTestService {
 
 		initOrderUseModes();
 
-		initOrderUseModeChargeItems();
+		initAssistMaterials();
+
+		initOrderUseModeAssistMaterials();
 
 		initOrderFrequencyTypes();
 	}
@@ -1080,60 +1085,75 @@ public class AppTestService {
 		infusionOrderUseMode.setCode("infusionOrderUseMode");
 		infusionOrderUseMode.setName("输液");
 
-		// infusionOrderUseMode.addChargeItem(InfusionOrderUseMode.transportFluid,
-		// transportFluidMaterialChargeItem);
-
 		orderUseModes.add(infusionOrderUseMode);
 
 		orderDomainService.createOrderUseModes(orderUseModes);
 
 	}
 
-	private void initOrderUseModeChargeItems() {
+	private void initAssistMaterials() {
 
-		List<OrderUseModeChargeItem> orderUseModeChargeItems = new ArrayList<OrderUseModeChargeItem>();
+		List<AssistMaterial> assistMaterials = new ArrayList<AssistMaterial>();
 
-		everyOneOrderUseModeChargeItem = new OrderUseModeChargeItem();
-		everyOneOrderUseModeChargeItem.setId("everyOne");
-		everyOneOrderUseModeChargeItem.setCode("everyOne");
-		everyOneOrderUseModeChargeItem
+		transportFluidAssistMaterial = new AssistMaterial();
+		transportFluidAssistMaterial.setId("infusionAssistMaterial");
+		transportFluidAssistMaterial.setCode("infusionAssistMaterial");
+		transportFluidAssistMaterial.setName("输液辅材");
+		transportFluidAssistMaterial
 				.setChargeItem(transportFluidMaterialChargeItem);
-		everyOneOrderUseModeChargeItem.setOrderUseMode(infusionOrderUseMode);
-		everyOneOrderUseModeChargeItem
-				.setChargeMode(OrderUseModeChargeItem.everyOne);
-		everyOneOrderUseModeChargeItem
+
+		assistMaterials.add(transportFluidAssistMaterial);
+
+		orderDomainService.createAssistMaterials(assistMaterials);
+	}
+
+	private void initOrderUseModeAssistMaterials() {
+
+		List<OrderUseModeAssistMaterial> orderUseModeAssistMaterials = new ArrayList<OrderUseModeAssistMaterial>();
+
+		everyOneOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
+		everyOneOrderUseModeAssistMaterial.setId("everyOne");
+		everyOneOrderUseModeAssistMaterial.setCode("everyOne");
+		everyOneOrderUseModeAssistMaterial
+				.setAssistMaterial(transportFluidAssistMaterial);
+		everyOneOrderUseModeAssistMaterial
+				.setOrderUseMode(infusionOrderUseMode);
+		everyOneOrderUseModeAssistMaterial
+				.setChargeMode(OrderUseModeAssistMaterial.everyOne);
+		everyOneOrderUseModeAssistMaterial
 				.setSign(InfusionOrderUseMode.transportFluid);
 
-		orderUseModeChargeItems.add(everyOneOrderUseModeChargeItem);
+		orderUseModeAssistMaterials.add(everyOneOrderUseModeAssistMaterial);
 
-		// everyDayOrderUseModeChargeItem = new OrderUseModeChargeItem();
-		// everyDayOrderUseModeChargeItem.setId("everyDay");
-		// everyDayOrderUseModeChargeItem.setCode("everyDay");
-		// everyDayOrderUseModeChargeItem
-		// .setChargeItem(transportFluidMaterialChargeItem);
-		// everyDayOrderUseModeChargeItem.setOrderUseMode(infusionOrderUseMode);
-		// everyDayOrderUseModeChargeItem
-		// .setChargeMode(OrderUseModeChargeItem.everyDay);
-		// everyDayOrderUseModeChargeItem
-		// .setSign(InfusionOrderUseMode.transportFluid);
-		//
-		// orderUseModeChargeItems.add(everyDayOrderUseModeChargeItem);
-		//
-		// onlyOneOrderUseModeChargeItem = new OrderUseModeChargeItem();
-		// onlyOneOrderUseModeChargeItem.setId("onlyOne");
-		// onlyOneOrderUseModeChargeItem.setCode("onlyOne");
-		// onlyOneOrderUseModeChargeItem
-		// .setChargeItem(transportFluidMaterialChargeItem);
-		// onlyOneOrderUseModeChargeItem.setOrderUseMode(infusionOrderUseMode);
-		// onlyOneOrderUseModeChargeItem
-		// .setChargeMode(OrderUseModeChargeItem.onlyOne);
-		// onlyOneOrderUseModeChargeItem
-		// .setSign(InfusionOrderUseMode.transportFluid);
-		//
-		// orderUseModeChargeItems.add(onlyOneOrderUseModeChargeItem);
+//		everyDayOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
+//		everyDayOrderUseModeAssistMaterial.setId("everyDay");
+//		everyDayOrderUseModeAssistMaterial.setCode("everyDay");
+//		everyDayOrderUseModeAssistMaterial
+//				.setAssistMaterial(transportFluidAssistMaterial);
+//		everyDayOrderUseModeAssistMaterial
+//				.setOrderUseMode(infusionOrderUseMode);
+//		everyDayOrderUseModeAssistMaterial
+//				.setChargeMode(OrderUseModeAssistMaterial.everyDay);
+//		everyDayOrderUseModeAssistMaterial
+//				.setSign(InfusionOrderUseMode.transportFluid);
+//
+//		orderUseModeAssistMaterials.add(everyDayOrderUseModeAssistMaterial);
+//
+//		onlyOneOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
+//		onlyOneOrderUseModeAssistMaterial.setId("onlyOne");
+//		onlyOneOrderUseModeAssistMaterial.setCode("onlyOne");
+//		onlyOneOrderUseModeAssistMaterial
+//				.setAssistMaterial(transportFluidAssistMaterial);
+//		onlyOneOrderUseModeAssistMaterial.setOrderUseMode(infusionOrderUseMode);
+//		onlyOneOrderUseModeAssistMaterial
+//				.setChargeMode(OrderUseModeAssistMaterial.onlyOne);
+//		onlyOneOrderUseModeAssistMaterial
+//				.setSign(InfusionOrderUseMode.transportFluid);
+//
+//		orderUseModeAssistMaterials.add(onlyOneOrderUseModeAssistMaterial);
 
-		costDomainService
-				.createOrderUseModeChargeItems(orderUseModeChargeItems);
+		orderDomainService
+				.createOrderUseModeAssistMaterials(orderUseModeAssistMaterials);
 
 	}
 

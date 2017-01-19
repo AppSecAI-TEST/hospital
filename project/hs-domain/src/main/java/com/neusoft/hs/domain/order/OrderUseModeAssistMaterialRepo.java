@@ -1,9 +1,9 @@
 //Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\domain\\cost\\CostRecordRepo.java
 
-package com.neusoft.hs.domain.cost;
+package com.neusoft.hs.domain.order;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-interface OrderUseModeChargeItemRepo extends PagingAndSortingRepository<OrderUseModeChargeItem, String> {
+interface OrderUseModeAssistMaterialRepo extends PagingAndSortingRepository<OrderUseModeAssistMaterial, String> {
 
 }

@@ -39,6 +39,12 @@ public class OrderDomainService {
 	private OrderFrequencyTypeRepo orderFrequencyTypeRepo;
 
 	@Autowired
+	private AssistMaterialRepo assistMaterialRepo;
+
+	@Autowired
+	private OrderUseModeAssistMaterialRepo orderUseModeAssistMaterialRepo;
+
+	@Autowired
 	private PharmacyDomainService pharmacyDomainService;
 
 	@Autowired
@@ -180,6 +186,15 @@ public class OrderDomainService {
 
 	public void clearOrderFrequencyTypes() {
 		orderFrequencyTypeRepo.deleteAll();
+	}
+
+	public void createAssistMaterials(List<AssistMaterial> assistMaterials) {
+		assistMaterialRepo.save(assistMaterials);
+	}
+
+	public void createOrderUseModeAssistMaterials(
+			List<OrderUseModeAssistMaterial> orderUseModeAssistMaterials) {
+		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterials);
 	}
 
 }

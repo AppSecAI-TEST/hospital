@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.cost;
+package com.neusoft.hs.domain.order;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +10,12 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.order.OrderUseMode;
+import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
 @Table(name = "domain_order_use_mode_charge_item")
-public class OrderUseModeChargeItem extends SuperEntity {
+public class OrderUseModeAssistMaterial extends SuperEntity {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)
@@ -30,8 +30,8 @@ public class OrderUseModeChargeItem extends SuperEntity {
 	private OrderUseMode orderUseMode;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "charge_item_id")
-	private ChargeItem chargeItem;
+	@JoinColumn(name = "assist_material_id")
+	private AssistMaterial assistMaterial;
 
 	@Column(length = 16)
 	private String sign;
@@ -70,12 +70,12 @@ public class OrderUseModeChargeItem extends SuperEntity {
 		this.orderUseMode = orderUseMode;
 	}
 
-	public ChargeItem getChargeItem() {
-		return chargeItem;
+	public AssistMaterial getAssistMaterial() {
+		return assistMaterial;
 	}
 
-	public void setChargeItem(ChargeItem chargeItem) {
-		this.chargeItem = chargeItem;
+	public void setAssistMaterial(AssistMaterial assistMaterial) {
+		this.assistMaterial = assistMaterial;
 	}
 
 	public String getSign() {

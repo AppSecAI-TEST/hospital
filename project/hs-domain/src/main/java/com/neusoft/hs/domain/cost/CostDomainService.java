@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -29,9 +28,6 @@ public class CostDomainService {
 
 	@Autowired
 	private CostRecordRepo costRecordRepo;
-	
-	@Autowired
-	private OrderUseModeChargeItemRepo orderUseModeChargeItemRepo;
 
 	@Autowired
 	private VisitDomainService visitDomainService;
@@ -152,10 +148,4 @@ public class CostDomainService {
 	public void clearCostRecords() {
 		costRecordRepo.deleteAll();
 	}
-
-	public void createOrderUseModeChargeItems(
-			List<OrderUseModeChargeItem> orderUseModeChargeItems) {
-		orderUseModeChargeItemRepo.save(orderUseModeChargeItems);
-	}
-
 }
