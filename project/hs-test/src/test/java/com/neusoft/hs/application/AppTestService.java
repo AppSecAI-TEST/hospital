@@ -175,6 +175,8 @@ public class AppTestService {
 		clear();
 
 		initData();
+
+		choice();
 	}
 
 	/**
@@ -1109,8 +1111,6 @@ public class AppTestService {
 
 	private void initOrderUseModeAssistMaterials() {
 
-		List<OrderUseModeAssistMaterial> orderUseModeAssistMaterials = new ArrayList<OrderUseModeAssistMaterial>();
-
 		everyOneOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
 		everyOneOrderUseModeAssistMaterial.setId("everyOne");
 		everyOneOrderUseModeAssistMaterial.setCode("everyOne");
@@ -1123,38 +1123,28 @@ public class AppTestService {
 		everyOneOrderUseModeAssistMaterial
 				.setSign(InfusionOrderUseMode.transportFluid);
 
-		orderUseModeAssistMaterials.add(everyOneOrderUseModeAssistMaterial);
+		everyDayOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
+		everyDayOrderUseModeAssistMaterial.setId("everyDay");
+		everyDayOrderUseModeAssistMaterial.setCode("everyDay");
+		everyDayOrderUseModeAssistMaterial
+				.setAssistMaterial(transportFluidAssistMaterial);
+		everyDayOrderUseModeAssistMaterial
+				.setOrderUseMode(infusionOrderUseMode);
+		everyDayOrderUseModeAssistMaterial
+				.setChargeMode(OrderUseModeAssistMaterial.everyDay);
+		everyDayOrderUseModeAssistMaterial
+				.setSign(InfusionOrderUseMode.transportFluid);
 
-//		everyDayOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
-//		everyDayOrderUseModeAssistMaterial.setId("everyDay");
-//		everyDayOrderUseModeAssistMaterial.setCode("everyDay");
-//		everyDayOrderUseModeAssistMaterial
-//				.setAssistMaterial(transportFluidAssistMaterial);
-//		everyDayOrderUseModeAssistMaterial
-//				.setOrderUseMode(infusionOrderUseMode);
-//		everyDayOrderUseModeAssistMaterial
-//				.setChargeMode(OrderUseModeAssistMaterial.everyDay);
-//		everyDayOrderUseModeAssistMaterial
-//				.setSign(InfusionOrderUseMode.transportFluid);
-//
-//		orderUseModeAssistMaterials.add(everyDayOrderUseModeAssistMaterial);
-//
-//		onlyOneOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
-//		onlyOneOrderUseModeAssistMaterial.setId("onlyOne");
-//		onlyOneOrderUseModeAssistMaterial.setCode("onlyOne");
-//		onlyOneOrderUseModeAssistMaterial
-//				.setAssistMaterial(transportFluidAssistMaterial);
-//		onlyOneOrderUseModeAssistMaterial.setOrderUseMode(infusionOrderUseMode);
-//		onlyOneOrderUseModeAssistMaterial
-//				.setChargeMode(OrderUseModeAssistMaterial.onlyOne);
-//		onlyOneOrderUseModeAssistMaterial
-//				.setSign(InfusionOrderUseMode.transportFluid);
-//
-//		orderUseModeAssistMaterials.add(onlyOneOrderUseModeAssistMaterial);
-
-		orderDomainService
-				.createOrderUseModeAssistMaterials(orderUseModeAssistMaterials);
-
+		onlyOneOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
+		onlyOneOrderUseModeAssistMaterial.setId("onlyOne");
+		onlyOneOrderUseModeAssistMaterial.setCode("onlyOne");
+		onlyOneOrderUseModeAssistMaterial
+				.setAssistMaterial(transportFluidAssistMaterial);
+		onlyOneOrderUseModeAssistMaterial.setOrderUseMode(infusionOrderUseMode);
+		onlyOneOrderUseModeAssistMaterial
+				.setChargeMode(OrderUseModeAssistMaterial.onlyOne);
+		onlyOneOrderUseModeAssistMaterial
+				.setSign(InfusionOrderUseMode.transportFluid);
 	}
 
 	private void initOrderFrequencyTypes() {
@@ -1171,6 +1161,16 @@ public class AppTestService {
 
 		orderDomainService.createOrderFrequencyTypes(orderFrequencyTypes);
 
+	}
+
+	private void choice() {
+		this.choiceOrderUseModeAssistMaterial(onlyOneOrderUseModeAssistMaterial);
+	}
+
+	private void choiceOrderUseModeAssistMaterial(
+			OrderUseModeAssistMaterial orderUseModeAssistMaterial) {
+		orderDomainService
+				.createOrderUseModeAssistMaterial(orderUseModeAssistMaterial);
 	}
 
 }

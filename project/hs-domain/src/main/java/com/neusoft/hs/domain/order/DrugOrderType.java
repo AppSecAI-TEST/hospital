@@ -2,8 +2,6 @@
 
 package com.neusoft.hs.domain.order;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -77,53 +75,8 @@ public class DrugOrderType extends OrderType {
 	}
 
 	@Override
-	public List<OrderExecute> resolveOrder(Order order) throws OrderException {
-
-		List<OrderExecute> executes = new ArrayList<OrderExecute>();
-		if (order instanceof TemporaryOrder) {
-			// 分解执行条目
-			List<OrderExecute> tempExecutes = order.getUseMode().resolve(order,
-					this);
-			if (tempExecutes.size() == 0) {
-				throw new OrderException(order, "没有分解出执行条目");
-			}
-			// 设置执行时间
-			for (OrderExecute execute : tempExecutes) {
-				execute.fillPlanDate(order.getPlanStartDate(),
-						order.getPlanStartDate());
-			}
-			// 收集执行条目
-			executes.addAll(tempExecutes);
-		} else {
-			List<OrderExecute> tempExecutes;
-			LongOrder longOrder = (LongOrder) order;
-			for (int day = 0; day < LongOrder.ResolveDays; day++) {
-				// 计算执行时间
-				List<Date> executeDates = longOrder.calExecuteDates(day);
-
-				for (Date executeDate : executeDates) {
-					// 分解执行条目
-					tempExecutes = order.getUseMode().resolve(order, this);
-					if (tempExecutes.size() == 0) {
-						throw new OrderException(order, "没有分解出执行条目");
-					}
-					// 设置执行时间
-					for (OrderExecute execute : tempExecutes) {
-						execute.fillPlanDate(executeDate, executeDate);
-					}
-					// 收集执行条目
-					executes.addAll(tempExecutes);
-				}
-			}
-			// 没有分解出执行条目，设置之前分解的最后一条为last
-			if (executes.size() == 0) {
-				OrderExecute lastOrderExecute = order.getLastOrderExecute();
-				lastOrderExecute.setLast(true);
-				lastOrderExecute.save();
-			}
-		}
-
-		return executes;
+	public void resolveOrder(Order order) throws OrderException {
+		order.resolve(this);
 	}
 
 	public DrugType getDrugType() {

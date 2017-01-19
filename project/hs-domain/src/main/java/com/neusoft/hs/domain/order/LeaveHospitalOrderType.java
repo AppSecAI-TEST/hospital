@@ -8,14 +8,14 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("LeaveHospital")
 public class LeaveHospitalOrderType extends OrderType {
-	
+
 	@Override
 	protected void verify(Order order) throws OrderException {
 		order.getVisit().setPlanLeaveWardDate(order.getPlanStartDate());
 	}
 
 	@Override
-	public List<OrderExecute> resolveOrder(Order order) {
+	public void resolveOrder(Order order) {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
@@ -53,7 +53,7 @@ public class LeaveHospitalOrderType extends OrderType {
 
 		team.addOrderExecute(balance);
 
-		return team.getExecutes();
+		order.addExecutes(team.getExecutes());
 	}
 
 }

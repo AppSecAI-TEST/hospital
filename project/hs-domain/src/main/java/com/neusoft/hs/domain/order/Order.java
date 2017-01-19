@@ -64,6 +64,14 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@OrderBy("planStartDate ASC")
 	private List<OrderExecute> orderExecutes;
 
+	// 一次解析中一个频次的执行条目集合
+	@Transient
+	private List<OrderExecute> resolveFrequencyOrderExecutes = new ArrayList<OrderExecute>();
+
+	// 一次解析的执行条目集合（多频次）
+	@Transient
+	private List<OrderExecute> resolveOrderExecutes = new ArrayList<OrderExecute>();
+
 	@Column(name = "last_execute_id", length = 36)
 	private String lastOrderExecuteId;
 
@@ -143,9 +151,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
 					+ this.state + "],不能分解");
 		}
-		List<OrderExecute> orderExecutes = this.type.resolveOrder(this);
-		if (orderExecutes.size() > 0) {
-			for (OrderExecute orderExecute : orderExecutes) {
+
+		this.type.resolveOrder(this);
+
+		if (resolveOrderExecutes.size() > 0) {
+			for (OrderExecute orderExecute : resolveOrderExecutes) {
 				// 更新状态
 				if (!orderExecute.getState()
 						.equals(OrderExecute.State_NeedSend)) {
@@ -156,12 +166,13 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 					orderExecute.setCompsiteOrder(this.getCompsiteOrder());
 				}
 			}
-			this.addExecutes(orderExecutes);
-			this.lastOrderExecuteId = orderExecutes.get(
-					orderExecutes.size() - 1).getId();
+			this.lastOrderExecuteId = resolveOrderExecutes.get(
+					resolveOrderExecutes.size() - 1).getId();
 		}
-		return orderExecutes.size();
+		return resolveOrderExecutes.size();
 	}
+
+	abstract void resolve(DrugOrderType drugOrderType) throws OrderException;
 
 	/**
 	 * @param doctor
@@ -193,6 +204,18 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		} else {
 			this.orderExecutes.addAll(orderExecutes);
 		}
+
+		this.resolveFrequencyOrderExecutes.addAll(orderExecutes);
+		this.resolveOrderExecutes.addAll(orderExecutes);
+	}
+
+	/**
+	 * @roseuid 584F5A920055
+	 */
+	public void addExecute(OrderExecute orderExecute) {
+		this.orderExecutes.add(orderExecute);
+		this.resolveFrequencyOrderExecutes.add(orderExecute);
+		this.resolveOrderExecutes.add(orderExecute);
 	}
 
 	public String getName() {
@@ -253,6 +276,18 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public List<OrderExecute> getOrderExecutes() {
 		return orderExecutes;
+	}
+
+	public List<OrderExecute> getResolveOrderExecutes() {
+		return resolveOrderExecutes;
+	}
+
+	public List<OrderExecute> getResolveFrequencyOrderExecutes() {
+		return resolveFrequencyOrderExecutes;
+	}
+
+	public void clearResolveFrequencyOrderExecutes() {
+		this.resolveFrequencyOrderExecutes = new ArrayList<OrderExecute>();
 	}
 
 	public void setOrderExecutes(List<OrderExecute> orderExecutes) {

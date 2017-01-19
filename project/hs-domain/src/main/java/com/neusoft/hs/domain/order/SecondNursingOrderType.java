@@ -15,9 +15,8 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class SecondNursingOrderType extends OrderType {
 
 	@Override
-	public List<OrderExecute> resolveOrder(Order order) {
+	public void resolveOrder(Order order) {
 
-		List<OrderExecute> executes = new ArrayList<OrderExecute>();
 		// 分解两天的护理执行条目
 		LongOrder longOrder = (LongOrder) order;
 		for (int day = 0; day < LongOrder.ResolveDays; day++) {
@@ -29,11 +28,10 @@ public class SecondNursingOrderType extends OrderType {
 				// 设置执行时间
 				execute.fillPlanDate(executeDate, executeDate);
 				// 收集执行条目
-				executes.add(execute);
+				order.addExecute(execute);
 			}
 		}
 
-		return executes;
 	}
 
 	private OrderExecute create(Order order, Date startDate) {

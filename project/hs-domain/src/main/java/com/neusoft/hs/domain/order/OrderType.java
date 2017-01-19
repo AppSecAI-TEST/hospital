@@ -69,8 +69,7 @@ public abstract class OrderType extends SuperEntity {
 	 * @throws OrderException
 	 * @roseuid 584F4A3201B9
 	 */
-	public abstract List<OrderExecute> resolveOrder(Order order)
-			throws OrderException;
+	public abstract void resolveOrder(Order order) throws OrderException;
 
 	/**
 	 * 医嘱核对后的回调函数

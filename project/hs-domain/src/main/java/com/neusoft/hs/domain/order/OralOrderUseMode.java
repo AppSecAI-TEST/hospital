@@ -12,7 +12,7 @@ import com.neusoft.hs.domain.pharmacy.DrugType;
 public class OralOrderUseMode extends OrderUseMode {
 
 	@Override
-	public List<OrderExecute> resolve(Order order, DrugOrderType drugOrderType) {
+	public void resolve(Order order, DrugOrderType drugOrderType) {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
@@ -51,7 +51,7 @@ public class OralOrderUseMode extends OrderUseMode {
 
 		team.addOrderExecute(taskDrugExecute);
 
-		return team.getExecutes();
+		order.addExecutes(team.getExecutes());
 	}
 
 }

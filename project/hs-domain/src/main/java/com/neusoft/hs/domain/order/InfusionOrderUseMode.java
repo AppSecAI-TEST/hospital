@@ -14,7 +14,7 @@ public class InfusionOrderUseMode extends OrderUseMode {
 	public static final String transportFluid = "transportFluid";
 
 	@Override
-	public List<OrderExecute> resolve(Order order, DrugOrderType drugOrderType) {
+	public void resolve(Order order, DrugOrderType drugOrderType) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
 		DrugType drugType = drugOrderType.getDrugType();
@@ -47,13 +47,22 @@ public class InfusionOrderUseMode extends OrderUseMode {
 		transportFluidExecute.setType(OrderExecute.Type_Transport_Fluid);
 		transportFluidExecute.setDrugType(drugType);
 
-		//处理辅材产生的费用
+		// 处理辅材产生的费用
 		OrderUseModeAssistMaterial orderUseModeAssistMaterial = this
 				.getTheOrderUseModeChargeItem(transportFluid);
-		if (orderUseModeAssistMaterial.getChargeMode().equals(
-				OrderUseModeAssistMaterial.everyOne)) {
-			transportFluidExecute.addChargeItem(orderUseModeAssistMaterial
-					.getAssistMaterial().getChargeItem());
+		if (orderUseModeAssistMaterial != null) {
+			if (orderUseModeAssistMaterial.getChargeMode().equals(
+					OrderUseModeAssistMaterial.everyOne)) {
+				transportFluidExecute.addChargeItem(orderUseModeAssistMaterial
+						.getAssistMaterial().getChargeItem());
+			} else if (orderUseModeAssistMaterial.getChargeMode().equals(
+					OrderUseModeAssistMaterial.onlyOne)) {
+				if (order.getOrderExecutes().size() == 0) {
+					transportFluidExecute
+							.addChargeItem(orderUseModeAssistMaterial
+									.getAssistMaterial().getChargeItem());
+				}
+			}
 		}
 
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
@@ -63,7 +72,7 @@ public class InfusionOrderUseMode extends OrderUseMode {
 
 		team.addOrderExecute(transportFluidExecute);
 
-		return team.getExecutes();
+		order.addExecutes(team.getExecutes());
 	}
 
 }

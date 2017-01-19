@@ -125,4 +125,34 @@ public class LongOrder extends Order {
 			throw new OrderException(this, "频次不同");
 		}
 	}
+
+	@Override
+	void resolve(DrugOrderType drugOrderType) throws OrderException {
+
+		for (int day = 0; day < LongOrder.ResolveDays; day++) {
+			// 计算执行时间
+			List<Date> executeDates = this.calExecuteDates(day);
+
+			for (Date executeDate : executeDates) {
+				// 清空上一频次的执行条目集合
+				this.clearResolveFrequencyOrderExecutes();
+				// 分解执行条目
+				this.getUseMode().resolve(this, drugOrderType);
+				if (this.getResolveFrequencyOrderExecutes().size() == 0) {
+					throw new OrderException(this, "没有分解出执行条目");
+				}
+				// 设置执行时间
+				for (OrderExecute execute : this
+						.getResolveFrequencyOrderExecutes()) {
+					execute.fillPlanDate(executeDate, executeDate);
+				}
+			}
+		}
+		// 没有分解出执行条目，设置之前分解的最后一条为last
+		if (this.getResolveOrderExecutes().size() == 0) {
+			OrderExecute lastOrderExecute = this.getLastOrderExecute();
+			lastOrderExecute.setLast(true);
+			lastOrderExecute.save();
+		}
+	}
 }

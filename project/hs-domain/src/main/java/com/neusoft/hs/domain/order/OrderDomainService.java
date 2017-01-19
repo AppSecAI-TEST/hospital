@@ -197,4 +197,9 @@ public class OrderDomainService {
 		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterials);
 	}
 
+	public void createOrderUseModeAssistMaterial(
+			OrderUseModeAssistMaterial orderUseModeAssistMaterial) {
+		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterial);
+	}
+
 }

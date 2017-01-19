@@ -52,8 +52,7 @@ public abstract class OrderUseMode extends SuperEntity {
 	 * @return
 	 * @roseuid 586D9239030F
 	 */
-	public abstract List<OrderExecute> resolve(Order order,
-			DrugOrderType drugOrderType);
+	public abstract void resolve(Order order, DrugOrderType drugOrderType);
 
 	public String getId() {
 		return id;
