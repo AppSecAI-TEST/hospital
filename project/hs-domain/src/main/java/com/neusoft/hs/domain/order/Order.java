@@ -379,6 +379,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setApply(Apply apply) {
 		this.apply = apply;
+
+		this.apply.setOrder(this);
+		this.apply.setVisit(visit);
 	}
 
 	public void compsiteMatch(Order order) throws OrderException {

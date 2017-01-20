@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -25,6 +26,14 @@ public class InspectApply extends Apply {
 
 	public void setInspectItems(List<InspectItem> inspectItems) {
 		this.inspectItems = inspectItems;
+	}
+	
+	public void addInspectItem(InspectItem inspectItem){
+		if(this.inspectItems == null){
+			this.inspectItems = new ArrayList<InspectItem>();
+		}
+		this.inspectItems.add(inspectItem);
+		
 	}
 
 }

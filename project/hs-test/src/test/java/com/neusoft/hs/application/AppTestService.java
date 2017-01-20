@@ -24,6 +24,9 @@ import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.InfusionOrderUseMode;
+import com.neusoft.hs.domain.order.InspectApply;
+import com.neusoft.hs.domain.order.InspectItem;
+import com.neusoft.hs.domain.order.InspectOrderType;
 import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.OralOrderUseMode;
@@ -104,12 +107,16 @@ public class AppTestService {
 	private Dept dept111;// 住院处
 	private Dept dept222;// 收费处
 	private Pharmacy dept333;// 药房
+	private Dept dept444;// CT室
 	private InPatientDept dept000;// 内泌五
 
 	private Staff user111;// 住院处送诊人-曹操
 	private Staff user222;// 收费处-张飞
 	private Staff user333;// 药房摆药岗位-赵云
 	private Staff user444;// 药房配液岗位-关羽
+	private Staff user555;// CT室安排检查员-吕玲绮
+	private Staff user666;// CT室检查师-张合
+
 	private Staff user001;// 内泌五接诊护士-大乔
 	private Doctor user002;// 内泌五医生-貂蝉
 	private Nurse user003;// 内泌五护士-小乔
@@ -126,7 +133,7 @@ public class AppTestService {
 
 	private ChargeItem secondNursingChargeItem;// 二级护理计费项目
 
-	private SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
+	private ChargeItem brainCTChargeItem;// 脑CT计费项目
 
 	private DrugTypeSpec drugTypeSpec001;// 药品规格001
 
@@ -146,7 +153,13 @@ public class AppTestService {
 
 	private DrugOrderType drugOrderType003;// 药品医嘱类型003
 
+	private InspectItem brainCTInspectItem;// 脑CT检查项目
+
+	private SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
+
 	private LeaveHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
+
+	private InspectOrderType brainCTInspectOrderType;// 脑CT检查医嘱类型
 
 	private OralOrderUseMode oralOrderUseMode;// 口服用法
 
@@ -566,6 +579,35 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:30"));
+		
+		TemporaryOrder brainCTOrder = new TemporaryOrder();
+		brainCTOrder.setVisitId(visit001.getId());
+		brainCTOrder.setName("脑CT检查");
+		brainCTOrder.setType(brainCTInspectOrderType);
+		brainCTOrder.setExecuteDept(dept444);
+		brainCTOrder.setPlanStartDate(DateUtil.getSysDate());
+		
+		InspectApply inspectApply = new InspectApply();
+		inspectApply.setGoal("查查是否有问题");
+		inspectApply.addInspectItem(brainCTInspectItem);
+		
+		brainCTOrder.setApply(inspectApply);
+
+		orderAppService.create(brainCTOrder, user002);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-01-01 09:40"));
+
+		pageable = new PageRequest(0, 15);
+		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
+
+		assertTrue(orders.size() == 1);
+
+		// 核对医嘱
+		for (Order order : orders) {
+			orderAppService.verify(order.getId(), user003);
+		}
 
 		// 2017-01-02
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-02"));
@@ -754,6 +796,8 @@ public class AppTestService {
 		pharmacyDomainService.clearDrugTypes();
 		// 清空药品规格
 		pharmacyDomainService.clearDrugTypeSpecs();
+		// 清空检查项目
+		orderDomainService.clearInspectItems();
 		// 清空计费项目
 		costDomainService.clearChargeItems();
 		// 清空患者一次住院
@@ -778,6 +822,8 @@ public class AppTestService {
 		initDrugTypeSpecs();
 
 		initDrugTypes();
+
+		initInspectItems();
 
 		initOrderTypes();
 
@@ -820,6 +866,13 @@ public class AppTestService {
 		dept333.setParent(org);
 
 		units.add(dept333);
+
+		dept444 = new Dept();
+		dept444.setId("dept444");
+		dept444.setName("CT室");
+		dept444.setParent(org);
+
+		units.add(dept444);
 
 		dept000 = new InPatientDept();
 		dept000.setId("dept000");
@@ -866,6 +919,22 @@ public class AppTestService {
 		user444.setDept(dept333);
 
 		users.add(user444);
+
+		user555 = new Staff();
+
+		user555.setId("staff555");
+		user555.setName("CT室安排检查员-吕玲绮");
+		user555.setDept(dept444);
+
+		users.add(user555);
+
+		user666 = new Staff();
+
+		user666.setId("staff666");
+		user666.setName("CT室检查师-张合");
+		user666.setDept(dept444);
+
+		users.add(user666);
 
 		user001 = new Staff();
 
@@ -962,6 +1031,16 @@ public class AppTestService {
 
 		chargeItems.add(transportFluidMaterialChargeItem);
 
+		brainCTChargeItem = new ChargeItem();
+		brainCTChargeItem.setId("brainCTChargeItem");
+		brainCTChargeItem.setCode("brainCTChargeItem");
+		brainCTChargeItem.setName("脑CT");
+		brainCTChargeItem.setPrice(350);
+		brainCTChargeItem.setUnit("次");
+		brainCTChargeItem.setChargingMode(ChargeItem.ChargingMode_Amount);
+
+		chargeItems.add(brainCTChargeItem);
+
 		costDomainService.create(chargeItems);
 	}
 
@@ -1025,6 +1104,21 @@ public class AppTestService {
 		pharmacyDomainService.createDrugTypes(drugTypes);
 	}
 
+	private void initInspectItems() {
+
+		List<InspectItem> inspectItems = new ArrayList<InspectItem>();
+
+		brainCTInspectItem = new InspectItem();
+		brainCTInspectItem.setId("brainCTInspectItem");
+		brainCTInspectItem.setCode("brainCTInspectItem");
+		brainCTInspectItem.setName("脑CT");
+		brainCTInspectItem.setChargeItem(brainCTChargeItem);
+
+		inspectItems.add(brainCTInspectItem);
+
+		orderDomainService.createInspectItems(inspectItems);
+	}
+
 	private void initOrderTypes() {
 
 		List<OrderType> orderTypes = new ArrayList<OrderType>();
@@ -1067,6 +1161,13 @@ public class AppTestService {
 		secondNursingOrderType.setChargeItem(secondNursingChargeItem);
 
 		orderTypes.add(secondNursingOrderType);
+
+		brainCTInspectOrderType = new InspectOrderType();
+		brainCTInspectOrderType.setId("brainCTInspectOrderType");
+		brainCTInspectOrderType.setCode("brainCTInspectOrderType");
+		brainCTInspectOrderType.setName("脑CT");
+
+		orderTypes.add(brainCTInspectOrderType);
 
 		orderDomainService.createOrderTypes(orderTypes);
 	}

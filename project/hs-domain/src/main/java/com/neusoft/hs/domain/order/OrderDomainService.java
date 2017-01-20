@@ -45,6 +45,9 @@ public class OrderDomainService {
 	private OrderUseModeAssistMaterialRepo orderUseModeAssistMaterialRepo;
 
 	@Autowired
+	private InspectItemRepo inspectItemRepo;
+
+	@Autowired
 	private PharmacyDomainService pharmacyDomainService;
 
 	@Autowired
@@ -200,6 +203,14 @@ public class OrderDomainService {
 	public void createOrderUseModeAssistMaterial(
 			OrderUseModeAssistMaterial orderUseModeAssistMaterial) {
 		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterial);
+	}
+
+	public void createInspectItems(List<InspectItem> inspectItems) {
+		inspectItemRepo.save(inspectItems);
+	}
+
+	public void clearInspectItems() {
+		inspectItemRepo.deleteAll();
 	}
 
 }
