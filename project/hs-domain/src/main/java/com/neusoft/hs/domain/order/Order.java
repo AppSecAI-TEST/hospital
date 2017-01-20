@@ -66,11 +66,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	// 一次解析中一个频次的执行条目集合
 	@Transient
-	private List<OrderExecute> resolveFrequencyOrderExecutes = new ArrayList<OrderExecute>();
+	private List<OrderExecute> resolveFrequencyOrderExecutes;
 
 	// 一次解析的执行条目集合（多频次）
 	@Transient
-	private List<OrderExecute> resolveOrderExecutes = new ArrayList<OrderExecute>();
+	private List<OrderExecute> resolveOrderExecutes;
 
 	@Column(name = "last_execute_id", length = 36)
 	private String lastOrderExecuteId;
@@ -151,6 +151,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
 					+ this.state + "],不能分解");
 		}
+
+		resolveFrequencyOrderExecutes = new ArrayList<OrderExecute>();
+		resolveOrderExecutes = new ArrayList<OrderExecute>();
 
 		this.type.resolveOrder(this);
 
