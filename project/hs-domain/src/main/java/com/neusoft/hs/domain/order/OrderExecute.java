@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -61,8 +62,14 @@ public class OrderExecute extends SuperEntity {
 	@Column(name = "previous_id", length = 36)
 	private String previousId;
 
+	@Transient
+	private OrderExecute previous;
+
 	@Column(name = "next_id", length = 36)
 	private String nextId;
+
+	@Transient
+	private OrderExecute next;
 
 	@Column(name = "is_last")
 	private boolean isLast = false;
@@ -158,6 +165,10 @@ public class OrderExecute extends SuperEntity {
 	public static final String Type_Leave_Hospital_Register = "出院登记";
 
 	public static final String Type_Leave_Hospital_Balance = "出院结算";
+
+	public static final String Type_Arrange_Inspect = "安排检查";
+
+	public static final String Type_Confirm_Inspect = "确认检查";
 
 	/**
 	 * @param nurse
@@ -501,10 +512,12 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	public OrderExecute getNext() {
-		if (this.nextId != null) {
-			return this.getService(OrderExecuteRepo.class).findOne(this.nextId);
-		} else {
-			return null;
+		if (this.next == null) {
+			if (this.nextId != null) {
+				this.next = this.getService(OrderExecuteRepo.class).findOne(
+						this.nextId);
+			}
 		}
+		return this.next;
 	}
 }

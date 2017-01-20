@@ -21,10 +21,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
+import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
@@ -72,6 +72,9 @@ public class Visit extends IdEntity {
 
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private List<Order> orders;
+
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
+	private List<Apply> applys;
 
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private List<VisitChargeItem> visitChargeItems;
@@ -348,6 +351,14 @@ public class Visit extends IdEntity {
 
 	public void setRespDept(InPatientDept respDept) {
 		this.respDept = respDept;
+	}
+
+	public List<Apply> getApplys() {
+		return applys;
+	}
+
+	public void setApplys(List<Apply> applys) {
+		this.applys = applys;
 	}
 
 }

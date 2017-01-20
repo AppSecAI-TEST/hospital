@@ -15,6 +15,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -97,6 +98,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "compsite_order_id")
 	private CompsiteOrder compsiteOrder;
+
+	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
+	private Apply apply;
 
 	@Transient
 	private String visitId;
@@ -367,6 +371,14 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		List<Order> orders = new ArrayList<Order>();
 		orders.add(this);
 		return orders;
+	}
+
+	public Apply getApply() {
+		return apply;
+	}
+
+	public void setApply(Apply apply) {
+		this.apply = apply;
 	}
 
 	public void compsiteMatch(Order order) throws OrderException {
