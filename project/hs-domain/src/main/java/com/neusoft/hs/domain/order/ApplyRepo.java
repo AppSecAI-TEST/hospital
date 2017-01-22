@@ -4,7 +4,7 @@ package com.neusoft.hs.domain.order;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-interface InspectApplyRepo extends
-		PagingAndSortingRepository<InspectApply, String> {
+interface ApplyRepo extends
+		PagingAndSortingRepository<Apply, String> {
 
 }

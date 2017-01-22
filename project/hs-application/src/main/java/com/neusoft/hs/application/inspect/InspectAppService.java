@@ -34,10 +34,6 @@ public class InspectAppService {
 		return inspectDomainService.find(applyId);
 	}
 
-	public void save(InspectApply inspectApply) {
-		inspectDomainService.save(inspectApply);
-	}
-
 	public void arrange(String executeId, Date planExecuteDate)
 			throws InspectException {
 		OrderExecute orderExecute = orderExecuteDomainService.find(executeId);
@@ -51,7 +47,7 @@ public class InspectAppService {
 		}
 		apply.setPlanExecuteDate(planExecuteDate);
 
-		this.save((InspectApply) apply);
+		apply.save();
 	}
 
 	public void confirm(String executeId, Map<InspectItem, String> results,
@@ -83,6 +79,6 @@ public class InspectAppService {
 			inspectApply.addInspectResult(inspectResult);
 		}
 
-		this.save(inspectApply);
+		inspectDomainService.save(inspectApply);
 	}
 }

@@ -30,7 +30,6 @@ import com.neusoft.hs.domain.order.InfusionOrderUseMode;
 import com.neusoft.hs.domain.order.InspectApply;
 import com.neusoft.hs.domain.order.InspectItem;
 import com.neusoft.hs.domain.order.InspectOrderType;
-import com.neusoft.hs.domain.order.InspectResult;
 import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.OralOrderUseMode;

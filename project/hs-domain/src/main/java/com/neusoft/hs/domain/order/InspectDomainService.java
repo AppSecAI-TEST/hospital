@@ -9,13 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class InspectDomainService {
 
 	@Autowired
-	private InspectApplyRepo inspectApplyRepo;
+	private ApplyRepo applyRepo;
 
 	public InspectApply find(String applyId) {
-		return inspectApplyRepo.findOne(applyId);
+		return (InspectApply) applyRepo.findOne(applyId);
 	}
 
 	public void save(InspectApply inspectApply) {
-		inspectApplyRepo.save(inspectApply);
+		applyRepo.save(inspectApply);
 	}
 }

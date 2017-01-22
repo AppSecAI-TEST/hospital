@@ -79,4 +79,8 @@ public abstract class Apply extends IdEntity {
 		this.executeDate = executeDate;
 	}
 
+	public void save() {
+		this.getService(ApplyRepo.class).save(this);
+	}
+
 }
