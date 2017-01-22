@@ -23,7 +23,7 @@ public class LeaveHospitalRegisterOrderExecute extends OrderExecute {
 						((LongOrder) order).stop();
 					} else {
 						throw new OrderExecuteException(this, "医嘱["
-								+ order.getName() + "]状态处于执行中");
+								+ order.getName() + "]状态处于执行中，不能办理出院登记");
 					}
 				}
 			}

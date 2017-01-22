@@ -80,7 +80,6 @@ public class OrderExecute extends SuperEntity {
 	@Column(name = "cost_state", length = 32)
 	private String costState;
 
-	@NotNull(message = "计划开始时间不能为空")
 	@Column(name = "plan_start_date")
 	private Date planStartDate;
 
@@ -189,7 +188,7 @@ public class OrderExecute extends SuperEntity {
 	public void updateState() {
 		Date sysDate = DateUtil.getSysDate();
 		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
-		if (this.planStartDate.before(startDate)) {
+		if (this.planStartDate != null && this.planStartDate.before(startDate)) {
 			this.state = State_Executing;
 			this.startDate = sysDate;
 		} else {
