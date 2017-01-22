@@ -16,8 +16,11 @@ public class InspectArrangeOrderExecute extends OrderExecute {
 
 		Date planExecuteDate = this.getOrder().getApply().getPlanExecuteDate();
 
-		this.getNext().setPlanStartDate(planExecuteDate);
-		this.getNext().setPlanEndDate(planExecuteDate);
+		OrderExecute next = this.getNext();
+		next.setPlanStartDate(planExecuteDate);
+		next.setPlanEndDate(planExecuteDate);
+
+		next.save();
 	}
 
 }

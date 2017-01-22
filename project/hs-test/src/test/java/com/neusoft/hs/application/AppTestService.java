@@ -613,7 +613,7 @@ public class AppTestService {
 			orderAppService.verify(order.getId(), user003);
 		}
 		
-		DateUtil.setSysDate(DateUtil.createMinute("2016-01-01 09:45"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:45"));
 		
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
@@ -625,7 +625,7 @@ public class AppTestService {
 			orderExecuteAppService.send(execute.getId(), user003);
 		}
 		
-		DateUtil.setSysDate(DateUtil.createMinute("2016-01-01 10:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 10:10"));
 		
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user555,
@@ -633,7 +633,9 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 		
-		
+		//安排检查时间
+		inspectApply.setPlanExecuteDate(DateUtil.createMinute("2017-01-02 14:00"));
+		inspectAppService.save(inspectApply);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user555);
 
