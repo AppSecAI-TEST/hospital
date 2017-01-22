@@ -28,6 +28,7 @@ import com.neusoft.hs.domain.order.InfusionOrderUseMode;
 import com.neusoft.hs.domain.order.InspectApply;
 import com.neusoft.hs.domain.order.InspectItem;
 import com.neusoft.hs.domain.order.InspectOrderType;
+import com.neusoft.hs.domain.order.InspectResult;
 import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.OralOrderUseMode;
@@ -83,7 +84,7 @@ public class AppTestService {
 
 	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
-	
+
 	@Autowired
 	private InspectAppService inspectAppService;
 
@@ -584,24 +585,24 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:30"));
-		
+
 		TemporaryOrder brainCTOrder = new TemporaryOrder();
 		brainCTOrder.setVisitId(visit001.getId());
 		brainCTOrder.setName("脑CT检查");
 		brainCTOrder.setType(brainCTInspectOrderType);
 		brainCTOrder.setExecuteDept(dept444);
 		brainCTOrder.setPlanStartDate(DateUtil.getSysDate());
-		
+
 		InspectApply inspectApply = new InspectApply();
 		inspectApply.setGoal("查查是否有问题");
 		inspectApply.addInspectItem(brainCTInspectItem);
-		
+
 		brainCTOrder.setApply(inspectApply);
 
 		orderAppService.create(brainCTOrder, user002);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-01-01 09:40"));
 
 		pageable = new PageRequest(0, 15);
@@ -613,9 +614,9 @@ public class AppTestService {
 		for (Order order : orders) {
 			orderAppService.verify(order.getId(), user003);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:45"));
-		
+
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
@@ -625,17 +626,18 @@ public class AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.send(execute.getId(), user003);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 10:10"));
-		
+
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user555,
 				pageable);
 
 		assertTrue(executes.size() == 1);
-		
-		//安排检查时间
-		inspectApply.setPlanExecuteDate(DateUtil.createMinute("2017-01-02 14:00"));
+
+		// 安排检查时间
+		inspectApply.setPlanExecuteDate(DateUtil
+				.createMinute("2017-01-02 14:00"));
 		inspectAppService.save(inspectApply);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user555);
@@ -654,7 +656,7 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 14:40"));
 
 		pageable = new PageRequest(0, 15);
@@ -662,6 +664,16 @@ public class AppTestService {
 				pageable);
 
 		assertTrue(executes.size() == 1);
+
+		InspectResult inspectResult = new InspectResult();
+		inspectResult.setInspectDept(dept444);
+		inspectResult.setInspectItem(brainCTInspectItem);
+		inspectResult.setResult("没啥问题");
+		inspectResult.setCreateDate(DateUtil.getSysDate());
+
+		inspectApply.addInspectResult(inspectResult);
+
+		inspectAppService.save(inspectApply);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user666);
 

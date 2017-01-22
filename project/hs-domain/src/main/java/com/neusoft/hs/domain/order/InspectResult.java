@@ -44,6 +44,7 @@ public class InspectResult extends IdEntity {
 
 	public void setInspectApply(InspectApply inspectApply) {
 		this.inspectApply = inspectApply;
+		this.visit = inspectApply.getVisit();
 	}
 
 	public InspectItem getInspectItem() {

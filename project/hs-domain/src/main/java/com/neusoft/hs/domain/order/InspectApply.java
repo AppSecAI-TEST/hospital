@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 
 @Entity
 @DiscriminatorValue("Inspect")
@@ -22,7 +21,7 @@ public class InspectApply extends Apply {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "domain_inspect_apply_inspect_item", joinColumns = { @JoinColumn(name = "inspect_apply_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "inspect_item_id", referencedColumnName = "id") })
 	private List<InspectItem> inspectItems;
-	
+
 	@OneToMany(mappedBy = "inspectApply", cascade = { CascadeType.ALL })
 	private List<InspectResult> inspectResults;
 
@@ -33,13 +32,20 @@ public class InspectApply extends Apply {
 	public void setInspectItems(List<InspectItem> inspectItems) {
 		this.inspectItems = inspectItems;
 	}
-	
-	public void addInspectItem(InspectItem inspectItem){
-		if(this.inspectItems == null){
+
+	public void addInspectItem(InspectItem inspectItem) {
+		if (this.inspectItems == null) {
 			this.inspectItems = new ArrayList<InspectItem>();
 		}
 		this.inspectItems.add(inspectItem);
-		
+	}
+
+	public void addInspectResult(InspectResult result) {
+		if (this.inspectResults == null) {
+			this.inspectResults = new ArrayList<InspectResult>();
+		}
+		result.setInspectApply(this);
+		this.inspectResults.add(result);
 	}
 
 }
