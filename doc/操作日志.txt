@@ -2,9 +2,11 @@
 
 1、设计模型：建立InspectOrderType、InspectArrangeOrderExecute、InspectConfirmOrderExecute、InspectApply、InspectResult、InspectItem等用于编写检查流程
 2、设计模型：向application增加InspectAppService，用于模拟检查科室操作
-2、文档：增加【管理和协作逻辑与领域逻辑的区分】章节
-3、实现模型：编写检查流程
-4、设计模型：建立InspectDept，用于建模检查科室
+3、文档：增加【管理和协作逻辑与领域逻辑的区分】章节
+4、实现模型：编写检查流程
+5、设计模型：建立InspectDept，用于建模检查科室
+6、文档：更新【服务依赖关系图】
+7、实现模型：以检查业务为例，编写检查业务相关的应用层业务逻辑（InspectAppService）
 
 
 2017.01.20
