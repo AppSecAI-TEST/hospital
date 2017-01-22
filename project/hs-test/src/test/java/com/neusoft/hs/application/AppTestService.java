@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
+import com.neusoft.hs.application.inspect.InspectAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
@@ -81,6 +82,9 @@ public class AppTestService {
 
 	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
+	
+	@Autowired
+	private InspectAppService inspectAppService;
 
 	@Autowired
 	private OrganizationDomainService organizationDomainService;
@@ -608,6 +612,30 @@ public class AppTestService {
 		for (Order order : orders) {
 			orderAppService.verify(order.getId(), user003);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-01-01 09:45"));
+		
+		pageable = new PageRequest(0, 15);
+		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 发送医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.send(execute.getId(), user003);
+		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-01-01 10:10"));
+		
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user555,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+		
+		
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user555);
 
 		// 2017-01-02
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-02"));
