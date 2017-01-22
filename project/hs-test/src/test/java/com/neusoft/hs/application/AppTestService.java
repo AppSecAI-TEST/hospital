@@ -272,7 +272,7 @@ public class AppTestService {
 
 		// 开立二级护理长期医嘱
 		LongOrder secondNursingOrder = new LongOrder();
-		secondNursingOrder.setVisitId(visit001.getId());
+		secondNursingOrder.setVisit(visit001);
 		secondNursingOrder.setName("二级护理");
 		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
@@ -283,7 +283,7 @@ public class AppTestService {
 
 		// 开立药品临时医嘱
 		Order drug001Order = new TemporaryOrder();
-		drug001Order.setVisitId(visit001.getId());
+		drug001Order.setVisit(visit001);
 		drug001Order.setName("药品001");
 		drug001Order.setPlanStartDate(DateUtil.getSysDate());
 		drug001Order.setCount(2);
@@ -379,7 +379,7 @@ public class AppTestService {
 		sysDate = DateUtil.getSysDate();
 
 		LongOrder drug002Order = new LongOrder();
-		drug002Order.setVisitId(visit001.getId());
+		drug002Order.setVisit(visit001);
 		drug002Order.setName("头孢3");
 		drug002Order.setCount(2);
 		drug002Order.setUseMode(infusionOrderUseMode);
@@ -392,7 +392,7 @@ public class AppTestService {
 
 		// 创建药品003长期医嘱
 		LongOrder drug003Order = new LongOrder();
-		drug003Order.setVisitId(visit001.getId());
+		drug003Order.setVisit(visit001);
 		drug003Order.setName("5%葡萄糖");
 		drug003Order.setCount(1);
 		drug003Order.setUseMode(infusionOrderUseMode);
@@ -589,7 +589,7 @@ public class AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:30"));
 
 		TemporaryOrder brainCTOrder = new TemporaryOrder();
-		brainCTOrder.setVisitId(visit001.getId());
+		brainCTOrder.setVisit(visit001);
 		brainCTOrder.setName("脑CT检查");
 		brainCTOrder.setType(brainCTInspectOrderType);
 		brainCTOrder.setExecuteDept(dept444);
@@ -746,7 +746,7 @@ public class AppTestService {
 
 		// 开立出院临时医嘱
 		Order leaveHospitalOrder = new TemporaryOrder();
-		leaveHospitalOrder.setVisitId(visit001.getId());
+		leaveHospitalOrder.setVisit(visit001);
 		leaveHospitalOrder.setName("出院医嘱");
 		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-09"));
 		leaveHospitalOrder.setExecuteDept(dept222);

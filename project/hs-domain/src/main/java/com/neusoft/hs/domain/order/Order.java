@@ -102,9 +102,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
 	private Apply apply;
 
-	@Transient
-	private String visitId;
-
 	public static final String State_Created = "已创建/待核对";
 
 	public static final String State_Executing = "执行中";
@@ -121,16 +118,15 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 */
 	public void check() throws OrderException {
 
-		if (visitId == null) {
-			throw new OrderException(this, "visitId不能为空");
-		}
-
-		Visit visit = this.getService(VisitDomainService.class).find(visitId);
 		if (visit == null) {
-			throw new OrderException(this, "visitId=[" + visitId + "]不存在");
+			throw new OrderException(this, "visit不能为空");
 		}
 
-		this.setVisit(visit);
+		Visit tempVisit = this.getService(VisitDomainService.class).find(
+				visit.getId());
+		if (tempVisit == null) {
+			throw new OrderException(this, "visitId=[" + visit.getId() + "]不存在");
+		}
 
 		if (this.type == null) {
 			throw new OrderException(this, "orderType不能为空");
@@ -342,14 +338,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.visit = visit;
 	}
 
-	public String getVisitId() {
-		return visitId;
-	}
-
-	public void setVisitId(String visitId) {
-		this.visitId = visitId;
-	}
-
 	public Dept getExecuteDept() {
 		return executeDept;
 	}
@@ -379,7 +367,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setApply(Apply apply) {
 		this.apply = apply;
-
 		this.apply.setOrder(this);
 		this.apply.setVisit(visit);
 	}
