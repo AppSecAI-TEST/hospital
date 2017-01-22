@@ -10,13 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -25,9 +23,6 @@ public class OrderExecuteAppService {
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
-
-	@Autowired
-	private CostDomainService costDomainService;
 
 	public static int NeedExecuteOrderMinute = 30;// 医嘱执行可提前分钟数
 
@@ -66,28 +61,4 @@ public class OrderExecuteAppService {
 			throws OrderExecuteException {
 		orderExecuteDomainService.finish(executeId, user);
 	}
-
-	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,
-			Pageable pageable) {
-		return orderExecuteDomainService.getNeedBackChargeOrderExecutes(user,
-				pageable);
-	}
-
-	/**
-	 * @param user
-	 * @param executeId
-	 * @throws OrderExecuteException
-	 * @roseuid 5850BC9B0098
-	 */
-	public void unCharging(String executeId, boolean isBackCost, Nurse nurse)
-			throws OrderExecuteException {
-
-		OrderExecute execute = orderExecuteDomainService.find(executeId);
-		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
-		}
-		costDomainService.unCharging(execute, isBackCost, nurse);
-	}
-
 }

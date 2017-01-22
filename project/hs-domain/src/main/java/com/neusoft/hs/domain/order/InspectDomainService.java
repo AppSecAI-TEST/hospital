@@ -11,9 +11,6 @@ public class InspectDomainService {
 	@Autowired
 	private InspectApplyRepo inspectApplyRepo;
 
-	@Autowired
-	private OrderDomainService orderDomainService;
-
 	public InspectApply find(String applyId) {
 		return inspectApplyRepo.findOne(applyId);
 	}

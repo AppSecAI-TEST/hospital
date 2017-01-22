@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteDomainService;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -31,6 +34,9 @@ public class CostDomainService {
 
 	@Autowired
 	private VisitDomainService visitDomainService;
+
+	@Autowired
+	private OrderExecuteDomainService orderExecuteDomainService;
 
 	public List<Visit> getNeedInitAccount(Pageable pageable) {
 		return visitDomainService.findByState(Visit.State_NeedInitAccount,
@@ -111,12 +117,26 @@ public class CostDomainService {
 		}
 	}
 
+	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,
+			Pageable pageable) {
+		return orderExecuteDomainService.getNeedBackChargeOrderExecutes(user,
+				pageable);
+	}
+
 	/**
 	 * @param user
 	 * @param executeId
-	 * @roseuid 5850BD170158
+	 * @throws OrderExecuteException
+	 * @roseuid 5850BC9B0098
 	 */
-	public void unCharging(OrderExecute execute, boolean isBackCost, Nurse nurse) {
+	public void unCharging(String executeId, boolean isBackCost, Nurse nurse)
+			throws OrderExecuteException {
+
+		OrderExecute execute = orderExecuteDomainService.find(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
 
 		List<ChargeRecord> chargeRecords = execute.getChargeRecords();
 		execute.getVisit().getChargeBill().unCharging(chargeRecords);

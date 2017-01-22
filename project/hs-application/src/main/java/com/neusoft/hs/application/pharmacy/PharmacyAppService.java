@@ -2,8 +2,6 @@
 
 package com.neusoft.hs.application.pharmacy;
 
-import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
-import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 
 public class PharmacyAppService 
 {

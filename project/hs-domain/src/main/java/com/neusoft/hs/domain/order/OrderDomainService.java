@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -46,9 +45,6 @@ public class OrderDomainService {
 
 	@Autowired
 	private InspectItemRepo inspectItemRepo;
-
-	@Autowired
-	private PharmacyDomainService pharmacyDomainService;
 
 	@Autowired
 	private VisitDomainService visitDomainService;

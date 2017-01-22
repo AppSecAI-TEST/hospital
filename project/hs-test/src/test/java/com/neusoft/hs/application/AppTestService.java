@@ -353,13 +353,12 @@ public class AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 13:45"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedBackChargeOrderExecutes(
-				user222, pageable);
+		executes = costDomainService.getNeedBackChargeOrderExecutes(user222,
+				pageable);
 
 		assertTrue(executes.size() == 1);
 
-		orderExecuteAppService.unCharging(executes.get(0).getId(), true,
-				user003);
+		costDomainService.unCharging(executes.get(0).getId(), true, user003);
 
 		// 2016-12-29
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-29"));
@@ -639,9 +638,8 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		// 安排检查时间
-		inspectApply.setPlanExecuteDate(DateUtil
-				.createMinute("2017-01-02 14:00"));
-		inspectAppService.save(inspectApply);
+		inspectAppService.arrange(executes.get(0).getId(),
+				DateUtil.createMinute("2017-01-02 14:00"));
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user555);
 
@@ -681,7 +679,7 @@ public class AppTestService {
 		orderExecuteAppService.finish(executes.get(0).getId(), user666);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 15:00"));
-		
+
 		testUtil.testInspectResult(brainCTOrder.getId());
 
 		// 2017-01-03
