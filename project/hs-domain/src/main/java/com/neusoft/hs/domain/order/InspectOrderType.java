@@ -40,10 +40,14 @@ public class InspectOrderType extends OrderType {
 		confirm.setChargeState(OrderExecute.ChargeState_NoCharge);
 		confirm.setCostState(OrderExecute.CostState_NoCost);
 
+		InspectApply inspectApply = (InspectApply) order.getApply();
+		for (InspectItem inspectItem : inspectApply.getInspectItems()) {
+			confirm.addChargeItem(inspectItem.getChargeItem());
+		}
+
 		team.addOrderExecute(confirm);
 
 		order.addExecutes(team.getExecutes());
 
 	}
-
 }
