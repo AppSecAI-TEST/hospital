@@ -1,3 +1,11 @@
+2017.01.--
+
+1、设计模型：建立InspectOrderType、InspectArrangeOrderExecute、InspectConfirmOrderExecute、InspectApply、InspectResult、InspectItem等用于编写检查流程
+2、设计模型：向application增加InspectAppService，用于模拟检查科室操作
+2、文档：增加【管理和协作逻辑与领域逻辑的区分】章节
+3、实现模型：编写检查流程
+
+
 2017.01.20
 
 1、设计模型：将长期医嘱频率对象化（OrderFrequencyType），将不同频率的分解逻辑分布到子类上
