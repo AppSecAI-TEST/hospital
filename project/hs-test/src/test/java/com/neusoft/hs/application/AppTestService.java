@@ -48,6 +48,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
+import com.neusoft.hs.domain.organization.InspectDept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Org;
 import com.neusoft.hs.domain.organization.OrganizationDomainService;
@@ -111,7 +112,7 @@ public class AppTestService {
 	private Dept dept111;// 住院处
 	private Dept dept222;// 收费处
 	private Pharmacy dept333;// 药房
-	private Dept dept444;// CT室
+	private InspectDept dept444;// CT室
 	private InPatientDept dept000;// 内泌五
 
 	private Staff user111;// 住院处送诊人-曹操
@@ -907,7 +908,7 @@ public class AppTestService {
 
 		units.add(dept333);
 
-		dept444 = new Dept();
+		dept444 = new InspectDept();
 		dept444.setId("dept444");
 		dept444.setName("CT室");
 		dept444.setParent(org);

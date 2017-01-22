@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,7 +32,10 @@ public abstract class Apply extends IdEntity {
 	@Column(name = "plan_execute_date")
 	private Date planExecuteDate;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@Column(name = "execute_date")
+	private Date executeDate;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
@@ -65,6 +69,14 @@ public abstract class Apply extends IdEntity {
 
 	public void setPlanExecuteDate(Date planExecuteDate) {
 		this.planExecuteDate = planExecuteDate;
+	}
+
+	public Date getExecuteDate() {
+		return executeDate;
+	}
+
+	public void setExecuteDate(Date executeDate) {
+		this.executeDate = executeDate;
 	}
 
 }

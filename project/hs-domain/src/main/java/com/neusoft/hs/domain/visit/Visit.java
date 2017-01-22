@@ -22,6 +22,7 @@ import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Apply;
+import com.neusoft.hs.domain.order.InspectResult;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -75,6 +76,9 @@ public class Visit extends IdEntity {
 
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private List<Apply> applys;
+	
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
+	private List<InspectResult> inspectResults;
 
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private List<VisitChargeItem> visitChargeItems;

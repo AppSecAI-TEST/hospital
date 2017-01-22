@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -39,6 +40,9 @@ public class InspectItem extends SuperEntity {
 
 	@ManyToMany(mappedBy = "inspectItems", cascade = { CascadeType.ALL })
 	private List<InspectApply> inspectApplys;
+	
+	@OneToMany(mappedBy = "inspectItem", cascade = { CascadeType.ALL })
+	private List<InspectResult> inspectResults;
 
 	public String getId() {
 		return id;
