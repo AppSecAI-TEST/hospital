@@ -109,6 +109,9 @@ public class AppTestService {
 	@Autowired
 	private OrderUtil orderUtil;
 
+	@Autowired
+	private TestUtil testUtil;
+
 	private Org org;// 哈医大二院
 	private Dept dept111;// 住院处
 	private Dept dept222;// 收费处
@@ -676,6 +679,10 @@ public class AppTestService {
 		inspectAppService.save(inspectApply);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user666);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 15:00"));
+		
+		testUtil.testInspectResult(brainCTOrder.getId());
 
 		// 2017-01-03
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-03"));

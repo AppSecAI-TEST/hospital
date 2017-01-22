@@ -48,4 +48,12 @@ public class InspectApply extends Apply {
 		this.inspectResults.add(result);
 	}
 
+	public List<InspectResult> getInspectResults() {
+		return inspectResults;
+	}
+
+	public void setInspectResults(List<InspectResult> inspectResults) {
+		this.inspectResults = inspectResults;
+	}
+
 }
