@@ -4,7 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -666,15 +668,9 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 
-		InspectResult inspectResult = new InspectResult();
-		inspectResult.setInspectDept(dept444);
-		inspectResult.setInspectItem(brainCTInspectItem);
-		inspectResult.setResult("没啥问题");
-		inspectResult.setCreateDate(DateUtil.getSysDate());
-
-		inspectApply.addInspectResult(inspectResult);
-
-		inspectAppService.save(inspectApply);
+		Map<InspectItem, String> results = new HashMap<InspectItem, String>();
+		results.put(brainCTInspectItem, "没啥问题");
+		inspectAppService.confirm(executes.get(0).getId(), results, user666);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user666);
 
