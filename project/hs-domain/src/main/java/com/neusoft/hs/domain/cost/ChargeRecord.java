@@ -105,6 +105,8 @@ public class ChargeRecord extends IdEntity {
 		chargeRecord.setChargeItem(chargeItem);
 		chargeRecord.setCostRecord(costRecord);
 		chargeRecord.setOrderExecute(orderExecute);
+		
+		chargeRecord.setChargeDept(chargeDept);
 		chargeRecord.setCreateDate(DateUtil.getSysDate());
 
 		this.setNewChargeRecord(chargeRecord);

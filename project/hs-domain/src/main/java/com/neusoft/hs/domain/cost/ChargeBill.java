@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -77,11 +78,12 @@ public class ChargeBill extends IdEntity {
 		this.balance += balance;
 	}
 
-	public void init() {
+	public void init(AbstractUser user) {
 		ChargeRecord chargeRecord = new ChargeRecord();
 		chargeRecord.setAmount(balance);
 		chargeRecord.setCreateDate(DateUtil.getSysDate());
 		chargeRecord.setHaveCost(false);
+		chargeRecord.setChargeDept(user.getDept());
 
 		this.addChargeRecord(chargeRecord);
 	}
