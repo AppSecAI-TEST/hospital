@@ -653,6 +653,16 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 14:40"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user666,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user666);
 
 		// 2017-01-03
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-03"));

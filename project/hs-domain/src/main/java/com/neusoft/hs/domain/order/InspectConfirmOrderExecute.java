@@ -11,7 +11,7 @@ public class InspectConfirmOrderExecute extends OrderExecute {
 
 	@Override
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
-
+		super.doFinish(user);
 	}
 
 }
