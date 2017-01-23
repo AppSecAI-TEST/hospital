@@ -26,7 +26,7 @@ public class InspectArrangeOrderExecute extends OrderExecute {
 					+ inspectApplyItem.getId() + "]没有设置计划检查时间");
 
 		}
-		Date planExecuteDate = inspectApplyItem.getExecuteDate();
+		Date planExecuteDate = inspectApplyItem.getPlanExecuteDate();
 
 		OrderExecute next = this.getNext();
 		next.setPlanStartDate(planExecuteDate);
