@@ -1,4 +1,4 @@
-2017.01.--
+2017.01.23 检查医嘱
 
 1、设计模型：建立InspectOrderType、InspectArrangeOrderExecute、InspectConfirmOrderExecute、InspectApply、InspectResult、InspectItem等用于编写检查流程
 2、设计模型：向application增加InspectAppService，用于模拟检查科室操作
