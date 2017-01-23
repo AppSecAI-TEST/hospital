@@ -20,6 +20,7 @@ public class InspectOrderType extends OrderType {
 			arrange.setVisit(order.getVisit());
 			arrange.setBelongDept(order.getBelongDept());
 			arrange.setType(OrderExecute.Type_Arrange_Inspect);
+			arrange.setInspectApplyItem(inspectApplyItem);
 
 			arrange.setPlanStartDate(order.getPlanStartDate());
 			arrange.setPlanEndDate(order.getPlanStartDate());
@@ -37,6 +38,7 @@ public class InspectOrderType extends OrderType {
 			confirm.setVisit(order.getVisit());
 			confirm.setBelongDept(order.getBelongDept());
 			confirm.setType(OrderExecute.Type_Confirm_Inspect);
+			confirm.setInspectApplyItem(inspectApplyItem);
 
 			confirm.setExecuteDept(inspectApplyItem.getInspectDept());
 			confirm.setState(OrderExecute.State_NeedExecute);

@@ -1,5 +1,6 @@
 package com.neusoft.hs.application.inspect;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -68,8 +69,13 @@ public class InspectAppService {
 
 		List<InspectApplyItem> inspectApplyItems = inspectApply
 				.getInspectApplyItems();
+		//lazy load
+		List<String> inspectApplyItemIds = new ArrayList<String>();
+		for (InspectApplyItem inspectApplyItem : inspectApplyItems) {
+			inspectApplyItemIds.add(inspectApplyItem.getId());
+		}
 		for (InspectApplyItem item : results.keySet()) {
-			if (!inspectApplyItems.contains(item)) {
+			if (!inspectApplyItemIds.contains(item.getId())) {
 				throw new InspectException("检查项目["
 						+ item.getInspectItem().getCode() + "]不在申请单中");
 			}
