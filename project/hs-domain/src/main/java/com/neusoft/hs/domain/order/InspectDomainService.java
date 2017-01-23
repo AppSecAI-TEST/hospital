@@ -21,6 +21,9 @@ public class InspectDomainService {
 	private ApplyRepo applyRepo;
 
 	@Autowired
+	private InspectApplyItemRepo inspectApplyItemRepo;
+
+	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
 
 	public void arrange(String executeId, Date planExecuteDate)
@@ -76,6 +79,27 @@ public class InspectDomainService {
 		}
 
 		applyRepo.save(inspectApply);
+	}
+
+	public void cancel(String inspectApplyItemId) throws OrderExecuteException {
+
+		InspectApplyItem inspectApplyItem = inspectApplyItemRepo
+				.findOne(inspectApplyItemId);
+		inspectApplyItem.setState(InspectApplyItem.State_Canceled);
+
+		InspectArrangeOrderExecute arrange = inspectApplyItem
+				.getInspectArrangeOrderExecute();
+		if (arrange != null) {
+			arrange.cancel();
+		}
+		InspectConfirmOrderExecute confirm = inspectApplyItem
+				.getInspectConfirmOrderExecute();
+		if (confirm != null) {
+			confirm.cancel();
+		}
+
+		inspectApplyItem.save();
+
 	}
 
 	public InspectApply find(String applyId) {

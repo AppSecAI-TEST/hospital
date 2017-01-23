@@ -18,7 +18,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Table(name = "domain_inspect_apply_item")
 public class InspectApplyItem extends IdEntity {
 
-	private String state = State_Normal;
+	private String state = State_Executing;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "inspect_apply_id")
@@ -44,9 +44,11 @@ public class InspectApplyItem extends IdEntity {
 	@OneToOne(mappedBy = "inspectApplyItem", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private InspectConfirmOrderExecute inspectConfirmOrderExecute;
 
-	public static final String State_Normal = "正常";
+	public static final String State_Executing = "执行中";
 
-	public static final String State_Cancel = "取消";
+	public static final String State_Finished = "已完成";
+
+	public static final String State_Canceled = "已取消";
 
 	public String getState() {
 		return state;

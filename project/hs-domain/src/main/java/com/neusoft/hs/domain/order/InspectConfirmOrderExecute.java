@@ -21,6 +21,7 @@ public class InspectConfirmOrderExecute extends OrderExecute {
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
 		super.doFinish(user);
 		inspectApplyItem.setExecuteDate(DateUtil.getSysDate());
+		inspectApplyItem.setState(InspectApplyItem.State_Finished);
 	}
 
 	public InspectApplyItem getInspectApplyItem() {
