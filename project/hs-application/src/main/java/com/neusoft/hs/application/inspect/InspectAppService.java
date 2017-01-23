@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.InspectApply;
 import com.neusoft.hs.domain.order.InspectApplyItem;
+import com.neusoft.hs.domain.order.InspectArrangeOrderExecute;
 import com.neusoft.hs.domain.order.InspectDomainService;
 import com.neusoft.hs.domain.order.InspectResult;
 import com.neusoft.hs.domain.order.Order;
@@ -41,14 +42,12 @@ public class InspectAppService {
 		if (orderExecute == null) {
 			throw new InspectException("医嘱执行条目[" + executeId + "]不存在");
 		}
-		Order order = orderExecute.getOrder();
-		Apply apply = order.getApply();
-		if (apply == null) {
-			throw new InspectException("医嘱条目[" + order + "]不存在申请单");
-		}
-		apply.setPlanExecuteDate(planExecuteDate);
+		
+		InspectArrangeOrderExecute arrangeOrderExecute = (InspectArrangeOrderExecute)orderExecute;
+		InspectApplyItem inspectApplyItem = arrangeOrderExecute.getInspectApplyItem();
+		inspectApplyItem.setPlanExecuteDate(planExecuteDate);
 
-		apply.save();
+		inspectApplyItem.save();
 	}
 
 	public void confirm(String executeId,

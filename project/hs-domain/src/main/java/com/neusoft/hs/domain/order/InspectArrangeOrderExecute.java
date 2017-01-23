@@ -21,7 +21,12 @@ public class InspectArrangeOrderExecute extends OrderExecute {
 	@Override
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
 
-		Date planExecuteDate = this.getOrder().getApply().getPlanExecuteDate();
+		if (inspectApplyItem.getPlanExecuteDate() == null) {
+			throw new OrderExecuteException(this, "inspectApplyItem["
+					+ inspectApplyItem.getId() + "]没有设置计划检查时间");
+
+		}
+		Date planExecuteDate = inspectApplyItem.getExecuteDate();
 
 		OrderExecute next = this.getNext();
 		next.setPlanStartDate(planExecuteDate);

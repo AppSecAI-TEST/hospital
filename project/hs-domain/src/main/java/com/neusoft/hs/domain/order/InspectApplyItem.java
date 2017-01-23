@@ -100,4 +100,8 @@ public class InspectApplyItem extends IdEntity {
 		this.inspectConfirmOrderExecute = inspectConfirmOrderExecute;
 	}
 
+	public void save() {
+		this.getService(InspectApplyItemRepo.class).save(this);
+	}
+
 }

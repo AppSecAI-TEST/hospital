@@ -20,7 +20,7 @@ public class InspectConfirmOrderExecute extends OrderExecute {
 	@Override
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
 		super.doFinish(user);
-		this.getOrder().getApply().setExecuteDate(DateUtil.getSysDate());
+		inspectApplyItem.setExecuteDate(DateUtil.getSysDate());
 	}
 
 	public InspectApplyItem getInspectApplyItem() {
