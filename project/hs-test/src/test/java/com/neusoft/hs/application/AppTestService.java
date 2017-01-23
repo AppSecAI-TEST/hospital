@@ -119,6 +119,8 @@ public class AppTestService {
 	private Dept dept222;// 收费处
 	private Pharmacy dept333;// 药房
 	private InspectDept dept444;// CT室
+	private InspectDept dept555;// 核磁检查室
+
 	private InPatientDept dept000;// 内泌五
 
 	private Staff user111;// 住院处送诊人-曹操
@@ -127,6 +129,8 @@ public class AppTestService {
 	private Staff user444;// 药房配液岗位-关羽
 	private Staff user555;// CT室安排检查员-吕玲绮
 	private Staff user666;// CT室检查师-张合
+	private Staff user777;// 核磁检查室安排检查员-周瑜
+	private Staff user888;// 核磁检查室检查师-鲁肃
 
 	private Staff user001;// 内泌五接诊护士-大乔
 	private Doctor user002;// 内泌五医生-貂蝉
@@ -145,6 +149,8 @@ public class AppTestService {
 	private ChargeItem secondNursingChargeItem;// 二级护理计费项目
 
 	private ChargeItem brainCTChargeItem;// 脑CT计费项目
+
+	private ChargeItem brainHCChargeItem;// 脑核磁计费项目
 
 	private DrugTypeSpec drugTypeSpec001;// 药品规格001
 
@@ -166,11 +172,13 @@ public class AppTestService {
 
 	private InspectItem brainCTInspectItem;// 脑CT检查项目
 
+	private InspectItem brainHCInspectItem;// 脑核磁检查项目
+
 	private SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
 
 	private LeaveHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
 
-	private InspectOrderType brainCTInspectOrderType;// 脑CT检查医嘱类型
+	private InspectOrderType inspectOrderType;// 检查医嘱类型
 
 	private OralOrderUseMode oralOrderUseMode;// 口服用法
 
@@ -595,7 +603,7 @@ public class AppTestService {
 		TemporaryOrder brainCTOrder = new TemporaryOrder();
 		brainCTOrder.setVisit(visit001);
 		brainCTOrder.setName("脑CT检查");
-		brainCTOrder.setType(brainCTInspectOrderType);
+		brainCTOrder.setType(inspectOrderType);
 		brainCTOrder.setPlanStartDate(DateUtil.getSysDate());
 
 		InspectApply inspectApply = new InspectApply();
@@ -932,6 +940,13 @@ public class AppTestService {
 
 		units.add(dept444);
 
+		dept555 = new InspectDept();
+		dept555.setId("dept555");
+		dept555.setName("核磁检查室");
+		dept555.setParent(org);
+
+		units.add(dept555);
+
 		dept000 = new InPatientDept();
 		dept000.setId("dept000");
 		dept000.setName("内泌五");
@@ -993,6 +1008,22 @@ public class AppTestService {
 		user666.setDept(dept444);
 
 		users.add(user666);
+		
+		user777 = new Staff();
+
+		user777.setId("staff777");
+		user777.setName("核磁检查室安排检查员-周瑜");
+		user777.setDept(dept555);
+
+		users.add(user777);
+
+		user888 = new Staff();
+
+		user888.setId("staff888");
+		user888.setName("核磁检查室检查师-鲁肃");
+		user888.setDept(dept555);
+
+		users.add(user888);
 
 		user001 = new Staff();
 
@@ -1093,11 +1124,21 @@ public class AppTestService {
 		brainCTChargeItem.setId("brainCTChargeItem");
 		brainCTChargeItem.setCode("brainCTChargeItem");
 		brainCTChargeItem.setName("脑CT");
-		brainCTChargeItem.setPrice(350);
+		brainCTChargeItem.setPrice(150);
 		brainCTChargeItem.setUnit("次");
 		brainCTChargeItem.setChargingMode(ChargeItem.ChargingMode_Amount);
 
 		chargeItems.add(brainCTChargeItem);
+
+		brainHCChargeItem = new ChargeItem();
+		brainHCChargeItem.setId("brainHCChargeItem");
+		brainHCChargeItem.setCode("brainHCChargeItem");
+		brainHCChargeItem.setName("脑核磁");
+		brainHCChargeItem.setPrice(350);
+		brainHCChargeItem.setUnit("次");
+		brainHCChargeItem.setChargingMode(ChargeItem.ChargingMode_Amount);
+
+		chargeItems.add(brainHCChargeItem);
 
 		costDomainService.create(chargeItems);
 	}
@@ -1174,6 +1215,14 @@ public class AppTestService {
 
 		inspectItems.add(brainCTInspectItem);
 
+		brainHCInspectItem = new InspectItem();
+		brainHCInspectItem.setId("brainHCInspectItem");
+		brainHCInspectItem.setCode("brainHCInspectItem");
+		brainHCInspectItem.setName("脑核磁");
+		brainHCInspectItem.setChargeItem(brainHCChargeItem);
+
+		inspectItems.add(brainHCInspectItem);
+
 		orderDomainService.createInspectItems(inspectItems);
 	}
 
@@ -1220,12 +1269,12 @@ public class AppTestService {
 
 		orderTypes.add(secondNursingOrderType);
 
-		brainCTInspectOrderType = new InspectOrderType();
-		brainCTInspectOrderType.setId("brainCTInspectOrderType");
-		brainCTInspectOrderType.setCode("brainCTInspectOrderType");
-		brainCTInspectOrderType.setName("脑CT");
+		inspectOrderType = new InspectOrderType();
+		inspectOrderType.setId("brainCTInspectOrderType");
+		inspectOrderType.setCode("brainCTInspectOrderType");
+		inspectOrderType.setName("脑CT");
 
-		orderTypes.add(brainCTInspectOrderType);
+		orderTypes.add(inspectOrderType);
 
 		orderDomainService.createOrderTypes(orderTypes);
 	}
