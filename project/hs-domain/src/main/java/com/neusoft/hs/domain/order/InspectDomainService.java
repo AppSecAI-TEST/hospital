@@ -81,21 +81,35 @@ public class InspectDomainService {
 		applyRepo.save(inspectApply);
 	}
 
-	public void cancel(String inspectApplyItemId) throws OrderExecuteException {
+	public void cancel(String inspectApplyItemId) throws InspectException {
 
 		InspectApplyItem inspectApplyItem = inspectApplyItemRepo
 				.findOne(inspectApplyItemId);
+
+		if (inspectApplyItem.getState().equals(InspectApplyItem.State_Finished)) {
+			throw new InspectException("检查项目["
+					+ inspectApplyItem.getInspectItem().getCode() + "]已完成");
+		}
+
 		inspectApplyItem.setState(InspectApplyItem.State_Canceled);
 
 		InspectArrangeOrderExecute arrange = inspectApplyItem
 				.getInspectArrangeOrderExecute();
 		if (arrange != null) {
-			arrange.cancel();
+			try {
+				arrange.cancel();
+			} catch (OrderExecuteException e) {
+				throw new InspectException(e);
+			}
 		}
 		InspectConfirmOrderExecute confirm = inspectApplyItem
 				.getInspectConfirmOrderExecute();
 		if (confirm != null) {
-			confirm.cancel();
+			try {
+				confirm.cancel();
+			} catch (OrderExecuteException e) {
+				throw new InspectException(e);
+			}
 		}
 
 		inspectApplyItem.save();
