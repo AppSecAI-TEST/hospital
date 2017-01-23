@@ -28,6 +28,7 @@ import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.InfusionOrderUseMode;
 import com.neusoft.hs.domain.order.InspectApply;
+import com.neusoft.hs.domain.order.InspectApplyItem;
 import com.neusoft.hs.domain.order.InspectItem;
 import com.neusoft.hs.domain.order.InspectOrderType;
 import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
@@ -595,12 +596,16 @@ public class AppTestService {
 		brainCTOrder.setVisit(visit001);
 		brainCTOrder.setName("脑CT检查");
 		brainCTOrder.setType(brainCTInspectOrderType);
-		brainCTOrder.setExecuteDept(dept444);
 		brainCTOrder.setPlanStartDate(DateUtil.getSysDate());
 
 		InspectApply inspectApply = new InspectApply();
 		inspectApply.setGoal("查查是否有问题");
-		inspectApply.addInspectItem(brainCTInspectItem);
+
+		InspectApplyItem brainCTInspectApplyItem = new InspectApplyItem();
+		brainCTInspectApplyItem.setInspectItem(brainCTInspectItem);
+		brainCTInspectApplyItem.setInspectDept(dept444);
+
+		inspectApply.addInspectApplyItem(brainCTInspectApplyItem);
 
 		brainCTOrder.setApply(inspectApply);
 
@@ -667,8 +672,8 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 
-		Map<InspectItem, String> results = new HashMap<InspectItem, String>();
-		results.put(brainCTInspectItem, "没啥问题");
+		Map<InspectApplyItem, String> results = new HashMap<InspectApplyItem, String>();
+		results.put(brainCTInspectApplyItem, "没啥问题");
 		inspectAppService.confirm(executes.get(0).getId(), results, user666);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user666);

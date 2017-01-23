@@ -22,8 +22,8 @@ public class InspectResult extends IdEntity {
 	private InspectApply inspectApply;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "inspect_item_id")
-	private InspectItem inspectItem;
+	@JoinColumn(name = "inspect_apply_item_id")
+	private InspectApplyItem inspectApplyItem;
 
 	private String result;
 
@@ -47,12 +47,12 @@ public class InspectResult extends IdEntity {
 		this.visit = inspectApply.getVisit();
 	}
 
-	public InspectItem getInspectItem() {
-		return inspectItem;
+	public InspectApplyItem getInspectApplyItem() {
+		return inspectApplyItem;
 	}
 
-	public void setInspectItem(InspectItem inspectItem) {
-		this.inspectItem = inspectItem;
+	public void setInspectApplyItem(InspectApplyItem inspectApplyItem) {
+		this.inspectApplyItem = inspectApplyItem;
 	}
 
 	public String getResult() {

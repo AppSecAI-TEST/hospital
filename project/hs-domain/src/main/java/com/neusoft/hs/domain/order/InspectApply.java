@@ -8,36 +8,32 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("Inspect")
 public class InspectApply extends Apply {
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "domain_inspect_apply_inspect_item", joinColumns = { @JoinColumn(name = "inspect_apply_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "inspect_item_id", referencedColumnName = "id") })
-	private List<InspectItem> inspectItems;
+	@OneToMany(mappedBy = "inspectApply", cascade = { CascadeType.ALL })
+	private List<InspectApplyItem> inspectApplyItems;
 
 	@OneToMany(mappedBy = "inspectApply", cascade = { CascadeType.ALL })
 	private List<InspectResult> inspectResults;
 
-	public List<InspectItem> getInspectItems() {
-		return inspectItems;
+	public List<InspectApplyItem> getInspectApplyItems() {
+		return inspectApplyItems;
 	}
 
-	public void setInspectItems(List<InspectItem> inspectItems) {
-		this.inspectItems = inspectItems;
+	public void setInspectApplyItems(List<InspectApplyItem> inspectApplyItems) {
+		this.inspectApplyItems = inspectApplyItems;
 	}
 
-	public void addInspectItem(InspectItem inspectItem) {
-		if (this.inspectItems == null) {
-			this.inspectItems = new ArrayList<InspectItem>();
+	public void addInspectApplyItem(InspectApplyItem inspectApplyItem) {
+		if (this.inspectApplyItems == null) {
+			this.inspectApplyItems = new ArrayList<InspectApplyItem>();
 		}
-		this.inspectItems.add(inspectItem);
+		this.inspectApplyItems.add(inspectApplyItem);
+		inspectApplyItem.setInspectApply(this);
 	}
 
 	public void addInspectResult(InspectResult result) {

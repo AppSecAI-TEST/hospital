@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.InspectApply;
+import com.neusoft.hs.domain.order.InspectApplyItem;
 import com.neusoft.hs.domain.order.InspectDomainService;
-import com.neusoft.hs.domain.order.InspectItem;
 import com.neusoft.hs.domain.order.InspectResult;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -50,8 +50,9 @@ public class InspectAppService {
 		apply.save();
 	}
 
-	public void confirm(String executeId, Map<InspectItem, String> results,
-			AbstractUser user) throws InspectException {
+	public void confirm(String executeId,
+			Map<InspectApplyItem, String> results, AbstractUser user)
+			throws InspectException {
 
 		OrderExecute orderExecute = orderExecuteDomainService.find(executeId);
 		if (orderExecute == null) {
@@ -65,14 +66,16 @@ public class InspectAppService {
 
 		InspectApply inspectApply = (InspectApply) apply;
 
-		List<InspectItem> inspectItems = inspectApply.getInspectItems();
-		for (InspectItem item : results.keySet()) {
-			if (!inspectItems.contains(item)) {
-				throw new InspectException("检查项目[" + item.getCode() + "]不在申请单中");
+		List<InspectApplyItem> inspectApplyItems = inspectApply
+				.getInspectApplyItems();
+		for (InspectApplyItem item : results.keySet()) {
+			if (!inspectApplyItems.contains(item)) {
+				throw new InspectException("检查项目["
+						+ item.getInspectItem().getCode() + "]不在申请单中");
 			}
 			InspectResult inspectResult = new InspectResult();
 			inspectResult.setInspectDept((InspectDept) user.getDept());
-			inspectResult.setInspectItem(item);
+			inspectResult.setInspectApplyItem(item);
 			inspectResult.setResult(results.get(item));
 			inspectResult.setCreateDate(DateUtil.getSysDate());
 

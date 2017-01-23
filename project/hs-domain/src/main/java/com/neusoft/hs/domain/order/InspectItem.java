@@ -38,11 +38,8 @@ public class InspectItem extends SuperEntity {
 	@JoinColumn(name = "charge_item_id")
 	private ChargeItem chargeItem;
 
-	@ManyToMany(mappedBy = "inspectItems", cascade = { CascadeType.ALL })
-	private List<InspectApply> inspectApplys;
-
 	@OneToMany(mappedBy = "inspectItem", cascade = { CascadeType.ALL })
-	private List<InspectResult> inspectResults;
+	private List<InspectApplyItem> inspectApplyItems;
 
 	public String getId() {
 		return id;
@@ -76,11 +73,11 @@ public class InspectItem extends SuperEntity {
 		this.chargeItem = chargeItem;
 	}
 
-	public List<InspectApply> getInspectApplys() {
-		return inspectApplys;
+	public List<InspectApplyItem> getInspectApplyItems() {
+		return inspectApplyItems;
 	}
 
-	public void setInspectApplys(List<InspectApply> inspectApplys) {
-		this.inspectApplys = inspectApplys;
+	public void setInspectApplyItems(List<InspectApplyItem> inspectApplyItems) {
+		this.inspectApplyItems = inspectApplyItems;
 	}
 }
