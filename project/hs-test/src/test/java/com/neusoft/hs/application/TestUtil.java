@@ -20,14 +20,14 @@ public class TestUtil {
 	@Autowired
 	private OrderDomainService orderDomainService;
 
-	public void testInspectResult(String orderId) {
+	public void testInspectResult(String orderId, int count) {
 
 		Order order = orderDomainService.find(orderId);
 
 		List<InspectResult> results = ((InspectApply) order.getApply())
 				.getInspectResults();
 
-		assertTrue(results.size() == 1);
+		assertTrue(results.size() == count);
 
 	}
 

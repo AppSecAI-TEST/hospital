@@ -9,11 +9,11 @@ public class InspectOrderType extends OrderType {
 
 	@Override
 	public void resolveOrder(Order order) throws OrderException {
-		OrderExecuteTeam team = new OrderExecuteTeam();
 
 		InspectApply inspectApply = (InspectApply) order.getApply();
 		for (InspectApplyItem inspectApplyItem : inspectApply
 				.getInspectApplyItems()) {
+			OrderExecuteTeam team = new OrderExecuteTeam();
 			// 安排检查
 			InspectArrangeOrderExecute arrange = new InspectArrangeOrderExecute();
 			arrange.setOrder(order);
@@ -49,9 +49,8 @@ public class InspectOrderType extends OrderType {
 					.getChargeItem());
 
 			team.addOrderExecute(confirm);
+
+			order.addExecutes(team.getExecutes());
 		}
-
-		order.addExecutes(team.getExecutes());
-
 	}
 }

@@ -600,11 +600,11 @@ public class AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:30"));
 
-		TemporaryOrder brainCTOrder = new TemporaryOrder();
-		brainCTOrder.setVisit(visit001);
-		brainCTOrder.setName("脑CT检查");
-		brainCTOrder.setType(inspectOrderType);
-		brainCTOrder.setPlanStartDate(DateUtil.getSysDate());
+		TemporaryOrder brainInspectOrder = new TemporaryOrder();
+		brainInspectOrder.setVisit(visit001);
+		brainInspectOrder.setName("脑部检查");
+		brainInspectOrder.setType(inspectOrderType);
+		brainInspectOrder.setPlanStartDate(DateUtil.getSysDate());
 
 		InspectApply inspectApply = new InspectApply();
 		inspectApply.setGoal("查查是否有问题");
@@ -615,9 +615,15 @@ public class AppTestService {
 
 		inspectApply.addInspectApplyItem(brainCTInspectApplyItem);
 
-		brainCTOrder.setApply(inspectApply);
+		InspectApplyItem brainHCInspectApplyItem = new InspectApplyItem();
+		brainHCInspectApplyItem.setInspectItem(brainHCInspectItem);
+		brainHCInspectApplyItem.setInspectDept(dept555);
 
-		orderAppService.create(brainCTOrder, user002);
+		inspectApply.addInspectApplyItem(brainHCInspectApplyItem);
+
+		brainInspectOrder.setApply(inspectApply);
+
+		orderAppService.create(brainInspectOrder, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-01-01 09:40"));
 
@@ -636,7 +642,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -656,6 +662,20 @@ public class AppTestService {
 				DateUtil.createMinute("2017-01-02 14:00"));
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user555);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 10:30"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user777,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 安排检查时间
+		inspectAppService.arrange(executes.get(0).getId(),
+				DateUtil.createMinute("2017-01-03 14:00"));
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user777);
 
 		// 2017-01-02
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-02"));
@@ -680,15 +700,15 @@ public class AppTestService {
 
 		assertTrue(executes.size() == 1);
 
-		Map<InspectApplyItem, String> results = new HashMap<InspectApplyItem, String>();
-		results.put(brainCTInspectApplyItem, "没啥问题");
-		inspectAppService.confirm(executes.get(0).getId(), results, user666);
+		Map<InspectApplyItem, String> CTResults = new HashMap<InspectApplyItem, String>();
+		CTResults.put(brainCTInspectApplyItem, "没啥问题");
+		inspectAppService.confirm(executes.get(0).getId(), CTResults, user666);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user666);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 15:00"));
 
-		testUtil.testInspectResult(brainCTOrder.getId());
+		testUtil.testInspectResult(brainInspectOrder.getId(), 1);
 
 		// 2017-01-03
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-03"));
@@ -704,6 +724,24 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 15:00"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user888,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		Map<InspectApplyItem, String> HCResults = new HashMap<InspectApplyItem, String>();
+		HCResults.put(brainHCInspectApplyItem, "没啥问题");
+		inspectAppService.confirm(executes.get(0).getId(), HCResults, user888);
+
+		orderExecuteAppService.finish(executes.get(0).getId(), user888);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 16:00"));
+
+		testUtil.testInspectResult(brainInspectOrder.getId(), 2);
 
 		// 2017-01-04
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-04"));
@@ -1008,7 +1046,7 @@ public class AppTestService {
 		user666.setDept(dept444);
 
 		users.add(user666);
-		
+
 		user777 = new Staff();
 
 		user777.setId("staff777");
