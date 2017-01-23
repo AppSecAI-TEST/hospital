@@ -1,4 +1,4 @@
-package com.neusoft.hs.application.inspect;
+package com.neusoft.hs.domain.order;
 
 import com.neusoft.hs.platform.exception.HsException;
 
