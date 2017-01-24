@@ -83,7 +83,7 @@ public class DrugOrderType extends OrderType {
 		return drugTypeSpec;
 	}
 
-	public void setDrugTypeSpecId(DrugTypeSpec drugTypeSpec) {
+	public void setDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
 		this.drugTypeSpec = drugTypeSpec;
 	}
 }

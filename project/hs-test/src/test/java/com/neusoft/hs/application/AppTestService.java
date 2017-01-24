@@ -311,7 +311,7 @@ public class AppTestService {
 		drug001Order.setUseMode(oralOrderUseMode);
 
 		DrugOrderType drugOrderType = new DrugOrderType();
-		drugOrderType.setDrugTypeSpecId(drugTypeSpec001);
+		drugOrderType.setDrugTypeSpec(drugTypeSpec001);
 
 		drug001Order.setType(drugOrderType);
 
