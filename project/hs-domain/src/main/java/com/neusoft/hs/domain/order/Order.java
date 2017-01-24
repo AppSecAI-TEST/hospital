@@ -62,6 +62,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "use_mode_id")
 	private OrderUseMode useMode;
+	
+	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
+	private Apply apply;
 
 	@OneToMany(mappedBy = "order", cascade = { CascadeType.ALL })
 	@OrderBy("planStartDate ASC")
@@ -100,9 +103,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "compsite_order_id")
 	private CompsiteOrder compsiteOrder;
-
-	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
-	private Apply apply;
 
 	public static final String State_Created = "已创建/待核对";
 

@@ -311,7 +311,7 @@ public class AppTestService {
 		drug001Order.setUseMode(oralOrderUseMode);
 
 		DrugOrderType drugOrderType = new DrugOrderType();
-		drugOrderType.setDrugTypeSpecId(drugTypeSpec001.getId());
+		drugOrderType.setDrugTypeSpecId(drugTypeSpec001);
 
 		drug001Order.setType(drugOrderType);
 
@@ -1430,7 +1430,6 @@ public class AppTestService {
 		this.choices.put(ChoiceItem.OrderUseModeAssistMaterial,
 				onlyOneOrderUseModeAssistMaterial);
 		this.choices.put(ChoiceItem.CancelHC, true);
-
 	}
 
 	private void ready() {

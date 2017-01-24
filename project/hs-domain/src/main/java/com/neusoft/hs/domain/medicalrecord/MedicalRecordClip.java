@@ -20,7 +20,7 @@ public class MedicalRecordClip extends IdEntity {
 
 	@NotEmpty(message = "状态不能为空")
 	@Column(length = 32)
-	private String state;
+	private String state = State_Normal;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")

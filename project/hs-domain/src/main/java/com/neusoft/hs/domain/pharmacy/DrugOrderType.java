@@ -26,23 +26,14 @@ public class DrugOrderType extends OrderType {
 	private DrugType drugType;
 
 	@Transient
-	private String drugTypeSpecId;
+	private DrugTypeSpec drugTypeSpec;
 
 	@Override
 	public void check(Order order) throws OrderException {
 		if (this.drugType == null) {
-			// 通过药品规格计算药品类型
-			if (drugTypeSpecId == null) {
-				throw new OrderException(order, "drugTypeSpecId不能为空");
-			}
-
-			DrugTypeSpec drugTypeSpec = this.getService(
-					PharmacyDomainService.class).findDrugTypeSpec(
-					drugTypeSpecId);
 
 			if (drugTypeSpec == null) {
-				throw new OrderException(order, "drugTypeSpecId=["
-						+ drugTypeSpecId + "]不存在");
+				throw new OrderException(order, "drugTypeSpec不存在");
 			}
 
 			List<DrugType> drugTypes = this.getService(
@@ -57,7 +48,7 @@ public class DrugOrderType extends OrderType {
 			}
 			if (this.drugType == null) {
 				throw new OrderException(order, "drugTypeSpecId=["
-						+ drugTypeSpecId + "]库存不足");
+						+ drugTypeSpec.getId() + "]库存不足");
 			}
 
 			// 根据计算的药品类型找到合适的医嘱类型
@@ -88,12 +79,11 @@ public class DrugOrderType extends OrderType {
 		this.drugType = drugType;
 	}
 
-	public String getDrugTypeSpecId() {
-		return drugTypeSpecId;
+	public DrugTypeSpec getDrugTypeSpec() {
+		return drugTypeSpec;
 	}
 
-	public void setDrugTypeSpecId(String drugTypeSpecId) {
-		this.drugTypeSpecId = drugTypeSpecId;
+	public void setDrugTypeSpecId(DrugTypeSpec drugTypeSpec) {
+		this.drugTypeSpec = drugTypeSpec;
 	}
-
 }
