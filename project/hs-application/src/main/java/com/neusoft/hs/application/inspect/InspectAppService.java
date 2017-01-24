@@ -35,4 +35,7 @@ public class InspectAppService {
 		inspectDomainService.confirm(executeId, results, user);
 	}
 
+	public void cancel(String inspectApplyItemId, AbstractUser user) throws InspectException {
+		inspectDomainService.cancel(inspectApplyItemId, user);
+	}
 }

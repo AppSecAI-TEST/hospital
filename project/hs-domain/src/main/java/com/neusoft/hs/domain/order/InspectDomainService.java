@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,9 @@ public class InspectDomainService {
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
+	
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	public void arrange(String executeId, Date planExecuteDate)
 			throws InspectException {
@@ -81,7 +85,7 @@ public class InspectDomainService {
 		applyRepo.save(inspectApply);
 	}
 
-	public void cancel(String inspectApplyItemId) throws InspectException {
+	public void cancel(String inspectApplyItemId, AbstractUser user) throws InspectException {
 
 		InspectApplyItem inspectApplyItem = inspectApplyItemRepo
 				.findOne(inspectApplyItemId);
@@ -114,6 +118,7 @@ public class InspectDomainService {
 
 		inspectApplyItem.save();
 
+		applicationContext.publishEvent(new InspectApplyItemCanceledEvent(inspectApplyItem));
 	}
 
 	public InspectApply find(String applyId) {

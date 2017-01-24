@@ -198,6 +198,8 @@ public class AppTestService {
 
 	private Visit visit001;
 
+	private Map<ChoiceItem, Object> choices;
+
 	public void testInit() {
 		// 初始化Context
 		ApplicationContext applicationContext = SpringApplication
@@ -209,6 +211,8 @@ public class AppTestService {
 		initData();
 
 		choice();
+
+		ready();
 	}
 
 	/**
@@ -710,6 +714,10 @@ public class AppTestService {
 
 		testUtil.testInspectResult(brainInspectOrder.getId(), 1);
 
+		if ((Boolean) choices.get(ChoiceItem.CancelHC)) {
+			inspectAppService.cancel(brainHCInspectApplyItem.getId(), user002);
+		}
+
 		// 2017-01-03
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-03"));
 		resolveCount = orderAppService.resolve();
@@ -727,21 +735,24 @@ public class AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 15:00"));
 
-		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user888,
-				pageable);
+		if (!(Boolean) choices.get(ChoiceItem.CancelHC)) {
+			pageable = new PageRequest(0, 15);
+			executes = orderExecuteAppService.getNeedExecuteOrderExecutes(
+					user888, pageable);
 
-		assertTrue(executes.size() == 1);
+			assertTrue(executes.size() == 1);
 
-		Map<InspectApplyItem, String> HCResults = new HashMap<InspectApplyItem, String>();
-		HCResults.put(brainHCInspectApplyItem, "没啥问题");
-		inspectAppService.confirm(executes.get(0).getId(), HCResults, user888);
+			Map<InspectApplyItem, String> HCResults = new HashMap<InspectApplyItem, String>();
+			HCResults.put(brainHCInspectApplyItem, "没啥问题");
+			inspectAppService.confirm(executes.get(0).getId(), HCResults,
+					user888);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user888);
+			orderExecuteAppService.finish(executes.get(0).getId(), user888);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 16:00"));
+			DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 16:00"));
 
-		testUtil.testInspectResult(brainInspectOrder.getId(), 2);
+			testUtil.testInspectResult(brainInspectOrder.getId(), 2);
+		}
 
 		// 2017-01-04
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-04"));
@@ -1410,7 +1421,17 @@ public class AppTestService {
 	}
 
 	private void choice() {
-		this.choiceOrderUseModeAssistMaterial(onlyOneOrderUseModeAssistMaterial);
+
+		this.choices = new HashMap<ChoiceItem, Object>();
+		this.choices.put(ChoiceItem.OrderUseModeAssistMaterial,
+				onlyOneOrderUseModeAssistMaterial);
+		this.choices.put(ChoiceItem.CancelHC, true);
+
+	}
+
+	private void ready() {
+		this.choiceOrderUseModeAssistMaterial((OrderUseModeAssistMaterial) this.choices
+				.get(ChoiceItem.OrderUseModeAssistMaterial));
 	}
 
 	private void choiceOrderUseModeAssistMaterial(
