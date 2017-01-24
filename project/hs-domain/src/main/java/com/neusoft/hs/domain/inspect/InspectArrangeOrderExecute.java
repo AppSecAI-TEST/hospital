@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.inspect;
 
 import java.util.Date;
 
@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 
 @Entity

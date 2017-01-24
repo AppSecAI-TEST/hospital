@@ -1,9 +1,15 @@
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.inpatientdept;
 
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderException;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteTeam;
+import com.neusoft.hs.domain.order.OrderType;
 
 @Entity
 @DiscriminatorValue("LeaveHospital")

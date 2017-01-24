@@ -1,6 +1,6 @@
 //Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\domain\\order\\DrugOrderType.java
 
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.pharmacy;
 
 import java.util.List;
 
@@ -11,9 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import com.neusoft.hs.domain.pharmacy.DrugType;
-import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
-import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderException;
+import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Entity

@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.inpatientdept;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +8,10 @@ import java.util.UUID;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.neusoft.hs.domain.order.LongOrder;
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity

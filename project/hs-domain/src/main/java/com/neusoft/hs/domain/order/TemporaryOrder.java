@@ -2,10 +2,10 @@
 
 package com.neusoft.hs.domain.order;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+
+import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 
 @Entity
 @DiscriminatorValue("Temporary")
@@ -18,7 +18,7 @@ public class TemporaryOrder extends Order {
 	}
 
 	@Override
-	void resolve(DrugOrderType drugOrderType) throws OrderException {
+	public void resolve(DrugOrderType drugOrderType) throws OrderException {
 		// 分解执行条目
 		this.getUseMode().resolve(this, drugOrderType);
 		if (this.getResolveOrderExecutes().size() == 0) {

@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.inspect;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -6,6 +6,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.util.DateUtil;
 

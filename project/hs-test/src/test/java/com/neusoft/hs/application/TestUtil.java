@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.domain.order.InspectApply;
-import com.neusoft.hs.domain.order.InspectResult;
+import com.neusoft.hs.domain.inspect.InspectApply;
+import com.neusoft.hs.domain.inspect.InspectResult;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
 

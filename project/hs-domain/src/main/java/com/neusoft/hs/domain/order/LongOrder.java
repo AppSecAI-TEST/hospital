@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -127,7 +128,7 @@ public class LongOrder extends Order {
 	}
 
 	@Override
-	void resolve(DrugOrderType drugOrderType) throws OrderException {
+	public void resolve(DrugOrderType drugOrderType) throws OrderException {
 
 		for (int day = 0; day < LongOrder.ResolveDays; day++) {
 			// 计算执行时间

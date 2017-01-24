@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.domain.order.InspectApply;
-import com.neusoft.hs.domain.order.InspectApplyItem;
-import com.neusoft.hs.domain.order.InspectDomainService;
-import com.neusoft.hs.domain.order.InspectException;
+import com.neusoft.hs.domain.inspect.InspectApply;
+import com.neusoft.hs.domain.inspect.InspectApplyItem;
+import com.neusoft.hs.domain.inspect.InspectDomainService;
+import com.neusoft.hs.domain.inspect.InspectException;
+import com.neusoft.hs.domain.order.ApplyDomainService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 
 @Service
@@ -18,10 +19,13 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 public class InspectAppService {
 
 	@Autowired
+	private ApplyDomainService applyDomainService;
+
+	@Autowired
 	private InspectDomainService inspectDomainService;
 
 	public InspectApply find(String applyId) {
-		return inspectDomainService.find(applyId);
+		return (InspectApply) applyDomainService.find(applyId);
 	}
 
 	public void arrange(String executeId, Date planExecuteDate)
@@ -35,7 +39,8 @@ public class InspectAppService {
 		inspectDomainService.confirm(executeId, results, user);
 	}
 
-	public void cancel(String inspectApplyItemId, AbstractUser user) throws InspectException {
+	public void cancel(String inspectApplyItemId, AbstractUser user)
+			throws InspectException {
 		inspectDomainService.cancel(inspectApplyItemId, user);
 	}
 }

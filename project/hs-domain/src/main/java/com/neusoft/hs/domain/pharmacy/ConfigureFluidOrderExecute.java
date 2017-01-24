@@ -1,7 +1,6 @@
-//Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\domain\\order\\DispensingDrugOrderExecute.java
+package com.neusoft.hs.domain.pharmacy;
 
-package com.neusoft.hs.domain.order;
-
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -11,17 +10,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.cost.ChargeRecord;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
-@DiscriminatorValue("DispensingDrug")
-public class DispensingDrugOrderExecute extends OrderExecute {
+@DiscriminatorValue("ConfigureFluid")
+public class ConfigureFluidOrderExecute extends OrderExecute {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_type_id")
 	private DrugType drugType;
+
+	public static int PlanDateAdvanceHours = 4;
 
 	@Override
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
@@ -39,6 +42,13 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
+	}
+
+	@Override
+	public void fillPlanDate(Date planStartDate, Date planEndDate) {
+		super.fillPlanDate(
+				DateUtil.addHour(planStartDate, -PlanDateAdvanceHours),
+				DateUtil.addHour(planEndDate, -PlanDateAdvanceHours));
 	}
 
 	public DrugType getDrugType() {

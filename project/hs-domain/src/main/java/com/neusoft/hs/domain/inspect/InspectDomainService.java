@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.inspect;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +10,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.order.Apply;
+import com.neusoft.hs.domain.order.ApplyDomainService;
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteDomainService;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.InspectDept;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -17,15 +23,18 @@ import com.neusoft.hs.platform.util.DateUtil;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class InspectDomainService {
-
+	
 	@Autowired
-	private ApplyRepo applyRepo;
+	private InspectItemRepo inspectItemRepo;
 
 	@Autowired
 	private InspectApplyItemRepo inspectApplyItemRepo;
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
+	
+	@Autowired
+	private ApplyDomainService applyDomainService;
 	
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -82,7 +91,7 @@ public class InspectDomainService {
 			inspectApply.addInspectResult(inspectResult);
 		}
 
-		applyRepo.save(inspectApply);
+		applyDomainService.save(inspectApply);
 	}
 
 	public void cancel(String inspectApplyItemId, AbstractUser user) throws InspectException {
@@ -121,11 +130,11 @@ public class InspectDomainService {
 		applicationContext.publishEvent(new InspectApplyItemCanceledEvent(inspectApplyItem));
 	}
 
-	public InspectApply find(String applyId) {
-		return (InspectApply) applyRepo.findOne(applyId);
+	public void createInspectItems(List<InspectItem> inspectItems) {
+		inspectItemRepo.save(inspectItems);
 	}
 
-	public void save(InspectApply inspectApply) {
-		applyRepo.save(inspectApply);
+	public void clearInspectItems() {
+		inspectItemRepo.deleteAll();
 	}
 }

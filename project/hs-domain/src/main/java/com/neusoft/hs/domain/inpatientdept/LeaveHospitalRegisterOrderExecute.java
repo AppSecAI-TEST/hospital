@@ -1,8 +1,12 @@
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.inpatientdept;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.neusoft.hs.domain.order.LongOrder;
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;

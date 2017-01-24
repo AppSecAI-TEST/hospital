@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.pharmacy.OrderUseMode;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -28,8 +29,7 @@ public class OrderDomainService {
 	@Autowired
 	private OrderTypeRepo orderTypeRepo;
 
-	@Autowired
-	private OrderUseModeRepo orderUseModeRepo;
+
 
 	@Autowired
 	private CompsiteOrderRepo compsiteOrderRepo;
@@ -39,12 +39,6 @@ public class OrderDomainService {
 
 	@Autowired
 	private AssistMaterialRepo assistMaterialRepo;
-
-	@Autowired
-	private OrderUseModeAssistMaterialRepo orderUseModeAssistMaterialRepo;
-
-	@Autowired
-	private InspectItemRepo inspectItemRepo;
 
 	@Autowired
 	private VisitDomainService visitDomainService;
@@ -162,10 +156,6 @@ public class OrderDomainService {
 		orderTypeRepo.save(orderTypes);
 	}
 
-	public void createOrderUseModes(List<OrderUseMode> orderUseModes) {
-		orderUseModeRepo.save(orderUseModes);
-	}
-
 	public void createOrderFrequencyTypes(
 			List<OrderFrequencyType> orderFrequencyTypes) {
 		orderFrequencyTypeRepo.save(orderFrequencyTypes);
@@ -179,10 +169,6 @@ public class OrderDomainService {
 		compsiteOrderRepo.deleteAll();
 	}
 
-	public void clearOrderUseModes() {
-		orderUseModeRepo.deleteAll();
-	}
-
 	public void clearOrderFrequencyTypes() {
 		orderFrequencyTypeRepo.deleteAll();
 	}
@@ -190,23 +176,4 @@ public class OrderDomainService {
 	public void createAssistMaterials(List<AssistMaterial> assistMaterials) {
 		assistMaterialRepo.save(assistMaterials);
 	}
-
-	public void createOrderUseModeAssistMaterials(
-			List<OrderUseModeAssistMaterial> orderUseModeAssistMaterials) {
-		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterials);
-	}
-
-	public void createOrderUseModeAssistMaterial(
-			OrderUseModeAssistMaterial orderUseModeAssistMaterial) {
-		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterial);
-	}
-
-	public void createInspectItems(List<InspectItem> inspectItems) {
-		inspectItemRepo.save(inspectItems);
-	}
-
-	public void clearInspectItems() {
-		inspectItemRepo.deleteAll();
-	}
-
 }

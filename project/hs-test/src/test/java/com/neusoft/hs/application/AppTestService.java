@@ -23,17 +23,16 @@ import com.neusoft.hs.application.inspect.InspectAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.inpatientdept.LeaveHospitalOrderType;
+import com.neusoft.hs.domain.inpatientdept.SecondNursingOrderType;
+import com.neusoft.hs.domain.inspect.InspectApply;
+import com.neusoft.hs.domain.inspect.InspectApplyItem;
+import com.neusoft.hs.domain.inspect.InspectDomainService;
+import com.neusoft.hs.domain.inspect.InspectItem;
+import com.neusoft.hs.domain.inspect.InspectOrderType;
 import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.CompsiteOrder;
-import com.neusoft.hs.domain.order.DrugOrderType;
-import com.neusoft.hs.domain.order.InfusionOrderUseMode;
-import com.neusoft.hs.domain.order.InspectApply;
-import com.neusoft.hs.domain.order.InspectApplyItem;
-import com.neusoft.hs.domain.order.InspectItem;
-import com.neusoft.hs.domain.order.InspectOrderType;
-import com.neusoft.hs.domain.order.LeaveHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
-import com.neusoft.hs.domain.order.OralOrderUseMode;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -41,10 +40,7 @@ import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderFrequencyType9H15H;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDay;
 import com.neusoft.hs.domain.order.OrderType;
-import com.neusoft.hs.domain.order.OrderUseMode;
-import com.neusoft.hs.domain.order.OrderUseModeAssistMaterial;
 import com.neusoft.hs.domain.order.OrderUtil;
-import com.neusoft.hs.domain.order.SecondNursingOrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -58,8 +54,13 @@ import com.neusoft.hs.domain.organization.OrganizationDomainService;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
 import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
+import com.neusoft.hs.domain.pharmacy.InfusionOrderUseMode;
+import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
+import com.neusoft.hs.domain.pharmacy.OrderUseMode;
+import com.neusoft.hs.domain.pharmacy.OrderUseModeAssistMaterial;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
@@ -89,6 +90,9 @@ public class AppTestService {
 
 	@Autowired
 	private InspectAppService inspectAppService;
+
+	@Autowired
+	private InspectDomainService inspectDomainService;
 
 	@Autowired
 	private OrganizationDomainService organizationDomainService;
@@ -900,7 +904,7 @@ public class AppTestService {
 
 	public void clear() {
 		// 清空医嘱用法
-		orderDomainService.clearOrderUseModes();
+		pharmacyDomainService.clearOrderUseModes();
 		// 清空医嘱类型
 		orderDomainService.clearOrderTypes();
 		// 清空组合医嘱
@@ -912,7 +916,7 @@ public class AppTestService {
 		// 清空药品规格
 		pharmacyDomainService.clearDrugTypeSpecs();
 		// 清空检查项目
-		orderDomainService.clearInspectItems();
+		inspectDomainService.clearInspectItems();
 		// 清空计费项目
 		costDomainService.clearChargeItems();
 		// 清空患者一次住院
@@ -1272,7 +1276,7 @@ public class AppTestService {
 
 		inspectItems.add(brainHCInspectItem);
 
-		orderDomainService.createInspectItems(inspectItems);
+		inspectDomainService.createInspectItems(inspectItems);
 	}
 
 	private void initOrderTypes() {
@@ -1346,7 +1350,7 @@ public class AppTestService {
 
 		orderUseModes.add(infusionOrderUseMode);
 
-		orderDomainService.createOrderUseModes(orderUseModes);
+		pharmacyDomainService.createOrderUseModes(orderUseModes);
 
 	}
 
@@ -1436,7 +1440,7 @@ public class AppTestService {
 
 	private void choiceOrderUseModeAssistMaterial(
 			OrderUseModeAssistMaterial orderUseModeAssistMaterial) {
-		orderDomainService
+		pharmacyDomainService
 				.createOrderUseModeAssistMaterial(orderUseModeAssistMaterial);
 	}
 

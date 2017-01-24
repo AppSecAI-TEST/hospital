@@ -1,6 +1,6 @@
 //Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\domain\\order\\OrderUseMode.java
 
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.pharmacy;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
+import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity

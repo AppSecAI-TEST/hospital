@@ -1,11 +1,11 @@
-package com.neusoft.hs.domain.order;
-
-import java.util.List;
+package com.neusoft.hs.domain.pharmacy;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteTeam;
 
 @Entity
 @DiscriminatorValue("Oral")
