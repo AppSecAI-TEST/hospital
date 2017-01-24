@@ -1,3 +1,9 @@
+2017.01.--
+
+1、设计模型：向【取消医嘱用例实现】章节增加【取消检查单上的一个检查项目】时序图
+2、文档：增加数据模型章节，通过powerdesigner逆向得到物理数据模型
+
+
 2017.01.23 检查医嘱
 
 1、设计模型：建立InspectOrderType、InspectArrangeOrderExecute、InspectConfirmOrderExecute、InspectApply、InspectResult、InspectItem等用于编写检查流程
