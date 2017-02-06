@@ -4,6 +4,6 @@ package com.neusoft.hs.domain.pharmacy;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-interface OrderUseModeAssistMaterialRepo extends PagingAndSortingRepository<OrderUseModeAssistMaterial, String> {
+interface DrugUseModeAssistMaterialRepo extends PagingAndSortingRepository<DrugUseModeAssistMaterial, String> {
 
 }

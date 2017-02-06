@@ -26,8 +26,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
-import com.neusoft.hs.domain.pharmacy.DrugOrderType;
-import com.neusoft.hs.domain.pharmacy.OrderUseMode;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -55,14 +53,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	private Integer count;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "type_id")
-	private OrderType type;
+	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
+	private OrderTypeApp typeApp;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "use_mode_id")
-	private OrderUseMode useMode;
-	
 	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
 	private Apply apply;
 
@@ -130,17 +123,17 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			throw new OrderException(this, "visitId=[" + visit.getId() + "]不存在");
 		}
 
-		if (this.type == null) {
-			throw new OrderException(this, "orderType不能为空");
+		if (this.typeApp == null) {
+			throw new OrderException(this, "orderTypeApp不能为空");
 		}
 
-		this.type.check(this);
+		this.typeApp.check();
 	}
 
 	public int verify() throws OrderException {
 		this.setState(State_Executing);
 		int count = this.resolve();
-		this.type.verify(this);
+		this.typeApp.verify();
 		return count;
 	}
 
@@ -157,7 +150,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		resolveFrequencyOrderExecutes = new ArrayList<OrderExecute>();
 		resolveOrderExecutes = new ArrayList<OrderExecute>();
 
-		this.type.resolveOrder(this);
+		this.typeApp.resolveOrder();
 
 		if (resolveOrderExecutes.size() > 0) {
 			for (OrderExecute orderExecute : resolveOrderExecutes) {
@@ -176,8 +169,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		}
 		return resolveOrderExecutes.size();
 	}
-
-	public abstract void resolve(DrugOrderType drugOrderType) throws OrderException;
 
 	/**
 	 * @param doctor
@@ -263,20 +254,13 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.count = count;
 	}
 
-	public OrderType getType() {
-		return type;
+	public OrderTypeApp getTypeApp() {
+		return typeApp;
 	}
 
-	public void setType(OrderType type) {
-		this.type = type;
-	}
-
-	public OrderUseMode getUseMode() {
-		return useMode;
-	}
-
-	public void setUseMode(OrderUseMode useMode) {
-		this.useMode = useMode;
+	public void setTypeApp(OrderTypeApp typeApp) {
+		this.typeApp = typeApp;
+		this.typeApp.setOrder(this);
 	}
 
 	public List<OrderExecute> getOrderExecutes() {

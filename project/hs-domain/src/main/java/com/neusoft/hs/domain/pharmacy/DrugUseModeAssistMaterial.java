@@ -10,13 +10,12 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
-@Table(name = "domain_order_use_mode_charge_item")
-public class OrderUseModeAssistMaterial extends SuperEntity {
+@Table(name = "domain_drug_use_mode_charge_item")
+public class DrugUseModeAssistMaterial extends SuperEntity {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)
@@ -28,7 +27,7 @@ public class OrderUseModeAssistMaterial extends SuperEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "use_mode_id")
-	private OrderUseMode orderUseMode;
+	private DrugUseMode orderUseMode;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "assist_material_id")
@@ -63,11 +62,11 @@ public class OrderUseModeAssistMaterial extends SuperEntity {
 		this.code = code;
 	}
 
-	public OrderUseMode getOrderUseMode() {
+	public DrugUseMode getOrderUseMode() {
 		return orderUseMode;
 	}
 
-	public void setOrderUseMode(OrderUseMode orderUseMode) {
+	public void setOrderUseMode(DrugUseMode orderUseMode) {
 		this.orderUseMode = orderUseMode;
 	}
 

@@ -22,10 +22,10 @@ public class PharmacyDomainService {
 	private DrugTypeRepo drugTypeRepo;
 
 	@Autowired
-	private OrderUseModeRepo orderUseModeRepo;
+	private DrugUseModeRepo orderUseModeRepo;
 
 	@Autowired
-	private OrderUseModeAssistMaterialRepo orderUseModeAssistMaterialRepo;
+	private DrugUseModeAssistMaterialRepo orderUseModeAssistMaterialRepo;
 
 	public List<DrugType> findByDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
 		return drugTypeRepo.findByDrugTypeSpec(drugTypeSpec);
@@ -78,16 +78,16 @@ public class PharmacyDomainService {
 	}
 
 	public void createOrderUseModeAssistMaterials(
-			List<OrderUseModeAssistMaterial> orderUseModeAssistMaterials) {
+			List<DrugUseModeAssistMaterial> orderUseModeAssistMaterials) {
 		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterials);
 	}
 
 	public void createOrderUseModeAssistMaterial(
-			OrderUseModeAssistMaterial orderUseModeAssistMaterial) {
+			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
 		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterial);
 	}
 	
-	public void createOrderUseModes(List<OrderUseMode> orderUseModes) {
+	public void createOrderUseModes(List<DrugUseMode> orderUseModes) {
 		orderUseModeRepo.save(orderUseModes);
 	}
 }

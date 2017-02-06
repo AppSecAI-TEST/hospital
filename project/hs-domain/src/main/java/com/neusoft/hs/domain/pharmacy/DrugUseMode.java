@@ -2,32 +2,26 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
-@Table(name = "domain_order_use_mode")
+@Table(name = "domain_drug_use_mode")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class OrderUseMode extends SuperEntity {
+public abstract class DrugUseMode extends SuperEntity {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)
@@ -41,11 +35,11 @@ public abstract class OrderUseMode extends SuperEntity {
 	@Column(length = 64)
 	private String name;
 
-	@OneToMany(mappedBy = "useMode", cascade = { CascadeType.ALL })
-	private List<Order> orders;
+	@OneToMany(mappedBy = "drugUseMode", cascade = { CascadeType.ALL })
+	private List<DrugOrderTypeApp> drugOrderTypeApps;
 
 	@OneToMany(mappedBy = "orderUseMode", cascade = { CascadeType.ALL })
-	private List<OrderUseModeAssistMaterial> orderUseModeAssistMaterials;
+	private List<DrugUseModeAssistMaterial> orderUseModeAssistMaterials;
 
 	/**
 	 * @param drugOrderType
@@ -79,16 +73,25 @@ public abstract class OrderUseMode extends SuperEntity {
 		this.name = name;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
+	public List<DrugOrderTypeApp> getDrugOrderTypeApps() {
+		return drugOrderTypeApps;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setDrugOrderTypeApps(List<DrugOrderTypeApp> drugOrderTypeApps) {
+		this.drugOrderTypeApps = drugOrderTypeApps;
 	}
 
-	public OrderUseModeAssistMaterial getTheOrderUseModeChargeItem(String key) {
-		for (OrderUseModeAssistMaterial orderUseModeAssistMaterial : orderUseModeAssistMaterials) {
+	public List<DrugUseModeAssistMaterial> getOrderUseModeAssistMaterials() {
+		return orderUseModeAssistMaterials;
+	}
+
+	public void setOrderUseModeAssistMaterials(
+			List<DrugUseModeAssistMaterial> orderUseModeAssistMaterials) {
+		this.orderUseModeAssistMaterials = orderUseModeAssistMaterials;
+	}
+
+	public DrugUseModeAssistMaterial getTheOrderUseModeChargeItem(String key) {
+		for (DrugUseModeAssistMaterial orderUseModeAssistMaterial : orderUseModeAssistMaterials) {
 			if (orderUseModeAssistMaterial.getSign().equals(key)) {
 				return orderUseModeAssistMaterial;
 			}
@@ -96,12 +99,12 @@ public abstract class OrderUseMode extends SuperEntity {
 		return null;
 	}
 
-	public List<OrderUseModeAssistMaterial> getOrderUseModeChargeItems() {
+	public List<DrugUseModeAssistMaterial> getOrderUseModeChargeItems() {
 		return orderUseModeAssistMaterials;
 	}
 
 	public void setOrderUseModeChargeItems(
-			List<OrderUseModeAssistMaterial> orderUseModeChargeItems) {
+			List<DrugUseModeAssistMaterial> orderUseModeChargeItems) {
 		this.orderUseModeAssistMaterials = orderUseModeChargeItems;
 	}
 

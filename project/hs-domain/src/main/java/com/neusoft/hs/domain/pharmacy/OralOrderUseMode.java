@@ -9,7 +9,7 @@ import com.neusoft.hs.domain.order.OrderExecuteTeam;
 
 @Entity
 @DiscriminatorValue("Oral")
-public class OralOrderUseMode extends OrderUseMode {
+public class OralOrderUseMode extends DrugUseMode {
 
 	@Override
 	public void resolve(Order order, DrugOrderType drugOrderType) {

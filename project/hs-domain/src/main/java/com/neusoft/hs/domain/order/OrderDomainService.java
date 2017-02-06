@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.domain.pharmacy.OrderUseMode;
+import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;

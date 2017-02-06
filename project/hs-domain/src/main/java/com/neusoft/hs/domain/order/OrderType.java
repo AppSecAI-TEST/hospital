@@ -49,8 +49,8 @@ public abstract class OrderType extends SuperEntity {
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
 	private List<OrderType> children;
 
-	@OneToMany(mappedBy = "type", cascade = { CascadeType.ALL })
-	private List<Order> orders;
+	@OneToMany(mappedBy = "orderType", cascade = { CascadeType.ALL })
+	private List<OrderTypeApp> OrderTypeApps;
 
 	/**
 	 * 医嘱创建时的检查回调函数
@@ -129,11 +129,12 @@ public abstract class OrderType extends SuperEntity {
 		this.children = children;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
+	public List<OrderTypeApp> getOrderTypeApps() {
+		return OrderTypeApps;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setOrderTypeApps(List<OrderTypeApp> orderTypeApps) {
+		OrderTypeApps = orderTypeApps;
 	}
+
 }

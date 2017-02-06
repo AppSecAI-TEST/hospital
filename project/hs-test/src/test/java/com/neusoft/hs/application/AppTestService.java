@@ -41,6 +41,7 @@ import com.neusoft.hs.domain.order.OrderFrequencyType9H15H;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDay;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderUtil;
+import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -55,12 +56,13 @@ import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
 import com.neusoft.hs.domain.organization.UserDomainService;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
+import com.neusoft.hs.domain.pharmacy.DrugOrderTypeApp;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
+import com.neusoft.hs.domain.pharmacy.DrugUseMode;
+import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
 import com.neusoft.hs.domain.pharmacy.InfusionOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
-import com.neusoft.hs.domain.pharmacy.OrderUseMode;
-import com.neusoft.hs.domain.pharmacy.OrderUseModeAssistMaterial;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
@@ -190,11 +192,11 @@ public class AppTestService {
 
 	private AssistMaterial transportFluidAssistMaterial;// 输液辅材
 
-	private OrderUseModeAssistMaterial everyOneOrderUseModeAssistMaterial;// 按频次收费
+	private DrugUseModeAssistMaterial everyOneOrderUseModeAssistMaterial;// 按频次收费
 
-	private OrderUseModeAssistMaterial everyDayOrderUseModeAssistMaterial;// 按天收费
+	private DrugUseModeAssistMaterial everyDayOrderUseModeAssistMaterial;// 按天收费
 
-	private OrderUseModeAssistMaterial onlyOneOrderUseModeAssistMaterial;// 只收一次
+	private DrugUseModeAssistMaterial onlyOneOrderUseModeAssistMaterial;// 只收一次
 
 	private OrderFrequencyType orderFrequencyType_Day;// 每天
 
@@ -298,7 +300,8 @@ public class AppTestService {
 		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 
-		secondNursingOrder.setType(secondNursingOrderType);
+		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
+				secondNursingOrderType));
 
 		orderAppService.create(secondNursingOrder, user002);
 
@@ -308,12 +311,12 @@ public class AppTestService {
 		drug001Order.setName("药品001");
 		drug001Order.setPlanStartDate(DateUtil.getSysDate());
 		drug001Order.setCount(2);
-		drug001Order.setUseMode(oralOrderUseMode);
 
 		DrugOrderType drugOrderType = new DrugOrderType();
 		drugOrderType.setDrugTypeSpec(drugTypeSpec001);
 
-		drug001Order.setType(drugOrderType);
+		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType,
+				oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
 
@@ -402,26 +405,26 @@ public class AppTestService {
 		drug002Order.setVisit(visit001);
 		drug002Order.setName("头孢3");
 		drug002Order.setCount(2);
-		drug002Order.setUseMode(infusionOrderUseMode);
 		drug002Order.setFrequencyType(orderFrequencyType_9H15H);
 
 		drug002Order.setPlanStartDate(sysDate);
 		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
-		drug002Order.setType(drugOrderType002);
+		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002,
+				infusionOrderUseMode));
 
 		// 创建药品003长期医嘱
 		LongOrder drug003Order = new LongOrder();
 		drug003Order.setVisit(visit001);
 		drug003Order.setName("5%葡萄糖");
 		drug003Order.setCount(1);
-		drug003Order.setUseMode(infusionOrderUseMode);
 		drug003Order.setFrequencyType(orderFrequencyType_9H15H);
 
 		drug003Order.setPlanStartDate(sysDate);
 		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
-		drug003Order.setType(drugOrderType003);
+		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003,
+				infusionOrderUseMode));
 
 		CompsiteOrder drug002003Order = new CompsiteOrder();
 		drug002003Order.addOrder(drug002Order);
@@ -611,7 +614,7 @@ public class AppTestService {
 		TemporaryOrder brainInspectOrder = new TemporaryOrder();
 		brainInspectOrder.setVisit(visit001);
 		brainInspectOrder.setName("脑部检查");
-		brainInspectOrder.setType(inspectOrderType);
+		brainInspectOrder.setTypeApp(new SampleOrderTypeApp(inspectOrderType));
 		brainInspectOrder.setPlanStartDate(DateUtil.getSysDate());
 
 		InspectApply inspectApply = new InspectApply();
@@ -817,7 +820,8 @@ public class AppTestService {
 		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-09"));
 		leaveHospitalOrder.setExecuteDept(dept222);
 
-		leaveHospitalOrder.setType(leaveHospitalOrderType);
+		leaveHospitalOrder.setTypeApp(new SampleOrderTypeApp(
+				leaveHospitalOrderType));
 
 		orderAppService.create(leaveHospitalOrder, user002);
 
@@ -1334,7 +1338,7 @@ public class AppTestService {
 
 	private void initOrderUseModes() {
 
-		List<OrderUseMode> orderUseModes = new ArrayList<OrderUseMode>();
+		List<DrugUseMode> orderUseModes = new ArrayList<DrugUseMode>();
 
 		oralOrderUseMode = new OralOrderUseMode();
 		oralOrderUseMode.setId("oralOrderUseMode");
@@ -1372,7 +1376,7 @@ public class AppTestService {
 
 	private void initOrderUseModeAssistMaterials() {
 
-		everyOneOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
+		everyOneOrderUseModeAssistMaterial = new DrugUseModeAssistMaterial();
 		everyOneOrderUseModeAssistMaterial.setId("everyOne");
 		everyOneOrderUseModeAssistMaterial.setCode("everyOne");
 		everyOneOrderUseModeAssistMaterial
@@ -1380,11 +1384,11 @@ public class AppTestService {
 		everyOneOrderUseModeAssistMaterial
 				.setOrderUseMode(infusionOrderUseMode);
 		everyOneOrderUseModeAssistMaterial
-				.setChargeMode(OrderUseModeAssistMaterial.everyOne);
+				.setChargeMode(DrugUseModeAssistMaterial.everyOne);
 		everyOneOrderUseModeAssistMaterial
 				.setSign(InfusionOrderUseMode.transportFluid);
 
-		everyDayOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
+		everyDayOrderUseModeAssistMaterial = new DrugUseModeAssistMaterial();
 		everyDayOrderUseModeAssistMaterial.setId("everyDay");
 		everyDayOrderUseModeAssistMaterial.setCode("everyDay");
 		everyDayOrderUseModeAssistMaterial
@@ -1392,18 +1396,18 @@ public class AppTestService {
 		everyDayOrderUseModeAssistMaterial
 				.setOrderUseMode(infusionOrderUseMode);
 		everyDayOrderUseModeAssistMaterial
-				.setChargeMode(OrderUseModeAssistMaterial.everyDay);
+				.setChargeMode(DrugUseModeAssistMaterial.everyDay);
 		everyDayOrderUseModeAssistMaterial
 				.setSign(InfusionOrderUseMode.transportFluid);
 
-		onlyOneOrderUseModeAssistMaterial = new OrderUseModeAssistMaterial();
+		onlyOneOrderUseModeAssistMaterial = new DrugUseModeAssistMaterial();
 		onlyOneOrderUseModeAssistMaterial.setId("onlyOne");
 		onlyOneOrderUseModeAssistMaterial.setCode("onlyOne");
 		onlyOneOrderUseModeAssistMaterial
 				.setAssistMaterial(transportFluidAssistMaterial);
 		onlyOneOrderUseModeAssistMaterial.setOrderUseMode(infusionOrderUseMode);
 		onlyOneOrderUseModeAssistMaterial
-				.setChargeMode(OrderUseModeAssistMaterial.onlyOne);
+				.setChargeMode(DrugUseModeAssistMaterial.onlyOne);
 		onlyOneOrderUseModeAssistMaterial
 				.setSign(InfusionOrderUseMode.transportFluid);
 	}
@@ -1433,12 +1437,12 @@ public class AppTestService {
 	}
 
 	private void ready() {
-		this.choiceOrderUseModeAssistMaterial((OrderUseModeAssistMaterial) this.choices
+		this.choiceOrderUseModeAssistMaterial((DrugUseModeAssistMaterial) this.choices
 				.get(ChoiceItem.OrderUseModeAssistMaterial));
 	}
 
 	private void choiceOrderUseModeAssistMaterial(
-			OrderUseModeAssistMaterial orderUseModeAssistMaterial) {
+			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
 		pharmacyDomainService
 				.createOrderUseModeAssistMaterial(orderUseModeAssistMaterial);
 	}

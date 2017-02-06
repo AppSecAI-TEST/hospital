@@ -11,7 +11,7 @@ import com.neusoft.hs.domain.order.OrderExecuteTeam;
 
 @Entity
 @DiscriminatorValue("Infusion")
-public class InfusionOrderUseMode extends OrderUseMode {
+public class InfusionOrderUseMode extends DrugUseMode {
 
 	public static final String transportFluid = "transportFluid";
 
@@ -50,15 +50,15 @@ public class InfusionOrderUseMode extends OrderUseMode {
 		transportFluidExecute.setDrugType(drugType);
 
 		// 处理辅材产生的费用
-		OrderUseModeAssistMaterial orderUseModeAssistMaterial = this
+		DrugUseModeAssistMaterial orderUseModeAssistMaterial = this
 				.getTheOrderUseModeChargeItem(transportFluid);
 		if (orderUseModeAssistMaterial != null) {
 			if (orderUseModeAssistMaterial.getChargeMode().equals(
-					OrderUseModeAssistMaterial.everyOne)) {
+					DrugUseModeAssistMaterial.everyOne)) {
 				transportFluidExecute.addChargeItem(orderUseModeAssistMaterial
 						.getAssistMaterial().getChargeItem());
 			} else if (orderUseModeAssistMaterial.getChargeMode().equals(
-					OrderUseModeAssistMaterial.onlyOne)) {
+					DrugUseModeAssistMaterial.onlyOne)) {
 				if (order.getOrderExecutes().size() == 0) {
 					transportFluidExecute
 							.addChargeItem(orderUseModeAssistMaterial

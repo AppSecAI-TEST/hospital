@@ -52,7 +52,7 @@ public class DrugOrderType extends OrderType {
 			}
 
 			// 根据计算的药品类型找到合适的医嘱类型
-			order.setType(this.drugType.getDrugOrderType());
+			order.getTypeApp().setOrderType(this.drugType.getDrugOrderType());
 		}
 
 		// 临嘱预扣
@@ -68,7 +68,7 @@ public class DrugOrderType extends OrderType {
 
 	@Override
 	public void resolveOrder(Order order) throws OrderException {
-		order.resolve(this);
+
 	}
 
 	public DrugType getDrugType() {
