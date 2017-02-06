@@ -20,11 +20,11 @@ public abstract class OrderTypeApp extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_type_id")
-	protected OrderType orderType;
+	private OrderType orderType;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
-	protected Order order;
+	private Order order;
 
 	public OrderTypeApp() {
 		super();

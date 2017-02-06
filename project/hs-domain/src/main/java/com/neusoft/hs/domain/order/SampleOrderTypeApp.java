@@ -19,6 +19,6 @@ public class SampleOrderTypeApp extends OrderTypeApp {
 
 	@Override
 	public void resolveOrder() throws OrderException {
-		this.orderType.resolveOrder(this.order);
+		this.getOrderType().resolveOrder(this.getOrder());
 	}
 }
