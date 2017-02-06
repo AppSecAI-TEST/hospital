@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
 @DiscriminatorValue("Dept")

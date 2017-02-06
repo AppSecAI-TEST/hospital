@@ -28,7 +28,6 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 
 	public DrugOrderTypeApp() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public DrugOrderTypeApp(OrderType orderType, DrugUseMode drugUseMode) {
