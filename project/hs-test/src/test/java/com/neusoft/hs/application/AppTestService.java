@@ -227,83 +227,22 @@ public class AppTestService {
 	 */
 	public void execute() throws HsException {
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
+		this.intoWard();
 
-		// 创建测试患者
-		visit001 = new Visit();
-		visit001.setName("测试患者001");
-		visit001.setRespDept(dept000);
-		visit001.setRespDoctor(user002);
-		// 送诊
-		registerAppService.register(visit001, user111);
+		this.treatment();
+
+		this.outWard();
+
+	}
+
+	protected void treatment() throws HsException {
 
 		Pageable pageable;
-		List<Visit> visits;
 		List<OrderExecute> executes;
 		List<Order> orders;
 		int startedCount;
 		int resolveCount;
-		Visit visit;
 		Date sysDate;
-
-		pageable = new PageRequest(0, 15);
-		visits = cashierAppService.getNeedInitAccountVisits(pageable);
-
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
-		visit = visitDomainService.find(visit001.getId());
-
-		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10"));
-
-		// 预存费用
-		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
-
-		pageable = new PageRequest(0, 15);
-		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
-
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
-		visit = visitDomainService.find(visit001.getId());
-
-		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30"));
-
-		// 接诊
-		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
-		receiveVisitVO.setVisitId(visit001.getId());
-		receiveVisitVO.setBed("bed001");
-		receiveVisitVO.setNurseId(user003.getId());
-
-		inPatientAppService.receive(receiveVisitVO, user001);
-
-		pageable = new PageRequest(0, 15);
-		visits = inPatientAppService.InWardVisits(dept000, pageable);
-
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
-		visit = visitDomainService.find(visit001.getId());
-
-		assertTrue(visit.getState().equals(Visit.State_IntoWard));
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:50"));
-
-		// 开立二级护理长期医嘱
-		LongOrder secondNursingOrder = new LongOrder();
-		secondNursingOrder.setVisit(visit001);
-		secondNursingOrder.setName("二级护理");
-		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
-		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
-
-		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
-				secondNursingOrderType));
-
-		orderAppService.create(secondNursingOrder, user002);
 
 		// 开立药品临时医嘱
 		Order drug001Order = new TemporaryOrder();
@@ -797,6 +736,93 @@ public class AppTestService {
 		assertTrue(executes.size() == 1);
 
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+
+	}
+
+	protected void intoWard() throws HsException {
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
+
+		// 创建测试患者
+		visit001 = new Visit();
+		visit001.setName("测试患者001");
+		visit001.setRespDept(dept000);
+		visit001.setRespDoctor(user002);
+		// 送诊
+		registerAppService.register(visit001, user111);
+
+		Pageable pageable;
+		List<Visit> visits;
+		Visit visit;
+
+		pageable = new PageRequest(0, 15);
+		visits = cashierAppService.getNeedInitAccountVisits(pageable);
+
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+
+		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10"));
+
+		// 预存费用
+		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
+
+		pageable = new PageRequest(0, 15);
+		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
+
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+
+		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30"));
+
+		// 接诊
+		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
+		receiveVisitVO.setVisitId(visit001.getId());
+		receiveVisitVO.setBed("bed001");
+		receiveVisitVO.setNurseId(user003.getId());
+
+		inPatientAppService.receive(receiveVisitVO, user001);
+
+		pageable = new PageRequest(0, 15);
+		visits = inPatientAppService.InWardVisits(dept000, pageable);
+
+		assertTrue(visits.size() == 1);
+		assertTrue(visits.get(0).getId().equals(visit001.getId()));
+
+		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_IntoWard));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:50"));
+
+		// 开立二级护理长期医嘱
+		LongOrder secondNursingOrder = new LongOrder();
+		secondNursingOrder.setVisit(visit001);
+		secondNursingOrder.setName("二级护理");
+		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
+		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
+
+		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
+				secondNursingOrderType));
+
+		orderAppService.create(secondNursingOrder, user002);
+	}
+
+	private void outWard() throws HsException {
+
+		Pageable pageable;
+		List<OrderExecute> executes;
+		List<Order> orders;
+		int startedCount;
+		int resolveCount;
+		Visit visit;
 
 		// 2017-01-07
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-07"));

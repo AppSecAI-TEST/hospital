@@ -78,7 +78,15 @@ public abstract class OrderType extends SuperEntity {
 	 * @throws OrderException
 	 */
 	protected void verify(Order order) throws OrderException {
+	}
 
+	/**
+	 * 医嘱删除后的回调函数
+	 * 
+	 * @param order
+	 * @throws OrderException
+	 */
+	public void delete(Order order) throws OrderException {
 	}
 
 	public String getId() {

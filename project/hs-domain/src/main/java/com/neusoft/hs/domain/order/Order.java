@@ -182,6 +182,22 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.state = State_Canceled;
 	}
 
+	public void delete() throws OrderException {
+		if (!this.state.equals(State_Created)) {
+			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
+					+ this.state + "],不能删除");
+		}
+		
+		this.typeApp.delete(this);
+		
+		this.getService(OrderRepo.class).delete(this);
+	}
+
+	/**
+	 * 执行条目执行完成后，更新医嘱条目状态
+	 * 
+	 * @param orderExecute
+	 */
 	public abstract void updateState(OrderExecute orderExecute);
 
 	/**

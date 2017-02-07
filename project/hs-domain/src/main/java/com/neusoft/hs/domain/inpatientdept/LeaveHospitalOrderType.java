@@ -1,7 +1,5 @@
 package com.neusoft.hs.domain.inpatientdept;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

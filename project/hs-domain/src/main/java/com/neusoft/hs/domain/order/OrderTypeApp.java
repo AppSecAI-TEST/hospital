@@ -50,6 +50,10 @@ public abstract class OrderTypeApp extends IdEntity {
 	public void verify() throws OrderException {
 		orderType.verify(order);
 	}
+	
+	public void delete(Order order) throws OrderException{
+		orderType.delete(order);
+	}
 
 	public OrderType getOrderType() {
 		return orderType;
@@ -66,5 +70,4 @@ public abstract class OrderTypeApp extends IdEntity {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-
 }
