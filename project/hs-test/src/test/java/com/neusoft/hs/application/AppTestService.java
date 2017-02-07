@@ -910,7 +910,7 @@ public class AppTestService {
 		// 清空医嘱用法
 		pharmacyDomainService.clearOrderUseModes();
 		// 清空医嘱类型
-		orderDomainService.clearOrderTypes();
+		orderDomainService.clearOrders();
 		// 清空组合医嘱
 		orderDomainService.clearCompsiteOrdes();
 		// 清空频次类型

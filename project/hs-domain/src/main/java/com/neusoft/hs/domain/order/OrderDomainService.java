@@ -29,7 +29,8 @@ public class OrderDomainService {
 	@Autowired
 	private OrderTypeRepo orderTypeRepo;
 
-
+	@Autowired
+	private OrderTypeAppRepo orderTypeAppRepo;
 
 	@Autowired
 	private CompsiteOrderRepo compsiteOrderRepo;
@@ -161,8 +162,16 @@ public class OrderDomainService {
 		orderFrequencyTypeRepo.save(orderFrequencyTypes);
 	}
 
+	public void clearOrders() {
+		orderRepo.deleteAll();
+	}
+
 	public void clearOrderTypes() {
 		orderTypeRepo.deleteAll();
+	}
+
+	public void clearOrderTypeApps() {
+		orderTypeAppRepo.deleteAll();
 	}
 
 	public void clearCompsiteOrdes() {
