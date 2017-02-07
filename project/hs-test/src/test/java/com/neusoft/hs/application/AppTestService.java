@@ -869,11 +869,6 @@ public class AppTestService {
 		// 核对医嘱
 		orderAppService.verify(leaveHospitalOrder.getId(), user003);
 
-		// 采用API启动符合条件的执行条目
-		startedCount = orderExecuteAppService.start();
-
-		assertTrue(startedCount == 0);
-
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
