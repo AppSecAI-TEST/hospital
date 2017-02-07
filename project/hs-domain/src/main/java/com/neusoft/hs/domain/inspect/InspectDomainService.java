@@ -39,7 +39,7 @@ public class InspectDomainService {
 	@Autowired
 	private ApplicationContext applicationContext;
 
-	public void arrange(String executeId, Date planExecuteDate)
+	public void arrange(String executeId, Date planExecuteDate, AbstractUser user)
 			throws InspectException {
 		OrderExecute orderExecute = orderExecuteDomainService.find(executeId);
 		if (orderExecute == null) {

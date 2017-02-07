@@ -670,9 +670,7 @@ public class AppTestService {
 
 		// 安排检查时间
 		inspectAppService.arrange(executes.get(0).getId(),
-				DateUtil.createMinute("2017-01-02 14:00"));
-
-		orderExecuteAppService.finish(executes.get(0).getId(), user555);
+				DateUtil.createMinute("2017-01-02 14:00"), user555);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 10:30"));
 
@@ -684,9 +682,7 @@ public class AppTestService {
 
 		// 安排检查时间
 		inspectAppService.arrange(executes.get(0).getId(),
-				DateUtil.createMinute("2017-01-03 14:00"));
-
-		orderExecuteAppService.finish(executes.get(0).getId(), user777);
+				DateUtil.createMinute("2017-01-03 14:00"), user777);
 
 		// 2017-01-02
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-02"));
@@ -714,8 +710,6 @@ public class AppTestService {
 		Map<InspectApplyItem, String> CTResults = new HashMap<InspectApplyItem, String>();
 		CTResults.put(brainCTInspectApplyItem, "没啥问题");
 		inspectAppService.confirm(executes.get(0).getId(), CTResults, user666);
-
-		orderExecuteAppService.finish(executes.get(0).getId(), user666);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 15:00"));
 
@@ -753,8 +747,6 @@ public class AppTestService {
 			HCResults.put(brainHCInspectApplyItem, "没啥问题");
 			inspectAppService.confirm(executes.get(0).getId(), HCResults,
 					user888);
-
-			orderExecuteAppService.finish(executes.get(0).getId(), user888);
 
 			DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 16:00"));
 
