@@ -243,6 +243,8 @@ public class AppTestService {
 		int startedCount;
 		int resolveCount;
 		Date sysDate;
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:55"));
 
 		// 开立药品临时医嘱
 		Order drug001Order = new TemporaryOrder();
@@ -262,7 +264,7 @@ public class AppTestService {
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
-		assertTrue(orders.size() == 2);
+		assertTrue(orders.size() == 1);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
 
@@ -754,6 +756,7 @@ public class AppTestService {
 		Pageable pageable;
 		List<Visit> visits;
 		Visit visit;
+		List<Order> orders;
 
 		pageable = new PageRequest(0, 15);
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
@@ -800,7 +803,7 @@ public class AppTestService {
 
 		assertTrue(visit.getState().equals(Visit.State_IntoWard));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:50"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40"));
 
 		// 开立二级护理长期医嘱
 		LongOrder secondNursingOrder = new LongOrder();
@@ -813,6 +816,18 @@ public class AppTestService {
 				secondNursingOrderType));
 
 		orderAppService.create(secondNursingOrder, user002);
+		
+		pageable = new PageRequest(0, 15);
+		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
+
+		assertTrue(orders.size() == 1);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:45"));
+
+		// 核对医嘱
+		for (Order order : orders) {
+			orderAppService.verify(order.getId(), user003);
+		}
 	}
 
 	private void outWard() throws HsException {
