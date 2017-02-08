@@ -83,4 +83,8 @@ public abstract class Apply extends IdEntity {
 		this.getService(ApplyRepo.class).save(this);
 	}
 
+	public void delete() {
+		this.getService(ApplyRepo.class).delete(this);
+	}
+
 }

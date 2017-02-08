@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
@@ -22,8 +23,7 @@ public abstract class OrderTypeApp extends IdEntity {
 	@JoinColumn(name = "order_type_id")
 	private OrderType orderType;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_id")
+	@OneToOne(mappedBy = "typeApp", cascade = { CascadeType.ALL })
 	private Order order;
 
 	public OrderTypeApp() {
@@ -50,14 +50,9 @@ public abstract class OrderTypeApp extends IdEntity {
 	public void verify() throws OrderException {
 		orderType.verify(order);
 	}
-	
-	public void delete(Order order) throws OrderException{
-		orderType.delete(order);
-		
-		this.delete();
-	}
 
-	private void delete() {
+	public void delete() throws OrderException {
+		orderType.delete(order);
 		this.getService(OrderTypeAppRepo.class).delete(this);
 	}
 
@@ -75,5 +70,9 @@ public abstract class OrderTypeApp extends IdEntity {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public void save() {
+		this.getService(OrderTypeAppRepo.class).save(this);
 	}
 }

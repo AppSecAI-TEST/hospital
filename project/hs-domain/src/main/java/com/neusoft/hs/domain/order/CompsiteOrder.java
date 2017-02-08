@@ -14,7 +14,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Table(name = "domain_order_team")
 public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 
-	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.REMOVE })
 	private List<Order> orders;
 
 	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.ALL })
@@ -49,6 +49,11 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 
 	@Override
 	public void save() {
+
 		this.getService(CompsiteOrderRepo.class).save(this);
+
+		for (Order order : this.orders) {
+			order.save();
+		}
 	}
 }

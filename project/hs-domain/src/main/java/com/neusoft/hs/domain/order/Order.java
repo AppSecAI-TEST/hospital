@@ -53,7 +53,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	private Integer count;
 
-	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "type_app_id")
 	private OrderTypeApp typeApp;
 
 	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
@@ -188,7 +189,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 					+ this.state + "],不能删除");
 		}
 
-		this.typeApp.delete(this);
+		if (this.apply != null) {
+			this.apply.delete();
+		}
+
+		this.getService(OrderRepo.class).delete(this);
 	}
 
 	/**
@@ -202,6 +207,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * @roseuid 584F5C1E019C
 	 */
 	public void save() {
+
+		typeApp.save();
+
 		this.getService(OrderRepo.class).save(this);
 	}
 
