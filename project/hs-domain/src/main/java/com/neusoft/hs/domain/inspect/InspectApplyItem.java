@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.neusoft.hs.domain.organization.InspectDept;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity

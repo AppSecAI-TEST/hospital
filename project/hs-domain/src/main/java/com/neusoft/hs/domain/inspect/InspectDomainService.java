@@ -17,7 +17,6 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.organization.InspectDept;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service

@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.organization;
+package com.neusoft.hs.domain.inspect;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import com.neusoft.hs.domain.inspect.InspectResult;
+import com.neusoft.hs.domain.organization.Dept;
 
 @Entity
 @DiscriminatorValue("InspectDept")
