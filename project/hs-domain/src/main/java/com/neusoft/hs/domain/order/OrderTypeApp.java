@@ -53,6 +53,12 @@ public abstract class OrderTypeApp extends IdEntity {
 	
 	public void delete(Order order) throws OrderException{
 		orderType.delete(order);
+		
+		this.delete();
+	}
+
+	private void delete() {
+		this.getService(OrderTypeAppRepo.class).delete(this);
 	}
 
 	public OrderType getOrderType() {

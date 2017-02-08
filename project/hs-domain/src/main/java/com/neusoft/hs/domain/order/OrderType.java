@@ -87,6 +87,7 @@ public abstract class OrderType extends SuperEntity {
 	 * @throws OrderException
 	 */
 	public void delete(Order order) throws OrderException {
+	
 	}
 
 	public String getId() {

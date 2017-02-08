@@ -12,10 +12,10 @@ import com.neusoft.hs.platform.exception.HsException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-public class AppWithListenerTest {
+public class AppDeleteOrderWithListenerTest {
 
 	@Autowired
-	@Qualifier(value = "appMainTestService")
+	@Qualifier(value = "appDeleteOrderTestService")
 	private AppTestService appTestService;
 
 	@Before

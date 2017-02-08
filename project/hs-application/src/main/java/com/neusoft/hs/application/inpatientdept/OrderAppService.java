@@ -70,6 +70,10 @@ public class OrderAppService {
 		orderDomainService.cancel(orderId, doctor);
 	}
 
+	public void delete(String orderId, Doctor doctor) throws OrderException {
+		orderDomainService.delete(orderId, doctor);
+	}
+
 	/**
 	 * @roseuid 5850EE16024D
 	 */
@@ -84,4 +88,5 @@ public class OrderAppService {
 		return orderExecuteDomainService.getNeedSendOrderExecutes(nurse, date,
 				pageable);
 	}
+
 }

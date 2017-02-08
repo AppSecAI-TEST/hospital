@@ -138,6 +138,16 @@ public class OrderDomainService {
 		applicationContext.publishEvent(new OrderCanceledEvent(order));
 
 	}
+	
+	public void delete(String orderId, Doctor doctor) throws OrderException{
+		Order order = orderRepo.findOne(orderId);
+		if (order == null) {
+			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+		}
+		order.delete();
+		
+		applicationContext.publishEvent(new OrderDeletedEvent(order));
+	}
 
 	/**
 	 * @roseuid 585250700266

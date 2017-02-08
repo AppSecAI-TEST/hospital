@@ -187,10 +187,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
 					+ this.state + "],不能删除");
 		}
-		
+
 		this.typeApp.delete(this);
-		
-		this.getService(OrderRepo.class).delete(this);
 	}
 
 	/**
