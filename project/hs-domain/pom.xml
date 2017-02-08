@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-platform</artifactId>
+			<artifactId>hs-entity</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
