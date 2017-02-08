@@ -3,6 +3,8 @@
 1、数据模型: 调整医嘱条目（Order）和医嘱类型应用（OrderTypeApp）一对一关系的方向（由OrderTypeApp2Order变为Order2OrderTypeApp）
 2、实现模型：编写删除医嘱条目场景（以药品临嘱为例，涉及到预扣和恢复预扣）
 3、文档：向文档增加删除药品临嘱时序图
+4、实现模型：调整工程整体结构，从domain中分离出围绕医嘱执行的entity，创建hs-entity（采用黑盒复用）
+5、设计模型：更新组件关系图
 
 
 
