@@ -47,6 +47,7 @@
 		<module>hs-listener</module>
 		<module>hs-portal-thymeleaf</module>
     	<module>hs-portal-swing</module>
+    <module>hs-entity</module>
   </modules>
 
 	<build>
