@@ -28,13 +28,13 @@ public class Doctor extends AbstractUser {
 	@JoinColumn(name = "superior_id")
 	private Doctor superior;
 
-	@OneToMany(mappedBy = "superior", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "superior", cascade = { CascadeType.REFRESH })
 	private List<Doctor> subordinates;
 
-	@OneToMany(mappedBy = "respDoctor", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "respDoctor", cascade = { CascadeType.REFRESH })
 	private List<Visit> visits;
 
-	@OneToMany(mappedBy = "creator", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "creator", cascade = { CascadeType.REFRESH })
 	@OrderBy("createDate DESC")
 	private List<Order> orders;
 

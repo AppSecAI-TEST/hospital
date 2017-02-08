@@ -17,19 +17,19 @@ import com.neusoft.hs.domain.visit.Visit;
 @DiscriminatorValue("InPatientDept")
 public class InPatientDept extends Dept {
 
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
 	private List<Nurse> nurses;
 
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
 	private List<Doctor> doctors;
 
-	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
 	private List<Order> orders;
 
-	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
 	private List<OrderExecute> orderExecutes;
 
-	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.REFRESH })
 	private List<Visit> visits;
 
 	public InPatientDept() {

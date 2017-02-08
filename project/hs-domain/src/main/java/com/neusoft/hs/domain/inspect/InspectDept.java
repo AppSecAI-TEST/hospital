@@ -13,7 +13,7 @@ import com.neusoft.hs.domain.organization.Dept;
 @DiscriminatorValue("InspectDept")
 public class InspectDept extends Dept {
 
-	@OneToMany(mappedBy = "inspectDept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "inspectDept", cascade = { CascadeType.DETACH })
 	private List<InspectResult> inspectResults;
 
 	public List<InspectResult> getInspectResults() {

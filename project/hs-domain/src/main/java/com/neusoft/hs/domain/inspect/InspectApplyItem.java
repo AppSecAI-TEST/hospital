@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
@@ -26,6 +27,10 @@ public class InspectApplyItem extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "inspect_item_id")
 	private InspectItem inspectItem;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "arrange_dept_id")
+	private Dept arrangeDept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "inspect_dept_id")
@@ -71,6 +76,14 @@ public class InspectApplyItem extends IdEntity {
 
 	public void setInspectItem(InspectItem inspectItem) {
 		this.inspectItem = inspectItem;
+	}
+
+	public Dept getArrangeDept() {
+		return arrangeDept;
+	}
+
+	public void setArrangeDept(Dept arrangeDept) {
+		this.arrangeDept = arrangeDept;
 	}
 
 	public InspectDept getInspectDept() {

@@ -430,12 +430,14 @@ public class AppMainTestService extends AppTestService {
 
 		InspectApplyItem brainCTInspectApplyItem = new InspectApplyItem();
 		brainCTInspectApplyItem.setInspectItem(brainCTInspectItem);
+		brainCTInspectApplyItem.setArrangeDept(dept444);
 		brainCTInspectApplyItem.setInspectDept(dept444);
 
 		inspectApply.addInspectApplyItem(brainCTInspectApplyItem);
 
 		InspectApplyItem brainHCInspectApplyItem = new InspectApplyItem();
 		brainHCInspectApplyItem.setInspectItem(brainHCInspectItem);
+		brainHCInspectApplyItem.setArrangeDept(dept555);
 		brainHCInspectApplyItem.setInspectDept(dept555);
 
 		inspectApply.addInspectApplyItem(brainHCInspectApplyItem);

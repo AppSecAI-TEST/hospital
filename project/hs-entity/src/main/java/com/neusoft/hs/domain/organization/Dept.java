@@ -17,13 +17,13 @@ import com.neusoft.hs.domain.order.OrderExecute;
 @DiscriminatorValue("Dept")
 public class Dept extends Unit {
 
-	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.REFRESH })
 	private List<Order> orders;
 
-	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.REFRESH })
 	private List<OrderExecute> orderExecutes;
 
-	@OneToMany(mappedBy = "chargeDept", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "chargeDept", cascade = { CascadeType.REFRESH })
 	private List<ChargeRecord> chargeRecords;
 
 	public Dept() {

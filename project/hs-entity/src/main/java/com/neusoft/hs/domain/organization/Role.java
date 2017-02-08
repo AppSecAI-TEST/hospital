@@ -26,7 +26,7 @@ public class Role extends IdEntity {
 	@OneToMany(mappedBy = "role", cascade = { CascadeType.ALL })
 	private List<UserRole> userRoles;
 
-	@OneToMany(mappedBy = "executeRole", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "executeRole", cascade = { CascadeType.REFRESH })
 	private List<OrderExecute> theOrderExecutes;
 
 	public String getName() {

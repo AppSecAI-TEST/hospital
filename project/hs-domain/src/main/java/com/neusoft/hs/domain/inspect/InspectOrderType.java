@@ -31,7 +31,7 @@ public class InspectOrderType extends OrderType {
 			arrange.setPlanStartDate(order.getPlanStartDate());
 			arrange.setPlanEndDate(order.getPlanStartDate());
 
-			arrange.setExecuteDept(inspectApplyItem.getInspectDept());
+			arrange.setExecuteDept(inspectApplyItem.getArrangeDept());
 			arrange.setState(OrderExecute.State_NeedSend);
 			arrange.setChargeState(OrderExecute.ChargeState_NoCharge);
 			arrange.setCostState(OrderExecute.CostState_NoCost);

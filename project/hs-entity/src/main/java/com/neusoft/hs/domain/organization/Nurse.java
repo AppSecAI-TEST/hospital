@@ -22,7 +22,7 @@ public class Nurse extends AbstractUser {
 	@JoinColumn(name = "dept_id")
 	private InPatientDept dept;
 
-	@OneToMany(mappedBy = "respNurse", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "respNurse", cascade = { CascadeType.REFRESH })
 	private List<Visit> visits;
 
 	public Nurse() {
