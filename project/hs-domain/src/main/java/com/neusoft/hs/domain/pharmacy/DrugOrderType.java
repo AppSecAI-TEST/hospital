@@ -67,6 +67,18 @@ public class DrugOrderType extends OrderType {
 	}
 
 	@Override
+	public void delete(Order order) throws OrderException {
+		// 解除临嘱预扣
+		if (order instanceof TemporaryOrder) {
+			try {
+				this.drugType.unWithhold(order.getCount());
+			} catch (HsException e) {
+				throw new OrderException(order, e);
+			}
+		}
+	}
+
+	@Override
 	public void resolveOrder(Order order) throws OrderException {
 
 	}
