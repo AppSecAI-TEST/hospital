@@ -192,6 +192,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		if (this.apply != null) {
 			this.apply.delete();
 		}
+		
+		this.typeApp.delete();
 
 		this.getService(OrderRepo.class).delete(this);
 	}

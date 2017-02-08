@@ -84,6 +84,32 @@ public class AppMainTestService extends AppTestService {
 		int startedCount;
 		int resolveCount;
 		Date sysDate;
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40"));
+
+		// 开立二级护理长期医嘱
+		LongOrder secondNursingOrder = new LongOrder();
+		secondNursingOrder.setVisit(visit001);
+		secondNursingOrder.setName("二级护理");
+		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
+		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
+
+		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
+				secondNursingOrderType));
+
+		orderAppService.create(secondNursingOrder, user002);
+
+		pageable = new PageRequest(0, 15);
+		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
+
+		assertTrue(orders.size() == 1);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:45"));
+
+		// 核对医嘱
+		for (Order order : orders) {
+			orderAppService.verify(order.getId(), user003);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:55"));
 

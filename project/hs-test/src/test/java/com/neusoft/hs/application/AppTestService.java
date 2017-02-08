@@ -293,32 +293,6 @@ public abstract class AppTestService {
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_IntoWard));
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40"));
-
-		// 开立二级护理长期医嘱
-		LongOrder secondNursingOrder = new LongOrder();
-		secondNursingOrder.setVisit(visit001);
-		secondNursingOrder.setName("二级护理");
-		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
-		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
-
-		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
-				secondNursingOrderType));
-
-		orderAppService.create(secondNursingOrder, user002);
-
-		pageable = new PageRequest(0, 15);
-		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
-
-		assertTrue(orders.size() == 1);
-
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:45"));
-
-		// 核对医嘱
-		for (Order order : orders) {
-			orderAppService.verify(order.getId(), user003);
-		}
 	}
 
 	private void outWard() throws HsException {
@@ -364,9 +338,10 @@ public abstract class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
-
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		// 完成医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user003);
+		}
 
 		// 2017-01-08
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-08"));
@@ -379,9 +354,10 @@ public abstract class AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
-
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		// 完成医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user003);
+		}
 
 		// 2017-01-09
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-09"));

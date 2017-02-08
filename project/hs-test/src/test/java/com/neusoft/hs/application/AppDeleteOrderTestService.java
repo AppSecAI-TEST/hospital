@@ -115,7 +115,5 @@ public class AppDeleteOrderTestService extends AppTestService {
 //		for (Order order : orders) {
 //			orderAppService.verify(order.getId(), user003);
 //		}
-
 	}
-
 }
