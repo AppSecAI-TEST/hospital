@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.platform.exception.HsException;
@@ -79,6 +80,11 @@ public class VisitDomainService {
 		}
 
 		visit.intoWard(receiveVisitVO, user);
+		
+		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
+		medicalRecordClip.setVisit(visit);
+		medicalRecordClip.setState(MedicalRecordClip.State_Normal);
+		medicalRecordClip.save();
 
 		applicationContext.publishEvent(new VisitIntoWardedEvent(visit));
 

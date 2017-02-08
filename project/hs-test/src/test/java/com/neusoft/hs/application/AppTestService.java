@@ -28,8 +28,8 @@ import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
 import com.neusoft.hs.domain.inspect.InspectOrderType;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.order.AssistMaterial;
-import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -108,6 +108,9 @@ public abstract class AppTestService {
 
 	@Autowired
 	protected OrderDomainService orderDomainService;
+
+	@Autowired
+	protected MedicalRecordDomainService medicalRecordDomainService;
 
 	@Autowired
 	protected OrderUtil orderUtil;
@@ -418,6 +421,8 @@ public abstract class AppTestService {
 		inspectDomainService.clearInspectItems();
 		// 清空计费项目
 		costDomainService.clearChargeItems();
+		// 清空病历
+		medicalRecordDomainService.clear();
 		// 清空患者一次住院
 		visitDomainService.clear();
 		// 清空成本记录

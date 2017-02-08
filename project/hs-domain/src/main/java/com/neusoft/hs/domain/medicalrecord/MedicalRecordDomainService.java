@@ -2,23 +2,19 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class MedicalRecordDomainService 
-{
-   
-   /**
-    * @roseuid 58573EC703C8
-    */
-   public MedicalRecordDomainService() 
-   {
-    
-   }
-   
-   /**
-    * @roseuid 584E167A0000
-    */
-   public void initMedicalRecordClip() 
-   {
-    
-   }
+@Service
+public class MedicalRecordDomainService {
+
+	@Autowired
+	private MedicalRecordClipRepo medicalRecordClipRepo;
+
+	/**
+	 * @roseuid 584E167A0000
+	 */
+	public void clear() {
+		medicalRecordClipRepo.deleteAll();
+	}
 }
