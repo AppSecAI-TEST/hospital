@@ -128,6 +128,7 @@ public class RegisterController extends AbstractFrameController {
 				closeModalWindow();
 			} catch (HsException e) {
 				e.printStackTrace();
+				Notifications.showFormValidationAlert(e.getMessage());
 			}
 		}
 	}

@@ -29,9 +29,9 @@ public interface ConstMessagesEN {
         String RESERVATIONS = "Reservations";
         String ADDRESSES = "Addresses";
         String ADD_BTN = "Add";
-        String CANCEL_BTN = "Cancel";
+        
         String REMOVE_BTN = "Remove";
-        String NAME = "Name";
+        
         String SURNAME = "Surname";
         String PESEL = "Pesel";
         String PHONE_NUMBER = "Phone number";
@@ -78,9 +78,16 @@ public interface ConstMessagesEN {
         String NUMBER_OF_RESERVATIONS = "Number of reservations";
         String CLIENT_RESERVATIONS = "Client's reservations";
         
-        String REGISTERS = "接诊";
+        
+        String Login_Btn = "登陆";
+        String CANCEL_BTN = "取消";
+        
+        String Login = "登陆";
+        String Register = "接诊";
         String InPatientDept = "住院科室";
         String RespDoctor = "责任医生";
+        String NAME = "名称";
+        String Account = "账号";
     }
 
     interface ValidationMessages {

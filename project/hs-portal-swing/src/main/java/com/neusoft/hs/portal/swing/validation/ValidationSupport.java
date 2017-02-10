@@ -6,7 +6,7 @@ public abstract class ValidationSupport {
 		return value == null || value.length() == 0;
 	}
 
-	boolean isNullValue(Object value) {
+	protected boolean isNullValue(Object value) {
 		return value == null;
 	}
 

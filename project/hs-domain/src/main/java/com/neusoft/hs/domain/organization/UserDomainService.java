@@ -16,8 +16,11 @@ public class UserDomainService {
 	public void create(List<AbstractUser> users) {
 		userRepo.save(users);
 	}
-	
-	
+
+	public AbstractUser findTheUserByAccount(String account) {
+		return userRepo.findOne(account);
+	}
+
 	public List<Doctor> findAllDoctor() {
 		return userRepo.findDoctor();
 	}

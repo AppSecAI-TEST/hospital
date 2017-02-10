@@ -30,7 +30,7 @@ public class ReportsFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		registerReportBtn = new JButton(ConstMessagesEN.Labels.REGISTERS);
+		registerReportBtn = new JButton(ConstMessagesEN.Labels.Register);
 
 		add(registerReportBtn);
 	}

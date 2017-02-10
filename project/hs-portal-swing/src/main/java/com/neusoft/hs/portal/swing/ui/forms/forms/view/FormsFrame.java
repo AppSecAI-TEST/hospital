@@ -11,6 +11,8 @@ import java.awt.*;
 @Component
 public class FormsFrame extends JFrame {
 
+	private JButton loginBtn;
+
 	private JButton registerBtn;
 
 	public FormsFrame() {
@@ -30,13 +32,19 @@ public class FormsFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		registerBtn = new JButton(ConstMessagesEN.Labels.REGISTERS);
+		loginBtn = new JButton(ConstMessagesEN.Labels.Login);
+		registerBtn = new JButton(ConstMessagesEN.Labels.Register);
 
+		add(loginBtn);
 		add(registerBtn);
 	}
 
 	public JButton getRegisterBtn() {
 		return registerBtn;
+	}
+
+	public JButton getLoginBtn() {
+		return loginBtn;
 	}
 
 }
