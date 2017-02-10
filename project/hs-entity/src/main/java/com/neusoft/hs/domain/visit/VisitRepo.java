@@ -16,4 +16,5 @@ interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 	List<Visit> findByStateAndRespDept(String state, Dept dept,
 			Pageable pageable);
 
+	List<Visit> findByRespDept(Dept dept, Pageable pageable);
 }

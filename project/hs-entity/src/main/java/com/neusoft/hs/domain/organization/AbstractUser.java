@@ -45,4 +45,9 @@ public abstract class AbstractUser extends SuperEntity implements User {
 
 	public abstract void setDept(Dept dept);
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

@@ -71,4 +71,10 @@ public abstract class Unit extends SuperEntity {
 	public void setChildren(List<Unit> children) {
 		this.children = children;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

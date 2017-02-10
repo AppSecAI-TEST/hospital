@@ -2,7 +2,10 @@
 
 package com.neusoft.hs.application.register;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,5 +25,14 @@ public class RegisterAppService {
 	 */
 	public Visit register(Visit visit, AbstractUser user) {
 		return visitDomainService.create(visit, user);
+	}
+
+	public List<Visit> listVisit(Pageable pageable) {
+		return visitDomainService.listVisit(pageable);
+	}
+
+	public List<RegisterCount> getRegisterCount() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

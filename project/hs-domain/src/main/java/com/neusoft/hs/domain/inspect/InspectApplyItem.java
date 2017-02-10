@@ -36,6 +36,9 @@ public class InspectApplyItem extends IdEntity {
 	@JoinColumn(name = "inspect_dept_id")
 	private InspectDept inspectDept;
 
+	@Column(name = "inspect_place", length = 64)
+	private String inspectPlace;
+
 	@Column(name = "plan_execute_date")
 	private Date planExecuteDate;
 
@@ -92,6 +95,14 @@ public class InspectApplyItem extends IdEntity {
 
 	public void setInspectDept(InspectDept inspectDept) {
 		this.inspectDept = inspectDept;
+	}
+
+	public String getInspectPlace() {
+		return inspectPlace;
+	}
+
+	public void setInspectPlace(String inspectPlace) {
+		this.inspectPlace = inspectPlace;
 	}
 
 	public Date getPlanExecuteDate() {

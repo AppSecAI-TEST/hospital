@@ -21,4 +21,8 @@ public class OrganizationDomainService {
 		unitRepo.deleteAll();
 	}
 
+	public List<InPatientDept> findAllInPatientDept() {
+		return unitRepo.findInPatientDept();
+	}
+
 }

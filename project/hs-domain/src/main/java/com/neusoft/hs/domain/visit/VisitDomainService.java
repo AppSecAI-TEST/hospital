@@ -80,7 +80,7 @@ public class VisitDomainService {
 		}
 
 		visit.intoWard(receiveVisitVO, user);
-		
+
 		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
 		medicalRecordClip.setVisit(visit);
 		medicalRecordClip.setState(MedicalRecordClip.State_Normal);
@@ -99,5 +99,13 @@ public class VisitDomainService {
 
 	public void clear() {
 		visitRepo.deleteAll();
+	}
+
+	public List<Visit> listVisit(Dept respDept, Pageable pageable) {
+		return visitRepo.findByRespDept(respDept, pageable);
+	}
+
+	public List<Visit> listVisit(Pageable pageable) {
+		return visitRepo.findAll(pageable).getContent();
 	}
 }
