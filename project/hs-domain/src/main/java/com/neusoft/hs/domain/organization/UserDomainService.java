@@ -16,6 +16,11 @@ public class UserDomainService {
 	public void create(List<AbstractUser> users) {
 		userRepo.save(users);
 	}
+	
+	
+	public List<Doctor> findAllDoctor() {
+		return userRepo.findDoctor();
+	}
 
 	public void clear() {
 		userRepo.deleteAll();

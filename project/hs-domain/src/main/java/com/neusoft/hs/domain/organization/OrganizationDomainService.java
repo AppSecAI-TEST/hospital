@@ -12,6 +12,8 @@ public class OrganizationDomainService {
 
 	@Autowired
 	private UnitRepo unitRepo;
+	
+	@Autowired
 
 	public void create(List<Unit> units) {
 		unitRepo.save(units);
@@ -24,5 +26,4 @@ public class OrganizationDomainService {
 	public List<InPatientDept> findAllInPatientDept() {
 		return unitRepo.findInPatientDept();
 	}
-
 }

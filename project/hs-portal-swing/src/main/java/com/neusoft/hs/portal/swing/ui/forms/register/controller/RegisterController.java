@@ -12,11 +12,14 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
+import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.OrganizationDomainService;
+import com.neusoft.hs.domain.organization.UserDomainService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.security.UserUtil;
+import com.neusoft.hs.portal.swing.ui.forms.register.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.VisitTableModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.view.VisitTableBtnPanel;
@@ -35,10 +38,12 @@ public class RegisterController extends AbstractFrameController {
 	private VisitTableFrame tableFrame;
 	private AddVisitFrame addFrame;
 	private VisitTableModel tableModel;
-	private InPatientDeptComboBoxModel deptComboBoxModel;
+	private InPatientDeptComboBoxModel inPatientDeptComboBoxModel;
+	private DoctorComboBoxModel doctorComboBoxModel;
 	private InPatientAppService inPatientAppService;
 	private RegisterAppService registerAppService;
 	private OrganizationDomainService organizationDomainService;
+	private UserDomainService userDomainService;
 	private VisitValidator validator;
 
 	@Autowired
@@ -47,13 +52,14 @@ public class RegisterController extends AbstractFrameController {
 			InPatientAppService inPatientAppService,
 			RegisterAppService registerAppService,
 			OrganizationDomainService organizationDomainService,
-			VisitValidator validator) {
+			UserDomainService userDomainService, VisitValidator validator) {
 		this.tableFrame = tableFrame;
 		this.addFrame = addFrame;
 		this.tableModel = tableModel;
 		this.inPatientAppService = inPatientAppService;
 		this.registerAppService = registerAppService;
 		this.organizationDomainService = organizationDomainService;
+		this.userDomainService = userDomainService;
 		this.validator = validator;
 	}
 
@@ -70,6 +76,8 @@ public class RegisterController extends AbstractFrameController {
 	@Override
 	public void prepareAndOpenFrame() {
 		loadEntities();
+		loadInPatientDepts();
+		loadDoctors();
 		showTableFrame();
 	}
 
@@ -80,10 +88,17 @@ public class RegisterController extends AbstractFrameController {
 		tableModel.addEntities(entities);
 	}
 
-	private void loadAddresses() {
-		List<InPatientDept> depts = organizationDomainService.findAllInPatientDept();
-		deptComboBoxModel.clear();
-		deptComboBoxModel.addElements(depts);
+	private void loadInPatientDepts() {
+		List<InPatientDept> depts = organizationDomainService
+				.findAllInPatientDept();
+		inPatientDeptComboBoxModel.clear();
+		inPatientDeptComboBoxModel.addElements(depts);
+	}
+
+	private void loadDoctors() {
+		List<Doctor> doctors = this.userDomainService.findAllDoctor();
+		doctorComboBoxModel.clear();
+		doctorComboBoxModel.addElements(doctors);
 	}
 
 	private void showTableFrame() {
