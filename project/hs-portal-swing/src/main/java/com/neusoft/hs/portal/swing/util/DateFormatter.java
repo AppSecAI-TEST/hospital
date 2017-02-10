@@ -5,9 +5,13 @@ import java.util.Date;
 
 public class DateFormatter {
 
-    public static String formatDate(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        return formatter.format(date);
-    }
+	public static String formatDate(Date date) {
+		if (date == null) {
+			return null;
+		} else {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			return formatter.format(date);
+		}
+	}
 
 }
