@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
@@ -52,6 +53,8 @@ public class RegisterController extends AbstractFrameController {
 			InPatientAppService inPatientAppService,
 			RegisterAppService registerAppService,
 			OrganizationDomainService organizationDomainService,
+			InPatientDeptComboBoxModel inPatientDeptComboBoxModel,
+			DoctorComboBoxModel doctorComboBoxModel,
 			UserDomainService userDomainService, VisitValidator validator) {
 		this.tableFrame = tableFrame;
 		this.addFrame = addFrame;
@@ -60,6 +63,8 @@ public class RegisterController extends AbstractFrameController {
 		this.registerAppService = registerAppService;
 		this.organizationDomainService = organizationDomainService;
 		this.userDomainService = userDomainService;
+		this.inPatientDeptComboBoxModel = inPatientDeptComboBoxModel;
+		this.doctorComboBoxModel = doctorComboBoxModel;
 		this.validator = validator;
 	}
 

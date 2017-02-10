@@ -24,10 +24,10 @@ public class InPatientDept extends Dept {
 	private List<Doctor> doctors;
 
 	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
-	private List<Order> orders;
+	private List<Order> belongOrders;
 
 	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
-	private List<OrderExecute> orderExecutes;
+	private List<OrderExecute> belongOrderExecutes;
 
 	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.REFRESH })
 	private List<Visit> visits;
@@ -55,20 +55,20 @@ public class InPatientDept extends Dept {
 		this.doctors = doctors;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
+	public List<Order> getBelongOrders() {
+		return belongOrders;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setBelongOrders(List<Order> belongOrders) {
+		this.belongOrders = belongOrders;
 	}
 
-	public List<OrderExecute> getOrderExecutes() {
-		return orderExecutes;
+	public List<OrderExecute> getBelongOrderExecutes() {
+		return belongOrderExecutes;
 	}
 
-	public void setOrderExecutes(List<OrderExecute> orderExecutes) {
-		this.orderExecutes = orderExecutes;
+	public void setBelongOrderExecutes(List<OrderExecute> belongOrderExecutes) {
+		this.belongOrderExecutes = belongOrderExecutes;
 	}
 
 	public List<Visit> getVisits() {

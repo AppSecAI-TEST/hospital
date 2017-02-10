@@ -25,4 +25,8 @@ public class OrganizationDomainService {
 		return unitRepo.findInPatientDept();
 	}
 
+	public Dept findTheDept(String id) {
+		return (Dept) unitRepo.findOne(id);
+	}
+
 }
