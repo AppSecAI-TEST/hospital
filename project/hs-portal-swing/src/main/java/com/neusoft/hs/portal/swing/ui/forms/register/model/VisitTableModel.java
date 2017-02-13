@@ -27,8 +27,8 @@ public class VisitTableModel extends DefaultTableModel<Visit> {
 
 	@Override
 	public String[] getColumnLabels() {
-		return new String[] { ConstMessagesEN.Labels.PAYMENT_METHOD,
-				ConstMessagesEN.Labels.VALUE,
-				ConstMessagesEN.Labels.DATE_OF_PAYMENT };
+		return new String[] { ConstMessagesEN.Labels.ID,
+				ConstMessagesEN.Labels.VisitName,
+				ConstMessagesEN.Labels.IntoWardDate };
 	}
 }

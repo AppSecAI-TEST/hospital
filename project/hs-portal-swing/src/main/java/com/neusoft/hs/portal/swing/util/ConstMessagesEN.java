@@ -13,6 +13,8 @@ public interface ConstMessagesEN {
         String ROOM_MODAL = "Adding rooms";
         String RATE_MODAL = "Adding rates";
         String ROOM_X_RESERVATION_MODAL = "Adding room reservations";
+        
+        String Login_MODAL = "登陆";
     }
 
     interface Messages {
@@ -24,7 +26,7 @@ public interface ConstMessagesEN {
     }
 
     interface Labels {
-        String MAIN_MENU = "Hotel reservations";
+        String MAIN_MENU = "住院业务";
         String CLIENTS = "Clients";
         String RESERVATIONS = "Reservations";
         String ADDRESSES = "Addresses";
@@ -88,6 +90,10 @@ public interface ConstMessagesEN {
         String RespDoctor = "责任医生";
         String NAME = "名称";
         String Account = "账号";
+        
+        String ID = "ID";
+        String VisitName = "患者姓名";
+        String IntoWardDate = "进入病房时间";
     }
 
     interface ValidationMessages {
