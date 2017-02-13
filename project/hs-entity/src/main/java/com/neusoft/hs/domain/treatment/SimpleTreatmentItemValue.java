@@ -7,7 +7,7 @@ import javax.persistence.Column;
 public class SimpleTreatmentItemValue extends TreatmentItemValue {
 
 	@Column(length = 1024)
-	private String value;
+	private String info;
 
 	/**
 	 * @roseuid 58A108960144
@@ -16,12 +16,11 @@ public class SimpleTreatmentItemValue extends TreatmentItemValue {
 
 	}
 
-	public String getValue() {
-		return value;
+	public String getInfo() {
+		return info;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setInfo(String info) {
+		this.info = info;
 	}
-
 }
