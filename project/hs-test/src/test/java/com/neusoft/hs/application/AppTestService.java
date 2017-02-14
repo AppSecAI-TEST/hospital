@@ -20,6 +20,7 @@ import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.inspect.InspectAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
+import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.inpatientdept.LeaveHospitalOrderType;
@@ -116,6 +117,9 @@ public abstract class AppTestService {
 	
 	@Autowired
 	protected TreatmentDomainService treatmentDomainService;
+	
+	@Autowired
+	protected TreatmentAppService treatmentAppService;
 
 	@Autowired
 	protected OrderUtil orderUtil;

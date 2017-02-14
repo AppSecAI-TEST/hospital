@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.treatment;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.cache.annotation.Cacheable;
 
 import com.neusoft.hs.domain.organization.Role;
 import com.neusoft.hs.domain.visit.Visit;
@@ -26,8 +27,8 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_treatment_spec")
-@Cacheable  
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "treatmentItemSpecCache")
 public class TreatmentItemSpec extends SuperEntity {
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)
