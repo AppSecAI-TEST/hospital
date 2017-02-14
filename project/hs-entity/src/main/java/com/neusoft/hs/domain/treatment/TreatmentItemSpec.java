@@ -72,7 +72,10 @@ public class TreatmentItemSpec extends SuperEntity {
 		this.shouldIntervalHour = shouldIntervalHour;
 	}
 
-	public Date getShouldDate(Visit visit) {
+	public Date getShouldDate(Visit visit) throws TreatmentException {
+		if (visit.getIntoWardDate() == null) {
+			throw new TreatmentException("患者[" + visit.getName() + "]还没有入院");
+		}
 		return DateUtil.addHour(visit.getIntoWardDate(),
 				this.shouldIntervalHour);
 	}

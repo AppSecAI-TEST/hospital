@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -20,7 +21,9 @@ public class DomainTreatmentTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:55"));
 		
-		List<TreatmentItemSpec> treatmentItemSpecs = treatmentAppService.getShouldTreatmentItemSpecs(visit001, user002);
+		Visit currentVisit = visitDomainService.find(visit001.getId());
+		
+		List<TreatmentItemSpec> treatmentItemSpecs = treatmentAppService.getShouldTreatmentItemSpecs(currentVisit, user002);
 		
 		assertTrue(treatmentItemSpecs.size() == 1);
 		

@@ -49,7 +49,7 @@ public class TreatmentDomainService {
 	}
 
 	public List<TreatmentItemSpec> getShouldTreatmentItemSpecs(Visit visit,
-			Date shouldDate, AbstractUser user) {
+			Date shouldDate, AbstractUser user) throws TreatmentException {
 
 		List<TreatmentItemSpec> shouldTreatmentItemSpecs = new ArrayList<TreatmentItemSpec>();
 
