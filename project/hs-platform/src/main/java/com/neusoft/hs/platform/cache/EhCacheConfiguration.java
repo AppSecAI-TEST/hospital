@@ -7,29 +7,27 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-//@Configuration
+@Configuration
 //标注启动了缓存
-//@EnableCaching
+@EnableCaching
 public class EhCacheConfiguration {
 
  /*
   * ehcache 主要的管理器
   */
- //@Bean(name = "appCacheManager")
+ @Bean(name = "appEhCacheCacheManager")
  public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean){
-     return null;
-	 //return new EhCacheCacheManager (bean.getObject ());
+     return new EhCacheCacheManager (bean.getObject ());
  }
 
  /*
   * 据shared与否的设置,Spring分别通过CacheManager.create()或new CacheManager()方式来创建一个ehcache基地.
   */
- //@Bean
+ @Bean
  public EhCacheManagerFactoryBean ehCacheManagerFactoryBean(){
-//     EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean ();
-//     cacheManagerFactoryBean.setConfigLocation (new ClassPathResource ("app-ehcache.xml"));
-//     cacheManagerFactoryBean.setShared (true);
-//     return cacheManagerFactoryBean;
-	 return null;
+     EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean ();
+     cacheManagerFactoryBean.setConfigLocation (new ClassPathResource ("ehcache.xml"));
+     cacheManagerFactoryBean.setShared (true);
+     return cacheManagerFactoryBean;
  }
 }
