@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.treatment;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class TreatmentItem extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "treatment_spec_id")
-	private TreatmentItemSpec treatmentSpec;
+	private TreatmentItemSpec treatmentItemSpec;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
@@ -66,12 +67,14 @@ public class TreatmentItem extends IdEntity {
 		this.type = type;
 	}
 
-	public TreatmentItemSpec getTreatmentSpec() {
-		return treatmentSpec;
+	public TreatmentItemSpec getTreatmentItemSpec() {
+		return treatmentItemSpec;
 	}
 
-	public void setTreatmentSpec(TreatmentItemSpec treatmentSpec) {
-		this.treatmentSpec = treatmentSpec;
+	public void setTreatmentItemSpec(TreatmentItemSpec treatmentItemSpec) {
+		this.treatmentItemSpec = treatmentItemSpec;
+		this.type = this.treatmentItemSpec.getName();
+		this.name = this.treatmentItemSpec.getName();
 	}
 
 	public Visit getVisit() {
@@ -88,6 +91,14 @@ public class TreatmentItem extends IdEntity {
 
 	public void setValues(List<TreatmentItemValue> values) {
 		this.values = values;
+	}
+	
+	public void addValue(TreatmentItemValue value){
+		if(this.values == null){
+			this.values = new ArrayList<TreatmentItemValue>();
+		}
+		this.values.add(value);
+		value.setItem(this);
 	}
 
 	public AbstractUser getCreator() {

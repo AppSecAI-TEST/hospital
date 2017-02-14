@@ -18,7 +18,9 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Role;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.SuperEntity;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_treatment_spec")
@@ -31,14 +33,10 @@ public class TreatmentItemSpec extends SuperEntity {
 	@Column(length = 128)
 	private String name;
 
-	@NotEmpty(message = "类型不能为空")
-	@Column(length = 32)
-	private String type;
+	@Column(name = "should_create_interval_hour")
+	private Integer shouldIntervalHour;
 
-	@Column(name = "should_create_date")
-	private Date shouldCreateDate;
-
-	@OneToMany(mappedBy = "treatmentSpec", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "treatmentItemSpec", cascade = { CascadeType.ALL })
 	private List<TreatmentItem> treatmentItems;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -61,20 +59,17 @@ public class TreatmentItemSpec extends SuperEntity {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	public Integer getShouldIntervalHour() {
+		return shouldIntervalHour;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setShouldIntervalHour(Integer shouldIntervalHour) {
+		this.shouldIntervalHour = shouldIntervalHour;
 	}
 
-	public Date getShouldCreateDate() {
-		return shouldCreateDate;
-	}
-
-	public void setShouldCreateDate(Date shouldCreateDate) {
-		this.shouldCreateDate = shouldCreateDate;
+	public Date getShouldDate(Visit visit) {
+		return DateUtil.addHour(visit.getIntoWardDate(),
+				this.shouldIntervalHour);
 	}
 
 	public List<TreatmentItem> getTreatmentItems() {

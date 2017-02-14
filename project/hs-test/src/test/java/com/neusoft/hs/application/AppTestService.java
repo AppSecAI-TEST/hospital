@@ -60,6 +60,8 @@ import com.neusoft.hs.domain.pharmacy.InfusionOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
+import com.neusoft.hs.domain.treatment.TreatmentDomainService;
+import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -111,6 +113,9 @@ public abstract class AppTestService {
 
 	@Autowired
 	protected MedicalRecordDomainService medicalRecordDomainService;
+	
+	@Autowired
+	protected TreatmentDomainService treatmentDomainService;
 
 	@Autowired
 	protected OrderUtil orderUtil;
@@ -200,6 +205,8 @@ public abstract class AppTestService {
 
 	protected OrderFrequencyType orderFrequencyType_9H15H;// 每天2次/早9/下3
 
+	protected TreatmentItemSpec mainDescribeTreatmentItemSpec;//主诉
+	
 	protected Visit visit001;
 
 	protected Map<ChoiceItem, Object> choices;
@@ -423,6 +430,8 @@ public abstract class AppTestService {
 		costDomainService.clearChargeItems();
 		// 清空病历
 		medicalRecordDomainService.clear();
+		//清空诊疗项目规格
+		treatmentDomainService.clearTreatmentItemSpecs();
 		// 清空患者一次住院
 		visitDomainService.clear();
 		// 清空成本记录
@@ -457,6 +466,8 @@ public abstract class AppTestService {
 		initOrderUseModeAssistMaterials();
 
 		initOrderFrequencyTypes();
+		
+		initTreatmentItemSpecs();
 	}
 
 	private void initOrgs() {
@@ -926,6 +937,19 @@ public abstract class AppTestService {
 
 		orderDomainService.createOrderFrequencyTypes(orderFrequencyTypes);
 
+	}
+	
+	private void initTreatmentItemSpecs() {
+		List<TreatmentItemSpec> treatmentItemSpecs = new ArrayList<TreatmentItemSpec>();
+
+		mainDescribeTreatmentItemSpec = new TreatmentItemSpec();
+		mainDescribeTreatmentItemSpec.setId("主诉");
+		mainDescribeTreatmentItemSpec.setName("主诉");
+		mainDescribeTreatmentItemSpec.setShouldIntervalHour(24);
+		
+		treatmentItemSpecs.add(mainDescribeTreatmentItemSpec);
+
+		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
 	}
 
 	private void choice() {

@@ -3,7 +3,11 @@
 package com.neusoft.hs.domain.treatment;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
+@Entity
+@DiscriminatorValue("Simple")
 public class SimpleTreatmentItemValue extends TreatmentItemValue {
 
 	@Column(length = 1024)

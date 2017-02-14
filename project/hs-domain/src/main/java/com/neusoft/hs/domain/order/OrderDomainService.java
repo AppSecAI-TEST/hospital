@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -59,7 +58,9 @@ public class OrderDomainService {
 		List<Order> orders = new ArrayList<Order>();
 
 		for (Order order : orderCommand.getOrders()) {
-			order.setCreateDate(DateUtil.getSysDate());
+			if (order.getCreateDate() == null) {
+				order.setCreateDate(DateUtil.getSysDate());
+			}
 			order.setCreator(doctor);
 			order.setBelongDept(doctor.getDept());
 			order.setState(Order.State_Created);
@@ -138,14 +139,14 @@ public class OrderDomainService {
 		applicationContext.publishEvent(new OrderCanceledEvent(order));
 
 	}
-	
-	public void delete(String orderId, Doctor doctor) throws OrderException{
+
+	public void delete(String orderId, Doctor doctor) throws OrderException {
 		Order order = orderRepo.findOne(orderId);
 		if (order == null) {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
 		}
 		order.delete();
-		
+
 		applicationContext.publishEvent(new OrderDeletedEvent(order));
 	}
 
