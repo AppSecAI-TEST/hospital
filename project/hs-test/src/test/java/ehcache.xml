@@ -8,6 +8,10 @@
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU" />
 		
+	<cache name="treatmentItemSpecCache" eternal="false" maxElementsInMemory="5000"
+		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+		timeToLiveSeconds="3000" memoryStoreEvictionPolicy="LRU" />
+		
 	<cache name="userCache" eternal="false" maxElementsInMemory="100"
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="300" memoryStoreEvictionPolicy="LRU" />
