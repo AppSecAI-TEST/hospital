@@ -63,7 +63,7 @@ public class MedicalRecord extends IdEntity {
 	public MedicalRecord(MedicalRecordType type, Visit visit, Doctor doctor) {
 		this.type = type;
 		this.visit = visit;
-		
+
 		this.init();
 	}
 
@@ -120,4 +120,21 @@ public class MedicalRecord extends IdEntity {
 	public void setLogs(List<MedicalRecordLog> logs) {
 		this.logs = logs;
 	}
+
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
+	}
+
+	public Map<String, Object> getDatas() {
+		return datas;
+	}
+
+	public void setDatas(Map<String, Object> datas) {
+		this.datas = datas;
+	}
+
 }

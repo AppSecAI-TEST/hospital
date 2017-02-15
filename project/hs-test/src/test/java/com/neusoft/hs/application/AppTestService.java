@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
+import com.neusoft.hs.application.inpatientdept.MedicalRecordAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.inspect.InspectAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
@@ -123,6 +124,9 @@ public abstract class AppTestService {
 
 	@Autowired
 	protected TreatmentAppService treatmentAppService;
+	
+	@Autowired
+	protected MedicalRecordAppService medicalRecordAppService;
 
 	@Autowired
 	protected OrderUtil orderUtil;
@@ -980,7 +984,9 @@ public abstract class AppTestService {
 		
 		
 		List<TreatmentItemSpec> items = new ArrayList<TreatmentItemSpec>();
+		items.add(visitNameTreatmentItemSpec);
 		items.add(mainDescribeTreatmentItemSpec);
+		
 		intoWardRecordMedicalRecordType.setItems(items);
 		
 		medicalRecordTypes.add(intoWardRecordMedicalRecordType);

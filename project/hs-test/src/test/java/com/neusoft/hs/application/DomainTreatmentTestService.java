@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
@@ -40,6 +41,9 @@ public class DomainTreatmentTestService extends AppTestService {
 		treatmentDomainService.create(item);
 		
 		//创建入院记录
+		MedicalRecord intoWardRecord = medicalRecordAppService.create(visit001, intoWardRecordMedicalRecordType, user002);
 		
+		assertTrue(intoWardRecord.getDatas().get("患者姓名").equals("测试患者001"));
+		assertTrue(intoWardRecord.getDatas().get("主诉").equals("患者咳嗽发烧三天"));
 	}
 }
