@@ -27,6 +27,7 @@ public class DomainTreatmentTestService extends AppTestService {
 		
 		assertTrue(treatmentItemSpecs.size() == 1);
 		
+		//创建主诉
 		TreatmentItem item = new TreatmentItem();
 		item.setVisit(visit001);
 		item.setTreatmentItemSpec(mainDescribeTreatmentItemSpec);
@@ -37,5 +38,8 @@ public class DomainTreatmentTestService extends AppTestService {
 		item.addValue(value);
 		
 		treatmentDomainService.create(item);
+		
+		//创建入院记录
+		
 	}
 }

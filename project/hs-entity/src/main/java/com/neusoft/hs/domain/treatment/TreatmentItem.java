@@ -92,13 +92,16 @@ public class TreatmentItem extends IdEntity {
 	public void setValues(List<TreatmentItemValue> values) {
 		this.values = values;
 	}
-	
-	public void addValue(TreatmentItemValue value){
-		if(this.values == null){
+
+	public void addValue(TreatmentItemValue value) {
+		if (this.values == null) {
 			this.values = new ArrayList<TreatmentItemValue>();
 		}
 		this.values.add(value);
+
 		value.setItem(this);
+		value.setVisit(visit);
+		value.setTreatmentItemSpec(treatmentItemSpec);
 	}
 
 	public AbstractUser getCreator() {

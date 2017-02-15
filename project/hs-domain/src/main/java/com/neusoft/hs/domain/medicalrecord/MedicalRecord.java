@@ -2,7 +2,9 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,11 +13,15 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
@@ -38,11 +44,34 @@ public class MedicalRecord extends IdEntity {
 	@JoinColumn(name = "doctor_id")
 	private Doctor doctor;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "visit_id")
+	private Visit visit;
+
 	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
 	private List<MedicalRecordItem> otherItems;
 
 	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
 	private List<MedicalRecordLog> logs;
+
+	@Transient
+	private Map<String, Object> datas = new HashMap<String, Object>();
+
+	public MedicalRecord() {
+	}
+
+	public MedicalRecord(MedicalRecordType type, Visit visit, Doctor doctor) {
+		this.type = type;
+		this.visit = visit;
+		
+		this.init();
+	}
+
+	private void init() {
+		for (TreatmentItemSpec itemSpec : this.type.getItems()) {
+			datas.put(itemSpec.getName(), itemSpec.getValue(this.visit));
+		}
+	}
 
 	public String getState() {
 		return state;

@@ -62,8 +62,10 @@ import com.neusoft.hs.domain.pharmacy.InfusionOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
+import com.neusoft.hs.domain.treatment.CommonTreatmentItemSpec;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
+import com.neusoft.hs.domain.treatment.spec.VisitNameTreatmentItemSpec;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -953,14 +955,14 @@ public abstract class AppTestService {
 	private void initTreatmentItemSpecs() {
 		List<TreatmentItemSpec> treatmentItemSpecs = new ArrayList<TreatmentItemSpec>();
 
-		mainDescribeTreatmentItemSpec = new TreatmentItemSpec();
+		mainDescribeTreatmentItemSpec = new CommonTreatmentItemSpec();
 		mainDescribeTreatmentItemSpec.setId("主诉");
 		mainDescribeTreatmentItemSpec.setName("主诉");
 		mainDescribeTreatmentItemSpec.setShouldIntervalHour(24);
 
 		treatmentItemSpecs.add(mainDescribeTreatmentItemSpec);
 		
-		visitNameTreatmentItemSpec = new TreatmentItemSpec();
+		visitNameTreatmentItemSpec = new VisitNameTreatmentItemSpec();
 		visitNameTreatmentItemSpec.setId("患者姓名");
 		visitNameTreatmentItemSpec.setName("患者姓名");
 		

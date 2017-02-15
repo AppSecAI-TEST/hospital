@@ -11,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,9 +29,10 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_treatment_spec")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "treatmentItemSpecCache")
-public class TreatmentItemSpec extends SuperEntity {
+public abstract class TreatmentItemSpec extends SuperEntity {
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)
 	private String id;
@@ -82,6 +85,11 @@ public class TreatmentItemSpec extends SuperEntity {
 			return DateUtil.addHour(visit.getIntoWardDate(),
 					this.shouldIntervalHour);
 		}
+	}
+
+	public List<TreatmentItemValue> getValue(Visit visit) {
+		return this.getService(TreatmentItemValueRepo.class)
+				.findByVisitAndTreatmentItemSpec(visit, this);
 	}
 
 	public List<TreatmentItem> getTreatmentItems() {

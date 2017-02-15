@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.visit.Visit;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class MedicalRecordDomainService {
@@ -17,6 +21,14 @@ public class MedicalRecordDomainService {
 
 	@Autowired
 	private MedicalRecordTypeRepo medicalRecordTypeRepo;
+
+	public MedicalRecord create(Visit visit, MedicalRecordType type,
+			Doctor doctor) {
+		MedicalRecord record = new MedicalRecord(type, visit, doctor);
+
+		return record;
+
+	}
 
 	public void createMedicalRecordType(MedicalRecordType type) {
 		medicalRecordTypeRepo.save(type);

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
@@ -21,6 +22,14 @@ public abstract class TreatmentItemValue extends IdEntity {
 	@JoinColumn(name = "item_id")
 	private TreatmentItem item;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "treatment_spec_id")
+	private TreatmentItemSpec treatmentItemSpec;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "visit_id")
+	private Visit visit;
+
 	public TreatmentItem getItem() {
 		return item;
 	}
@@ -28,4 +37,21 @@ public abstract class TreatmentItemValue extends IdEntity {
 	public void setItem(TreatmentItem item) {
 		this.item = item;
 	}
+
+	public TreatmentItemSpec getTreatmentItemSpec() {
+		return treatmentItemSpec;
+	}
+
+	public void setTreatmentItemSpec(TreatmentItemSpec treatmentItemSpec) {
+		this.treatmentItemSpec = treatmentItemSpec;
+	}
+
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
+	}
+
 }
