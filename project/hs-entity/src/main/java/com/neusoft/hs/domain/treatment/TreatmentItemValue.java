@@ -54,4 +54,8 @@ public abstract class TreatmentItemValue extends IdEntity {
 		this.visit = visit;
 	}
 
+	@Override
+	public abstract String toString();
+	
+
 }

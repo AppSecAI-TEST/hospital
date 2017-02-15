@@ -27,4 +27,9 @@ public class SimpleTreatmentItemValue extends TreatmentItemValue {
 	public void setInfo(String info) {
 		this.info = info;
 	}
+
+	@Override
+	public String toString() {
+		return info;
+	}
 }

@@ -21,6 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
+import com.neusoft.hs.domain.treatment.TreatmentItemValue;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -55,7 +56,7 @@ public class MedicalRecord extends IdEntity {
 	private List<MedicalRecordLog> logs;
 
 	@Transient
-	private Map<String, Object> datas = new HashMap<String, Object>();
+	private Map<String, List<TreatmentItemValue>> datas = new HashMap<String, List<TreatmentItemValue>>();
 
 	public MedicalRecord() {
 	}
@@ -129,11 +130,11 @@ public class MedicalRecord extends IdEntity {
 		this.visit = visit;
 	}
 
-	public Map<String, Object> getDatas() {
+	public Map<String, List<TreatmentItemValue>> getDatas() {
 		return datas;
 	}
 
-	public void setDatas(Map<String, Object> datas) {
+	public void setDatas(Map<String, List<TreatmentItemValue>> datas) {
 		this.datas = datas;
 	}
 
