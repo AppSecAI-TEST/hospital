@@ -76,8 +76,12 @@ public class TreatmentItemSpec extends SuperEntity {
 		if (visit.getIntoWardDate() == null) {
 			throw new TreatmentException("患者[" + visit.getName() + "]还没有入院");
 		}
-		return DateUtil.addHour(visit.getIntoWardDate(),
-				this.shouldIntervalHour);
+		if (this.shouldIntervalHour == null) {
+			return null;
+		} else {
+			return DateUtil.addHour(visit.getIntoWardDate(),
+					this.shouldIntervalHour);
+		}
 	}
 
 	public List<TreatmentItem> getTreatmentItems() {

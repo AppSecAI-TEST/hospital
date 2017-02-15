@@ -57,7 +57,8 @@ public class TreatmentDomainService {
 		TreatmentItemSpec treatmentItemSpec;
 		while (it.hasNext()) {
 			treatmentItemSpec = it.next();
-			if (treatmentItemSpec.getShouldDate(visit).before(shouldDate)) {
+			Date theShouldDate = treatmentItemSpec.getShouldDate(visit);
+			if (theShouldDate != null && theShouldDate.before(shouldDate)) {
 				shouldTreatmentItemSpecs.add(treatmentItemSpec);
 			}
 		}

@@ -30,6 +30,7 @@ import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
 import com.neusoft.hs.domain.inspect.InspectOrderType;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
@@ -114,10 +115,10 @@ public abstract class AppTestService {
 
 	@Autowired
 	protected MedicalRecordDomainService medicalRecordDomainService;
-	
+
 	@Autowired
 	protected TreatmentDomainService treatmentDomainService;
-	
+
 	@Autowired
 	protected TreatmentAppService treatmentAppService;
 
@@ -209,8 +210,12 @@ public abstract class AppTestService {
 
 	protected OrderFrequencyType orderFrequencyType_9H15H;// 每天2次/早9/下3
 
-	protected TreatmentItemSpec mainDescribeTreatmentItemSpec;//主诉
+	protected TreatmentItemSpec mainDescribeTreatmentItemSpec;// 主诉
 	
+	protected TreatmentItemSpec visitNameTreatmentItemSpec;// 患者姓名
+
+	protected MedicalRecordType intoWardRecordMedicalRecordType;// 入院记录
+
 	protected Visit visit001;
 
 	protected Map<ChoiceItem, Object> choices;
@@ -434,7 +439,7 @@ public abstract class AppTestService {
 		costDomainService.clearChargeItems();
 		// 清空病历
 		medicalRecordDomainService.clear();
-		//清空诊疗项目规格
+		// 清空诊疗项目规格
 		treatmentDomainService.clearTreatmentItemSpecs();
 		// 清空患者一次住院
 		visitDomainService.clear();
@@ -470,8 +475,10 @@ public abstract class AppTestService {
 		initOrderUseModeAssistMaterials();
 
 		initOrderFrequencyTypes();
-		
+
 		initTreatmentItemSpecs();
+
+		initMedicalRecordTypes();
 	}
 
 	private void initOrgs() {
@@ -942,7 +949,7 @@ public abstract class AppTestService {
 		orderDomainService.createOrderFrequencyTypes(orderFrequencyTypes);
 
 	}
-	
+
 	private void initTreatmentItemSpecs() {
 		List<TreatmentItemSpec> treatmentItemSpecs = new ArrayList<TreatmentItemSpec>();
 
@@ -950,10 +957,34 @@ public abstract class AppTestService {
 		mainDescribeTreatmentItemSpec.setId("主诉");
 		mainDescribeTreatmentItemSpec.setName("主诉");
 		mainDescribeTreatmentItemSpec.setShouldIntervalHour(24);
-		
+
 		treatmentItemSpecs.add(mainDescribeTreatmentItemSpec);
+		
+		visitNameTreatmentItemSpec = new TreatmentItemSpec();
+		visitNameTreatmentItemSpec.setId("患者姓名");
+		visitNameTreatmentItemSpec.setName("患者姓名");
+		
+		treatmentItemSpecs.add(visitNameTreatmentItemSpec);
 
 		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
+	}
+
+	private void initMedicalRecordTypes() {
+		List<MedicalRecordType> medicalRecordTypes = new ArrayList<MedicalRecordType>();
+
+		intoWardRecordMedicalRecordType = new MedicalRecordType();
+		intoWardRecordMedicalRecordType.setId("入院记录");
+		intoWardRecordMedicalRecordType.setName("入院记录");
+		
+		
+		List<TreatmentItemSpec> items = new ArrayList<TreatmentItemSpec>();
+		items.add(mainDescribeTreatmentItemSpec);
+		intoWardRecordMedicalRecordType.setItems(items);
+		
+		medicalRecordTypes.add(intoWardRecordMedicalRecordType);
+
+		medicalRecordDomainService.createMedicalRecordTypes(medicalRecordTypes);
+
 	}
 
 	private void choice() {
