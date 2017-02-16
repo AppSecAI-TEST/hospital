@@ -72,10 +72,30 @@ public class MedicalRecordDomainService {
 
 	public MedicalRecord find(String id) {
 		MedicalRecord record = medicalRecordRepo.findOne(id);
-
-		record.init();
+		if (record != null) {
+			record.init();
+		}
 
 		return record;
+	}
+
+	public void sign(String id, Doctor doctor) throws MedicalRecordException {
+		MedicalRecord record = medicalRecordRepo.findOne(id);
+		if (record == null) {
+			throw new MedicalRecordException(null, "id=[" + id + "]病历不存在");
+		}
+		record.sign(doctor);
+
+		MedicalRecordLog recordLog = new MedicalRecordLog();
+		recordLog.setRecord(record);
+		recordLog.setType(MedicalRecordLog.Type_Sign);
+		recordLog.setOperator(doctor);
+		recordLog.setCreateDate(DateUtil.getSysDate());
+
+		recordLog.save();
+
+		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
+
 	}
 
 	public void createMedicalRecordType(MedicalRecordType type) {

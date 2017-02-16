@@ -46,6 +46,10 @@ public class MedicalRecord extends IdEntity {
 	@JoinColumn(name = "doctor_id")
 	private Doctor doctor;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "sign_doctor_id")
+	private Doctor signDoctor;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
@@ -153,11 +157,31 @@ public class MedicalRecord extends IdEntity {
 		this.createDate = createDate;
 	}
 
+	public Doctor getSignDoctor() {
+		return signDoctor;
+	}
+
+	public void setSignDoctor(Doctor signDoctor) {
+		this.signDoctor = signDoctor;
+	}
+
 	public void save() {
 		for (TreatmentItem item : datas.values()) {
 			item.save();
 		}
 		this.getService(MedicalRecordRepo.class).save(this);
+	}
+
+	public void sign(Doctor doctor) throws MedicalRecordException {
+		if (this.state.equals(State_Signed)) {
+			throw new MedicalRecordException(this, "id=[" + getId() + "]病历已签名");
+		}
+
+		this.state = State_Signed;
+		this.signDoctor = doctor;
+
+		this.getService(MedicalRecordRepo.class).save(this);
+
 	}
 
 }

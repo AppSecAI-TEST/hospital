@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
@@ -28,5 +29,9 @@ public class MedicalRecordAppService {
 
 	public MedicalRecord find(String id) {
 		return medicalRecordDomainService.find(id);
+	}
+
+	public void sign(String id, Doctor doctor) throws MedicalRecordException {
+		medicalRecordDomainService.sign(id, doctor);
 	}
 }

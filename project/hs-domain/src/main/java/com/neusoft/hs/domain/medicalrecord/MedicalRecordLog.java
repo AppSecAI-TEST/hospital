@@ -37,6 +37,7 @@ public class MedicalRecordLog extends IdEntity {
 
 	public static final String Type_Create = "创建";
 	public static final String Type_Update = "修改";
+	public static final String Type_Sign = "签名";
 
 	public Date getCreateDate() {
 		return createDate;
