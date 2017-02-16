@@ -26,6 +26,9 @@ public class MedicalRecordDomainService {
 	private MedicalRecordTypeRepo medicalRecordTypeRepo;
 
 	@Autowired
+	private MedicalRecordRepo medicalRecordRepo;
+
+	@Autowired
 	private ApplicationContext applicationContext;
 
 	public MedicalRecord create(Visit visit, MedicalRecordType type,
@@ -65,6 +68,14 @@ public class MedicalRecordDomainService {
 		recordLog.save();
 
 		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
+	}
+
+	public MedicalRecord find(String id) {
+		MedicalRecord record = medicalRecordRepo.findOne(id);
+
+		record.init();
+
+		return record;
 	}
 
 	public void createMedicalRecordType(MedicalRecordType type) {

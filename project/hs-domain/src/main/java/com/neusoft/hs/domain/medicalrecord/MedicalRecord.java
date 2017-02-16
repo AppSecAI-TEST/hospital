@@ -76,7 +76,7 @@ public class MedicalRecord extends IdEntity {
 		this.init();
 	}
 
-	private void init() {
+	public void init() {
 		for (TreatmentItemSpec itemSpec : this.type.getItems()) {
 			datas.put(itemSpec, itemSpec.getTheItem(this.visit));
 		}

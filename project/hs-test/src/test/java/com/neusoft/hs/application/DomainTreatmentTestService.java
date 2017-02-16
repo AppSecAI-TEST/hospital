@@ -53,12 +53,12 @@ public class DomainTreatmentTestService extends AppTestService {
 		
 		medicalRecordAppService.create(intoWardRecord);
 		
-		//intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
+		intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
 		
 		datas = intoWardRecord.getDatas();
 		
 		assertTrue(datas.get(visitNameTreatmentItemSpec).getValues().get(0).toString().equals("测试患者001"));
-		assertTrue(datas.get(mainDescribeTreatmentItemSpec).getValues().get(0).toString().equals("患者咳嗽发烧三天"));
+		assertTrue(datas.get(mainDescribeTreatmentItemSpec).getValues().get(0).toString().equals("患者咳嗽发烧三天，体温38.5"));
 
 	}
 }

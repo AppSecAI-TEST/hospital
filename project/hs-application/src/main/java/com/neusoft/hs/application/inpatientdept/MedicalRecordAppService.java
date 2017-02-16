@@ -25,4 +25,8 @@ public class MedicalRecordAppService {
 	public void create(MedicalRecord record) {
 		medicalRecordDomainService.create(record);
 	}
+
+	public MedicalRecord find(String id) {
+		return medicalRecordDomainService.find(id);
+	}
 }
