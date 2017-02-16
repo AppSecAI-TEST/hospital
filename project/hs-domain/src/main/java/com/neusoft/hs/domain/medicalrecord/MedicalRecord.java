@@ -180,8 +180,22 @@ public class MedicalRecord extends IdEntity {
 		this.state = State_Signed;
 		this.signDoctor = doctor;
 
+		this.init();
+
+		this.fixedItems();
+
 		this.getService(MedicalRecordRepo.class).save(this);
 
+	}
+	
+	private void fixedItems(){
+		MedicalRecordItem fixedItem;
+		for (TreatmentItem item : datas.values()) {
+			fixedItem = new MedicalRecordItem();
+			
+			
+			this.otherItems.add(fixedItem);
+		}
 	}
 
 }
