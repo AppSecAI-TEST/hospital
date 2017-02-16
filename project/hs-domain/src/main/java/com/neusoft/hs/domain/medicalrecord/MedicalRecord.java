@@ -23,7 +23,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
-import com.neusoft.hs.domain.treatment.TreatmentItemValue;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
