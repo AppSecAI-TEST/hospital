@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -11,9 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderException;
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -79,7 +83,50 @@ public class DrugOrderType extends OrderType {
 	}
 
 	@Override
-	public void resolveOrder(Order order) throws OrderException {
+	public void resolveOrder(OrderTypeApp orderTypeApp) throws OrderException {
+		
+		Order order = orderTypeApp.getOrder();
+		DrugUseMode drugUseMode = ((DrugOrderTypeApp)orderTypeApp).getDrugUseMode();
+		
+		if (order instanceof TemporaryOrder) {
+			// 分解执行条目
+			drugUseMode.resolve(order, this);
+			if (order.getResolveOrderExecutes().size() == 0) {
+				throw new OrderException(order, "没有分解出执行条目");
+			}
+			// 设置执行时间
+			for (OrderExecute execute : order.getResolveOrderExecutes()) {
+				execute.fillPlanDate(order.getPlanStartDate(),
+						order.getPlanStartDate());
+			}
+		} else {
+			for (int day = 0; day < LongOrder.ResolveDays; day++) {
+				// 计算执行时间
+				List<Date> executeDates = ((LongOrder) order)
+						.calExecuteDates(day);
+
+				for (Date executeDate : executeDates) {
+					// 清空上一频次的执行条目集合
+					order.clearResolveFrequencyOrderExecutes();
+					// 分解执行条目
+					drugUseMode.resolve(order, this);
+					if (order.getResolveFrequencyOrderExecutes().size() == 0) {
+						throw new OrderException(order, "没有分解出执行条目");
+					}
+					// 设置执行时间
+					for (OrderExecute execute : order
+							.getResolveFrequencyOrderExecutes()) {
+						execute.fillPlanDate(executeDate, executeDate);
+					}
+				}
+			}
+			// 没有分解出执行条目，设置之前分解的最后一条为last
+			if (order.getResolveOrderExecutes().size() == 0) {
+				OrderExecute lastOrderExecute = order.getLastOrderExecute();
+				lastOrderExecute.setLast(true);
+				lastOrderExecute.save();
+			}
+		}
 
 	}
 

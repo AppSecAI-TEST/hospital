@@ -8,14 +8,17 @@ import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.OrderTypeApp;
 
 @Entity
 @DiscriminatorValue("Inspect")
 public class InspectOrderType extends OrderType {
 
 	@Override
-	public void resolveOrder(Order order) throws OrderException {
+	public void resolveOrder(OrderTypeApp orderTypeApp) throws OrderException {
 
+		Order order = orderTypeApp.getOrder();
+		
 		InspectApply inspectApply = (InspectApply) order.getApply();
 		for (InspectApplyItem inspectApplyItem : inspectApply
 				.getInspectApplyItems()) {

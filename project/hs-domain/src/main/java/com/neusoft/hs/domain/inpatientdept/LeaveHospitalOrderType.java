@@ -8,6 +8,7 @@ import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.OrderTypeApp;
 
 @Entity
 @DiscriminatorValue("LeaveHospital")
@@ -19,7 +20,9 @@ public class LeaveHospitalOrderType extends OrderType {
 	}
 
 	@Override
-	public void resolveOrder(Order order) {
+	public void resolveOrder(OrderTypeApp orderTypeApp) {
+		
+		Order order = orderTypeApp.getOrder();
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
 

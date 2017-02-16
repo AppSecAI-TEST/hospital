@@ -12,6 +12,7 @@ import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
@@ -19,8 +20,9 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class SecondNursingOrderType extends OrderType {
 
 	@Override
-	public void resolveOrder(Order order) {
+	public void resolveOrder(OrderTypeApp orderTypeApp) {
 
+		Order order = orderTypeApp.getOrder();
 		// 分解两天的护理执行条目
 		LongOrder longOrder = (LongOrder) order;
 		for (int day = 0; day < LongOrder.ResolveDays; day++) {
