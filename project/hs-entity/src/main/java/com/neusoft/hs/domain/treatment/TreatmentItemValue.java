@@ -56,6 +56,9 @@ public abstract class TreatmentItemValue extends IdEntity {
 
 	@Override
 	public abstract String toString();
-	
+
+	public void save() {
+		this.getService(TreatmentItemValueRepo.class).save(this);
+	}
 
 }

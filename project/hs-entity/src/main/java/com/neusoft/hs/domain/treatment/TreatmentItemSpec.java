@@ -87,8 +87,8 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 		}
 	}
 
-	public List<TreatmentItemValue> getValue(Visit visit) {
-		return this.getService(TreatmentItemValueRepo.class)
+	public TreatmentItem getTheItem(Visit visit) {
+		return this.getService(TreatmentItemRepo.class)
 				.findByVisitAndTreatmentItemSpec(visit, this);
 	}
 

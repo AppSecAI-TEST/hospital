@@ -124,7 +124,7 @@ public abstract class AppTestService {
 
 	@Autowired
 	protected TreatmentAppService treatmentAppService;
-	
+
 	@Autowired
 	protected MedicalRecordAppService medicalRecordAppService;
 
@@ -217,7 +217,7 @@ public abstract class AppTestService {
 	protected OrderFrequencyType orderFrequencyType_9H15H;// 每天2次/早9/下3
 
 	protected TreatmentItemSpec mainDescribeTreatmentItemSpec;// 主诉
-	
+
 	protected TreatmentItemSpec visitNameTreatmentItemSpec;// 患者姓名
 
 	protected MedicalRecordType intoWardRecordMedicalRecordType;// 入院记录
@@ -445,6 +445,8 @@ public abstract class AppTestService {
 		costDomainService.clearChargeItems();
 		// 清空病历
 		medicalRecordDomainService.clear();
+		// 清空诊疗项目信息
+		treatmentDomainService.clearTreatmentItems();
 		// 清空诊疗项目规格
 		treatmentDomainService.clearTreatmentItemSpecs();
 		// 清空患者一次住院
@@ -965,11 +967,11 @@ public abstract class AppTestService {
 		mainDescribeTreatmentItemSpec.setShouldIntervalHour(24);
 
 		treatmentItemSpecs.add(mainDescribeTreatmentItemSpec);
-		
+
 		visitNameTreatmentItemSpec = new VisitNameTreatmentItemSpec();
 		visitNameTreatmentItemSpec.setId("患者姓名");
 		visitNameTreatmentItemSpec.setName("患者姓名");
-		
+
 		treatmentItemSpecs.add(visitNameTreatmentItemSpec);
 
 		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
@@ -981,14 +983,13 @@ public abstract class AppTestService {
 		intoWardRecordMedicalRecordType = new MedicalRecordType();
 		intoWardRecordMedicalRecordType.setId("入院记录");
 		intoWardRecordMedicalRecordType.setName("入院记录");
-		
-		
+
 		List<TreatmentItemSpec> items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
 		items.add(mainDescribeTreatmentItemSpec);
-		
+
 		intoWardRecordMedicalRecordType.setItems(items);
-		
+
 		medicalRecordTypes.add(intoWardRecordMedicalRecordType);
 
 		medicalRecordDomainService.createMedicalRecordTypes(medicalRecordTypes);

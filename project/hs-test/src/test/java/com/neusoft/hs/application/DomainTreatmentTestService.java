@@ -3,6 +3,7 @@ package com.neusoft.hs.application;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,13 @@ public class DomainTreatmentTestService extends AppTestService {
 		//创建入院记录
 		MedicalRecord intoWardRecord = medicalRecordAppService.create(visit001, intoWardRecordMedicalRecordType, user002);
 		
-		assertTrue(intoWardRecord.getDatas().get("患者姓名").get(0).toString().equals("测试患者001"));
-		assertTrue(intoWardRecord.getDatas().get("主诉").get(0).toString().equals("患者咳嗽发烧三天"));
+		Map<TreatmentItemSpec, TreatmentItem> datas = intoWardRecord.getDatas();
+		
+		assertTrue(datas.get(visitNameTreatmentItemSpec).getValues().get(0).toString().equals("测试患者001"));
+		assertTrue(datas.get(mainDescribeTreatmentItemSpec).getValues().get(0).toString().equals("患者咳嗽发烧三天"));
+		
+		((SimpleTreatmentItemValue)datas.get(mainDescribeTreatmentItemSpec).getValues().get(0)).setInfo("患者咳嗽发烧三天，体温38.5");
+		
+		medicalRecordAppService.create(intoWardRecord);
 	}
 }

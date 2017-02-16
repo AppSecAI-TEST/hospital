@@ -33,6 +33,9 @@ public class VisitDomainService {
 	 */
 	public Visit create(Visit visit, AbstractUser user) {
 
+		if(visit.getCreateDate() == null){
+			visit.setCreateDate(DateUtil.getSysDate());
+		}
 		visit.setState(Visit.State_NeedInitAccount);
 		visit.save();
 

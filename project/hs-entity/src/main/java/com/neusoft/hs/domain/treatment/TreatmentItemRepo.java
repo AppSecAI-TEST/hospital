@@ -4,5 +4,11 @@ package com.neusoft.hs.domain.treatment;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-interface TreatmentItemRepo extends PagingAndSortingRepository<TreatmentItem, String> {
+import com.neusoft.hs.domain.visit.Visit;
+
+interface TreatmentItemRepo extends
+		PagingAndSortingRepository<TreatmentItem, String> {
+
+	public TreatmentItem findByVisitAndTreatmentItemSpec(Visit visit,
+			TreatmentItemSpec treatmentItemSpec);
 }

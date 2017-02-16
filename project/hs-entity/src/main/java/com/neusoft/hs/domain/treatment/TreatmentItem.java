@@ -41,7 +41,7 @@ public class TreatmentItem extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
-	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private List<TreatmentItemValue> values;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -118,6 +118,10 @@ public class TreatmentItem extends IdEntity {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public void save() {
+		this.getService(TreatmentItemRepo.class).save(this);
 	}
 
 }

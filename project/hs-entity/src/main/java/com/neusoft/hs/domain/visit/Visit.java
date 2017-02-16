@@ -89,6 +89,9 @@ public class Visit extends IdEntity {
 	@JoinColumn(name = "dept_id")
 	private InPatientDept respDept;
 
+	@Column(name = "create_date")
+	private Date createDate;
+
 	public static final String State_NeedInitAccount = "待预存费用";
 
 	public static final String State_NeedIntoWard = "待接诊";
@@ -341,6 +344,14 @@ public class Visit extends IdEntity {
 
 	public void setApplys(List<Apply> applys) {
 		this.applys = applys;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 }

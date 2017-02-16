@@ -13,11 +13,16 @@ import com.neusoft.hs.domain.visit.Visit;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class MedicalRecordAppService {
-	
+
 	@Autowired
 	private MedicalRecordDomainService medicalRecordDomainService;
 
-	public MedicalRecord create(Visit visit, MedicalRecordType type, Doctor doctor){
+	public MedicalRecord create(Visit visit, MedicalRecordType type,
+			Doctor doctor) {
 		return medicalRecordDomainService.create(visit, type, doctor);
+	}
+
+	public void create(MedicalRecord record) {
+		medicalRecordDomainService.create(record);
 	}
 }

@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.treatment.TreatmentItemValue;
 import com.neusoft.hs.domain.visit.Visit;
@@ -49,6 +51,9 @@ public class MedicalRecord extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	@Column(name = "create_date")
+	private Date createDate;
+
 	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
 	private List<MedicalRecordItem> otherItems;
 
@@ -56,7 +61,10 @@ public class MedicalRecord extends IdEntity {
 	private List<MedicalRecordLog> logs;
 
 	@Transient
-	private Map<String, List<TreatmentItemValue>> datas = new HashMap<String, List<TreatmentItemValue>>();
+	private Map<TreatmentItemSpec, TreatmentItem> datas = new HashMap<TreatmentItemSpec, TreatmentItem>();
+
+	public static final String State_Created = "已创建";
+	public static final String State_Signed = "已签名";
 
 	public MedicalRecord() {
 	}
@@ -70,7 +78,7 @@ public class MedicalRecord extends IdEntity {
 
 	private void init() {
 		for (TreatmentItemSpec itemSpec : this.type.getItems()) {
-			datas.put(itemSpec.getName(), itemSpec.getValue(this.visit));
+			datas.put(itemSpec, itemSpec.getTheItem(this.visit));
 		}
 	}
 
@@ -130,12 +138,27 @@ public class MedicalRecord extends IdEntity {
 		this.visit = visit;
 	}
 
-	public Map<String, List<TreatmentItemValue>> getDatas() {
+	public Map<TreatmentItemSpec, TreatmentItem> getDatas() {
 		return datas;
 	}
 
-	public void setDatas(Map<String, List<TreatmentItemValue>> datas) {
+	public void setDatas(Map<TreatmentItemSpec, TreatmentItem> datas) {
 		this.datas = datas;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public void save() {
+		for (TreatmentItem item : datas.values()) {
+			item.save();
+		}
+		this.getService(MedicalRecordRepo.class).save(this);
 	}
 
 }

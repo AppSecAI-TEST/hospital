@@ -73,6 +73,10 @@ public class TreatmentDomainService {
 			List<TreatmentItemSpec> treatmentItemSpecs) {
 		treatmentItemSpecRepo.save(treatmentItemSpecs);
 	}
+	
+	public void clearTreatmentItems() {
+		treatmentItemRepo.deleteAll();
+	}
 
 	public void clearTreatmentItemSpecs() {
 		treatmentItemSpecRepo.deleteAll();
