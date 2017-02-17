@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
@@ -44,12 +45,12 @@ public class DomainTreatmentTestService extends AppTestService {
 		//创建入院记录
 		MedicalRecord intoWardRecord = medicalRecordAppService.create(visit001, intoWardRecordMedicalRecordType, user002);
 		
-		Map<TreatmentItemSpec, TreatmentItem> datas = intoWardRecord.getDatas();
+		Map<String, Itemable> datas = intoWardRecord.getDatas();
 		
-		assertTrue(datas.get(visitNameTreatmentItemSpec).getValues().get(0).toString().equals("测试患者001"));
-		assertTrue(datas.get(mainDescribeTreatmentItemSpec).getValues().get(0).toString().equals("患者咳嗽发烧三天"));
+		assertTrue(datas.get("患者姓名").getValues().get(0).toString().equals("测试患者001"));
+		assertTrue(datas.get("主诉").getValues().get(0).toString().equals("患者咳嗽发烧三天"));
 		
-		((SimpleTreatmentItemValue)datas.get(mainDescribeTreatmentItemSpec).getValues().get(0)).setInfo("患者咳嗽发烧三天，体温38.5");
+		((SimpleTreatmentItemValue)datas.get("主诉").getValues().get(0)).setInfo("患者咳嗽发烧三天，体温38.5");
 		
 		medicalRecordAppService.create(intoWardRecord);
 		
@@ -57,8 +58,8 @@ public class DomainTreatmentTestService extends AppTestService {
 		
 		datas = intoWardRecord.getDatas();
 		
-		assertTrue(datas.get(visitNameTreatmentItemSpec).getValues().get(0).toString().equals("测试患者001"));
-		assertTrue(datas.get(mainDescribeTreatmentItemSpec).getValues().get(0).toString().equals("患者咳嗽发烧三天，体温38.5"));
+		assertTrue(datas.get("患者姓名").getValues().get(0).toString().equals("测试患者001"));
+		assertTrue(datas.get("主诉").getValues().get(0).toString().equals("患者咳嗽发烧三天，体温38.5"));
 		
 		medicalRecordAppService.sign(intoWardRecord.getId(), user002);
 		

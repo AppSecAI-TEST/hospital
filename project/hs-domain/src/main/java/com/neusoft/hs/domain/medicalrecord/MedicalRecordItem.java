@@ -3,6 +3,7 @@
 package com.neusoft.hs.domain.medicalrecord;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemValue;
 import com.neusoft.hs.domain.visit.Visit;
@@ -23,7 +26,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
 @Table(name = "domain_medical_record_item")
-public class MedicalRecordItem extends IdEntity {
+public class MedicalRecordItem extends IdEntity implements Itemable {
 
 	@NotEmpty(message = "Key不能为空")
 	@Column(length = 32)
@@ -101,4 +104,21 @@ public class MedicalRecordItem extends IdEntity {
 		this.getService(MedicalRecordItemRepo.class).save(this);
 	}
 
+	@Override
+	public Date getCreateDate() {
+		return null;
+	}
+
+	@Override
+	public void setCreateDate(Date date) {
+	}
+
+	@Override
+	public AbstractUser getCreator() {
+		return null;
+	}
+
+	@Override
+	public void setCreator(AbstractUser user) {
+	}
 }

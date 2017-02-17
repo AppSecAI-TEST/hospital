@@ -23,7 +23,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
 @Table(name = "domain_treatment_item")
-public class TreatmentItem extends IdEntity {
+public class TreatmentItem extends IdEntity implements Itemable{
 
 	@NotEmpty(message = "名称不能为空")
 	@Column(length = 128)

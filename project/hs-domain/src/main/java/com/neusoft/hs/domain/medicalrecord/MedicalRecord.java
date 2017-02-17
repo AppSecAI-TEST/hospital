@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
@@ -65,7 +66,7 @@ public class MedicalRecord extends IdEntity {
 	private List<MedicalRecordLog> logs;
 
 	@Transient
-	private Map<TreatmentItemSpec, TreatmentItem> datas = new HashMap<TreatmentItemSpec, TreatmentItem>();
+	private Map<String, Itemable> datas = new HashMap<String, Itemable>();
 
 	public static final String State_Created = "已创建";
 	public static final String State_Signed = "已签名";
@@ -83,7 +84,21 @@ public class MedicalRecord extends IdEntity {
 
 	public void init() {
 		for (TreatmentItemSpec itemSpec : this.type.getItems()) {
-			datas.put(itemSpec, itemSpec.getTheItem(this.visit));
+			datas.put(itemSpec.getName(), itemSpec.getTheItem(this.visit));
+		}
+	}
+
+	public void load() {
+		if (this.state.equals(State_Signed)) {
+			this.loadData();
+		} else {
+			this.init();
+		}
+	}
+
+	private void loadData() {
+		for (MedicalRecordItem item : this.otherItems) {
+			datas.put(item.getName(), item);
 		}
 	}
 
@@ -152,11 +167,11 @@ public class MedicalRecord extends IdEntity {
 		this.visit = visit;
 	}
 
-	public Map<TreatmentItemSpec, TreatmentItem> getDatas() {
+	public Map<String, Itemable> getDatas() {
 		return datas;
 	}
 
-	public void setDatas(Map<TreatmentItemSpec, TreatmentItem> datas) {
+	public void setDatas(Map<String, Itemable> datas) {
 		this.datas = datas;
 	}
 
@@ -177,7 +192,7 @@ public class MedicalRecord extends IdEntity {
 	}
 
 	public void save() {
-		for (TreatmentItem item : datas.values()) {
+		for (Itemable item : datas.values()) {
 			item.save();
 		}
 		this.getService(MedicalRecordRepo.class).save(this);
@@ -198,9 +213,9 @@ public class MedicalRecord extends IdEntity {
 
 	private void fixedItems() throws MedicalRecordException {
 		MedicalRecordItem fixedItem;
-		for (TreatmentItem item : datas.values()) {
-			fixedItem = new MedicalRecordItem(item);
-			
+		for (Itemable item : datas.values()) {
+			fixedItem = new MedicalRecordItem((TreatmentItem) item);
+
 			this.addItem(fixedItem);
 		}
 	}

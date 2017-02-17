@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.treatment.TreatmentItem;
-import com.neusoft.hs.domain.treatment.TreatmentItemValue;
+import com.neusoft.hs.domain.treatment.ItemValue;
+import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -49,14 +49,12 @@ public class MedicalRecordDomainService {
 		record.setState(MedicalRecord.State_Created);
 
 		// 填充病历项目信息
-		for (TreatmentItem item : record.getDatas().values()) {
-			for (TreatmentItemValue value : item.getValues()) {
-				if (value.getItem().getCreateDate() == null) {
-					value.getItem().setCreateDate(DateUtil.getSysDate());
-				}
-				if (value.getItem().getCreator() == null) {
-					value.getItem().setCreator(record.getDoctor());
-				}
+		for (Itemable item : record.getDatas().values()) {
+			if (item.getCreateDate() == null) {
+				item.setCreateDate(DateUtil.getSysDate());
+			}
+			if (item.getCreator() == null) {
+				item.setCreator(record.getDoctor());
 			}
 		}
 
@@ -76,7 +74,7 @@ public class MedicalRecordDomainService {
 	public MedicalRecord find(String id) {
 		MedicalRecord record = medicalRecordRepo.findOne(id);
 		if (record != null) {
-			record.init();
+			record.load();
 		}
 
 		return record;

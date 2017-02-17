@@ -10,13 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.neusoft.hs.domain.treatment.ItemValue;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
 @Table(name = "domain_medical_record_item_value")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class MedicalRecordItemValue extends IdEntity {
+public abstract class MedicalRecordItemValue extends IdEntity implements ItemValue{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id")

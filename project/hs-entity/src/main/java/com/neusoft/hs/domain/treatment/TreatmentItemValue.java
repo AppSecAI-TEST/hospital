@@ -16,7 +16,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Entity
 @Table(name = "domain_treatment_item_value")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class TreatmentItemValue extends IdEntity {
+public abstract class TreatmentItemValue extends IdEntity implements ItemValue{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id")
@@ -53,9 +53,6 @@ public abstract class TreatmentItemValue extends IdEntity {
 	public void setVisit(Visit visit) {
 		this.visit = visit;
 	}
-
-	@Override
-	public abstract String toString();
 
 	public void save() {
 		this.getService(TreatmentItemValueRepo.class).save(this);
