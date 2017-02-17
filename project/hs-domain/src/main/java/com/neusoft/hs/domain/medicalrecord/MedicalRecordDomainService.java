@@ -97,10 +97,7 @@ public class MedicalRecordDomainService {
 
 		recordLog.save();
 
-		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
-		
-		System.out.println("xxx");
-
+		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
 	}
 
 	public void createMedicalRecordType(MedicalRecordType type) {

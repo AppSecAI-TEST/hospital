@@ -33,7 +33,5 @@ public class MedicalRecordAppService {
 
 	public void sign(String id, Doctor doctor) throws MedicalRecordException {
 		medicalRecordDomainService.sign(id, doctor);
-		
-		System.out.println("yyy");
 	}
 }
