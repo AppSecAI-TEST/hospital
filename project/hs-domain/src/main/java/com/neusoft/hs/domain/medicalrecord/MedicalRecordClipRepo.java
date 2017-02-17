@@ -4,7 +4,11 @@ package com.neusoft.hs.domain.medicalrecord;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import com.neusoft.hs.domain.visit.Visit;
+
 interface MedicalRecordClipRepo extends
 		PagingAndSortingRepository<MedicalRecordClip, String> {
+	
+	public MedicalRecordClip findByVisit(Visit visit);
 
 }

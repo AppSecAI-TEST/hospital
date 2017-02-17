@@ -76,6 +76,7 @@ public class MedicalRecord extends IdEntity {
 	public MedicalRecord(MedicalRecordType type, Visit visit, Doctor doctor) {
 		this.type = type;
 		this.visit = visit;
+		this.doctor = doctor;
 
 		this.init();
 	}

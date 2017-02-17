@@ -43,6 +43,9 @@ public class MedicalRecordDomainService {
 		if (record.getCreateDate() == null) {
 			record.setCreateDate(DateUtil.getSysDate());
 		}
+		if (record.getClip() == null) {
+			record.setClip(medicalRecordClipRepo.findByVisit(record.getVisit()));
+		}
 		record.setState(MedicalRecord.State_Created);
 
 		// 填充病历项目信息
