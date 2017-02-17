@@ -2,15 +2,23 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.treatment.TreatmentItem;
+import com.neusoft.hs.domain.treatment.TreatmentItemValue;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
@@ -21,12 +29,30 @@ public class MedicalRecordItem extends IdEntity {
 	@Column(length = 32)
 	private String name;
 
-	@Column(length = 1024)
-	private String info;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "record_id")
 	private MedicalRecord record;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "visit_id")
+	private Visit visit;
+
+	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	private List<MedicalRecordItemValue> values;
+
+	public MedicalRecordItem() {
+
+	}
+
+	public MedicalRecordItem(TreatmentItem item) throws MedicalRecordException {
+		this.name = item.getName();
+
+		MedicalRecordItemValue theValue;
+		for (TreatmentItemValue value : item.getValues()) {
+			theValue = MedicalRecordItemValueFactory.create(value);
+			this.addValue(theValue);
+		}
+	}
 
 	public String getName() {
 		return name;
@@ -36,20 +62,38 @@ public class MedicalRecordItem extends IdEntity {
 		this.name = name;
 	}
 
-	public String getInfo() {
-		return info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
-	}
-
 	public MedicalRecord getRecord() {
 		return record;
 	}
 
 	public void setRecord(MedicalRecord record) {
 		this.record = record;
+	}
+
+	public List<MedicalRecordItemValue> getValues() {
+		return values;
+	}
+
+	public void setValues(List<MedicalRecordItemValue> values) {
+		this.values = values;
+	}
+
+	public void addValue(MedicalRecordItemValue value) {
+		if (this.values == null) {
+			this.values = new ArrayList<MedicalRecordItemValue>();
+		}
+		this.values.add(value);
+
+		value.setItem(this);
+		value.setVisit(visit);
+	}
+
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
 	}
 
 }
