@@ -98,6 +98,8 @@ public class MedicalRecordDomainService {
 		recordLog.save();
 
 		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
+		
+		System.out.println("xxx");
 
 	}
 

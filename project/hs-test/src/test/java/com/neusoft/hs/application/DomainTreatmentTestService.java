@@ -62,6 +62,8 @@ public class DomainTreatmentTestService extends AppTestService {
 		
 		medicalRecordAppService.sign(intoWardRecord.getId(), user002);
 		
+		System.out.println("zzz");
+		
 		intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
 		
 		assertTrue(intoWardRecord.getState().equals(MedicalRecord.State_Signed));

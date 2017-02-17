@@ -194,9 +194,6 @@ public class MedicalRecord extends IdEntity {
 		this.init();
 
 		this.fixedItems();
-
-		this.getService(MedicalRecordRepo.class).save(this);
-
 	}
 
 	private void fixedItems() throws MedicalRecordException {
