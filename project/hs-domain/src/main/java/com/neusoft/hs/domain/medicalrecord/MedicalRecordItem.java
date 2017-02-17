@@ -46,6 +46,7 @@ public class MedicalRecordItem extends IdEntity {
 
 	public MedicalRecordItem(TreatmentItem item) throws MedicalRecordException {
 		this.name = item.getName();
+		this.visit = item.getVisit();
 
 		MedicalRecordItemValue theValue;
 		for (TreatmentItemValue value : item.getValues()) {

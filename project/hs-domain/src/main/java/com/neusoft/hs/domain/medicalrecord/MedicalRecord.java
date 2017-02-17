@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -125,6 +126,15 @@ public class MedicalRecord extends IdEntity {
 		this.otherItems = otherItems;
 	}
 
+	public void addItem(MedicalRecordItem item) {
+		if (this.otherItems == null) {
+			this.otherItems = new ArrayList<MedicalRecordItem>();
+		}
+		this.otherItems.add(item);
+
+		item.setRecord(this);
+	}
+
 	public List<MedicalRecordLog> getLogs() {
 		return logs;
 	}
@@ -192,7 +202,7 @@ public class MedicalRecord extends IdEntity {
 		MedicalRecordItem fixedItem;
 		for (TreatmentItem item : datas.values()) {
 			fixedItem = new MedicalRecordItem(item);
-			this.otherItems.add(fixedItem);
+			this.addItem(fixedItem);
 		}
 	}
 
