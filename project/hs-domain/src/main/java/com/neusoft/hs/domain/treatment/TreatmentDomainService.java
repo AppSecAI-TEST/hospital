@@ -40,6 +40,12 @@ public class TreatmentDomainService {
 		applicationContext.publishEvent(new TreatmentItemCreatedEvent(item));
 	}
 
+	public TreatmentItem getTheTreatmentItem(Visit visit,
+			TreatmentItemSpec treatmentItemSpec) {
+		return treatmentItemRepo.findByVisitAndTreatmentItemSpec(visit,
+				treatmentItemSpec);
+	}
+
 	/**
 	 * @roseuid 58A148900388
 	 */
@@ -73,7 +79,7 @@ public class TreatmentDomainService {
 			List<TreatmentItemSpec> treatmentItemSpecs) {
 		treatmentItemSpecRepo.save(treatmentItemSpecs);
 	}
-	
+
 	public void clearTreatmentItems() {
 		treatmentItemRepo.deleteAll();
 	}
