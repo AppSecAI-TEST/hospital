@@ -203,6 +203,7 @@ public class MedicalRecord extends IdEntity {
 		MedicalRecordItem fixedItem;
 		for (TreatmentItem item : datas.values()) {
 			fixedItem = new MedicalRecordItem(item);
+			
 			this.addItem(fixedItem);
 		}
 	}

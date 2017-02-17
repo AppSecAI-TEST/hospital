@@ -97,4 +97,8 @@ public class MedicalRecordItem extends IdEntity {
 		this.visit = visit;
 	}
 
+	public void save() {
+		this.getService(MedicalRecordItemRepo.class).save(this);
+	}
+
 }
