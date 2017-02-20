@@ -43,6 +43,7 @@ import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderUtil;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.order.TemporaryOrderListTreatmentItemSpec;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
@@ -66,10 +67,10 @@ import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.treatment.CommonTreatmentItemSpec;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
-import com.neusoft.hs.domain.treatment.spec.VisitNameTreatmentItemSpec;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
+import com.neusoft.hs.domain.visit.VisitNameTreatmentItemSpec;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -220,7 +221,11 @@ public abstract class AppTestService {
 
 	protected TreatmentItemSpec visitNameTreatmentItemSpec;// 患者姓名
 
+	protected TreatmentItemSpec temporaryOrderListTreatmentItemSpec;// 临时医嘱列表
+
 	protected MedicalRecordType intoWardRecordMedicalRecordType;// 入院记录
+
+	protected MedicalRecordType temporaryOrderListMedicalRecordType;// 临时医嘱单
 
 	protected Visit visit001;
 
@@ -973,24 +978,43 @@ public abstract class AppTestService {
 		visitNameTreatmentItemSpec.setName("患者姓名");
 
 		treatmentItemSpecs.add(visitNameTreatmentItemSpec);
+		
+		temporaryOrderListTreatmentItemSpec = new TemporaryOrderListTreatmentItemSpec();
+		temporaryOrderListTreatmentItemSpec.setId("临时医嘱列表");
+		temporaryOrderListTreatmentItemSpec.setName("临时医嘱列表");
+
+		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
 
 		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
 	}
 
 	private void initMedicalRecordTypes() {
+		List<TreatmentItemSpec> items;
 		List<MedicalRecordType> medicalRecordTypes = new ArrayList<MedicalRecordType>();
 
 		intoWardRecordMedicalRecordType = new MedicalRecordType();
 		intoWardRecordMedicalRecordType.setId("入院记录");
 		intoWardRecordMedicalRecordType.setName("入院记录");
 
-		List<TreatmentItemSpec> items = new ArrayList<TreatmentItemSpec>();
+		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
 		items.add(mainDescribeTreatmentItemSpec);
 
 		intoWardRecordMedicalRecordType.setItems(items);
 
 		medicalRecordTypes.add(intoWardRecordMedicalRecordType);
+
+		temporaryOrderListMedicalRecordType = new MedicalRecordType();
+		temporaryOrderListMedicalRecordType.setId("临时医嘱单");
+		temporaryOrderListMedicalRecordType.setName("临时医嘱单");
+		
+		items = new ArrayList<TreatmentItemSpec>();
+		items.add(visitNameTreatmentItemSpec);
+		items.add(temporaryOrderListTreatmentItemSpec);
+		
+		temporaryOrderListMedicalRecordType.setItems(items);
+
+		medicalRecordTypes.add(temporaryOrderListMedicalRecordType);
 
 		medicalRecordDomainService.createMedicalRecordTypes(medicalRecordTypes);
 

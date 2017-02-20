@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.treatment.spec;
+package com.neusoft.hs.domain.visit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,6 @@ import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.treatment.TreatmentItemValue;
-import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
 @DiscriminatorValue("VisitName")
