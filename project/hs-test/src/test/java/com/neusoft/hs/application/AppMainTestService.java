@@ -31,6 +31,7 @@ import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
 import com.neusoft.hs.domain.inspect.InspectOrderType;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.LongOrder;
@@ -65,6 +66,10 @@ import com.neusoft.hs.domain.pharmacy.InfusionOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
+import com.neusoft.hs.domain.treatment.Itemable;
+import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
+import com.neusoft.hs.domain.treatment.TreatmentItem;
+import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -188,6 +193,63 @@ public class AppMainTestService extends AppTestService {
 		assertTrue(executes.size() == 1);
 
 		costDomainService.unCharging(executes.get(0).getId(), true, user003);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 14:05"));
+		
+		Visit currentVisit = visitDomainService.find(visit001.getId());
+		
+		List<TreatmentItemSpec> treatmentItemSpecs = treatmentAppService.getShouldTreatmentItemSpecs(currentVisit, user002);
+		
+		assertTrue(treatmentItemSpecs.size() == 1);
+		
+		//创建主诉
+		TreatmentItem item = new TreatmentItem();
+		item.setVisit(visit001);
+		item.setTreatmentItemSpec(mainDescribeTreatmentItemSpec);
+		item.setCreator(user002);
+		
+		SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
+		value.setInfo("患者咳嗽发烧三天");
+		item.addValue(value);
+		
+		treatmentDomainService.create(item);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 14:20"));
+		
+		//创建入院记录
+		MedicalRecord intoWardRecord = medicalRecordAppService.create(visit001, intoWardRecordMedicalRecordType, user002);
+		
+		Map<String, Itemable> datas = intoWardRecord.getDatas();
+		
+		assertTrue(datas.get("患者姓名").getValues().get(0).toString().equals("测试患者001"));
+		assertTrue(datas.get("主诉").getValues().get(0).toString().equals("患者咳嗽发烧三天"));
+		
+		((SimpleTreatmentItemValue)datas.get("主诉").getValues().get(0)).setInfo("患者咳嗽发烧三天，体温38.5");
+		
+		medicalRecordAppService.create(intoWardRecord);
+		
+		intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
+		
+		datas = intoWardRecord.getDatas();
+		
+		assertTrue(datas.get("患者姓名").getValues().get(0).toString().equals("测试患者001"));
+		assertTrue(datas.get("主诉").getValues().get(0).toString().equals("患者咳嗽发烧三天，体温38.5"));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 15:00"));
+		
+		medicalRecordAppService.sign(intoWardRecord.getId(), user002);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 17:00"));
+		
+		item = treatmentDomainService.getTheTreatmentItem(visit001, mainDescribeTreatmentItemSpec);
+		((SimpleTreatmentItemValue)item.getValues().get(0)).setInfo("患者咳嗽发烧三天，体温38.5，嗜睡");
+		treatmentDomainService.update(item);
+		
+		intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
+		
+		assertTrue(intoWardRecord.getState().equals(MedicalRecord.State_Signed));
+		assertTrue(datas.get("主诉").getValues().get(0).toString().equals("患者咳嗽发烧三天，体温38.5"));
+
 
 		// 2016-12-29
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-29"));

@@ -436,11 +436,13 @@ public abstract class AppTestService {
 		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
 	}
 
-	private void followUp() {
+	private void followUp() throws HsException {
 		arrangementMedicalRecord();
 	}
 
-	private void arrangementMedicalRecord() {
+	private void arrangementMedicalRecord() throws HsException {
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30"));
 
 		// 创建临时医嘱单
 		MedicalRecord temporaryOrderListRecord = medicalRecordAppService
