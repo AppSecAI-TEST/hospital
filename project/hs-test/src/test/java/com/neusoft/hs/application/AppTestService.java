@@ -30,6 +30,7 @@ import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
 import com.neusoft.hs.domain.inspect.InspectOrderType;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.order.AssistMaterial;
@@ -65,6 +66,8 @@ import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.treatment.CommonTreatmentItemSpec;
+import com.neusoft.hs.domain.treatment.Itemable;
+import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
@@ -428,6 +431,17 @@ public abstract class AppTestService {
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
+
+		// 创建临时医嘱单
+		MedicalRecord temporaryOrderListRecord = medicalRecordAppService.create(visit001,
+				temporaryOrderListMedicalRecordType, user002);
+		
+		Map<String, Itemable> datas = temporaryOrderListRecord.getDatas();
+		
+		assertTrue(datas.get("患者姓名").getValues().get(0).toString().equals("测试患者001"));
+		assertTrue(((ListTreatmentItemValue)datas.get("临时医嘱列表").getValues().get(0)).getData().get("name").equals("药品001"));
+		
+		medicalRecordAppService.create(temporaryOrderListRecord);
 
 	}
 
@@ -978,7 +992,7 @@ public abstract class AppTestService {
 		visitNameTreatmentItemSpec.setName("患者姓名");
 
 		treatmentItemSpecs.add(visitNameTreatmentItemSpec);
-		
+
 		temporaryOrderListTreatmentItemSpec = new TemporaryOrderListTreatmentItemSpec();
 		temporaryOrderListTreatmentItemSpec.setId("临时医嘱列表");
 		temporaryOrderListTreatmentItemSpec.setName("临时医嘱列表");
@@ -1007,11 +1021,11 @@ public abstract class AppTestService {
 		temporaryOrderListMedicalRecordType = new MedicalRecordType();
 		temporaryOrderListMedicalRecordType.setId("临时医嘱单");
 		temporaryOrderListMedicalRecordType.setName("临时医嘱单");
-		
+
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
 		items.add(temporaryOrderListTreatmentItemSpec);
-		
+
 		temporaryOrderListMedicalRecordType.setItems(items);
 
 		medicalRecordTypes.add(temporaryOrderListMedicalRecordType);

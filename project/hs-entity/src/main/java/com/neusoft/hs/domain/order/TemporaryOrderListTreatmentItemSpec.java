@@ -35,7 +35,7 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 			value = new ListTreatmentItemValue();
 			
 			value.putData("createDate", order.getCreateDate());
-			value.putData("creator", order.getCreator());
+			value.putData("creator", order.getCreator().getName());
 			value.putData("name", order.getName());
 			//value.putData("executeDate", order.gete);
 
