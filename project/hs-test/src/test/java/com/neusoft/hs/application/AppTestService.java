@@ -66,6 +66,7 @@ import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.treatment.CommonTreatmentItemSpec;
+import com.neusoft.hs.domain.treatment.ItemValue;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
@@ -261,6 +262,8 @@ public abstract class AppTestService {
 
 		this.outWard();
 
+		this.followUp();
+
 	}
 
 	protected abstract void treatment() throws HsException;
@@ -431,18 +434,31 @@ public abstract class AppTestService {
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
+	}
+
+	private void followUp() {
+		arrangementMedicalRecord();
+	}
+
+	private void arrangementMedicalRecord() {
 
 		// 创建临时医嘱单
-		MedicalRecord temporaryOrderListRecord = medicalRecordAppService.create(visit001,
-				temporaryOrderListMedicalRecordType, user002);
-		
-		Map<String, Itemable> datas = temporaryOrderListRecord.getDatas();
-		
-		assertTrue(datas.get("患者姓名").getValues().get(0).toString().equals("测试患者001"));
-		assertTrue(((ListTreatmentItemValue)datas.get("临时医嘱列表").getValues().get(0)).getData().get("name").equals("药品001"));
-		
-		medicalRecordAppService.create(temporaryOrderListRecord);
+		MedicalRecord temporaryOrderListRecord = medicalRecordAppService
+				.create(visit001, temporaryOrderListMedicalRecordType, user002);
 
+		Map<String, Itemable> datas = temporaryOrderListRecord.getDatas();
+
+		List<? extends ItemValue> itemValue;
+
+		itemValue = datas.get("患者姓名").getValues();
+		assertTrue(itemValue.get(0).toString().equals("测试患者001"));
+
+		itemValue = datas.get("临时医嘱列表").getValues();
+		assertTrue(itemValue.size() == 3);
+		assertTrue(((ListTreatmentItemValue) itemValue.get(0)).getData()
+				.get("name").equals("药品001"));
+
+		medicalRecordAppService.create(temporaryOrderListRecord);
 	}
 
 	public void clear() {

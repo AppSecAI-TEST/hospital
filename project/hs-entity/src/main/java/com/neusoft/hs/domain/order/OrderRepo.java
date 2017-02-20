@@ -19,11 +19,12 @@ interface OrderRepo extends PagingAndSortingRepository<Order, String> {
 
 	@Query("select o from LongOrder o where o.state = :state")
 	List<LongOrder> findLongOrderByState(@Param("state") String state);
-	
+
 	@Query("select o from LongOrder o where o.visit = :visit")
 	List<LongOrder> findLongOrderByVisit(@Param("visit") Visit visit);
-	
+
 	@Query("select o from TemporaryOrder o where o.visit = :visit")
-	List<TemporaryOrder> findTemporaryOrderByVisit(@Param("visit") Visit visit);
+	List<TemporaryOrder> findTemporaryOrderByVisit(@Param("visit") Visit visit,
+			Pageable pageable);
 
 }

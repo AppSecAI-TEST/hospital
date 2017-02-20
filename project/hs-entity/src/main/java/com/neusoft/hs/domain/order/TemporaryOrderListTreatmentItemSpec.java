@@ -6,6 +6,10 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+
 import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
@@ -27,9 +31,12 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 
 		ListTreatmentItemValue value;
 
+		Sort sort = new Sort(Direction.ASC, "planStartDate");
+		PageRequest pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
+		
 		List<TemporaryOrder> orders = ApplicationContextUtil
 				.getApplicationContext().getBean(OrderRepo.class)
-				.findTemporaryOrderByVisit(visit);
+				.findTemporaryOrderByVisit(visit, pageable);
 
 		for (TemporaryOrder order : orders) {
 			value = new ListTreatmentItemValue();
