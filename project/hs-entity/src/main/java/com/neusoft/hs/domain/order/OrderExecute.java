@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -103,7 +102,7 @@ public class OrderExecute extends SuperEntity {
 	@JoinColumn(name = "actual_executor_id")
 	private AbstractUser actualExecutor;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id")
 	private Order order;
 

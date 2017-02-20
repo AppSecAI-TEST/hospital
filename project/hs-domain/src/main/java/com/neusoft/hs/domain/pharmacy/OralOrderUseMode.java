@@ -38,7 +38,7 @@ public class OralOrderUseMode extends DrugUseMode {
 		team.addOrderExecute(dispensingDrugExecute);
 
 		// 取药执行条目
-		OrderExecute taskDrugExecute = new OrderExecute();
+		TaskDrugOrderExecute taskDrugExecute = new TaskDrugOrderExecute();
 		taskDrugExecute.setOrder(order);
 		taskDrugExecute.setVisit(order.getVisit());
 		taskDrugExecute.setBelongDept(order.getBelongDept());

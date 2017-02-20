@@ -2,15 +2,12 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
