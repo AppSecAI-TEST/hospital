@@ -6,8 +6,10 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
+import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -24,6 +26,13 @@ public class InspectConfirmOrderExecute extends OrderExecute {
 		super.doFinish(user);
 		inspectApplyItem.setExecuteDate(DateUtil.getSysDate());
 		inspectApplyItem.setState(InspectApplyItem.State_Finished);
+
+		Order order = this.getOrder();
+		if (order instanceof TemporaryOrder) {
+			TemporaryOrder temporaryOrder = (TemporaryOrder) order;
+			temporaryOrder.setExecuteDate(DateUtil.getSysDate());
+			temporaryOrder.setExecuteUser(user);
+		}
 	}
 
 	public InspectApplyItem getInspectApplyItem() {
