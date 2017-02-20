@@ -24,7 +24,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
-import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -52,7 +51,7 @@ public class MedicalRecord extends IdEntity {
 	@JoinColumn(name = "sign_doctor_id")
 	private Doctor signDoctor;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
@@ -65,6 +64,10 @@ public class MedicalRecord extends IdEntity {
 	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
 	private List<MedicalRecordLog> logs;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "builder_id")
+	private MedicalRecordBuilder builder;
+
 	@Transient
 	private Map<String, Itemable> datas = new HashMap<String, Itemable>();
 
@@ -74,18 +77,19 @@ public class MedicalRecord extends IdEntity {
 	public MedicalRecord() {
 	}
 
-	public MedicalRecord(MedicalRecordType type, Visit visit, Doctor doctor) {
+	public MedicalRecord(MedicalRecordBuilder builder, MedicalRecordType type,
+			Visit visit, Doctor doctor) {
 		this.type = type;
 		this.visit = visit;
 		this.doctor = doctor;
+
+		this.builder = builder;
 
 		this.init();
 	}
 
 	public void init() {
-		for (TreatmentItemSpec itemSpec : this.type.getItems()) {
-			datas.put(itemSpec.getName(), itemSpec.getTheItem(this.visit));
-		}
+		datas = this.builder.create();
 	}
 
 	public void load() {
@@ -191,10 +195,20 @@ public class MedicalRecord extends IdEntity {
 		this.signDoctor = signDoctor;
 	}
 
+	public MedicalRecordBuilder getBuilder() {
+		return builder;
+	}
+
+	public void setBuilder(MedicalRecordBuilder builder) {
+		this.builder = builder;
+	}
+
 	public void save() {
 		for (Itemable item : datas.values()) {
 			item.save();
 		}
+		this.builder.save();
+		
 		this.getService(MedicalRecordRepo.class).save(this);
 	}
 

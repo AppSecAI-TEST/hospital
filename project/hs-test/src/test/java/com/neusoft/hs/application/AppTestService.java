@@ -461,6 +461,8 @@ public abstract class AppTestService {
 				.get("name").equals("药品001"));
 
 		medicalRecordAppService.create(temporaryOrderListRecord);
+		
+		
 	}
 
 	public void clear() {

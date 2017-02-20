@@ -2,10 +2,14 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,7 +29,10 @@ public class MedicalRecordClip extends IdEntity {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
-	
+
+	@OneToMany(mappedBy = "clip", cascade = { CascadeType.ALL })
+	private List<MedicalRecord> records;
+
 	public static final String State_Normal = "正常";
 
 	public String getState() {
@@ -42,6 +49,14 @@ public class MedicalRecordClip extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	public List<MedicalRecord> getRecords() {
+		return records;
+	}
+
+	public void setRecords(List<MedicalRecord> records) {
+		this.records = records;
 	}
 
 	public void save() {

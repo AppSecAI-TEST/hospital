@@ -31,9 +31,9 @@ public class MedicalRecordDomainService {
 	@Autowired
 	private ApplicationContext applicationContext;
 
-	public MedicalRecord create(Visit visit, MedicalRecordType type,
-			Doctor doctor) {
-		MedicalRecord record = new MedicalRecord(type, visit, doctor);
+	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
+			MedicalRecordType type, Doctor doctor) {
+		MedicalRecord record = new MedicalRecord(builder, type, visit, doctor);
 
 		return record;
 
