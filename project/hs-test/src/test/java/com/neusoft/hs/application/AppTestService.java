@@ -463,6 +463,8 @@ public abstract class AppTestService {
 	}
 
 	public void clear() {
+		// 清空病历
+		medicalRecordDomainService.clear();
 		// 清空医嘱用法
 		pharmacyDomainService.clearOrderUseModes();
 		// 清空医嘱类型
@@ -479,8 +481,6 @@ public abstract class AppTestService {
 		inspectDomainService.clearInspectItems();
 		// 清空计费项目
 		costDomainService.clearChargeItems();
-		// 清空病历
-		medicalRecordDomainService.clear();
 		// 清空诊疗项目信息
 		treatmentDomainService.clearTreatmentItems();
 		// 清空诊疗项目规格
