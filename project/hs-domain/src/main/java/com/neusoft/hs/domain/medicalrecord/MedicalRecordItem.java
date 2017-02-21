@@ -47,6 +47,11 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 
 	}
 
+	public MedicalRecordItem(String name) {
+		super();
+		this.name = name;
+	}
+
 	public MedicalRecordItem(TreatmentItem item) throws MedicalRecordException {
 		this.name = item.getName();
 		this.visit = item.getVisit();

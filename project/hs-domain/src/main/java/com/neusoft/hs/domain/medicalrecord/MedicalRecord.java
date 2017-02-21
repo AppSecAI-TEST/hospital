@@ -90,6 +90,16 @@ public class MedicalRecord extends IdEntity {
 
 	public void init() {
 		datas = this.builder.create();
+
+		MedicalRecordItem medicalRecordItem;
+		for (Itemable item : datas.values()) {
+			if (item instanceof MedicalRecordItem) {
+				medicalRecordItem = (MedicalRecordItem) item;
+
+				medicalRecordItem.setRecord(this);
+				medicalRecordItem.setVisit(visit);
+			}
+		}
 	}
 
 	public void load() {
@@ -208,7 +218,7 @@ public class MedicalRecord extends IdEntity {
 			item.save();
 		}
 		this.builder.save();
-		
+
 		this.getService(MedicalRecordRepo.class).save(this);
 	}
 
