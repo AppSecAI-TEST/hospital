@@ -40,6 +40,7 @@ public class InspectResultMedicalRecordBuilder extends MedicalRecordBuilder {
 		MedicalRecordItem item;
 		
 		item = new MedicalRecordItem("患者姓名");
+		item.setVisit(result.getVisit());
 
 		SimpleMedicalRecordItemValue visitName = new SimpleMedicalRecordItemValue();
 		visitName.setInfo(result.getVisit().getName());
@@ -49,6 +50,7 @@ public class InspectResultMedicalRecordBuilder extends MedicalRecordBuilder {
 		datas.put(item.getName(), item);
 
 		item = new MedicalRecordItem("检查结果");
+		item.setVisit(result.getVisit());
 
 		SimpleMedicalRecordItemValue content = new SimpleMedicalRecordItemValue();
 		content.setInfo(result.getResult());
@@ -58,6 +60,7 @@ public class InspectResultMedicalRecordBuilder extends MedicalRecordBuilder {
 		datas.put(item.getName(), item);
 
 		item = new MedicalRecordItem("检查时间");
+		item.setVisit(result.getVisit());
 
 		DateMedicalRecordItemValue inspectDate = new DateMedicalRecordItemValue();
 		inspectDate.setDate(result.getCreateDate());
@@ -67,6 +70,7 @@ public class InspectResultMedicalRecordBuilder extends MedicalRecordBuilder {
 		datas.put(item.getName(), item);
 		
 		item = new MedicalRecordItem("检查科室");
+		item.setVisit(result.getVisit());
 
 		DeptMedicalRecordItemValue inspectDept = new DeptMedicalRecordItemValue();
 		inspectDept.setDept(result.getInspectDept());

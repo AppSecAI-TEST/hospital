@@ -214,12 +214,14 @@ public class MedicalRecord extends IdEntity {
 	}
 
 	public void save() {
-		for (Itemable item : datas.values()) {
-			item.save();
-		}
+		
 		this.builder.save();
 
 		this.getService(MedicalRecordRepo.class).save(this);
+		
+		for (Itemable item : datas.values()) {
+			item.save();
+		}
 	}
 
 	public void sign(Doctor doctor) throws MedicalRecordException {
