@@ -138,6 +138,9 @@ public abstract class AppTestService {
 	protected MedicalRecordAppService medicalRecordAppService;
 
 	@Autowired
+	protected MedicalRecordTestService medicalRecordTestService;
+
+	@Autowired
 	protected OrderUtil orderUtil;
 
 	@Autowired
@@ -442,64 +445,21 @@ public abstract class AppTestService {
 		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
 	}
 
-	private void followUp() throws HsException {
+	public void followUp() throws HsException {
 		arrangementMedicalRecord();
 	}
 
-	private void arrangementMedicalRecord() throws HsException {
+	public void arrangementMedicalRecord() throws HsException {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30"));
 
 		// 创建临时医嘱单
-		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(
-				temporaryOrderListMedicalRecordType, visit001);
-
-		MedicalRecord temporaryOrderListRecord = medicalRecordAppService
-				.create(builder, visit001, temporaryOrderListMedicalRecordType,
-						user002);
-
-		Map<String, Itemable> datas = temporaryOrderListRecord.getDatas();
-
-		List<? extends ItemValue> itemValue;
-
-		itemValue = datas.get("患者姓名").getValues();
-		assertTrue(itemValue.get(0).toString().equals("测试患者001"));
-
-		itemValue = datas.get("临时医嘱列表").getValues();
-		assertTrue(itemValue.size() == 3);
-		assertTrue(((ListTreatmentItemValue) itemValue.get(0)).getData()
-				.get("name").equals("药品001"));
-
-		medicalRecordAppService.create(temporaryOrderListRecord);
+		medicalRecordTestService.createTemporaryOrderListMedicalRecord(
+				visit001, temporaryOrderListMedicalRecordType, user002);
 
 		// 生成检查单病历
-		List<InspectResult> results = inspectDomainService
-				.findInspectResults(visit001);
-		assertTrue(results.size() == 1);
-		for (InspectResult result : results) {
-			builder = new InspectResultMedicalRecordBuilder(result);
-			MedicalRecord inspectResultRecord = medicalRecordAppService.create(
-					builder, visit001, inspectResultMedicalRecordType,
-					user002);
-			
-			datas = inspectResultRecord.getDatas();
-
-			itemValue = datas.get("患者姓名").getValues();
-			assertTrue(itemValue.get(0).toString().equals("测试患者001"));
-			
-			itemValue = datas.get("检查结果").getValues();
-			assertTrue(itemValue.get(0).toString().equals("没啥问题"));
-
-			itemValue = datas.get("检查日期").getValues();
-			assertTrue(itemValue.get(0).toString().equals("2017-01-02 14:40:00"));
-			
-			itemValue = datas.get("检查部门").getValues();
-			assertTrue(itemValue.get(0).toString().equals("CT室"));
-			
-
-			medicalRecordAppService.create(inspectResultRecord);
-		}
-
+		medicalRecordTestService.createInspectResultMedicalRecord(visit001,
+				inspectResultMedicalRecordType, user002);
 	}
 
 	public void clear() {
@@ -1055,7 +1015,6 @@ public abstract class AppTestService {
 		temporaryOrderListTreatmentItemSpec.setName("临时医嘱列表");
 
 		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
-
 
 		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
 	}
