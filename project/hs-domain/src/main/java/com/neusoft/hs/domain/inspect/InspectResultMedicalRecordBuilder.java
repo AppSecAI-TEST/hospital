@@ -65,6 +65,8 @@ public class InspectResultMedicalRecordBuilder extends MedicalRecordBuilder {
 		item.addValue(inspectDate);
 
 		datas.put("检查时间", item);
+		
+		item = new MedicalRecordItem();
 
 		DeptMedicalRecordItemValue inspectDept = new DeptMedicalRecordItemValue();
 		inspectDept.setDept(result.getInspectDept());
