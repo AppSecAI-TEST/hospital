@@ -31,6 +31,7 @@ import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
 import com.neusoft.hs.domain.inspect.InspectOrderType;
 import com.neusoft.hs.domain.inspect.InspectResult;
+import com.neusoft.hs.domain.inspect.InspectResultMedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
@@ -233,6 +234,8 @@ public abstract class AppTestService {
 	protected MedicalRecordType intoWardRecordMedicalRecordType;// 入院记录
 
 	protected MedicalRecordType temporaryOrderListMedicalRecordType;// 临时医嘱单
+
+	protected MedicalRecordType inspectResultMedicalRecordType;// 检查单
 
 	protected Visit visit001;
 
@@ -472,8 +475,29 @@ public abstract class AppTestService {
 		// 生成检查单病历
 		List<InspectResult> results = inspectDomainService
 				.findInspectResults(visit001);
+		assertTrue(results.size() == 1);
 		for (InspectResult result : results) {
+			builder = new InspectResultMedicalRecordBuilder(result);
+			MedicalRecord inspectResultRecord = medicalRecordAppService.create(
+					builder, visit001, inspectResultMedicalRecordType,
+					user002);
+			
+			datas = inspectResultRecord.getDatas();
 
+			itemValue = datas.get("患者姓名").getValues();
+			assertTrue(itemValue.get(0).toString().equals("测试患者001"));
+			
+			itemValue = datas.get("检查结果").getValues();
+			assertTrue(itemValue.get(0).toString().equals("没啥问题"));
+
+			itemValue = datas.get("检查日期").getValues();
+			assertTrue(itemValue.get(0).toString().equals("2017-01-02 14:40:00"));
+			
+			itemValue = datas.get("检查部门").getValues();
+			assertTrue(itemValue.get(0).toString().equals("CT室"));
+			
+
+			medicalRecordAppService.create(inspectResultRecord);
 		}
 
 	}
@@ -1032,6 +1056,7 @@ public abstract class AppTestService {
 
 		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
 
+
 		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
 	}
 
@@ -1062,6 +1087,17 @@ public abstract class AppTestService {
 		temporaryOrderListMedicalRecordType.setItems(items);
 
 		medicalRecordTypes.add(temporaryOrderListMedicalRecordType);
+
+		inspectResultMedicalRecordType = new MedicalRecordType();
+		inspectResultMedicalRecordType.setId("检查单");
+		inspectResultMedicalRecordType.setName("检查单");
+
+		items = new ArrayList<TreatmentItemSpec>();
+		items.add(visitNameTreatmentItemSpec);
+
+		inspectResultMedicalRecordType.setItems(items);
+
+		medicalRecordTypes.add(inspectResultMedicalRecordType);
 
 		medicalRecordDomainService.createMedicalRecordTypes(medicalRecordTypes);
 

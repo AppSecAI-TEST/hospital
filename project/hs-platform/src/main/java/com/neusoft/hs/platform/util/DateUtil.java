@@ -53,6 +53,12 @@ public class DateUtil {
 		}
 	}
 
+	public static String toString(Date date) throws HsException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm");
+		return simpleDateFormat.format(date);
+	}
+
 	public static Date addDay(Date date, int day) {
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(date);
