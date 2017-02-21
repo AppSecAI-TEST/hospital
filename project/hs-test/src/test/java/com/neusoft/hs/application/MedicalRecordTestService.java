@@ -84,7 +84,7 @@ public class MedicalRecordTestService {
 			itemValue = datas.get("检查结果").getValues();
 			assertTrue(itemValue.get(0).toString().equals("没啥问题"));
 
-			itemValue = datas.get("检查日期").getValues();
+			itemValue = datas.get("检查时间").getValues();
 			assertTrue(itemValue.get(0).toString()
 					.equals("2017-01-02 14:40:00"));
 
