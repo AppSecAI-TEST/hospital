@@ -30,9 +30,12 @@ import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
 import com.neusoft.hs.domain.inspect.InspectOrderType;
+import com.neusoft.hs.domain.inspect.InspectResult;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderDomainService;
@@ -441,12 +444,16 @@ public abstract class AppTestService {
 	}
 
 	private void arrangementMedicalRecord() throws HsException {
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30"));
 
 		// 创建临时医嘱单
+		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(
+				temporaryOrderListMedicalRecordType, visit001);
+
 		MedicalRecord temporaryOrderListRecord = medicalRecordAppService
-				.create(visit001, temporaryOrderListMedicalRecordType, user002);
+				.create(builder, visit001, temporaryOrderListMedicalRecordType,
+						user002);
 
 		Map<String, Itemable> datas = temporaryOrderListRecord.getDatas();
 
@@ -461,8 +468,14 @@ public abstract class AppTestService {
 				.get("name").equals("药品001"));
 
 		medicalRecordAppService.create(temporaryOrderListRecord);
-		
-		
+
+		// 生成检查单病历
+		List<InspectResult> results = inspectDomainService
+				.findInspectResults(visit001);
+		for (InspectResult result : results) {
+
+		}
+
 	}
 
 	public void clear() {

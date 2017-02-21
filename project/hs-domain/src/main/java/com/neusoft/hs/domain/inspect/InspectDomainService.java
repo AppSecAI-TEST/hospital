@@ -17,12 +17,13 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class InspectDomainService {
-	
+
 	@Autowired
 	private InspectItemRepo inspectItemRepo;
 
@@ -30,16 +31,19 @@ public class InspectDomainService {
 	private InspectApplyItemRepo inspectApplyItemRepo;
 
 	@Autowired
+	private InspectResultRepo inspectResultRepo;
+
+	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
-	
+
 	@Autowired
 	private ApplyDomainService applyDomainService;
-	
+
 	@Autowired
 	private ApplicationContext applicationContext;
 
-	public void arrange(String executeId, Date planExecuteDate, AbstractUser user)
-			throws InspectException {
+	public void arrange(String executeId, Date planExecuteDate,
+			AbstractUser user) throws InspectException {
 		OrderExecute orderExecute = orderExecuteDomainService.find(executeId);
 		if (orderExecute == null) {
 			throw new InspectException("医嘱执行条目[" + executeId + "]不存在");
@@ -93,7 +97,8 @@ public class InspectDomainService {
 		applyDomainService.save(inspectApply);
 	}
 
-	public void cancel(String inspectApplyItemId, AbstractUser user) throws InspectException {
+	public void cancel(String inspectApplyItemId, AbstractUser user)
+			throws InspectException {
 
 		InspectApplyItem inspectApplyItem = inspectApplyItemRepo
 				.findOne(inspectApplyItemId);
@@ -126,11 +131,16 @@ public class InspectDomainService {
 
 		inspectApplyItem.save();
 
-		applicationContext.publishEvent(new InspectApplyItemCanceledEvent(inspectApplyItem));
+		applicationContext.publishEvent(new InspectApplyItemCanceledEvent(
+				inspectApplyItem));
 	}
 
 	public void createInspectItems(List<InspectItem> inspectItems) {
 		inspectItemRepo.save(inspectItems);
+	}
+
+	public List<InspectResult> findInspectResults(Visit visit) {
+		return inspectResultRepo.findByVisit(visit);
 	}
 
 	public void clearInspectItems() {

@@ -9,7 +9,6 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 
@@ -20,9 +19,8 @@ public class MedicalRecordAppService {
 	@Autowired
 	private MedicalRecordDomainService medicalRecordDomainService;
 
-	public MedicalRecord create(Visit visit,
+	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
 			MedicalRecordType type, Doctor doctor) {
-		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
 		return medicalRecordDomainService.create(builder, visit, type, doctor);
 	}
 

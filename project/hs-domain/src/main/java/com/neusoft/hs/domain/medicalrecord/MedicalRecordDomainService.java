@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.treatment.ItemValue;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -27,6 +26,9 @@ public class MedicalRecordDomainService {
 
 	@Autowired
 	private MedicalRecordRepo medicalRecordRepo;
+	
+	@Autowired
+	private MedicalRecordTypeBuilderRepo medicalRecordTypeBuilderRepo;
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -111,6 +113,7 @@ public class MedicalRecordDomainService {
 	 * @roseuid 584E167A0000
 	 */
 	public void clear() {
+		medicalRecordTypeBuilderRepo.deleteAll();
 		medicalRecordClipRepo.deleteAll();
 		medicalRecordTypeRepo.deleteAll();
 	}
