@@ -220,27 +220,13 @@ public class AppMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 14:20"));
 
 		// 创建入院记录
-		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(
-				intoWardRecordMedicalRecordType, visit001);
-
-		MedicalRecord intoWardRecord = medicalRecordAppService.create(builder,
-				visit001, intoWardRecordMedicalRecordType, user002);
-
-		Map<String, Itemable> datas = intoWardRecord.getDatas();
-
-		assertTrue(datas.get("患者姓名").getValues().get(0).toString()
-				.equals("测试患者001"));
-		assertTrue(datas.get("主诉").getValues().get(0).toString()
-				.equals("患者咳嗽发烧三天"));
-
-		((SimpleTreatmentItemValue) datas.get("主诉").getValues().get(0))
-				.setInfo("患者咳嗽发烧三天，体温38.5");
-
-		medicalRecordAppService.create(intoWardRecord);
-
+		MedicalRecord intoWardRecord = medicalRecordTestService
+				.createIntoWardRecord(visit001,
+						intoWardRecordMedicalRecordType, user002);
+		
 		intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
 
-		datas = intoWardRecord.getDatas();
+		Map<String, Itemable> datas = intoWardRecord.getDatas();
 
 		assertTrue(datas.get("患者姓名").getValues().get(0).toString()
 				.equals("测试患者001"));
@@ -260,6 +246,8 @@ public class AppMainTestService extends AppTestService {
 		treatmentDomainService.update(item);
 
 		intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
+
+		datas = intoWardRecord.getDatas();
 
 		assertTrue(intoWardRecord.getState().equals(MedicalRecord.State_Signed));
 		assertTrue(datas.get("主诉").getValues().get(0).toString()
