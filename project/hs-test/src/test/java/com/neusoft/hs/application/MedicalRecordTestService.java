@@ -66,6 +66,7 @@ public class MedicalRecordTestService {
 		assertTrue(datas.get("主诉").getValues().get(0).toString()
 				.equals("患者咳嗽发烧三天"));
 
+		//修改主诉
 		((SimpleTreatmentItemValue) datas.get("主诉").getValues().get(0))
 				.setInfo("患者咳嗽发烧三天，体温38.5");
 

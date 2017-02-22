@@ -19,6 +19,7 @@ public abstract class IdEntity extends SuperEntity {
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false, length = 36)
 	private String id;
 
