@@ -773,6 +773,7 @@ public class DataIniter {
 		intoWardRecordMedicalRecordType = new MedicalRecordType();
 		intoWardRecordMedicalRecordType.setId("入院记录");
 		intoWardRecordMedicalRecordType.setName("入院记录");
+		intoWardRecordMedicalRecordType.setNeedSign(true);
 
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
@@ -785,6 +786,7 @@ public class DataIniter {
 		temporaryOrderListMedicalRecordType = new MedicalRecordType();
 		temporaryOrderListMedicalRecordType.setId("临时医嘱单");
 		temporaryOrderListMedicalRecordType.setName("临时医嘱单");
+		temporaryOrderListMedicalRecordType.setNeedSign(false);
 
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
@@ -797,6 +799,7 @@ public class DataIniter {
 		inspectResultMedicalRecordType = new MedicalRecordType();
 		inspectResultMedicalRecordType.setId("检查单");
 		inspectResultMedicalRecordType.setName("检查单");
+		inspectResultMedicalRecordType.setNeedSign(false);
 
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);

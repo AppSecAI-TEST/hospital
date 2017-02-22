@@ -214,17 +214,21 @@ public class MedicalRecord extends IdEntity {
 	}
 
 	public void save() {
-		
+
 		this.builder.save();
 
 		this.getService(MedicalRecordRepo.class).save(this);
-		
+
 		for (Itemable item : datas.values()) {
 			item.save();
 		}
 	}
 
 	public void sign(Doctor doctor) throws MedicalRecordException {
+		if (!this.type.isNeedSign()) {
+			throw new MedicalRecordException(this, "类型为[" + this.type.getName()
+					+ "]的病历不需要签名");
+		}
 		if (this.state.equals(State_Signed)) {
 			throw new MedicalRecordException(this, "id=[" + getId() + "]病历已签名");
 		}
