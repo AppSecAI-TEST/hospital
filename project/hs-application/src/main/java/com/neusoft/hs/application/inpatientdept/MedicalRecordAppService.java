@@ -37,8 +37,8 @@ public class MedicalRecordAppService {
 		medicalRecordDomainService.sign(id, doctor);
 	}
 
-	public void transferMedicalRecordClip(Visit visit, Dept dept)
+	public void transfer(Visit visit, Dept dept)
 			throws MedicalRecordException {
-		medicalRecordDomainService.transferMedicalRecordClip(visit, dept);
+		medicalRecordDomainService.transfer(visit, dept);
 	}
 }

@@ -101,7 +101,7 @@ public class MedicalRecordDomainService {
 		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
 	}
 
-	public void transferMedicalRecordClip(Visit visit, Dept dept)
+	public void transfer(Visit visit, Dept dept)
 			throws MedicalRecordException {
 		MedicalRecordClip clip = this.getMedicalRecordClip(visit);
 

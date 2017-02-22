@@ -241,7 +241,7 @@ public abstract class AppTestService extends DataIniter {
 		//整理病历
 		arrangementMedicalRecord();
 		
-		medicalRecordAppService.transferMedicalRecordClip(visit001, dept666);
+		medicalRecordAppService.transfer(visit001, dept666);
 	}
 
 	public void arrangementMedicalRecord() throws HsException {
