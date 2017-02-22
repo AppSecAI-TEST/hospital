@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.visit.Visit;
@@ -98,6 +99,16 @@ public class MedicalRecordDomainService {
 		recordLog.save();
 
 		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
+	}
+
+	public void transferMedicalRecordClip(Visit visit, Dept dept)
+			throws MedicalRecordException {
+		MedicalRecordClip clip = this.getMedicalRecordClip(visit);
+
+		clip.transfer(dept);
+
+		applicationContext.publishEvent(new MedicalRecordClipTransferedEvent(
+				clip));
 	}
 
 	public MedicalRecordClip getMedicalRecordClip(Visit visit) {

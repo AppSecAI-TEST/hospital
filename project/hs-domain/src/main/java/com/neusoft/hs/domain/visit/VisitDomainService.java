@@ -86,7 +86,7 @@ public class VisitDomainService {
 
 		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
 		medicalRecordClip.setVisit(visit);
-		medicalRecordClip.setState(MedicalRecordClip.State_Normal);
+		medicalRecordClip.setState(MedicalRecordClip.State_InWard);
 		medicalRecordClip.save();
 
 		applicationContext.publishEvent(new VisitIntoWardedEvent(visit));

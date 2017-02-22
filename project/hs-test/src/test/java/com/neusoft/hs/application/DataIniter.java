@@ -65,6 +65,7 @@ public class DataIniter {
 	protected Pharmacy dept333;// 药房
 	protected InspectDept dept444;// CT室
 	protected InspectDept dept555;// 核磁检查室
+	protected Dept dept666;//质控
 
 	protected InPatientDept dept000;// 内泌五
 
@@ -76,6 +77,7 @@ public class DataIniter {
 	protected Staff user666;// CT室检查师-张合
 	protected Staff user777;// 核磁检查室安排检查员-周瑜
 	protected Staff user888;// 核磁检查室检查师-鲁肃
+	protected Staff user999;// 质控岗位-刘备
 
 	protected Staff user001;// 内泌五接诊护士-大乔
 	protected Doctor user002;// 内泌五医生-貂蝉
@@ -316,6 +318,13 @@ public class DataIniter {
 		dept555.setParent(org);
 
 		units.add(dept555);
+		
+		dept666 = new InspectDept();
+		dept666.setId("dept666");
+		dept666.setName("质控部门");
+		dept666.setParent(org);
+
+		units.add(dept666);
 
 		dept000 = new InPatientDept();
 		dept000.setId("dept000");
@@ -394,6 +403,14 @@ public class DataIniter {
 		user888.setDept(dept555);
 
 		users.add(user888);
+		
+		user999 = new Staff();
+
+		user999.setId("staff666");
+		user999.setName("质控岗位-刘备");
+		user999.setDept(dept666);
+
+		users.add(user999);
 
 		user001 = new Staff();
 

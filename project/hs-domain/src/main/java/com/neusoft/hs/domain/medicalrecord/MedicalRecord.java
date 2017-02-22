@@ -241,6 +241,14 @@ public class MedicalRecord extends IdEntity {
 		this.fixedItems();
 	}
 
+	public void checkTransfer() throws MedicalRecordException {
+		if (this.type.isNeedSign() && !this.state.equals(State_Signed)) {
+			throw new MedicalRecordException(this, "id=[" + getId()
+					+ "]病历还没有签名");
+		}
+
+	}
+
 	private void fixedItems() throws MedicalRecordException {
 		MedicalRecordItem fixedItem;
 		for (Itemable item : datas.values()) {

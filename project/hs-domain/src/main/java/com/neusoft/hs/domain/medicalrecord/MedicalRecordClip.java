@@ -9,12 +9,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -24,16 +26,32 @@ public class MedicalRecordClip extends IdEntity {
 
 	@NotEmpty(message = "状态不能为空")
 	@Column(length = 32)
-	private String state = State_Normal;
+	private String state = State_InWard;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "check_dept_id")
+	private Dept checkDept;
+	
 	@OneToMany(mappedBy = "clip", cascade = { CascadeType.ALL })
 	private List<MedicalRecord> records;
 
-	public static final String State_Normal = "正常";
+	public static final String State_InWard = "编写中";
+
+	public static final String State_Checking = "检查中";
+
+	public void transfer(Dept dept) throws MedicalRecordException {
+		for (MedicalRecord record : records) {
+			record.checkTransfer();
+		}
+		
+		this.checkDept = dept;
+		this.state = State_Checking;
+
+	}
 
 	public String getState() {
 		return state;

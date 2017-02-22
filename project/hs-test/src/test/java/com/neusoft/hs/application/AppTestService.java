@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderUtil;
@@ -242,7 +241,7 @@ public abstract class AppTestService extends DataIniter {
 		//整理病历
 		arrangementMedicalRecord();
 		
-		MedicalRecordClip clip = medicalRecordDomainService.getMedicalRecordClip(visit001);
+		medicalRecordAppService.transferMedicalRecordClip(visit001, dept666);
 	}
 
 	public void arrangementMedicalRecord() throws HsException {
