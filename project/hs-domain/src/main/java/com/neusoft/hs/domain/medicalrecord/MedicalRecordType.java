@@ -37,6 +37,9 @@ public class MedicalRecordType extends SuperEntity {
 	@Column(name = "need_sign")
 	private boolean needSign;
 
+	@Column(name = "need_create")
+	private boolean needCreate;
+
 	@OneToMany(mappedBy = "type", cascade = { CascadeType.ALL })
 	private List<MedicalRecord> records;
 
@@ -74,6 +77,14 @@ public class MedicalRecordType extends SuperEntity {
 
 	public void setNeedSign(boolean needSign) {
 		this.needSign = needSign;
+	}
+
+	public boolean isNeedCreate() {
+		return needCreate;
+	}
+
+	public void setNeedCreate(boolean needCreate) {
+		this.needCreate = needCreate;
 	}
 
 	public List<MedicalRecord> getRecords() {

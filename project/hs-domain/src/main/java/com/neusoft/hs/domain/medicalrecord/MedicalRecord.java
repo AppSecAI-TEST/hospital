@@ -39,7 +39,7 @@ public class MedicalRecord extends IdEntity {
 	@JoinColumn(name = "clip_id")
 	private MedicalRecordClip clip;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
 	private MedicalRecordType type;
 

@@ -2,7 +2,9 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,7 +37,7 @@ public class MedicalRecordClip extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "check_dept_id")
 	private Dept checkDept;
-	
+
 	@OneToMany(mappedBy = "clip", cascade = { CascadeType.ALL })
 	private List<MedicalRecord> records;
 
@@ -44,10 +46,22 @@ public class MedicalRecordClip extends IdEntity {
 	public static final String State_Checking = "检查中";
 
 	public void transfer(Dept dept) throws MedicalRecordException {
+
+		Set<MedicalRecordType> createdRecordTypes = new HashSet<MedicalRecordType>();
 		for (MedicalRecord record : records) {
 			record.checkTransfer();
+			createdRecordTypes.add(record.getType());
 		}
-		
+
+		List<MedicalRecordType> needCreateRecordTypes = this.getService(
+				MedicalRecordTypeRepo.class).findByNeedCreate(true);
+		for (MedicalRecordType needCreateRecordType : needCreateRecordTypes) {
+			if (!createdRecordTypes.contains(needCreateRecordType)) {
+				throw new MedicalRecordException(null, "类型为["
+						+ needCreateRecordType.getName() + "]病历还没有创建");
+			}
+		}
+
 		this.checkDept = dept;
 		this.state = State_Checking;
 
