@@ -238,7 +238,10 @@ public abstract class AppTestService extends DataIniter {
 	}
 
 	public void followUp() throws HsException {
+		//整理病历夹
 		arrangementMedicalRecord();
+		
+		m
 	}
 
 	public void arrangementMedicalRecord() throws HsException {

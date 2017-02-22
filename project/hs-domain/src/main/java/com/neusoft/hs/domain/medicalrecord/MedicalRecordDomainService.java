@@ -26,7 +26,7 @@ public class MedicalRecordDomainService {
 
 	@Autowired
 	private MedicalRecordRepo medicalRecordRepo;
-	
+
 	@Autowired
 	private MedicalRecordTypeBuilderRepo medicalRecordTypeBuilderRepo;
 
@@ -46,7 +46,7 @@ public class MedicalRecordDomainService {
 			record.setCreateDate(DateUtil.getSysDate());
 		}
 		if (record.getClip() == null) {
-			record.setClip(medicalRecordClipRepo.findByVisit(record.getVisit()));
+			record.setClip(this.getMedicalRecordClip(record.getVisit()));
 		}
 		record.setState(MedicalRecord.State_Created);
 
@@ -98,6 +98,10 @@ public class MedicalRecordDomainService {
 		recordLog.save();
 
 		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
+	}
+
+	public MedicalRecordClip getMedicalRecordClip(Visit visit) {
+		return medicalRecordClipRepo.findByVisit(visit);
 	}
 
 	public void createMedicalRecordType(MedicalRecordType type) {
