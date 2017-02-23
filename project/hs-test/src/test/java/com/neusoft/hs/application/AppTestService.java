@@ -239,23 +239,23 @@ public abstract class AppTestService extends DataIniter {
 	}
 
 	public void followUp() throws HsException {
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30"));
-		
+
 		// 整理病历
 		arrangementMedicalRecord();
 
 		medicalRecordAppService.transfer(visit001, dept666);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30"));
 
 		List<MedicalRecordClip> clips = qualityControlAppService
 				.findNeedCheckRecordClips(user999);
 
 		assertTrue(clips.size() == 1);
-		
-		qualityControlAppService.pass(clips.get(0), user999);
-		
+
+		String position = "Num001";
+		qualityControlAppService.pass(clips.get(0), position, user999);
 
 	}
 

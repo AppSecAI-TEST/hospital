@@ -44,6 +44,8 @@ public class MedicalRecordClip extends IdEntity {
 	public static final String State_InWard = "编写中";
 
 	public static final String State_Checking = "检查中";
+	
+	public static final String State_Filed = "已归档";
 
 	public void transfer(Dept dept) throws MedicalRecordException {
 

@@ -110,12 +110,16 @@ public class MedicalRecordDomainService {
 		applicationContext.publishEvent(new MedicalRecordClipTransferedEvent(
 				clip));
 	}
+	
+	public void archive(MedicalRecordClip clip) {
+		clip.setState(MedicalRecordClip.State_Filed);
+		clip.save();
+	}
 
 	public MedicalRecordClip getMedicalRecordClip(Visit visit) {
 		return medicalRecordClipRepo.findByVisit(visit);
 	}
 	
-
 	public List<MedicalRecordClip> findClips(String state, Dept dept) {
 		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept);
 	}
@@ -137,4 +141,6 @@ public class MedicalRecordDomainService {
 		medicalRecordClipRepo.deleteAll();
 		medicalRecordTypeRepo.deleteAll();
 	}
+
+
 }
