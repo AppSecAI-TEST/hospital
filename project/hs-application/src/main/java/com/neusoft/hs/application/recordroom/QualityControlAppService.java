@@ -1,4 +1,4 @@
-package com.neusoft.hs.application.qualitycontrol;
+package com.neusoft.hs.application.recordroom;
 
 import java.util.List;
 
@@ -20,6 +20,11 @@ public class QualityControlAppService {
 	public List<MedicalRecordClip> findNeedCheckRecordClips(AbstractUser user) {
 		return medicalRecordDomainService.findClips(
 				MedicalRecordClip.State_Checking, user.getDept());
+	}
+
+	public void pass(MedicalRecordClip clip, AbstractUser user) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

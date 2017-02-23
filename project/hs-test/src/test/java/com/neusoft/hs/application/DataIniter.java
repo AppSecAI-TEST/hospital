@@ -11,7 +11,7 @@ import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.inpatientdept.MedicalRecordAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.inspect.InspectAppService;
-import com.neusoft.hs.application.qualitycontrol.QualityControlAppService;
+import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
