@@ -83,6 +83,14 @@ public class MedicalRecordClip extends IdEntity {
 		this.visit = visit;
 	}
 
+	public Dept getCheckDept() {
+		return checkDept;
+	}
+
+	public void setCheckDept(Dept checkDept) {
+		this.checkDept = checkDept;
+	}
+
 	public List<MedicalRecord> getRecords() {
 		return records;
 	}
