@@ -66,19 +66,20 @@ public class DataIniter {
 	protected Pharmacy dept333;// 药房
 	protected InspectDept dept444;// CT室
 	protected InspectDept dept555;// 核磁检查室
-	protected Dept dept666;//质控
+	protected Dept dept666;// 质控
 
 	protected InPatientDept dept000;// 内泌五
 
-	protected Staff user111;// 住院处送诊人-曹操
-	protected Staff user222;// 收费处-张飞
-	protected Staff user333;// 药房摆药岗位-赵云
-	protected Staff user444;// 药房配液岗位-关羽
-	protected Staff user555;// CT室安排检查员-吕玲绮
-	protected Staff user666;// CT室检查师-张合
-	protected Staff user777;// 核磁检查室安排检查员-周瑜
-	protected Staff user888;// 核磁检查室检查师-鲁肃
-	protected Staff user999;// 质控岗位-刘备
+	protected Staff user101;// 住院处送诊人-曹操
+	protected Staff user201;// 收费处-张飞
+	protected Staff user301;// 药房摆药岗位-赵云
+	protected Staff user302;// 药房配液岗位-关羽
+	protected Staff user401;// CT室安排检查员-吕玲绮
+	protected Staff user402;// CT室检查师-张合
+	protected Staff user501;// 核磁检查室安排检查员-周瑜
+	protected Staff user502;// 核磁检查室检查师-鲁肃
+	protected Staff user601;// 质控岗位-刘备
+	protected Staff user602;// 病案室岗位-孙权
 
 	protected Staff user001;// 内泌五接诊护士-大乔
 	protected Doctor user002;// 内泌五医生-貂蝉
@@ -211,7 +212,7 @@ public class DataIniter {
 
 	@Autowired
 	protected QualityControlAppService qualityControlAppService;
-	
+
 	@Autowired
 	protected MedicalRecordTestService medicalRecordTestService;
 
@@ -322,7 +323,7 @@ public class DataIniter {
 		dept555.setParent(org);
 
 		units.add(dept555);
-		
+
 		dept666 = new InspectDept();
 		dept666.setId("dept666");
 		dept666.setName("质控部门");
@@ -344,77 +345,85 @@ public class DataIniter {
 
 		List<AbstractUser> users = new ArrayList<AbstractUser>();
 
-		user111 = new Staff();
+		user101 = new Staff();
 
-		user111.setId("staff111");
-		user111.setName("住院处送诊人-曹操");
-		user111.setDept(dept111);
+		user101.setId("staff101");
+		user101.setName("住院处送诊人-曹操");
+		user101.setDept(dept111);
 
-		users.add(user111);
+		users.add(user101);
 
-		user222 = new Staff();
+		user201 = new Staff();
 
-		user222.setId("staff222");
-		user222.setName("收费处-张飞");
-		user222.setDept(dept222);
+		user201.setId("staff201");
+		user201.setName("收费处-张飞");
+		user201.setDept(dept222);
 
-		users.add(user222);
+		users.add(user201);
 
-		user333 = new Staff();
+		user301 = new Staff();
 
-		user333.setId("staff333");
-		user333.setName("药房摆药岗位-赵云");
-		user333.setDept(dept333);
+		user301.setId("staff301");
+		user301.setName("药房摆药岗位-赵云");
+		user301.setDept(dept333);
 
-		users.add(user333);
+		users.add(user301);
 
-		user444 = new Staff();
+		user302 = new Staff();
 
-		user444.setId("staff444");
-		user444.setName("药房配液岗位-关羽");
-		user444.setDept(dept333);
+		user302.setId("staff302");
+		user302.setName("药房配液岗位-关羽");
+		user302.setDept(dept333);
 
-		users.add(user444);
+		users.add(user302);
 
-		user555 = new Staff();
+		user401 = new Staff();
 
-		user555.setId("staff555");
-		user555.setName("CT室安排检查员-吕玲绮");
-		user555.setDept(dept444);
+		user401.setId("staff401");
+		user401.setName("CT室安排检查员-吕玲绮");
+		user401.setDept(dept444);
 
-		users.add(user555);
+		users.add(user401);
 
-		user666 = new Staff();
+		user402 = new Staff();
 
-		user666.setId("staff666");
-		user666.setName("CT室检查师-张合");
-		user666.setDept(dept444);
+		user402.setId("staff402");
+		user402.setName("CT室检查师-张合");
+		user402.setDept(dept444);
 
-		users.add(user666);
+		users.add(user402);
 
-		user777 = new Staff();
+		user501 = new Staff();
 
-		user777.setId("staff777");
-		user777.setName("核磁检查室安排检查员-周瑜");
-		user777.setDept(dept555);
+		user501.setId("staff501");
+		user501.setName("核磁检查室安排检查员-周瑜");
+		user501.setDept(dept555);
 
-		users.add(user777);
+		users.add(user501);
 
-		user888 = new Staff();
+		user502 = new Staff();
 
-		user888.setId("staff888");
-		user888.setName("核磁检查室检查师-鲁肃");
-		user888.setDept(dept555);
+		user502.setId("staff502");
+		user502.setName("核磁检查室检查师-鲁肃");
+		user502.setDept(dept555);
 
-		users.add(user888);
-		
-		user999 = new Staff();
+		users.add(user502);
 
-		user999.setId("staff666");
-		user999.setName("质控岗位-刘备");
-		user999.setDept(dept666);
+		user601 = new Staff();
 
-		users.add(user999);
+		user601.setId("staff601");
+		user601.setName("质控岗位-刘备");
+		user601.setDept(dept666);
+
+		users.add(user601);
+
+		user602 = new Staff();
+
+		user602.setId("staff602");
+		user602.setName("病案室岗位-孙权");
+		user602.setDept(dept666);
+
+		users.add(user601);
 
 		user001 = new Staff();
 

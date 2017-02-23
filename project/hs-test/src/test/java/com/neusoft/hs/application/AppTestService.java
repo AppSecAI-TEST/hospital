@@ -80,7 +80,7 @@ public abstract class AppTestService extends DataIniter {
 		visit001.setRespDept(dept000);
 		visit001.setRespDoctor(user002);
 		// 送诊
-		registerAppService.register(visit001, user111);
+		registerAppService.register(visit001, user101);
 
 		Pageable pageable;
 		List<Visit> visits;
@@ -100,7 +100,7 @@ public abstract class AppTestService extends DataIniter {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10"));
 
 		// 预存费用
-		cashierAppService.initAccount(visit001.getId(), 2000F, user222);
+		cashierAppService.initAccount(visit001.getId(), 2000F, user201);
 
 		pageable = new PageRequest(0, 15);
 		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
@@ -223,7 +223,7 @@ public abstract class AppTestService extends DataIniter {
 				.equals(Visit.State_NeedLeaveHospitalBalance));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user222,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
 				pageable);
 
 		assertTrue(executes.size() == 1);
@@ -231,7 +231,7 @@ public abstract class AppTestService extends DataIniter {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 10:30"));
 
 		// 完成出院结算医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), user222);
+		orderExecuteAppService.finish(executes.get(0).getId(), user201);
 
 		visit = visitDomainService.find(visit001.getId());
 
@@ -250,12 +250,12 @@ public abstract class AppTestService extends DataIniter {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30"));
 
 		List<MedicalRecordClip> clips = qualityControlAppService
-				.findNeedCheckRecordClips(user999);
+				.findNeedCheckRecordClips(user601);
 
 		assertTrue(clips.size() == 1);
 
 		String position = "Num001";
-		qualityControlAppService.pass(clips.get(0), position, user999);
+		qualityControlAppService.pass(clips.get(0), position, user601);
 
 	}
 

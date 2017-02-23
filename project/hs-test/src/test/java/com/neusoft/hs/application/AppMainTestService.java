@@ -160,13 +160,13 @@ public class AppMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user333,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
 				pageable);
 
 		assertTrue(executes.size() == 1);
 
 		// 完成摆药医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), user333);
+		orderExecuteAppService.finish(executes.get(0).getId(), user301);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30"));
 
@@ -189,7 +189,7 @@ public class AppMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 13:45"));
 
 		pageable = new PageRequest(0, 15);
-		executes = costDomainService.getNeedBackChargeOrderExecutes(user222,
+		executes = costDomainService.getNeedBackChargeOrderExecutes(user201,
 				pageable);
 
 		assertTrue(executes.size() == 1);
@@ -331,14 +331,14 @@ public class AppMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user302,
 				pageable);
 
 		assertTrue(executes.size() == 2);
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user444);
+			orderExecuteAppService.finish(execute.getId(), user302);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30"));
@@ -374,14 +374,14 @@ public class AppMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:50"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user302,
 				pageable);
 
 		assertTrue(executes.size() == 2);
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user444);
+			orderExecuteAppService.finish(execute.getId(), user302);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 09:10"));
@@ -400,14 +400,14 @@ public class AppMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 14:00"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user302,
 				pageable);
 
 		assertTrue(executes.size() == 2);
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user444);
+			orderExecuteAppService.finish(execute.getId(), user302);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 15:10"));
@@ -441,7 +441,7 @@ public class AppMainTestService extends AppTestService {
 		}
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user444,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user302,
 				pageable);
 
 		assertTrue(executes.size() == 2);
@@ -450,7 +450,7 @@ public class AppMainTestService extends AppTestService {
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user444);
+			orderExecuteAppService.finish(execute.getId(), user302);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 09:10"));
@@ -537,26 +537,26 @@ public class AppMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 10:10"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user555,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user401,
 				pageable);
 
 		assertTrue(executes.size() == 1);
 
 		// 安排检查时间
 		inspectAppService.arrange(executes.get(0).getId(),
-				DateUtil.createMinute("2017-01-02 14:00"), user555);
+				DateUtil.createMinute("2017-01-02 14:00"), user401);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 10:30"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user777,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user501,
 				pageable);
 
 		assertTrue(executes.size() == 1);
 
 		// 安排检查时间
 		inspectAppService.arrange(executes.get(0).getId(),
-				DateUtil.createMinute("2017-01-03 14:00"), user777);
+				DateUtil.createMinute("2017-01-03 14:00"), user501);
 
 		// 2017-01-02
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-02"));
@@ -576,14 +576,14 @@ public class AppMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 14:40"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user666,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user402,
 				pageable);
 
 		assertTrue(executes.size() == 1);
 
 		Map<InspectApplyItem, String> CTResults = new HashMap<InspectApplyItem, String>();
 		CTResults.put(brainCTInspectApplyItem, "没啥问题");
-		inspectAppService.confirm(executes.get(0).getId(), CTResults, user666);
+		inspectAppService.confirm(executes.get(0).getId(), CTResults, user402);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 15:00"));
 
@@ -613,14 +613,14 @@ public class AppMainTestService extends AppTestService {
 		if (!(Boolean) choices.get(ChoiceItem.CancelHC)) {
 			pageable = new PageRequest(0, 15);
 			executes = orderExecuteAppService.getNeedExecuteOrderExecutes(
-					user888, pageable);
+					user502, pageable);
 
 			assertTrue(executes.size() == 1);
 
 			Map<InspectApplyItem, String> HCResults = new HashMap<InspectApplyItem, String>();
 			HCResults.put(brainHCInspectApplyItem, "没啥问题");
 			inspectAppService.confirm(executes.get(0).getId(), HCResults,
-					user888);
+					user502);
 
 			DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 16:00"));
 
