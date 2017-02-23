@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderUtil;
@@ -238,10 +239,16 @@ public abstract class AppTestService extends DataIniter {
 	}
 
 	public void followUp() throws HsException {
-		//整理病历
+		// 整理病历
 		arrangementMedicalRecord();
-		
+
 		medicalRecordAppService.transfer(visit001, dept666);
+
+		List<MedicalRecordClip> clips = qualityControlAppService
+				.findNeedCheckRecordClips(user999);
+
+		assertTrue(clips.size() == 1);
+
 	}
 
 	public void arrangementMedicalRecord() throws HsException {

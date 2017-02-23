@@ -11,6 +11,7 @@ import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.inpatientdept.MedicalRecordAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.inspect.InspectAppService;
+import com.neusoft.hs.application.qualitycontrol.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
@@ -208,6 +209,9 @@ public class DataIniter {
 	@Autowired
 	protected MedicalRecordAppService medicalRecordAppService;
 
+	@Autowired
+	protected QualityControlAppService qualityControlAppService;
+	
 	@Autowired
 	protected MedicalRecordTestService medicalRecordTestService;
 
