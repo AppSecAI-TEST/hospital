@@ -114,6 +114,11 @@ public class MedicalRecordDomainService {
 	public MedicalRecordClip getMedicalRecordClip(Visit visit) {
 		return medicalRecordClipRepo.findByVisit(visit);
 	}
+	
+
+	public List<MedicalRecordClip> findClips(String state, Dept dept) {
+		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept);
+	}
 
 	public void createMedicalRecordType(MedicalRecordType type) {
 		medicalRecordTypeRepo.save(type);
@@ -132,5 +137,4 @@ public class MedicalRecordDomainService {
 		medicalRecordClipRepo.deleteAll();
 		medicalRecordTypeRepo.deleteAll();
 	}
-
 }
