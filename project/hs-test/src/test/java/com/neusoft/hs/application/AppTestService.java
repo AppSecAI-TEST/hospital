@@ -244,6 +244,8 @@ public abstract class AppTestService extends DataIniter {
 
 		// 整理病历
 		arrangementMedicalRecord();
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00"));
 
 		medicalRecordAppService.transfer(visit001, dept666);
 

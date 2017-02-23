@@ -67,7 +67,7 @@ public class DataIniter {
 	protected Pharmacy dept333;// 药房
 	protected InspectDept dept444;// CT室
 	protected InspectDept dept555;// 核磁检查室
-	protected Dept dept666;// 质控
+	protected Dept dept666;// 病案室
 
 	protected InPatientDept dept000;// 内泌五
 
@@ -213,7 +213,6 @@ public class DataIniter {
 
 	@Autowired
 	protected QualityControlAppService qualityControlAppService;
-	
 
 	@Autowired
 	protected RecordRoomDomainService recordRoomDomainService;
@@ -222,6 +221,8 @@ public class DataIniter {
 	protected MedicalRecordTestService medicalRecordTestService;
 
 	public void clear() {
+		// 清空病案
+		recordRoomDomainService.clear();
 		// 清空病历
 		medicalRecordDomainService.clear();
 		// 清空医嘱用法
@@ -331,7 +332,7 @@ public class DataIniter {
 
 		dept666 = new InspectDept();
 		dept666.setId("dept666");
-		dept666.setName("质控部门");
+		dept666.setName("病案室");
 		dept666.setParent(org);
 
 		units.add(dept666);

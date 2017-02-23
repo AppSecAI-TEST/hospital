@@ -27,6 +27,7 @@ public class RecordRoomDomainService {
 		if (clip == null) {
 			throw new MedicalRecordException(null, "id=[" + id + "]病历夹不存在");
 		}
+		clip.setState(MedicalRecordClip.State_Archived);
 
 		MedicalCase medicalCase = new MedicalCase(clip);
 		medicalCase.setPosition(position);
@@ -34,5 +35,9 @@ public class RecordRoomDomainService {
 		medicalCase.setCreateDate(DateUtil.getSysDate());
 
 		medicalCaseRepo.save(medicalCase);
+	}
+
+	public void clear() {
+		medicalCaseRepo.deleteAll();
 	}
 }
