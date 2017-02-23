@@ -254,8 +254,13 @@ public abstract class AppTestService extends DataIniter {
 
 		assertTrue(clips.size() == 1);
 
+		qualityControlAppService.pass(clips.get(0).getId(), user601);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-11 10:30"));
+
 		String position = "Num001";
-		qualityControlAppService.pass(clips.get(0), position, user601);
+		recordRoomDomainService
+				.archive(clips.get(0).getId(), position, user602);
 
 	}
 

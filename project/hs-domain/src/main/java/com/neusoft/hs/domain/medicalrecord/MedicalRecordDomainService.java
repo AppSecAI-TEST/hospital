@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.Itemable;
@@ -74,6 +75,10 @@ public class MedicalRecordDomainService {
 		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
 	}
 
+	public MedicalRecordClip findClip(String id) {
+		return medicalRecordClipRepo.findOne(id);
+	}
+
 	public MedicalRecord find(String id) {
 		MedicalRecord record = medicalRecordRepo.findOne(id);
 		if (record != null) {
@@ -101,8 +106,7 @@ public class MedicalRecordDomainService {
 		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
 	}
 
-	public void transfer(Visit visit, Dept dept)
-			throws MedicalRecordException {
+	public void transfer(Visit visit, Dept dept) throws MedicalRecordException {
 		MedicalRecordClip clip = this.getMedicalRecordClip(visit);
 
 		clip.transfer(dept);
@@ -110,16 +114,23 @@ public class MedicalRecordDomainService {
 		applicationContext.publishEvent(new MedicalRecordClipTransferedEvent(
 				clip));
 	}
-	
-	public void archive(MedicalRecordClip clip) {
-		clip.setState(MedicalRecordClip.State_Filed);
+
+	public void toArchive(String id, AbstractUser user)
+			throws MedicalRecordException {
+
+		MedicalRecordClip clip = medicalRecordClipRepo.findOne(id);
+		if (clip == null) {
+			throw new MedicalRecordException(null, "id=[" + id + "]病历夹不存在");
+		}
+		clip.setState(MedicalRecordClip.State_Archiving);
+		clip.setChecker(user);
 		clip.save();
 	}
 
 	public MedicalRecordClip getMedicalRecordClip(Visit visit) {
 		return medicalRecordClipRepo.findByVisit(visit);
 	}
-	
+
 	public List<MedicalRecordClip> findClips(String state, Dept dept) {
 		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept);
 	}
@@ -141,6 +152,5 @@ public class MedicalRecordDomainService {
 		medicalRecordClipRepo.deleteAll();
 		medicalRecordTypeRepo.deleteAll();
 	}
-
 
 }

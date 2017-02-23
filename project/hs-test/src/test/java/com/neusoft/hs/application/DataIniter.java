@@ -51,6 +51,7 @@ import com.neusoft.hs.domain.pharmacy.InfusionOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
+import com.neusoft.hs.domain.recordroom.RecordRoomDomainService;
 import com.neusoft.hs.domain.treatment.CommonTreatmentItemSpec;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
@@ -212,6 +213,10 @@ public class DataIniter {
 
 	@Autowired
 	protected QualityControlAppService qualityControlAppService;
+	
+
+	@Autowired
+	protected RecordRoomDomainService recordRoomDomainService;
 
 	@Autowired
 	protected MedicalRecordTestService medicalRecordTestService;
@@ -423,7 +428,7 @@ public class DataIniter {
 		user602.setName("病案室岗位-孙权");
 		user602.setDept(dept666);
 
-		users.add(user601);
+		users.add(user602);
 
 		user001 = new Staff();
 

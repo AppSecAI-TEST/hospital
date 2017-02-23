@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -38,14 +39,20 @@ public class MedicalRecordClip extends IdEntity {
 	@JoinColumn(name = "check_dept_id")
 	private Dept checkDept;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "checker_id")
+	private AbstractUser checker;
+
 	@OneToMany(mappedBy = "clip", cascade = { CascadeType.ALL })
 	private List<MedicalRecord> records;
 
 	public static final String State_InWard = "编写中";
 
 	public static final String State_Checking = "检查中";
-	
-	public static final String State_Filed = "已归档";
+
+	public static final String State_Archiving = "待归档";
+
+	public static final String State_Archived = "已归档";
 
 	public void transfer(Dept dept) throws MedicalRecordException {
 
@@ -91,6 +98,14 @@ public class MedicalRecordClip extends IdEntity {
 
 	public void setCheckDept(Dept checkDept) {
 		this.checkDept = checkDept;
+	}
+
+	public AbstractUser getChecker() {
+		return checker;
+	}
+
+	public void setChecker(AbstractUser checker) {
+		this.checker = checker;
 	}
 
 	public List<MedicalRecord> getRecords() {
