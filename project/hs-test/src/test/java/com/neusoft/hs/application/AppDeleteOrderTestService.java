@@ -30,7 +30,7 @@ public class AppDeleteOrderTestService extends AppTestService {
 		int resolveCount;
 		Date sysDate;
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:55"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:55", dayCount));
 
 		// 开立药品临时医嘱
 		Order drug001Order = new TemporaryOrder();

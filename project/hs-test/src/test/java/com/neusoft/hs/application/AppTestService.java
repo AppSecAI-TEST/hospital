@@ -38,6 +38,10 @@ public abstract class AppTestService extends DataIniter {
 
 	protected Map<ChoiceItem, Object> choices;
 
+	protected int dayCount = 0;
+
+	private static final int runCount = 5;// 入院次数
+
 	public void testInit() {
 		// 初始化Context
 		ApplicationContext applicationContext = SpringApplication
@@ -59,13 +63,18 @@ public abstract class AppTestService extends DataIniter {
 	 */
 	public void execute() throws HsException {
 
-		this.intoWard();
+		for (int count = 0; count < runCount; count++) {
 
-		this.treatment();
+			dayCount = count * 20;
 
-		this.outWard();
+			this.intoWard();
 
-		this.followUp();
+			this.treatment();
+
+			this.outWard();
+
+			this.followUp();
+		}
 
 	}
 
@@ -73,13 +82,13 @@ public abstract class AppTestService extends DataIniter {
 
 	protected void intoWard() throws HsException {
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50", dayCount));
 
 		// 创建测试患者
 		CreateVisitVO createVisitVO = new CreateVisitVO();
 		createVisitVO.setCardNumber("211381197801270235");
 		createVisitVO.setName("测试患者001");
-		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
+		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27", dayCount));
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 		createVisitVO.setRespDept(dept000);
@@ -102,7 +111,7 @@ public abstract class AppTestService extends DataIniter {
 
 		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10", dayCount));
 
 		// 预存费用
 		cashierAppService.initAccount(visit001.getId(), 2000F, user201);
@@ -117,7 +126,7 @@ public abstract class AppTestService extends DataIniter {
 
 		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30", dayCount));
 
 		// 接诊
 		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
@@ -148,17 +157,18 @@ public abstract class AppTestService extends DataIniter {
 		Visit visit;
 
 		// 2017-01-07
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-07"));
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-07", dayCount));
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:10", dayCount));
 
 		// 开立出院临时医嘱
 		Order leaveHospitalOrder = new TemporaryOrder();
 		leaveHospitalOrder.setVisit(visit001);
 		leaveHospitalOrder.setName("出院医嘱");
-		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-09"));
+		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-09",
+				dayCount));
 		leaveHospitalOrder.setExecuteDept(dept222);
 
 		leaveHospitalOrder.setTypeApp(new SampleOrderTypeApp(
@@ -172,7 +182,7 @@ public abstract class AppTestService extends DataIniter {
 		assertTrue(orders.size() == 1);
 		assertTrue(orders.get(0).getId().equals(leaveHospitalOrder.getId()));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:30", dayCount));
 
 		// 核对医嘱
 		orderAppService.verify(leaveHospitalOrder.getId(), user003);
@@ -187,11 +197,11 @@ public abstract class AppTestService extends DataIniter {
 		}
 
 		// 2017-01-08
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-08"));
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-08", dayCount));
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-08 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-08 09:10", dayCount));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -203,13 +213,13 @@ public abstract class AppTestService extends DataIniter {
 		}
 
 		// 2017-01-09
-		DateUtil.setSysDate(DateUtil.createDay("2017-01-09"));
+		DateUtil.setSysDate(DateUtil.createDay("2017-01-09", dayCount));
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
 
 		assertTrue(startedCount == 1);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 09:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 09:30", dayCount));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -233,7 +243,7 @@ public abstract class AppTestService extends DataIniter {
 
 		assertTrue(executes.size() == 1);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 10:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 10:30", dayCount));
 
 		// 完成出院结算医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user201);
@@ -245,16 +255,16 @@ public abstract class AppTestService extends DataIniter {
 
 	public void followUp() throws HsException {
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30", dayCount));
 
 		// 整理病历
 		arrangementMedicalRecord();
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00", dayCount));
 
 		medicalRecordAppService.transfer(visit001, dept666);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30", dayCount));
 
 		List<MedicalRecordClip> clips = qualityControlAppService
 				.findNeedCheckRecordClips(user601);
@@ -263,7 +273,7 @@ public abstract class AppTestService extends DataIniter {
 
 		qualityControlAppService.pass(clips.get(0).getId(), user601);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-11 10:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-11 10:30", dayCount));
 
 		String position = "Num001";
 		recordRoomDomainService
@@ -273,7 +283,9 @@ public abstract class AppTestService extends DataIniter {
 
 	public void arrangementMedicalRecord() throws HsException {
 
-		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30"));
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30", dayCount));
+		
+		medicalRecordTestService.setDayCount(dayCount);
 
 		// 创建临时医嘱单
 		medicalRecordTestService.createTemporaryOrderListMedicalRecord(

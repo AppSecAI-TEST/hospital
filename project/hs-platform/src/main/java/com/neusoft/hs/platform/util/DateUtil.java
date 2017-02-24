@@ -43,11 +43,38 @@ public class DateUtil {
 		}
 	}
 
+	public static Date createDay(String dateStr, int day) throws HsException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date date = simpleDateFormat.parse(dateStr);
+			if (day > 0) {
+				date = addDay(date, day);
+			}
+			return date;
+		} catch (ParseException e) {
+			throw new HsException(e);
+		}
+	}
+
 	public static Date createMinute(String dateStr) throws HsException {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm");
 		try {
 			return simpleDateFormat.parse(dateStr);
+		} catch (ParseException e) {
+			throw new HsException(e);
+		}
+	}
+
+	public static Date createMinute(String dateStr, int day) throws HsException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm");
+		try {
+			Date date = simpleDateFormat.parse(dateStr);
+			if (day > 0) {
+				date = addDay(date, day);
+			}
+			return date;
 		} catch (ParseException e) {
 			throw new HsException(e);
 		}

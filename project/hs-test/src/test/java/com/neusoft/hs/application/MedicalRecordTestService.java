@@ -15,6 +15,7 @@ import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectResult;
 import com.neusoft.hs.domain.inspect.InspectResultMedicalRecordBuilder;
+import com.neusoft.hs.domain.medicalrecord.DateMedicalRecordItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
@@ -28,6 +29,7 @@ import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -48,6 +50,8 @@ public class MedicalRecordTestService {
 	@Autowired
 	protected TreatmentAppService treatmentAppService;
 
+	private int dayCount;
+
 	public MedicalRecord createIntoWardRecord(Visit visit,
 			MedicalRecordType medicalRecordType, Doctor doctor)
 			throws HsException {
@@ -66,7 +70,7 @@ public class MedicalRecordTestService {
 		assertTrue(datas.get("主诉").getValues().get(0).toString()
 				.equals("患者咳嗽发烧三天"));
 
-		//修改主诉
+		// 修改主诉
 		((SimpleTreatmentItemValue) datas.get("主诉").getValues().get(0))
 				.setInfo("患者咳嗽发烧三天，体温38.5");
 
@@ -132,7 +136,7 @@ public class MedicalRecordTestService {
 			assertTrue(itemValue.get(0).toString().equals("没啥问题"));
 
 			itemValue = datas.get("检查时间").getValues();
-			assertTrue(itemValue.get(0).toString().equals("2017-01-02 14:40"));
+			assertTrue(itemValue.get(0).toString().equals(DateUtil.toString(DateUtil.createMinute("2017-01-02 14:40", dayCount))));
 
 			itemValue = datas.get("检查科室").getValues();
 			assertTrue(itemValue.get(0).toString().equals("CT室"));
@@ -144,6 +148,14 @@ public class MedicalRecordTestService {
 
 		return records;
 
+	}
+
+	public int getDayCount() {
+		return dayCount;
+	}
+
+	public void setDayCount(int dayCount) {
+		this.dayCount = dayCount;
 	}
 
 }
