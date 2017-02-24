@@ -2,6 +2,7 @@ package com.neusoft.hs.portal.swing.ui.forms.register.model;
 
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.swing.ui.shared.model.DefaultTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;

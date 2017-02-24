@@ -1,19 +1,23 @@
 package com.neusoft.hs.portal.swing.ui.forms.register.view.modal;
 
+import java.awt.GridLayout;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
+import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
-
-import javax.swing.*;
-
-import java.awt.*;
 
 @Component
 public class VisitFormPanel extends JPanel {
@@ -25,6 +29,12 @@ public class VisitFormPanel extends JPanel {
 	private static final int TEXT_FIELD_COLUMNS = 20;
 
 	private JTextField nameTF;
+	
+	private JTextField carNumberTF;
+	
+	private JTextField birthdayTF;
+	
+	private JTextField sexTF;
 
 	private JComboBox<InPatientDept> respDeptCB;
 	private InPatientDeptComboBoxModel respDeptComboBoxModel;
@@ -48,25 +58,39 @@ public class VisitFormPanel extends JPanel {
 	}
 
 	private void initComponents() {
+		JLabel carNumberLbl = new JLabel(ConstMessagesEN.Labels.CarNumber);
 		JLabel nameLbl = new JLabel(ConstMessagesEN.Labels.NAME);
+		JLabel birthdayLbl = new JLabel(ConstMessagesEN.Labels.Birthday);
+		JLabel sexLbl = new JLabel(ConstMessagesEN.Labels.Sex);
 		JLabel respDeptLbl = new JLabel(ConstMessagesEN.Labels.InPatientDept);
 		JLabel respDoctorLbl = new JLabel(ConstMessagesEN.Labels.RespDoctor);
 
+		carNumberTF = new JTextField(TEXT_FIELD_COLUMNS);
 		nameTF = new JTextField(TEXT_FIELD_COLUMNS);
+		birthdayTF = new JTextField(TEXT_FIELD_COLUMNS);
+		sexTF = new JTextField(TEXT_FIELD_COLUMNS);
+		
 		respDeptCB = new JComboBox<>(respDeptComboBoxModel);
 		respDoctorCB = new JComboBox<>(respDoctorComboBoxModel);
 
+		add(carNumberLbl);
+		add(carNumberTF);
 		add(nameLbl);
 		add(nameTF);
+		add(birthdayLbl);
+		add(birthdayTF);
+		add(sexLbl);
+		add(sexTF);
+		
 		add(respDeptLbl);
 		add(respDeptCB);
 		add(respDoctorLbl);
 		add(respDoctorCB);
 	}
 
-	public Visit getEntityFromForm() {
+	public CreateVisitVO getEntityFromForm() {
 
-		Visit visit = new Visit();
+		CreateVisitVO visit = new CreateVisitVO();
 		visit.setName(nameTF.getText());
 		visit.setRespDept(respDeptComboBoxModel.getSelectedItem());
 		visit.setRespDoctor(respDoctorComboBoxModel.getSelectedItem());

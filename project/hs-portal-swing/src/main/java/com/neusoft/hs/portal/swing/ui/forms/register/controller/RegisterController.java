@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
@@ -17,6 +16,7 @@ import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.OrganizationDomainService;
 import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.security.UserUtil;
@@ -116,20 +116,15 @@ public class RegisterController extends AbstractFrameController {
 
 	private void saveEntity() {
 		VisitFormPanel formPanel = addFrame.getFormPanel();
-		Visit entity = formPanel.getEntityFromForm();
+		CreateVisitVO entity = formPanel.getEntityFromForm();
 		Optional<ValidationError> errors = validator.validate(entity);
 		if (errors.isPresent()) {
 			ValidationError validationError = errors.get();
 			Notifications.showFormValidationAlert(validationError.getMessage());
 		} else {
-			try {
-				registerAppService.register(entity, UserUtil.getUser());
-				tableModel.addEntity(entity);
-				closeModalWindow();
-			} catch (HsException e) {
-				e.printStackTrace();
-				Notifications.showFormValidationAlert(e.getMessage());
-			}
+			Visit visit = registerAppService.register(entity);
+			tableModel.addEntity(visit);
+			closeModalWindow();
 		}
 	}
 

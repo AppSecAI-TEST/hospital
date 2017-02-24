@@ -91,9 +91,15 @@ public interface ConstMessagesEN {
         String NAME = "名称";
         String Account = "账号";
         
+  
+        
         String ID = "ID";
+        String CarNumber = "身份证号";
+        String Birthday = "生日";
+        String Sex = "性别";
         String VisitName = "患者姓名";
         String IntoWardDate = "进入病房时间";
+		
     }
 
     interface ValidationMessages {
