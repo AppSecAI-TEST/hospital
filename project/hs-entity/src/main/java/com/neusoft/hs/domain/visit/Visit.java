@@ -27,6 +27,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -91,6 +92,10 @@ public class Visit extends IdEntity {
 
 	@Column(name = "create_date")
 	private Date createDate;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "patient_id")
+	private Patient patient;
 
 	public static final String State_NeedInitAccount = "待预存费用";
 
@@ -352,6 +357,14 @@ public class Visit extends IdEntity {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 }

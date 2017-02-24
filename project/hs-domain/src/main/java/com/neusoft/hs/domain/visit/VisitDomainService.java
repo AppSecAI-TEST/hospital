@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.patient.Patient;
+import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -26,28 +28,48 @@ public class VisitDomainService {
 	private VisitLogRepo visitLogRepo;
 
 	@Autowired
+	private PatientDomainService patientDomainService;
+
+	@Autowired
 	private ApplicationContext applicationContext;
 
-	/**
-	 * @roseuid 584A6AAC03AB
-	 */
-	public Visit create(Visit visit, AbstractUser user) {
+	public Visit create(CreateVisitVO createVisitVO) {
 
-		if(visit.getCreateDate() == null){
-			visit.setCreateDate(DateUtil.getSysDate());
+		Patient patient = patientDomainService.findByCardNumber(createVisitVO
+				.getCardNumber());
+		if (patient == null) {
+			patient = new Patient();
+			patient.setCardNumber(createVisitVO.getCardNumber());
+			patient.setCreateDate(DateUtil.getSysDate());
 		}
+		patient.setName(createVisitVO.getName());
+		patient.setSex(createVisitVO.getSex());
+		patient.setBirthday(createVisitVO.getBirthday());
+		
+		patient.save();
+
+		Visit visit = new Visit();
+
+		visit.setName(createVisitVO.getName());
+		visit.setCreateDate(DateUtil.getSysDate());
+		visit.setRespDept(createVisitVO.getRespDept());
+		visit.setRespDoctor(createVisitVO.getRespDoctor());
+
+		visit.setPatient(patient);
+
 		visit.setState(Visit.State_NeedInitAccount);
 		visit.save();
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(visit);
 		visitLog.setType(VisitLog.Type_Create);
-		visitLog.setOperator(user);
+		visitLog.setOperator(createVisitVO.getOperator());
 		visitLog.setCreateDate(DateUtil.getSysDate());
 
 		visitLog.save();
 
 		return visit;
+
 	}
 
 	/**

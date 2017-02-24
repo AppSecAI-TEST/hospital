@@ -20,6 +20,7 @@ import com.neusoft.hs.domain.order.OrderUtil;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
+import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
@@ -75,12 +76,16 @@ public abstract class AppTestService extends DataIniter {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
 
 		// 创建测试患者
-		visit001 = new Visit();
-		visit001.setName("测试患者001");
-		visit001.setRespDept(dept000);
-		visit001.setRespDoctor(user002);
+		CreateVisitVO createVisitVO = new CreateVisitVO();
+		createVisitVO.setCardNumber("211381197801270235");
+		createVisitVO.setName("测试患者001");
+		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
+		createVisitVO.setSex("男");
+		createVisitVO.setOperator(user002);
+		createVisitVO.setRespDept(dept000);
+		createVisitVO.setRespDoctor(user002);
 		// 送诊
-		registerAppService.register(visit001, user101);
+		visit001 = registerAppService.register(createVisitVO);
 
 		Pageable pageable;
 		List<Visit> visits;
@@ -244,7 +249,7 @@ public abstract class AppTestService extends DataIniter {
 
 		// 整理病历
 		arrangementMedicalRecord();
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00"));
 
 		medicalRecordAppService.transfer(visit001, dept666);
@@ -257,7 +262,7 @@ public abstract class AppTestService extends DataIniter {
 		assertTrue(clips.size() == 1);
 
 		qualityControlAppService.pass(clips.get(0).getId(), user601);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-11 10:30"));
 
 		String position = "Num001";

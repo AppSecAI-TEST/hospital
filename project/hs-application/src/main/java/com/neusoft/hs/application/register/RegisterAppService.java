@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 
@@ -23,8 +23,8 @@ public class RegisterAppService {
 	/**
 	 * @roseuid 584A697D031B
 	 */
-	public Visit register(Visit visit, AbstractUser user) {
-		return visitDomainService.create(visit, user);
+	public Visit register(CreateVisitVO createVisitVO) {
+		return visitDomainService.create(createVisitVO);
 	}
 
 	public List<Visit> listVisit(Pageable pageable) {
