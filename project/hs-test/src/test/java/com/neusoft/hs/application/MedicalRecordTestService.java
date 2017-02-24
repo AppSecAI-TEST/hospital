@@ -15,7 +15,6 @@ import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectResult;
 import com.neusoft.hs.domain.inspect.InspectResultMedicalRecordBuilder;
-import com.neusoft.hs.domain.medicalrecord.DateMedicalRecordItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
@@ -136,7 +135,9 @@ public class MedicalRecordTestService {
 			assertTrue(itemValue.get(0).toString().equals("没啥问题"));
 
 			itemValue = datas.get("检查时间").getValues();
-			assertTrue(itemValue.get(0).toString().equals(DateUtil.toString(DateUtil.createMinute("2017-01-02 14:40", dayCount))));
+			String inspectDate = DateUtil.toString(DateUtil.createMinute(
+					"2017-01-02 14:40", dayCount));
+			assertTrue(itemValue.get(0).toString().equals(inspectDate));
 
 			itemValue = datas.get("检查科室").getValues();
 			assertTrue(itemValue.get(0).toString().equals("CT室"));
