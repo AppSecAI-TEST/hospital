@@ -12,7 +12,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -40,7 +40,7 @@ public class LeaveHospitalBalanceOrderExecute extends OrderExecute {
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
 		super.doFinish(user);
 
-		Visit visit = this.getVisit();
+		InPatientVisit visit = (InPatientVisit)this.getVisit();
 		try {
 			visit.balance(user);
 		} catch (HsException e) {

@@ -31,9 +31,6 @@ public class Doctor extends AbstractUser {
 	@OneToMany(mappedBy = "superior", cascade = { CascadeType.REFRESH })
 	private List<Doctor> subordinates;
 
-	@OneToMany(mappedBy = "respDoctor", cascade = { CascadeType.REFRESH })
-	private List<Visit> visits;
-
 	@OneToMany(mappedBy = "creator", cascade = { CascadeType.REFRESH })
 	@OrderBy("createDate DESC")
 	private List<Order> orders;
@@ -96,14 +93,6 @@ public class Doctor extends AbstractUser {
 
 	public void setSubordinates(List<Doctor> subordinates) {
 		this.subordinates = subordinates;
-	}
-
-	public List<Visit> getVisits() {
-		return visits;
-	}
-
-	public void setVisits(List<Visit> visits) {
-		this.visits = visits;
 	}
 
 	public InPatientDept getDept() {

@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -19,14 +21,10 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
-import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.organization.InPatientDept;
-import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
@@ -34,7 +32,8 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_visit")
-public class Visit extends IdEntity {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Visit extends IdEntity {
 
 	@NotEmpty(message = "名称不能为空")
 	@Column(length = 16)
@@ -47,22 +46,6 @@ public class Visit extends IdEntity {
 	@Column(name = "state_desc", length = 128)
 	private String stateDesc;
 
-	@Column(length = 16)
-	private String bed;
-
-	@Column(name = "into_ward_date")
-	private Date intoWardDate;
-
-	@Column(name = "plan_leave_ward_date")
-	private Date planLeaveWardDate;
-
-	@Column(name = "leave_ward_date")
-	private Date leaveWardDate;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "nurse_id")
-	private Nurse respNurse;
-
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
 	private List<VisitLog> logs;
@@ -74,21 +57,10 @@ public class Visit extends IdEntity {
 	private List<Apply> applys;
 
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
-	private List<VisitChargeItem> visitChargeItems;
-
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private List<OrderExecute> executes;
 
 	@OneToOne(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private ChargeBill chargeBill;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "doctor_id")
-	private Doctor respDoctor;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "dept_id")
-	private InPatientDept respDept;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -97,130 +69,14 @@ public class Visit extends IdEntity {
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
 
-	public static final String State_NeedInitAccount = "待预存费用";
-
-	public static final String State_NeedIntoWard = "待接诊";
-
-	public static final String State_IntoWard = "在病房";
-
-	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
-
-	public static final String State_LeaveHospital = "已出院";
-
-	public ChargeBill initAccount(float balance, AbstractUser user)
-			throws HsException {
-		if (!Visit.State_NeedInitAccount.equals(state)) {
-			throw new HsException("visit=[" + name + "]的状态应为["
-					+ Visit.State_NeedInitAccount + "]");
-		}
-
-		ChargeBill chargeBill = new ChargeBill();
-		chargeBill.setBalance(balance);
-		chargeBill.setState(ChargeBill.State_Normal);
-		chargeBill.setVisit(this);
-		chargeBill.init(user);
-
-		this.setChargeBill(chargeBill);
-		this.setState(Visit.State_NeedIntoWard);
-
-		VisitLog visitLog = new VisitLog();
-		visitLog.setVisit(this);
-		visitLog.setType(VisitLog.Type_InitAccount);
-		visitLog.setOperator(user);
-		visitLog.setCreateDate(DateUtil.getSysDate());
-
-		visitLog.save();
-
-		return chargeBill;
-	}
-
-	/**
-	 * @param user
-	 * @param receiveVisitVO
-	 * @throws HsException
-	 * @roseuid 5852526403A5
-	 */
-	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
-			throws HsException {
-		if (!State_NeedIntoWard.equals(this.state)) {
-			throw new HsException("visit=[" + name + "]的状态应为["
-					+ State_NeedIntoWard + "]");
-		}
-
-		Date sysDate = DateUtil.getSysDate();
-		this.respNurse = new Nurse(receiveVisitVO.getNurseId());
-		this.bed = receiveVisitVO.getBed();
-		this.state = State_IntoWard;
-		this.intoWardDate = sysDate;
-
-		VisitLog visitLog = new VisitLog();
-		visitLog.setVisit(this);
-		visitLog.setType(VisitLog.Type_IntoWard);
-		visitLog.setOperator(user);
-		visitLog.setCreateDate(sysDate);
-
-		visitLog.save();
-	}
-
-	/**
-	 * @throws HsException
-	 * @roseuid 58525F0D0273
-	 */
-	public void leaveWard(AbstractUser user) throws HsException {
-		if (!State_IntoWard.equals(this.state)) {
-			throw new HsException("visit=[" + name + "]的状态应为[" + State_IntoWard
-					+ "]");
-		}
-
-		this.state = State_NeedLeaveHospitalBalance;
-
-		Date sysDate = DateUtil.getSysDate();
-
-		for (VisitChargeItem visitChargeItem : this.visitChargeItems) {
-			visitChargeItem.setState(VisitChargeItem.State_Stop);
-			visitChargeItem.setEndDate(sysDate);
-		}
-
-		VisitLog visitLog = new VisitLog();
-		visitLog.setVisit(this);
-		visitLog.setType(VisitLog.Type_LeaveWard);
-		visitLog.setOperator(user);
-		visitLog.setCreateDate(sysDate);
-
-		visitLog.save();
-
-	}
-
-	public void balance(AbstractUser user) throws HsException {
-		if (!State_NeedLeaveHospitalBalance.equals(this.state)) {
-			throw new HsException("visit=[" + name + "]的状态应为["
-					+ State_NeedLeaveHospitalBalance + "]");
-		}
-
-		this.state = State_LeaveHospital;
-
-		VisitLog visitLog = new VisitLog();
-		visitLog.setVisit(this);
-		visitLog.setType(VisitLog.Type_LeaveHospital);
-		visitLog.setOperator(user);
-		visitLog.setCreateDate(DateUtil.getSysDate());
-
-		visitLog.save();
-
-	}
+	public abstract ChargeBill initAccount(float balance, AbstractUser user)
+			throws HsException;
 
 	/**
 	 * @roseuid 585252D80085
 	 */
 	public void save() {
 		this.getService(VisitRepo.class).save(this);
-	}
-
-	/**
-	 * @roseuid 585394AD004B
-	 */
-	public void addVisitChargeItem() {
-
 	}
 
 	public String getName() {
@@ -247,46 +103,6 @@ public class Visit extends IdEntity {
 		this.stateDesc = stateDesc;
 	}
 
-	public String getBed() {
-		return bed;
-	}
-
-	public void setBed(String bed) {
-		this.bed = bed;
-	}
-
-	public Date getIntoWardDate() {
-		return intoWardDate;
-	}
-
-	public void setIntoWardDate(Date intoWardDate) {
-		this.intoWardDate = intoWardDate;
-	}
-
-	public Date getPlanLeaveWardDate() {
-		return planLeaveWardDate;
-	}
-
-	public void setPlanLeaveWardDate(Date planLeaveWardDate) {
-		this.planLeaveWardDate = planLeaveWardDate;
-	}
-
-	public Date getLeaveWardDate() {
-		return leaveWardDate;
-	}
-
-	public void setLeaveWardDate(Date leaveWardDate) {
-		this.leaveWardDate = leaveWardDate;
-	}
-
-	public Nurse getRespNurse() {
-		return respNurse;
-	}
-
-	public void setRespNurse(Nurse respNurse) {
-		this.respNurse = respNurse;
-	}
-
 	public List<VisitLog> getLogs() {
 		return logs;
 	}
@@ -303,14 +119,6 @@ public class Visit extends IdEntity {
 		this.orders = orders;
 	}
 
-	public List<VisitChargeItem> getVisitChargeItems() {
-		return visitChargeItems;
-	}
-
-	public void setVisitChargeItems(List<VisitChargeItem> visitChargeItems) {
-		this.visitChargeItems = visitChargeItems;
-	}
-
 	public List<OrderExecute> getExecutes() {
 		return executes;
 	}
@@ -325,22 +133,6 @@ public class Visit extends IdEntity {
 
 	public void setChargeBill(ChargeBill chargeBill) {
 		this.chargeBill = chargeBill;
-	}
-
-	public Doctor getRespDoctor() {
-		return respDoctor;
-	}
-
-	public void setRespDoctor(Doctor respDoctor) {
-		this.respDoctor = respDoctor;
-	}
-
-	public InPatientDept getRespDept() {
-		return respDept;
-	}
-
-	public void setRespDept(InPatientDept respDept) {
-		this.respDept = respDept;
 	}
 
 	public List<Apply> getApplys() {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.visit.CreateVisitVO;
-import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 
 @Service
@@ -23,12 +23,12 @@ public class RegisterAppService {
 	/**
 	 * @roseuid 584A697D031B
 	 */
-	public Visit register(CreateVisitVO createVisitVO) {
-		return visitDomainService.create(createVisitVO);
+	public InPatientVisit register(CreateVisitVO createVisitVO) {
+		return (InPatientVisit)visitDomainService.create(createVisitVO);
 	}
 
-	public List<Visit> listVisit(Pageable pageable) {
-		return visitDomainService.listVisit(pageable);
+	public List<InPatientVisit> listVisit(Pageable pageable) {
+		return visitDomainService.listInPatientVisit(pageable);
 	}
 
 	public List<RegisterCount> getRegisterCount() {

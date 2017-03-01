@@ -8,7 +8,7 @@ import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
@@ -18,7 +18,7 @@ public class LeaveHospitalRegisterOrderExecute extends OrderExecute {
 	@Override
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
 
-		Visit visit = this.getVisit();
+		InPatientVisit visit = (InPatientVisit)this.getVisit();
 
 		for (Order order : visit.getOrders()) {
 			if (!this.getOrder().getId().equals(order.getId())) {

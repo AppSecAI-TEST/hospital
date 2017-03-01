@@ -25,6 +25,9 @@ public class VisitDomainService {
 	private VisitRepo visitRepo;
 
 	@Autowired
+	private InPatientVisitRepo inPatientVisitRepo;
+
+	@Autowired
 	private VisitLogRepo visitLogRepo;
 
 	@Autowired
@@ -45,19 +48,17 @@ public class VisitDomainService {
 		patient.setName(createVisitVO.getName());
 		patient.setSex(createVisitVO.getSex());
 		patient.setBirthday(createVisitVO.getBirthday());
-		
+
 		patient.save();
 
-		Visit visit = new Visit();
+		Visit visit = createVisitVO.getVisit();
 
 		visit.setName(createVisitVO.getName());
 		visit.setCreateDate(DateUtil.getSysDate());
-		visit.setRespDept(createVisitVO.getRespDept());
-		visit.setRespDoctor(createVisitVO.getRespDoctor());
 
 		visit.setPatient(patient);
 
-		visit.setState(Visit.State_NeedInitAccount);
+		// visit.setState(Visit.State_NeedInitAccount);
 		visit.save();
 
 		VisitLog visitLog = new VisitLog();
@@ -80,13 +81,13 @@ public class VisitDomainService {
 		return visitRepo.findOne(visitId);
 	}
 
-	public List<Visit> findByState(String state, Pageable pageable) {
+	public List<? extends Visit> findByState(String state, Pageable pageable) {
 		return visitRepo.findByState(state, pageable);
 	}
 
-	public List<Visit> findByStateAndRespDept(String state, Dept dept,
+	public List<InPatientVisit> findByStateAndRespDept(String state, Dept dept,
 			Pageable pageable) {
-		return visitRepo.findByStateAndRespDept(state, dept, pageable);
+		return inPatientVisitRepo.findByStateAndRespDept(state, dept, pageable);
 	}
 
 	/**
@@ -98,7 +99,8 @@ public class VisitDomainService {
 	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
 			throws HsException {
 
-		Visit visit = visitRepo.findOne(receiveVisitVO.getVisitId());
+		InPatientVisit visit = inPatientVisitRepo.findOne(receiveVisitVO
+				.getVisitId());
 		if (visit == null) {
 			throw new HsException("visitId=[" + receiveVisitVO.getVisitId()
 					+ "]不存在");
@@ -126,11 +128,11 @@ public class VisitDomainService {
 		visitRepo.deleteAll();
 	}
 
-	public List<Visit> listVisit(Dept respDept, Pageable pageable) {
-		return visitRepo.findByRespDept(respDept, pageable);
+	public List<InPatientVisit> listVisit(Dept respDept, Pageable pageable) {
+		return inPatientVisitRepo.findByRespDept(respDept, pageable);
 	}
 
-	public List<Visit> listVisit(Pageable pageable) {
-		return visitRepo.findAll(pageable).getContent();
+	public List<InPatientVisit> listInPatientVisit(Pageable pageable) {
+		return inPatientVisitRepo.findAll(pageable).getContent();
 	}
 }

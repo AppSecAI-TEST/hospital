@@ -16,9 +16,7 @@ public class CreateVisitVO {
 
 	private String sex;
 
-	private Doctor respDoctor;
-
-	private InPatientDept respDept;
+	private Visit visit;
 
 	private AbstractUser operator;
 
@@ -54,28 +52,20 @@ public class CreateVisitVO {
 		this.sex = sex;
 	}
 
-	public Doctor getRespDoctor() {
-		return respDoctor;
-	}
-
-	public void setRespDoctor(Doctor respDoctor) {
-		this.respDoctor = respDoctor;
-	}
-
-	public InPatientDept getRespDept() {
-		return respDept;
-	}
-
-	public void setRespDept(InPatientDept respDept) {
-		this.respDept = respDept;
-	}
-
 	public AbstractUser getOperator() {
 		return operator;
 	}
 
 	public void setOperator(AbstractUser operator) {
 		this.operator = operator;
+	}
+
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
 	}
 
 }

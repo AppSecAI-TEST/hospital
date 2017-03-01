@@ -11,7 +11,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
-import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -23,7 +23,7 @@ public class TreatmentAppService {
 	@Autowired
 	private TreatmentDomainService treatmentDomainService;
 
-	public List<TreatmentItemSpec> getShouldTreatmentItemSpecs(Visit visit,
+	public List<TreatmentItemSpec> getShouldTreatmentItemSpecs(InPatientVisit visit,
 			AbstractUser user) throws TreatmentException {
 		Date shouldDate = DateUtil.addHour(DateUtil.getSysDate(), shouldHour);
 		return treatmentDomainService.getShouldTreatmentItemSpecs(visit,

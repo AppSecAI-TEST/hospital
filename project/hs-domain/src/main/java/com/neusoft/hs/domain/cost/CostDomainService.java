@@ -17,6 +17,7 @@ import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -38,9 +39,9 @@ public class CostDomainService {
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
 
-	public List<Visit> getNeedInitAccount(Pageable pageable) {
-		return visitDomainService.findByState(Visit.State_NeedInitAccount,
-				pageable);
+	public List<InPatientVisit> getNeedInitAccount(Pageable pageable) {
+		return (List<InPatientVisit>) visitDomainService.findByState(
+				InPatientVisit.State_NeedInitAccount, pageable);
 	}
 
 	/**

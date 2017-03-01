@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 
 @Entity
 @DiscriminatorValue("Nurse")
@@ -23,7 +23,7 @@ public class Nurse extends AbstractUser {
 	private InPatientDept dept;
 
 	@OneToMany(mappedBy = "respNurse", cascade = { CascadeType.REFRESH })
-	private List<Visit> visits;
+	private List<InPatientVisit> visits;
 
 	public Nurse() {
 	}
@@ -68,11 +68,11 @@ public class Nurse extends AbstractUser {
 
 	}
 
-	public List<Visit> getVisits() {
+	public List<InPatientVisit> getVisits() {
 		return visits;
 	}
 
-	public void setVisits(List<Visit> visits) {
+	public void setVisits(List<InPatientVisit> visits) {
 		this.visits = visits;
 	}
 

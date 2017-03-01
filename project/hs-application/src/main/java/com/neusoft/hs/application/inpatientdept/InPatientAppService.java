@@ -2,7 +2,6 @@
 
 package com.neusoft.hs.application.inpatientdept;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Staff;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
-import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -27,13 +24,13 @@ public class InPatientAppService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	public List<Visit> getNeedReceiveVisits(Staff staff, Pageable pageable) {
+	public List<InPatientVisit> getNeedReceiveVisits(Staff staff, Pageable pageable) {
 		return visitDomainService.findByStateAndRespDept(
-				Visit.State_NeedIntoWard, staff.getDept(), pageable);
+				InPatientVisit.State_NeedIntoWard, staff.getDept(), pageable);
 	}
 
-	public List<Visit> InWardVisits(Dept dept, Pageable pageable) {
-		return visitDomainService.findByStateAndRespDept(Visit.State_IntoWard,
+	public List<InPatientVisit> InWardVisits(Dept dept, Pageable pageable) {
+		return visitDomainService.findByStateAndRespDept(InPatientVisit.State_IntoWard,
 				dept, pageable);
 	}
 
@@ -48,7 +45,7 @@ public class InPatientAppService {
 		visitDomainService.intoWard(receiveVisitVO, user);
 	}
 
-	public List<Visit> listVisit(AbstractUser user, Pageable pageable) {
+	public List<InPatientVisit> listVisit(AbstractUser user, Pageable pageable) {
 		return visitDomainService.listVisit(user.getDept(), pageable);
 	}
 

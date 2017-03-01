@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
-import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
@@ -90,12 +90,17 @@ public class VisitFormPanel extends JPanel {
 
 	public CreateVisitVO getEntityFromForm() {
 
-		CreateVisitVO visit = new CreateVisitVO();
-		visit.setName(nameTF.getText());
+		CreateVisitVO createVisitVO = new CreateVisitVO();
+		createVisitVO.setName(nameTF.getText());
+		
+		InPatientVisit visit = new InPatientVisit();
+		visit.setState(InPatientVisit.State_NeedInitAccount);
 		visit.setRespDept(respDeptComboBoxModel.getSelectedItem());
 		visit.setRespDoctor(respDoctorComboBoxModel.getSelectedItem());
+		
+		createVisitVO.setVisit(visit);
 
-		return visit;
+		return createVisitVO;
 	}
 
 	public void clearForm() {

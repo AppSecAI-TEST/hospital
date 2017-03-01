@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
@@ -81,7 +81,7 @@ public class LongOrder extends Order {
 		// 分解的日期
 		Date sysDateStart = DateUtil.getSysDateStart();
 		Date currentDate = DateUtil.addDay(sysDateStart, numDays);
-		Visit visit = this.getVisit();
+		InPatientVisit visit = (InPatientVisit)this.getVisit();
 		// 如果分解时间大于患者计划出院时间将不分解医嘱
 		if (visit.getPlanLeaveWardDate() != null
 				&& (visit.getPlanLeaveWardDate().compareTo(currentDate) == 0 || visit

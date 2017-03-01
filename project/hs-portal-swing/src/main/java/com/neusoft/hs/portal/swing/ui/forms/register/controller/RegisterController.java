@@ -17,9 +17,7 @@ import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.OrganizationDomainService;
 import com.neusoft.hs.domain.organization.UserDomainService;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
-import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.portal.security.UserUtil;
+import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.VisitTableModel;
@@ -88,7 +86,7 @@ public class RegisterController extends AbstractFrameController {
 
 	private void loadEntities() {
 		Pageable pageable = new PageRequest(0, 15);
-		List<Visit> entities = registerAppService.listVisit(pageable);
+		List<InPatientVisit> entities = registerAppService.listVisit(pageable);
 		tableModel.clear();
 		tableModel.addEntities(entities);
 	}
@@ -122,7 +120,7 @@ public class RegisterController extends AbstractFrameController {
 			ValidationError validationError = errors.get();
 			Notifications.showFormValidationAlert(validationError.getMessage());
 		} else {
-			Visit visit = registerAppService.register(entity);
+			InPatientVisit visit = registerAppService.register(entity);
 			tableModel.addEntity(visit);
 			closeModalWindow();
 		}
