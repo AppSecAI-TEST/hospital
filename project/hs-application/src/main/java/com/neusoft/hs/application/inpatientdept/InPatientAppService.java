@@ -13,6 +13,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.InPatientVisit;
+import com.neusoft.hs.domain.visit.InPatientVisitDomainService;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -24,14 +25,18 @@ public class InPatientAppService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	public List<InPatientVisit> getNeedReceiveVisits(Staff staff, Pageable pageable) {
-		return visitDomainService.findByStateAndRespDept(
+	@Autowired
+	private InPatientVisitDomainService inPatientVisitDomainService;
+
+	public List<InPatientVisit> getNeedReceiveVisits(Staff staff,
+			Pageable pageable) {
+		return inPatientVisitDomainService.findByStateAndRespDept(
 				InPatientVisit.State_NeedIntoWard, staff.getDept(), pageable);
 	}
 
 	public List<InPatientVisit> InWardVisits(Dept dept, Pageable pageable) {
-		return visitDomainService.findByStateAndRespDept(InPatientVisit.State_IntoWard,
-				dept, pageable);
+		return inPatientVisitDomainService.findByStateAndRespDept(
+				InPatientVisit.State_IntoWard, dept, pageable);
 	}
 
 	/**
@@ -42,11 +47,11 @@ public class InPatientAppService {
 	 */
 	public void receive(ReceiveVisitVO receiveVisitVO, AbstractUser user)
 			throws HsException {
-		visitDomainService.intoWard(receiveVisitVO, user);
+		inPatientVisitDomainService.intoWard(receiveVisitVO, user);
 	}
 
 	public List<InPatientVisit> listVisit(AbstractUser user, Pageable pageable) {
-		return visitDomainService.listVisit(user.getDept(), pageable);
+		return inPatientVisitDomainService.listVisit(user.getDept(), pageable);
 	}
 
 	/**

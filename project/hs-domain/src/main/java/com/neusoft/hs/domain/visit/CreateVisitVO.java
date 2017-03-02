@@ -3,8 +3,6 @@ package com.neusoft.hs.domain.visit;
 import java.util.Date;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.organization.InPatientDept;
 
 public class CreateVisitVO {
 

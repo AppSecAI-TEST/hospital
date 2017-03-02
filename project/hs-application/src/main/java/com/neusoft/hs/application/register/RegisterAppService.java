@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.InPatientVisit;
+import com.neusoft.hs.domain.visit.InPatientVisitDomainService;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 
 @Service
@@ -19,6 +20,9 @@ public class RegisterAppService {
 
 	@Autowired
 	private VisitDomainService visitDomainService;
+	
+	@Autowired
+	private InPatientVisitDomainService inPatientVisitDomainService;
 
 	/**
 	 * @roseuid 584A697D031B
@@ -28,7 +32,7 @@ public class RegisterAppService {
 	}
 
 	public List<InPatientVisit> listVisit(Pageable pageable) {
-		return visitDomainService.listInPatientVisit(pageable);
+		return inPatientVisitDomainService.listInPatientVisit(pageable);
 	}
 
 	public List<RegisterCount> getRegisterCount() {
