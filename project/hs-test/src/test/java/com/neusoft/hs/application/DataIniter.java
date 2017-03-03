@@ -39,9 +39,13 @@ import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Org;
 import com.neusoft.hs.domain.organization.OrganizationDomainService;
+import com.neusoft.hs.domain.organization.OutPatientDept;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
 import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
+import com.neusoft.hs.domain.outpatientoffice.VoucherType;
 import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugType;
@@ -71,6 +75,10 @@ public class DataIniter {
 	protected Dept dept666;// 病案室
 
 	protected InPatientDept dept000;// 内泌五
+
+	protected OutPatientDept dept999;// 儿科门诊
+
+	protected OutPatientRoom room901;// 儿科门诊一诊室
 
 	protected Staff user101;// 住院处送诊人-曹操
 	protected Staff user201;// 收费处-张飞
@@ -159,6 +167,8 @@ public class DataIniter {
 
 	protected MedicalRecordType inspectResultMedicalRecordType;// 检查单
 
+	protected VoucherType ordinaryVoucherType;// 普通号
+
 	protected Visit visit001;
 
 	@Autowired
@@ -220,9 +230,12 @@ public class DataIniter {
 
 	@Autowired
 	protected MedicalRecordTestService medicalRecordTestService;
-	
+
 	@Autowired
 	protected PatientDomainService patientDomainService;
+
+	@Autowired
+	protected OutPatientPlanDomainService outPatientPlanDomainService;
 
 	public void clear() {
 		// 清空病案
@@ -243,13 +256,15 @@ public class DataIniter {
 		pharmacyDomainService.clearDrugTypeSpecs();
 		// 清空检查项目
 		inspectDomainService.clearInspectItems();
+		// 清空挂号类型
+		outPatientPlanDomainService.clearVoucherType();
 		// 清空计费项目
 		costDomainService.clearChargeItems();
 		// 清空诊疗项目信息
 		treatmentDomainService.clearTreatmentItems();
 		// 清空诊疗项目规格
 		treatmentDomainService.clearTreatmentItemSpecs();
-		//清空患者
+		// 清空患者
 		patientDomainService.clear();
 		// 清空患者一次住院
 		visitDomainService.clear();
@@ -257,6 +272,8 @@ public class DataIniter {
 		costDomainService.clearCostRecords();
 		// 清空用户信息
 		userDomainService.clear();
+		// 清空门诊诊室
+		outPatientPlanDomainService.clearRoom();
 		// 清空组织机构信息
 		organizationDomainService.clear();
 	}
@@ -265,6 +282,8 @@ public class DataIniter {
 	public void initData() {
 
 		initOrgs();
+
+		initRooms();
 
 		initUsers();
 
@@ -289,6 +308,8 @@ public class DataIniter {
 		initTreatmentItemSpecs();
 
 		initMedicalRecordTypes();
+
+		initVoucherTypes();
 	}
 
 	private void initOrgs() {
@@ -350,7 +371,27 @@ public class DataIniter {
 
 		units.add(dept000);
 
+		dept999 = new OutPatientDept();
+		dept999.setId("dept999");
+		dept999.setName("儿科门诊");
+		dept999.setParent(org);
+
+		units.add(dept999);
+
 		organizationDomainService.create(units);
+	}
+
+	private void initRooms() {
+
+		List<OutPatientRoom> rooms = new ArrayList<OutPatientRoom>();
+
+		room901 = new OutPatientRoom();
+		room901.setId("room901");
+		room901.setName("儿科门诊一诊室");
+
+		rooms.add(room901);
+
+		outPatientPlanDomainService.createRooms(rooms);
 	}
 
 	private void initUsers() {
@@ -855,6 +896,13 @@ public class DataIniter {
 
 		medicalRecordDomainService.createMedicalRecordTypes(medicalRecordTypes);
 
+	}
+
+	private void initVoucherTypes() {
+
+		List<VoucherType> voucherTypes = new ArrayList<VoucherType>();
+
+		outPatientPlanDomainService.createVoucherTypes(voucherTypes);
 	}
 
 }

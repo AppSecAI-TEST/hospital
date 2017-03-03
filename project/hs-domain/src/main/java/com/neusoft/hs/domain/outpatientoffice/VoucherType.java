@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
@@ -23,6 +25,10 @@ public class VoucherType extends SuperEntity {
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)
 	private String id;
+
+	@NotEmpty(message = "名称不能为空")
+	@Column(length = 32)
+	private String name;
 
 	@OneToMany(mappedBy = "voucherType", cascade = { CascadeType.ALL })
 	private List<OutPatientPlanRecord> planRecords;
@@ -44,6 +50,14 @@ public class VoucherType extends SuperEntity {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<OutPatientPlanRecord> getPlanRecords() {
