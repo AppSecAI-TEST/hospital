@@ -26,9 +26,4 @@ public abstract class IdEntity extends SuperEntity {
 	public String getId() {
 		return id;
 	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 }

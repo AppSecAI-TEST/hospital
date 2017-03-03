@@ -33,6 +33,9 @@ public class OutPatientPlanRecord extends IdEntity {
 	@Column(name = "current_number")
 	private Integer currentNumber;
 
+	@Column(name = "max_number")
+	private Integer maxNumber;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "room_id")
 	private OutPatientRoom room;
@@ -47,12 +50,15 @@ public class OutPatientPlanRecord extends IdEntity {
 
 	@OneToMany(mappedBy = "planRecord", cascade = { CascadeType.ALL })
 	private List<Voucher> vouchers;
+	
+	private static final int MaxNumber = 50;
 
 	/**
 	 * @roseuid 58B7C8C602F7
 	 */
 	public OutPatientPlanRecord() {
-
+		currentNumber = 0;
+		maxNumber = MaxNumber;
 	}
 
 	/**
@@ -84,6 +90,14 @@ public class OutPatientPlanRecord extends IdEntity {
 
 	public void setCurrentNumber(Integer currentNumber) {
 		this.currentNumber = currentNumber;
+	}
+
+	public Integer getMaxNumber() {
+		return maxNumber;
+	}
+
+	public void setMaxNumber(Integer maxNumber) {
+		this.maxNumber = maxNumber;
 	}
 
 	public OutPatientRoom getRoom() {

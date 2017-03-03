@@ -240,6 +240,8 @@ public class DataIniter {
 	protected OutPatientPlanDomainService outPatientPlanDomainService;
 
 	public void clear() {
+		// 清空门诊医生排班信息
+		outPatientPlanDomainService.clearPlanRecord();
 		// 清空病案
 		recordRoomDomainService.clear();
 		// 清空病历

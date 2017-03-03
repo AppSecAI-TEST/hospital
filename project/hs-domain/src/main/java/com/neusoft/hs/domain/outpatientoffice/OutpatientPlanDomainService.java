@@ -35,6 +35,10 @@ public class OutPatientPlanDomainService {
 
 	}
 
+	public void clearPlanRecord() {
+		outpatientPlanRecordRepo.deleteAll();
+	}
+
 	public void createRooms(List<OutPatientRoom> rooms) {
 		outPatientRoomRepo.save(rooms);
 	}
