@@ -73,12 +73,11 @@ public abstract class InPatientTestService extends AppTestService {
 		CreateVisitVO createVisitVO = new CreateVisitVO();
 		createVisitVO.setCardNumber("211381197801270235");
 		createVisitVO.setName("测试患者001");
-		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27", dayCount));
+		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 
 		InPatientVisit theVisit = new InPatientVisit();
-		theVisit.setState(InPatientVisit.State_NeedInitAccount);
 		theVisit.setRespDept(dept000);
 		theVisit.setRespDoctor(user002);
 

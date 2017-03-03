@@ -8,10 +8,13 @@ import javax.persistence.Entity;
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @DiscriminatorValue("OutPatient")
 public class OutPatientVisit extends Visit {
+
+	public static final String State_WaitingDiagnose = "待诊";
 
 	/**
 	 * @roseuid 58B66D1001E4
@@ -23,7 +26,14 @@ public class OutPatientVisit extends Visit {
 	@Override
 	public ChargeBill initAccount(float balance, AbstractUser user)
 			throws HsException {
-		// TODO Auto-generated method stub
-		return null;
+
+		ChargeBill chargeBill = new ChargeBill();
+		chargeBill.setBalance(balance);
+		chargeBill.setState(ChargeBill.State_Normal);
+		chargeBill.setVisit(this);
+
+		this.setChargeBill(chargeBill);
+
+		return chargeBill;
 	}
 }

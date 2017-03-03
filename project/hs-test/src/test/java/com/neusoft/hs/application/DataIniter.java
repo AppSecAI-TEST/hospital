@@ -13,6 +13,7 @@ import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.inspect.InspectAppService;
 import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
+import com.neusoft.hs.application.registration.RegistrationAppService;
 import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
@@ -57,6 +58,7 @@ import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.recordroom.RecordRoomDomainService;
+import com.neusoft.hs.domain.registration.RegistrationDomainService;
 import com.neusoft.hs.domain.treatment.CommonTreatmentItemSpec;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
@@ -238,8 +240,16 @@ public class DataIniter {
 
 	@Autowired
 	protected OutPatientPlanDomainService outPatientPlanDomainService;
+	
+	@Autowired
+	protected RegistrationAppService registrationAppService;
+	
+	@Autowired
+	protected RegistrationDomainService registrationDomainService;
 
 	public void clear() {
+		// 清空挂号信息
+		registrationDomainService.clearVoucher();
 		// 清空门诊医生排班信息
 		outPatientPlanDomainService.clearPlanRecord();
 		// 清空病案

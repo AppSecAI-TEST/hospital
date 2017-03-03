@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.outpatientoffice;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,9 +49,9 @@ public class OutPatientPlanRecord extends IdEntity {
 	@JoinColumn(name = "voucher_type_id")
 	private VoucherType voucherType;
 
-	@OneToMany(mappedBy = "planRecord", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "planRecord", cascade = { CascadeType.REFRESH })
 	private List<Voucher> vouchers;
-	
+
 	private static final int MaxNumber = 50;
 
 	/**
@@ -62,10 +63,22 @@ public class OutPatientPlanRecord extends IdEntity {
 	}
 
 	/**
+	 * @param voucher
+	 * @throws VoucherException
 	 * @roseuid 58B7D9F402FA
 	 */
-	public void occupy() {
+	public void occupy(Voucher voucher) throws VoucherException {
+		if (this.currentNumber > MaxNumber) {
+			throw new VoucherException("诊室[" + room.getName() + "]号源已满");
+		}
+		voucher.setNumber(++currentNumber);
+		voucher.setPlanRecord(this);
+		if (vouchers == null) {
+			vouchers = new ArrayList<Voucher>();
+		}
+		vouchers.add(voucher);
 
+		this.save();
 	}
 
 	public Date getPlanStartDate() {

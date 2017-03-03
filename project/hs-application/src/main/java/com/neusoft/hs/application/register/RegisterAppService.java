@@ -20,7 +20,7 @@ public class RegisterAppService {
 
 	@Autowired
 	private VisitDomainService visitDomainService;
-	
+
 	@Autowired
 	private InPatientVisitDomainService inPatientVisitDomainService;
 
@@ -28,7 +28,8 @@ public class RegisterAppService {
 	 * @roseuid 584A697D031B
 	 */
 	public InPatientVisit register(CreateVisitVO createVisitVO) {
-		return (InPatientVisit)visitDomainService.create(createVisitVO);
+		createVisitVO.getVisit().setState(InPatientVisit.State_NeedInitAccount);
+		return (InPatientVisit) visitDomainService.create(createVisitVO);
 	}
 
 	public List<InPatientVisit> listVisit(Pageable pageable) {
