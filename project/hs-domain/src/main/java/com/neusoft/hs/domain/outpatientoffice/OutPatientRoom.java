@@ -25,7 +25,7 @@ public class OutPatientRoom extends SuperEntity {
 	private String id;
 
 	@OneToMany(mappedBy = "room", cascade = { CascadeType.ALL })
-	private List<OutpatientPlanRecord> planRecords;
+	private List<OutPatientPlanRecord> planRecords;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
@@ -46,11 +46,11 @@ public class OutPatientRoom extends SuperEntity {
 		this.id = id;
 	}
 
-	public List<OutpatientPlanRecord> getPlanRecords() {
+	public List<OutPatientPlanRecord> getPlanRecords() {
 		return planRecords;
 	}
 
-	public void setPlanRecords(List<OutpatientPlanRecord> planRecords) {
+	public void setPlanRecords(List<OutPatientPlanRecord> planRecords) {
 		this.planRecords = planRecords;
 	}
 

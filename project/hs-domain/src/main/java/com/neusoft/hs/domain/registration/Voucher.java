@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.neusoft.hs.domain.outpatientoffice.OutpatientPlanRecord;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.visit.OutPatientVisit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -24,7 +24,7 @@ public class Voucher extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plan_record_id")
-	private OutpatientPlanRecord planRecord;
+	private OutPatientPlanRecord planRecord;
 
 	/**
 	 * @roseuid 58B7C8C7001F
@@ -49,11 +49,11 @@ public class Voucher extends IdEntity {
 		this.visit = visit;
 	}
 
-	public OutpatientPlanRecord getPlanRecord() {
+	public OutPatientPlanRecord getPlanRecord() {
 		return planRecord;
 	}
 
-	public void setPlanRecord(OutpatientPlanRecord planRecord) {
+	public void setPlanRecord(OutPatientPlanRecord planRecord) {
 		this.planRecord = planRecord;
 	}
 

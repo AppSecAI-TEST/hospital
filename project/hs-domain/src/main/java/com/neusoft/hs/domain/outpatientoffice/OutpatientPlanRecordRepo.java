@@ -4,6 +4,6 @@ package com.neusoft.hs.domain.outpatientoffice;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-interface OutpatientPlanRecordRepo extends PagingAndSortingRepository<OutpatientPlanRecord, String> {
+interface OutPatientPlanRecordRepo extends PagingAndSortingRepository<OutPatientPlanRecord, String> {
 
 }

@@ -31,7 +31,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
-public class AppMainTestService extends AppTestService {
+public class InPatientMainTestService extends AppTestService {
 
 	@Override
 	protected void treatment() throws HsException {

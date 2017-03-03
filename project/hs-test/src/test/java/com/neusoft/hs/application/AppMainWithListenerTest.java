@@ -15,7 +15,7 @@ import com.neusoft.hs.platform.exception.HsException;
 public class AppMainWithListenerTest {
 
 	@Autowired
-	@Qualifier(value = "appMainTestService")
+	@Qualifier(value = "inPatientMainTestService")
 	private AppTestService appTestService;
 
 	@Before

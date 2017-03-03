@@ -8,15 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class OutpatientPlanDomainService {
+public class OutPatientPlanDomainService {
 
 	@Autowired
-	private OutpatientPlanRecordRepo outpatientPlanRecordRepo;
+	private OutPatientPlanRecordRepo outpatientPlanRecordRepo;
+
 	/**
 	 * @roseuid 58B7C812025D
 	 */
-	public void createPlanRecord() {
-
+	public void createPlanRecord(OutPatientPlanRecord planRecord) {
+		outpatientPlanRecordRepo.save(planRecord);
 	}
 
 	/**

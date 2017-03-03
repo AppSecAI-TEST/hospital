@@ -21,7 +21,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
 @Table(name = "domain_outpatient_plan_record")
-public class OutpatientPlanRecord extends IdEntity {
+public class OutPatientPlanRecord extends IdEntity {
 
 	@NotNull(message = "计划开始时间不能为空")
 	@Column(name = "plan_start_date")
@@ -51,7 +51,7 @@ public class OutpatientPlanRecord extends IdEntity {
 	/**
 	 * @roseuid 58B7C8C602F7
 	 */
-	public OutpatientPlanRecord() {
+	public OutPatientPlanRecord() {
 
 	}
 
