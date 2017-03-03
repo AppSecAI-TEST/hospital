@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.VoucherException;
@@ -37,7 +38,8 @@ public class RegistrationDomainService {
 				.create(createVisitVO);
 
 		try {
-			visit.initAccount(0, user);
+			ChargeBill chargeBill = visit.initAccount(0, user);
+			chargeBill.save();
 		} catch (HsException e) {
 			throw new VoucherException(e);
 		}
