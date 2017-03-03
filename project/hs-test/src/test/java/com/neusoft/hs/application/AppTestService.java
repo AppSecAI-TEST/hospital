@@ -154,7 +154,7 @@ public abstract class AppTestService extends DataIniter {
 		assertTrue(visit.getState().equals(InPatientVisit.State_IntoWard));
 	}
 
-	private void outWard() throws HsException {
+	protected void outWard() throws HsException {
 
 		Pageable pageable;
 		List<OrderExecute> executes;

@@ -54,11 +54,20 @@ public class InPatientDeleteOrderTestService extends AppTestService {
 
 		assertTrue(orders.size() == 0);
 
-//		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
-//
-//		// 核对医嘱
-//		for (Order order : orders) {
-//			orderAppService.verify(order.getId(), user003);
-//		}
+		// DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
+		//
+		// // 核对医嘱
+		// for (Order order : orders) {
+		// orderAppService.verify(order.getId(), user003);
+		// }
 	}
+
+	@Override
+	public void execute() throws HsException {
+
+		this.intoWard();
+
+		this.treatment();
+	}
+
 }
