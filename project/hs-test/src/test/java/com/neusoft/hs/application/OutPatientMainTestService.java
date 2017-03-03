@@ -13,19 +13,19 @@ public class OutPatientMainTestService extends AppTestService {
 
 	@Override
 	public void execute() throws HsException {
-		
+
 		OutPatientPlanRecord planRecord = new OutPatientPlanRecord();
-		
+
 		planRecord.setDoctor(user002);
 		planRecord.setVoucherType(ordinaryVoucherType);
 		planRecord.setPlanStartDate(DateUtil.createMinute("2016-12-28 08:30"));
 		planRecord.setPlanEndDate(DateUtil.createMinute("2016-12-28 17:00"));
 		planRecord.setRoom(room901);
-		
+
 		outPatientPlanDomainService.createPlanRecord(planRecord);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:00"));
-		
+
 		// 创建测试患者
 		CreateVisitVO createVisitVO = new CreateVisitVO();
 		createVisitVO.setCardNumber("211381197801270235");
@@ -36,7 +36,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		OutPatientVisit theVisit = new OutPatientVisit();
 		createVisitVO.setVisit(theVisit);
-		
-		visit001 = registrationAppService.register(createVisitVO, planRecord);
+
+		visit001 = registrationAppService.register(createVisitVO, planRecord,
+				user901);
 	}
 }

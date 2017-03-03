@@ -92,6 +92,7 @@ public class DataIniter {
 	protected Staff user502;// 核磁检查室检查师-鲁肃
 	protected Staff user601;// 质控岗位-刘备
 	protected Staff user602;// 病案室岗位-孙权
+	protected Staff user901;// 儿科门诊挂号岗位-黄忠
 
 	protected Staff user001;// 内泌五接诊护士-大乔
 	protected Doctor user002;// 内泌五医生-貂蝉
@@ -240,10 +241,10 @@ public class DataIniter {
 
 	@Autowired
 	protected OutPatientPlanDomainService outPatientPlanDomainService;
-	
+
 	@Autowired
 	protected RegistrationAppService registrationAppService;
-	
+
 	@Autowired
 	protected RegistrationDomainService registrationDomainService;
 
@@ -492,6 +493,14 @@ public class DataIniter {
 		user602.setDept(dept666);
 
 		users.add(user602);
+
+		user901 = new Staff();
+
+		user901.setId("staff901");
+		user901.setName("儿科门诊挂号岗位-黄忠");
+		user901.setDept(dept999);
+
+		users.add(user901);
 
 		user001 = new Staff();
 

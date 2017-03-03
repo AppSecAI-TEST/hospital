@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.VoucherException;
 import com.neusoft.hs.domain.registration.RegistrationDomainService;
@@ -18,7 +19,9 @@ public class RegistrationAppService {
 	private RegistrationDomainService registrationDomainService;
 
 	public OutPatientVisit register(CreateVisitVO createVisitVO,
-			OutPatientPlanRecord planRecord) throws VoucherException {
-		return registrationDomainService.register(createVisitVO, planRecord);
+			OutPatientPlanRecord planRecord, AbstractUser user)
+			throws VoucherException {
+		return registrationDomainService.register(createVisitVO, planRecord,
+				user);
 	}
 }
