@@ -12,7 +12,7 @@ import com.neusoft.hs.platform.exception.HsException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-public class AppMainWithListenerTest {
+public class InPatientMainWithListenerTest {
 
 	@Autowired
 	@Qualifier(value = "inPatientMainTestService")
