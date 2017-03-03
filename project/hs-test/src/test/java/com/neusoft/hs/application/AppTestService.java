@@ -52,10 +52,6 @@ public abstract class AppTestService extends DataIniter {
 		clear();
 
 		initData();
-
-		choice();
-
-		ready();
 	}
 
 	/**
@@ -79,7 +75,9 @@ public abstract class AppTestService extends DataIniter {
 
 	}
 
-	protected abstract void treatment() throws HsException;
+	protected void treatment() throws HsException {
+
+	}
 
 	protected void intoWard() throws HsException {
 
@@ -116,7 +114,8 @@ public abstract class AppTestService extends DataIniter {
 
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState().equals(InPatientVisit.State_NeedInitAccount));
+		assertTrue(visit.getState()
+				.equals(InPatientVisit.State_NeedInitAccount));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10", dayCount));
 
@@ -241,8 +240,8 @@ public abstract class AppTestService extends DataIniter {
 
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState()
-				.equals(InPatientVisit.State_NeedLeaveHospitalBalance));
+		assertTrue(visit.getState().equals(
+				InPatientVisit.State_NeedLeaveHospitalBalance));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
@@ -302,24 +301,4 @@ public abstract class AppTestService extends DataIniter {
 		medicalRecordTestService.createInspectResultMedicalRecord(visit001,
 				inspectResultMedicalRecordType, user002);
 	}
-
-	private void choice() {
-
-		this.choices = new HashMap<ChoiceItem, Object>();
-		this.choices.put(ChoiceItem.OrderUseModeAssistMaterial,
-				onlyOneOrderUseModeAssistMaterial);
-		this.choices.put(ChoiceItem.CancelHC, true);
-	}
-
-	private void ready() {
-		this.choiceOrderUseModeAssistMaterial((DrugUseModeAssistMaterial) this.choices
-				.get(ChoiceItem.OrderUseModeAssistMaterial));
-	}
-
-	private void choiceOrderUseModeAssistMaterial(
-			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
-		pharmacyDomainService
-				.createOrderUseModeAssistMaterial(orderUseModeAssistMaterial);
-	}
-
 }

@@ -18,7 +18,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
-public class InPatientDeleteOrderTestService extends AppTestService {
+public class InPatientDeleteOrderTestService extends InPatientTestService {
 
 	@Override
 	protected void treatment() throws HsException {
