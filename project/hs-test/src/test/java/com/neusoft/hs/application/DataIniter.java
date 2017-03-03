@@ -111,6 +111,8 @@ public class DataIniter {
 
 	protected ChargeItem brainHCChargeItem;// 脑核磁计费项目
 
+	protected ChargeItem ordinaryVoucherTypeChargeItem;// 普通挂号费计费项目
+
 	protected DrugTypeSpec drugTypeSpec001;// 药品规格001
 
 	protected DrugTypeSpec drugTypeSpec002;// 药品规格002
@@ -388,6 +390,7 @@ public class DataIniter {
 		room901 = new OutPatientRoom();
 		room901.setId("room901");
 		room901.setName("儿科门诊一诊室");
+		room901.setDept(dept999);
 
 		rooms.add(room901);
 
@@ -592,6 +595,17 @@ public class DataIniter {
 		brainHCChargeItem.setChargingMode(ChargeItem.ChargingMode_Amount);
 
 		chargeItems.add(brainHCChargeItem);
+
+		ordinaryVoucherTypeChargeItem = new ChargeItem();
+		ordinaryVoucherTypeChargeItem.setId("ordinaryVoucherTypeChargeItem");
+		ordinaryVoucherTypeChargeItem.setCode("ordinaryVoucherTypeChargeItem");
+		ordinaryVoucherTypeChargeItem.setName("普通挂号费");
+		ordinaryVoucherTypeChargeItem.setPrice(7);
+		ordinaryVoucherTypeChargeItem.setUnit("次");
+		ordinaryVoucherTypeChargeItem
+				.setChargingMode(ChargeItem.ChargingMode_Amount);
+
+		chargeItems.add(ordinaryVoucherTypeChargeItem);
 
 		costDomainService.create(chargeItems);
 	}
@@ -901,6 +915,13 @@ public class DataIniter {
 	private void initVoucherTypes() {
 
 		List<VoucherType> voucherTypes = new ArrayList<VoucherType>();
+
+		ordinaryVoucherType = new VoucherType();
+		ordinaryVoucherType.setId("普通号");
+		ordinaryVoucherType.setName("普通号");
+		ordinaryVoucherType.setChargeItem(ordinaryVoucherTypeChargeItem);
+
+		voucherTypes.add(ordinaryVoucherType);
 
 		outPatientPlanDomainService.createVoucherTypes(voucherTypes);
 	}
