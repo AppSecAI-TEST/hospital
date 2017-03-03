@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.neusoft.hs.domain.cost.ChargeItem;
+import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -77,6 +79,16 @@ public class OutPatientPlanRecord extends IdEntity {
 			vouchers = new ArrayList<Voucher>();
 		}
 		vouchers.add(voucher);
+		
+		ChargeRecord chargeRecord = new ChargeRecord();
+		
+		ChargeItem chargeItem = voucherType.getChargeItem();
+		chargeRecord.setPrice(chargeItem.getPrice());
+		chargeRecord.setCount(1);
+		chargeRecord.setAmount(-chargeItem.getPrice());
+		chargeRecord.setChargeItem(chargeItem);
+		
+		chargeRecord.save();
 
 		this.save();
 	}

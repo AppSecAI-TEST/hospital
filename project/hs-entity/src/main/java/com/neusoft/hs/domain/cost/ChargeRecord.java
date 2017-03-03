@@ -105,7 +105,7 @@ public class ChargeRecord extends IdEntity {
 		chargeRecord.setChargeItem(chargeItem);
 		chargeRecord.setCostRecord(costRecord);
 		chargeRecord.setOrderExecute(orderExecute);
-		
+
 		chargeRecord.setChargeDept(chargeDept);
 		chargeRecord.setCreateDate(DateUtil.getSysDate());
 
@@ -216,6 +216,10 @@ public class ChargeRecord extends IdEntity {
 
 	public void setHaveCharge(boolean haveCharge) {
 		this.haveCharge = haveCharge;
+	}
+
+	public void save() {
+		this.getService(ChargeRecordRepo.class).save(this);
 	}
 
 }
