@@ -10,8 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
+import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.domain.patient.PatientDomainService;
+import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -66,6 +70,40 @@ public class VisitDomainService {
 	}
 
 	/**
+	 * @param user
+	 * @param receiveVisitVO
+	 * @throws HsException
+	 * @roseuid 584E135F0389
+	 */
+	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
+			throws HsException {
+
+		Visit visit = visitRepo.findOne(receiveVisitVO
+				.getVisitId());
+		if (visit == null) {
+			throw new HsException("visitId=[" + receiveVisitVO.getVisitId()
+					+ "]不存在");
+		}
+
+		visit.intoWard(receiveVisitVO, user);
+
+		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
+		medicalRecordClip.setVisit(visit);
+		medicalRecordClip.setState(MedicalRecordClip.State_InWard);
+		medicalRecordClip.save();
+
+		applicationContext.publishEvent(new VisitIntoWardedEvent(visit));
+
+	}
+
+	/**
+	 * @roseuid 5852564401AC
+	 */
+	public void leaveWard() {
+
+	}
+	
+	/**
 	 * @param visitId
 	 * @roseuid 584E03140020
 	 */
@@ -73,10 +111,22 @@ public class VisitDomainService {
 		return visitRepo.findOne(visitId);
 	}
 
-	public List<? extends Visit> findByState(String state, Pageable pageable) {
+	public List<Visit> findByState(String state, Pageable pageable) {
 		return visitRepo.findByState(state, pageable);
 	}
+	
+	public List<Visit> findByStateAndRespDept(String state, Dept dept,
+			Pageable pageable) {
+		return visitRepo.findByStateAndRespDept(state, dept, pageable);
+	}
+	
+	public List<Visit> listVisit(Dept respDept, Pageable pageable) {
+		return visitRepo.findByRespDept(respDept, pageable);
+	}
 
+	public List<Visit> listInPatientVisit(Pageable pageable) {
+		return visitRepo.findAll(pageable).getContent();
+	}
 
 	public void clear() {
 		visitRepo.deleteAll();

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -55,7 +54,7 @@ public class TreatmentDomainService {
 		applicationContext.publishEvent(new TreatmentItemUpdatedEvent(item));
 	}
 
-	public List<TreatmentItemSpec> getShouldTreatmentItemSpecs(InPatientVisit visit,
+	public List<TreatmentItemSpec> getShouldTreatmentItemSpecs(Visit visit,
 			Date shouldDate, AbstractUser user) throws TreatmentException {
 
 		List<TreatmentItemSpec> shouldTreatmentItemSpecs = new ArrayList<TreatmentItemSpec>();

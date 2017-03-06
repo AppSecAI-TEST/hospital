@@ -11,7 +11,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.VoucherException;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
-import com.neusoft.hs.domain.visit.OutPatientVisit;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -25,16 +25,16 @@ public class RegistrationDomainService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	public OutPatientVisit register(CreateVisitVO createVisitVO,
+	public Visit register(CreateVisitVO createVisitVO,
 			OutPatientPlanRecord planRecord, AbstractUser user)
 			throws VoucherException {
 
 		Voucher voucher = new Voucher();
 
 		createVisitVO.getVisit()
-				.setState(OutPatientVisit.State_WaitingDiagnose);
+				.setState(Visit.State_WaitingDiagnose);
 
-		OutPatientVisit visit = (OutPatientVisit) visitDomainService
+		Visit visit = visitDomainService
 				.create(createVisitVO);
 
 		try {

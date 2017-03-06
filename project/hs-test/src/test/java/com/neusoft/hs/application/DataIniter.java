@@ -279,12 +279,14 @@ public class DataIniter {
 		treatmentDomainService.clearTreatmentItems();
 		// 清空诊疗项目规格
 		treatmentDomainService.clearTreatmentItemSpecs();
-		// 清空患者
-		patientDomainService.clear();
-		// 清空患者一次住院
-		visitDomainService.clear();
 		// 清空成本记录
 		costDomainService.clearCostRecords();
+		//清空收费单
+		costDomainService.clearChargeBill();
+		// 清空患者一次住院
+		visitDomainService.clear();
+		// 清空患者
+		patientDomainService.clear();
 		// 清空用户信息
 		userDomainService.clear();
 		// 清空门诊诊室

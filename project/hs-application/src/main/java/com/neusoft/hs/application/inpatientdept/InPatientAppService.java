@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Staff;
-import com.neusoft.hs.domain.visit.InPatientVisit;
-import com.neusoft.hs.domain.visit.InPatientVisitDomainService;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -25,18 +24,15 @@ public class InPatientAppService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	@Autowired
-	private InPatientVisitDomainService inPatientVisitDomainService;
-
-	public List<InPatientVisit> getNeedReceiveVisits(Staff staff,
+	public List<Visit> getNeedReceiveVisits(Staff staff,
 			Pageable pageable) {
-		return inPatientVisitDomainService.findByStateAndRespDept(
-				InPatientVisit.State_NeedIntoWard, staff.getDept(), pageable);
+		return visitDomainService.findByStateAndRespDept(
+				Visit.State_NeedIntoWard, staff.getDept(), pageable);
 	}
 
-	public List<InPatientVisit> InWardVisits(Dept dept, Pageable pageable) {
-		return inPatientVisitDomainService.findByStateAndRespDept(
-				InPatientVisit.State_IntoWard, dept, pageable);
+	public List<Visit> InWardVisits(Dept dept, Pageable pageable) {
+		return visitDomainService.findByStateAndRespDept(
+				Visit.State_IntoWard, dept, pageable);
 	}
 
 	/**
@@ -47,11 +43,11 @@ public class InPatientAppService {
 	 */
 	public void receive(ReceiveVisitVO receiveVisitVO, AbstractUser user)
 			throws HsException {
-		inPatientVisitDomainService.intoWard(receiveVisitVO, user);
+		visitDomainService.intoWard(receiveVisitVO, user);
 	}
 
-	public List<InPatientVisit> listVisit(AbstractUser user, Pageable pageable) {
-		return inPatientVisitDomainService.listVisit(user.getDept(), pageable);
+	public List<Visit> listVisit(AbstractUser user, Pageable pageable) {
+		return visitDomainService.listVisit(user.getDept(), pageable);
 	}
 
 	/**

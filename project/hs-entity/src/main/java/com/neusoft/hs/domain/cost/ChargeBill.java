@@ -79,13 +79,15 @@ public class ChargeBill extends IdEntity {
 	}
 
 	public void init(AbstractUser user) {
-		ChargeRecord chargeRecord = new ChargeRecord();
-		chargeRecord.setAmount(balance);
-		chargeRecord.setCreateDate(DateUtil.getSysDate());
-		chargeRecord.setHaveCost(false);
-		chargeRecord.setChargeDept(user.getDept());
+		if (balance > 0) {
+			ChargeRecord chargeRecord = new ChargeRecord();
+			chargeRecord.setAmount(balance);
+			chargeRecord.setCreateDate(DateUtil.getSysDate());
+			chargeRecord.setHaveCost(false);
+			chargeRecord.setChargeDept(user.getDept());
 
-		this.addChargeRecord(chargeRecord);
+			this.addChargeRecord(chargeRecord);
+		}
 	}
 
 	/**

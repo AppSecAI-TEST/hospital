@@ -17,7 +17,6 @@ import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
-import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
@@ -30,7 +29,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 	protected int dayCount = 0;
 
-	private static final int runCount = 5;// 入院次数
+	private static final int runCount = 1;// 入院次数
 	
 	@Override
 	public void testInit() {
@@ -77,7 +76,7 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 
-		InPatientVisit theVisit = new InPatientVisit();
+		Visit theVisit = new Visit();
 		theVisit.setRespDept(dept000);
 		theVisit.setRespDoctor(user002);
 
@@ -87,7 +86,7 @@ public abstract class InPatientTestService extends AppTestService {
 		visit001 = registerAppService.register(createVisitVO);
 
 		Pageable pageable;
-		List<InPatientVisit> visits;
+		List<Visit> visits;
 		Visit visit;
 		List<Order> orders;
 
@@ -100,7 +99,7 @@ public abstract class InPatientTestService extends AppTestService {
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState()
-				.equals(InPatientVisit.State_NeedInitAccount));
+				.equals(Visit.State_NeedInitAccount));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10", dayCount));
 
@@ -115,7 +114,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState().equals(InPatientVisit.State_NeedIntoWard));
+		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30", dayCount));
 
@@ -135,7 +134,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState().equals(InPatientVisit.State_IntoWard));
+		assertTrue(visit.getState().equals(Visit.State_IntoWard));
 	}
 
 	protected void outWard() throws HsException {
@@ -226,7 +225,7 @@ public abstract class InPatientTestService extends AppTestService {
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(
-				InPatientVisit.State_NeedLeaveHospitalBalance));
+				Visit.State_NeedLeaveHospitalBalance));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
@@ -241,7 +240,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState().equals(InPatientVisit.State_LeaveHospital));
+		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
 	}
 
 	public void followUp() throws HsException {

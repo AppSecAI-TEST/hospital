@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.visit.InPatientVisit;
+import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
 @DiscriminatorValue("InPatientDept")
@@ -30,7 +30,7 @@ public class InPatientDept extends Dept {
 	private List<OrderExecute> belongOrderExecutes;
 
 	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.REFRESH })
-	private List<InPatientVisit> visits;
+	private List<Visit> visits;
 
 	public InPatientDept() {
 	}
@@ -71,11 +71,11 @@ public class InPatientDept extends Dept {
 		this.belongOrderExecutes = belongOrderExecutes;
 	}
 
-	public List<InPatientVisit> getVisits() {
+	public List<Visit> getVisits() {
 		return visits;
 	}
 
-	public void setVisits(List<InPatientVisit> visits) {
+	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
 

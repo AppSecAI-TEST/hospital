@@ -9,7 +9,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderTypeApp;
-import com.neusoft.hs.domain.visit.InPatientVisit;
+import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
 @DiscriminatorValue("LeaveHospital")
@@ -17,7 +17,7 @@ public class LeaveHospitalOrderType extends OrderType {
 
 	@Override
 	protected void verify(Order order) throws OrderException {
-		InPatientVisit visit = (InPatientVisit)order.getVisit();
+		Visit visit = order.getVisit();
 		visit.setPlanLeaveWardDate(order.getPlanStartDate());
 	}
 

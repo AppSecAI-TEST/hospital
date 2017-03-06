@@ -17,7 +17,6 @@ import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
-import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -34,14 +33,17 @@ public class CostDomainService {
 	private CostRecordRepo costRecordRepo;
 
 	@Autowired
+	private ChargeBillRepo chargeBillRepo;
+
+	@Autowired
 	private VisitDomainService visitDomainService;
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
 
-	public List<InPatientVisit> getNeedInitAccount(Pageable pageable) {
-		return (List<InPatientVisit>) visitDomainService.findByState(
-				InPatientVisit.State_NeedInitAccount, pageable);
+	public List<Visit> getNeedInitAccount(Pageable pageable) {
+		return visitDomainService.findByState(Visit.State_NeedInitAccount,
+				pageable);
 	}
 
 	/**
@@ -55,7 +57,11 @@ public class CostDomainService {
 			throw new HsException("visitId=[" + visitId + "]不存在");
 		}
 
-		return visit.initAccount(balance, user);
+		ChargeBill chargeBill = visit.initAccount(balance, user);
+
+		visit.setState(Visit.State_NeedIntoWard);
+
+		return chargeBill;
 	}
 
 	/**
@@ -168,5 +174,9 @@ public class CostDomainService {
 
 	public void clearCostRecords() {
 		costRecordRepo.deleteAll();
+	}
+
+	public void clearChargeBill() {
+		chargeBillRepo.deleteAll();
 	}
 }

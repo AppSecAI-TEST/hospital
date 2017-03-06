@@ -26,7 +26,7 @@ import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
-import com.neusoft.hs.domain.visit.InPatientVisit;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -149,7 +149,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 14:05", dayCount));
 
-		InPatientVisit currentVisit = (InPatientVisit)visitDomainService.find(visit001.getId());
+		Visit currentVisit = visitDomainService.find(visit001.getId());
 
 		List<TreatmentItemSpec> treatmentItemSpecs = treatmentAppService
 				.getShouldTreatmentItemSpecs(currentVisit, user002);

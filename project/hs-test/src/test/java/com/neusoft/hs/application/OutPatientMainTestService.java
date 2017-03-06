@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
-import com.neusoft.hs.domain.visit.OutPatientVisit;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -34,7 +34,7 @@ public class OutPatientMainTestService extends AppTestService {
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 
-		OutPatientVisit theVisit = new OutPatientVisit();
+		Visit theVisit = new Visit();
 		createVisitVO.setVisit(theVisit);
 
 		visit001 = registrationAppService.register(createVisitVO, planRecord,

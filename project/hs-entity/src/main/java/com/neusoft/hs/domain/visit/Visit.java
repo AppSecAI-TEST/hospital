@@ -21,10 +21,14 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
+import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.InPatientDept;
+import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
@@ -32,8 +36,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_visit")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Visit extends IdEntity {
+public class Visit extends IdEntity {
 
 	@NotEmpty(message = "名称不能为空")
 	@Column(length = 16)
@@ -45,6 +48,40 @@ public abstract class Visit extends IdEntity {
 
 	@Column(name = "state_desc", length = 128)
 	private String stateDesc;
+
+	@Column(length = 16)
+	private String bed;
+
+	@Column(name = "create_date")
+	private Date createDate;
+
+	@Column(name = "into_ward_date")
+	private Date intoWardDate;
+
+	@Column(name = "plan_leave_ward_date")
+	private Date planLeaveWardDate;
+
+	@Column(name = "leave_ward_date")
+	private Date leaveWardDate;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "nurse_id")
+	private Nurse respNurse;
+
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
+	private List<VisitChargeItem> visitChargeItems;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "doctor_id")
+	private Doctor respDoctor;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "dept_id")
+	private InPatientDept respDept;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "patient_id")
+	private Patient patient;
 
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
@@ -62,15 +99,114 @@ public abstract class Visit extends IdEntity {
 	@OneToOne(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private ChargeBill chargeBill;
 
-	@Column(name = "create_date")
-	private Date createDate;
+	public static final String State_WaitingDiagnose = "待诊";
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id")
-	private Patient patient;
+	public static final String State_NeedInitAccount = "待预存费用";
 
-	public abstract ChargeBill initAccount(float balance, AbstractUser user)
-			throws HsException;
+	public static final String State_NeedIntoWard = "待接诊";
+
+	public static final String State_IntoWard = "在病房";
+
+	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
+
+	public static final String State_LeaveHospital = "已出院";
+	
+	public ChargeBill initAccount(float balance, AbstractUser user)
+			throws HsException {
+
+		ChargeBill chargeBill = new ChargeBill();
+		chargeBill.setBalance(balance);
+		chargeBill.setState(ChargeBill.State_Normal);
+		chargeBill.setVisit(this);
+		chargeBill.init(user);
+
+		this.setChargeBill(chargeBill);
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_InitAccount);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(DateUtil.getSysDate());
+
+		visitLog.save();
+
+		return chargeBill;
+	}
+
+	/**
+	 * @param user
+	 * @param receiveVisitVO
+	 * @throws HsException
+	 * @roseuid 5852526403A5
+	 */
+	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
+			throws HsException {
+		if (!State_NeedIntoWard.equals(this.getState())) {
+			throw new HsException("visit=[" + this.getName() + "]的状态应为["
+					+ State_NeedIntoWard + "]");
+		}
+
+		Date sysDate = DateUtil.getSysDate();
+		this.respNurse = new Nurse(receiveVisitVO.getNurseId());
+		this.bed = receiveVisitVO.getBed();
+		this.setState(State_IntoWard);
+		this.intoWardDate = sysDate;
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_IntoWard);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(sysDate);
+
+		visitLog.save();
+	}
+
+	/**
+	 * @throws HsException
+	 * @roseuid 58525F0D0273
+	 */
+	public void leaveWard(AbstractUser user) throws HsException {
+		if (!State_IntoWard.equals(this.getState())) {
+			throw new HsException("visit=[" + this.getName() + "]的状态应为["
+					+ State_IntoWard + "]");
+		}
+
+		this.setState(State_NeedLeaveHospitalBalance);
+
+		Date sysDate = DateUtil.getSysDate();
+
+		for (VisitChargeItem visitChargeItem : this.visitChargeItems) {
+			visitChargeItem.setState(VisitChargeItem.State_Stop);
+			visitChargeItem.setEndDate(sysDate);
+		}
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_LeaveWard);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(sysDate);
+
+		visitLog.save();
+
+	}
+
+	public void balance(AbstractUser user) throws HsException {
+		if (!State_NeedLeaveHospitalBalance.equals(this.getState())) {
+			throw new HsException("visit=[" + this.getName() + "]的状态应为["
+					+ State_NeedLeaveHospitalBalance + "]");
+		}
+
+		this.setState(State_LeaveHospital);
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_LeaveHospital);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(DateUtil.getSysDate());
+
+		visitLog.save();
+
+	}
 
 	/**
 	 * @roseuid 585252D80085
@@ -157,6 +293,70 @@ public abstract class Visit extends IdEntity {
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+
+	public String getBed() {
+		return bed;
+	}
+
+	public void setBed(String bed) {
+		this.bed = bed;
+	}
+
+	public Date getIntoWardDate() {
+		return intoWardDate;
+	}
+
+	public void setIntoWardDate(Date intoWardDate) {
+		this.intoWardDate = intoWardDate;
+	}
+
+	public Date getPlanLeaveWardDate() {
+		return planLeaveWardDate;
+	}
+
+	public void setPlanLeaveWardDate(Date planLeaveWardDate) {
+		this.planLeaveWardDate = planLeaveWardDate;
+	}
+
+	public Date getLeaveWardDate() {
+		return leaveWardDate;
+	}
+
+	public void setLeaveWardDate(Date leaveWardDate) {
+		this.leaveWardDate = leaveWardDate;
+	}
+
+	public Nurse getRespNurse() {
+		return respNurse;
+	}
+
+	public void setRespNurse(Nurse respNurse) {
+		this.respNurse = respNurse;
+	}
+
+	public List<VisitChargeItem> getVisitChargeItems() {
+		return visitChargeItems;
+	}
+
+	public void setVisitChargeItems(List<VisitChargeItem> visitChargeItems) {
+		this.visitChargeItems = visitChargeItems;
+	}
+
+	public Doctor getRespDoctor() {
+		return respDoctor;
+	}
+
+	public void setRespDoctor(Doctor respDoctor) {
+		this.respDoctor = respDoctor;
+	}
+
+	public InPatientDept getRespDept() {
+		return respDept;
+	}
+
+	public void setRespDept(InPatientDept respDept) {
+		this.respDept = respDept;
 	}
 
 }

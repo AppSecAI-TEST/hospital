@@ -23,7 +23,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Role;
-import com.neusoft.hs.domain.visit.InPatientVisit;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -76,7 +75,7 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 		this.shouldIntervalHour = shouldIntervalHour;
 	}
 
-	public Date getShouldDate(InPatientVisit visit) throws TreatmentException {
+	public Date getShouldDate(Visit visit) throws TreatmentException {
 		if (visit.getIntoWardDate() == null) {
 			throw new TreatmentException("患者[" + visit.getName() + "]还没有入院");
 		}
