@@ -99,7 +99,11 @@ public class Visit extends IdEntity {
 	@OneToOne(mappedBy = "visit", cascade = { CascadeType.ALL })
 	private ChargeBill chargeBill;
 
-	public static final String State_WaitingDiagnose = "待诊";
+	public static final String State_WaitingDiagnose = "待门诊";
+	
+	public static final String State_Diagnosing = "门诊就诊中";
+	
+	public static final String State_Diagnosed_Executing = "门诊执行中";
 
 	public static final String State_NeedInitAccount = "待预存费用";
 

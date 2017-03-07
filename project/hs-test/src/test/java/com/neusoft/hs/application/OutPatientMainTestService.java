@@ -1,8 +1,11 @@
 package com.neusoft.hs.application;
 
+import static org.junit.Assert.assertTrue;
+
 import org.springframework.stereotype.Service;
 
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
+import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
@@ -34,7 +37,18 @@ public class OutPatientMainTestService extends AppTestService {
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 
-		visit001 = registrationAppService.register(createVisitVO, planRecord,
-				user901);
+		Voucher voucher = registrationAppService.register(createVisitVO,
+				planRecord.getId(), user901);
+		visit001 = voucher.getVisit();
+		
+		assertTrue(visit001.getState().equals(Visit.State_WaitingDiagnose));
+		
+		boolean rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
+		
+		assertTrue(rtn);
+		
+		Visit theVisit = visitDomainService.find(visit001.getId());
+		
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 	}
 }

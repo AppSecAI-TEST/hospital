@@ -11,6 +11,7 @@ import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.inpatientdept.MedicalRecordAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.inspect.InspectAppService;
+import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
 import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.application.registration.RegistrationAppService;
@@ -247,6 +248,9 @@ public class DataIniter {
 
 	@Autowired
 	protected RegistrationDomainService registrationDomainService;
+	
+	@Autowired
+	protected OutPatientDeptAppService outPatientDeptAppService;
 
 	public void clear() {
 		// 清空挂号信息

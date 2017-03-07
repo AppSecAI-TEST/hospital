@@ -54,4 +54,8 @@ public class OutPatientPlanDomainService {
 	public void clearVoucherType() {
 		voucherTypeRepo.deleteAll();
 	}
+
+	public OutPatientPlanRecord findPlanRecord(String planRecordId) {
+		return outpatientPlanRecordRepo.findOne(planRecordId);
+	}
 }

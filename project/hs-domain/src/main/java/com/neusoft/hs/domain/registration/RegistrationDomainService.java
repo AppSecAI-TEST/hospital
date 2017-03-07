@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.outpatientdept.OutPatientDeptException;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.VoucherException;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
@@ -25,9 +27,17 @@ public class RegistrationDomainService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	public Visit register(CreateVisitVO createVisitVO,
-			OutPatientPlanRecord planRecord, AbstractUser user)
-			throws VoucherException {
+	@Autowired
+	private OutPatientPlanDomainService outPatientPlanDomainService;
+
+	public Voucher register(CreateVisitVO createVisitVO, String planRecordId,
+			AbstractUser user) throws VoucherException {
+
+		OutPatientPlanRecord planRecord = outPatientPlanDomainService
+				.findPlanRecord(planRecordId);
+		if (planRecord == null) {
+			throw new VoucherException("门诊医生排班记录[" + planRecordId + "]不存在");
+		}
 
 		Voucher voucher = new Voucher();
 
@@ -48,7 +58,11 @@ public class RegistrationDomainService {
 
 		voucherRepo.save(voucher);
 
-		return visit;
+		return voucher;
+	}
+
+	public Voucher getTheVoucher(OutPatientPlanRecord record, Integer number) {
+		return voucherRepo.findByPlanRecordAndNumber(record, number);
 	}
 
 	public void clearVoucher() {

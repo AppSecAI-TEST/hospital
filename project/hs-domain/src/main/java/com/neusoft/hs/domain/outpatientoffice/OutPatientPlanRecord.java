@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.registration.RegistrationDomainService;
 import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -33,11 +34,14 @@ public class OutPatientPlanRecord extends IdEntity {
 	@Column(name = "plan_end_date")
 	private Date planEndDate;
 
-	@Column(name = "current_number")
-	private Integer currentNumber;
+	@Column(name = "current_allot_number")
+	private Integer currentAllotNumber;
 
-	@Column(name = "max_number")
-	private Integer maxNumber;
+	@Column(name = "current_encounter_number")
+	private Integer currentEncounterNumber;
+
+	@Column(name = "max_allot_number")
+	private Integer maxAllotNumber;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "room_id")
@@ -54,14 +58,15 @@ public class OutPatientPlanRecord extends IdEntity {
 	@OneToMany(mappedBy = "planRecord", cascade = { CascadeType.REFRESH })
 	private List<Voucher> vouchers;
 
-	private static final int MaxNumber = 50;
+	private static final int MaxAllotNumber = 50;
 
 	/**
 	 * @roseuid 58B7C8C602F7
 	 */
 	public OutPatientPlanRecord() {
-		currentNumber = 0;
-		maxNumber = MaxNumber;
+		currentAllotNumber = 0;
+		currentEncounterNumber = 0;
+		maxAllotNumber = MaxAllotNumber;
 	}
 
 	/**
@@ -70,27 +75,55 @@ public class OutPatientPlanRecord extends IdEntity {
 	 * @roseuid 58B7D9F402FA
 	 */
 	public void occupy(Voucher voucher) throws VoucherException {
-		if (this.currentNumber > MaxNumber) {
+		if (this.currentAllotNumber > maxAllotNumber) {
 			throw new VoucherException("诊室[" + room.getName() + "]号源已满");
 		}
-		voucher.setNumber(++currentNumber);
+		voucher.setNumber(++currentAllotNumber);
 		voucher.setPlanRecord(this);
 		if (vouchers == null) {
 			vouchers = new ArrayList<Voucher>();
 		}
 		vouchers.add(voucher);
-		
+
 		ChargeRecord chargeRecord = new ChargeRecord();
-		
+
 		ChargeItem chargeItem = voucherType.getChargeItem();
 		chargeRecord.setPrice(chargeItem.getPrice());
 		chargeRecord.setCount(1);
 		chargeRecord.setAmount(-chargeItem.getPrice());
 		chargeRecord.setChargeItem(chargeItem);
-		
+
 		chargeRecord.save();
 
 		this.save();
+	}
+
+	public boolean nextVoucher() {
+
+		if (currentEncounterNumber >= currentAllotNumber) {
+			return false;
+		}
+		currentEncounterNumber++;
+
+		Voucher current = this.getTheVoucher(currentEncounterNumber);
+		// 第一个进入
+		if (currentEncounterNumber == 1) {
+			current.enter();
+			return true;
+		} else {
+			// 当前出
+			current.out();
+
+			if (currentEncounterNumber > currentAllotNumber) {
+				return false;
+			}
+			// 存在下一个入
+			Voucher next = this.getTheVoucher(currentEncounterNumber);
+			next.enter();
+
+			return true;
+		}
+
 	}
 
 	public Date getPlanStartDate() {
@@ -109,20 +142,20 @@ public class OutPatientPlanRecord extends IdEntity {
 		this.planEndDate = planEndDate;
 	}
 
-	public Integer getCurrentNumber() {
-		return currentNumber;
+	public Integer getCurrentAllotNumber() {
+		return currentAllotNumber;
 	}
 
-	public void setCurrentNumber(Integer currentNumber) {
-		this.currentNumber = currentNumber;
+	public void setCurrentAllotNumber(Integer currentAllotNumber) {
+		this.currentAllotNumber = currentAllotNumber;
 	}
 
-	public Integer getMaxNumber() {
-		return maxNumber;
+	public Integer getMaxAllotNumber() {
+		return maxAllotNumber;
 	}
 
-	public void setMaxNumber(Integer maxNumber) {
-		this.maxNumber = maxNumber;
+	public void setMaxAllotNumber(Integer maxAllotNumber) {
+		this.maxAllotNumber = maxAllotNumber;
 	}
 
 	public OutPatientRoom getRoom() {
@@ -157,11 +190,24 @@ public class OutPatientPlanRecord extends IdEntity {
 		this.vouchers = vouchers;
 	}
 
+	public Integer getCurrentEncounterNumber() {
+		return currentEncounterNumber;
+	}
+
+	public void setCurrentEncounterNumber(Integer currentEncounterNumber) {
+		this.currentEncounterNumber = currentEncounterNumber;
+	}
+
 	/**
 	 * @roseuid 58B7DA30038A
 	 */
 	public void save() {
 
+	}
+
+	private Voucher getTheVoucher(Integer number) {
+		return this.getService(RegistrationDomainService.class).getTheVoucher(
+				this, number);
 	}
 
 }

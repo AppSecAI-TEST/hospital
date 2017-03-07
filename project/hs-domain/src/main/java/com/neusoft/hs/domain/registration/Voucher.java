@@ -18,7 +18,7 @@ public class Voucher extends IdEntity {
 
 	private Integer number;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
@@ -55,6 +55,16 @@ public class Voucher extends IdEntity {
 
 	public void setPlanRecord(OutPatientPlanRecord planRecord) {
 		this.planRecord = planRecord;
+	}
+
+	public void out() {
+		this.visit.setState(Visit.State_Diagnosed_Executing);
+		this.visit.save();
+	}
+
+	public void enter() {
+		this.visit.setState(Visit.State_Diagnosing);
+		this.visit.save();
 	}
 
 }
