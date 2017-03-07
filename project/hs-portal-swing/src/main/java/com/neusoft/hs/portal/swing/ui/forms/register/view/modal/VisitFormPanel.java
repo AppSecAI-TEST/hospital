@@ -92,14 +92,9 @@ public class VisitFormPanel extends JPanel {
 
 		CreateVisitVO createVisitVO = new CreateVisitVO();
 		createVisitVO.setName(nameTF.getText());
+		createVisitVO.setRespDept(respDeptComboBoxModel.getSelectedItem());
+		createVisitVO.setRespDoctor(respDoctorComboBoxModel.getSelectedItem());
 		
-		Visit visit = new Visit();
-		visit.setState(Visit.State_NeedInitAccount);
-		visit.setRespDept(respDeptComboBoxModel.getSelectedItem());
-		visit.setRespDoctor(respDoctorComboBoxModel.getSelectedItem());
-		
-		createVisitVO.setVisit(visit);
-
 		return createVisitVO;
 	}
 

@@ -34,9 +34,6 @@ public class OutPatientMainTestService extends AppTestService {
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 
-		Visit theVisit = new Visit();
-		createVisitVO.setVisit(theVisit);
-
 		visit001 = registrationAppService.register(createVisitVO, planRecord,
 				user901);
 	}

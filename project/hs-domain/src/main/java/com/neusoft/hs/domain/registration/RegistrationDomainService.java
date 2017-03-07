@@ -31,11 +31,9 @@ public class RegistrationDomainService {
 
 		Voucher voucher = new Voucher();
 
-		createVisitVO.getVisit()
-				.setState(Visit.State_WaitingDiagnose);
+		createVisitVO.setState(Visit.State_WaitingDiagnose);
 
-		Visit visit = visitDomainService
-				.create(createVisitVO);
+		Visit visit = visitDomainService.create(createVisitVO);
 
 		try {
 			ChargeBill chargeBill = visit.initAccount(0, user);

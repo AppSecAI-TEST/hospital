@@ -2,7 +2,13 @@ package com.neusoft.hs.domain.visit;
 
 import java.util.Date;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.InPatientDept;
 
 public class CreateVisitVO {
 
@@ -14,7 +20,11 @@ public class CreateVisitVO {
 
 	private String sex;
 
-	private Visit visit;
+	private String state;
+
+	private Doctor respDoctor;
+
+	private InPatientDept respDept;
 
 	private AbstractUser operator;
 
@@ -50,6 +60,30 @@ public class CreateVisitVO {
 		this.sex = sex;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public Doctor getRespDoctor() {
+		return respDoctor;
+	}
+
+	public void setRespDoctor(Doctor respDoctor) {
+		this.respDoctor = respDoctor;
+	}
+
+	public InPatientDept getRespDept() {
+		return respDept;
+	}
+
+	public void setRespDept(InPatientDept respDept) {
+		this.respDept = respDept;
+	}
+
 	public AbstractUser getOperator() {
 		return operator;
 	}
@@ -57,13 +91,4 @@ public class CreateVisitVO {
 	public void setOperator(AbstractUser operator) {
 		this.operator = operator;
 	}
-
-	public Visit getVisit() {
-		return visit;
-	}
-
-	public void setVisit(Visit visit) {
-		this.visit = visit;
-	}
-
 }

@@ -25,7 +25,7 @@ public class RegisterAppService {
 	 * @roseuid 584A697D031B
 	 */
 	public Visit register(CreateVisitVO createVisitVO) {
-		createVisitVO.getVisit().setState(Visit.State_NeedInitAccount);
+		createVisitVO.setState(Visit.State_NeedInitAccount);
 		return visitDomainService.create(createVisitVO);
 	}
 

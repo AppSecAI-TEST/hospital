@@ -48,10 +48,13 @@ public class VisitDomainService {
 
 		patient.save();
 
-		Visit visit = createVisitVO.getVisit();
+		Visit visit = new Visit();
 
 		visit.setName(createVisitVO.getName());
 		visit.setCreateDate(DateUtil.getSysDate());
+		visit.setState(createVisitVO.getState());
+		visit.setRespDept(createVisitVO.getRespDept());
+		visit.setRespDoctor(createVisitVO.getRespDoctor());
 
 		visit.setPatient(patient);
 
@@ -78,8 +81,7 @@ public class VisitDomainService {
 	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
 			throws HsException {
 
-		Visit visit = visitRepo.findOne(receiveVisitVO
-				.getVisitId());
+		Visit visit = visitRepo.findOne(receiveVisitVO.getVisitId());
 		if (visit == null) {
 			throw new HsException("visitId=[" + receiveVisitVO.getVisitId()
 					+ "]不存在");
@@ -102,7 +104,7 @@ public class VisitDomainService {
 	public void leaveWard() {
 
 	}
-	
+
 	/**
 	 * @param visitId
 	 * @roseuid 584E03140020
@@ -114,12 +116,12 @@ public class VisitDomainService {
 	public List<Visit> findByState(String state, Pageable pageable) {
 		return visitRepo.findByState(state, pageable);
 	}
-	
+
 	public List<Visit> findByStateAndRespDept(String state, Dept dept,
 			Pageable pageable) {
 		return visitRepo.findByStateAndRespDept(state, dept, pageable);
 	}
-	
+
 	public List<Visit> listVisit(Dept respDept, Pageable pageable) {
 		return visitRepo.findByRespDept(respDept, pageable);
 	}
@@ -131,6 +133,5 @@ public class VisitDomainService {
 	public void clear() {
 		visitRepo.deleteAll();
 	}
-
 
 }

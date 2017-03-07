@@ -24,13 +24,13 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 public abstract class InPatientTestService extends AppTestService {
-	
+
 	protected Map<ChoiceItem, Object> choices;
 
 	protected int dayCount = 0;
 
 	private static final int runCount = 1;// 入院次数
-	
+
 	@Override
 	public void testInit() {
 		super.testInit();
@@ -39,7 +39,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		ready();
 	}
-	
+
 	/**
 	 * 
 	 * @throws HsException
@@ -75,12 +75,8 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
-
-		Visit theVisit = new Visit();
-		theVisit.setRespDept(dept000);
-		theVisit.setRespDoctor(user002);
-
-		createVisitVO.setVisit(theVisit);
+		createVisitVO.setRespDept(dept000);
+		createVisitVO.setRespDoctor(user002);
 
 		// 送诊
 		visit001 = registerAppService.register(createVisitVO);
@@ -98,8 +94,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState()
-				.equals(Visit.State_NeedInitAccount));
+		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10", dayCount));
 
@@ -224,8 +219,8 @@ public abstract class InPatientTestService extends AppTestService {
 
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState().equals(
-				Visit.State_NeedLeaveHospitalBalance));
+		assertTrue(visit.getState()
+				.equals(Visit.State_NeedLeaveHospitalBalance));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
