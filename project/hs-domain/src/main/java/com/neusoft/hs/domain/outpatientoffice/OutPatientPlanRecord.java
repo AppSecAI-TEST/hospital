@@ -100,18 +100,19 @@ public class OutPatientPlanRecord extends IdEntity {
 
 	public boolean nextVoucher() {
 
-		if (currentEncounterNumber >= currentAllotNumber) {
+		if (currentEncounterNumber > currentAllotNumber) {
 			return false;
 		}
 		currentEncounterNumber++;
 
-		Voucher current = this.getTheVoucher(currentEncounterNumber);
 		// 第一个进入
 		if (currentEncounterNumber == 1) {
+			Voucher current = this.getTheVoucher(currentEncounterNumber);
 			current.enter();
 			return true;
 		} else {
 			// 当前出
+			Voucher current = this.getTheVoucher(currentEncounterNumber - 1);
 			current.out();
 
 			if (currentEncounterNumber > currentAllotNumber) {

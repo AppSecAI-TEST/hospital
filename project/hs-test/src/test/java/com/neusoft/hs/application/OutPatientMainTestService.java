@@ -29,26 +29,63 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:00"));
 
+		CreateVisitVO createVisitVO;
+		Visit theVisit;
 		// 创建测试患者
-		CreateVisitVO createVisitVO = new CreateVisitVO();
+		createVisitVO = new CreateVisitVO();
 		createVisitVO.setCardNumber("211381197801270235");
 		createVisitVO.setName("测试患者001");
 		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 
-		Voucher voucher = registrationAppService.register(createVisitVO,
+		Voucher voucher001 = registrationAppService.register(createVisitVO,
 				planRecord.getId(), user901);
-		visit001 = voucher.getVisit();
-		
+		visit001 = voucher001.getVisit();
+
 		assertTrue(visit001.getState().equals(Visit.State_WaitingDiagnose));
-		
-		boolean rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
-		
+
+		// 创建测试患者
+		createVisitVO = new CreateVisitVO();
+		createVisitVO.setCardNumber("210102200911035620");
+		createVisitVO.setName("测试患者002");
+		createVisitVO.setBirthday(DateUtil.createDay("2009-11-03"));
+		createVisitVO.setSex("女");
+		createVisitVO.setOperator(user002);
+
+		Voucher voucher002 = registrationAppService.register(createVisitVO,
+				planRecord.getId(), user901);
+		visit002 = voucher002.getVisit();
+
+		assertTrue(visit002.getState().equals(Visit.State_WaitingDiagnose));
+
+		boolean rtn;
+		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
+
 		assertTrue(rtn);
-		
-		Visit theVisit = visitDomainService.find(visit001.getId());
-		
+
+		theVisit = visitDomainService.find(visit001.getId());
+
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
+
+		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
+
+		assertTrue(rtn);
+
+		theVisit = visitDomainService.find(visit001.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
+
+		theVisit = visitDomainService.find(visit002.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
+		
+		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
+
+		assertTrue(!rtn);
+		
+		theVisit = visitDomainService.find(visit002.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
 	}
 }

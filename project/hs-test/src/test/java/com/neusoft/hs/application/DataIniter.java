@@ -176,6 +176,8 @@ public class DataIniter {
 	protected VoucherType ordinaryVoucherType;// 普通号
 
 	protected Visit visit001;
+	
+	protected Visit visit002;
 
 	@Autowired
 	protected RegisterAppService registerAppService;
