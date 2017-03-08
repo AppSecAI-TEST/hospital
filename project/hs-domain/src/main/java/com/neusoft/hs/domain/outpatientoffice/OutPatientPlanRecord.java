@@ -34,6 +34,8 @@ public class OutPatientPlanRecord extends IdEntity {
 	@Column(name = "plan_end_date")
 	private Date planEndDate;
 
+	private Boolean free;
+
 	@Column(name = "current_allot_number")
 	private Integer currentAllotNumber;
 
@@ -65,7 +67,8 @@ public class OutPatientPlanRecord extends IdEntity {
 	 */
 	public OutPatientPlanRecord() {
 		currentAllotNumber = 0;
-		currentEncounterNumber = 0;
+		currentEncounterNumber = 1;
+		free = true;
 		maxAllotNumber = MaxAllotNumber;
 	}
 
@@ -103,19 +106,22 @@ public class OutPatientPlanRecord extends IdEntity {
 		if (currentEncounterNumber > currentAllotNumber) {
 			return false;
 		}
-		currentEncounterNumber++;
 
 		// 第一个进入
-		if (currentEncounterNumber == 1) {
+		if (free) {
 			Voucher current = this.getTheVoucher(currentEncounterNumber);
 			current.enter();
+			free = false;
 			return true;
 		} else {
 			// 当前出
-			Voucher current = this.getTheVoucher(currentEncounterNumber - 1);
+			Voucher current = this.getTheVoucher(currentEncounterNumber);
 			current.out();
 
+			currentEncounterNumber++;
+
 			if (currentEncounterNumber > currentAllotNumber) {
+				free = true;
 				return false;
 			}
 			// 存在下一个入
@@ -157,6 +163,14 @@ public class OutPatientPlanRecord extends IdEntity {
 
 	public void setMaxAllotNumber(Integer maxAllotNumber) {
 		this.maxAllotNumber = maxAllotNumber;
+	}
+
+	public Boolean getFree() {
+		return free;
+	}
+
+	public void setFree(Boolean free) {
+		this.free = free;
 	}
 
 	public OutPatientRoom getRoom() {

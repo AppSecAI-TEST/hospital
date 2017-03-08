@@ -33,7 +33,7 @@ public class OutPatientMainTestService extends AppTestService {
 		Visit theVisit;
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
-		createVisitVO.setCardNumber("211381197801270235");
+		createVisitVO.setCardNumber("xxx");
 		createVisitVO.setName("测试患者001");
 		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
 		createVisitVO.setSex("男");
@@ -45,9 +45,11 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(visit001.getState().equals(Visit.State_WaitingDiagnose));
 
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:10"));
+
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
-		createVisitVO.setCardNumber("210102200911035620");
+		createVisitVO.setCardNumber("yyy");
 		createVisitVO.setName("测试患者002");
 		createVisitVO.setBirthday(DateUtil.createDay("2009-11-03"));
 		createVisitVO.setSex("女");
@@ -59,6 +61,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(visit002.getState().equals(Visit.State_WaitingDiagnose));
 
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:20"));
+
 		boolean rtn;
 		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
 
@@ -68,6 +72,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:35"));
+
 		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
 
 		assertTrue(rtn);
@@ -79,13 +85,41 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
-		
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:45"));
+
 		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
 
 		assertTrue(!rtn);
-		
+
 		theVisit = visitDomainService.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
+
+		// 创建测试患者
+		createVisitVO = new CreateVisitVO();
+		createVisitVO.setCardNumber("zzz");
+		createVisitVO.setName("测试患者003");
+		createVisitVO.setBirthday(DateUtil.createDay("2009-11-03"));
+		createVisitVO.setSex("女");
+		createVisitVO.setOperator(user002);
+
+		Voucher voucher003 = registrationAppService.register(createVisitVO,
+				planRecord.getId(), user901);
+		visit003 = voucher003.getVisit();
+
+		assertTrue(visit003.getState().equals(Visit.State_WaitingDiagnose));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:55"));
+		
+		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
+
+		assertTrue(rtn);
+
+		theVisit = visitDomainService.find(visit003.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 	}
 }

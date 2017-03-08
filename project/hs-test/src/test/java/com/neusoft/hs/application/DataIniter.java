@@ -178,6 +178,8 @@ public class DataIniter {
 	protected Visit visit001;
 	
 	protected Visit visit002;
+	
+	protected Visit visit003;
 
 	@Autowired
 	protected RegisterAppService registerAppService;
