@@ -79,9 +79,9 @@ public class DataIniter {
 
 	protected InPatientDept dept000;// 内泌五
 
-	protected OutPatientDept dept999;// 儿科门诊
+	protected OutPatientDept dept999;// 内分泌门诊
 
-	protected OutPatientRoom room901;// 儿科门诊一诊室
+	protected OutPatientRoom room901;// 内分泌门诊一诊室
 
 	protected Staff user101;// 住院处送诊人-曹操
 	protected Staff user201;// 收费处-张飞
@@ -398,7 +398,7 @@ public class DataIniter {
 
 		dept999 = new OutPatientDept();
 		dept999.setId("dept999");
-		dept999.setName("儿科门诊");
+		dept999.setName("内分泌门诊");
 		dept999.setParent(org);
 
 		units.add(dept999);
@@ -412,7 +412,7 @@ public class DataIniter {
 
 		room901 = new OutPatientRoom();
 		room901.setId("room901");
-		room901.setName("儿科门诊一诊室");
+		room901.setName("内分泌门诊一诊室");
 		room901.setDept(dept999);
 
 		rooms.add(room901);
@@ -507,7 +507,7 @@ public class DataIniter {
 		user901 = new Staff();
 
 		user901.setId("staff901");
-		user901.setName("儿科门诊挂号岗位-黄忠");
+		user901.setName("内分泌门诊挂号岗位-黄忠");
 		user901.setDept(dept999);
 
 		users.add(user901);
