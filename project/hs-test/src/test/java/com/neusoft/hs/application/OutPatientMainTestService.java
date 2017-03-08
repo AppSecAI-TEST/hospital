@@ -2,10 +2,15 @@ package com.neusoft.hs.application;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
@@ -36,6 +41,9 @@ public class OutPatientMainTestService extends AppTestService {
 
 		CreateVisitVO createVisitVO;
 		Visit theVisit;
+		Pageable pageable;
+		List<OrderExecute> executes;
+		
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
 		createVisitVO.setCardNumber("xxx");
@@ -116,7 +124,33 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:46"));
+		
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
+				pageable);
 
+		assertTrue(executes.size() == 1);
+
+		// 完成摆药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user301);
+		}
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:48"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成取药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), user301);
+		}
+		
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
 
 		// 创建测试患者
