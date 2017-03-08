@@ -88,6 +88,8 @@ public class OutPatientPlanRecord extends IdEntity {
 		}
 		vouchers.add(voucher);
 
+		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
+
 		ChargeRecord chargeRecord = new ChargeRecord();
 
 		ChargeItem chargeItem = voucherType.getChargeItem();
@@ -97,7 +99,10 @@ public class OutPatientPlanRecord extends IdEntity {
 		chargeRecord.setChargeItem(chargeItem);
 		chargeRecord.setChargeBill(voucher.getVisit().getChargeBill());
 
-		chargeRecord.save();
+		chargeRecords.add(chargeRecord);
+		// 生成费用记录
+		voucher.getVisit().getChargeBill().charging(chargeRecords);
+		voucher.getVisit().getChargeBill().save();
 
 		this.save();
 	}
