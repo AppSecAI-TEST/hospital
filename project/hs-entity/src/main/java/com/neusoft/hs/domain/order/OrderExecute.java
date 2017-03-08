@@ -116,7 +116,7 @@ public class OrderExecute extends SuperEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "belong_dept_id")
-	private InPatientDept belongDept;
+	private Dept belongDept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "execute_dept_id")
@@ -485,11 +485,11 @@ public class OrderExecute extends SuperEntity {
 		this.chargeRecords = chargeRecords;
 	}
 
-	public InPatientDept getBelongDept() {
+	public Dept getBelongDept() {
 		return belongDept;
 	}
 
-	public void setBelongDept(InPatientDept belongDept) {
+	public void setBelongDept(Dept belongDept) {
 		this.belongDept = belongDept;
 	}
 

@@ -12,10 +12,17 @@ import javax.persistence.OneToMany;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
 @DiscriminatorValue("Dept")
 public class Dept extends Unit {
+
+	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
+	private List<Order> belongOrders;
+
+	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
+	private List<OrderExecute> belongOrderExecutes;
 
 	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.REFRESH })
 	private List<Order> orders;
@@ -26,11 +33,30 @@ public class Dept extends Unit {
 	@OneToMany(mappedBy = "chargeDept", cascade = { CascadeType.REFRESH })
 	private List<ChargeRecord> chargeRecords;
 
+	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
+	private List<Visit> visits;
+
 	public Dept() {
 	}
 
 	public Dept(String id) {
 		this.setId(id);
+	}
+
+	public List<Order> getBelongOrders() {
+		return belongOrders;
+	}
+
+	public void setBelongOrders(List<Order> belongOrders) {
+		this.belongOrders = belongOrders;
+	}
+
+	public List<OrderExecute> getBelongOrderExecutes() {
+		return belongOrderExecutes;
+	}
+
+	public void setBelongOrderExecutes(List<OrderExecute> belongOrderExecutes) {
+		this.belongOrderExecutes = belongOrderExecutes;
 	}
 
 	public List<Order> getOrders() {
@@ -55,5 +81,13 @@ public class Dept extends Unit {
 
 	public void setChargeRecords(List<ChargeRecord> chargeRecords) {
 		this.chargeRecords = chargeRecords;
+	}
+
+	public List<Visit> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<Visit> visits) {
+		this.visits = visits;
 	}
 }

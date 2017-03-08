@@ -42,6 +42,7 @@ public class RegistrationDomainService {
 		Voucher voucher = new Voucher();
 
 		createVisitVO.setState(Visit.State_WaitingDiagnose);
+		createVisitVO.setDept(planRecord.getRoom().getDept());
 
 		Visit visit = visitDomainService.create(createVisitVO);
 

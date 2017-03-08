@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
@@ -48,6 +49,16 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 	}
 
 	@Override
+	public String getPlaceType() {
+		return this.orders.get(0).getPlaceType();
+	}
+
+	@Override
+	public Visit getVisit() {
+		return this.orders.get(0).getVisit();
+	}
+
+	@Override
 	public void save() {
 
 		this.getService(CompsiteOrderRepo.class).save(this);
@@ -56,4 +67,5 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 			order.save();
 		}
 	}
+
 }

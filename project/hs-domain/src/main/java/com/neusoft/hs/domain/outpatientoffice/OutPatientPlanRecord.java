@@ -45,7 +45,7 @@ public class OutPatientPlanRecord extends IdEntity {
 	@Column(name = "max_allot_number")
 	private Integer maxAllotNumber;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "room_id")
 	private OutPatientRoom room;
 

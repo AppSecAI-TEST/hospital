@@ -24,15 +24,14 @@ public class InPatientAppService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	public List<Visit> getNeedReceiveVisits(Staff staff,
-			Pageable pageable) {
-		return visitDomainService.findByStateAndRespDept(
-				Visit.State_NeedIntoWard, staff.getDept(), pageable);
+	public List<Visit> getNeedReceiveVisits(Staff staff, Pageable pageable) {
+		return visitDomainService.findByStateAndDept(Visit.State_NeedIntoWard,
+				staff.getDept(), pageable);
 	}
 
 	public List<Visit> InWardVisits(Dept dept, Pageable pageable) {
-		return visitDomainService.findByStateAndRespDept(
-				Visit.State_IntoWard, dept, pageable);
+		return visitDomainService.findByStateAndDept(Visit.State_IntoWard,
+				dept, pageable);
 	}
 
 	/**

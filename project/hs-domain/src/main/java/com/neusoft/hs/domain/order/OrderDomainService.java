@@ -62,15 +62,26 @@ public class OrderDomainService {
 				order.setCreateDate(DateUtil.getSysDate());
 			}
 			order.setCreator(doctor);
-			order.setBelongDept(doctor.getDept());
-			order.setState(Order.State_Created);
+			order.setBelongDept(orderCommand.getVisit().getDept());
+			if (order.isInPatient()) {
+				order.setState(Order.State_Created);
+			} else {
+				order.setState(Order.State_Executing);
+			}
 
 			order.check();
 
 			orders.add(order);
 		}
-
+		// 保存医嘱
 		orderCommand.save();
+
+		// 对于门诊开立的医嘱自动分解
+		for (Order order : orderCommand.getOrders()) {
+			if (!order.isInPatient()) {
+				order.resolve();
+			}
+		}
 
 		applicationContext.publishEvent(new OrderCreatedEvent(orderCommand));
 

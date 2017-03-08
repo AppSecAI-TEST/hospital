@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
 @DiscriminatorValue("InPatientDept")
@@ -22,15 +21,6 @@ public class InPatientDept extends Dept {
 
 	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
 	private List<Doctor> doctors;
-
-	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
-	private List<Order> belongOrders;
-
-	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
-	private List<OrderExecute> belongOrderExecutes;
-
-	@OneToMany(mappedBy = "respDept", cascade = { CascadeType.REFRESH })
-	private List<Visit> visits;
 
 	public InPatientDept() {
 	}
@@ -54,29 +44,4 @@ public class InPatientDept extends Dept {
 	public void setDoctors(List<Doctor> doctors) {
 		this.doctors = doctors;
 	}
-
-	public List<Order> getBelongOrders() {
-		return belongOrders;
-	}
-
-	public void setBelongOrders(List<Order> belongOrders) {
-		this.belongOrders = belongOrders;
-	}
-
-	public List<OrderExecute> getBelongOrderExecutes() {
-		return belongOrderExecutes;
-	}
-
-	public void setBelongOrderExecutes(List<OrderExecute> belongOrderExecutes) {
-		this.belongOrderExecutes = belongOrderExecutes;
-	}
-
-	public List<Visit> getVisits() {
-		return visits;
-	}
-
-	public void setVisits(List<Visit> visits) {
-		this.visits = visits;
-	}
-
 }

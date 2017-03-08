@@ -17,6 +17,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
@@ -51,7 +52,8 @@ public class InPatientMainTestService extends InPatientTestService {
 		secondNursingOrder.setName("二级护理");
 		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
-
+		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+		
 		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
 				secondNursingOrderType));
 
@@ -77,6 +79,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug001Order.setName("药品001");
 		drug001Order.setPlanStartDate(DateUtil.getSysDate());
 		drug001Order.setCount(2);
+		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
 		DrugOrderType drugOrderType = new DrugOrderType();
 		drugOrderType.setDrugTypeSpec(drugTypeSpec001);
@@ -229,6 +232,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug002Order.setName("头孢3");
 		drug002Order.setCount(2);
 		drug002Order.setFrequencyType(orderFrequencyType_9H15H);
+		drug002Order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
 		drug002Order.setPlanStartDate(sysDate);
 		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
@@ -242,6 +246,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug003Order.setName("5%葡萄糖");
 		drug003Order.setCount(1);
 		drug003Order.setFrequencyType(orderFrequencyType_9H15H);
+		drug003Order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
 		drug003Order.setPlanStartDate(sysDate);
 		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
@@ -439,6 +444,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		brainInspectOrder.setName("脑部检查");
 		brainInspectOrder.setTypeApp(new SampleOrderTypeApp(inspectOrderType));
 		brainInspectOrder.setPlanStartDate(DateUtil.getSysDate());
+		brainInspectOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
 		InspectApply inspectApply = new InspectApply();
 		inspectApply.setGoal("查查是否有问题");

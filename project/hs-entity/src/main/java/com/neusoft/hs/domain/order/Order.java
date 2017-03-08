@@ -25,7 +25,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
@@ -45,6 +44,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	@Column(name = "state_desc", length = 128)
 	private String stateDesc;
+
+	@NotEmpty(message = "位置类型不能为空")
+	@Column(name = "place_type", length = 32)
+	private String placeType;
 
 	@NotNull(message = "计划开始时间不能为空")
 	@Column(name = "plan_start_date")
@@ -80,7 +83,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "belong_dept_id")
-	private InPatientDept belongDept;
+	private Dept belongDept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "execute_dept_id")
@@ -317,11 +320,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.creator = creator;
 	}
 
-	public InPatientDept getBelongDept() {
+	public Dept getBelongDept() {
 		return belongDept;
 	}
 
-	public void setBelongDept(InPatientDept belongDept) {
+	public void setBelongDept(Dept belongDept) {
 		this.belongDept = belongDept;
 	}
 
@@ -355,6 +358,18 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setCompsiteOrder(CompsiteOrder compsiteOrder) {
 		this.compsiteOrder = compsiteOrder;
+	}
+
+	public String getPlaceType() {
+		return placeType;
+	}
+
+	public void setPlaceType(String placeType) {
+		this.placeType = placeType;
+	}
+
+	public boolean isInPatient() {
+		return this.placeType.equals(OrderCreateCommand.PlaceType_InPatient);
 	}
 
 	@Override

@@ -9,8 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -26,6 +24,7 @@ import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
@@ -77,7 +76,7 @@ public class Visit extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
-	private InPatientDept respDept;
+	private Dept dept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_id")
@@ -100,9 +99,9 @@ public class Visit extends IdEntity {
 	private ChargeBill chargeBill;
 
 	public static final String State_WaitingDiagnose = "待门诊";
-	
+
 	public static final String State_Diagnosing = "门诊就诊中";
-	
+
 	public static final String State_Diagnosed_Executing = "门诊执行中";
 
 	public static final String State_NeedInitAccount = "待预存费用";
@@ -114,7 +113,7 @@ public class Visit extends IdEntity {
 	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
 
 	public static final String State_LeaveHospital = "已出院";
-	
+
 	public ChargeBill initAccount(float balance, AbstractUser user)
 			throws HsException {
 
@@ -355,12 +354,11 @@ public class Visit extends IdEntity {
 		this.respDoctor = respDoctor;
 	}
 
-	public InPatientDept getRespDept() {
-		return respDept;
+	public Dept getDept() {
+		return dept;
 	}
 
-	public void setRespDept(InPatientDept respDept) {
-		this.respDept = respDept;
+	public void setDept(Dept dept) {
+		this.dept = dept;
 	}
-
 }

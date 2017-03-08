@@ -25,7 +25,7 @@ import com.neusoft.hs.platform.exception.HsException;
 @DiscriminatorValue("Drug")
 public class DrugOrderType extends OrderType {
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "drug_type_id")
 	private DrugType drugType;
 

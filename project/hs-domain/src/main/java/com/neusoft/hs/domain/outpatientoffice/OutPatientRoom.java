@@ -33,7 +33,7 @@ public class OutPatientRoom extends SuperEntity {
 	@OneToMany(mappedBy = "room", cascade = { CascadeType.ALL })
 	private List<OutPatientPlanRecord> planRecords;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private OutPatientDept dept;
 

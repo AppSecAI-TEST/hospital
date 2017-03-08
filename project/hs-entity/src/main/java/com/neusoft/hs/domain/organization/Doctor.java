@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
 import com.neusoft.hs.domain.order.Order;
-import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
 @DiscriminatorValue("Doctor")

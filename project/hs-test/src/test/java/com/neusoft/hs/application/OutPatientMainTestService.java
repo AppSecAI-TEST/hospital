@@ -4,7 +4,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderCreateCommand;
+import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
+import com.neusoft.hs.domain.pharmacy.DrugOrderType;
+import com.neusoft.hs.domain.pharmacy.DrugOrderTypeApp;
 import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
@@ -72,6 +77,22 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
+		// 开立药品临时医嘱
+		Order drug001Order = new TemporaryOrder();
+		drug001Order.setVisit(visit001);
+		drug001Order.setName("药品001");
+		drug001Order.setPlanStartDate(DateUtil.getSysDate());
+		drug001Order.setCount(2);
+		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+
+		DrugOrderType drugOrderType = new DrugOrderType();
+		drugOrderType.setDrugTypeSpec(drugTypeSpec001);
+
+		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType,
+				oralOrderUseMode));
+
+		orderAppService.create(drug001Order, user002);
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:35"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
@@ -111,9 +132,9 @@ public class OutPatientMainTestService extends AppTestService {
 		visit003 = voucher003.getVisit();
 
 		assertTrue(visit003.getState().equals(Visit.State_WaitingDiagnose));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:55"));
-		
+
 		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
 
 		assertTrue(rtn);

@@ -53,7 +53,7 @@ public class VisitDomainService {
 		visit.setName(createVisitVO.getName());
 		visit.setCreateDate(DateUtil.getSysDate());
 		visit.setState(createVisitVO.getState());
-		visit.setRespDept(createVisitVO.getRespDept());
+		visit.setDept(createVisitVO.getDept());
 		visit.setRespDoctor(createVisitVO.getRespDoctor());
 
 		visit.setPatient(patient);
@@ -117,13 +117,13 @@ public class VisitDomainService {
 		return visitRepo.findByState(state, pageable);
 	}
 
-	public List<Visit> findByStateAndRespDept(String state, Dept dept,
+	public List<Visit> findByStateAndDept(String state, Dept dept,
 			Pageable pageable) {
-		return visitRepo.findByStateAndRespDept(state, dept, pageable);
+		return visitRepo.findByStateAndDept(state, dept, pageable);
 	}
 
 	public List<Visit> listVisit(Dept respDept, Pageable pageable) {
-		return visitRepo.findByRespDept(respDept, pageable);
+		return visitRepo.findByDept(respDept, pageable);
 	}
 
 	public List<Visit> listInPatientVisit(Pageable pageable) {

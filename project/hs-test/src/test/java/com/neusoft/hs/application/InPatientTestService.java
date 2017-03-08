@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
@@ -75,7 +76,7 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
-		createVisitVO.setRespDept(dept000);
+		createVisitVO.setDept(dept000);
 		createVisitVO.setRespDoctor(user002);
 
 		// 送诊
@@ -155,6 +156,7 @@ public abstract class InPatientTestService extends AppTestService {
 		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-09",
 				dayCount));
 		leaveHospitalOrder.setExecuteDept(dept222);
+		leaveHospitalOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
 		leaveHospitalOrder.setTypeApp(new SampleOrderTypeApp(
 				leaveHospitalOrderType));

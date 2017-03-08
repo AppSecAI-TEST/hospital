@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.exception.HsException;
@@ -34,7 +38,7 @@ public class DrugType extends SuperEntity {
 	@JoinColumn(name = "pharmacy_id")
 	private Pharmacy pharmacy;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
 
