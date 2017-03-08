@@ -215,7 +215,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * @roseuid 584F5A920055
 	 */
 	public void addExecutes(List<OrderExecute> orderExecutes) {
-		if (this.orderExecutes.size() == 0) {
+		if (this.orderExecutes == null || this.orderExecutes.size() == 0) {
 			this.orderExecutes = orderExecutes;
 		} else {
 			this.orderExecutes.addAll(orderExecutes);

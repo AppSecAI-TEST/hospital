@@ -80,6 +80,7 @@ public class OrderDomainService {
 		for (Order order : orderCommand.getOrders()) {
 			if (!order.isInPatient()) {
 				order.resolve();
+				order.save();
 			}
 		}
 
