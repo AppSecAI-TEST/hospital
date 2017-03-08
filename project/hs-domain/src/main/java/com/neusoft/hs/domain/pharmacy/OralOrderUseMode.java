@@ -31,9 +31,13 @@ public class OralOrderUseMode extends DrugUseMode {
 
 		dispensingDrugExecute.setExecuteDept(drugOrderType.getDrugType()
 				.getPharmacy());
-		dispensingDrugExecute.setState(OrderExecute.State_NeedSend);
 		dispensingDrugExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		dispensingDrugExecute.setCostState(OrderExecute.CostState_NoCost);
+		if (order.isInPatient()) {
+			dispensingDrugExecute.setState(OrderExecute.State_NeedSend);
+		} else {
+			dispensingDrugExecute.setState(OrderExecute.State_Executing);
+		}
 
 		team.addOrderExecute(dispensingDrugExecute);
 
@@ -43,8 +47,12 @@ public class OralOrderUseMode extends DrugUseMode {
 		taskDrugExecute.setVisit(order.getVisit());
 		taskDrugExecute.setBelongDept(order.getBelongDept());
 		taskDrugExecute.setType(OrderExecute.Type_Take_Drug);
-
-		taskDrugExecute.setExecuteDept(order.getBelongDept());
+		if (order.isInPatient()) {
+			taskDrugExecute.setExecuteDept(order.getBelongDept());
+		} else {
+			taskDrugExecute.setExecuteDept(drugOrderType.getDrugType()
+					.getPharmacy());
+		}
 		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
 		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		taskDrugExecute.setCostState(OrderExecute.CostState_NoCost);

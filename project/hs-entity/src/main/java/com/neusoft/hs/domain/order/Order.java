@@ -151,9 +151,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 		if (resolveOrderExecutes.size() > 0) {
 			for (OrderExecute orderExecute : resolveOrderExecutes) {
-				// 更新状态
-				if (!orderExecute.getState()
-						.equals(OrderExecute.State_NeedSend)) {
+				// 更新一组执行条目的首条目的状态
+				if (orderExecute.getPreviousId() == null
+						&& !orderExecute.getState().equals(
+								OrderExecute.State_NeedSend)) {
 					orderExecute.updateState();
 				}
 				// 设置医嘱组合
