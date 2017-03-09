@@ -43,6 +43,7 @@ public class OutPatientMainTestService extends AppTestService {
 		Visit theVisit;
 		Pageable pageable;
 		List<OrderExecute> executes;
+		int changedCount;
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
@@ -183,6 +184,8 @@ public class OutPatientMainTestService extends AppTestService {
 				user901);
 
 		assertTrue(voucher001.getNumber() == 4);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:15"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
 
@@ -195,6 +198,23 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit001.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:20"));
+		
+		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
+
+		assertTrue(!rtn);
+
+		theVisit = visitDomainService.find(visit001.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
+		
+		
+		// 2016-12-29
+		DateUtil.setSysDate(DateUtil.createDay("2016-12-29"));
+		changedCount = visitDomainService.changeVisitState();
+		
+		assertTrue(changedCount == 3);
 
 	}
 }

@@ -54,6 +54,9 @@ public class Visit extends IdEntity {
 	@Column(name = "create_date")
 	private Date createDate;
 
+	@Column(name = "voucher_date")
+	private Date voucherDate;
+
 	@Column(name = "into_ward_date")
 	private Date intoWardDate;
 
@@ -103,6 +106,8 @@ public class Visit extends IdEntity {
 	public static final String State_Diagnosing = "门诊就诊中";
 
 	public static final String State_Diagnosed_Executing = "门诊执行中";
+	
+	public static final String State_LeaveHospital = "已离院";
 
 	public static final String State_NeedInitAccount = "待预存费用";
 
@@ -112,7 +117,7 @@ public class Visit extends IdEntity {
 
 	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
 
-	public static final String State_LeaveHospital = "已出院";
+	public static final String State_OutHospital = "已出院";
 
 	public ChargeBill initAccount(float balance, AbstractUser user)
 			throws HsException {
@@ -199,7 +204,7 @@ public class Visit extends IdEntity {
 					+ State_NeedLeaveHospitalBalance + "]");
 		}
 
-		this.setState(State_LeaveHospital);
+		this.setState(State_OutHospital);
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
@@ -296,6 +301,14 @@ public class Visit extends IdEntity {
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+
+	public Date getVoucherDate() {
+		return voucherDate;
+	}
+
+	public void setVoucherDate(Date voucherDate) {
+		this.voucherDate = voucherDate;
 	}
 
 	public String getBed() {

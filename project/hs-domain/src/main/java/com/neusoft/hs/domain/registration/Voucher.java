@@ -2,6 +2,9 @@
 
 package com.neusoft.hs.domain.registration;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -21,6 +24,9 @@ public class Voucher extends IdEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
+
+	@Column(name = "create_date")
+	private Date createDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plan_record_id")
@@ -55,6 +61,14 @@ public class Voucher extends IdEntity {
 
 	public void setPlanRecord(OutPatientPlanRecord planRecord) {
 		this.planRecord = planRecord;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public void out() {

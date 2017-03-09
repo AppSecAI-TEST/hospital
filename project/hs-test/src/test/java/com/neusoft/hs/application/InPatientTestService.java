@@ -237,7 +237,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		visit = visitDomainService.find(visit001.getId());
 
-		assertTrue(visit.getState().equals(Visit.State_LeaveHospital));
+		assertTrue(visit.getState().equals(Visit.State_OutHospital));
 	}
 
 	public void followUp() throws HsException {

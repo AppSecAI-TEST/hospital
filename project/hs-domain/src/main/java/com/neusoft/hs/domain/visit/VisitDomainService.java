@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.visit;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,6 +133,12 @@ public class VisitDomainService {
 
 	public void clear() {
 		visitRepo.deleteAll();
+	}
+
+	public int changeVisitState() {
+		Date changeDate = DateUtil.reduceHour(DateUtil.getSysDate(), 10);
+		return visitRepo.changeVisitState(Visit.State_LeaveHospital,
+				Visit.State_Diagnosed_Executing, changeDate);
 	}
 
 }

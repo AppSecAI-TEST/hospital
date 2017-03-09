@@ -16,6 +16,7 @@ import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -40,6 +41,7 @@ public class RegistrationDomainService {
 		}
 
 		Voucher voucher = new Voucher();
+		voucher.setCreateDate(DateUtil.getSysDate());
 
 		createVisitVO.setState(Visit.State_WaitingDiagnose);
 		createVisitVO.setDept(planRecord.getRoom().getDept());
@@ -54,6 +56,9 @@ public class RegistrationDomainService {
 		}
 
 		voucher.setVisit(visit);
+
+		visit.setVoucherDate(voucher.getCreateDate());
+		visit.save();
 
 		planRecord.occupy(voucher);
 
