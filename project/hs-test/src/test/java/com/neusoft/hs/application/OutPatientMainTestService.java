@@ -101,6 +101,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:25"));
 		// 开立药品临时医嘱
 		Order drug001Order = new TemporaryOrder();
 		drug001Order.setVisit(visit001);
@@ -257,6 +258,8 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit001.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
+		
+		
 		
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:15"));

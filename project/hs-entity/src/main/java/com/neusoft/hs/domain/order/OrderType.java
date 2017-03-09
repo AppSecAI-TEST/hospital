@@ -64,12 +64,22 @@ public abstract class OrderType extends SuperEntity {
 	}
 
 	/**
+	 * 医嘱创建后的回调函数
+	 * 
+	 * @param order
+	 * @throws OrderException
+	 */
+	protected void create(Order order) throws OrderException {
+	}
+
+	/**
 	 * @param order
 	 * @return
 	 * @throws OrderException
 	 * @roseuid 584F4A3201B9
 	 */
-	public abstract void resolveOrder(OrderTypeApp orderTypeApp) throws OrderException;
+	public abstract void resolveOrder(OrderTypeApp orderTypeApp)
+			throws OrderException;
 
 	/**
 	 * 医嘱核对后的回调函数
@@ -87,7 +97,7 @@ public abstract class OrderType extends SuperEntity {
 	 * @throws OrderException
 	 */
 	public void delete(Order order) throws OrderException {
-	
+
 	}
 
 	public String getId() {

@@ -41,12 +41,16 @@ public abstract class OrderTypeApp extends IdEntity {
 	 * @throws OrderException
 	 * @roseuid 584F4A3201B9
 	 */
-	public void resolveOrder() throws OrderException{
+	public void resolveOrder() throws OrderException {
 		orderType.resolveOrder(this);
 	}
 
 	public void check() throws OrderException {
 		orderType.check(order);
+	}
+
+	public void create() throws OrderException {
+		orderType.create(order);
 	}
 
 	public void verify() throws OrderException {

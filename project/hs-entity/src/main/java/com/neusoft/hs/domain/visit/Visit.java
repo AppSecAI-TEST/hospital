@@ -112,6 +112,8 @@ public class Visit extends IdEntity {
 	public static final String State_Diagnosed_Executing = "门诊执行中";
 
 	public static final String State_LeaveHospital = "已离院";
+	
+	public static final String State_WaitingEnterHospital = "待住院登记";
 
 	public static final String State_NeedInitAccount = "待预存费用";
 

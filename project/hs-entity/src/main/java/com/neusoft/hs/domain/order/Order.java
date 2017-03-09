@@ -127,6 +127,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.typeApp.check();
 	}
 
+	public void create() throws OrderException {
+		this.typeApp.create();
+	}
+
 	public int verify() throws OrderException {
 		this.setState(State_Executing);
 		int count = this.resolve();
@@ -399,4 +403,5 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			throw new OrderException(this, "计划开始时间不同");
 		}
 	}
+
 }

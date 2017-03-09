@@ -85,6 +85,10 @@ public class OrderDomainService {
 		}
 
 		applicationContext.publishEvent(new OrderCreatedEvent(orderCommand));
+		
+		for (Order order : orderCommand.getOrders()) {
+			order.create();
+		}
 
 		return orders;
 	}
