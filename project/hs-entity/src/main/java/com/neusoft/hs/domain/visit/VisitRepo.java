@@ -28,8 +28,4 @@ interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 			@Param("changeDate") Date changeDate);
 
 	Visit findByLastAndCardNumber(Boolean last, String cardNumber);
-
-	@Modifying
-	@Query("update Visit v set v.last = false where v.cardNumber = :cardNumber AND v.last = true")
-	int updateLastState(@Param("cardNumber") String cardNumber);
 }

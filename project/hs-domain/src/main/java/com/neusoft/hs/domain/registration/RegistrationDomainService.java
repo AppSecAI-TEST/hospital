@@ -66,10 +66,15 @@ public class RegistrationDomainService {
 
 		voucher.setVisit(visit);
 
+		visit.setState(Visit.State_WaitingDiagnose);
 		visit.setVoucherDate(voucher.getCreateDate());
 		visit.save();
 
 		planRecord.occupy(voucher);
+
+		if (!voucher.getRepeatVisit()) {
+			visit.getChargeBill().save();
+		}
 
 		voucherRepo.save(voucher);
 

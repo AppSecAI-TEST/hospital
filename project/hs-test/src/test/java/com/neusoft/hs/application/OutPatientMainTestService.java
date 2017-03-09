@@ -242,10 +242,10 @@ public class OutPatientMainTestService extends AppTestService {
 		createVisitVO.setRepeatVisit(true);
 
 		Voucher voucher001x = registrationAppService.register(createVisitVO,
-				planRecord1.getId(), user901);
-		visit001 = voucher001x.getVisit();
+				planRecord2.getId(), user901);
+		theVisit = voucher001x.getVisit();
 
-		assertTrue(visit001.getState().equals(Visit.State_WaitingDiagnose));
+		assertTrue(theVisit.getState().equals(Visit.State_WaitingDiagnose));
 		
 
 

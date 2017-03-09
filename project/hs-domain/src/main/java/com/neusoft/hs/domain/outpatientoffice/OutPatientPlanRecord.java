@@ -105,7 +105,6 @@ public class OutPatientPlanRecord extends IdEntity {
 		chargeRecords.add(chargeRecord);
 		// 生成费用记录
 		visit.getChargeBill().charging(chargeRecords);
-		visit.getChargeBill().save();
 
 		this.save();
 	}

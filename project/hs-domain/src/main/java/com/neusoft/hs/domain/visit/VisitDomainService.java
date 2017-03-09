@@ -48,8 +48,13 @@ public class VisitDomainService {
 		patient.setBirthday(createVisitVO.getBirthday());
 
 		patient.save();
-
-		visitRepo.updateLastState(createVisitVO.getCardNumber());
+		// 修改原患者一次就诊为非最新
+		Visit oldVisit = visitRepo.findByLastAndCardNumber(true,
+				createVisitVO.getCardNumber());
+		if (oldVisit != null) {
+			oldVisit.setLast(false);
+			oldVisit.save();
+		}
 
 		Visit visit = new Visit();
 
@@ -148,4 +153,5 @@ public class VisitDomainService {
 		return visitRepo.changeVisitState(Visit.State_LeaveHospital,
 				Visit.State_Diagnosed_Executing, changeDate);
 	}
+
 }
