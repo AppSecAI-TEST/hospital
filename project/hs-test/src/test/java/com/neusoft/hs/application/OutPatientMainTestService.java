@@ -247,7 +247,29 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_WaitingDiagnose));
 		
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:05"));
+		
+		rtn = outPatientDeptAppService.nextVoucher(planRecord2.getId());
 
+		assertTrue(rtn);
+
+		theVisit = visitDomainService.find(visit001.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
+		
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:15"));
+		
+		rtn = outPatientDeptAppService.nextVoucher(planRecord2.getId());
+
+		assertTrue(!rtn);
+
+		theVisit = visitDomainService.find(visit001.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
+		
+	
 
 	}
 }
