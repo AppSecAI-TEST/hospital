@@ -26,7 +26,6 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -36,6 +35,9 @@ import com.neusoft.hs.platform.util.DateUtil;
 @Entity
 @Table(name = "domain_visit")
 public class Visit extends IdEntity {
+
+	@Column(name = "card_number", length = 64)
+	private String cardNumber;
 
 	@NotEmpty(message = "名称不能为空")
 	@Column(length = 16)
@@ -53,6 +55,8 @@ public class Visit extends IdEntity {
 
 	@Column(name = "create_date")
 	private Date createDate;
+
+	private Boolean last;
 
 	@Column(name = "voucher_date")
 	private Date voucherDate;
@@ -106,7 +110,7 @@ public class Visit extends IdEntity {
 	public static final String State_Diagnosing = "门诊就诊中";
 
 	public static final String State_Diagnosed_Executing = "门诊执行中";
-	
+
 	public static final String State_LeaveHospital = "已离院";
 
 	public static final String State_NeedInitAccount = "待预存费用";
@@ -223,6 +227,14 @@ public class Visit extends IdEntity {
 		this.getService(VisitRepo.class).save(this);
 	}
 
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -293,6 +305,14 @@ public class Visit extends IdEntity {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public Boolean getLast() {
+		return last;
+	}
+
+	public void setLast(Boolean last) {
+		this.last = last;
 	}
 
 	public Patient getPatient() {

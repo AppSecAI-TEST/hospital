@@ -28,6 +28,8 @@ public class Voucher extends IdEntity {
 	@Column(name = "create_date")
 	private Date createDate;
 
+	private Boolean repeatVisit;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plan_record_id")
 	private OutPatientPlanRecord planRecord;
@@ -69,6 +71,14 @@ public class Voucher extends IdEntity {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public Boolean getRepeatVisit() {
+		return repeatVisit;
+	}
+
+	public void setRepeatVisit(Boolean repeatVisit) {
+		this.repeatVisit = repeatVisit;
 	}
 
 	public void out() {

@@ -25,6 +25,8 @@ public class CreateVisitVO {
 
 	private AbstractUser operator;
 
+	private boolean repeatVisit = false;
+
 	public String getCardNumber() {
 		return cardNumber;
 	}
@@ -87,5 +89,13 @@ public class CreateVisitVO {
 
 	public void setOperator(AbstractUser operator) {
 		this.operator = operator;
+	}
+
+	public boolean isRepeatVisit() {
+		return repeatVisit;
+	}
+
+	public void setRepeatVisit(boolean repeatVisit) {
+		this.repeatVisit = repeatVisit;
 	}
 }

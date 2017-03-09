@@ -49,13 +49,17 @@ public class VisitDomainService {
 
 		patient.save();
 
+		visitRepo.updateLastState(createVisitVO.getCardNumber());
+
 		Visit visit = new Visit();
 
+		visit.setCardNumber(createVisitVO.getCardNumber());
 		visit.setName(createVisitVO.getName());
 		visit.setCreateDate(DateUtil.getSysDate());
 		visit.setState(createVisitVO.getState());
 		visit.setDept(createVisitVO.getDept());
 		visit.setRespDoctor(createVisitVO.getRespDoctor());
+		visit.setLast(true);
 
 		visit.setPatient(patient);
 
@@ -114,6 +118,10 @@ public class VisitDomainService {
 		return visitRepo.findOne(visitId);
 	}
 
+	public Visit findLastVisit(String cardNumber) {
+		return visitRepo.findByLastAndCardNumber(true, cardNumber);
+	}
+
 	public List<Visit> findByState(String state, Pageable pageable) {
 		return visitRepo.findByState(state, pageable);
 	}
@@ -140,5 +148,4 @@ public class VisitDomainService {
 		return visitRepo.changeVisitState(Visit.State_LeaveHospital,
 				Visit.State_Diagnosed_Executing, changeDate);
 	}
-
 }

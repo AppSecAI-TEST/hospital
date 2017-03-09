@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.outpatientdept.OutPatientDeptException;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.VoucherException;
@@ -41,18 +40,28 @@ public class RegistrationDomainService {
 		}
 
 		Voucher voucher = new Voucher();
+		voucher.setRepeatVisit(createVisitVO.isRepeatVisit());
 		voucher.setCreateDate(DateUtil.getSysDate());
 
 		createVisitVO.setState(Visit.State_WaitingDiagnose);
 		createVisitVO.setDept(planRecord.getRoom().getDept());
 
-		Visit visit = visitDomainService.create(createVisitVO);
-
-		try {
-			ChargeBill chargeBill = visit.initAccount(0, user);
-			chargeBill.save();
-		} catch (HsException e) {
-			throw new VoucherException(e);
+		Visit visit = null;
+		if (!voucher.getRepeatVisit()) {
+			visit = visitDomainService.create(createVisitVO);
+			try {
+				ChargeBill chargeBill = visit.initAccount(0, user);
+				chargeBill.save();
+			} catch (HsException e) {
+				throw new VoucherException(e);
+			}
+		} else {
+			visit = visitDomainService.findLastVisit(createVisitVO
+					.getCardNumber());
+			if (visit == null) {
+				throw new VoucherException("未发现号码为["
+						+ createVisitVO.getCardNumber() + "]的就诊记录");
+			}
 		}
 
 		voucher.setVisit(visit);

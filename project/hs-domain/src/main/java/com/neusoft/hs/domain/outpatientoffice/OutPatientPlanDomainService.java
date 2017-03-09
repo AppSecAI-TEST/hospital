@@ -28,6 +28,10 @@ public class OutPatientPlanDomainService {
 		outpatientPlanRecordRepo.save(planRecord);
 	}
 
+	public void createPlanRecords(List<OutPatientPlanRecord> planRecords) {
+		outpatientPlanRecordRepo.save(planRecords);
+	}
+
 	/**
 	 * @roseuid 58B7C82C00AD
 	 */
@@ -58,4 +62,5 @@ public class OutPatientPlanDomainService {
 	public OutPatientPlanRecord findPlanRecord(String planRecordId) {
 		return outpatientPlanRecordRepo.findOne(planRecordId);
 	}
+
 }
