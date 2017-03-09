@@ -43,7 +43,7 @@ public class OutPatientMainTestService extends AppTestService {
 		Visit theVisit;
 		Pageable pageable;
 		List<OrderExecute> executes;
-		
+
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
 		createVisitVO.setCardNumber("xxx");
@@ -124,9 +124,9 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:46"));
-		
+
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
 				pageable);
@@ -150,7 +150,7 @@ public class OutPatientMainTestService extends AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), user301);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
 
 		// 创建测试患者
@@ -176,5 +176,25 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit003.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:05"));
+
+		registrationAppService.repeatOccupy(voucher001, planRecord.getId(),
+				user901);
+
+		assertTrue(voucher001.getNumber() == 4);
+
+		rtn = outPatientDeptAppService.nextVoucher(planRecord.getId());
+
+		assertTrue(rtn);
+
+		theVisit = visitDomainService.find(visit003.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
+
+		theVisit = visitDomainService.find(visit001.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
+
 	}
 }

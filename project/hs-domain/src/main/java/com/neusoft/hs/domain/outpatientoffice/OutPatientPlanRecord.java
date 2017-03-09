@@ -21,6 +21,7 @@ import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.registration.RegistrationDomainService;
 import com.neusoft.hs.domain.registration.Voucher;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
@@ -88,6 +89,8 @@ public class OutPatientPlanRecord extends IdEntity {
 		}
 		vouchers.add(voucher);
 
+		Visit visit = voucher.getVisit();
+
 		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
 
 		ChargeRecord chargeRecord = new ChargeRecord();
@@ -97,13 +100,23 @@ public class OutPatientPlanRecord extends IdEntity {
 		chargeRecord.setCount(1);
 		chargeRecord.setAmount(-chargeItem.getPrice());
 		chargeRecord.setChargeItem(chargeItem);
-		chargeRecord.setChargeBill(voucher.getVisit().getChargeBill());
+		chargeRecord.setChargeDept(visit.getDept());
 
 		chargeRecords.add(chargeRecord);
 		// 生成费用记录
-		voucher.getVisit().getChargeBill().charging(chargeRecords);
-		voucher.getVisit().getChargeBill().save();
+		visit.getChargeBill().charging(chargeRecords);
+		visit.getChargeBill().save();
 
+		this.save();
+	}
+
+	/**
+	 * @param voucher
+	 * @throws VoucherException
+	 * @roseuid 58B7D9F402FA
+	 */
+	public void repeatOccupy(Voucher voucher) throws VoucherException {
+		voucher.setNumber(++currentAllotNumber);
 		this.save();
 	}
 

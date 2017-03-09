@@ -105,7 +105,11 @@ public class ChargeBill extends IdEntity {
 			this.chargeRecords = new ArrayList<ChargeRecord>();
 		}
 		this.chargeRecords.add(chargeRecord);
+		
 		chargeRecord.setChargeBill(this);
+		if(chargeRecord.getCreateDate() == null){
+			chargeRecord.setCreateDate(DateUtil.getSysDate());
+		}
 	}
 
 	public float getBalance() {

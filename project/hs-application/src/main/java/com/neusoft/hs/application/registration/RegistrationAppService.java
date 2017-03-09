@@ -17,11 +17,14 @@ public class RegistrationAppService {
 	@Autowired
 	private RegistrationDomainService registrationDomainService;
 
-	public Voucher register(CreateVisitVO createVisitVO,
-			String planRecordId, AbstractUser user)
-			throws VoucherException {
-		
+	public Voucher register(CreateVisitVO createVisitVO, String planRecordId,
+			AbstractUser user) throws VoucherException {
 		return registrationDomainService.register(createVisitVO, planRecordId,
 				user);
+	}
+
+	public void repeatOccupy(Voucher voucher, String planRecordId,
+			AbstractUser user) throws VoucherException {
+		registrationDomainService.repeatOccupy(voucher, planRecordId, user);
 	}
 }

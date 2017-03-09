@@ -62,6 +62,19 @@ public class RegistrationDomainService {
 		return voucher;
 	}
 
+	public void repeatOccupy(Voucher voucher, String planRecordId,
+			AbstractUser user) throws VoucherException {
+		OutPatientPlanRecord planRecord = outPatientPlanDomainService
+				.findPlanRecord(planRecordId);
+		if (planRecord == null) {
+			throw new VoucherException("门诊医生排班记录[" + planRecordId + "]不存在");
+		}
+
+		planRecord.repeatOccupy(voucher);
+
+		voucherRepo.save(voucher);
+	}
+
 	public Voucher getTheVoucher(OutPatientPlanRecord record, Integer number) {
 		return voucherRepo.findByPlanRecordAndNumber(record, number);
 	}
