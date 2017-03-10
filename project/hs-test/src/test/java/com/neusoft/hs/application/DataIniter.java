@@ -45,6 +45,7 @@ import com.neusoft.hs.domain.organization.OutPatientDept;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
 import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.outpatientdept.EnterHospitalOrderType;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.outpatientoffice.VoucherType;
@@ -139,6 +140,8 @@ public class DataIniter {
 
 	protected InspectItem brainHCInspectItem;// 脑核磁检查项目
 
+	protected EnterHospitalOrderType enterHospitalOrderType;// 入院医嘱类型
+
 	protected SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
 
 	protected LeaveHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
@@ -176,9 +179,9 @@ public class DataIniter {
 	protected VoucherType ordinaryVoucherType;// 普通号
 
 	protected Visit visit001;
-	
+
 	protected Visit visit002;
-	
+
 	protected Visit visit003;
 
 	@Autowired
@@ -252,7 +255,7 @@ public class DataIniter {
 
 	@Autowired
 	protected RegistrationDomainService registrationDomainService;
-	
+
 	@Autowired
 	protected OutPatientDeptAppService outPatientDeptAppService;
 
@@ -289,7 +292,7 @@ public class DataIniter {
 		treatmentDomainService.clearTreatmentItemSpecs();
 		// 清空成本记录
 		costDomainService.clearCostRecords();
-		//清空收费单
+		// 清空收费单
 		costDomainService.clearChargeBill();
 		// 清空患者一次住院
 		visitDomainService.clear();
@@ -751,6 +754,13 @@ public class DataIniter {
 		drugOrderType003.setDrugType(drugType003);
 
 		orderTypes.add(drugOrderType003);
+
+		enterHospitalOrderType = new EnterHospitalOrderType();
+		enterHospitalOrderType.setId("enterHospitalOrderType");
+		enterHospitalOrderType.setCode("enterHospitalOrderType");
+		enterHospitalOrderType.setName("入院医嘱");
+
+		orderTypes.add(enterHospitalOrderType);
 
 		leaveHospitalOrderType = new LeaveHospitalOrderType();
 		leaveHospitalOrderType.setId("leaveHospitalOrderType");

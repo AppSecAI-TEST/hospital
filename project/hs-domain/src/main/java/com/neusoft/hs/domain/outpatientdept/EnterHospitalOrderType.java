@@ -18,6 +18,7 @@ public class EnterHospitalOrderType extends OrderType {
 	@Override
 	protected void create(Order order) throws OrderException {
 		order.getVisit().setState(Visit.State_WaitingEnterHospital);
+		order.getVisit().save();
 	}
 
 	@Override

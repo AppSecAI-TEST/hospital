@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
@@ -27,32 +28,32 @@ public class OutPatientMainTestService extends AppTestService {
 
 	@Override
 	public void execute() throws HsException {
-		
+
 		List<OutPatientPlanRecord> planRecords = new ArrayList<OutPatientPlanRecord>();
 
 		OutPatientPlanRecord planRecord1 = new OutPatientPlanRecord();
 
 		planRecord1.setDoctor(user002);
 		planRecord1.setVoucherType(ordinaryVoucherType);
-		planRecord1.setPlanStartDate(DateUtil.createMinute("2016-12-28 08:30"));
-		planRecord1.setPlanEndDate(DateUtil.createMinute("2016-12-28 17:00"));
+		planRecord1.setPlanStartDate(DateUtil.createMinute("2016-12-27 08:30"));
+		planRecord1.setPlanEndDate(DateUtil.createMinute("2016-12-27 17:00"));
 		planRecord1.setRoom(room901);
-		
+
 		planRecords.add(planRecord1);
-		
+
 		OutPatientPlanRecord planRecord2 = new OutPatientPlanRecord();
 
 		planRecord2.setDoctor(user002);
 		planRecord2.setVoucherType(ordinaryVoucherType);
-		planRecord2.setPlanStartDate(DateUtil.createMinute("2016-12-29 08:30"));
-		planRecord2.setPlanEndDate(DateUtil.createMinute("2016-12-29 17:00"));
+		planRecord2.setPlanStartDate(DateUtil.createMinute("2016-12-28 08:30"));
+		planRecord2.setPlanEndDate(DateUtil.createMinute("2016-12-28 17:00"));
 		planRecord2.setRoom(room901);
 
 		planRecords.add(planRecord2);
-		
+
 		outPatientPlanDomainService.createPlanRecords(planRecords);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:00"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:00"));
 
 		CreateVisitVO createVisitVO;
 		Visit theVisit;
@@ -66,7 +67,7 @@ public class OutPatientMainTestService extends AppTestService {
 		createVisitVO.setName("测试患者001");
 		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
 		createVisitVO.setSex("男");
-		createVisitVO.setOperator(user002);
+		createVisitVO.setOperator(user901);
 
 		Voucher voucher001 = registrationAppService.register(createVisitVO,
 				planRecord1.getId(), user901);
@@ -74,7 +75,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(visit001.getState().equals(Visit.State_WaitingDiagnose));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:10"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:10"));
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
@@ -82,7 +83,7 @@ public class OutPatientMainTestService extends AppTestService {
 		createVisitVO.setName("测试患者002");
 		createVisitVO.setBirthday(DateUtil.createDay("2009-11-03"));
 		createVisitVO.setSex("女");
-		createVisitVO.setOperator(user002);
+		createVisitVO.setOperator(user901);
 
 		Voucher voucher002 = registrationAppService.register(createVisitVO,
 				planRecord1.getId(), user901);
@@ -90,7 +91,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(visit002.getState().equals(Visit.State_WaitingDiagnose));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:20"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:20"));
 
 		boolean rtn;
 		rtn = outPatientDeptAppService.nextVoucher(planRecord1.getId());
@@ -101,7 +102,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:25"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:25"));
 		// 开立药品临时医嘱
 		Order drug001Order = new TemporaryOrder();
 		drug001Order.setVisit(visit001);
@@ -118,7 +119,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		orderAppService.create(drug001Order, user002);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:35"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:35"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord1.getId());
 
@@ -132,7 +133,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:45"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:45"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord1.getId());
 
@@ -142,7 +143,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:46"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:46"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
@@ -155,7 +156,7 @@ public class OutPatientMainTestService extends AppTestService {
 			orderExecuteAppService.finish(execute.getId(), user301);
 		}
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:48"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:48"));
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
@@ -168,7 +169,7 @@ public class OutPatientMainTestService extends AppTestService {
 			orderExecuteAppService.finish(execute.getId(), user301);
 		}
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:50"));
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
@@ -176,7 +177,7 @@ public class OutPatientMainTestService extends AppTestService {
 		createVisitVO.setName("测试患者003");
 		createVisitVO.setBirthday(DateUtil.createDay("2009-11-03"));
 		createVisitVO.setSex("女");
-		createVisitVO.setOperator(user002);
+		createVisitVO.setOperator(user901);
 
 		Voucher voucher003 = registrationAppService.register(createVisitVO,
 				planRecord1.getId(), user901);
@@ -184,7 +185,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(visit003.getState().equals(Visit.State_WaitingDiagnose));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:55"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:55"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord1.getId());
 
@@ -194,14 +195,14 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:05"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 10:05"));
 
 		registrationAppService.repeatOccupy(voucher001, planRecord1.getId(),
 				user901);
 
 		assertTrue(voucher001.getNumber() == 4);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:15"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 10:15"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord1.getId());
 
@@ -215,7 +216,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:20"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 10:20"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord1.getId());
 
@@ -225,13 +226,13 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
 
-		// 2016-12-29
-		DateUtil.setSysDate(DateUtil.createDay("2016-12-29"));
+		// 2016-12-28
+		DateUtil.setSysDate(DateUtil.createDay("2016-12-28"));
 		changedCount = visitDomainService.changeVisitState();
 
 		assertTrue(changedCount == 3);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:00"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:00"));
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
@@ -247,10 +248,9 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = voucher001x.getVisit();
 
 		assertTrue(theVisit.getState().equals(Visit.State_WaitingDiagnose));
-		
-		
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:05"));
-		
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:05"));
+
 		rtn = outPatientDeptAppService.nextVoucher(planRecord2.getId());
 
 		assertTrue(rtn);
@@ -259,20 +259,31 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 		
-		
-		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:10"));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:15"));
-		
+		// 开立入院医嘱
+		Order enterHospitalOrder = new TemporaryOrder();
+		enterHospitalOrder.setVisit(visit001);
+		enterHospitalOrder.setName("入院医嘱");
+		enterHospitalOrder.setExecuteDept(dept111);
+		enterHospitalOrder.setPlanStartDate(DateUtil.getSysDate());
+		enterHospitalOrder
+				.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+
+		enterHospitalOrder.setTypeApp(new SampleOrderTypeApp(
+				enterHospitalOrderType));
+
+		orderAppService.create(enterHospitalOrder, user002);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:15"));
+
 		rtn = outPatientDeptAppService.nextVoucher(planRecord2.getId());
 
 		assertTrue(!rtn);
 
 		theVisit = visitDomainService.find(visit001.getId());
 
-		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
-		
-	
+		assertTrue(theVisit.getState().equals(Visit.State_WaitingEnterHospital));
 
 	}
 }

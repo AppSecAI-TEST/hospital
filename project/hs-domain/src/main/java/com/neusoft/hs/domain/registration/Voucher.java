@@ -82,7 +82,9 @@ public class Voucher extends IdEntity {
 	}
 
 	public void out() {
-		this.visit.setState(Visit.State_Diagnosed_Executing);
+		if (this.visit.getState().equals(Visit.State_Diagnosing)) {
+			this.visit.setState(Visit.State_Diagnosed_Executing);
+		}
 		this.visit.save();
 	}
 
