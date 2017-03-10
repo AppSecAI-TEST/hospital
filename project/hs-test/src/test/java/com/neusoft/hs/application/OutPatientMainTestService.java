@@ -25,7 +25,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 public class OutPatientMainTestService extends AppTestService {
-
+	
 	@Override
 	public void execute() throws HsException {
 
@@ -284,6 +284,19 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit001.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_WaitingEnterHospital));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user101,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成住院医嘱执行条目
+		orderExecuteAppService.finish(executes.get(0).getId(), user101);
+		
+		theVisit = visitDomainService.find(visit001.getId());
+		
+		assertTrue(theVisit.getState().equals(Visit.State_NeedInitAccount));
 
 	}
 }
