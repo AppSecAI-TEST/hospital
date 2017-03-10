@@ -26,6 +26,8 @@ import com.neusoft.hs.platform.util.DateUtil;
 @Service
 public abstract class InPatientTestService extends AppTestService {
 
+	protected Visit visit001;
+
 	protected Map<ChoiceItem, Object> choices;
 
 	protected int dayCount = 0;
@@ -52,23 +54,30 @@ public abstract class InPatientTestService extends AppTestService {
 
 			dayCount = count * 20;
 
-			this.intoWard();
+			this.createVisit();
 
-			this.treatment();
+			this.doExecute();
 
-			this.outWard();
-
-			this.followUp();
 		}
 
 	}
 
+	public void doExecute() throws HsException {
+
+		this.intoWard();
+
+		this.treatment();
+
+		this.outWard();
+
+		this.followUp();
+	}
+
 	protected abstract void treatment() throws HsException;
 
-	protected void intoWard() throws HsException {
+	protected void createVisit() throws HsException {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50", dayCount));
-
 		// 创建测试患者
 		CreateVisitVO createVisitVO = new CreateVisitVO();
 		createVisitVO.setCardNumber("211381197801270235");
@@ -78,14 +87,15 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setOperator(user002);
 		createVisitVO.setDept(dept000);
 		createVisitVO.setRespDoctor(user002);
-
 		// 送诊
 		visit001 = registerAppService.register(createVisitVO);
+	}
+
+	protected void intoWard() throws HsException {
 
 		Pageable pageable;
 		List<Visit> visits;
 		Visit visit;
-		List<Order> orders;
 
 		pageable = new PageRequest(0, 15);
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
@@ -100,7 +110,11 @@ public abstract class InPatientTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10", dayCount));
 
 		// 预存费用
-		cashierAppService.initAccount(visit001.getId(), 2000F, user201);
+		if (!visit001.isInitedAccount()) {
+			cashierAppService.initAccount(visit001.getId(), 2000F, user201);
+		} else {
+			cashierAppService.addCost(visit001.getId(), 2000F, user201);
+		}
 
 		pageable = new PageRequest(0, 15);
 		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
@@ -300,6 +314,10 @@ public abstract class InPatientTestService extends AppTestService {
 			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
 		pharmacyDomainService
 				.createOrderUseModeAssistMaterial(orderUseModeAssistMaterial);
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit001 = visit;
 	}
 
 }

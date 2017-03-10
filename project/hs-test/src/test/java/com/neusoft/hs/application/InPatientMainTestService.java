@@ -53,7 +53,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		
+
 		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
 				secondNursingOrderType));
 
@@ -177,7 +177,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		MedicalRecord intoWardRecord = medicalRecordTestService
 				.createIntoWardRecord(visit001,
 						intoWardRecordMedicalRecordType, user002);
-		
+
 		intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
 
 		Map<String, Itemable> datas = intoWardRecord.getDatas();
@@ -579,7 +579,8 @@ public class InPatientMainTestService extends InPatientTestService {
 			inspectAppService.confirm(executes.get(0).getId(), HCResults,
 					user502);
 
-			DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 16:00", dayCount));
+			DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 16:00",
+					dayCount));
 
 			testUtil.testInspectResult(brainInspectOrder.getId(), 2);
 		}
@@ -630,5 +631,4 @@ public class InPatientMainTestService extends InPatientTestService {
 		orderExecuteAppService.finish(executes.get(0).getId(), user003);
 
 	}
-
 }

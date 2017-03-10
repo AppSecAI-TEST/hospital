@@ -178,12 +178,6 @@ public class DataIniter {
 
 	protected VoucherType ordinaryVoucherType;// 普通号
 
-	protected Visit visit001;
-
-	protected Visit visit002;
-
-	protected Visit visit003;
-
 	@Autowired
 	protected RegisterAppService registerAppService;
 
@@ -258,6 +252,81 @@ public class DataIniter {
 
 	@Autowired
 	protected OutPatientDeptAppService outPatientDeptAppService;
+
+	public void clone(DataIniter dataIniter) {
+		org = dataIniter.org;
+
+		dept111 = dataIniter.dept111;
+		dept222 = dataIniter.dept222;
+		dept333 = dataIniter.dept333;
+		dept444 = dataIniter.dept444;
+		dept555 = dataIniter.dept555;
+		dept666 = dataIniter.dept666;
+		dept000 = dataIniter.dept000;
+		dept999 = dataIniter.dept999;
+
+		room901 = dataIniter.room901;
+
+		user101 = dataIniter.user101;
+		user201 = dataIniter.user201;
+		user301 = dataIniter.user301;
+		user302 = dataIniter.user302;
+		user401 = dataIniter.user401;
+		user402 = dataIniter.user402;
+		user501 = dataIniter.user501;
+		user502 = dataIniter.user502;
+		user601 = dataIniter.user601;
+		user602 = dataIniter.user602;
+		user901 = dataIniter.user901;
+		user001 = dataIniter.user001;
+		user002 = dataIniter.user002;
+		user003 = dataIniter.user003;
+
+		bedChargeItem = dataIniter.bedChargeItem;
+		drugTypeSpec001ChargeItem = dataIniter.drugTypeSpec001ChargeItem;
+		drugTypeSpec002ChargeItem = dataIniter.drugTypeSpec002ChargeItem;
+		drugTypeSpec003ChargeItem = dataIniter.drugTypeSpec003ChargeItem;
+		transportFluidMaterialChargeItem = dataIniter.transportFluidMaterialChargeItem;
+		secondNursingChargeItem = dataIniter.secondNursingChargeItem;
+		brainCTChargeItem = dataIniter.brainCTChargeItem;
+		brainHCChargeItem = dataIniter.brainHCChargeItem;
+		ordinaryVoucherTypeChargeItem = dataIniter.ordinaryVoucherTypeChargeItem;
+
+		drugTypeSpec001 = dataIniter.drugTypeSpec001;
+		drugTypeSpec002 = dataIniter.drugTypeSpec002;
+		drugTypeSpec003 = dataIniter.drugTypeSpec003;
+
+		drugType001 = dataIniter.drugType001;
+		drugType002 = dataIniter.drugType002;
+		drugType003 = dataIniter.drugType003;
+
+		drugOrderType001 = dataIniter.drugOrderType001;
+		drugOrderType002 = dataIniter.drugOrderType002;
+		drugOrderType003 = dataIniter.drugOrderType003;
+
+		brainCTInspectItem = dataIniter.brainCTInspectItem;
+		brainHCInspectItem = dataIniter.brainHCInspectItem;
+
+		enterHospitalOrderType = dataIniter.enterHospitalOrderType;
+		secondNursingOrderType = dataIniter.secondNursingOrderType;
+		leaveHospitalOrderType = dataIniter.leaveHospitalOrderType;
+		inspectOrderType = dataIniter.inspectOrderType;
+		oralOrderUseMode = dataIniter.oralOrderUseMode;
+		infusionOrderUseMode = dataIniter.infusionOrderUseMode;
+		transportFluidAssistMaterial = dataIniter.transportFluidAssistMaterial;
+		everyOneOrderUseModeAssistMaterial = dataIniter.everyOneOrderUseModeAssistMaterial;
+		everyDayOrderUseModeAssistMaterial = dataIniter.everyDayOrderUseModeAssistMaterial;
+		onlyOneOrderUseModeAssistMaterial = dataIniter.onlyOneOrderUseModeAssistMaterial;
+		orderFrequencyType_Day = dataIniter.orderFrequencyType_Day;
+		orderFrequencyType_9H15H = dataIniter.orderFrequencyType_9H15H;
+		mainDescribeTreatmentItemSpec = dataIniter.mainDescribeTreatmentItemSpec;
+		visitNameTreatmentItemSpec = dataIniter.visitNameTreatmentItemSpec;
+		temporaryOrderListTreatmentItemSpec = dataIniter.temporaryOrderListTreatmentItemSpec;
+		intoWardRecordMedicalRecordType = dataIniter.intoWardRecordMedicalRecordType;
+		temporaryOrderListMedicalRecordType = dataIniter.temporaryOrderListMedicalRecordType;
+		inspectResultMedicalRecordType = dataIniter.inspectResultMedicalRecordType;
+		ordinaryVoucherType = dataIniter.ordinaryVoucherType;
+	}
 
 	public void clear() {
 		// 清空挂号信息

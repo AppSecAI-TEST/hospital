@@ -50,18 +50,28 @@ public class CostDomainService {
 	 * @throws HsException
 	 * @roseuid 584DFD470092
 	 */
-	public ChargeBill createChargeBill(String visitId, float balance,
+	public ChargeBill createChargeBill(Visit visit, float balance,
 			AbstractUser user) throws HsException {
-		Visit visit = visitDomainService.find(visitId);
-		if (visit == null) {
-			throw new HsException("visitId=[" + visitId + "]不存在");
+		ChargeBill chargeBill = visit.initAccount(balance, user);
+		return chargeBill;
+	}
+
+	public ChargeRecord addCost(Visit visit, float balance, AbstractUser user)
+			throws HsException {
+
+		if (!visit.isInitedAccount()) {
+			throw new HsException("visitName=[" + visit.getName() + "]未初始化账户");
 		}
 
-		ChargeBill chargeBill = visit.initAccount(balance, user);
+		ChargeRecord chargeRecord = new ChargeRecord();
+		chargeRecord.setAmount(balance);
+		chargeRecord.setCreateDate(DateUtil.getSysDate());
+		chargeRecord.setHaveCost(false);
+		chargeRecord.setChargeDept(user.getDept());
 
-		visit.setState(Visit.State_NeedIntoWard);
+		visit.getChargeBill().addChargeRecord(chargeRecord);
 
-		return chargeBill;
+		return chargeRecord;
 	}
 
 	/**
@@ -179,4 +189,5 @@ public class CostDomainService {
 	public void clearChargeBill() {
 		chargeBillRepo.deleteAll();
 	}
+
 }

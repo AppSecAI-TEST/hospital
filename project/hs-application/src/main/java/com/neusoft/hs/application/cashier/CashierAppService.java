@@ -10,14 +10,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
+import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CashierAppService {
+
+	@Autowired
+	private VisitDomainService visitDomainService;
 
 	@Autowired
 	private CostDomainService costDomainService;
@@ -32,7 +37,26 @@ public class CashierAppService {
 	 */
 	public ChargeBill initAccount(String visitId, float balance,
 			AbstractUser user) throws HsException {
-		return costDomainService.createChargeBill(visitId, balance, user);
+		Visit visit = visitDomainService.find(visitId);
+		if (visit == null) {
+			throw new HsException("visitId=[" + visitId + "]不存在");
+		}
+		ChargeBill chargeBill = costDomainService.createChargeBill(visit,
+				balance, user);
+		visit.setState(Visit.State_NeedIntoWard);
+		return chargeBill;
+	}
+
+	public ChargeRecord addCost(String visitId, float balance, AbstractUser user)
+			throws HsException {
+		Visit visit = visitDomainService.find(visitId);
+		if (visit == null) {
+			throw new HsException("visitId=[" + visitId + "]不存在");
+		}
+		ChargeRecord chargeRecord = costDomainService.addCost(visit, balance,
+				user);
+		visit.setState(Visit.State_NeedIntoWard);
+		return chargeRecord;
 	}
 
 	/**

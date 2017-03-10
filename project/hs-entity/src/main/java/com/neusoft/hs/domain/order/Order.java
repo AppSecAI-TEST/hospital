@@ -4,7 +4,9 @@ package com.neusoft.hs.domain.order;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -99,6 +101,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "compsite_order_id")
 	private CompsiteOrder compsiteOrder;
+
+	@Transient
+	private Map<String, Object> params = new HashMap<String, Object>();
 
 	public static final String State_Created = "已创建/待核对";
 
@@ -375,6 +380,14 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public boolean isInPatient() {
 		return this.placeType.equals(OrderCreateCommand.PlaceType_InPatient);
+	}
+
+	public Object getParam(String key) {
+		return params.get(key);
+	}
+
+	public void addParam(String key, Object value) {
+		this.params.put(key, value);
 	}
 
 	@Override

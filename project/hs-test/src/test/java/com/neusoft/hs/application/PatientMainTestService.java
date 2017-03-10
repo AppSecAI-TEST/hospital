@@ -7,19 +7,25 @@ import com.neusoft.hs.platform.exception.HsException;
 
 @Service
 public class PatientMainTestService extends AppTestService {
-	
+
 	@Autowired
 	private OutPatientMainTestService outPatientMainTestService;
-	
+
 	@Autowired
 	private InPatientMainTestService inPatientMainTestService;
-	
+
 	@Override
 	public void execute() throws HsException {
-		
+
+		outPatientMainTestService.clone(this);
+
+		inPatientMainTestService.clone(this);
+
 		outPatientMainTestService.execute();
-		
-		inPatientMainTestService.execute();
+
+		inPatientMainTestService.setVisit(outPatientMainTestService.getVisit());
+
+		inPatientMainTestService.doExecute();
 
 	}
 

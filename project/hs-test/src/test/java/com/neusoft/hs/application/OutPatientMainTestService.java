@@ -25,7 +25,13 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 public class OutPatientMainTestService extends AppTestService {
-	
+
+	protected Visit visit001;
+
+	protected Visit visit002;
+
+	protected Visit visit003;
+
 	@Override
 	public void execute() throws HsException {
 
@@ -258,7 +264,7 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit001.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:10"));
 
 		// 开立入院医嘱
@@ -272,6 +278,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		enterHospitalOrder.setTypeApp(new SampleOrderTypeApp(
 				enterHospitalOrderType));
+
+		enterHospitalOrder.addParam("wardDept", dept000);
 
 		orderAppService.create(enterHospitalOrder, user002);
 
@@ -293,10 +301,14 @@ public class OutPatientMainTestService extends AppTestService {
 
 		// 完成住院医嘱执行条目
 		orderExecuteAppService.finish(executes.get(0).getId(), user101);
-		
+
 		theVisit = visitDomainService.find(visit001.getId());
-		
+
 		assertTrue(theVisit.getState().equals(Visit.State_NeedInitAccount));
 
+	}
+
+	public Visit getVisit() {
+		return visit001;
 	}
 }

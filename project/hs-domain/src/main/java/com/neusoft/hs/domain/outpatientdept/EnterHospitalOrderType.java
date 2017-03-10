@@ -9,6 +9,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderTypeApp;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
@@ -17,6 +18,9 @@ public class EnterHospitalOrderType extends OrderType {
 
 	@Override
 	protected void create(Order order) throws OrderException {
+		//是否在外部编写？
+		order.getVisit().setDept((Dept)order.getParam("wardDept"));
+		
 		order.getVisit().setState(Visit.State_WaitingEnterHospital);
 		order.getVisit().save();
 	}
