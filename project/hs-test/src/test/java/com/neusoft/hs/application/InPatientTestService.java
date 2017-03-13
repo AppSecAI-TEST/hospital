@@ -41,6 +41,8 @@ public abstract class InPatientTestService extends AppTestService {
 		choice();
 
 		ready();
+		
+		MedicalRecordTestService.temporaryOrderCount = 3;
 	}
 
 	/**

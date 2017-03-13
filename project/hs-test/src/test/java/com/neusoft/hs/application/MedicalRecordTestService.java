@@ -50,6 +50,8 @@ public class MedicalRecordTestService {
 	protected TreatmentAppService treatmentAppService;
 
 	private int dayCount;
+	
+	public static int temporaryOrderCount;
 
 	public MedicalRecord createIntoWardRecord(Visit visit,
 			MedicalRecordType medicalRecordType, Doctor doctor)
@@ -98,10 +100,10 @@ public class MedicalRecordTestService {
 
 		itemValue = datas.get("临时医嘱列表").getValues();
 		
-//		assertTrue(itemValue.size() == 3);
+		assertTrue(itemValue.size() == temporaryOrderCount);
 		
-//		assertTrue(((ListTreatmentItemValue) itemValue.get(0)).getData()
-//				.get("name").equals("药品001"));
+		assertTrue(((ListTreatmentItemValue) itemValue.get(0)).getData()
+				.get("name").equals("药品001"));
 
 		medicalRecordAppService.create(temporaryOrderListRecord);
 

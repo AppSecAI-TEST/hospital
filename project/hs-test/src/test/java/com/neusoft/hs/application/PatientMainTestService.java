@@ -27,6 +27,8 @@ public class PatientMainTestService extends AppTestService {
 		inPatientMainTestService.choice();
 		
 		inPatientMainTestService.ready();
+		
+		MedicalRecordTestService.temporaryOrderCount = 5;
 	}
 
 
