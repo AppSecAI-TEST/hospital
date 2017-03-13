@@ -113,6 +113,7 @@ public class CostDomainService {
 				chargeRecord.setOrderExecute(execute);
 				chargeRecord.setCreateDate(sysDate);
 				chargeRecord.setChargeDept(execute.getExecuteDept());
+				chargeRecord.setBelongDept(execute.getBelongDept());
 
 				if (chargeRecord.isHaveCharge()) {
 					haveCharge = true;

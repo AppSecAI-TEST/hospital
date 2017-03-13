@@ -61,6 +61,10 @@ public class ChargeRecord extends IdEntity {
 	@JoinColumn(name = "charge_dept_id")
 	private Dept chargeDept;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "belong_dept_id")
+	private Dept belongDept;
+
 	@Transient
 	private boolean haveCost = true;
 
@@ -107,24 +111,26 @@ public class ChargeRecord extends IdEntity {
 		chargeRecord.setOrderExecute(orderExecute);
 
 		chargeRecord.setChargeDept(chargeDept);
+		chargeRecord.setBelongDept(belongDept);
 		chargeRecord.setCreateDate(DateUtil.getSysDate());
 
 		this.setNewChargeRecord(chargeRecord);
 
 		return chargeRecord;
 	}
-	
+
 	public ChargeRecord createPayRecord() {
 		ChargeRecord chargeRecord = new ChargeRecord();
-		
+
 		chargeRecord.setCount(count);
 		chargeRecord.setPrice(price);
 		chargeRecord.setAmount(-amount);
 		chargeRecord.setChargeItem(chargeItem);
 		chargeRecord.setOrderExecute(orderExecute);
 		chargeRecord.setChargeDept(chargeDept);
+		chargeRecord.setBelongDept(belongDept);
 		chargeRecord.setCreateDate(createDate);
-		
+
 		return chargeRecord;
 	}
 
@@ -206,6 +212,14 @@ public class ChargeRecord extends IdEntity {
 
 	public void setChargeDept(Dept chargeDept) {
 		this.chargeDept = chargeDept;
+	}
+
+	public Dept getBelongDept() {
+		return belongDept;
+	}
+
+	public void setBelongDept(Dept belongDept) {
+		this.belongDept = belongDept;
 	}
 
 	public ChargeRecord getNewChargeRecord() {

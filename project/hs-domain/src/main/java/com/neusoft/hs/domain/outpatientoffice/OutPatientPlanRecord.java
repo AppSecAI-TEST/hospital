@@ -112,6 +112,7 @@ public class OutPatientPlanRecord extends IdEntity {
 		chargeRecord.setAmount(-chargeItem.getPrice());
 		chargeRecord.setChargeItem(chargeItem);
 		chargeRecord.setChargeDept(visit.getDept());
+		chargeRecord.setBelongDept(visit.getDept());
 
 		chargeRecords.add(chargeRecord);
 
