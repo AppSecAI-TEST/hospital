@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,9 @@ public class TreatmentDomainService {
 	private TreatmentItemRepo treatmentItemRepo;
 
 	@Autowired
+	private TreatmentItemValueRepo treatmentItemValueRepo;
+
+	@Autowired
 	private TreatmentItemSpecRepo treatmentItemSpecRepo;
 
 	@Autowired
@@ -33,11 +39,29 @@ public class TreatmentDomainService {
 	 * @roseuid 58A148A00070
 	 */
 	public void create(TreatmentItem item) {
-		if (item.getCreateDate() == null) {
-			item.setCreateDate(DateUtil.getSysDate());
+
+		TreatmentItem oldItem = treatmentItemRepo
+				.findByVisitAndTreatmentItemSpec(item.getVisit(),
+						item.getTreatmentItemSpec());
+		if (oldItem == null) {
+			if (item.getCreateDate() == null) {
+				item.setCreateDate(DateUtil.getSysDate());
+			}
+			treatmentItemRepo.save(item);
+			applicationContext
+					.publishEvent(new TreatmentItemCreatedEvent(item));
+		} else {
+			// 删除原Values
+			treatmentItemValueRepo.delete(oldItem.getValues());
+			oldItem.setValues(null);
+			// 创建新Values
+			for (TreatmentItemValue value : item.getValues()) {
+				oldItem.addValue(value);
+			}
+
+			applicationContext
+					.publishEvent(new TreatmentItemUpdatedEvent(item));
 		}
-		treatmentItemRepo.save(item);
-		applicationContext.publishEvent(new TreatmentItemCreatedEvent(item));
 	}
 
 	public TreatmentItem getTheTreatmentItem(Visit visit,

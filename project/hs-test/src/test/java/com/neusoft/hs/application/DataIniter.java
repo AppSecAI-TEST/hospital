@@ -64,7 +64,6 @@ import com.neusoft.hs.domain.registration.RegistrationDomainService;
 import com.neusoft.hs.domain.treatment.CommonTreatmentItemSpec;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
-import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.domain.visit.VisitNameTreatmentItemSpec;
 
@@ -169,6 +168,8 @@ public class DataIniter {
 	protected TreatmentItemSpec visitNameTreatmentItemSpec;// 患者姓名
 
 	protected TreatmentItemSpec temporaryOrderListTreatmentItemSpec;// 临时医嘱列表
+	
+	protected MedicalRecordType outPatientRecordMedicalRecordType;// 门诊记录
 
 	protected MedicalRecordType intoWardRecordMedicalRecordType;// 入院记录
 
@@ -311,20 +312,27 @@ public class DataIniter {
 		secondNursingOrderType = dataIniter.secondNursingOrderType;
 		leaveHospitalOrderType = dataIniter.leaveHospitalOrderType;
 		inspectOrderType = dataIniter.inspectOrderType;
+		
 		oralOrderUseMode = dataIniter.oralOrderUseMode;
 		infusionOrderUseMode = dataIniter.infusionOrderUseMode;
+		
 		transportFluidAssistMaterial = dataIniter.transportFluidAssistMaterial;
 		everyOneOrderUseModeAssistMaterial = dataIniter.everyOneOrderUseModeAssistMaterial;
 		everyDayOrderUseModeAssistMaterial = dataIniter.everyDayOrderUseModeAssistMaterial;
 		onlyOneOrderUseModeAssistMaterial = dataIniter.onlyOneOrderUseModeAssistMaterial;
+		
 		orderFrequencyType_Day = dataIniter.orderFrequencyType_Day;
 		orderFrequencyType_9H15H = dataIniter.orderFrequencyType_9H15H;
+		
 		mainDescribeTreatmentItemSpec = dataIniter.mainDescribeTreatmentItemSpec;
 		visitNameTreatmentItemSpec = dataIniter.visitNameTreatmentItemSpec;
 		temporaryOrderListTreatmentItemSpec = dataIniter.temporaryOrderListTreatmentItemSpec;
+		
+		outPatientRecordMedicalRecordType = dataIniter.outPatientRecordMedicalRecordType;
 		intoWardRecordMedicalRecordType = dataIniter.intoWardRecordMedicalRecordType;
 		temporaryOrderListMedicalRecordType = dataIniter.temporaryOrderListMedicalRecordType;
 		inspectResultMedicalRecordType = dataIniter.inspectResultMedicalRecordType;
+		
 		ordinaryVoucherType = dataIniter.ordinaryVoucherType;
 	}
 
@@ -1017,9 +1025,22 @@ public class DataIniter {
 		inspectResultMedicalRecordType.setItems(items);
 
 		medicalRecordTypes.add(inspectResultMedicalRecordType);
+		
+		outPatientRecordMedicalRecordType = new MedicalRecordType();
+		outPatientRecordMedicalRecordType.setId("门诊记录");
+		outPatientRecordMedicalRecordType.setName("门诊记录");
+		outPatientRecordMedicalRecordType.setNeedSign(false);
+		outPatientRecordMedicalRecordType.setNeedCreate(false);
 
+		items = new ArrayList<TreatmentItemSpec>();
+		items.add(visitNameTreatmentItemSpec);
+		items.add(mainDescribeTreatmentItemSpec);
+
+		outPatientRecordMedicalRecordType.setItems(items);
+
+		medicalRecordTypes.add(outPatientRecordMedicalRecordType);
+		
 		medicalRecordDomainService.createMedicalRecordTypes(medicalRecordTypes);
-
 	}
 
 	private void initVoucherTypes() {

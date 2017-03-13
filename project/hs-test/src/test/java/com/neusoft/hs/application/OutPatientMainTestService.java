@@ -18,6 +18,8 @@ import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugOrderTypeApp;
 import com.neusoft.hs.domain.registration.Voucher;
+import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
+import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
@@ -109,12 +111,13 @@ public class OutPatientMainTestService extends AppTestService {
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:25"));
+
 		// 开立药品临时医嘱
 		Order drug001Order = new TemporaryOrder();
 		drug001Order.setVisit(visit001);
 		drug001Order.setName("药品001");
 		drug001Order.setPlanStartDate(DateUtil.getSysDate());
-		drug001Order.setCount(2);
+		drug001Order.setCount(1);
 		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
 		DrugOrderType drugOrderType = new DrugOrderType();
@@ -124,6 +127,20 @@ public class OutPatientMainTestService extends AppTestService {
 				oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:27"));
+
+		// 创建主诉
+		TreatmentItem item = new TreatmentItem();
+		item.setVisit(visit001);
+		item.setTreatmentItemSpec(mainDescribeTreatmentItemSpec);
+		item.setCreator(user002);
+
+		SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
+		value.setInfo("患者咳嗽发烧两天");
+		item.addValue(value);
+
+		treatmentDomainService.create(item);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:35"));
 
