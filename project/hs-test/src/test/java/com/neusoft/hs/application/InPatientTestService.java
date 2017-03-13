@@ -297,7 +297,7 @@ public abstract class InPatientTestService extends AppTestService {
 				inspectResultMedicalRecordType, user002);
 	}
 
-	private void choice() {
+	public void choice() {
 
 		this.choices = new HashMap<ChoiceItem, Object>();
 		this.choices.put(ChoiceItem.OrderUseModeAssistMaterial,
@@ -305,7 +305,7 @@ public abstract class InPatientTestService extends AppTestService {
 		this.choices.put(ChoiceItem.CancelHC, true);
 	}
 
-	private void ready() {
+	public void ready() {
 		this.choiceOrderUseModeAssistMaterial((DrugUseModeAssistMaterial) this.choices
 				.get(ChoiceItem.OrderUseModeAssistMaterial));
 	}

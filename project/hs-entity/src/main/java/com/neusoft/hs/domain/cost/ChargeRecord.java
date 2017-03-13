@@ -113,6 +113,20 @@ public class ChargeRecord extends IdEntity {
 
 		return chargeRecord;
 	}
+	
+	public ChargeRecord createPayRecord() {
+		ChargeRecord chargeRecord = new ChargeRecord();
+		
+		chargeRecord.setCount(count);
+		chargeRecord.setPrice(price);
+		chargeRecord.setAmount(-amount);
+		chargeRecord.setChargeItem(chargeItem);
+		chargeRecord.setOrderExecute(orderExecute);
+		chargeRecord.setChargeDept(chargeDept);
+		chargeRecord.setCreateDate(createDate);
+		
+		return chargeRecord;
+	}
 
 	public Float getAmount() {
 		return amount;
@@ -221,5 +235,4 @@ public class ChargeRecord extends IdEntity {
 	public void save() {
 		this.getService(ChargeRecordRepo.class).save(this);
 	}
-
 }

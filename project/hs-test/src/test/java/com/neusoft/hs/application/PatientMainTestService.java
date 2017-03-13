@@ -13,18 +13,31 @@ public class PatientMainTestService extends AppTestService {
 
 	@Autowired
 	private InPatientMainTestService inPatientMainTestService;
+	
+	
+
+	@Override
+	public void testInit() {
+		super.testInit();
+		
+		outPatientMainTestService.clone(this);
+
+		inPatientMainTestService.clone(this);
+		
+		inPatientMainTestService.choice();
+		
+		inPatientMainTestService.ready();
+	}
+
+
 
 	@Override
 	public void execute() throws HsException {
 
-		outPatientMainTestService.clone(this);
-
-		inPatientMainTestService.clone(this);
-
 		outPatientMainTestService.execute();
 
 		inPatientMainTestService.setVisit(outPatientMainTestService.getVisit());
-
+		
 		inPatientMainTestService.doExecute();
 
 	}

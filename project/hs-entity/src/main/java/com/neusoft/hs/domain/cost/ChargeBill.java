@@ -34,6 +34,10 @@ public class ChargeBill extends IdEntity {
 	@Column(length = 32)
 	private String state;
 
+	@NotEmpty(message = "收费模式不能为空")
+	@Column(length = 32)
+	private String chargeMode;
+
 	@OneToMany(mappedBy = "chargeBill", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
 	private List<ChargeRecord> chargeRecords;
@@ -44,6 +48,10 @@ public class ChargeBill extends IdEntity {
 
 	public static final String State_Normal = "正常";
 
+	public static final String ChargeMode_PreCharge = "预交金模式";
+
+	public static final String ChargeMode_NoPreCharge = "非预交金模式";
+
 	/**
 	 * @param chargeRecords2
 	 * @roseuid 5850A3D500DE
@@ -52,14 +60,19 @@ public class ChargeBill extends IdEntity {
 
 		for (ChargeRecord chargeRecord : chargeRecords) {
 			this.addChargeRecord(chargeRecord);
+
+			if (this.chargeMode.equals(ChargeMode_NoPreCharge)) {
+				this.addChargeRecord(chargeRecord.createPayRecord());
+			}
 		}
 
-		float theBalance = 0F;
-		for (ChargeRecord chargeRecord : chargeRecords) {
-			theBalance += chargeRecord.getAmount();
+		if (this.chargeMode.equals(ChargeMode_PreCharge)) {
+			float theBalance = 0F;
+			for (ChargeRecord chargeRecord : chargeRecords) {
+				theBalance += chargeRecord.getAmount();
+			}
+			this.balance += theBalance;
 		}
-
-		this.balance += theBalance;
 	}
 
 	/**
@@ -105,11 +118,19 @@ public class ChargeBill extends IdEntity {
 			this.chargeRecords = new ArrayList<ChargeRecord>();
 		}
 		this.chargeRecords.add(chargeRecord);
-		
+
 		chargeRecord.setChargeBill(this);
-		if(chargeRecord.getCreateDate() == null){
+		if (chargeRecord.getCreateDate() == null) {
 			chargeRecord.setCreateDate(DateUtil.getSysDate());
 		}
+	}
+
+	public String getChargeMode() {
+		return chargeMode;
+	}
+
+	public void setChargeMode(String chargeMode) {
+		this.chargeMode = chargeMode;
 	}
 
 	public float getBalance() {

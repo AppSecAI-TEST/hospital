@@ -69,7 +69,13 @@ public class CostDomainService {
 		chargeRecord.setHaveCost(false);
 		chargeRecord.setChargeDept(user.getDept());
 
-		visit.getChargeBill().addChargeRecord(chargeRecord);
+		ChargeBill chargeBill = visit.getChargeBill();
+		chargeBill.addChargeRecord(chargeRecord);
+		if (chargeBill.getChargeMode()
+				.equals(ChargeBill.ChargeMode_NoPreCharge)) {
+			chargeBill.setChargeMode(ChargeBill.ChargeMode_PreCharge);
+		}
+		chargeBill.setBalance(chargeBill.getBalance() + balance);
 
 		return chargeRecord;
 	}

@@ -136,6 +136,11 @@ public class Visit extends IdEntity {
 		chargeBill.setBalance(balance);
 		chargeBill.setState(ChargeBill.State_Normal);
 		chargeBill.setVisit(this);
+		if (balance > 0) {
+			chargeBill.setChargeMode(ChargeBill.ChargeMode_PreCharge);
+		} else {
+			chargeBill.setChargeMode(ChargeBill.ChargeMode_NoPreCharge);
+		}
 		chargeBill.init(user);
 
 		this.setChargeBill(chargeBill);
