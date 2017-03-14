@@ -31,6 +31,12 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
 
+/**
+ * 一条抽象的医嘱条目 医嘱由医生创建，并关联患者一次就诊 每一条医嘱都有类型，医嘱的分解与类型有关
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_order")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -116,10 +122,12 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	public static final String State_Stoped = "已停止";
 
 	/**
+	 * 创建医嘱条目前的检查回调函数 该回调函数将职责委托给医嘱类型@OrderType完成
+	 * 
 	 * @throws HsException
 	 * @roseuid 584E6696009D
 	 */
-	public void check() throws OrderException {
+	protected void check() throws OrderException {
 
 		if (visit == null) {
 			throw new OrderException(this, "visit不能为空");
@@ -132,10 +140,21 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.typeApp.check();
 	}
 
-	public void create() throws OrderException {
+	/**
+	 * 创建医嘱后的回调函数 该职责将委托给@OrderType完成
+	 * 
+	 * @throws OrderException
+	 */
+	protected void create() throws OrderException {
 		this.typeApp.create();
 	}
 
+	/**
+	 * 医嘱核对 当医嘱核对后自动分解 该操作将回调@OrderType.verify
+	 * 
+	 * @return
+	 * @throws OrderException
+	 */
 	public int verify() throws OrderException {
 		this.setState(State_Executing);
 		int count = this.resolve();
@@ -144,6 +163,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	}
 
 	/**
+	 * 医嘱条目分解 该功能将委托给@OrderType.resolveOrder完成
+	 * 
 	 * @throws OrderException
 	 * @roseuid 584F494100C2
 	 */
@@ -178,6 +199,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	}
 
 	/**
+	 * 作废医嘱条目
+	 * 
 	 * @param doctor
 	 * @throws OrderExecuteException
 	 * @roseuid 5850AF1E016C
@@ -189,6 +212,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.state = State_Canceled;
 	}
 
+	/**
+	 * 删除医嘱条目 同时删除医嘱关联的申请单 回调@OrderType.delete
+	 * 
+	 * @throws OrderException
+	 */
 	public void delete() throws OrderException {
 		if (!this.state.equals(State_Created)) {
 			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
@@ -209,7 +237,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * 
 	 * @param orderExecute
 	 */
-	public abstract void updateState(OrderExecute orderExecute);
+	protected abstract void updateState(OrderExecute orderExecute);
 
 	/**
 	 * @roseuid 584F5C1E019C
@@ -222,6 +250,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	}
 
 	/**
+	 * 给医嘱条目增加执行条目
+	 * 
 	 * @roseuid 584F5A920055
 	 */
 	public void addExecutes(List<OrderExecute> orderExecutes) {
@@ -236,6 +266,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	}
 
 	/**
+	 * 给医嘱条目增加执行条目
+	 * 
 	 * @roseuid 584F5A920055
 	 */
 	public void addExecute(OrderExecute orderExecute) {
@@ -378,6 +410,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.placeType = placeType;
 	}
 
+	/**
+	 * 判断该医嘱是否是在患者住院期间创建的
+	 * 
+	 * @return
+	 */
 	public boolean isInPatient() {
 		return this.placeType.equals(OrderCreateCommand.PlaceType_InPatient);
 	}
@@ -407,6 +444,12 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.apply.setVisit(visit);
 	}
 
+	/**
+	 * 判断指定的医嘱条目是否可以和本医嘱条目组成组合医嘱
+	 * 
+	 * @param order
+	 * @throws OrderException
+	 */
 	public void compsiteMatch(Order order) throws OrderException {
 		if (getClass() != order.getClass()) {
 			throw new OrderException(this, "医嘱类型不同");
