@@ -95,15 +95,17 @@ public class MedicalRecordDomainService {
 		}
 		record.sign(doctor);
 
-		MedicalRecordLog recordLog = new MedicalRecordLog();
-		recordLog.setRecord(record);
-		recordLog.setType(MedicalRecordLog.Type_Sign);
-		recordLog.setOperator(doctor);
-		recordLog.setCreateDate(DateUtil.getSysDate());
-
-		recordLog.save();
-
 		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
+	}
+
+	public void fix(String id, AbstractUser user) throws MedicalRecordException {
+		MedicalRecord record = medicalRecordRepo.findOne(id);
+		if (record == null) {
+			throw new MedicalRecordException(null, "id=[" + id + "]病历不存在");
+		}
+		record.fix(user);
+
+		applicationContext.publishEvent(new MedicalRecordFixedEvent(record));
 	}
 
 	public void transfer(Visit visit, Dept dept) throws MedicalRecordException {

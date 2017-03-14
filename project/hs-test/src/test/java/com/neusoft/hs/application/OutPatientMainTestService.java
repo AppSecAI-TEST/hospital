@@ -162,6 +162,8 @@ public class OutPatientMainTestService extends AppTestService {
 		assertTrue(datas.get("主诉").getValues().get(0).toString()
 				.equals("患者咳嗽发烧两天，体温37.5"));
 
+		medicalRecordAppService.fix(outPatientRecord.getId(), user002);
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:35"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord1.getId());

@@ -21,11 +21,13 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @Table(name = "domain_medical_record")
@@ -72,6 +74,7 @@ public class MedicalRecord extends IdEntity {
 	private Map<String, Itemable> datas = new HashMap<String, Itemable>();
 
 	public static final String State_Created = "已创建";
+	public static final String State_Fixed = "已锁定";
 	public static final String State_Signed = "已签名";
 
 	public MedicalRecord() {
@@ -103,7 +106,7 @@ public class MedicalRecord extends IdEntity {
 	}
 
 	public void load() {
-		if (this.state.equals(State_Signed)) {
+		if (this.state.equals(State_Signed) || this.state.equals(State_Fixed)) {
 			this.loadData();
 		} else {
 			this.init();
@@ -236,8 +239,33 @@ public class MedicalRecord extends IdEntity {
 		this.state = State_Signed;
 		this.signDoctor = doctor;
 
-		this.init();
+		this.doFix();
 
+		MedicalRecordLog recordLog = new MedicalRecordLog();
+		recordLog.setRecord(this);
+		recordLog.setType(MedicalRecordLog.Type_Sign);
+		recordLog.setOperator(doctor);
+		recordLog.setCreateDate(DateUtil.getSysDate());
+
+		recordLog.save();
+
+	}
+
+	public void fix(AbstractUser user) throws MedicalRecordException {
+		this.doFix();
+		this.state = State_Fixed;
+
+		MedicalRecordLog recordLog = new MedicalRecordLog();
+		recordLog.setRecord(this);
+		recordLog.setType(MedicalRecordLog.Type_Fix);
+		recordLog.setOperator(user);
+		recordLog.setCreateDate(DateUtil.getSysDate());
+
+		recordLog.save();
+	}
+
+	protected void doFix() throws MedicalRecordException {
+		this.init();
 		this.fixedItems();
 	}
 

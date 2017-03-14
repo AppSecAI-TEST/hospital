@@ -9,6 +9,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
@@ -37,8 +38,11 @@ public class MedicalRecordAppService {
 		medicalRecordDomainService.sign(id, doctor);
 	}
 
-	public void transfer(Visit visit, Dept dept)
-			throws MedicalRecordException {
+	public void fix(String id, AbstractUser user) throws MedicalRecordException {
+		medicalRecordDomainService.fix(id, user);
+	}
+
+	public void transfer(Visit visit, Dept dept) throws MedicalRecordException {
 		medicalRecordDomainService.transfer(visit, dept);
 	}
 }
