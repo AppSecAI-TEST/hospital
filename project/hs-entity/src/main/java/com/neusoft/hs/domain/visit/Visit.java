@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
+import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
@@ -160,10 +161,17 @@ public class Visit extends IdEntity {
 		chargeBill.setVisit(this);
 		if (balance > 0) {
 			chargeBill.setChargeMode(ChargeBill.ChargeMode_PreCharge);
+
+			ChargeRecord chargeRecord = new ChargeRecord();
+			chargeRecord.setAmount(balance);
+			chargeRecord.setCreateDate(DateUtil.getSysDate());
+			chargeRecord.setHaveCost(false);
+			chargeRecord.setChargeDept(user.getDept());
+
+			chargeBill.addChargeRecord(chargeRecord);
 		} else {
 			chargeBill.setChargeMode(ChargeBill.ChargeMode_NoPreCharge);
 		}
-		chargeBill.init(user);
 
 		this.setChargeBill(chargeBill);
 

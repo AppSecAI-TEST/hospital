@@ -22,6 +22,12 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
 
+/**
+ * 收费单 每一个患者一次就诊都关联一个收费单 收费单记录当前余额，并包含多个费用条目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_charge_bill")
 public class ChargeBill extends IdEntity {
@@ -53,6 +59,8 @@ public class ChargeBill extends IdEntity {
 	public static final String ChargeMode_NoPreCharge = "非预交金模式";
 
 	/**
+	 * 向收费单增加费用条目
+	 * 
 	 * @param chargeRecords2
 	 * @roseuid 5850A3D500DE
 	 */
@@ -76,6 +84,8 @@ public class ChargeBill extends IdEntity {
 	}
 
 	/**
+	 * 取消收费条目
+	 * 
 	 * @param chargeRecords
 	 * @roseuid 5850BDE60140
 	 */
@@ -89,18 +99,6 @@ public class ChargeBill extends IdEntity {
 		}
 
 		this.balance += balance;
-	}
-
-	public void init(AbstractUser user) {
-		if (balance > 0) {
-			ChargeRecord chargeRecord = new ChargeRecord();
-			chargeRecord.setAmount(balance);
-			chargeRecord.setCreateDate(DateUtil.getSysDate());
-			chargeRecord.setHaveCost(false);
-			chargeRecord.setChargeDept(user.getDept());
-
-			this.addChargeRecord(chargeRecord);
-		}
 	}
 
 	/**
