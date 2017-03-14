@@ -32,6 +32,14 @@ import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
+/**
+ * 患者一次就诊代表了患者与医院之间具有连续行为并有短期目标的一次诊疗活动，它可能是门诊诊疗活动和住院诊疗活动的集合;
+ * Visit在患者挂号时创建，或者在患者住院时创建； 一次诊疗活动会关联多次挂号； Visit通过@VisitDomainService.create创建;
+ * 每一个Visit都会关联一个@Patient，通过cardNumber进行关联
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_visit")
 public class Visit extends IdEntity {
@@ -125,10 +133,24 @@ public class Visit extends IdEntity {
 
 	public static final String State_OutHospital = "已出院";
 
+	/**
+	 * 是否初始化过收费单
+	 * 
+	 * @return
+	 */
 	public boolean isInitedAccount() {
 		return this.chargeBill != null;
 	}
 
+	/**
+	 * 初始化收费单
+	 * 
+	 * @param balance
+	 *            初始预存金额 当等于0时为非预交金模式，大于0为预交金模式
+	 * @param user
+	 * @return
+	 * @throws HsException
+	 */
 	public ChargeBill initAccount(float balance, AbstractUser user)
 			throws HsException {
 
@@ -157,6 +179,8 @@ public class Visit extends IdEntity {
 	}
 
 	/**
+	 * 患者一次就诊进入病房 该函数将分配床位号、责任护士、修改患者一次就诊的状态为【在病房】
+	 * 
 	 * @param user
 	 * @param receiveVisitVO
 	 * @throws HsException
@@ -185,6 +209,8 @@ public class Visit extends IdEntity {
 	}
 
 	/**
+	 * 当患者一次就诊出院时调用的函数 它将修改患者一次就诊的状态为【待出院结算】，并停止入院时的自动收费项目
+	 * 
 	 * @throws HsException
 	 * @roseuid 58525F0D0273
 	 */
@@ -213,6 +239,12 @@ public class Visit extends IdEntity {
 
 	}
 
+	/**
+	 * 患者做完出院结算后，通过该函数将患者一次就诊的状态设为【已出院】
+	 * 
+	 * @param user
+	 * @throws HsException
+	 */
 	public void balance(AbstractUser user) throws HsException {
 		if (!State_NeedLeaveHospitalBalance.equals(this.getState())) {
 			throw new HsException("visit=[" + this.getName() + "]的状态应为["

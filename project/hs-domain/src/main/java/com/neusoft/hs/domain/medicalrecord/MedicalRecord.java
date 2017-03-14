@@ -274,7 +274,6 @@ public class MedicalRecord extends IdEntity {
 			throw new MedicalRecordException(this, "id=[" + getId()
 					+ "]病历还没有签名");
 		}
-
 	}
 
 	private void fixedItems() throws MedicalRecordException {
