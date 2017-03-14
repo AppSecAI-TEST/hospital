@@ -17,6 +17,12 @@ import javax.validation.constraints.NotNull;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
+/**
+ * 长期医嘱条目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("Long")
 public class LongOrder extends Order {
@@ -74,14 +80,17 @@ public class LongOrder extends Order {
 		this.setEndDate(DateUtil.getSysDate());
 	}
 
-	/*
+	/**
 	 * 以天为单位计算频次对应的时间
+	 * 
+	 * @param numDays
+	 * @return
 	 */
 	public List<Date> calExecuteDates(int numDays) {
 		// 分解的日期
 		Date sysDateStart = DateUtil.getSysDateStart();
 		Date currentDate = DateUtil.addDay(sysDateStart, numDays);
-		Visit visit = (Visit)this.getVisit();
+		Visit visit = (Visit) this.getVisit();
 		// 如果分解时间大于患者计划出院时间将不分解医嘱
 		if (visit.getPlanLeaveWardDate() != null
 				&& (visit.getPlanLeaveWardDate().compareTo(currentDate) == 0 || visit

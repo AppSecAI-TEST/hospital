@@ -13,6 +13,12 @@ import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 
+/**
+ * 临时医嘱条目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("Temporary")
 public class TemporaryOrder extends Order {

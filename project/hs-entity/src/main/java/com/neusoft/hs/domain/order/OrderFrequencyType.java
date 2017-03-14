@@ -18,6 +18,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.platform.entity.SuperEntity;
 
+/**
+ * 长期医嘱频次基类
+ * 
+ * 通过子类化，可以增加不同类型的医嘱执行频次
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_order_frequency_type")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -49,6 +57,8 @@ public abstract class OrderFrequencyType extends SuperEntity {
 	}
 
 	/**
+	 * 计算频次执行时间
+	 * 
 	 * @roseuid 587DB2EE02BB
 	 */
 	public abstract List<Date> calExecuteDates(LongOrder order, Date currentDate);

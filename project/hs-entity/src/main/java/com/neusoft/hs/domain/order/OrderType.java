@@ -21,6 +21,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
+/**
+ * 医嘱类型
+ * 
+ * 通过子类化，负责编写该类型医嘱操作过程中的回调逻辑
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_order_type")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -73,6 +81,8 @@ public abstract class OrderType extends SuperEntity {
 	}
 
 	/**
+	 * 医嘱分解逻辑
+	 * 
 	 * @param order
 	 * @return
 	 * @throws OrderException

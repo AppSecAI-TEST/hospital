@@ -14,6 +14,12 @@ import javax.persistence.Table;
 
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 创建医嘱条目时关联医嘱类型后的附属属性集合父类
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_order_type_app")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
