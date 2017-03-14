@@ -21,6 +21,12 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
 
+/**
+ * 费用条目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_charge_record")
 public class ChargeRecord extends IdEntity {
@@ -30,6 +36,9 @@ public class ChargeRecord extends IdEntity {
 	private Integer count;
 
 	private Float price;
+
+	@Column(length = 32)
+	private String type;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -71,6 +80,14 @@ public class ChargeRecord extends IdEntity {
 	@Transient
 	private boolean haveCharge = true;
 
+	public static final String Type_PreCharge = "预存";
+
+	public static final String Type_ShouldCharge = "应扣";
+
+	public static final String Type_Charged = "已扣";
+
+	public static final String Type_BackCharge = "退费";
+
 	/**
 	 * @roseuid 5850A1CD019F
 	 */
@@ -109,6 +126,7 @@ public class ChargeRecord extends IdEntity {
 		chargeRecord.setChargeItem(chargeItem);
 		chargeRecord.setCostRecord(costRecord);
 		chargeRecord.setOrderExecute(orderExecute);
+		chargeRecord.setType(Type_BackCharge);
 
 		chargeRecord.setChargeDept(chargeDept);
 		chargeRecord.setBelongDept(belongDept);
@@ -129,6 +147,7 @@ public class ChargeRecord extends IdEntity {
 		chargeRecord.setOrderExecute(orderExecute);
 		chargeRecord.setChargeDept(chargeDept);
 		chargeRecord.setBelongDept(belongDept);
+		chargeRecord.setType(Type_Charged);
 		chargeRecord.setCreateDate(createDate);
 
 		return chargeRecord;
@@ -244,6 +263,14 @@ public class ChargeRecord extends IdEntity {
 
 	public void setHaveCharge(boolean haveCharge) {
 		this.haveCharge = haveCharge;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void save() {

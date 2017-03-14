@@ -167,6 +167,7 @@ public class Visit extends IdEntity {
 			chargeRecord.setCreateDate(DateUtil.getSysDate());
 			chargeRecord.setHaveCost(false);
 			chargeRecord.setChargeDept(user.getDept());
+			chargeRecord.setType(ChargeRecord.Type_PreCharge);
 
 			chargeBill.addChargeRecord(chargeRecord);
 		} else {

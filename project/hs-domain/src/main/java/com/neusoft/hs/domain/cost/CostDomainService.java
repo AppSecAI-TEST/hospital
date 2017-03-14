@@ -68,6 +68,7 @@ public class CostDomainService {
 		chargeRecord.setCreateDate(DateUtil.getSysDate());
 		chargeRecord.setHaveCost(false);
 		chargeRecord.setChargeDept(user.getDept());
+		chargeRecord.setType(ChargeRecord.Type_PreCharge);
 
 		ChargeBill chargeBill = visit.getChargeBill();
 		chargeBill.addChargeRecord(chargeRecord);
@@ -114,6 +115,7 @@ public class CostDomainService {
 				chargeRecord.setCreateDate(sysDate);
 				chargeRecord.setChargeDept(execute.getExecuteDept());
 				chargeRecord.setBelongDept(execute.getBelongDept());
+				chargeRecord.setType(ChargeRecord.Type_ShouldCharge);
 
 				if (chargeRecord.isHaveCharge()) {
 					haveCharge = true;
