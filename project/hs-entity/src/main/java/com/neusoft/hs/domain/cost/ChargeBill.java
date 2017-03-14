@@ -59,7 +59,7 @@ public class ChargeBill extends IdEntity {
 	public static final String ChargeMode_NoPreCharge = "非预交金模式";
 
 	/**
-	 * 向收费单增加费用条目
+	 * 向收费单增加费用条目（当收费模式为【非预交金模式】时，将创建成对出现的费用条目）
 	 * 
 	 * @param chargeRecords2
 	 * @roseuid 5850A3D500DE
@@ -84,7 +84,7 @@ public class ChargeBill extends IdEntity {
 	}
 
 	/**
-	 * 取消收费条目
+	 * 取消收费条目（通过增加反向金额的费用条目实现取消）
 	 * 
 	 * @param chargeRecords
 	 * @roseuid 5850BDE60140
@@ -102,13 +102,8 @@ public class ChargeBill extends IdEntity {
 	}
 
 	/**
-	 * @roseuid 5850A40703E7
-	 */
-	public void save() {
-		this.getService(ChargeBillRepo.class).save(this);
-	}
-
-	/**
+	 * 向收费单增加费用条目
+	 * 
 	 * @roseuid 5850A31301AE
 	 */
 	public void addChargeRecord(ChargeRecord chargeRecord) {
@@ -169,5 +164,12 @@ public class ChargeBill extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	/**
+	 * @roseuid 5850A40703E7
+	 */
+	public void save() {
+		this.getService(ChargeBillRepo.class).save(this);
 	}
 }
