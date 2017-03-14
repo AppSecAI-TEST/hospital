@@ -52,6 +52,34 @@ public class MedicalRecordTestService {
 	private int dayCount;
 	
 	public static int temporaryOrderCount;
+	
+	public MedicalRecord createOutPatientRecord(Visit visit,
+			MedicalRecordType medicalRecordType, Doctor doctor)
+			throws HsException {
+
+		// 创建门诊记录
+		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(
+				medicalRecordType, visit);
+
+		MedicalRecord outPatientRecord = medicalRecordAppService.create(builder,
+				visit, medicalRecordType, doctor);
+
+		Map<String, Itemable> datas = outPatientRecord.getDatas();
+
+		assertTrue(datas.get("患者姓名").getValues().get(0).toString()
+				.equals("测试患者001"));
+		assertTrue(datas.get("主诉").getValues().get(0).toString()
+				.equals("患者咳嗽发烧两天"));
+
+		// 修改主诉
+		((SimpleTreatmentItemValue) datas.get("主诉").getValues().get(0))
+				.setInfo("患者咳嗽发烧两天，体温37.5");
+
+		medicalRecordAppService.create(outPatientRecord);
+
+		return outPatientRecord;
+
+	}
 
 	public MedicalRecord createIntoWardRecord(Visit visit,
 			MedicalRecordType medicalRecordType, Doctor doctor)

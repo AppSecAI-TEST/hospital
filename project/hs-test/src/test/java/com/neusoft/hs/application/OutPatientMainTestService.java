@@ -4,11 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -18,6 +20,7 @@ import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugOrderTypeApp;
 import com.neusoft.hs.domain.registration.Voucher;
+import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
@@ -127,7 +130,7 @@ public class OutPatientMainTestService extends AppTestService {
 				oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:27"));
 
 		// 创建主诉
@@ -141,6 +144,23 @@ public class OutPatientMainTestService extends AppTestService {
 		item.addValue(value);
 
 		treatmentDomainService.create(item);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:30"));
+
+		// 创建门诊记录
+		MedicalRecord outPatientRecord = medicalRecordTestService
+				.createOutPatientRecord(visit001,
+						outPatientRecordMedicalRecordType, user002);
+
+		outPatientRecord = medicalRecordAppService.find(outPatientRecord
+				.getId());
+
+		Map<String, Itemable> datas = outPatientRecord.getDatas();
+
+		assertTrue(datas.get("患者姓名").getValues().get(0).toString()
+				.equals("测试患者001"));
+		assertTrue(datas.get("主诉").getValues().get(0).toString()
+				.equals("患者咳嗽发烧两天，体温37.5"));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:35"));
 
