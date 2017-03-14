@@ -27,6 +27,12 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.util.DateUtil;
 
+/**
+ * 一个诊疗项目规格
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_treatment_spec")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -51,6 +57,33 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	@JoinColumn(name = "resp_role_id")
 	public Role respRole;
 
+	/**
+	 * 对于某一患者一次就诊该诊疗项目需要创建的时间
+	 * 
+	 * @param visit
+	 * @return
+	 * @throws TreatmentException
+	 */
+	public Date getShouldDate(Visit visit) throws TreatmentException {
+		if (visit.getIntoWardDate() == null) {
+			throw new TreatmentException("患者[" + visit.getName() + "]还没有入院");
+		}
+		if (this.shouldIntervalHour == null) {
+			return null;
+		} else {
+			return DateUtil.addHour(visit.getIntoWardDate(),
+					this.shouldIntervalHour);
+		}
+	}
+
+	/**
+	 * 获取指定患者一次就诊的该诊疗规格下的诊疗项目
+	 * 
+	 * @param visit
+	 * @return
+	 */
+	public abstract TreatmentItem getTheItem(Visit visit);
+
 	public String getId() {
 		return id;
 	}
@@ -74,20 +107,6 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	public void setShouldIntervalHour(Integer shouldIntervalHour) {
 		this.shouldIntervalHour = shouldIntervalHour;
 	}
-
-	public Date getShouldDate(Visit visit) throws TreatmentException {
-		if (visit.getIntoWardDate() == null) {
-			throw new TreatmentException("患者[" + visit.getName() + "]还没有入院");
-		}
-		if (this.shouldIntervalHour == null) {
-			return null;
-		} else {
-			return DateUtil.addHour(visit.getIntoWardDate(),
-					this.shouldIntervalHour);
-		}
-	}
-
-	public abstract TreatmentItem getTheItem(Visit visit);
 
 	public List<TreatmentItem> getTreatmentItems() {
 		return treatmentItems;

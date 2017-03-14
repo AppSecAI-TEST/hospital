@@ -16,6 +16,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 对应真实世界中的一个患者
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_patient")
 public class Patient extends IdEntity {

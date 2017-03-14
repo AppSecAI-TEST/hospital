@@ -13,6 +13,12 @@ import javax.persistence.Table;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 诊疗项目值
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_treatment_item_value")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
