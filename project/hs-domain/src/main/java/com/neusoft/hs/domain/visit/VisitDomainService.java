@@ -69,6 +69,12 @@ public class VisitDomainService {
 		visit.setPatient(patient);
 
 		visit.save();
+		
+		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
+		medicalRecordClip.setVisit(visit);
+		medicalRecordClip.setState(MedicalRecordClip.State_Writing);
+		
+		medicalRecordClip.save();
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(visit);
@@ -98,11 +104,6 @@ public class VisitDomainService {
 		}
 
 		visit.intoWard(receiveVisitVO, user);
-
-		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
-		medicalRecordClip.setVisit(visit);
-		medicalRecordClip.setState(MedicalRecordClip.State_InWard);
-		medicalRecordClip.save();
 
 		applicationContext.publishEvent(new VisitIntoWardedEvent(visit));
 

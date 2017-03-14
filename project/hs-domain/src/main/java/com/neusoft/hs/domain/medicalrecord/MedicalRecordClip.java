@@ -29,7 +29,7 @@ public class MedicalRecordClip extends IdEntity {
 
 	@NotEmpty(message = "状态不能为空")
 	@Column(length = 32)
-	private String state = State_InWard;
+	private String state = State_Writing;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
@@ -46,13 +46,16 @@ public class MedicalRecordClip extends IdEntity {
 	@OneToMany(mappedBy = "clip", cascade = { CascadeType.ALL })
 	private List<MedicalRecord> records;
 
-	public static final String State_InWard = "编写中";
+	public static final String State_Writing = "编写中";
 
 	public static final String State_Checking = "检查中";
 
 	public static final String State_Archiving = "待归档";
 
 	public static final String State_Archived = "已归档";
+
+	public MedicalRecordClip() {
+	}
 
 	public void transfer(Dept dept) throws MedicalRecordException {
 
