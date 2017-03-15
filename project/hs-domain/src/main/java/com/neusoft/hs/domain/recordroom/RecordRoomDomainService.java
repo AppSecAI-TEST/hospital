@@ -20,12 +20,20 @@ public class RecordRoomDomainService {
 	@Autowired
 	private MedicalRecordDomainService medicalRecordDomainService;
 
-	public void archive(String id, String position, AbstractUser user)
+	/**
+	 * 归档病历夹
+	 * 
+	 * @param clipId
+	 * @param position
+	 * @param user
+	 * @throws MedicalRecordException
+	 */
+	public void archive(String clipId, String position, AbstractUser user)
 			throws MedicalRecordException {
 
-		MedicalRecordClip clip = medicalRecordDomainService.findClip(id);
+		MedicalRecordClip clip = medicalRecordDomainService.findClip(clipId);
 		if (clip == null) {
-			throw new MedicalRecordException(null, "id=[" + id + "]病历夹不存在");
+			throw new MedicalRecordException(null, "id=[" + clipId + "]病历夹不存在");
 		}
 		clip.setState(MedicalRecordClip.State_Archived);
 

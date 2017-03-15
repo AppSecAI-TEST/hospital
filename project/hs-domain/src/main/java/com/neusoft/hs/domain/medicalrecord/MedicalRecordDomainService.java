@@ -35,6 +35,15 @@ public class MedicalRecordDomainService {
 	@Autowired
 	private ApplicationContext applicationContext;
 
+	/**
+	 * 创建病历
+	 * 
+	 * @param builder
+	 * @param visit
+	 * @param type
+	 * @param doctor
+	 * @return
+	 */
 	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
 			MedicalRecordType type, Doctor doctor) {
 		MedicalRecord record = new MedicalRecord(builder, type, visit, doctor);
@@ -43,6 +52,11 @@ public class MedicalRecordDomainService {
 
 	}
 
+	/**
+	 * 保存病历
+	 * 
+	 * @param record
+	 */
 	public void create(MedicalRecord record) {
 		if (record.getCreateDate() == null) {
 			record.setCreateDate(DateUtil.getSysDate());
@@ -88,6 +102,13 @@ public class MedicalRecordDomainService {
 		return record;
 	}
 
+	/**
+	 * 签名
+	 * 
+	 * @param id
+	 * @param doctor
+	 * @throws MedicalRecordException
+	 */
 	public void sign(String id, Doctor doctor) throws MedicalRecordException {
 		MedicalRecord record = medicalRecordRepo.findOne(id);
 		if (record == null) {
@@ -98,6 +119,13 @@ public class MedicalRecordDomainService {
 		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
 	}
 
+	/**
+	 * 锁定
+	 * 
+	 * @param id
+	 * @param user
+	 * @throws MedicalRecordException
+	 */
 	public void fix(String id, AbstractUser user) throws MedicalRecordException {
 		MedicalRecord record = medicalRecordRepo.findOne(id);
 		if (record == null) {

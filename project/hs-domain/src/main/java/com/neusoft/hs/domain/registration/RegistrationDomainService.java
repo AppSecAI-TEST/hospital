@@ -30,6 +30,15 @@ public class RegistrationDomainService {
 	@Autowired
 	private OutPatientPlanDomainService outPatientPlanDomainService;
 
+	/**
+	 * 挂号
+	 * 
+	 * @param createVisitVO
+	 * @param planRecordId
+	 * @param user
+	 * @return
+	 * @throws VoucherException
+	 */
 	public Voucher register(CreateVisitVO createVisitVO, String planRecordId,
 			AbstractUser user) throws VoucherException {
 
@@ -81,6 +90,14 @@ public class RegistrationDomainService {
 		return voucher;
 	}
 
+	/**
+	 * 重新排号
+	 * 
+	 * @param voucher
+	 * @param planRecordId
+	 * @param user
+	 * @throws VoucherException
+	 */
 	public void repeatOccupy(Voucher voucher, String planRecordId,
 			AbstractUser user) throws VoucherException {
 		OutPatientPlanRecord planRecord = outPatientPlanDomainService

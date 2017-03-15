@@ -31,20 +31,6 @@ public class PharmacyDomainService {
 		return drugTypeRepo.findByDrugTypeSpec(drugTypeSpec);
 	}
 
-	/**
-	 * @roseuid 5850F60001AB
-	 */
-	public void send() {
-
-	}
-
-	/**
-	 * @roseuid 585100AC0073
-	 */
-	public void unSend() {
-
-	}
-
 	public void createDrugTypeSpecs(List<DrugTypeSpec> drugTypeSpecs) {
 		drugTypeSpecRepo.save(drugTypeSpecs);
 	}
@@ -86,8 +72,22 @@ public class PharmacyDomainService {
 			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
 		orderUseModeAssistMaterialRepo.save(orderUseModeAssistMaterial);
 	}
-	
+
 	public void createOrderUseModes(List<DrugUseMode> orderUseModes) {
 		orderUseModeRepo.save(orderUseModes);
+	}
+
+	/**
+	 * @roseuid 5850F60001AB
+	 */
+	private void send() {
+
+	}
+
+	/**
+	 * @roseuid 585100AC0073
+	 */
+	private void unSend() {
+
 	}
 }

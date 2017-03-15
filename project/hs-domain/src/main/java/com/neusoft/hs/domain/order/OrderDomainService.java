@@ -47,6 +47,8 @@ public class OrderDomainService {
 	private ApplicationContext applicationContext;
 
 	/**
+	 * 创建医嘱条目
+	 * 
 	 * @param doctor
 	 * @param order
 	 * @throws HsException
@@ -85,7 +87,7 @@ public class OrderDomainService {
 		}
 
 		applicationContext.publishEvent(new OrderCreatedEvent(orderCommand));
-		
+
 		for (Order order : orderCommand.getOrders()) {
 			order.create();
 		}
@@ -99,6 +101,8 @@ public class OrderDomainService {
 	}
 
 	/**
+	 * 核对医嘱条目
+	 * 
 	 * @param nurse
 	 * @param orderId
 	 * @throws HsException
@@ -118,6 +122,8 @@ public class OrderDomainService {
 	}
 
 	/**
+	 * 分解全部待分解的医嘱条目
+	 * 
 	 * @roseuid 584F49010391
 	 */
 	public int resolve() {
@@ -135,6 +141,8 @@ public class OrderDomainService {
 	}
 
 	/**
+	 * 作废医嘱条目
+	 * 
 	 * @param doctor
 	 * @param orderId
 	 * @throws OrderException
@@ -156,6 +164,13 @@ public class OrderDomainService {
 
 	}
 
+	/**
+	 * 删除医嘱条目
+	 * 
+	 * @param orderId
+	 * @param doctor
+	 * @throws OrderException
+	 */
 	public void delete(String orderId, Doctor doctor) throws OrderException {
 		Order order = orderRepo.findOne(orderId);
 		if (order == null) {

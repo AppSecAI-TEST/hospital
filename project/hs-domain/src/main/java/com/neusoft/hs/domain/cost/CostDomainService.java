@@ -47,6 +47,8 @@ public class CostDomainService {
 	}
 
 	/**
+	 * 创建病历夹
+	 * 
 	 * @throws HsException
 	 * @roseuid 584DFD470092
 	 */
@@ -56,6 +58,15 @@ public class CostDomainService {
 		return chargeBill;
 	}
 
+	/**
+	 * 预存费用
+	 * 
+	 * @param visit
+	 * @param balance
+	 * @param user
+	 * @return
+	 * @throws HsException
+	 */
 	public ChargeRecord addCost(Visit visit, float balance, AbstractUser user)
 			throws HsException {
 
@@ -82,6 +93,8 @@ public class CostDomainService {
 	}
 
 	/**
+	 * 创建自动收费项目
+	 * 
 	 * @param visit
 	 * @roseuid 584E2630028C
 	 */
@@ -99,6 +112,8 @@ public class CostDomainService {
 	}
 
 	/**
+	 * 根据医嘱执行条目创建费用条目
+	 * 
 	 * @param execute
 	 * @roseuid 584FBC02036D
 	 */
@@ -150,6 +165,8 @@ public class CostDomainService {
 	}
 
 	/**
+	 * 取消医嘱执行条目对应的费用条目
+	 * 
 	 * @param user
 	 * @param executeId
 	 * @throws OrderExecuteException
@@ -179,7 +196,7 @@ public class CostDomainService {
 	/**
 	 * @roseuid 58533C8201B8
 	 */
-	public void balance() {
+	private void balance() {
 
 	}
 

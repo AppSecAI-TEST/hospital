@@ -24,6 +24,8 @@ public class OutPatientDeptDomainService {
 	}
 
 	/**
+	 * 叫号
+	 * 
 	 * @param planRecordId
 	 * @throws OutPatientDeptException
 	 * @roseuid 58BE14CB03A3
@@ -37,7 +39,7 @@ public class OutPatientDeptDomainService {
 					+ "]不存在");
 		}
 		boolean rtn = record.nextVoucher();
-		
+
 		return rtn;
 	}
 }

@@ -42,6 +42,14 @@ public class InspectDomainService {
 	@Autowired
 	private ApplicationContext applicationContext;
 
+	/**
+	 * 安排检查
+	 * 
+	 * @param executeId
+	 * @param planExecuteDate
+	 * @param user
+	 * @throws InspectException
+	 */
 	public void arrange(String executeId, Date planExecuteDate,
 			AbstractUser user) throws InspectException {
 		OrderExecute orderExecute = orderExecuteDomainService.find(executeId);
@@ -57,6 +65,14 @@ public class InspectDomainService {
 		inspectApplyItem.save();
 	}
 
+	/**
+	 * 确认检查结果
+	 * 
+	 * @param executeId
+	 * @param results
+	 * @param user
+	 * @throws InspectException
+	 */
 	public void confirm(String executeId,
 			Map<InspectApplyItem, String> results, AbstractUser user)
 			throws InspectException {
@@ -97,6 +113,13 @@ public class InspectDomainService {
 		applyDomainService.save(inspectApply);
 	}
 
+	/**
+	 * 取消检查
+	 * 
+	 * @param inspectApplyItemId
+	 * @param user
+	 * @throws InspectException
+	 */
 	public void cancel(String inspectApplyItemId, AbstractUser user)
 			throws InspectException {
 
