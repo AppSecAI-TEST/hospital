@@ -16,6 +16,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 与患者一次就诊关联的自动收费项目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_visit_charge_item")
 public class VisitChargeItem extends IdEntity {

@@ -26,12 +26,17 @@ import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
-import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Role;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.util.DateUtil;
 
+/**
+ * 医嘱执行条目 由医嘱条目分解而成 对应一个角色的具体执行任务
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_order_execute")
 public class OrderExecute extends SuperEntity {
@@ -159,7 +164,7 @@ public class OrderExecute extends SuperEntity {
 	public static final String Type_Transport_Fluid = "输液";
 
 	public static final String Type_SecondNursing = "二级护理";
-	
+
 	public static final String Type_Enter_Hospital_Register = "入院登记";
 
 	public static final String Type_Leave_Hospital_Register = "出院登记";
@@ -171,6 +176,8 @@ public class OrderExecute extends SuperEntity {
 	public static final String Type_Confirm_Inspect = "确认检查";
 
 	/**
+	 * 发送执行条目 当执行条目由其他科室执行时需要通过发送才可以使其执行
+	 * 
 	 * @param nurse
 	 * @throws OrderExecuteException
 	 * @roseuid 584F624D0233
@@ -186,6 +193,9 @@ public class OrderExecute extends SuperEntity {
 		this.order.setStateDesc(this.type + "执行条目已发送");
 	}
 
+	/**
+	 * 根据系统时间更新执行条目状态
+	 */
 	public void updateState() {
 		Date sysDate = DateUtil.getSysDate();
 		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
@@ -198,13 +208,10 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	/**
-	 * @roseuid 584F62CB0254
-	 */
-	public void save() {
-		this.getService(OrderExecuteRepo.class).save(this);
-	}
-
-	/**
+	 * 完成一条执行条目
+	 * 
+	 * 当有下一条执行条目时将其状态置为【执行中】
+	 * 
 	 * @param user
 	 * @throws OrderExecuteException
 	 * @roseuid 584FB6EB03E5
@@ -231,11 +238,19 @@ public class OrderExecute extends SuperEntity {
 		}
 	}
 
+	/**
+	 * 完成一条执行条目回调函数
+	 * 
+	 * @param user
+	 * @throws OrderExecuteException
+	 */
 	protected void doFinish(AbstractUser user) throws OrderExecuteException {
 
 	}
 
 	/**
+	 * 创建该执行条目对应的费用条目
+	 * 
 	 * @return
 	 * @roseuid 58509B990022
 	 */
@@ -257,16 +272,9 @@ public class OrderExecute extends SuperEntity {
 		return chargeRecords;
 	}
 
-	private Float calAmout(ChargeItem chargeItem) {
-		if (this.getOrder().getCount() == null
-				|| this.getOrder().getCount() == 0) {
-			return chargeItem.getPrice();
-		} else {
-			return chargeItem.getPrice() * this.getOrder().getCount();
-		}
-	}
-
 	/**
+	 * 作废一条执行条目
+	 * 
 	 * @throws OrderExecuteException
 	 * @roseuid 5850B1970103
 	 */
@@ -280,10 +288,20 @@ public class OrderExecute extends SuperEntity {
 		}
 	}
 
+	/**
+	 * 作废一条执行条目的回调函数
+	 * 
+	 * @throws OrderExecuteException
+	 */
 	protected void doCancel() throws OrderExecuteException {
 
 	}
 
+	/**
+	 * 停止一条执行条目 该函数在长期医嘱停止时调用
+	 * 
+	 * @throws OrderExecuteException
+	 */
 	public void stop() throws OrderExecuteException {
 
 		doStop();
@@ -295,8 +313,29 @@ public class OrderExecute extends SuperEntity {
 		}
 	}
 
+	/**
+	 * 停止一条执行条目回调函数
+	 * 
+	 * @throws OrderExecuteException
+	 */
 	protected void doStop() throws OrderExecuteException {
 
+	}
+
+	/**
+	 * @roseuid 584F62CB0254
+	 */
+	public void save() {
+		this.getService(OrderExecuteRepo.class).save(this);
+	}
+
+	private Float calAmout(ChargeItem chargeItem) {
+		if (this.getOrder().getCount() == null
+				|| this.getOrder().getCount() == 0) {
+			return chargeItem.getPrice();
+		} else {
+			return chargeItem.getPrice() * this.getOrder().getCount();
+		}
 	}
 
 	public void fillPlanDate(Date planStartDate, Date planEndDate) {

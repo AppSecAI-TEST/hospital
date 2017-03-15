@@ -15,6 +15,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 成本条目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_cost_record")
 public class CostRecord extends IdEntity {

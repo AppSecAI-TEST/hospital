@@ -89,6 +89,8 @@ public class ChargeRecord extends IdEntity {
 	public static final String Type_BackCharge = "退费";
 
 	/**
+	 * 根据费用条目创建成本条目
+	 * 
 	 * @roseuid 5850A1CD019F
 	 */
 	public CostRecord createCostRecord() {
@@ -113,6 +115,8 @@ public class ChargeRecord extends IdEntity {
 	}
 
 	/**
+	 * 创建取消收费条目的费用条目
+	 * 
 	 * @return
 	 * @roseuid 5850BE360360
 	 */
@@ -137,6 +141,11 @@ public class ChargeRecord extends IdEntity {
 		return chargeRecord;
 	}
 
+	/**
+	 * 创建收费条目对应的付费条目
+	 * 
+	 * @return
+	 */
 	public ChargeRecord createPayRecord() {
 		ChargeRecord chargeRecord = new ChargeRecord();
 
