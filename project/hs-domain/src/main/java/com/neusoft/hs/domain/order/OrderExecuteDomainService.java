@@ -50,6 +50,8 @@ public class OrderExecuteDomainService {
 	}
 
 	/**
+	 * 发送医嘱执行条目
+	 * 
 	 * @param nurse
 	 * @param executeId
 	 * @throws OrderExecuteException
@@ -69,6 +71,8 @@ public class OrderExecuteDomainService {
 	}
 
 	/**
+	 * 启动符合条件的医嘱执行条目
+	 * 
 	 * @roseuid 584F691702B2
 	 */
 	public int start() throws OrderExecuteException {
@@ -80,6 +84,8 @@ public class OrderExecuteDomainService {
 	}
 
 	/**
+	 * 完成医嘱执行条目
+	 * 
 	 * @param user
 	 * @param executeId
 	 * @throws OrderExecuteException
