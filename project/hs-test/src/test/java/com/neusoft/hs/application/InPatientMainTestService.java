@@ -120,7 +120,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		assertTrue(executes.size() == 1);
 
 		// 完成摆药医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), user301);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user301);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30", dayCount));
 
@@ -132,7 +132,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user003);
+			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:45", dayCount));
@@ -220,7 +220,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(executes.size() == 1);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 10:10", dayCount));
 
@@ -294,7 +294,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user302);
+			orderExecuteAppService.finish(execute.getId(), null, user302);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30", dayCount));
@@ -307,7 +307,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user003);
+			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
 
 		// 2016-12-30
@@ -337,7 +337,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user302);
+			orderExecuteAppService.finish(execute.getId(), null, user302);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 09:10", dayCount));
@@ -350,7 +350,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user003);
+			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 14:00", dayCount));
@@ -363,7 +363,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user302);
+			orderExecuteAppService.finish(execute.getId(), null, user302);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 15:10", dayCount));
@@ -376,7 +376,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user003);
+			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
 
 		// 2016-12-31
@@ -406,7 +406,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成配液医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user302);
+			orderExecuteAppService.finish(execute.getId(), null, user302);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 09:10", dayCount));
@@ -419,7 +419,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user003);
+			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
 
 		// 2017-01-01
@@ -435,7 +435,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(executes.size() == 1);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:30", dayCount));
 
@@ -528,7 +528,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(executes.size() == 1);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 14:40", dayCount));
 
@@ -563,7 +563,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(executes.size() == 1);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 15:00", dayCount));
 
@@ -598,7 +598,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(executes.size() == 1);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
 
 		// 2017-01-05
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-05", dayCount));
@@ -613,7 +613,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(executes.size() == 1);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
 
 		// 2017-01-06
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-06", dayCount));
@@ -628,7 +628,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(executes.size() == 1);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), user003);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
 
 	}
 }

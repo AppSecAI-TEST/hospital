@@ -1,5 +1,7 @@
 package com.neusoft.hs.domain.inspect;
 
+import java.util.Map;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,8 +24,9 @@ public class InspectConfirmOrderExecute extends OrderExecute {
 	private InspectApplyItem inspectApplyItem;
 
 	@Override
-	protected void doFinish(AbstractUser user) throws OrderExecuteException {
-		super.doFinish(user);
+	protected void doFinish(Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
+		super.doFinish(params, user);
 		inspectApplyItem.setExecuteDate(DateUtil.getSysDate());
 		inspectApplyItem.setState(InspectApplyItem.State_Finished);
 

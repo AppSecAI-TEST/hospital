@@ -1,6 +1,7 @@
 package com.neusoft.hs.domain.inspect;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -21,7 +22,8 @@ public class InspectArrangeOrderExecute extends OrderExecute {
 	private InspectApplyItem inspectApplyItem;
 
 	@Override
-	protected void doFinish(AbstractUser user) throws OrderExecuteException {
+	protected void doFinish(Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
 
 		if (inspectApplyItem.getPlanExecuteDate() == null) {
 			throw new OrderExecuteException(this, "inspectApplyItem["

@@ -161,7 +161,7 @@ public class OutPatientMainTestService extends AppTestService {
 				.equals("测试患者001"));
 		assertTrue(datas.get("主诉").getValues().get(0).toString()
 				.equals("患者咳嗽发烧两天，体温37.5"));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:32"));
 
 		medicalRecordAppService.fix(outPatientRecord.getId(), user002);
@@ -200,7 +200,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		// 完成摆药医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user301);
+			orderExecuteAppService.finish(execute.getId(), null, user301);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:48"));
@@ -213,7 +213,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		// 完成取药医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user301);
+			orderExecuteAppService.finish(execute.getId(), null, user301);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:50"));
@@ -341,7 +341,7 @@ public class OutPatientMainTestService extends AppTestService {
 		assertTrue(executes.size() == 1);
 
 		// 完成住院医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), user101);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user101);
 
 		theVisit = visitDomainService.find(visit001.getId());
 

@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.order;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -213,12 +214,14 @@ public class OrderExecute extends SuperEntity {
 	 * 当有下一条执行条目时将其状态置为【执行中】
 	 * 
 	 * @param user
+	 * @param params
 	 * @throws OrderExecuteException
 	 * @roseuid 584FB6EB03E5
 	 */
-	public void finish(AbstractUser user) throws OrderExecuteException {
+	public void finish(Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
 
-		this.doFinish(user);
+		this.doFinish(params, user);
 
 		Date sysDate = DateUtil.getSysDate();
 		this.endDate = sysDate;
@@ -241,10 +244,12 @@ public class OrderExecute extends SuperEntity {
 	/**
 	 * 完成一条执行条目回调函数
 	 * 
+	 * @param params
 	 * @param user
 	 * @throws OrderExecuteException
 	 */
-	protected void doFinish(AbstractUser user) throws OrderExecuteException {
+	protected void doFinish(Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
 
 	}
 

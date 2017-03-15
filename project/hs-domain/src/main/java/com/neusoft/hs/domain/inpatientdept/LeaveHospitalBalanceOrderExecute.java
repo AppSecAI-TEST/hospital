@@ -2,6 +2,7 @@ package com.neusoft.hs.domain.inpatientdept;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -37,8 +38,9 @@ public class LeaveHospitalBalanceOrderExecute extends OrderExecute {
 	}
 
 	@Override
-	protected void doFinish(AbstractUser user) throws OrderExecuteException {
-		super.doFinish(user);
+	protected void doFinish(Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
+		super.doFinish(params, user);
 
 		Visit visit = this.getVisit();
 		try {

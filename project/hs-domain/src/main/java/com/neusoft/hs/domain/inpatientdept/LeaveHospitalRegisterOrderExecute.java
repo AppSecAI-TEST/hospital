@@ -1,5 +1,7 @@
 package com.neusoft.hs.domain.inpatientdept;
 
+import java.util.Map;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -16,7 +18,8 @@ import com.neusoft.hs.platform.exception.HsException;
 public class LeaveHospitalRegisterOrderExecute extends OrderExecute {
 
 	@Override
-	protected void doFinish(AbstractUser user) throws OrderExecuteException {
+	protected void doFinish(Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
 
 		Visit visit = this.getVisit();
 

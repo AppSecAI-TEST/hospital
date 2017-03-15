@@ -4,6 +4,7 @@ package com.neusoft.hs.domain.orderexecute;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -57,8 +58,8 @@ public class OrderExecuteAppService {
 	 * @param executeId
 	 * @roseuid 584FB68C010C
 	 */
-	public void finish(String executeId, AbstractUser user)
-			throws OrderExecuteException {
-		orderExecuteDomainService.finish(executeId, user);
+	public void finish(String executeId, Map<String, Object> params,
+			AbstractUser user) throws OrderExecuteException {
+		orderExecuteDomainService.finish(executeId, params, user);
 	}
 }

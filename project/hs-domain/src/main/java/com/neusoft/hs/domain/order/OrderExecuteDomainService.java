@@ -4,6 +4,7 @@ package com.neusoft.hs.domain.order;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -88,17 +89,18 @@ public class OrderExecuteDomainService {
 	 * 
 	 * @param user
 	 * @param executeId
+	 * @param params
 	 * @throws OrderExecuteException
 	 * @roseuid 584FB6AF013C
 	 */
-	public void finish(String executeId, AbstractUser user)
-			throws OrderExecuteException {
+	public void finish(String executeId, Map<String, Object> params,
+			AbstractUser user) throws OrderExecuteException {
 		OrderExecute execute = orderExecuteRepo.findOne(executeId);
 		if (execute == null) {
 			throw new OrderExecuteException(null, "executeId=[" + executeId
 					+ "]不存在");
 		}
-		execute.finish(user);
+		execute.finish(params, user);
 
 		applicationContext.publishEvent(new OrderExecuteFinishedEvent(execute));
 	}

@@ -37,14 +37,14 @@ public class InspectAppService {
 	public void arrange(String executeId, Date planExecuteDate,
 			AbstractUser user) throws InspectException, OrderExecuteException {
 		inspectDomainService.arrange(executeId, planExecuteDate, user);
-		orderExecuteDomainService.finish(executeId, user);
+		orderExecuteDomainService.finish(executeId, null, user);
 	}
 
 	public void confirm(String executeId,
 			Map<InspectApplyItem, String> results, AbstractUser user)
 			throws InspectException, OrderExecuteException {
 		inspectDomainService.confirm(executeId, results, user);
-		orderExecuteDomainService.finish(executeId, user);
+		orderExecuteDomainService.finish(executeId, null, user);
 	}
 
 	public void cancel(String inspectApplyItemId, AbstractUser user)

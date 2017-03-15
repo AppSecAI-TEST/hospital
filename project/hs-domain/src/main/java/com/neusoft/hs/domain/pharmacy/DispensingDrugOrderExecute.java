@@ -2,6 +2,8 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.Map;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +24,8 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 	private DrugType drugType;
 
 	@Override
-	protected void doFinish(AbstractUser user) throws OrderExecuteException {
+	protected void doFinish(Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
 		try {
 			drugType.send(getCount());
 		} catch (HsException e) {

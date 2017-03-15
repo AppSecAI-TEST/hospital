@@ -2,6 +2,8 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.Map;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -17,10 +19,11 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class TaskDrugOrderExecute extends OrderExecute {
 
 	@Override
-	protected void doFinish(AbstractUser user) throws OrderExecuteException {
+	protected void doFinish(Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
 		Order order = this.getOrder();
-		if(order instanceof TemporaryOrder){
-			TemporaryOrder temporaryOrder = (TemporaryOrder)order;
+		if (order instanceof TemporaryOrder) {
+			TemporaryOrder temporaryOrder = (TemporaryOrder) order;
 			temporaryOrder.setExecuteDate(DateUtil.getSysDate());
 			temporaryOrder.setExecuteUser(user);
 		}

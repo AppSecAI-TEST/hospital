@@ -41,7 +41,7 @@ public abstract class InPatientTestService extends AppTestService {
 		choice();
 
 		ready();
-		
+
 		MedicalRecordTestService.temporaryOrderCount = 3;
 	}
 
@@ -196,7 +196,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user003);
+			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
 
 		// 2017-01-08
@@ -212,7 +212,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user003);
+			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
 
 		// 2017-01-09
@@ -232,7 +232,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), user003);
+			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
 
 		visit = visitDomainService.find(visit001.getId());
@@ -249,7 +249,7 @@ public abstract class InPatientTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 10:30", dayCount));
 
 		// 完成出院结算医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), user201);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user201);
 
 		visit = visitDomainService.find(visit001.getId());
 
