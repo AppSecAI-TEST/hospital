@@ -7,9 +7,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -36,6 +33,8 @@ public class TreatmentDomainService {
 	private ApplicationContext applicationContext;
 
 	/**
+	 * 创建诊疗信息（如果存在进行修改）
+	 * 
 	 * @roseuid 58A148A00070
 	 */
 	public void create(TreatmentItem item) {
@@ -64,20 +63,15 @@ public class TreatmentDomainService {
 		}
 	}
 
-	public TreatmentItem getTheTreatmentItem(Visit visit,
-			TreatmentItemSpec treatmentItemSpec) {
-		return treatmentItemRepo.findByVisitAndTreatmentItemSpec(visit,
-				treatmentItemSpec);
-	}
-
 	/**
-	 * @roseuid 58A148900388
+	 * 得到当前时间下指定患者一次就诊需创建的诊疗信息集合
+	 * 
+	 * @param visit
+	 * @param shouldDate
+	 * @param user
+	 * @return
+	 * @throws TreatmentException
 	 */
-	public void update(TreatmentItem item) {
-		treatmentItemRepo.save(item);
-		applicationContext.publishEvent(new TreatmentItemUpdatedEvent(item));
-	}
-
 	public List<TreatmentItemSpec> getShouldTreatmentItemSpecs(Visit visit,
 			Date shouldDate, AbstractUser user) throws TreatmentException {
 
@@ -93,6 +87,20 @@ public class TreatmentDomainService {
 			}
 		}
 		return shouldTreatmentItemSpecs;
+	}
+
+	public TreatmentItem getTheTreatmentItem(Visit visit,
+			TreatmentItemSpec treatmentItemSpec) {
+		return treatmentItemRepo.findByVisitAndTreatmentItemSpec(visit,
+				treatmentItemSpec);
+	}
+
+	/**
+	 * @roseuid 58A148900388
+	 */
+	public void update(TreatmentItem item) {
+		treatmentItemRepo.save(item);
+		applicationContext.publishEvent(new TreatmentItemUpdatedEvent(item));
 	}
 
 	public Iterable<TreatmentItemSpec> getAllTreatmentItemSpecs() {

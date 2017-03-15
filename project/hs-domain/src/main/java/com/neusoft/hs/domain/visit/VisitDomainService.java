@@ -34,6 +34,12 @@ public class VisitDomainService {
 	@Autowired
 	private ApplicationContext applicationContext;
 
+	/**
+	 * 创建患者一次就诊
+	 * 
+	 * @param createVisitVO
+	 * @return
+	 */
 	public Visit create(CreateVisitVO createVisitVO) {
 
 		Patient patient = patientDomainService.findByCardNumber(createVisitVO
@@ -89,6 +95,8 @@ public class VisitDomainService {
 	}
 
 	/**
+	 * 进入病房
+	 * 
 	 * @param user
 	 * @param receiveVisitVO
 	 * @throws HsException
@@ -112,7 +120,7 @@ public class VisitDomainService {
 	/**
 	 * @roseuid 5852564401AC
 	 */
-	public void leaveWard() {
+	private void leaveWard() {
 
 	}
 
