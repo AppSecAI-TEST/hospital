@@ -23,6 +23,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
+/**
+ * 药品规格
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_drug_type_spec")
 @Cacheable

@@ -18,6 +18,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
+/**
+ * 药品用法 同一药品不同的用法将产生不同的医嘱执行条目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_drug_use_mode")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -42,6 +48,8 @@ public abstract class DrugUseMode extends SuperEntity {
 	private List<DrugUseModeAssistMaterial> orderUseModeAssistMaterials;
 
 	/**
+	 * 分解药品医嘱条目
+	 * 
 	 * @param drugOrderType
 	 * @param order
 	 * @return

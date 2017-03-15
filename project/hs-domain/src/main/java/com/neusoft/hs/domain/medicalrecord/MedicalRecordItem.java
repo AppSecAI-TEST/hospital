@@ -24,6 +24,12 @@ import com.neusoft.hs.domain.treatment.TreatmentItemValue;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 病历项目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_medical_record_item")
 public class MedicalRecordItem extends IdEntity implements Itemable {

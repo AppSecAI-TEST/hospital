@@ -16,6 +16,12 @@ import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 病历创建器 用于创建病历数据
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_medical_record_builder")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -28,6 +34,11 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 	@OneToOne(mappedBy = "builder", cascade = { CascadeType.ALL })
 	private MedicalRecord record;
 
+	/**
+	 * 创建病历数据
+	 * 
+	 * @return
+	 */
 	public abstract Map<String, Itemable> create();
 
 	public void save() {

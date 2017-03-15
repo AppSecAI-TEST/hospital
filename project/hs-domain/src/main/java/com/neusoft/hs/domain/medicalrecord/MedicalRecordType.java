@@ -20,6 +20,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
+/**
+ * 病历类型
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_medical_type")
 public class MedicalRecordType extends SuperEntity {

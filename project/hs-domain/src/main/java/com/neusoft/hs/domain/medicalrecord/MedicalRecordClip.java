@@ -23,6 +23,12 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 病历夹 包含多份病历 在患者一次就诊创建时创建
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_medical_record_clip")
 public class MedicalRecordClip extends IdEntity {
@@ -57,6 +63,12 @@ public class MedicalRecordClip extends IdEntity {
 	public MedicalRecordClip() {
 	}
 
+	/**
+	 * 将病历夹移交给病案室 并设置病历夹为【检查中】
+	 * 
+	 * @param dept
+	 * @throws MedicalRecordException
+	 */
 	public void transfer(Dept dept) throws MedicalRecordException {
 
 		Set<MedicalRecordType> createdRecordTypes = new HashSet<MedicalRecordType>();

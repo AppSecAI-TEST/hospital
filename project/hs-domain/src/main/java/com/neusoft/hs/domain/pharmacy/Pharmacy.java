@@ -11,6 +11,12 @@ import javax.persistence.OneToMany;
 
 import com.neusoft.hs.domain.organization.Dept;
 
+/**
+ * 药房 包含多种有库存的药品
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("Pharmacy")
 public class Pharmacy extends Dept {
