@@ -186,9 +186,13 @@ public class CostDomainService {
 		execute.setChargeState(OrderExecute.ChargeState_BackCharge);
 
 		if (isBackCost) {
+			CostRecord costRecord;
 			execute.setCostState(OrderExecute.CostState_NoCost);
 			for (ChargeRecord chargeRecord : chargeRecords) {
-				chargeRecord.getCostRecord().setState(CostRecord.State_Back);
+				costRecord = chargeRecord.getCostRecord();
+				if (costRecord != null) {
+					costRecord.setState(CostRecord.State_Back);
+				}
 			}
 		}
 	}
