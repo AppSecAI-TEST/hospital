@@ -21,6 +21,12 @@ import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.platform.exception.HsException;
 
+/**
+ * 药品医嘱类型
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("Drug")
 public class DrugOrderType extends OrderType {
@@ -84,10 +90,11 @@ public class DrugOrderType extends OrderType {
 
 	@Override
 	public void resolveOrder(OrderTypeApp orderTypeApp) throws OrderException {
-		
+
 		Order order = orderTypeApp.getOrder();
-		DrugUseMode drugUseMode = ((DrugOrderTypeApp)orderTypeApp).getDrugUseMode();
-		
+		DrugUseMode drugUseMode = ((DrugOrderTypeApp) orderTypeApp)
+				.getDrugUseMode();
+
 		if (order instanceof TemporaryOrder) {
 			// 分解执行条目
 			drugUseMode.resolve(order, this);

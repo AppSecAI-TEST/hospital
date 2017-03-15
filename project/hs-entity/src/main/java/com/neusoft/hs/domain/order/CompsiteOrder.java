@@ -11,6 +11,12 @@ import javax.persistence.Table;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 组合医嘱
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_order_team")
 public class CompsiteOrder extends IdEntity implements OrderCreateCommand {

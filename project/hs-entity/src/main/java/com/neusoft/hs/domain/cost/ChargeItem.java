@@ -23,6 +23,12 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
+/**
+ * 计费项目 任何一条收费条目都需要关联计费项目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_charge_item")
 @Cacheable

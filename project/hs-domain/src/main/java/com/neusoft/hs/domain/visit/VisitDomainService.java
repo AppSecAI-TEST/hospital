@@ -69,11 +69,11 @@ public class VisitDomainService {
 		visit.setPatient(patient);
 
 		visit.save();
-		
+
 		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
 		medicalRecordClip.setVisit(visit);
 		medicalRecordClip.setState(MedicalRecordClip.State_Writing);
-		
+
 		medicalRecordClip.save();
 
 		VisitLog visitLog = new VisitLog();
@@ -149,6 +149,11 @@ public class VisitDomainService {
 		visitRepo.deleteAll();
 	}
 
+	/**
+	 * 自动切换患者一次就诊状态
+	 * 
+	 * @return
+	 */
 	public int changeVisitState() {
 		Date changeDate = DateUtil.reduceHour(DateUtil.getSysDate(), 10);
 		return visitRepo.changeVisitState(Visit.State_LeaveHospital,

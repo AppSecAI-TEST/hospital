@@ -2,21 +2,14 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.neusoft.hs.domain.order.LongOrder;
-import com.neusoft.hs.domain.order.OrderException;
-import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderTypeApp;
-import com.neusoft.hs.domain.order.TemporaryOrder;
 
 @Entity
 @DiscriminatorValue("Drug")

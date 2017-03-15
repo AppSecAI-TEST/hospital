@@ -2,7 +2,6 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,12 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.exception.HsException;
 
+/**
+ * 药品类型（含库存及所在药房）
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_drug_type")
 public class DrugType extends SuperEntity {
@@ -41,6 +43,67 @@ public class DrugType extends SuperEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
+
+	/**
+	 * 预扣
+	 * 
+	 * @param count
+	 * @throws HsException
+	 */
+	public void withhold(int count) throws HsException {
+		if (this.stock >= count) {
+			this.stock -= count;
+			this.withhold += count;
+
+			this.save();
+		} else {
+			throw new HsException("drugTypeId[" + this.getId() + "]库存不足");
+		}
+	}
+
+	/**
+	 * 取消预扣
+	 * 
+	 * @param count
+	 * @throws HsException
+	 */
+	public void unWithhold(Integer count) throws HsException {
+		if (this.withhold >= count) {
+			this.withhold -= count;
+			this.stock += count;
+
+			this.save();
+		} else {
+			throw new HsException("drugTypeId[" + this.getId() + "]已预扣数量不足");
+		}
+	}
+
+	/**
+	 * 摆药
+	 * 
+	 * @param count
+	 * @throws HsException
+	 */
+	public void send(int count) throws HsException {
+		if (this.withhold >= count) {
+			this.withhold -= count;
+		} else if (this.withhold + this.stock >= count) {
+			this.stock -= (count - this.withhold);
+			this.withhold = 0;
+		} else {
+			throw new HsException("drugTypeId[" + this.getId() + "]库存不足");
+		}
+	}
+
+	/**
+	 * 取消摆药
+	 * 
+	 * @param count
+	 * @throws HsException
+	 */
+	public void unSend(int count) throws HsException {
+		this.stock += count;
+	}
 
 	public String getId() {
 		return id;
@@ -88,43 +151,6 @@ public class DrugType extends SuperEntity {
 
 	public void setDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
 		this.drugTypeSpec = drugTypeSpec;
-	}
-
-	public void withhold(int count) throws HsException {
-		if (this.stock >= count) {
-			this.stock -= count;
-			this.withhold += count;
-
-			this.save();
-		} else {
-			throw new HsException("drugTypeId[" + this.getId() + "]库存不足");
-		}
-	}
-
-	public void unWithhold(Integer count) throws HsException {
-		if (this.withhold >= count) {
-			this.withhold -= count;
-			this.stock += count;
-
-			this.save();
-		} else {
-			throw new HsException("drugTypeId[" + this.getId() + "]已预扣数量不足");
-		}
-	}
-
-	public void send(int count) throws HsException {
-		if (this.withhold >= count) {
-			this.withhold -= count;
-		} else if (this.withhold + this.stock >= count) {
-			this.stock -= (count - this.withhold);
-			this.withhold = 0;
-		} else {
-			throw new HsException("drugTypeId[" + this.getId() + "]库存不足");
-		}
-	}
-
-	public void unSend(int count) throws HsException {
-		this.stock += count;
 	}
 
 	private void save() {

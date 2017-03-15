@@ -17,6 +17,12 @@ import javax.persistence.Table;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 申请单 创建医嘱条目时通过创建申请单可以传递给执行科室有关医嘱执行的必要信息
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_apply")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
