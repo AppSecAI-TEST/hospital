@@ -12,6 +12,12 @@ import javax.persistence.Table;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 检查结果
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_inspect_result")
 public class InspectResult extends IdEntity {

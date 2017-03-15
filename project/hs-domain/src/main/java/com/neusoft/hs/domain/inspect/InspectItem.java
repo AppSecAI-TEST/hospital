@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,6 +17,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
+/**
+ * 检查项目规格
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_inspect_item")
 public class InspectItem extends SuperEntity {

@@ -14,6 +14,12 @@ import javax.persistence.Table;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 检查项目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_inspect_apply_item")
 public class InspectApplyItem extends IdEntity {

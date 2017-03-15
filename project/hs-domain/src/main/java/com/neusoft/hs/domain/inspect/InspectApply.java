@@ -12,6 +12,12 @@ import javax.persistence.OneToMany;
 
 import com.neusoft.hs.domain.order.Apply;
 
+/**
+ * 检查申请单
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("Inspect")
 public class InspectApply extends Apply {

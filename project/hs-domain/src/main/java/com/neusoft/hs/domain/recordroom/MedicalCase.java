@@ -17,6 +17,12 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 病案
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_medical_case")
 public class MedicalCase extends IdEntity {

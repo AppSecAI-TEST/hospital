@@ -15,6 +15,12 @@ import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 挂号实体
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_voucher")
 public class Voucher extends IdEntity {
@@ -81,6 +87,9 @@ public class Voucher extends IdEntity {
 		this.repeatVisit = repeatVisit;
 	}
 
+	/**
+	 * 离开诊室
+	 */
 	public void out() {
 		if (this.visit.getState().equals(Visit.State_Diagnosing)) {
 			this.visit.setState(Visit.State_Diagnosed_Executing);
@@ -88,6 +97,9 @@ public class Voucher extends IdEntity {
 		this.visit.save();
 	}
 
+	/**
+	 * 进入诊室
+	 */
 	public void enter() {
 		this.visit.setState(Visit.State_Diagnosing);
 		this.visit.save();

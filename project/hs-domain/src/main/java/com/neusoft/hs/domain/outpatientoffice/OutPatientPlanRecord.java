@@ -24,6 +24,12 @@ import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
+/**
+ * 排班记录
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @Table(name = "domain_outpatient_plan_record")
 public class OutPatientPlanRecord extends IdEntity {
