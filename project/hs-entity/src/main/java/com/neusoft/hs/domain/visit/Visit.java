@@ -83,9 +83,6 @@ public class Visit extends IdEntity {
 	@JoinColumn(name = "nurse_id")
 	private Nurse respNurse;
 
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
-	private List<VisitChargeItem> visitChargeItems;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id")
 	private Doctor respDoctor;
@@ -98,20 +95,29 @@ public class Visit extends IdEntity {
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
 
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.REFRESH })
+	private List<VisitChargeItem> visitChargeItems;
+
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.REFRESH })
 	@OrderBy("createDate DESC")
 	private List<VisitLog> logs;
 
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.REFRESH })
 	private List<Order> orders;
 
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.REFRESH })
 	private List<Apply> applys;
 
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.REFRESH })
 	private List<OrderExecute> executes;
 
-	@OneToOne(mappedBy = "visit", cascade = { CascadeType.ALL })
+	@OneToOne(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.REFRESH })
 	private ChargeBill chargeBill;
 
 	public static final String State_WaitingDiagnose = "待门诊";

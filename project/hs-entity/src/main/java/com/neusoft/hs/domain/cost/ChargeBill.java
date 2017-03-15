@@ -34,6 +34,8 @@ public class ChargeBill extends IdEntity {
 
 	private float balance;
 
+	private float consume;
+
 	private String type;
 
 	@NotEmpty(message = "状态不能为空")
@@ -66,21 +68,29 @@ public class ChargeBill extends IdEntity {
 	 */
 	public void charging(List<ChargeRecord> chargeRecords) {
 
+		float theConsume = 0F;
+
+		ChargeRecord payChargeRecord;
 		for (ChargeRecord chargeRecord : chargeRecords) {
 			this.addChargeRecord(chargeRecord);
 
 			if (this.chargeMode.equals(ChargeMode_NoPreCharge)) {
-				this.addChargeRecord(chargeRecord.createPayRecord());
+				payChargeRecord = chargeRecord.createPayRecord();
+				theConsume += payChargeRecord.getAmount();//金额为正
+				this.addChargeRecord(payChargeRecord);
 			}
 		}
 
 		if (this.chargeMode.equals(ChargeMode_PreCharge)) {
 			float theBalance = 0F;
 			for (ChargeRecord chargeRecord : chargeRecords) {
-				theBalance += chargeRecord.getAmount();
+				theBalance += chargeRecord.getAmount();// 金额为负
 			}
 			this.balance += theBalance;
+			theConsume -= theBalance;// 金额为负
 		}
+
+		this.consume += theConsume;
 	}
 
 	/**
@@ -95,10 +105,11 @@ public class ChargeBill extends IdEntity {
 		for (ChargeRecord chargeRecord : chargeRecords) {
 			newChargeRecord = chargeRecord.undo();
 			this.addChargeRecord(newChargeRecord);
-			balance += newChargeRecord.getAmount();
+			balance += newChargeRecord.getAmount();// 金额为正
 		}
 
 		this.balance += balance;
+		this.consume -= balance;// 金额为正
 	}
 
 	/**
@@ -164,6 +175,14 @@ public class ChargeBill extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	public float getConsume() {
+		return consume;
+	}
+
+	public void setConsume(float consume) {
+		this.consume = consume;
 	}
 
 	/**
