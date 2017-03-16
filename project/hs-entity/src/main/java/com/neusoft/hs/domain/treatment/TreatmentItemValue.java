@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordItemValue;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -22,7 +24,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Entity
 @Table(name = "domain_treatment_item_value")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class TreatmentItemValue extends IdEntity implements ItemValue{
+public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id")
@@ -58,6 +60,12 @@ public abstract class TreatmentItemValue extends IdEntity implements ItemValue{
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	public MedicalRecordItemValue toMedicalRecordItemValue()
+			throws MedicalRecordException {
+		throw new MedicalRecordException(null, "TreatmentItemValue类型["
+				+ this.getClass() + "]为编写转化逻辑");
 	}
 
 	public void save() {

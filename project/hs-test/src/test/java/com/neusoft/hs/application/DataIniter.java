@@ -1061,6 +1061,7 @@ public class DataIniter {
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
 		items.add(mainDescribeTreatmentItemSpec);
+		items.add(diagnosisTreatmentItemSpec);
 
 		outPatientRecordMedicalRecordType.setItems(items);
 

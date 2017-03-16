@@ -64,7 +64,7 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 
 		MedicalRecordItemValue theValue;
 		for (TreatmentItemValue value : item.getValues()) {
-			theValue = MedicalRecordItemValueFactory.create(value);
+			theValue = value.toMedicalRecordItemValue();
 			this.addValue(theValue);
 		}
 	}

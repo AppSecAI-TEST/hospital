@@ -9,6 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.neusoft.hs.domain.medicalrecord.DiagnosisMedicalRecordItemValue;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItemValue;
 
 @Entity
@@ -45,4 +48,9 @@ public class DiagnosisTreatmentItemValue extends TreatmentItemValue {
 		this.disease = disease;
 	}
 
+	@Override
+	public MedicalRecordItemValue toMedicalRecordItemValue()
+			throws MedicalRecordException {
+		return new DiagnosisMedicalRecordItemValue(this);
+	}
 }
