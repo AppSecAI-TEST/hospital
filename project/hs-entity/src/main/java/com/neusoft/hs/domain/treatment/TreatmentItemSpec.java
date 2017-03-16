@@ -47,6 +47,8 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	@Column(length = 128)
 	private String name;
 
+	private boolean single;// 患者一次就诊是否唯一
+
 	@Column(name = "should_create_interval_hour")
 	private Integer shouldIntervalHour;
 
@@ -98,6 +100,14 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isSingle() {
+		return single;
+	}
+
+	public void setSingle(boolean single) {
+		this.single = single;
 	}
 
 	public Integer getShouldIntervalHour() {

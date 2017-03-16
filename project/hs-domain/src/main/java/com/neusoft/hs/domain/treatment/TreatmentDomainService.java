@@ -42,7 +42,8 @@ public class TreatmentDomainService {
 		TreatmentItem oldItem = treatmentItemRepo
 				.findByVisitAndTreatmentItemSpec(item.getVisit(),
 						item.getTreatmentItemSpec());
-		if (oldItem == null) {
+		
+		if (!item.getTreatmentItemSpec().isSingle() || oldItem == null) {
 			if (item.getCreateDate() == null) {
 				item.setCreateDate(DateUtil.getSysDate());
 			}
