@@ -962,7 +962,6 @@ public class DataIniter {
 		mainDescribeTreatmentItemSpec = new CommonTreatmentItemSpec();
 		mainDescribeTreatmentItemSpec.setId("主诉");
 		mainDescribeTreatmentItemSpec.setName("主诉");
-		mainDescribeTreatmentItemSpec.setSingle(true);
 		mainDescribeTreatmentItemSpec.setShouldIntervalHour(24);
 
 		treatmentItemSpecs.add(mainDescribeTreatmentItemSpec);
@@ -970,15 +969,13 @@ public class DataIniter {
 		visitNameTreatmentItemSpec = new VisitNameTreatmentItemSpec();
 		visitNameTreatmentItemSpec.setId("患者姓名");
 		visitNameTreatmentItemSpec.setName("患者姓名");
-		visitNameTreatmentItemSpec.setSingle(true);
-
+	
 		treatmentItemSpecs.add(visitNameTreatmentItemSpec);
 
 		temporaryOrderListTreatmentItemSpec = new TemporaryOrderListTreatmentItemSpec();
 		temporaryOrderListTreatmentItemSpec.setId("临时医嘱列表");
 		temporaryOrderListTreatmentItemSpec.setName("临时医嘱列表");
-		temporaryOrderListTreatmentItemSpec.setSingle(true);
-
+	
 		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
 
 		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
