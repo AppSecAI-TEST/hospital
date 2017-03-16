@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
@@ -71,6 +72,7 @@ public class OutPatientMainTestService extends AppTestService {
 		Pageable pageable;
 		List<OrderExecute> executes;
 		int changedCount;
+		TreatmentItem item;
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
@@ -134,7 +136,7 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:27"));
 
 		// 创建主诉
-		TreatmentItem item = new TreatmentItem();
+		item = new TreatmentItem();
 		item.setVisit(visit001);
 		item.setTreatmentItemSpec(mainDescribeTreatmentItemSpec);
 		item.setCreator(user002);
@@ -142,6 +144,27 @@ public class OutPatientMainTestService extends AppTestService {
 		SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
 		value.setInfo("患者咳嗽发烧两天");
 		item.addValue(value);
+
+		treatmentDomainService.create(item);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:28"));
+
+		// 创建诊断
+		item = new TreatmentItem();
+		item.setVisit(visit001);
+		item.setTreatmentItemSpec(diagnosisTreatmentItemSpec);
+		item.setCreator(user002);
+
+		DiagnosisTreatmentItemValue diagnosis1 = new DiagnosisTreatmentItemValue();
+		diagnosis1.setDisease(hyperthyroidismDisease);
+		
+		item.addValue(diagnosis1);
+		
+		DiagnosisTreatmentItemValue diagnosis2 = new DiagnosisTreatmentItemValue();
+		diagnosis2.setDisease(hypoglycemiaDisease);
+		diagnosis2.setRemark("2.5mmol/L");
+		
+		item.addValue(diagnosis2);
 
 		treatmentDomainService.create(item);
 
