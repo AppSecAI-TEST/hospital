@@ -76,7 +76,7 @@ public class ChargeBill extends IdEntity {
 
 			if (this.chargeMode.equals(ChargeMode_NoPreCharge)) {
 				payChargeRecord = chargeRecord.createPayRecord();
-				theConsume += payChargeRecord.getAmount();//金额为正
+				theConsume += payChargeRecord.getAmount();// 金额为正
 				this.addChargeRecord(payChargeRecord);
 			}
 		}
@@ -110,6 +110,17 @@ public class ChargeBill extends IdEntity {
 
 		this.balance += balance;
 		this.consume -= balance;// 金额为正
+	}
+
+	public void balance() {
+		ChargeRecord chargeRecord = new ChargeRecord();
+		chargeRecord.setAmount(-this.balance);
+		chargeRecord.setHaveCost(false);
+		chargeRecord.setHaveCharge(false);
+
+		this.addChargeRecord(chargeRecord);
+		
+		this.balance = 0;
 	}
 
 	/**
@@ -191,4 +202,5 @@ public class ChargeBill extends IdEntity {
 	public void save() {
 		this.getService(ChargeBillRepo.class).save(this);
 	}
+
 }

@@ -267,6 +267,9 @@ public class Visit extends IdEntity {
 		}
 
 		this.setState(State_OutHospital);
+		
+		this.chargeBill.balance();
+		//this.chargeBill.save();
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);

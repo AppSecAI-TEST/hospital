@@ -1,13 +1,10 @@
 package com.neusoft.hs.domain.inpatientdept;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
@@ -20,22 +17,6 @@ import com.neusoft.hs.platform.util.DateUtil;
 @Entity
 @DiscriminatorValue("LeaveHospitalBalance")
 public class LeaveHospitalBalanceOrderExecute extends OrderExecute {
-
-	@Override
-	public List<ChargeRecord> createChargeRecords() {
-
-		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
-
-		ChargeRecord chargeRecord = new ChargeRecord();
-		chargeRecord.setAmount(-this.getVisit().getChargeBill().getBalance());
-		chargeRecord.setHaveCost(false);
-		chargeRecord.setHaveCharge(false);
-
-		chargeRecords.add(chargeRecord);
-
-		return chargeRecords;
-
-	}
 
 	@Override
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
