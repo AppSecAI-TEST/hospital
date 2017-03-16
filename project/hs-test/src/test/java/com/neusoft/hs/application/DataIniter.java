@@ -18,6 +18,9 @@ import com.neusoft.hs.application.registration.RegistrationAppService;
 import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemSpec;
+import com.neusoft.hs.domain.diagnosis.Disease;
+import com.neusoft.hs.domain.diagnosis.DiseaseDomainService;
 import com.neusoft.hs.domain.inpatientdept.LeaveHospitalOrderType;
 import com.neusoft.hs.domain.inpatientdept.SecondNursingOrderType;
 import com.neusoft.hs.domain.inspect.InspectDept;
@@ -168,7 +171,9 @@ public class DataIniter {
 	protected TreatmentItemSpec visitNameTreatmentItemSpec;// 患者姓名
 
 	protected TreatmentItemSpec temporaryOrderListTreatmentItemSpec;// 临时医嘱列表
-	
+
+	protected TreatmentItemSpec diagnosisTreatmentItemSpec;// 诊断
+
 	protected MedicalRecordType outPatientRecordMedicalRecordType;// 门诊记录
 
 	protected MedicalRecordType intoWardRecordMedicalRecordType;// 入院记录
@@ -178,6 +183,10 @@ public class DataIniter {
 	protected MedicalRecordType inspectResultMedicalRecordType;// 检查单
 
 	protected VoucherType ordinaryVoucherType;// 普通号
+
+	protected Disease hyperthyroidismDisease;// 甲状腺功能亢进（甲亢）
+
+	protected Disease hypoglycemiaDisease;// 低血糖
 
 	@Autowired
 	protected RegisterAppService registerAppService;
@@ -254,6 +263,9 @@ public class DataIniter {
 	@Autowired
 	protected OutPatientDeptAppService outPatientDeptAppService;
 
+	@Autowired
+	protected DiseaseDomainService diseaseDomainService;
+
 	public void clone(DataIniter dataIniter) {
 		org = dataIniter.org;
 
@@ -312,28 +324,32 @@ public class DataIniter {
 		secondNursingOrderType = dataIniter.secondNursingOrderType;
 		leaveHospitalOrderType = dataIniter.leaveHospitalOrderType;
 		inspectOrderType = dataIniter.inspectOrderType;
-		
+
 		oralOrderUseMode = dataIniter.oralOrderUseMode;
 		infusionOrderUseMode = dataIniter.infusionOrderUseMode;
-		
+
 		transportFluidAssistMaterial = dataIniter.transportFluidAssistMaterial;
 		everyOneOrderUseModeAssistMaterial = dataIniter.everyOneOrderUseModeAssistMaterial;
 		everyDayOrderUseModeAssistMaterial = dataIniter.everyDayOrderUseModeAssistMaterial;
 		onlyOneOrderUseModeAssistMaterial = dataIniter.onlyOneOrderUseModeAssistMaterial;
-		
+
 		orderFrequencyType_Day = dataIniter.orderFrequencyType_Day;
 		orderFrequencyType_9H15H = dataIniter.orderFrequencyType_9H15H;
-		
+
 		mainDescribeTreatmentItemSpec = dataIniter.mainDescribeTreatmentItemSpec;
 		visitNameTreatmentItemSpec = dataIniter.visitNameTreatmentItemSpec;
 		temporaryOrderListTreatmentItemSpec = dataIniter.temporaryOrderListTreatmentItemSpec;
+		diagnosisTreatmentItemSpec = dataIniter.diagnosisTreatmentItemSpec;
 		
 		outPatientRecordMedicalRecordType = dataIniter.outPatientRecordMedicalRecordType;
 		intoWardRecordMedicalRecordType = dataIniter.intoWardRecordMedicalRecordType;
 		temporaryOrderListMedicalRecordType = dataIniter.temporaryOrderListMedicalRecordType;
 		inspectResultMedicalRecordType = dataIniter.inspectResultMedicalRecordType;
-		
+
 		ordinaryVoucherType = dataIniter.ordinaryVoucherType;
+
+		hyperthyroidismDisease = dataIniter.hyperthyroidismDisease;
+		hypoglycemiaDisease = dataIniter.hypoglycemiaDisease;
 	}
 
 	public void clear() {
@@ -355,6 +371,8 @@ public class DataIniter {
 		orderDomainService.clearOrderFrequencyTypes();
 		// 清空药品类型
 		pharmacyDomainService.clearDrugTypes();
+		// 清空疾病类型
+		diseaseDomainService.clearDiseases();
 		// 清空药品规格
 		pharmacyDomainService.clearDrugTypeSpecs();
 		// 清空检查项目
@@ -415,6 +433,8 @@ public class DataIniter {
 		initMedicalRecordTypes();
 
 		initVoucherTypes();
+
+		initDiseases();
 	}
 
 	private void initOrgs() {
@@ -969,14 +989,20 @@ public class DataIniter {
 		visitNameTreatmentItemSpec = new VisitNameTreatmentItemSpec();
 		visitNameTreatmentItemSpec.setId("患者姓名");
 		visitNameTreatmentItemSpec.setName("患者姓名");
-	
+
 		treatmentItemSpecs.add(visitNameTreatmentItemSpec);
 
 		temporaryOrderListTreatmentItemSpec = new TemporaryOrderListTreatmentItemSpec();
 		temporaryOrderListTreatmentItemSpec.setId("临时医嘱列表");
 		temporaryOrderListTreatmentItemSpec.setName("临时医嘱列表");
-	
+
 		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
+		
+		diagnosisTreatmentItemSpec = new DiagnosisTreatmentItemSpec();
+		diagnosisTreatmentItemSpec.setId("诊断");
+		diagnosisTreatmentItemSpec.setName("诊断");
+
+		treatmentItemSpecs.add(diagnosisTreatmentItemSpec);
 
 		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
 	}
@@ -1025,7 +1051,7 @@ public class DataIniter {
 		inspectResultMedicalRecordType.setItems(items);
 
 		medicalRecordTypes.add(inspectResultMedicalRecordType);
-		
+
 		outPatientRecordMedicalRecordType = new MedicalRecordType();
 		outPatientRecordMedicalRecordType.setId("门诊记录");
 		outPatientRecordMedicalRecordType.setName("门诊记录");
@@ -1039,7 +1065,7 @@ public class DataIniter {
 		outPatientRecordMedicalRecordType.setItems(items);
 
 		medicalRecordTypes.add(outPatientRecordMedicalRecordType);
-		
+
 		medicalRecordDomainService.createMedicalRecordTypes(medicalRecordTypes);
 	}
 
@@ -1055,6 +1081,25 @@ public class DataIniter {
 		voucherTypes.add(ordinaryVoucherType);
 
 		outPatientPlanDomainService.createVoucherTypes(voucherTypes);
+	}
+
+	private void initDiseases() {
+
+		List<Disease> diseases = new ArrayList<Disease>();
+
+		hyperthyroidismDisease = new Disease();
+		hyperthyroidismDisease.setId("甲状腺功能亢进（甲亢）");
+		hyperthyroidismDisease.setName("甲状腺功能亢进（甲亢）");
+
+		diseases.add(hyperthyroidismDisease);
+
+		hypoglycemiaDisease = new Disease();
+		hypoglycemiaDisease.setId("低血糖");
+		hypoglycemiaDisease.setName("低血糖");
+
+		diseases.add(hypoglycemiaDisease);
+
+		diseaseDomainService.createDiseases(diseases);
 	}
 
 }
