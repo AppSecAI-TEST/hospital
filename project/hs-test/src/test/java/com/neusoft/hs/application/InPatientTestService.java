@@ -82,7 +82,7 @@ public abstract class InPatientTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50", dayCount));
 		// 创建测试患者
 		CreateVisitVO createVisitVO = new CreateVisitVO();
-		createVisitVO.setCardNumber("211381197801270235");
+		createVisitVO.setCardNumber("xxx");
 		createVisitVO.setName("测试患者001");
 		createVisitVO.setBirthday(DateUtil.createDay("1978-01-27"));
 		createVisitVO.setSex("男");
