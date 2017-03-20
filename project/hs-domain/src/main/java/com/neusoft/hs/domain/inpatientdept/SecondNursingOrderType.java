@@ -54,6 +54,7 @@ public class SecondNursingOrderType extends OrderType {
 		execute.addChargeItem(this.getChargeItem());
 
 		execute.setExecuteDept(order.getBelongDept());
+		execute.setChargeDept(order.getBelongDept());
 		execute.setState(OrderExecute.State_NeedExecute);
 		execute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		execute.setCostState(OrderExecute.CostState_NoCost);

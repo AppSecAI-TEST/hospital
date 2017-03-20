@@ -157,13 +157,13 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DiagnosisTreatmentItemValue diagnosis1 = new DiagnosisTreatmentItemValue();
 		diagnosis1.setDisease(hyperthyroidismDisease);
-		
+
 		item.addValue(diagnosis1);
-		
+
 		DiagnosisTreatmentItemValue diagnosis2 = new DiagnosisTreatmentItemValue();
 		diagnosis2.setDisease(hypoglycemiaDisease);
 		diagnosis2.setRemark("2.5mmol/L");
-		
+
 		item.addValue(diagnosis2);
 
 		treatmentDomainService.create(item);
@@ -203,7 +203,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:45"));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:40"));
 
 		rtn = outPatientDeptAppService.nextVoucher(planRecord1.getId());
 
@@ -212,6 +212,19 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:42"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user701,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成摆药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user701);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:46"));
 

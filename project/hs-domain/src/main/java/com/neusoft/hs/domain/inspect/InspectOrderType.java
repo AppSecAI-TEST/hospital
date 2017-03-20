@@ -50,6 +50,7 @@ public class InspectOrderType extends OrderType {
 			confirm.setInspectApplyItem(inspectApplyItem);
 
 			confirm.setExecuteDept(inspectApplyItem.getInspectDept());
+			confirm.setChargeDept(inspectApplyItem.getInspectDept());
 			confirm.setState(OrderExecute.State_NeedExecute);
 			confirm.setChargeState(OrderExecute.ChargeState_NoCharge);
 			confirm.setCostState(OrderExecute.CostState_NoCost);

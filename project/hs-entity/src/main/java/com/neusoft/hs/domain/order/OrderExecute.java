@@ -129,6 +129,10 @@ public class OrderExecute extends SuperEntity {
 	private Dept executeDept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "charge_dept_id")
+	private Dept chargeDept;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
@@ -175,8 +179,9 @@ public class OrderExecute extends SuperEntity {
 	public static final String Type_Arrange_Inspect = "安排检查";
 
 	public static final String Type_Confirm_Inspect = "确认检查";
-	
+
 	public static final String Type_Change = "收费";
+
 	/**
 	 * 发送执行条目 当执行条目由其他科室执行时需要通过发送才可以使其执行
 	 * 
@@ -546,6 +551,14 @@ public class OrderExecute extends SuperEntity {
 
 	public void setExecuteDept(Dept executeDept) {
 		this.executeDept = executeDept;
+	}
+
+	public Dept getChargeDept() {
+		return chargeDept;
+	}
+
+	public void setChargeDept(Dept chargeDept) {
+		this.chargeDept = chargeDept;
 	}
 
 	public Visit getVisit() {

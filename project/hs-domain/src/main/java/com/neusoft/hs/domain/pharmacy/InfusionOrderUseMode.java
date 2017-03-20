@@ -1,7 +1,5 @@
 package com.neusoft.hs.domain.pharmacy;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -33,6 +31,8 @@ public class InfusionOrderUseMode extends DrugUseMode {
 		configureFluidDrugExecute.setDrugType(drugType);
 
 		configureFluidDrugExecute.setExecuteDept(drugOrderType.getDrugType()
+				.getPharmacy());
+		configureFluidDrugExecute.setChargeDept(drugOrderType.getDrugType()
 				.getPharmacy());
 		configureFluidDrugExecute.setState(OrderExecute.State_NeedSend);
 		configureFluidDrugExecute
@@ -68,6 +68,7 @@ public class InfusionOrderUseMode extends DrugUseMode {
 		}
 
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
+		transportFluidExecute.setChargeDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
 		transportFluidExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		transportFluidExecute.setCostState(OrderExecute.CostState_NoCost);

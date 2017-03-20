@@ -375,8 +375,6 @@ public class DataIniter {
 		orderDomainService.clearOrderFrequencyTypes();
 		// 清空药品类型
 		pharmacyDomainService.clearDrugTypes();
-		// 清空疾病类型
-		diseaseDomainService.clearDiseases();
 		// 清空药品规格
 		pharmacyDomainService.clearDrugTypeSpecs();
 		// 清空检查项目
@@ -389,6 +387,8 @@ public class DataIniter {
 		treatmentDomainService.clearTreatmentItems();
 		// 清空诊疗项目规格
 		treatmentDomainService.clearTreatmentItemSpecs();
+		// 清空疾病类型
+		diseaseDomainService.clearDiseases();
 		// 清空成本记录
 		costDomainService.clearCostRecords();
 		// 清空收费单
@@ -527,7 +527,7 @@ public class DataIniter {
 
 		org.setInChargeDept(dept222);
 		org.setOutChargeDept(dept777);
-		
+
 		organizationDomainService.save(org);
 	}
 

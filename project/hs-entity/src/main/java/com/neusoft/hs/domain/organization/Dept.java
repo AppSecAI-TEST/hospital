@@ -21,7 +21,7 @@ import com.neusoft.hs.domain.visit.Visit;
 @DiscriminatorValue("Dept")
 public class Dept extends Unit {
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "org_id")
 	private Org org;
 

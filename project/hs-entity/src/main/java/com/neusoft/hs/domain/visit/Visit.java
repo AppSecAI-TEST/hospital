@@ -87,7 +87,7 @@ public class Visit extends IdEntity {
 	@JoinColumn(name = "doctor_id")
 	private Doctor respDoctor;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
 

@@ -128,7 +128,7 @@ public class CostDomainService {
 			for (ChargeRecord chargeRecord : chargeRecords) {
 				chargeRecord.setOrderExecute(execute);
 				chargeRecord.setCreateDate(sysDate);
-				chargeRecord.setChargeDept(execute.getExecuteDept());
+				chargeRecord.setChargeDept(execute.getChargeDept());
 				chargeRecord.setBelongDept(execute.getBelongDept());
 				chargeRecord.setType(ChargeRecord.Type_ShouldCharge);
 
