@@ -3,6 +3,8 @@ package com.neusoft.hs.domain.pharmacy;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.neusoft.hs.domain.cost.ChargeItem;
+import com.neusoft.hs.domain.cost.ChargeOrderExecute;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
@@ -16,6 +18,23 @@ public class OralOrderUseMode extends DrugUseMode {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
+		DrugType drugType = drugOrderType.getDrugType();
+		ChargeItem chargeItem = drugType.getDrugTypeSpec().getChargeItem();
+
+//		if (!order.isInPatient()) {
+//			// 收费执行条目
+//			ChargeOrderExecute chargeOrderExecute = new ChargeOrderExecute();
+//			chargeOrderExecute.setOrder(order);
+//			chargeOrderExecute.setVisit(order.getVisit());
+//			chargeOrderExecute.setBelongDept(order.getBelongDept());
+//			chargeOrderExecute.setType(OrderExecute.Type_Change);
+//
+//			chargeOrderExecute.addChargeItem(chargeItem);
+//			chargeOrderExecute.setCount(order.getCount());
+//			
+//			chargeOrderExecute.setExecuteDept(executeDept);
+//		}
+
 		// 摆药执行条目
 		DispensingDrugOrderExecute dispensingDrugExecute = new DispensingDrugOrderExecute();
 		dispensingDrugExecute.setOrder(order);
@@ -23,9 +42,7 @@ public class OralOrderUseMode extends DrugUseMode {
 		dispensingDrugExecute.setBelongDept(order.getBelongDept());
 		dispensingDrugExecute.setType(OrderExecute.Type_Dispense_Drug);
 
-		DrugType drugType = drugOrderType.getDrugType();
-		dispensingDrugExecute.addChargeItem(drugType.getDrugTypeSpec()
-				.getChargeItem());
+		dispensingDrugExecute.addChargeItem(chargeItem);
 		dispensingDrugExecute.setCount(order.getCount());
 		dispensingDrugExecute.setDrugType(drugType);
 

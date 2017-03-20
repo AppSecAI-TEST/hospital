@@ -29,4 +29,8 @@ public class OrganizationDomainService {
 		return (Dept) unitRepo.findOne(id);
 	}
 
+	public void save(Unit unit) {
+		unitRepo.save(unit);
+	}
+
 }

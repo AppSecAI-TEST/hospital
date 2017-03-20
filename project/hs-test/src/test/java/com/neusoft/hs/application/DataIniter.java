@@ -74,11 +74,12 @@ public class DataIniter {
 
 	protected Org org;// 哈医大二院
 	protected Dept dept111;// 住院处
-	protected Dept dept222;// 收费处
+	protected Dept dept222;// 住院收费处
 	protected Pharmacy dept333;// 药房
 	protected InspectDept dept444;// CT室
 	protected InspectDept dept555;// 核磁检查室
 	protected Dept dept666;// 病案室
+	protected Dept dept777;// 门诊收费部门
 
 	protected InPatientDept dept000;// 内泌五
 
@@ -87,7 +88,7 @@ public class DataIniter {
 	protected OutPatientRoom room901;// 内分泌门诊一诊室
 
 	protected Staff user101;// 住院处送诊人-曹操
-	protected Staff user201;// 收费处-张飞
+	protected Staff user201;// 住院收费处-张飞
 	protected Staff user301;// 药房摆药岗位-赵云
 	protected Staff user302;// 药房配液岗位-关羽
 	protected Staff user401;// CT室安排检查员-吕玲绮
@@ -96,6 +97,7 @@ public class DataIniter {
 	protected Staff user502;// 核磁检查室检查师-鲁肃
 	protected Staff user601;// 质控岗位-刘备
 	protected Staff user602;// 病案室岗位-孙权
+	protected Staff user701;// 门诊收费部门收费员-魏延
 	protected Staff user901;// 儿科门诊挂号岗位-黄忠
 
 	protected Staff user001;// 内泌五接诊护士-大乔
@@ -275,6 +277,7 @@ public class DataIniter {
 		dept444 = dataIniter.dept444;
 		dept555 = dataIniter.dept555;
 		dept666 = dataIniter.dept666;
+		dept777 = dataIniter.dept777;
 		dept000 = dataIniter.dept000;
 		dept999 = dataIniter.dept999;
 
@@ -290,6 +293,7 @@ public class DataIniter {
 		user502 = dataIniter.user502;
 		user601 = dataIniter.user601;
 		user602 = dataIniter.user602;
+		user701 = dataIniter.user701;
 		user901 = dataIniter.user901;
 		user001 = dataIniter.user001;
 		user002 = dataIniter.user002;
@@ -340,7 +344,7 @@ public class DataIniter {
 		visitNameTreatmentItemSpec = dataIniter.visitNameTreatmentItemSpec;
 		temporaryOrderListTreatmentItemSpec = dataIniter.temporaryOrderListTreatmentItemSpec;
 		diagnosisTreatmentItemSpec = dataIniter.diagnosisTreatmentItemSpec;
-		
+
 		outPatientRecordMedicalRecordType = dataIniter.outPatientRecordMedicalRecordType;
 		intoWardRecordMedicalRecordType = dataIniter.intoWardRecordMedicalRecordType;
 		temporaryOrderListMedicalRecordType = dataIniter.temporaryOrderListMedicalRecordType;
@@ -451,13 +455,15 @@ public class DataIniter {
 		dept111.setId("dept111");
 		dept111.setName("住院处");
 		dept111.setParent(org);
+		dept111.setOrg(org);
 
 		units.add(dept111);
 
 		dept222 = new Dept();
 		dept222.setId("dept222");
-		dept222.setName("收费处");
+		dept222.setName("住院收费处");
 		dept222.setParent(org);
+		dept222.setOrg(org);
 
 		units.add(dept222);
 
@@ -465,6 +471,7 @@ public class DataIniter {
 		dept333.setId("dept333");
 		dept333.setName("药房");
 		dept333.setParent(org);
+		dept333.setOrg(org);
 
 		units.add(dept333);
 
@@ -472,6 +479,7 @@ public class DataIniter {
 		dept444.setId("dept444");
 		dept444.setName("CT室");
 		dept444.setParent(org);
+		dept444.setOrg(org);
 
 		units.add(dept444);
 
@@ -479,20 +487,31 @@ public class DataIniter {
 		dept555.setId("dept555");
 		dept555.setName("核磁检查室");
 		dept555.setParent(org);
+		dept555.setOrg(org);
 
 		units.add(dept555);
 
-		dept666 = new InspectDept();
+		dept666 = new Dept();
 		dept666.setId("dept666");
 		dept666.setName("病案室");
 		dept666.setParent(org);
+		dept666.setOrg(org);
 
 		units.add(dept666);
+
+		dept777 = new Dept();
+		dept777.setId("dept777");
+		dept777.setName("门诊收费部门");
+		dept777.setParent(org);
+		dept777.setOrg(org);
+
+		units.add(dept777);
 
 		dept000 = new InPatientDept();
 		dept000.setId("dept000");
 		dept000.setName("内泌五");
 		dept000.setParent(org);
+		dept000.setOrg(org);
 
 		units.add(dept000);
 
@@ -500,10 +519,16 @@ public class DataIniter {
 		dept999.setId("dept999");
 		dept999.setName("内分泌门诊");
 		dept999.setParent(org);
+		dept999.setOrg(org);
 
 		units.add(dept999);
 
 		organizationDomainService.create(units);
+
+		org.setInChargeDept(dept222);
+		org.setOutChargeDept(dept777);
+		
+		organizationDomainService.save(org);
 	}
 
 	private void initRooms() {
@@ -535,7 +560,7 @@ public class DataIniter {
 		user201 = new Staff();
 
 		user201.setId("staff201");
-		user201.setName("收费处-张飞");
+		user201.setName("住院收费处-张飞");
 		user201.setDept(dept222);
 
 		users.add(user201);
@@ -603,6 +628,14 @@ public class DataIniter {
 		user602.setDept(dept666);
 
 		users.add(user602);
+
+		user701 = new Staff();
+
+		user701.setId("staff701");
+		user701.setName("门诊收费部门收费员-魏延");
+		user701.setDept(dept777);
+
+		users.add(user701);
 
 		user901 = new Staff();
 
@@ -997,7 +1030,7 @@ public class DataIniter {
 		temporaryOrderListTreatmentItemSpec.setName("临时医嘱列表");
 
 		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
-		
+
 		diagnosisTreatmentItemSpec = new DiagnosisTreatmentItemSpec();
 		diagnosisTreatmentItemSpec.setId("诊断");
 		diagnosisTreatmentItemSpec.setName("诊断");

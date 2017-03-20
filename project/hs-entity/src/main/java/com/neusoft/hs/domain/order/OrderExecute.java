@@ -175,7 +175,8 @@ public class OrderExecute extends SuperEntity {
 	public static final String Type_Arrange_Inspect = "安排检查";
 
 	public static final String Type_Confirm_Inspect = "确认检查";
-
+	
+	public static final String Type_Change = "收费";
 	/**
 	 * 发送执行条目 当执行条目由其他科室执行时需要通过发送才可以使其执行
 	 * 

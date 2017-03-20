@@ -7,6 +7,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.neusoft.hs.domain.cost.ChargeRecord;
@@ -17,6 +20,10 @@ import com.neusoft.hs.domain.visit.Visit;
 @Entity
 @DiscriminatorValue("Dept")
 public class Dept extends Unit {
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "org_id")
+	private Org org;
 
 	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
 	private List<Order> belongOrders;
@@ -41,6 +48,14 @@ public class Dept extends Unit {
 
 	public Dept(String id) {
 		this.setId(id);
+	}
+
+	public Org getOrg() {
+		return org;
+	}
+
+	public void setOrg(Org org) {
+		this.org = org;
 	}
 
 	public List<Order> getBelongOrders() {
