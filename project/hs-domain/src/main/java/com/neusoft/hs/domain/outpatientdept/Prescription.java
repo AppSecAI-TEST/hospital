@@ -2,10 +2,10 @@
 
 package com.neusoft.hs.domain.outpatientdept;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,7 +42,7 @@ public class Prescription extends IdEntity {
 	@Column(length = 256)
 	private String illustrate;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
@@ -68,6 +68,13 @@ public class Prescription extends IdEntity {
 		this.orders = orders;
 	}
 
+	public void addOrder(Order order) {
+		if (this.orders == null) {
+			this.orders = new ArrayList<Order>();
+		}
+		this.orders.add(order);
+	}
+
 	public List<DiagnosisTreatmentItemValue> getDiagnosisTreatmentItemValues() {
 		return diagnosisTreatmentItemValues;
 	}
@@ -75,6 +82,13 @@ public class Prescription extends IdEntity {
 	public void setDiagnosisTreatmentItemValues(
 			List<DiagnosisTreatmentItemValue> diagnosisTreatmentItemValues) {
 		this.diagnosisTreatmentItemValues = diagnosisTreatmentItemValues;
+	}
+
+	public void addDiagnosisTreatmentItemValue(DiagnosisTreatmentItemValue value) {
+		if (this.diagnosisTreatmentItemValues == null) {
+			this.diagnosisTreatmentItemValues = new ArrayList<DiagnosisTreatmentItemValue>();
+		}
+		this.diagnosisTreatmentItemValues.add(value);
 	}
 
 	public String getIllustrate() {
