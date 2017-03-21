@@ -242,9 +242,11 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:48"));
 
 		pageable = new PageRequest(0, 15);
-//		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
-//				pageable);
-		
+		// executes =
+		// orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
+		// pageable);
+
+		// 通过患者一次就诊得到待取药的任务列表
 		executes = pharmacyAppService.taskDrug(visit001, user301, pageable);
 
 		assertTrue(executes.size() == 1);
