@@ -16,6 +16,7 @@ import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -51,6 +52,14 @@ public class OrderExecuteAppService {
 				NeedExecuteOrderMinute);
 		return orderExecuteDomainService.getNeedExecuteOrderExecutes(user,
 				planStartDate, pageable);
+	}
+
+	public List<OrderExecute> getNeedExecuteOrderExecutes(Visit visit,
+			String type, AbstractUser user, Pageable pageable) {
+		Date planStartDate = DateUtil.addMinute(DateUtil.getSysDate(),
+				NeedExecuteOrderMinute);
+		return orderExecuteDomainService.getNeedExecuteOrderExecutes(visit,type,
+				user, planStartDate, pageable);
 	}
 
 	/**

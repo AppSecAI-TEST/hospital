@@ -16,6 +16,7 @@ import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -42,6 +43,15 @@ public class OrderExecuteDomainService {
 				.findByStateAndExecuteDeptAndPlanStartDateLessThan(
 						OrderExecute.State_Executing, user.getDept(),
 						planStartDate, pageable);
+	}
+
+	public List<OrderExecute> getNeedExecuteOrderExecutes(Visit visit,
+			String type, AbstractUser user, Date planStartDate,
+			Pageable pageable) {
+		return orderExecuteRepo
+				.findByVisitAndTypeAndStateAndExecuteDeptAndPlanStartDateLessThan(
+						visit, type, OrderExecute.State_Executing,
+						user.getDept(), planStartDate, pageable);
 	}
 
 	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,

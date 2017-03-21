@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.InPatientDept;
+import com.neusoft.hs.domain.visit.Visit;
 
 interface OrderExecuteRepo extends
 		PagingAndSortingRepository<OrderExecute, String> {
@@ -23,6 +24,10 @@ interface OrderExecuteRepo extends
 
 	List<OrderExecute> findByStateAndExecuteDeptAndPlanStartDateLessThan(
 			String state, Dept dept, Date planStartDate, Pageable pageable);
+
+	List<OrderExecute> findByVisitAndTypeAndStateAndExecuteDeptAndPlanStartDateLessThan(
+			Visit visit, String type, String state, Dept dept,
+			Date planStartDate, Pageable pageable);
 
 	List<OrderExecute> findByChargeState(String chargeState, Pageable pageable);
 

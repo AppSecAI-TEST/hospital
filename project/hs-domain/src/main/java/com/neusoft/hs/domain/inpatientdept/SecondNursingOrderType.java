@@ -1,6 +1,5 @@
 package com.neusoft.hs.domain.inpatientdept;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -40,9 +39,9 @@ public class SecondNursingOrderType extends OrderType {
 
 	}
 
-	private OrderExecute create(Order order, Date startDate) {
+	private SecondNursingOrderExecute create(Order order, Date startDate) {
 
-		OrderExecute execute = new OrderExecute();
+		SecondNursingOrderExecute execute = new SecondNursingOrderExecute();
 
 		execute.setId(UUID.randomUUID().toString());
 		execute.setTeamId(UUID.randomUUID().toString());

@@ -12,6 +12,7 @@ import com.neusoft.hs.application.inpatientdept.MedicalRecordAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
 import com.neusoft.hs.application.inspect.InspectAppService;
 import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
+import com.neusoft.hs.application.pharmacy.PharmacyAppService;
 import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.application.registration.RegistrationAppService;
@@ -267,6 +268,9 @@ public class DataIniter {
 
 	@Autowired
 	protected DiseaseDomainService diseaseDomainService;
+	
+	@Autowired
+	protected PharmacyAppService pharmacyAppService;
 
 	public void clone(DataIniter dataIniter) {
 		org = dataIniter.org;
