@@ -247,13 +247,13 @@ public class OutPatientMainTestService extends AppTestService {
 		// pageable);
 
 		// 通过患者一次就诊得到待取药的任务列表
-		executes = pharmacyAppService.taskDrug(visit001, user301, pageable);
+		executes = pharmacyAppService.taskDrug(visit001, user303, pageable);
 
 		assertTrue(executes.size() == 1);
 
 		// 完成取药医嘱执行条目
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), null, user301);
+			orderExecuteAppService.finish(execute.getId(), null, user303);
 		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:50"));

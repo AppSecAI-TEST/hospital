@@ -76,11 +76,12 @@ public class DataIniter {
 	protected Org org;// 哈医大二院
 	protected Dept dept111;// 住院处
 	protected Dept dept222;// 住院收费处
-	protected Pharmacy dept333;// 药房
+	protected Pharmacy dept333;// 西药房
 	protected InspectDept dept444;// CT室
 	protected InspectDept dept555;// 核磁检查室
 	protected Dept dept666;// 病案室
 	protected Dept dept777;// 门诊收费部门
+	protected Pharmacy dept888;// 中药房
 
 	protected InPatientDept dept000;// 内泌五
 
@@ -90,8 +91,9 @@ public class DataIniter {
 
 	protected Staff user101;// 住院处送诊人-曹操
 	protected Staff user201;// 住院收费处-张飞
-	protected Staff user301;// 药房摆药岗位-赵云
-	protected Staff user302;// 药房配液岗位-关羽
+	protected Staff user301;// 西药房摆药岗位-赵云
+	protected Staff user302;// 西药房配液岗位-关羽
+	protected Staff user303;// 西药房发药岗位-吕布
 	protected Staff user401;// CT室安排检查员-吕玲绮
 	protected Staff user402;// CT室检查师-张合
 	protected Staff user501;// 核磁检查室安排检查员-周瑜
@@ -99,6 +101,7 @@ public class DataIniter {
 	protected Staff user601;// 质控岗位-刘备
 	protected Staff user602;// 病案室岗位-孙权
 	protected Staff user701;// 门诊收费部门收费员-魏延
+	protected Staff user801;// 中药房摆发药岗位-郭嘉
 	protected Staff user901;// 儿科门诊挂号岗位-黄忠
 
 	protected Staff user001;// 内泌五接诊护士-大乔
@@ -112,6 +115,12 @@ public class DataIniter {
 	protected ChargeItem drugTypeSpec002ChargeItem;// 药品002计费项目（头孢3）
 
 	protected ChargeItem drugTypeSpec003ChargeItem;// 药品003计费项目(5%葡萄糖液)
+
+	protected ChargeItem drugTypeSpec004ChargeItem;// 药品004计费项目(天花粉)
+
+	protected ChargeItem drugTypeSpec005ChargeItem;// 药品005计费项目(葛根)
+
+	protected ChargeItem drugTypeSpec006ChargeItem;// 药品006计费项目(生地黄)
 
 	protected ChargeItem transportFluidMaterialChargeItem;// 输液材料费
 
@@ -129,17 +138,35 @@ public class DataIniter {
 
 	protected DrugTypeSpec drugTypeSpec003;// 药品规格003
 
+	protected DrugTypeSpec drugTypeSpec004;// 药品规格004
+
+	protected DrugTypeSpec drugTypeSpec005;// 药品规格005
+
+	protected DrugTypeSpec drugTypeSpec006;// 药品规格006
+
 	protected DrugType drugType001;// 药房下的药品类型001（有库存属性）
 
 	protected DrugType drugType002;// 药房下的药品类型002（有库存属性）
 
 	protected DrugType drugType003;// 药房下的药品类型003（有库存属性）
 
+	protected DrugType drugType004;// 药房下的药品类型004（有库存属性）
+
+	protected DrugType drugType005;// 药房下的药品类型005（有库存属性）
+
+	protected DrugType drugType006;// 药房下的药品类型006（有库存属性）
+
 	protected DrugOrderType drugOrderType001;// 药品医嘱类型001
 
 	protected DrugOrderType drugOrderType002;// 药品医嘱类型002
 
 	protected DrugOrderType drugOrderType003;// 药品医嘱类型003
+
+	protected DrugOrderType drugOrderType004;// 药品医嘱类型004
+
+	protected DrugOrderType drugOrderType005;// 药品医嘱类型005
+
+	protected DrugOrderType drugOrderType006;// 药品医嘱类型006
 
 	protected InspectItem brainCTInspectItem;// 脑CT检查项目
 
@@ -268,7 +295,7 @@ public class DataIniter {
 
 	@Autowired
 	protected DiseaseDomainService diseaseDomainService;
-	
+
 	@Autowired
 	protected PharmacyAppService pharmacyAppService;
 
@@ -282,6 +309,7 @@ public class DataIniter {
 		dept555 = dataIniter.dept555;
 		dept666 = dataIniter.dept666;
 		dept777 = dataIniter.dept777;
+		dept888 = dataIniter.dept888;
 		dept000 = dataIniter.dept000;
 		dept999 = dataIniter.dept999;
 
@@ -291,6 +319,7 @@ public class DataIniter {
 		user201 = dataIniter.user201;
 		user301 = dataIniter.user301;
 		user302 = dataIniter.user302;
+		user303 = dataIniter.user303;
 		user401 = dataIniter.user401;
 		user402 = dataIniter.user402;
 		user501 = dataIniter.user501;
@@ -298,6 +327,7 @@ public class DataIniter {
 		user601 = dataIniter.user601;
 		user602 = dataIniter.user602;
 		user701 = dataIniter.user701;
+		user801 = dataIniter.user801;
 		user901 = dataIniter.user901;
 		user001 = dataIniter.user001;
 		user002 = dataIniter.user002;
@@ -316,14 +346,23 @@ public class DataIniter {
 		drugTypeSpec001 = dataIniter.drugTypeSpec001;
 		drugTypeSpec002 = dataIniter.drugTypeSpec002;
 		drugTypeSpec003 = dataIniter.drugTypeSpec003;
+		drugTypeSpec004 = dataIniter.drugTypeSpec004;
+		drugTypeSpec005 = dataIniter.drugTypeSpec005;
+		drugTypeSpec006 = dataIniter.drugTypeSpec006;
 
 		drugType001 = dataIniter.drugType001;
 		drugType002 = dataIniter.drugType002;
 		drugType003 = dataIniter.drugType003;
+		drugType004 = dataIniter.drugType004;
+		drugType005 = dataIniter.drugType005;
+		drugType006 = dataIniter.drugType006;
 
 		drugOrderType001 = dataIniter.drugOrderType001;
 		drugOrderType002 = dataIniter.drugOrderType002;
 		drugOrderType003 = dataIniter.drugOrderType003;
+		drugOrderType004 = dataIniter.drugOrderType004;
+		drugOrderType005 = dataIniter.drugOrderType005;
+		drugOrderType006 = dataIniter.drugOrderType006;
 
 		brainCTInspectItem = dataIniter.brainCTInspectItem;
 		brainHCInspectItem = dataIniter.brainHCInspectItem;
@@ -473,7 +512,7 @@ public class DataIniter {
 
 		dept333 = new Pharmacy();
 		dept333.setId("dept333");
-		dept333.setName("药房");
+		dept333.setName("西药房");
 		dept333.setParent(org);
 		dept333.setOrg(org);
 
@@ -510,6 +549,14 @@ public class DataIniter {
 		dept777.setOrg(org);
 
 		units.add(dept777);
+
+		dept888 = new Pharmacy();
+		dept888.setId("dept888");
+		dept888.setName("中药房");
+		dept888.setParent(org);
+		dept888.setOrg(org);
+
+		units.add(dept888);
 
 		dept000 = new InPatientDept();
 		dept000.setId("dept000");
@@ -572,7 +619,7 @@ public class DataIniter {
 		user301 = new Staff();
 
 		user301.setId("staff301");
-		user301.setName("药房摆药岗位-赵云");
+		user301.setName("西药房摆药岗位-赵云");
 		user301.setDept(dept333);
 
 		users.add(user301);
@@ -580,10 +627,18 @@ public class DataIniter {
 		user302 = new Staff();
 
 		user302.setId("staff302");
-		user302.setName("药房配液岗位-关羽");
+		user302.setName("西药房配液岗位-关羽");
 		user302.setDept(dept333);
 
 		users.add(user302);
+		
+		user303 = new Staff();
+
+		user303.setId("staff303");
+		user303.setName("西药房发药岗位-郭嘉");
+		user303.setDept(dept333);
+
+		users.add(user303);
 
 		user401 = new Staff();
 
@@ -640,6 +695,14 @@ public class DataIniter {
 		user701.setDept(dept777);
 
 		users.add(user701);
+
+		user801 = new Staff();
+
+		user801.setId("staff801");
+		user801.setName("中药房摆发药岗位-郭嘉");
+		user801.setDept(dept888);
+
+		users.add(user801);
 
 		user901 = new Staff();
 
@@ -728,8 +791,41 @@ public class DataIniter {
 		drugTypeSpec003ChargeItem.setUnit("袋");
 		drugTypeSpec003ChargeItem
 				.setChargingMode(ChargeItem.ChargingMode_Amount);
-
+		
 		chargeItems.add(drugTypeSpec003ChargeItem);
+		
+		drugTypeSpec004ChargeItem = new ChargeItem();
+		drugTypeSpec004ChargeItem.setId("drugTypeSpec004ChargeItem");
+		drugTypeSpec004ChargeItem.setCode("drugTypeSpec004ChargeItem");
+		drugTypeSpec004ChargeItem.setName("天花粉");
+		drugTypeSpec004ChargeItem.setPrice(5);
+		drugTypeSpec004ChargeItem.setUnit("克");
+		drugTypeSpec004ChargeItem
+				.setChargingMode(ChargeItem.ChargingMode_Amount);
+		
+		chargeItems.add(drugTypeSpec004ChargeItem);
+		
+		drugTypeSpec005ChargeItem = new ChargeItem();
+		drugTypeSpec005ChargeItem.setId("drugTypeSpec005ChargeItem");
+		drugTypeSpec005ChargeItem.setCode("drugTypeSpec005ChargeItem");
+		drugTypeSpec005ChargeItem.setName("葛根");
+		drugTypeSpec005ChargeItem.setPrice(3);
+		drugTypeSpec005ChargeItem.setUnit("克");
+		drugTypeSpec005ChargeItem
+				.setChargingMode(ChargeItem.ChargingMode_Amount);
+		
+		chargeItems.add(drugTypeSpec005ChargeItem);
+		
+		drugTypeSpec006ChargeItem = new ChargeItem();
+		drugTypeSpec006ChargeItem.setId("drugTypeSpec006ChargeItem");
+		drugTypeSpec006ChargeItem.setCode("drugTypeSpec006ChargeItem");
+		drugTypeSpec006ChargeItem.setName("生地黄");
+		drugTypeSpec006ChargeItem.setPrice(4);
+		drugTypeSpec006ChargeItem.setUnit("克");
+		drugTypeSpec006ChargeItem
+				.setChargingMode(ChargeItem.ChargingMode_Amount);
+
+		chargeItems.add(drugTypeSpec006ChargeItem);
 
 		transportFluidMaterialChargeItem = new ChargeItem();
 		transportFluidMaterialChargeItem
@@ -804,6 +900,27 @@ public class DataIniter {
 
 		drugTypeSpecs.add(drugTypeSpec003);
 
+		drugTypeSpec004 = new DrugTypeSpec();
+		drugTypeSpec004.setId("drugTypeSpec004");
+		drugTypeSpec004.setName("天花粉");
+		drugTypeSpec004.setChargeItem(drugTypeSpec004ChargeItem);
+
+		drugTypeSpecs.add(drugTypeSpec004);
+
+		drugTypeSpec005 = new DrugTypeSpec();
+		drugTypeSpec005.setId("drugTypeSpec005");
+		drugTypeSpec005.setName("葛根");
+		drugTypeSpec005.setChargeItem(drugTypeSpec005ChargeItem);
+
+		drugTypeSpecs.add(drugTypeSpec005);
+
+		drugTypeSpec006 = new DrugTypeSpec();
+		drugTypeSpec006.setId("drugTypeSpec006");
+		drugTypeSpec006.setName("生地黄");
+		drugTypeSpec006.setChargeItem(drugTypeSpec006ChargeItem);
+
+		drugTypeSpecs.add(drugTypeSpec006);
+
 		pharmacyDomainService.createDrugTypeSpecs(drugTypeSpecs);
 	}
 
@@ -834,6 +951,30 @@ public class DataIniter {
 		drugType003.setStock(3000);
 
 		drugTypes.add(drugType003);
+
+		drugType004 = new DrugType();
+		drugType004.setId("drugType004");
+		drugType004.setDrugTypeSpec(drugTypeSpec004);
+		drugType004.setPharmacy(dept888);
+		drugType004.setStock(2000);
+
+		drugTypes.add(drugType004);
+
+		drugType005 = new DrugType();
+		drugType005.setId("drugType005");
+		drugType005.setDrugTypeSpec(drugTypeSpec005);
+		drugType005.setPharmacy(dept888);
+		drugType005.setStock(2000);
+
+		drugTypes.add(drugType005);
+
+		drugType006 = new DrugType();
+		drugType006.setId("drugType006");
+		drugType006.setDrugTypeSpec(drugTypeSpec006);
+		drugType006.setPharmacy(dept888);
+		drugType006.setStock(2000);
+
+		drugTypes.add(drugType006);
 
 		pharmacyDomainService.createDrugTypes(drugTypes);
 	}
@@ -888,6 +1029,30 @@ public class DataIniter {
 		drugOrderType003.setDrugType(drugType003);
 
 		orderTypes.add(drugOrderType003);
+		
+		drugOrderType004 = new DrugOrderType();
+		drugOrderType004.setId("drugOrderType004");
+		drugOrderType004.setCode("drugOrderType004");
+		drugOrderType004.setName("天花粉");
+		drugOrderType004.setDrugType(drugType004);
+
+		orderTypes.add(drugOrderType004);
+		
+		drugOrderType005 = new DrugOrderType();
+		drugOrderType005.setId("drugOrderType005");
+		drugOrderType005.setCode("drugOrderType005");
+		drugOrderType005.setName("葛根");
+		drugOrderType005.setDrugType(drugType005);
+
+		orderTypes.add(drugOrderType005);
+		
+		drugOrderType006 = new DrugOrderType();
+		drugOrderType006.setId("drugOrderType006");
+		drugOrderType006.setCode("drugOrderType006");
+		drugOrderType006.setName("生地黄");
+		drugOrderType006.setDrugType(drugType006);
+
+		orderTypes.add(drugOrderType006);
 
 		enterHospitalOrderType = new EnterHospitalOrderType();
 		enterHospitalOrderType.setId("enterHospitalOrderType");
