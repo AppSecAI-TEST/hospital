@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
+import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.log.LogUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -39,10 +41,8 @@ public class OutPatientDeptDomainService {
 					+ "]不存在");
 		}
 		boolean rtn = record.nextVoucher();
-		
-		if(rtn){
-			
-		}
+
+		LogUtil.log(this.getClass(), "医生[{}]叫号", record.getDoctor().getId());
 
 		return rtn;
 	}
