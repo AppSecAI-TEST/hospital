@@ -39,6 +39,10 @@ public class OutPatientDeptDomainService {
 					+ "]不存在");
 		}
 		boolean rtn = record.nextVoucher();
+		
+		if(rtn){
+			
+		}
 
 		return rtn;
 	}

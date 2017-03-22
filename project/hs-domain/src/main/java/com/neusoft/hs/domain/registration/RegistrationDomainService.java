@@ -15,6 +15,7 @@ import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -87,6 +88,10 @@ public class RegistrationDomainService {
 
 		voucherRepo.save(voucher);
 
+		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]挂号，号码是[{}], 诊室为[{}]",
+				user.getId(), visit.getId(), voucher.getNumber(), planRecord
+						.getRoom().getId());
+
 		return voucher;
 	}
 
@@ -109,6 +114,10 @@ public class RegistrationDomainService {
 		planRecord.repeatOccupy(voucher);
 
 		voucherRepo.save(voucher);
+
+		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]重新排号，号码是[{}], 诊室为[{}]",
+				user.getId(), voucher.getVisit().getId(), voucher.getNumber(),
+				planRecord.getRoom().getId());
 	}
 
 	public Voucher getTheVoucher(OutPatientPlanRecord record, Integer number) {
