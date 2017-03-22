@@ -24,6 +24,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.slf4j.LoggerFactory;
 
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -195,6 +196,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			this.lastOrderExecuteId = resolveOrderExecutes.get(
 					resolveOrderExecutes.size() - 1).getId();
 		}
+
+		LoggerFactory.getLogger(this.getClass()).info(
+				"系统分解了医嘱条目[{}],得到{}条执行条目", this.getId(),
+				resolveOrderExecutes.size());
+
 		return resolveOrderExecutes.size();
 	}
 

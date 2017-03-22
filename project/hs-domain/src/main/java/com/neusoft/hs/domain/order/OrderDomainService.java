@@ -137,6 +137,9 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderVerifyedEvent(order));
 
+		logger.info("护士[{}]核对患者一次就诊[[{}]的医嘱条目{}", nurse.getId(), order
+				.getVisit().getId(), orderId);
+
 		return order;
 	}
 
@@ -181,6 +184,9 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderCanceledEvent(order));
 
+		logger.info("医生[{}]作废了核对患者一次就诊[[{}]的医嘱条目{}", doctor.getId(), order
+				.getVisit().getId(), orderId);
+
 	}
 
 	/**
@@ -198,6 +204,9 @@ public class OrderDomainService {
 		order.delete();
 
 		applicationContext.publishEvent(new OrderDeletedEvent(order));
+
+		logger.info("医生[{}]删除了核对患者一次就诊[[{}]的医嘱条目{}", doctor.getId(), order
+				.getVisit().getId(), orderId);
 	}
 
 	public List<Prescription> findPrescriptions(Visit visit) {

@@ -212,7 +212,8 @@ public class CostDomainService {
 			}
 		}
 
-		logger.info("系统:医嘱执行条目[{}]产生的费用{}被撤回", execute.getId(), amount);
+		logger.info("护士[{}]将医嘱执行条目[{}]产生的费用{}撤回", nurse.getId(),
+				execute.getId(), amount);
 	}
 
 	/**
