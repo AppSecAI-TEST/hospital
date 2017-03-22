@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +17,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -30,8 +29,6 @@ public class OrderExecuteDomainService {
 
 	@Autowired
 	private ApplicationContext applicationContext;
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
 			Date planStartDate, Pageable pageable) {
@@ -83,8 +80,8 @@ public class OrderExecuteDomainService {
 
 		applicationContext.publishEvent(new OrderExecuteSendedEvent(execute));
 
-		logger.info("护士[{}]发送患者一次就诊[{}]的医嘱执行条目{}", nurse.getId(), execute
-				.getVisit().getId(), execute.getId());
+		LogUtil.log(this.getClass(), "护士[{}]发送患者一次就诊[{}]的医嘱执行条目{}",
+				nurse.getId(), execute.getVisit().getId(), execute.getId());
 
 	}
 
@@ -100,7 +97,7 @@ public class OrderExecuteDomainService {
 				OrderExecute.State_NeedExecute, ChargeBill.State_Normal,
 				sysDate, startDate);
 
-		logger.info("系统自动启动了{}条符合条件的医嘱执行条目", count);
+		LogUtil.log(this.getClass(), "系统自动启动了{}条符合条件的医嘱执行条目", count);
 
 		return count;
 	}
@@ -125,8 +122,8 @@ public class OrderExecuteDomainService {
 
 		applicationContext.publishEvent(new OrderExecuteFinishedEvent(execute));
 
-		logger.info("用户[{}]完成了患者一次就诊[{}]的医嘱执行条目{}", user.getId(), execute
-				.getVisit().getId(), execute.getId());
+		LogUtil.log(this.getClass(), "用户[{}]完成了患者一次就诊[{}]的医嘱执行条目{}",
+				user.getId(), execute.getVisit().getId(), execute.getId());
 	}
 
 	public OrderExecute find(String executeId) {

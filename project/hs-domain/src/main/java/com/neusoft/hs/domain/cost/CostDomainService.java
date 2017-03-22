@@ -22,6 +22,7 @@ import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -42,8 +43,6 @@ public class CostDomainService {
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public List<Visit> getNeedInitAccount(Pageable pageable) {
 		return visitDomainService.findByState(Visit.State_NeedInitAccount,
@@ -93,8 +92,8 @@ public class CostDomainService {
 		}
 		chargeBill.setBalance(chargeBill.getBalance() + balance);
 
-		logger.info("用户[{}]给账户[{}]续费{}", user.getId(), chargeBill.getId(),
-				balance);
+		LogUtil.log(this.getClass(), "用户[{}]给账户[{}]续费{}", user.getId(),
+				chargeBill.getId(), balance);
 
 		return chargeRecord;
 	}
@@ -117,7 +116,8 @@ public class CostDomainService {
 
 		visitChargeItem.save();
 
-		logger.info("系统给患者一次就诊[{}]增加收费项目{}", visit.getId(), item.getId());
+		LogUtil.log(this.getClass(), "系统给患者一次就诊[{}]增加收费项目{}", visit.getId(),
+				item.getId());
 	}
 
 	/**
@@ -168,7 +168,8 @@ public class CostDomainService {
 			}
 		}
 
-		logger.info("系统:医嘱执行条目[{}]产生费用{}", execute.getId(), amount);
+		LogUtil.log(this.getClass(), "系统:医嘱执行条目[{}]产生费用{}", execute.getId(),
+				amount);
 
 		return amount;
 	}
@@ -212,8 +213,8 @@ public class CostDomainService {
 			}
 		}
 
-		logger.info("护士[{}]将医嘱执行条目[{}]产生的费用{}撤回", nurse.getId(),
-				execute.getId(), amount);
+		LogUtil.log(this.getClass(), "护士[{}]将医嘱执行条目[{}]产生的费用{}撤回",
+				nurse.getId(), execute.getId(), amount);
 	}
 
 	/**

@@ -32,6 +32,7 @@ import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 /**
@@ -191,9 +192,8 @@ public class Visit extends IdEntity {
 
 		visitLog.save();
 
-		LoggerFactory.getLogger(this.getClass()).info(
-				"用户[{}]为患者一次就诊[{}]初始化了收费单,金额为{}", user.getId(), this.getId(),
-				balance);
+		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]初始化了收费单,金额为{}",
+				user.getId(), this.getId(), balance);
 
 		return chargeBill;
 	}

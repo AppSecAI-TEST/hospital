@@ -19,6 +19,7 @@ import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -51,8 +52,6 @@ public class OrderDomainService {
 
 	@Autowired
 	private ApplicationContext applicationContext;
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 * 创建医嘱条目
@@ -108,8 +107,8 @@ public class OrderDomainService {
 			orderIds.add(order.getId());
 		}
 
-		logger.info("医生[{}]给患者一次就诊[{}]创建医嘱条目{}", doctor.getId(), orderCommand
-				.getVisit().getId(), orderIds);
+		LogUtil.log(this.getClass(), "医生[{}]给患者一次就诊[{}]创建医嘱条目{}",
+				doctor.getId(), orderCommand.getVisit().getId(), orderIds);
 
 		return orders;
 	}
@@ -137,8 +136,8 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderVerifyedEvent(order));
 
-		logger.info("护士[{}]核对患者一次就诊[[{}]的医嘱条目{}", nurse.getId(), order
-				.getVisit().getId(), orderId);
+		LogUtil.log(this.getClass(), "护士[{}]核对患者一次就诊[[{}]的医嘱条目{}",
+				nurse.getId(), order.getVisit().getId(), orderId);
 
 		return order;
 	}
@@ -184,8 +183,8 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderCanceledEvent(order));
 
-		logger.info("医生[{}]作废了核对患者一次就诊[[{}]的医嘱条目{}", doctor.getId(), order
-				.getVisit().getId(), orderId);
+		LogUtil.log(this.getClass(), "医生[{}]作废了核对患者一次就诊[[{}]的医嘱条目{}",
+				doctor.getId(), order.getVisit().getId(), orderId);
 
 	}
 
@@ -205,8 +204,8 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderDeletedEvent(order));
 
-		logger.info("医生[{}]删除了核对患者一次就诊[[{}]的医嘱条目{}", doctor.getId(), order
-				.getVisit().getId(), orderId);
+		LogUtil.log(this.getClass(), "医生[{}]删除了核对患者一次就诊[[{}]的医嘱条目{}",
+				doctor.getId(), order.getVisit().getId(), orderId);
 	}
 
 	public List<Prescription> findPrescriptions(Visit visit) {

@@ -31,6 +31,7 @@ import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.log.LogUtil;
 
 /**
  * 一条抽象的医嘱条目 医嘱由医生创建，并关联患者一次就诊 每一条医嘱都有类型，医嘱的分解与类型有关
@@ -197,8 +198,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 					resolveOrderExecutes.size() - 1).getId();
 		}
 
-		LoggerFactory.getLogger(this.getClass()).info(
-				"系统分解了医嘱条目[{}],得到{}条执行条目", this.getId(),
+		LogUtil.log(this.getClass(), "系统分解了医嘱条目[{}],得到{}条执行条目", this.getId(),
 				resolveOrderExecutes.size());
 
 		return resolveOrderExecutes.size();
