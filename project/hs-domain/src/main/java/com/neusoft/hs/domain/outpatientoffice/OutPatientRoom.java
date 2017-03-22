@@ -4,6 +4,7 @@ package com.neusoft.hs.domain.outpatientoffice;
 
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.OutPatientDept;
@@ -21,6 +24,8 @@ import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
 @Table(name = "domain_outpatient_room")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "outPatientRoomCache")
 public class OutPatientRoom extends SuperEntity {
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)
