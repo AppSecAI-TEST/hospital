@@ -62,10 +62,11 @@
 	<logger name="org.hibernate.engine.query.HQLQueryPlan" level="INFO" />
 
 	<root level="INFO">
-		<!-- 
-		<appender-ref ref="INFO_FILE" />
-		<appender-ref ref="ERROR_FILE" />
-		 -->
+		<!-- <appender-ref ref="INFO_FILE" /> <appender-ref ref="ERROR_FILE" /> -->
 	</root>
+
+	<logger name="com.neusoft.hs">
+		<appender-ref ref="INFO_FILE" />
+	</logger>
 
 </configuration>

@@ -17,6 +17,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.slf4j.LoggerFactory;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeRecord;
@@ -190,6 +191,10 @@ public class Visit extends IdEntity {
 
 		visitLog.save();
 
+		LoggerFactory.getLogger(this.getClass()).info(
+				"用户[{}]为患者一次就诊[{}]初始化了收费单,金额为{}", user.getId(), this.getId(),
+				balance);
+
 		return chargeBill;
 	}
 
@@ -267,9 +272,9 @@ public class Visit extends IdEntity {
 		}
 
 		this.setState(State_OutHospital);
-		
+
 		this.chargeBill.balance();
-		//this.chargeBill.save();
+		// this.chargeBill.save();
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);

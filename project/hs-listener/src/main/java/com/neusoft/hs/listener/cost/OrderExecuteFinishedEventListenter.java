@@ -19,15 +19,11 @@ public class OrderExecuteFinishedEventListenter implements
 	@Autowired
 	private CostDomainService costDomainService;
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	@Override
 	public void onApplicationEvent(OrderExecuteFinishedEvent event) {
 
 		OrderExecute execute = (OrderExecute) event.getSource();
 
-		Float amount = costDomainService.charging(execute);
-
-		logger.info("医嘱执行条目[{}]产生费用{}", execute.getId(), amount);
+		costDomainService.charging(execute);
 	}
 }

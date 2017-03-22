@@ -101,7 +101,7 @@ public class ChargeBill extends IdEntity {
 	 * @param chargeRecords
 	 * @roseuid 5850BDE60140
 	 */
-	public void unCharging(List<ChargeRecord> chargeRecords) {
+	public Float unCharging(List<ChargeRecord> chargeRecords) {
 		float balance = 0F;
 		ChargeRecord newChargeRecord = null;
 		for (ChargeRecord chargeRecord : chargeRecords) {
@@ -112,6 +112,8 @@ public class ChargeBill extends IdEntity {
 
 		this.balance += balance;
 		this.consume -= balance;// 金额为正
+
+		return balance;
 	}
 
 	public void balance() {

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +51,8 @@ public class OrderDomainService {
 
 	@Autowired
 	private ApplicationContext applicationContext;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 * 创建医嘱条目
@@ -98,9 +102,14 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderCreatedEvent(orderCommand));
 
+		List<String> orderIds = new ArrayList<String>();
 		for (Order order : orderCommand.getOrders()) {
 			order.create();
+			orderIds.add(order.getId());
 		}
+
+		logger.info("医生[{}]给患者一次就诊[{}]创建医嘱条目{}", doctor.getId(), orderCommand
+				.getVisit().getId(), orderIds);
 
 		return orders;
 	}
@@ -194,8 +203,8 @@ public class OrderDomainService {
 	public List<Prescription> findPrescriptions(Visit visit) {
 		return prescriptionRepo.findByVisit(visit);
 	}
-	
-	public Prescription findThePrescription(Order order){
+
+	public Prescription findThePrescription(Order order) {
 		return prescriptionRepo.findByOrdersIn(order);
 	}
 

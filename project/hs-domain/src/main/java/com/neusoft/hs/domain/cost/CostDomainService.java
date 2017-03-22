@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,8 @@ public class CostDomainService {
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public List<Visit> getNeedInitAccount(Pageable pageable) {
 		return visitDomainService.findByState(Visit.State_NeedInitAccount,
@@ -89,6 +93,9 @@ public class CostDomainService {
 		}
 		chargeBill.setBalance(chargeBill.getBalance() + balance);
 
+		logger.info("用户[{}]给账户[{}]续费{}", user.getId(), chargeBill.getId(),
+				balance);
+
 		return chargeRecord;
 	}
 
@@ -109,6 +116,8 @@ public class CostDomainService {
 		visitChargeItem.setStartDate(startDate);
 
 		visitChargeItem.save();
+
+		logger.info("系统给患者一次就诊[{}]增加收费项目{}", visit.getId(), item.getId());
 	}
 
 	/**
@@ -159,6 +168,8 @@ public class CostDomainService {
 			}
 		}
 
+		logger.info("系统:医嘱执行条目[{}]产生费用{}", execute.getId(), amount);
+
 		return amount;
 	}
 
@@ -186,7 +197,8 @@ public class CostDomainService {
 		}
 
 		List<ChargeRecord> chargeRecords = execute.getChargeRecords();
-		execute.getVisit().getChargeBill().unCharging(chargeRecords);
+		Float amount = execute.getVisit().getChargeBill()
+				.unCharging(chargeRecords);
 		execute.setChargeState(OrderExecute.ChargeState_BackCharge);
 
 		if (isBackCost) {
@@ -199,6 +211,8 @@ public class CostDomainService {
 				}
 			}
 		}
+
+		logger.info("系统:医嘱执行条目[{}]产生的费用{}被撤回", execute.getId(), amount);
 	}
 
 	/**
