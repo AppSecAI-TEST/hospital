@@ -14,6 +14,7 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -87,6 +88,9 @@ public class MedicalRecordDomainService {
 		recordLog.save();
 
 		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
+
+		LogUtil.log(this.getClass(), "医生[{}]为患者一次就诊[{}]创建病历[{}]", record
+				.getDoctor().getId(), record.getVisit().getId(), record.getId());
 	}
 
 	public MedicalRecordClip findClip(String id) {
@@ -117,6 +121,9 @@ public class MedicalRecordDomainService {
 		record.sign(doctor);
 
 		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
+
+		LogUtil.log(this.getClass(), "医生[{}]为患者一次就诊[{}]的病历[{}]签名",
+				doctor.getId(), record.getVisit().getId(), record.getId());
 	}
 
 	/**
@@ -134,15 +141,22 @@ public class MedicalRecordDomainService {
 		record.fix(user);
 
 		applicationContext.publishEvent(new MedicalRecordFixedEvent(record));
+
+		LogUtil.log(this.getClass(), "用户[{}]锁定患者一次就诊[{}]的病历[{}]", user.getId(),
+				record.getVisit().getId(), record.getId());
 	}
 
-	public void transfer(Visit visit, Dept dept) throws MedicalRecordException {
+	public void transfer(Visit visit, Dept dept, AbstractUser user)
+			throws MedicalRecordException {
 		MedicalRecordClip clip = this.getMedicalRecordClip(visit);
 
 		clip.transfer(dept);
 
 		applicationContext.publishEvent(new MedicalRecordClipTransferedEvent(
 				clip));
+
+		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]移交到病案室[{}]",
+				user.getId(), visit.getId(), clip.getId(), dept.getId());
 	}
 
 	public void toArchive(String id, AbstractUser user)
@@ -155,6 +169,9 @@ public class MedicalRecordDomainService {
 		clip.setState(MedicalRecordClip.State_Archiving);
 		clip.setChecker(user);
 		clip.save();
+
+		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]归档",
+				user.getId(), clip.getVisit().getId(), clip.getId());
 	}
 
 	public MedicalRecordClip getMedicalRecordClip(Visit visit) {

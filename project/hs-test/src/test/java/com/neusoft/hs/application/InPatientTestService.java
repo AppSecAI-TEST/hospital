@@ -265,7 +265,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00", dayCount));
 
-		medicalRecordAppService.transfer(visit001, dept666);
+		medicalRecordAppService.transfer(visit001, dept666, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30", dayCount));
 

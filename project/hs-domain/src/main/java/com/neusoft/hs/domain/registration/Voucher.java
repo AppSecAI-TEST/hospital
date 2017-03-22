@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.log.LogUtil;
 
 /**
  * 挂号实体
@@ -95,6 +96,9 @@ public class Voucher extends IdEntity {
 			this.visit.setState(Visit.State_Diagnosed_Executing);
 		}
 		this.visit.save();
+
+		LogUtil.log(this.getClass(), "患者一次就诊[{}]离开诊室[{}]", this.visit.getId(),
+				planRecord.getRoom().getId());
 	}
 
 	/**
@@ -103,6 +107,9 @@ public class Voucher extends IdEntity {
 	public void enter() {
 		this.visit.setState(Visit.State_Diagnosing);
 		this.visit.save();
+
+		LogUtil.log(this.getClass(), "患者一次就诊[{}]进入诊室[{}]", this.visit.getId(),
+				planRecord.getRoom().getId());
 	}
 
 }

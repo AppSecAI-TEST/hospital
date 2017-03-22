@@ -42,7 +42,7 @@ public class MedicalRecordAppService {
 		medicalRecordDomainService.fix(id, user);
 	}
 
-	public void transfer(Visit visit, Dept dept) throws MedicalRecordException {
-		medicalRecordDomainService.transfer(visit, dept);
+	public void transfer(Visit visit, Dept dept, AbstractUser user) throws MedicalRecordException {
+		medicalRecordDomainService.transfer(visit, dept, user);
 	}
 }
