@@ -21,7 +21,9 @@ public class OrderExecuteFinishedEventListenter implements
 	public void onApplicationEvent(OrderExecuteFinishedEvent event) {
 
 		OrderExecute execute = (OrderExecute) event.getSource();
+
+		Float amount = costDomainService.charging(execute);
 		
-		costDomainService.charging(execute);
+		
 	}
 }

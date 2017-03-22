@@ -117,7 +117,9 @@ public class CostDomainService {
 	 * @param execute
 	 * @roseuid 584FBC02036D
 	 */
-	public void charging(OrderExecute execute) {
+	public Float charging(OrderExecute execute) {
+
+		Float amount = 0F;
 
 		// 生成收费项目
 		List<ChargeRecord> chargeRecords = execute.createChargeRecords();
@@ -137,7 +139,7 @@ public class CostDomainService {
 				}
 			}
 			// 生成费用记录
-			execute.getVisit().getChargeBill().charging(chargeRecords);
+			amount = execute.getVisit().getChargeBill().charging(chargeRecords);
 			// 修改执行条目状态
 			if (haveCharge) {
 				execute.setChargeState(OrderExecute.ChargeState_Charge);
@@ -156,6 +158,8 @@ public class CostDomainService {
 				execute.setCostState(OrderExecute.CostState_Cost);
 			}
 		}
+
+		return amount;
 	}
 
 	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,

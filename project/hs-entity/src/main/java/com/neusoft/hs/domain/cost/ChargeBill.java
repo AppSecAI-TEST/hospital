@@ -66,7 +66,7 @@ public class ChargeBill extends IdEntity {
 	 * @param chargeRecords2
 	 * @roseuid 5850A3D500DE
 	 */
-	public void charging(List<ChargeRecord> chargeRecords) {
+	public Float charging(List<ChargeRecord> chargeRecords) {
 
 		float theConsume = 0F;
 
@@ -91,6 +91,8 @@ public class ChargeBill extends IdEntity {
 		}
 
 		this.consume += theConsume;
+
+		return theConsume;
 	}
 
 	/**
@@ -119,7 +121,7 @@ public class ChargeBill extends IdEntity {
 		chargeRecord.setHaveCharge(false);
 
 		this.addChargeRecord(chargeRecord);
-		
+
 		this.balance = 0;
 	}
 
