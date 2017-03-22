@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -39,7 +40,7 @@ public class OrderDomainService {
 
 	@Autowired
 	private AssistMaterialRepo assistMaterialRepo;
-	
+
 	@Autowired
 	private PrescriptionRepo prescriptionRepo;
 
@@ -190,6 +191,14 @@ public class OrderDomainService {
 		applicationContext.publishEvent(new OrderDeletedEvent(order));
 	}
 
+	public List<Prescription> findPrescriptions(Visit visit) {
+		return prescriptionRepo.findByVisit(visit);
+	}
+	
+	public Prescription findThePrescription(Order order){
+		return prescriptionRepo.findByOrdersIn(order);
+	}
+
 	/**
 	 * @roseuid 585250700266
 	 */
@@ -228,7 +237,7 @@ public class OrderDomainService {
 	public void clearCompsiteOrdes() {
 		compsiteOrderRepo.deleteAll();
 	}
-	
+
 	public void clearPrescriptions() {
 		prescriptionRepo.deleteAll();
 	}

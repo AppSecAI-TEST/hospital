@@ -219,7 +219,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		drug004Order.setTypeApp(new DrugOrderTypeApp(drugOrderType4,
 				oralOrderUseMode));
-		
+
 		prescription.addOrder(drug004Order);
 
 		// 开立药品临时医嘱
@@ -235,7 +235,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		drug005Order.setTypeApp(new DrugOrderTypeApp(drugOrderType5,
 				oralOrderUseMode));
-		
+
 		prescription.addOrder(drug005Order);
 
 		// 开立药品临时医嘱
@@ -251,7 +251,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		drug006Order.setTypeApp(new DrugOrderTypeApp(drugOrderType6,
 				oralOrderUseMode));
-		
+
 		prescription.addOrder(drug006Order);
 
 		orderAppService.create(prescription, user002);
@@ -309,10 +309,6 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:48"));
 
 		pageable = new PageRequest(0, 15);
-		// executes =
-		// orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
-		// pageable);
-
 		// 通过患者一次就诊得到待取药的任务列表
 		executes = pharmacyAppService.taskDrug(visit001, user303, pageable);
 
@@ -322,7 +318,7 @@ public class OutPatientMainTestService extends AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user303);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:49"));
 
 		pageable = new PageRequest(0, 15);
@@ -330,6 +326,16 @@ public class OutPatientMainTestService extends AppTestService {
 				pageable);
 
 		assertTrue(executes.size() == 3);
+
+		List<Prescription> prescriptions = orderDomainService
+				.findPrescriptions(visit001);
+
+		assertTrue(prescriptions.size() == 1);
+		assertTrue(prescriptions.get(0).getIllustrate().equals("水煎服"));
+
+		prescription = orderDomainService.findThePrescription(drug004Order);
+
+		assertTrue(prescription != null);
 
 		// 完成摆药医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -339,10 +345,6 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:50"));
 
 		pageable = new PageRequest(0, 15);
-		// executes =
-		// orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
-		// pageable);
-
 		// 通过患者一次就诊得到待取药的任务列表
 		executes = pharmacyAppService.taskDrug(visit001, user801, pageable);
 

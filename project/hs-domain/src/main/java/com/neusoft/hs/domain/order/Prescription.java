@@ -54,6 +54,9 @@ public class Prescription extends IdEntity implements OrderCreateCommand {
 	@Column(name = "create_date")
 	private Date createDate;
 
+	@Column(length = 256)
+	private String template;
+
 	/**
 	 * @roseuid 58D0C70F0247
 	 */
@@ -127,6 +130,14 @@ public class Prescription extends IdEntity implements OrderCreateCommand {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 
 	@Override

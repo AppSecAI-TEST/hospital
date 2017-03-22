@@ -2,8 +2,17 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.List;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-interface PrescriptionRepo extends PagingAndSortingRepository<Prescription, String> {
+import com.neusoft.hs.domain.visit.Visit;
+
+interface PrescriptionRepo extends
+		PagingAndSortingRepository<Prescription, String> {
+
+	List<Prescription> findByVisit(Visit visit);
+
+	Prescription findByOrdersIn(Order order);
 
 }
