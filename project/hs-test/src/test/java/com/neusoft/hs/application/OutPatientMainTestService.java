@@ -15,6 +15,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.Prescription;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
@@ -37,6 +38,10 @@ public class OutPatientMainTestService extends AppTestService {
 	protected Visit visit002;
 
 	protected Visit visit003;
+
+	protected DiagnosisTreatmentItemValue hyperthyroidismDiagnosisTreatmentItemValue;
+
+	protected DiagnosisTreatmentItemValue hypoglycemiaDiagnosisTreatmentItemValue;
 
 	@Override
 	public void execute() throws HsException {
@@ -155,16 +160,17 @@ public class OutPatientMainTestService extends AppTestService {
 		item.setTreatmentItemSpec(diagnosisTreatmentItemSpec);
 		item.setCreator(user002);
 
-		DiagnosisTreatmentItemValue diagnosis1 = new DiagnosisTreatmentItemValue();
-		diagnosis1.setDisease(hyperthyroidismDisease);
+		hyperthyroidismDiagnosisTreatmentItemValue = new DiagnosisTreatmentItemValue();
+		hyperthyroidismDiagnosisTreatmentItemValue
+				.setDisease(hyperthyroidismDisease);
 
-		item.addValue(diagnosis1);
+		item.addValue(hyperthyroidismDiagnosisTreatmentItemValue);
 
-		DiagnosisTreatmentItemValue diagnosis2 = new DiagnosisTreatmentItemValue();
-		diagnosis2.setDisease(hypoglycemiaDisease);
-		diagnosis2.setRemark("2.5mmol/L");
+		hypoglycemiaDiagnosisTreatmentItemValue = new DiagnosisTreatmentItemValue();
+		hypoglycemiaDiagnosisTreatmentItemValue.setDisease(hypoglycemiaDisease);
+		hypoglycemiaDiagnosisTreatmentItemValue.setRemark("2.5mmol/L");
 
-		item.addValue(diagnosis2);
+		item.addValue(hypoglycemiaDiagnosisTreatmentItemValue);
 
 		treatmentDomainService.create(item);
 
@@ -188,6 +194,67 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:32"));
 
 		medicalRecordAppService.fix(outPatientRecord.getId(), user002);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:33"));
+
+		Prescription prescription = new Prescription();
+		prescription.setVisit(visit001);
+		prescription.setIllustrate("水煎服");
+
+		prescription
+				.addDiagnosisTreatmentItemValue(hyperthyroidismDiagnosisTreatmentItemValue);
+		prescription
+				.addDiagnosisTreatmentItemValue(hypoglycemiaDiagnosisTreatmentItemValue);
+
+		// 开立药品临时医嘱
+		Order drug004Order = new TemporaryOrder();
+		drug004Order.setVisit(visit001);
+		drug004Order.setName("药品004");
+		drug004Order.setPlanStartDate(DateUtil.getSysDate());
+		drug004Order.setCount(20);
+		drug004Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+
+		DrugOrderType drugOrderType4 = new DrugOrderType();
+		drugOrderType4.setDrugTypeSpec(drugTypeSpec004);
+
+		drug004Order.setTypeApp(new DrugOrderTypeApp(drugOrderType4,
+				oralOrderUseMode));
+		
+		prescription.addOrder(drug004Order);
+
+		// 开立药品临时医嘱
+		Order drug005Order = new TemporaryOrder();
+		drug005Order.setVisit(visit001);
+		drug005Order.setName("药品005");
+		drug005Order.setPlanStartDate(DateUtil.getSysDate());
+		drug005Order.setCount(15);
+		drug005Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+
+		DrugOrderType drugOrderType5 = new DrugOrderType();
+		drugOrderType5.setDrugTypeSpec(drugTypeSpec005);
+
+		drug005Order.setTypeApp(new DrugOrderTypeApp(drugOrderType5,
+				oralOrderUseMode));
+		
+		prescription.addOrder(drug005Order);
+
+		// 开立药品临时医嘱
+		Order drug006Order = new TemporaryOrder();
+		drug006Order.setVisit(visit001);
+		drug006Order.setName("药品006");
+		drug006Order.setPlanStartDate(DateUtil.getSysDate());
+		drug006Order.setCount(100);
+		drug006Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+
+		DrugOrderType drugOrderType6 = new DrugOrderType();
+		drugOrderType6.setDrugTypeSpec(drugTypeSpec006);
+
+		drug006Order.setTypeApp(new DrugOrderTypeApp(drugOrderType6,
+				oralOrderUseMode));
+		
+		prescription.addOrder(drug006Order);
+
+		orderAppService.create(prescription, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:35"));
 
@@ -219,9 +286,9 @@ public class OutPatientMainTestService extends AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user701,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 4);
 
-		// 完成摆药医嘱执行条目
+		// 完成药品收费医嘱执行条目
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user701);
 		}
@@ -255,8 +322,38 @@ public class OutPatientMainTestService extends AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user303);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:49"));
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user801,
+				pageable);
+
+		assertTrue(executes.size() == 3);
+
+		// 完成摆药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user801);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:50"));
+
+		pageable = new PageRequest(0, 15);
+		// executes =
+		// orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
+		// pageable);
+
+		// 通过患者一次就诊得到待取药的任务列表
+		executes = pharmacyAppService.taskDrug(visit001, user801, pageable);
+
+		assertTrue(executes.size() == 3);
+
+		// 完成取药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user801);
+		}
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:54"));
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();

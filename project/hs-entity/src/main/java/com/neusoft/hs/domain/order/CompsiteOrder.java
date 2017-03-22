@@ -1,13 +1,19 @@
 package com.neusoft.hs.domain.order;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -26,6 +32,13 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 
 	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.ALL })
 	private List<OrderExecute> orderExecutes;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "creator_id")
+	private Doctor creator;
+
+	@Column(name = "create_date")
+	private Date createDate;
 
 	public void addOrder(Order order) throws OrderException {
 		if (this.orders == null) {
@@ -54,6 +67,22 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 		this.orderExecutes = orderExecutes;
 	}
 
+	public Doctor getCreator() {
+		return creator;
+	}
+
+	public void setCreator(Doctor creator) {
+		this.creator = creator;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	@Override
 	public String getPlaceType() {
 		return this.orders.get(0).getPlaceType();
@@ -73,5 +102,4 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 			order.save();
 		}
 	}
-
 }

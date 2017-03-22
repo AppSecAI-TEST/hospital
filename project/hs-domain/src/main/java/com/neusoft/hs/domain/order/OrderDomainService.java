@@ -39,6 +39,9 @@ public class OrderDomainService {
 
 	@Autowired
 	private AssistMaterialRepo assistMaterialRepo;
+	
+	@Autowired
+	private PrescriptionRepo prescriptionRepo;
 
 	@Autowired
 	private VisitDomainService visitDomainService;
@@ -74,6 +77,12 @@ public class OrderDomainService {
 			order.check();
 
 			orders.add(order);
+		}
+		if (orderCommand.getCreateDate() == null) {
+			orderCommand.setCreateDate(DateUtil.getSysDate());
+		}
+		if (orderCommand.getCreator() == null) {
+			orderCommand.setCreator(doctor);
 		}
 		// 保存医嘱
 		orderCommand.save();
@@ -218,6 +227,10 @@ public class OrderDomainService {
 
 	public void clearCompsiteOrdes() {
 		compsiteOrderRepo.deleteAll();
+	}
+	
+	public void clearPrescriptions() {
+		prescriptionRepo.deleteAll();
 	}
 
 	public void clearOrderFrequencyTypes() {

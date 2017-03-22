@@ -408,6 +408,8 @@ public class DataIniter {
 		recordRoomDomainService.clear();
 		// 清空病历
 		medicalRecordDomainService.clear();
+		// 清空处方
+		orderDomainService.clearPrescriptions();
 		// 清空医嘱用法
 		pharmacyDomainService.clearOrderUseModes();
 		// 清空医嘱类型
@@ -631,7 +633,7 @@ public class DataIniter {
 		user302.setDept(dept333);
 
 		users.add(user302);
-		
+
 		user303 = new Staff();
 
 		user303.setId("staff303");
@@ -791,9 +793,9 @@ public class DataIniter {
 		drugTypeSpec003ChargeItem.setUnit("袋");
 		drugTypeSpec003ChargeItem
 				.setChargingMode(ChargeItem.ChargingMode_Amount);
-		
+
 		chargeItems.add(drugTypeSpec003ChargeItem);
-		
+
 		drugTypeSpec004ChargeItem = new ChargeItem();
 		drugTypeSpec004ChargeItem.setId("drugTypeSpec004ChargeItem");
 		drugTypeSpec004ChargeItem.setCode("drugTypeSpec004ChargeItem");
@@ -802,9 +804,9 @@ public class DataIniter {
 		drugTypeSpec004ChargeItem.setUnit("克");
 		drugTypeSpec004ChargeItem
 				.setChargingMode(ChargeItem.ChargingMode_Amount);
-		
+
 		chargeItems.add(drugTypeSpec004ChargeItem);
-		
+
 		drugTypeSpec005ChargeItem = new ChargeItem();
 		drugTypeSpec005ChargeItem.setId("drugTypeSpec005ChargeItem");
 		drugTypeSpec005ChargeItem.setCode("drugTypeSpec005ChargeItem");
@@ -813,9 +815,9 @@ public class DataIniter {
 		drugTypeSpec005ChargeItem.setUnit("克");
 		drugTypeSpec005ChargeItem
 				.setChargingMode(ChargeItem.ChargingMode_Amount);
-		
+
 		chargeItems.add(drugTypeSpec005ChargeItem);
-		
+
 		drugTypeSpec006ChargeItem = new ChargeItem();
 		drugTypeSpec006ChargeItem.setId("drugTypeSpec006ChargeItem");
 		drugTypeSpec006ChargeItem.setCode("drugTypeSpec006ChargeItem");
@@ -1029,7 +1031,7 @@ public class DataIniter {
 		drugOrderType003.setDrugType(drugType003);
 
 		orderTypes.add(drugOrderType003);
-		
+
 		drugOrderType004 = new DrugOrderType();
 		drugOrderType004.setId("drugOrderType004");
 		drugOrderType004.setCode("drugOrderType004");
@@ -1037,7 +1039,7 @@ public class DataIniter {
 		drugOrderType004.setDrugType(drugType004);
 
 		orderTypes.add(drugOrderType004);
-		
+
 		drugOrderType005 = new DrugOrderType();
 		drugOrderType005.setId("drugOrderType005");
 		drugOrderType005.setCode("drugOrderType005");
@@ -1045,7 +1047,7 @@ public class DataIniter {
 		drugOrderType005.setDrugType(drugType005);
 
 		orderTypes.add(drugOrderType005);
-		
+
 		drugOrderType006 = new DrugOrderType();
 		drugOrderType006.setId("drugOrderType006");
 		drugOrderType006.setCode("drugOrderType006");

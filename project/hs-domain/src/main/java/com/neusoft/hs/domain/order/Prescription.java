@@ -1,6 +1,6 @@
 //Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\domain\\outpatientdept\\Prescription.java
 
-package com.neusoft.hs.domain.outpatientdept;
+package com.neusoft.hs.domain.order;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,19 +17,20 @@ import javax.persistence.Table;
 
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 /**
- * 处方
+ * 处方 用于说明一组药品医嘱条目对应的疾病诊断
  * 
  * @author kingbox
  *
  */
 @Entity
 @Table(name = "domain_prescription")
-public class Prescription extends IdEntity {
+public class Prescription extends IdEntity implements OrderCreateCommand {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "domain_prescription_order", joinColumns = { @JoinColumn(name = "prescription_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "order_id", referencedColumnName = "id") })
@@ -73,6 +74,11 @@ public class Prescription extends IdEntity {
 			this.orders = new ArrayList<Order>();
 		}
 		this.orders.add(order);
+	}
+
+	@Override
+	public String getPlaceType() {
+		return this.orders.get(0).getPlaceType();
 	}
 
 	public List<DiagnosisTreatmentItemValue> getDiagnosisTreatmentItemValues() {
@@ -121,5 +127,15 @@ public class Prescription extends IdEntity {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	@Override
+	public void save() {
+
+		for (Order order : this.orders) {
+			order.save();
+		}
+
+		this.getService(PrescriptionRepo.class).save(this);
 	}
 }
