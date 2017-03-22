@@ -17,6 +17,7 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -44,16 +45,26 @@ public class VisitDomainService {
 
 		Patient patient = patientDomainService.findByCardNumber(createVisitVO
 				.getCardNumber());
+		boolean newPatient;
 		if (patient == null) {
 			patient = new Patient();
 			patient.setCardNumber(createVisitVO.getCardNumber());
 			patient.setCreateDate(DateUtil.getSysDate());
+			newPatient = true;
+		} else {
+			newPatient = false;
 		}
 		patient.setName(createVisitVO.getName());
 		patient.setSex(createVisitVO.getSex());
 		patient.setBirthday(createVisitVO.getBirthday());
 
 		patient.save();
+
+		if (newPatient) {
+			LogUtil.log(this.getClass(), "用户[{}]创建了患者[{}]", createVisitVO
+					.getOperator().getId(), patient.getId());
+		}
+
 		// 修改原患者一次就诊为非最新
 		Visit oldVisit = visitRepo.findByLastAndCardNumber(true,
 				createVisitVO.getCardNumber());
@@ -82,6 +93,10 @@ public class VisitDomainService {
 
 		medicalRecordClip.save();
 
+		LogUtil.log(this.getClass(), "用户[{}]创建了患者一次就诊[{}]的病历夹[{}]",
+				createVisitVO.getOperator().getId(), visit.getId(),
+				medicalRecordClip.getId());
+
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(visit);
 		visitLog.setType(VisitLog.Type_Create);
@@ -89,6 +104,9 @@ public class VisitDomainService {
 		visitLog.setCreateDate(DateUtil.getSysDate());
 
 		visitLog.save();
+
+		LogUtil.log(this.getClass(), "用户[{}]创建了患者一次就诊[{}]", createVisitVO
+				.getOperator().getId(), visit.getId());
 
 		return visit;
 
@@ -115,6 +133,9 @@ public class VisitDomainService {
 
 		applicationContext.publishEvent(new VisitIntoWardedEvent(visit));
 
+		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]登记到病房[{}],床位号[{}]",
+				user.getId(), visit.getId(), visit.getDept().getId(),
+				visit.getBed());
 	}
 
 	/**
@@ -164,8 +185,14 @@ public class VisitDomainService {
 	 */
 	public int changeVisitState() {
 		Date changeDate = DateUtil.reduceHour(DateUtil.getSysDate(), 10);
-		return visitRepo.changeVisitState(Visit.State_LeaveHospital,
+		int count = visitRepo.changeVisitState(Visit.State_LeaveHospital,
 				Visit.State_Diagnosed_Executing, changeDate);
+
+		LogUtil.log(this.getClass(), "系统修改患者状态由[{}]到[{}]{}个",
+				Visit.State_Diagnosed_Executing, Visit.State_LeaveHospital,
+				count);
+
+		return count;
 	}
 
 }
