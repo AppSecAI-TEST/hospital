@@ -2,9 +2,7 @@ package com.neusoft.hs.application;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +14,6 @@ import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
-import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
@@ -28,8 +25,6 @@ public abstract class InPatientTestService extends AppTestService {
 
 	protected Visit visit001;
 
-	protected Map<ChoiceItem, Object> choices;
-
 	protected int dayCount = 0;
 
 	private static final int runCount = 1;// 入院次数
@@ -37,10 +32,6 @@ public abstract class InPatientTestService extends AppTestService {
 	@Override
 	public void testInit() {
 		super.testInit();
-
-		choice();
-
-		ready();
 
 		MedicalRecordTestService.temporaryOrderCount = 3;
 	}
@@ -297,29 +288,6 @@ public abstract class InPatientTestService extends AppTestService {
 		// 生成检查单病历
 		medicalRecordTestService.createInspectResultMedicalRecord(visit001,
 				inspectResultMedicalRecordType, user002);
-	}
-
-	public void choice() {
-
-		this.choices = new HashMap<ChoiceItem, Object>();
-		this.choices.put(ChoiceItem.OrderUseModeAssistMaterialToInPatient,
-				onlyOneOrderUseModeAssistMaterialToInPatient);
-		this.choices.put(ChoiceItem.OrderUseModeAssistMaterialToOutPatient,
-				everyOneOrderUseModeAssistMaterialToOutPatient);
-		this.choices.put(ChoiceItem.CancelHC, true);
-	}
-
-	public void ready() {
-		this.choiceOrderUseModeAssistMaterial((DrugUseModeAssistMaterial) this.choices
-				.get(ChoiceItem.OrderUseModeAssistMaterialToInPatient));
-		this.choiceOrderUseModeAssistMaterial((DrugUseModeAssistMaterial) this.choices
-				.get(ChoiceItem.OrderUseModeAssistMaterialToOutPatient));
-	}
-
-	private void choiceOrderUseModeAssistMaterial(
-			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
-		pharmacyDomainService
-				.createOrderUseModeAssistMaterial(orderUseModeAssistMaterial);
 	}
 
 	public void setVisit(Visit visit) {

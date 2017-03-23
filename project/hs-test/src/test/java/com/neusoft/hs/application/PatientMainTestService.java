@@ -13,25 +13,17 @@ public class PatientMainTestService extends AppTestService {
 
 	@Autowired
 	private InPatientMainTestService inPatientMainTestService;
-	
-	
 
 	@Override
 	public void testInit() {
 		super.testInit();
-		
+
 		outPatientMainTestService.clone(this);
 
 		inPatientMainTestService.clone(this);
-		
-		inPatientMainTestService.choice();
-		
-		inPatientMainTestService.ready();
-		
+
 		MedicalRecordTestService.temporaryOrderCount = 8;
 	}
-
-
 
 	@Override
 	public void execute() throws HsException {
@@ -39,7 +31,7 @@ public class PatientMainTestService extends AppTestService {
 		outPatientMainTestService.execute();
 
 		inPatientMainTestService.setVisit(outPatientMainTestService.getVisit());
-		
+
 		inPatientMainTestService.doExecute();
 
 	}

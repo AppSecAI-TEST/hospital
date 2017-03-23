@@ -331,6 +331,18 @@ public class OutPatientMainTestService extends AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user701);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:43"));
+
+		pageable = new PageRequest(0, 15);
+		executes = cashierAppService.getNeedChageExecutes(visit002, user701, pageable);
+
+		assertTrue(executes.size() == 6);
+
+		// 完成输液费统一收费医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user701);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:46"));
 
