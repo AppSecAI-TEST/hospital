@@ -99,6 +99,9 @@ public abstract class DrugUseMode extends SuperEntity {
 	}
 
 	public DrugUseModeAssistMaterial getTheOrderUseModeChargeItem(String key) {
+		if (orderUseModeAssistMaterials == null) {
+			return null;
+		}
 		for (DrugUseModeAssistMaterial orderUseModeAssistMaterial : orderUseModeAssistMaterials) {
 			if (orderUseModeAssistMaterial.getSign().equals(key)) {
 				return orderUseModeAssistMaterial;

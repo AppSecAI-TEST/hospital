@@ -238,7 +238,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
 		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002,
-				infusionOrderUseMode));
+				infusionOrderUseModeToInPatient));
 
 		// 创建药品003长期医嘱
 		LongOrder drug003Order = new LongOrder();
@@ -252,7 +252,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
 		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003,
-				infusionOrderUseMode));
+				infusionOrderUseModeToInPatient));
 
 		CompsiteOrder drug002003Order = new CompsiteOrder();
 		drug002003Order.addOrder(drug002Order);

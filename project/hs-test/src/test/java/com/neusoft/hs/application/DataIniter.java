@@ -33,8 +33,8 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
-import com.neusoft.hs.domain.order.OrderFrequencyTypeDayTwo;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDayOne;
+import com.neusoft.hs.domain.order.OrderFrequencyTypeDayTwo;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrderListTreatmentItemSpec;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
@@ -60,6 +60,7 @@ import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
 import com.neusoft.hs.domain.pharmacy.InfusionOrderUseModeToInPatient;
+import com.neusoft.hs.domain.pharmacy.InfusionOrderUseModeToOutPatient;
 import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
@@ -184,15 +185,19 @@ public class DataIniter {
 
 	protected OralOrderUseMode oralOrderUseMode;// 口服用法
 
-	protected InfusionOrderUseModeToInPatient infusionOrderUseMode;// 输液用法
+	protected InfusionOrderUseModeToInPatient infusionOrderUseModeToInPatient;// 住院输液用法
+
+	protected InfusionOrderUseModeToOutPatient infusionOrderUseModeToOutPatient;// 门诊输液用法
 
 	protected AssistMaterial transportFluidAssistMaterial;// 输液辅材
 
-	protected DrugUseModeAssistMaterial everyOneOrderUseModeAssistMaterial;// 按频次收费
+	protected DrugUseModeAssistMaterial everyOneOrderUseModeAssistMaterialToInPatient;// 按频次收费
 
-	protected DrugUseModeAssistMaterial everyDayOrderUseModeAssistMaterial;// 按天收费
+	protected DrugUseModeAssistMaterial everyDayOrderUseModeAssistMaterialToInPatient;// 按天收费
 
-	protected DrugUseModeAssistMaterial onlyOneOrderUseModeAssistMaterial;// 只收一次
+	protected DrugUseModeAssistMaterial onlyOneOrderUseModeAssistMaterialToInPatient;// 只收一次
+
+	protected DrugUseModeAssistMaterial everyOneOrderUseModeAssistMaterialToOutPatient;// 按频次收费
 
 	protected OrderFrequencyType orderFrequencyType_0H;// 每天
 
@@ -379,12 +384,14 @@ public class DataIniter {
 		inspectOrderType = dataIniter.inspectOrderType;
 
 		oralOrderUseMode = dataIniter.oralOrderUseMode;
-		infusionOrderUseMode = dataIniter.infusionOrderUseMode;
+		infusionOrderUseModeToInPatient = dataIniter.infusionOrderUseModeToInPatient;
+		infusionOrderUseModeToOutPatient = dataIniter.infusionOrderUseModeToOutPatient;
 
 		transportFluidAssistMaterial = dataIniter.transportFluidAssistMaterial;
-		everyOneOrderUseModeAssistMaterial = dataIniter.everyOneOrderUseModeAssistMaterial;
-		everyDayOrderUseModeAssistMaterial = dataIniter.everyDayOrderUseModeAssistMaterial;
-		onlyOneOrderUseModeAssistMaterial = dataIniter.onlyOneOrderUseModeAssistMaterial;
+		everyOneOrderUseModeAssistMaterialToInPatient = dataIniter.everyOneOrderUseModeAssistMaterialToInPatient;
+		everyDayOrderUseModeAssistMaterialToInPatient = dataIniter.everyDayOrderUseModeAssistMaterialToInPatient;
+		onlyOneOrderUseModeAssistMaterialToInPatient = dataIniter.onlyOneOrderUseModeAssistMaterialToInPatient;
+		everyOneOrderUseModeAssistMaterialToOutPatient = dataIniter.everyOneOrderUseModeAssistMaterialToOutPatient;
 
 		orderFrequencyType_0H = dataIniter.orderFrequencyType_0H;
 		orderFrequencyType_9H15H = dataIniter.orderFrequencyType_9H15H;
@@ -1122,12 +1129,23 @@ public class DataIniter {
 
 		orderUseModes.add(oralOrderUseMode);
 
-		infusionOrderUseMode = new InfusionOrderUseModeToInPatient();
-		infusionOrderUseMode.setId("infusionOrderUseMode");
-		infusionOrderUseMode.setCode("infusionOrderUseMode");
-		infusionOrderUseMode.setName("输液");
+		infusionOrderUseModeToInPatient = new InfusionOrderUseModeToInPatient();
+		infusionOrderUseModeToInPatient
+				.setId("infusionOrderUseModeToInPatient");
+		infusionOrderUseModeToInPatient
+				.setCode("infusionOrderUseModeToInPatient");
+		infusionOrderUseModeToInPatient.setName("住院输液");
 
-		orderUseModes.add(infusionOrderUseMode);
+		orderUseModes.add(infusionOrderUseModeToInPatient);
+
+		infusionOrderUseModeToOutPatient = new InfusionOrderUseModeToOutPatient();
+		infusionOrderUseModeToOutPatient
+				.setId("infusionOrderUseModeToOutPatient");
+		infusionOrderUseModeToOutPatient
+				.setCode("infusionOrderUseModeToOutPatient");
+		infusionOrderUseModeToOutPatient.setName("门诊输液");
+
+		orderUseModes.add(infusionOrderUseModeToOutPatient);
 
 		pharmacyDomainService.createOrderUseModes(orderUseModes);
 
@@ -1151,39 +1169,59 @@ public class DataIniter {
 
 	private void initOrderUseModeAssistMaterials() {
 
-		everyOneOrderUseModeAssistMaterial = new DrugUseModeAssistMaterial();
-		everyOneOrderUseModeAssistMaterial.setId("everyOne");
-		everyOneOrderUseModeAssistMaterial.setCode("everyOne");
-		everyOneOrderUseModeAssistMaterial
+		everyOneOrderUseModeAssistMaterialToInPatient = new DrugUseModeAssistMaterial();
+		everyOneOrderUseModeAssistMaterialToInPatient
+				.setId("everyOneInPatient");
+		everyOneOrderUseModeAssistMaterialToInPatient
+				.setCode("everyOneInPatient");
+		everyOneOrderUseModeAssistMaterialToInPatient
 				.setAssistMaterial(transportFluidAssistMaterial);
-		everyOneOrderUseModeAssistMaterial
-				.setOrderUseMode(infusionOrderUseMode);
-		everyOneOrderUseModeAssistMaterial
+		everyOneOrderUseModeAssistMaterialToInPatient
+				.setOrderUseMode(infusionOrderUseModeToInPatient);
+		everyOneOrderUseModeAssistMaterialToInPatient
 				.setChargeMode(DrugUseModeAssistMaterial.everyOne);
-		everyOneOrderUseModeAssistMaterial
+		everyOneOrderUseModeAssistMaterialToInPatient
 				.setSign(InfusionOrderUseModeToInPatient.transportFluid);
 
-		everyDayOrderUseModeAssistMaterial = new DrugUseModeAssistMaterial();
-		everyDayOrderUseModeAssistMaterial.setId("everyDay");
-		everyDayOrderUseModeAssistMaterial.setCode("everyDay");
-		everyDayOrderUseModeAssistMaterial
+		everyDayOrderUseModeAssistMaterialToInPatient = new DrugUseModeAssistMaterial();
+		everyDayOrderUseModeAssistMaterialToInPatient
+				.setId("everyDayInPatient");
+		everyDayOrderUseModeAssistMaterialToInPatient
+				.setCode("everyDayInPatient");
+		everyDayOrderUseModeAssistMaterialToInPatient
 				.setAssistMaterial(transportFluidAssistMaterial);
-		everyDayOrderUseModeAssistMaterial
-				.setOrderUseMode(infusionOrderUseMode);
-		everyDayOrderUseModeAssistMaterial
+		everyDayOrderUseModeAssistMaterialToInPatient
+				.setOrderUseMode(infusionOrderUseModeToInPatient);
+		everyDayOrderUseModeAssistMaterialToInPatient
 				.setChargeMode(DrugUseModeAssistMaterial.everyDay);
-		everyDayOrderUseModeAssistMaterial
+		everyDayOrderUseModeAssistMaterialToInPatient
 				.setSign(InfusionOrderUseModeToInPatient.transportFluid);
 
-		onlyOneOrderUseModeAssistMaterial = new DrugUseModeAssistMaterial();
-		onlyOneOrderUseModeAssistMaterial.setId("onlyOne");
-		onlyOneOrderUseModeAssistMaterial.setCode("onlyOne");
-		onlyOneOrderUseModeAssistMaterial
+		onlyOneOrderUseModeAssistMaterialToInPatient = new DrugUseModeAssistMaterial();
+		onlyOneOrderUseModeAssistMaterialToInPatient.setId("onlyOneInPatient");
+		onlyOneOrderUseModeAssistMaterialToInPatient
+				.setCode("onlyOneInPatient");
+		onlyOneOrderUseModeAssistMaterialToInPatient
 				.setAssistMaterial(transportFluidAssistMaterial);
-		onlyOneOrderUseModeAssistMaterial.setOrderUseMode(infusionOrderUseMode);
-		onlyOneOrderUseModeAssistMaterial
+		onlyOneOrderUseModeAssistMaterialToInPatient
+				.setOrderUseMode(infusionOrderUseModeToInPatient);
+		onlyOneOrderUseModeAssistMaterialToInPatient
 				.setChargeMode(DrugUseModeAssistMaterial.onlyOne);
-		onlyOneOrderUseModeAssistMaterial
+		onlyOneOrderUseModeAssistMaterialToInPatient
+				.setSign(InfusionOrderUseModeToInPatient.transportFluid);
+
+		everyOneOrderUseModeAssistMaterialToOutPatient = new DrugUseModeAssistMaterial();
+		everyOneOrderUseModeAssistMaterialToOutPatient
+				.setId("everyOneOutPatient");
+		everyOneOrderUseModeAssistMaterialToOutPatient
+				.setCode("everyOneOutPatient");
+		everyOneOrderUseModeAssistMaterialToOutPatient
+				.setAssistMaterial(transportFluidAssistMaterial);
+		everyOneOrderUseModeAssistMaterialToOutPatient
+				.setOrderUseMode(infusionOrderUseModeToOutPatient);
+		everyOneOrderUseModeAssistMaterialToOutPatient
+				.setChargeMode(DrugUseModeAssistMaterial.everyOne);
+		everyOneOrderUseModeAssistMaterialToOutPatient
 				.setSign(InfusionOrderUseModeToInPatient.transportFluid);
 	}
 

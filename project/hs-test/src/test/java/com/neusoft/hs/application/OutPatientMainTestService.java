@@ -274,41 +274,41 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
 
-//		// 创建药品002长期医嘱
-//		sysDate = DateUtil.getSysDate();
-//
-//		LongOrder drug002Order = new LongOrder();
-//		drug002Order.setVisit(visit001);
-//		drug002Order.setName("头孢3");
-//		drug002Order.setCount(2);
-//		drug002Order.setFrequencyType(orderFrequencyType_10H);
-//		drug002Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
-//
-//		drug002Order.setPlanStartDate(sysDate);
-//		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 1));
-//
-//		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002,
-//				infusionOrderUseMode));
-//
-//		// 创建药品003长期医嘱
-//		LongOrder drug003Order = new LongOrder();
-//		drug003Order.setVisit(visit001);
-//		drug003Order.setName("5%葡萄糖");
-//		drug003Order.setCount(1);
-//		drug003Order.setFrequencyType(orderFrequencyType_10H);
-//		drug003Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
-//
-//		drug003Order.setPlanStartDate(sysDate);
-//		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 1));
-//
-//		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003,
-//				infusionOrderUseMode));
-//
-//		CompsiteOrder drug002003Order = new CompsiteOrder();
-//		drug002003Order.addOrder(drug002Order);
-//		drug002003Order.addOrder(drug003Order);
-//
-//		orderAppService.create(drug002003Order, user002);
+		// 创建药品002长期医嘱
+		sysDate = DateUtil.getSysDate();
+
+		LongOrder drug002Order = new LongOrder();
+		drug002Order.setVisit(visit001);
+		drug002Order.setName("头孢3");
+		drug002Order.setCount(2);
+		drug002Order.setFrequencyType(orderFrequencyType_10H);
+		drug002Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+
+		drug002Order.setPlanStartDate(sysDate);
+		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 1));
+
+		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002,
+				infusionOrderUseModeToOutPatient));
+
+		// 创建药品003长期医嘱
+		LongOrder drug003Order = new LongOrder();
+		drug003Order.setVisit(visit001);
+		drug003Order.setName("5%葡萄糖");
+		drug003Order.setCount(1);
+		drug003Order.setFrequencyType(orderFrequencyType_10H);
+		drug003Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+
+		drug003Order.setPlanStartDate(sysDate);
+		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 1));
+
+		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003,
+				infusionOrderUseModeToOutPatient));
+
+		CompsiteOrder drug002003Order = new CompsiteOrder();
+		drug002003Order.addOrder(drug002Order);
+		drug002003Order.addOrder(drug003Order);
+
+		orderAppService.create(drug002003Order, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:40"));
 

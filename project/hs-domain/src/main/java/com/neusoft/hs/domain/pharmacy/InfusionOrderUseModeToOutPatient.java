@@ -1,5 +1,7 @@
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.Date;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -9,6 +11,7 @@ import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @DiscriminatorValue("Infusion_OutPatient")
@@ -24,6 +27,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		ChargeItem chargeItem = drugType.getDrugTypeSpec().getChargeItem();
 		Visit visit = order.getVisit();
 		Pharmacy pharmacy = drugOrderType.getDrugType().getPharmacy();
+		Date sysDate = DateUtil.getSysDate();
 
 		// 收费执行条目
 		ChargeOrderExecute chargeOrderExecute = new ChargeOrderExecute();
@@ -41,6 +45,9 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		chargeOrderExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		chargeOrderExecute.setCostState(OrderExecute.CostState_NoCost);
 		chargeOrderExecute.setState(OrderExecute.State_Executing);
+		// 统一缴费
+		chargeOrderExecute.setPlanStartDate(sysDate);
+		chargeOrderExecute.setPlanEndDate(sysDate);
 
 		team.addOrderExecute(chargeOrderExecute);
 
@@ -58,8 +65,32 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		dispensingDrugExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		dispensingDrugExecute.setCostState(OrderExecute.CostState_NoCost);
 		dispensingDrugExecute.setState(OrderExecute.State_NeedExecute);
+		// 统一摆药
+		dispensingDrugExecute.setPlanStartDate(sysDate);
+		dispensingDrugExecute.setPlanEndDate(sysDate);
 
 		team.addOrderExecute(dispensingDrugExecute);
+
+		// 取药执行条目
+		TaskDrugOrderExecute taskDrugExecute = new TaskDrugOrderExecute();
+		taskDrugExecute.setOrder(order);
+		taskDrugExecute.setVisit(visit);
+		taskDrugExecute.setBelongDept(order.getBelongDept());
+		taskDrugExecute.setType(OrderExecute.Type_Take_Drug);
+		if (order.isInPatient()) {
+			taskDrugExecute.setExecuteDept(order.getBelongDept());
+		} else {
+			taskDrugExecute.setExecuteDept(drugOrderType.getDrugType()
+					.getPharmacy());
+		}
+		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
+		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
+		taskDrugExecute.setCostState(OrderExecute.CostState_NoCost);
+		// 统一取药
+		taskDrugExecute.setPlanStartDate(sysDate);
+		taskDrugExecute.setPlanEndDate(sysDate);
+
+		team.addOrderExecute(taskDrugExecute);
 
 		// 输液执行条目
 		TransportFluidOrderExecute transportFluidExecute = new TransportFluidOrderExecute();

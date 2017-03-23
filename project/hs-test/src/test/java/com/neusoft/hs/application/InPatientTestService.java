@@ -302,14 +302,18 @@ public abstract class InPatientTestService extends AppTestService {
 	public void choice() {
 
 		this.choices = new HashMap<ChoiceItem, Object>();
-		this.choices.put(ChoiceItem.OrderUseModeAssistMaterial,
-				onlyOneOrderUseModeAssistMaterial);
+		this.choices.put(ChoiceItem.OrderUseModeAssistMaterialToInPatient,
+				onlyOneOrderUseModeAssistMaterialToInPatient);
+		this.choices.put(ChoiceItem.OrderUseModeAssistMaterialToOutPatient,
+				everyOneOrderUseModeAssistMaterialToOutPatient);
 		this.choices.put(ChoiceItem.CancelHC, true);
 	}
 
 	public void ready() {
 		this.choiceOrderUseModeAssistMaterial((DrugUseModeAssistMaterial) this.choices
-				.get(ChoiceItem.OrderUseModeAssistMaterial));
+				.get(ChoiceItem.OrderUseModeAssistMaterialToInPatient));
+		this.choiceOrderUseModeAssistMaterial((DrugUseModeAssistMaterial) this.choices
+				.get(ChoiceItem.OrderUseModeAssistMaterialToOutPatient));
 	}
 
 	private void choiceOrderUseModeAssistMaterial(
