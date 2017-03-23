@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -96,6 +97,14 @@ public abstract class DrugUseMode extends SuperEntity {
 	public void setOrderUseModeAssistMaterials(
 			List<DrugUseModeAssistMaterial> orderUseModeAssistMaterials) {
 		this.orderUseModeAssistMaterials = orderUseModeAssistMaterials;
+	}
+
+	public void addOrderUseModeAssistMaterial(
+			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
+		if(this.orderUseModeAssistMaterials == null){
+			this.orderUseModeAssistMaterials = new ArrayList<DrugUseModeAssistMaterial>();
+		}
+		this.orderUseModeAssistMaterials.add(orderUseModeAssistMaterial);
 	}
 
 	public DrugUseModeAssistMaterial getTheOrderUseModeChargeItem(String key) {
