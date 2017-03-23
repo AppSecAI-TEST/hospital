@@ -12,15 +12,13 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.neusoft.hs.domain.organization.Dept;
-import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.visit.Visit;
 
 interface OrderExecuteRepo extends
 		PagingAndSortingRepository<OrderExecute, String> {
 
 	List<OrderExecute> findByStateAndBelongDeptAndPlanStartDateLessThan(
-			String state, InPatientDept dept, Date planStartDate,
-			Pageable pageable);
+			String state, Dept dept, Date planStartDate, Pageable pageable);
 
 	List<OrderExecute> findByStateAndExecuteDeptAndPlanStartDateLessThan(
 			String state, Dept dept, Date planStartDate, Pageable pageable);

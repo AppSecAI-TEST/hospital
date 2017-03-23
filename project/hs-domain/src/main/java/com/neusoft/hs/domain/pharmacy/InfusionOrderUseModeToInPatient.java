@@ -8,8 +8,8 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
 
 @Entity
-@DiscriminatorValue("Infusion")
-public class InfusionOrderUseMode extends DrugUseMode {
+@DiscriminatorValue("Infusion_InPatient")
+public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 
 	public static final String transportFluid = "transportFluid";
 

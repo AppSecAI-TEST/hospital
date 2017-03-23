@@ -52,7 +52,7 @@ public class OralOrderUseMode extends DrugUseMode {
 		dispensingDrugExecute.setVisit(visit);
 		dispensingDrugExecute.setBelongDept(order.getBelongDept());
 		dispensingDrugExecute.setType(OrderExecute.Type_Dispense_Drug);
-
+		// 住院自动扣预交金
 		if (order.isInPatient()) {
 			dispensingDrugExecute.addChargeItem(chargeItem);
 		}

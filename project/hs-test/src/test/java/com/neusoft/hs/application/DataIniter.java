@@ -59,7 +59,7 @@ import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
-import com.neusoft.hs.domain.pharmacy.InfusionOrderUseMode;
+import com.neusoft.hs.domain.pharmacy.InfusionOrderUseModeToInPatient;
 import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
@@ -82,6 +82,7 @@ public class DataIniter {
 	protected Dept dept666;// 病案室
 	protected Dept dept777;// 门诊收费部门
 	protected Pharmacy dept888;// 中药房
+	protected Dept deptaaa;// 门诊输液中心
 
 	protected InPatientDept dept000;// 内泌五
 
@@ -103,6 +104,7 @@ public class DataIniter {
 	protected Staff user701;// 门诊收费部门收费员-魏延
 	protected Staff user801;// 中药房摆发药岗位-郭嘉
 	protected Staff user901;// 儿科门诊挂号岗位-黄忠
+	protected Nurse usera01;// 门诊输液中心护士-甘夫人
 
 	protected Staff user001;// 内泌五接诊护士-大乔
 	protected Doctor user002;// 内泌五医生-貂蝉
@@ -182,7 +184,7 @@ public class DataIniter {
 
 	protected OralOrderUseMode oralOrderUseMode;// 口服用法
 
-	protected InfusionOrderUseMode infusionOrderUseMode;// 输液用法
+	protected InfusionOrderUseModeToInPatient infusionOrderUseMode;// 输液用法
 
 	protected AssistMaterial transportFluidAssistMaterial;// 输液辅材
 
@@ -314,6 +316,7 @@ public class DataIniter {
 		dept888 = dataIniter.dept888;
 		dept000 = dataIniter.dept000;
 		dept999 = dataIniter.dept999;
+		deptaaa = dataIniter.deptaaa;
 
 		room901 = dataIniter.room901;
 
@@ -331,6 +334,7 @@ public class DataIniter {
 		user701 = dataIniter.user701;
 		user801 = dataIniter.user801;
 		user901 = dataIniter.user901;
+		usera01 = dataIniter.usera01;
 		user001 = dataIniter.user001;
 		user002 = dataIniter.user002;
 		user003 = dataIniter.user003;
@@ -563,6 +567,14 @@ public class DataIniter {
 
 		units.add(dept888);
 
+		deptaaa = new Pharmacy();
+		deptaaa.setId("deptaaa");
+		deptaaa.setName("门诊输液中心");
+		deptaaa.setParent(org);
+		deptaaa.setOrg(org);
+
+		units.add(deptaaa);
+
 		dept000 = new InPatientDept();
 		dept000.setId("dept000");
 		dept000.setName("内泌五");
@@ -716,6 +728,14 @@ public class DataIniter {
 		user901.setDept(dept999);
 
 		users.add(user901);
+
+		usera01 = new Nurse();
+
+		usera01.setId("nursea01");
+		usera01.setName("门诊输液中心护士-甘夫人");
+		usera01.setDept(deptaaa);
+
+		users.add(usera01);
 
 		user001 = new Staff();
 
@@ -1102,7 +1122,7 @@ public class DataIniter {
 
 		orderUseModes.add(oralOrderUseMode);
 
-		infusionOrderUseMode = new InfusionOrderUseMode();
+		infusionOrderUseMode = new InfusionOrderUseModeToInPatient();
 		infusionOrderUseMode.setId("infusionOrderUseMode");
 		infusionOrderUseMode.setCode("infusionOrderUseMode");
 		infusionOrderUseMode.setName("输液");
@@ -1141,7 +1161,7 @@ public class DataIniter {
 		everyOneOrderUseModeAssistMaterial
 				.setChargeMode(DrugUseModeAssistMaterial.everyOne);
 		everyOneOrderUseModeAssistMaterial
-				.setSign(InfusionOrderUseMode.transportFluid);
+				.setSign(InfusionOrderUseModeToInPatient.transportFluid);
 
 		everyDayOrderUseModeAssistMaterial = new DrugUseModeAssistMaterial();
 		everyDayOrderUseModeAssistMaterial.setId("everyDay");
@@ -1153,7 +1173,7 @@ public class DataIniter {
 		everyDayOrderUseModeAssistMaterial
 				.setChargeMode(DrugUseModeAssistMaterial.everyDay);
 		everyDayOrderUseModeAssistMaterial
-				.setSign(InfusionOrderUseMode.transportFluid);
+				.setSign(InfusionOrderUseModeToInPatient.transportFluid);
 
 		onlyOneOrderUseModeAssistMaterial = new DrugUseModeAssistMaterial();
 		onlyOneOrderUseModeAssistMaterial.setId("onlyOne");
@@ -1164,7 +1184,7 @@ public class DataIniter {
 		onlyOneOrderUseModeAssistMaterial
 				.setChargeMode(DrugUseModeAssistMaterial.onlyOne);
 		onlyOneOrderUseModeAssistMaterial
-				.setSign(InfusionOrderUseMode.transportFluid);
+				.setSign(InfusionOrderUseModeToInPatient.transportFluid);
 	}
 
 	private void initOrderFrequencyTypes() {

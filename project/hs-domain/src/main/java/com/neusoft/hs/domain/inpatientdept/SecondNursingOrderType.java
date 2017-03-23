@@ -58,9 +58,6 @@ public class SecondNursingOrderType extends OrderType {
 		execute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		execute.setCostState(OrderExecute.CostState_NoCost);
 
-		execute.setPlanStartDate(startDate);
-		execute.setPlanEndDate(DateUtil.addDay(startDate, 1));
-
 		return execute;
 	}
 

@@ -350,8 +350,12 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	public void fillPlanDate(Date planStartDate, Date planEndDate) {
-		this.planStartDate = planStartDate;
-		this.planEndDate = planEndDate;
+		if (this.planStartDate == null) {
+			this.planStartDate = planStartDate;
+		}
+		if (this.planEndDate == null) {
+			this.planEndDate = planEndDate;
+		}
 	}
 
 	public OrderExecute() {
