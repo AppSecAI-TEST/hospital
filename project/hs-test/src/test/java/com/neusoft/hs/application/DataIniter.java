@@ -33,8 +33,8 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
-import com.neusoft.hs.domain.order.OrderFrequencyType9H15H;
-import com.neusoft.hs.domain.order.OrderFrequencyTypeDay;
+import com.neusoft.hs.domain.order.OrderFrequencyTypeDayTwo;
+import com.neusoft.hs.domain.order.OrderFrequencyTypeDayOne;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrderListTreatmentItemSpec;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
@@ -192,9 +192,11 @@ public class DataIniter {
 
 	protected DrugUseModeAssistMaterial onlyOneOrderUseModeAssistMaterial;// 只收一次
 
-	protected OrderFrequencyType orderFrequencyType_Day;// 每天
+	protected OrderFrequencyType orderFrequencyType_0H;// 每天
 
 	protected OrderFrequencyType orderFrequencyType_9H15H;// 每天2次/早9/下3
+
+	protected OrderFrequencyType orderFrequencyType_10H;// 每天1次/早10
 
 	protected TreatmentItemSpec mainDescribeTreatmentItemSpec;// 主诉
 
@@ -380,8 +382,9 @@ public class DataIniter {
 		everyDayOrderUseModeAssistMaterial = dataIniter.everyDayOrderUseModeAssistMaterial;
 		onlyOneOrderUseModeAssistMaterial = dataIniter.onlyOneOrderUseModeAssistMaterial;
 
-		orderFrequencyType_Day = dataIniter.orderFrequencyType_Day;
+		orderFrequencyType_0H = dataIniter.orderFrequencyType_0H;
 		orderFrequencyType_9H15H = dataIniter.orderFrequencyType_9H15H;
+		orderFrequencyType_10H = dataIniter.orderFrequencyType_10H;
 
 		mainDescribeTreatmentItemSpec = dataIniter.mainDescribeTreatmentItemSpec;
 		visitNameTreatmentItemSpec = dataIniter.visitNameTreatmentItemSpec;
@@ -1168,13 +1171,17 @@ public class DataIniter {
 
 		List<OrderFrequencyType> orderFrequencyTypes = new ArrayList<OrderFrequencyType>();
 
-		orderFrequencyType_Day = new OrderFrequencyTypeDay();
+		orderFrequencyType_0H = new OrderFrequencyTypeDayOne(0);
 
-		orderFrequencyTypes.add(orderFrequencyType_Day);
+		orderFrequencyTypes.add(orderFrequencyType_0H);
 
-		orderFrequencyType_9H15H = new OrderFrequencyType9H15H();
+		orderFrequencyType_9H15H = new OrderFrequencyTypeDayTwo(9, 15);
 
 		orderFrequencyTypes.add(orderFrequencyType_9H15H);
+
+		orderFrequencyType_10H = new OrderFrequencyTypeDayOne(10);
+
+		orderFrequencyTypes.add(orderFrequencyType_10H);
 
 		orderDomainService.createOrderFrequencyTypes(orderFrequencyTypes);
 

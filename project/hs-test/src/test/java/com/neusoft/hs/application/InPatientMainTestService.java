@@ -50,7 +50,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		LongOrder secondNursingOrder = new LongOrder();
 		secondNursingOrder.setVisit(visit001);
 		secondNursingOrder.setName("二级护理");
-		secondNursingOrder.setFrequencyType(orderFrequencyType_Day);
+		secondNursingOrder.setFrequencyType(orderFrequencyType_0H);
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 

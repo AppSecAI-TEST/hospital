@@ -10,11 +10,23 @@ import javax.persistence.Entity;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
-@DiscriminatorValue("9H15H")
-public class OrderFrequencyType9H15H extends OrderFrequencyType {
+@DiscriminatorValue("DayTwo")
+public class OrderFrequencyTypeDayTwo extends OrderFrequencyType {
 
-	public OrderFrequencyType9H15H() {
-		super("每天2次/早9/下3", "每天2次/早9/下3", "每天2次/早9/下3");
+	private Integer one;
+
+	private Integer two;
+
+	public OrderFrequencyTypeDayTwo() {
+		super();
+	}
+
+	public OrderFrequencyTypeDayTwo(int one, int two) {
+		super("每天2次/" + one + "/" + two, "每天2次/" + one + "/" + two, "每天2次/"
+				+ one + "/" + two);
+
+		this.one = one;
+		this.two = two;
 	}
 
 	@Override
@@ -23,14 +35,14 @@ public class OrderFrequencyType9H15H extends OrderFrequencyType {
 		List<Date> dates = new ArrayList<Date>();
 		Date date;
 
-		date = DateUtil.addHour(currentDate, 9);
+		date = DateUtil.addHour(currentDate, one);
 
 		if (date.before(order.getPlanEndDate())
 				&& date.after(order.getPlanStartDate())) {
 			dates.add(date);
 		}
 
-		date = DateUtil.addHour(currentDate, 15);
+		date = DateUtil.addHour(currentDate, two);
 
 		if (date.before(order.getPlanEndDate())
 				&& date.after(order.getPlanStartDate())) {
