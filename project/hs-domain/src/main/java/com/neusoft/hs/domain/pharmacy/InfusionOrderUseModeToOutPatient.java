@@ -29,7 +29,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		Pharmacy pharmacy = drugOrderType.getDrugType().getPharmacy();
 		Date sysDate = DateUtil.getSysDate();
 
-		// 收费执行条目
+		// 收药品费执行条目
 		ChargeOrderExecute chargeOrderExecute = new ChargeOrderExecute();
 		chargeOrderExecute.setOrder(order);
 		chargeOrderExecute.setVisit(visit);
@@ -50,6 +50,37 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		chargeOrderExecute.setPlanEndDate(sysDate);
 
 		team.addOrderExecute(chargeOrderExecute);
+
+		// 收辅材费执行条目
+		DrugUseModeAssistMaterial orderUseModeAssistMaterial = this
+				.getTheOrderUseModeChargeItem(transportFluid);
+		if (orderUseModeAssistMaterial != null) {
+
+			chargeOrderExecute = new ChargeOrderExecute();
+			chargeOrderExecute.setOrder(order);
+			chargeOrderExecute.setVisit(visit);
+			chargeOrderExecute.setBelongDept(order.getBelongDept());
+			chargeOrderExecute.setType(OrderExecute.Type_Change);
+
+			chargeOrderExecute.addChargeItem(chargeItem);
+
+			chargeOrderExecute.addChargeItem(orderUseModeAssistMaterial
+					.getAssistMaterial().getChargeItem());
+
+			chargeOrderExecute.setExecuteDept(visit.getDept().getOrg()
+					.getOutChargeDept());
+			chargeOrderExecute.setChargeDept(pharmacy);
+			chargeOrderExecute
+					.setChargeState(OrderExecute.ChargeState_NoCharge);
+			chargeOrderExecute.setCostState(OrderExecute.CostState_NoCost);
+			chargeOrderExecute.setState(OrderExecute.State_Executing);
+			// 统一缴费
+			chargeOrderExecute.setPlanStartDate(sysDate);
+			chargeOrderExecute.setPlanEndDate(sysDate);
+
+			team.addOrderExecute(chargeOrderExecute);
+
+		}
 
 		// 摆药执行条目
 		DispensingDrugOrderExecute dispensingDrugExecute = new DispensingDrugOrderExecute();
@@ -99,15 +130,6 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		transportFluidExecute.setBelongDept(order.getBelongDept());
 		transportFluidExecute.setType(OrderExecute.Type_Transport_Fluid);
 		transportFluidExecute.setDrugType(drugType);
-
-		// 处理辅材产生的费用
-		DrugUseModeAssistMaterial orderUseModeAssistMaterial = this
-				.getTheOrderUseModeChargeItem(transportFluid);
-		if (orderUseModeAssistMaterial != null) {
-			transportFluidExecute.addChargeItem(orderUseModeAssistMaterial
-					.getAssistMaterial().getChargeItem());
-		}
-
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
 		transportFluidExecute.setChargeDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);

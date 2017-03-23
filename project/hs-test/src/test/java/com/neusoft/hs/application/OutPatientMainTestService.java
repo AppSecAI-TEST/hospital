@@ -278,7 +278,7 @@ public class OutPatientMainTestService extends AppTestService {
 		sysDate = DateUtil.getSysDate();
 
 		LongOrder drug002Order = new LongOrder();
-		drug002Order.setVisit(visit001);
+		drug002Order.setVisit(visit002);
 		drug002Order.setName("头孢3");
 		drug002Order.setCount(2);
 		drug002Order.setFrequencyType(orderFrequencyType_10H);
@@ -292,7 +292,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		// 创建药品003长期医嘱
 		LongOrder drug003Order = new LongOrder();
-		drug003Order.setVisit(visit001);
+		drug003Order.setVisit(visit002);
 		drug003Order.setName("5%葡萄糖");
 		drug003Order.setCount(1);
 		drug003Order.setFrequencyType(orderFrequencyType_10H);
@@ -323,8 +323,7 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:42"));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user701,
-				pageable);
+		executes = cashierAppService.getNeedChageExecutes(visit001, user701, pageable);
 
 		assertTrue(executes.size() == 4);
 

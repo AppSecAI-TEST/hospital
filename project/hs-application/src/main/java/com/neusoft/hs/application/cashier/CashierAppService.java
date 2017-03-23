@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -27,8 +29,17 @@ public class CashierAppService {
 	@Autowired
 	private CostDomainService costDomainService;
 
+	@Autowired
+	private OrderExecuteAppService orderExecuteAppService;
+
 	public List<Visit> getNeedInitAccountVisits(Pageable pageable) {
 		return costDomainService.getNeedInitAccount(pageable);
+	}
+
+	public List<OrderExecute> getNeedChageExecutes(Visit visit,
+			AbstractUser user, Pageable pageable) {
+		return orderExecuteAppService.getNeedExecuteOrderExecutes(visit,
+				OrderExecute.Type_Change, user, pageable);
 	}
 
 	/**
