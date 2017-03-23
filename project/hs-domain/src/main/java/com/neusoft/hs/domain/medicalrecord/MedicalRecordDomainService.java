@@ -173,7 +173,7 @@ public class MedicalRecordDomainService {
 		clip.setChecker(user);
 		clip.save();
 
-		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]归档",
+		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]发送给归档岗位",
 				user.getId(), clip.getVisit().getName(), clip.getId());
 	}
 

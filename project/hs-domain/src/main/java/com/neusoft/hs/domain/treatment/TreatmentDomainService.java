@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -50,6 +51,10 @@ public class TreatmentDomainService {
 			treatmentItemRepo.save(item);
 			applicationContext
 					.publishEvent(new TreatmentItemCreatedEvent(item));
+
+			LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]创建诊疗信息[{}],类型为[{}]",
+					item.getCreator().getId(), item.getVisit().getName(),
+					item.getId(), item.getTreatmentItemSpec().getId());
 		} else {
 			// 删除原Values
 			treatmentItemValueRepo.delete(oldItem.getValues());
@@ -61,6 +66,10 @@ public class TreatmentDomainService {
 
 			applicationContext
 					.publishEvent(new TreatmentItemUpdatedEvent(item));
+
+			LogUtil.log(this.getClass(), "用户[{}]更新患者一次就诊[{}]的诊疗信息[{}],类型为[{}]",
+					item.getCreator().getId(), item.getVisit().getName(),
+					item.getId(), item.getTreatmentItemSpec().getId());
 		}
 	}
 

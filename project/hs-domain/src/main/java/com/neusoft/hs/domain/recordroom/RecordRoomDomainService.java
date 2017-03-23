@@ -8,6 +8,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -43,6 +44,9 @@ public class RecordRoomDomainService {
 		medicalCase.setCreateDate(DateUtil.getSysDate());
 
 		medicalCaseRepo.save(medicalCase);
+
+		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]归档",
+				user.getId(), clip.getVisit().getName(), clip.getId());
 	}
 
 	public void clear() {
