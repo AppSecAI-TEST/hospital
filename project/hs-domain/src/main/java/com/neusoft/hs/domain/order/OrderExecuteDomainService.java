@@ -80,8 +80,9 @@ public class OrderExecuteDomainService {
 
 		applicationContext.publishEvent(new OrderExecuteSendedEvent(execute));
 
-		LogUtil.log(this.getClass(), "护士[{}]发送患者一次就诊[{}]的医嘱执行条目{}",
-				nurse.getId(), execute.getVisit().getId(), execute.getId());
+		LogUtil.log(this.getClass(), "护士[{}]发送患者一次就诊[{}]的医嘱执行条目[{}],类型为[{}]",
+				nurse.getId(), execute.getVisit().getName(), execute.getId(),
+				execute.getType());
 
 	}
 
@@ -122,8 +123,9 @@ public class OrderExecuteDomainService {
 
 		applicationContext.publishEvent(new OrderExecuteFinishedEvent(execute));
 
-		LogUtil.log(this.getClass(), "用户[{}]完成了患者一次就诊[{}]的医嘱执行条目{}",
-				user.getId(), execute.getVisit().getId(), execute.getId());
+		LogUtil.log(this.getClass(), "用户[{}]完成了患者一次就诊[{}]的医嘱执行条目{},类型为[{}]",
+				user.getId(), execute.getVisit().getName(), execute.getId(),
+				execute.getType());
 	}
 
 	public OrderExecute find(String executeId) {

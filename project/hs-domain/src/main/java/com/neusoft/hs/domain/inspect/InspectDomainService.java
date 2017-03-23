@@ -18,6 +18,7 @@ import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -63,6 +64,11 @@ public class InspectDomainService {
 		inspectApplyItem.setPlanExecuteDate(planExecuteDate);
 
 		inspectApplyItem.save();
+
+		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]安排检查[{}]时间为[{}]",
+				user.getId(), orderExecute.getVisit().getName(),
+				inspectApplyItem.getId(), planExecuteDate);
+
 	}
 
 	/**
@@ -111,6 +117,10 @@ public class InspectDomainService {
 		}
 
 		applyDomainService.save(inspectApply);
+
+		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]确认检查结果[{}]",
+				user.getId(), orderExecute.getVisit().getName(),
+				inspectApply.getId());
 	}
 
 	/**
@@ -156,6 +166,10 @@ public class InspectDomainService {
 
 		applicationContext.publishEvent(new InspectApplyItemCanceledEvent(
 				inspectApplyItem));
+
+		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]取消检查项目[{}]",
+				user.getId(), arrange.getVisit().getName(),
+				inspectApplyItem.getId());
 	}
 
 	public void createInspectItems(List<InspectItem> inspectItems) {

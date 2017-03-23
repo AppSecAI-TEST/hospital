@@ -62,7 +62,7 @@ public class VisitDomainService {
 
 		if (newPatient) {
 			LogUtil.log(this.getClass(), "用户[{}]创建了患者[{}]", createVisitVO
-					.getOperator().getId(), patient.getId());
+					.getOperator().getId(), patient.getName());
 		}
 
 		// 修改原患者一次就诊为非最新
@@ -94,7 +94,7 @@ public class VisitDomainService {
 		medicalRecordClip.save();
 
 		LogUtil.log(this.getClass(), "用户[{}]创建了患者一次就诊[{}]的病历夹[{}]",
-				createVisitVO.getOperator().getId(), visit.getId(),
+				createVisitVO.getOperator().getId(), visit.getName(),
 				medicalRecordClip.getId());
 
 		VisitLog visitLog = new VisitLog();
@@ -106,7 +106,7 @@ public class VisitDomainService {
 		visitLog.save();
 
 		LogUtil.log(this.getClass(), "用户[{}]创建了患者一次就诊[{}]", createVisitVO
-				.getOperator().getId(), visit.getId());
+				.getOperator().getId(), visit.getName());
 
 		return visit;
 
@@ -134,7 +134,7 @@ public class VisitDomainService {
 		applicationContext.publishEvent(new VisitIntoWardedEvent(visit));
 
 		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]登记到病房[{}],床位号[{}]",
-				user.getId(), visit.getId(), visit.getDept().getId(),
+				user.getId(), visit.getName(), visit.getDept().getId(),
 				visit.getBed());
 	}
 

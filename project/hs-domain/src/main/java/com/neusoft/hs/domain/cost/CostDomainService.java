@@ -116,8 +116,8 @@ public class CostDomainService {
 
 		visitChargeItem.save();
 
-		LogUtil.log(this.getClass(), "系统给患者一次就诊[{}]增加收费项目{}", visit.getId(),
-				item.getId());
+		LogUtil.log(this.getClass(), "系统给患者一次就诊[{}]增加收费项目{}", visit.getName(),
+				item.getName());
 	}
 
 	/**

@@ -89,7 +89,7 @@ public class RegistrationDomainService {
 		voucherRepo.save(voucher);
 
 		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]挂号，号码是[{}], 诊室为[{}]",
-				user.getId(), visit.getId(), voucher.getNumber(), planRecord
+				user.getId(), visit.getName(), voucher.getNumber(), planRecord
 						.getRoom().getId());
 
 		return voucher;
@@ -116,7 +116,7 @@ public class RegistrationDomainService {
 		voucherRepo.save(voucher);
 
 		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]重新排号，号码是[{}], 诊室为[{}]",
-				user.getId(), voucher.getVisit().getId(), voucher.getNumber(),
+				user.getId(), voucher.getVisit().getName(), voucher.getNumber(),
 				planRecord.getRoom().getId());
 	}
 

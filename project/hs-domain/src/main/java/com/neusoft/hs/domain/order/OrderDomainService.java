@@ -102,13 +102,16 @@ public class OrderDomainService {
 		applicationContext.publishEvent(new OrderCreatedEvent(orderCommand));
 
 		List<String> orderIds = new ArrayList<String>();
+		List<String> orderTypes = new ArrayList<String>();
 		for (Order order : orderCommand.getOrders()) {
 			order.create();
 			orderIds.add(order.getId());
+			orderTypes.add(order.getTypeApp().getOrderType().getId());
 		}
 
-		LogUtil.log(this.getClass(), "医生[{}]给患者一次就诊[{}]创建医嘱条目{}",
-				doctor.getId(), orderCommand.getVisit().getId(), orderIds);
+		LogUtil.log(this.getClass(), "医生[{}]给患者一次就诊[{}]创建医嘱条目{},医嘱类型为{}",
+				doctor.getId(), orderCommand.getVisit().getName(), orderIds,
+				orderTypes);
 
 		return orders;
 	}
@@ -136,8 +139,9 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderVerifyedEvent(order));
 
-		LogUtil.log(this.getClass(), "护士[{}]核对患者一次就诊[[{}]的医嘱条目{}",
-				nurse.getId(), order.getVisit().getId(), orderId);
+		LogUtil.log(this.getClass(), "护士[{}]核对患者一次就诊[[{}]的医嘱条目[{}],类型为[{}]",
+				nurse.getId(), order.getVisit().getName(), orderId, order
+						.getTypeApp().getOrderType().getId());
 
 		return order;
 	}
@@ -183,8 +187,9 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderCanceledEvent(order));
 
-		LogUtil.log(this.getClass(), "医生[{}]作废了核对患者一次就诊[[{}]的医嘱条目{}",
-				doctor.getId(), order.getVisit().getId(), orderId);
+		LogUtil.log(this.getClass(), "医生[{}]作废了核对患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
+				doctor.getId(), order.getVisit().getName(), orderId, order
+						.getTypeApp().getOrderType().getId());
 
 	}
 
@@ -204,8 +209,9 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderDeletedEvent(order));
 
-		LogUtil.log(this.getClass(), "医生[{}]删除了核对患者一次就诊[[{}]的医嘱条目{}",
-				doctor.getId(), order.getVisit().getId(), orderId);
+		LogUtil.log(this.getClass(), "医生[{}]删除了核对患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
+				doctor.getId(), order.getVisit().getName(), orderId, order
+						.getTypeApp().getOrderType().getId());
 	}
 
 	public List<Prescription> findPrescriptions(Visit visit) {

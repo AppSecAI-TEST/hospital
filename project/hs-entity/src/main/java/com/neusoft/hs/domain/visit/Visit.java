@@ -193,7 +193,7 @@ public class Visit extends IdEntity {
 		visitLog.save();
 
 		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]初始化了收费单,金额为{}",
-				user.getId(), this.getId(), balance);
+				user.getId(), this.getName(), balance);
 
 		return chargeBill;
 	}
