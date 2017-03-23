@@ -45,8 +45,8 @@ public class RecordRoomDomainService {
 
 		medicalCaseRepo.save(medicalCase);
 
-		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]归档",
-				user.getId(), clip.getVisit().getName(), clip.getId());
+		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]归档,位置是[{}]",
+				user.getId(), clip.getVisit().getName(), clip.getId(), position);
 	}
 
 	public void clear() {
