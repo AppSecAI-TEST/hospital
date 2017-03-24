@@ -288,6 +288,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		drug002Order.setPlanStartDate(sysDate);
 		drug002Order.setPlanEndDate(DateUtil.addDay(startDate, 2));
+		drug002Order.setExecuteDept(deptaaa);
 
 		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002,
 				infusionOrderUseModeToOutPatient));
@@ -302,6 +303,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		drug003Order.setPlanStartDate(sysDate);
 		drug003Order.setPlanEndDate(DateUtil.addDay(startDate, 2));
+		drug003Order.setExecuteDept(deptaaa);
 
 		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003,
 				infusionOrderUseModeToOutPatient));
@@ -373,7 +375,7 @@ public class OutPatientMainTestService extends AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user303);
 		}
-		
+
 		pageable = new PageRequest(0, 15);
 		// 通过患者一次就诊得到待取药的任务列表
 		executes = pharmacyAppService.taskDrug(visit002, user303, pageable);
@@ -477,6 +479,20 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit001.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosed_Executing));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 11:00"));
+
+		pageable = new PageRequest(0, 15);
+		// 通过患者一次就诊得到待取药的任务列表
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(visit002,
+				OrderExecute.Type_Transport_Fluid, usera01, pageable);
+
+		assertTrue(executes.size() == 2);
+
+		// 完成取药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, usera01);
+		}
 
 		// 2016-12-28
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-28"));

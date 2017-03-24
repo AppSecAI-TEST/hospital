@@ -10,6 +10,7 @@ import com.neusoft.hs.domain.cost.ChargeOrderExecute;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -29,6 +30,8 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		Pharmacy pharmacy = drugOrderType.getDrugType().getPharmacy();
 		Date sysDate = DateUtil.getSysDate();
 
+		Dept chargeDept = visit.getDept().getOrg().getOutChargeDept();
+
 		// 收药品费执行条目
 		ChargeOrderExecute chargeOrderExecute = new ChargeOrderExecute();
 		chargeOrderExecute.setOrder(order);
@@ -39,8 +42,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		chargeOrderExecute.addChargeItem(chargeItem);
 		chargeOrderExecute.setCount(order.getCount());
 
-		chargeOrderExecute.setExecuteDept(visit.getDept().getOrg()
-				.getOutChargeDept());
+		chargeOrderExecute.setExecuteDept(chargeDept);
 		chargeOrderExecute.setChargeDept(pharmacy);
 		chargeOrderExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		chargeOrderExecute.setCostState(OrderExecute.CostState_NoCost);
@@ -68,8 +70,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 				chargeOrderExecute.addChargeItem(orderUseModeAssistMaterial
 						.getAssistMaterial().getChargeItem());
 
-				chargeOrderExecute.setExecuteDept(visit.getDept().getOrg()
-						.getOutChargeDept());
+				chargeOrderExecute.setExecuteDept(chargeDept);
 				chargeOrderExecute.setChargeDept(pharmacy);
 				chargeOrderExecute
 						.setChargeState(OrderExecute.ChargeState_NoCharge);
@@ -109,12 +110,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		taskDrugExecute.setVisit(visit);
 		taskDrugExecute.setBelongDept(order.getBelongDept());
 		taskDrugExecute.setType(OrderExecute.Type_Take_Drug);
-		if (order.isInPatient()) {
-			taskDrugExecute.setExecuteDept(order.getBelongDept());
-		} else {
-			taskDrugExecute.setExecuteDept(drugOrderType.getDrugType()
-					.getPharmacy());
-		}
+		taskDrugExecute.setExecuteDept(pharmacy);
 		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
 		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		taskDrugExecute.setCostState(OrderExecute.CostState_NoCost);
@@ -131,7 +127,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		transportFluidExecute.setBelongDept(order.getBelongDept());
 		transportFluidExecute.setType(OrderExecute.Type_Transport_Fluid);
 		transportFluidExecute.setDrugType(drugType);
-		transportFluidExecute.setExecuteDept(order.getBelongDept());
+		transportFluidExecute.setExecuteDept(order.getExecuteDept());
 		transportFluidExecute.setChargeDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
 		transportFluidExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
