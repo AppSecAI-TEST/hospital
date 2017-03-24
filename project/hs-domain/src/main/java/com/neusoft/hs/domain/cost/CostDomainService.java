@@ -124,31 +124,45 @@ public class CostDomainService {
 	 * @param execute
 	 * @roseuid 584FBC02036D
 	 */
-	public Float charging(OrderExecute execute) {
+	public ExecuteResult charging(OrderExecute execute) {
 
-		Float amount = 0F;
-
+		ExecuteResult result = new ExecuteResult();
+		result.setExecuteId(execute.getId());
 		// 生成收费项目
 		List<ChargeRecord> chargeRecords = execute.createChargeRecords();
 		if (chargeRecords.size() > 0) {
 			Date sysDate = DateUtil.getSysDate();
-			// 设置数据
-			for (ChargeRecord chargeRecord : chargeRecords) {
-				chargeRecord.setOrderExecute(execute);
-				chargeRecord.setCreateDate(sysDate);
-				chargeRecord.setChargeDept(execute.getChargeDept());
-				chargeRecord.setBelongDept(execute.getBelongDept());
-				chargeRecord.setType(ChargeRecord.Type_ShouldCharge);
-			}
-			// 生成费用记录
-			amount = execute.getVisit().getChargeBill().charging(chargeRecords);
-			// 修改执行条目状态
-			if (execute.getChargeState().equals(
-					OrderExecute.ChargeState_NoCharge)) {
-				execute.setChargeState(OrderExecute.ChargeState_Charge);
+			// 处理费用
+			if (!execute.getChargeState().equals(
+					OrderExecute.ChargeState_Charge)) {
+
+				Float amount = 0F;
+				// 设置数据
+				for (ChargeRecord chargeRecord : chargeRecords) {
+					chargeRecord.setOrderExecute(execute);
+					chargeRecord.setCreateDate(sysDate);
+					chargeRecord.setChargeDept(execute.getChargeDept());
+					chargeRecord.setBelongDept(execute.getBelongDept());
+					chargeRecord.setType(ChargeRecord.Type_ShouldCharge);
+				}
+				// 生成费用记录
+				amount = execute.getVisit().getChargeBill()
+						.charging(chargeRecords);
+				// 修改执行条目状态
+				if (execute.getChargeState().equals(
+						OrderExecute.ChargeState_NoCharge)) {
+					execute.setChargeState(OrderExecute.ChargeState_Charge);
+				}
+
+				result.setCharge(amount);
+				LogUtil.log(this.getClass(), "系统:医嘱执行条目[{}]产生费用{}",
+						execute.getId(), amount);
 			}
 			// 记录成本
 			if (execute.getCostState().equals(OrderExecute.CostState_NoCost)) {
+
+				Float amount = 0F;
+
 				List<CostRecord> costRecords = new ArrayList<CostRecord>();
 				CostRecord costRecord;
 				for (ChargeRecord chargeRecord : chargeRecords) {
@@ -156,18 +170,21 @@ public class CostDomainService {
 					if (costRecord != null) {
 						costRecords.add(costRecord);
 					}
+					amount += costRecord.getCost();
 				}
 				if (costRecords.size() > 0) {
 					costRecordRepo.save(costRecords);
 					execute.setCostState(OrderExecute.CostState_Cost);
 				}
+
+				result.setCost(amount);
+				LogUtil.log(this.getClass(), "系统:医嘱执行条目[{}]产生成本{}",
+						execute.getId(), amount);
 			}
+
 		}
 
-		LogUtil.log(this.getClass(), "系统:医嘱执行条目[{}]产生费用{}", execute.getId(),
-				amount);
-
-		return amount;
+		return result;
 	}
 
 	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,

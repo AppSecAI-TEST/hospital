@@ -51,10 +51,7 @@ public class OralOrderUseMode extends DrugUseMode {
 		dispensingDrugExecute.setVisit(visit);
 		dispensingDrugExecute.setBelongDept(order.getBelongDept());
 		dispensingDrugExecute.setType(OrderExecute.Type_Dispense_Drug);
-		// 住院自动扣预交金
-		if (order.isInPatient()) {
-			dispensingDrugExecute.addChargeItem(chargeItem);
-		}
+		dispensingDrugExecute.addChargeItem(chargeItem);
 		dispensingDrugExecute.setCount(order.getCount());
 		dispensingDrugExecute.setDrugType(drugType);
 
@@ -80,8 +77,7 @@ public class OralOrderUseMode extends DrugUseMode {
 		if (order.isInPatient()) {
 			taskDrugExecute.setExecuteDept(order.getBelongDept());
 		} else {
-			taskDrugExecute.setExecuteDept(drugOrderType.getDrugType()
-					.getPharmacy());
+			taskDrugExecute.setExecuteDept(pharmacy);
 		}
 		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
 		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);

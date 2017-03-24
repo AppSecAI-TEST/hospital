@@ -90,6 +90,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		dispensingDrugExecute.setVisit(visit);
 		dispensingDrugExecute.setBelongDept(order.getBelongDept());
 		dispensingDrugExecute.setType(OrderExecute.Type_Dispense_Drug);
+		dispensingDrugExecute.addChargeItem(chargeItem);
 		dispensingDrugExecute.setCount(order.getCount());
 		dispensingDrugExecute.setDrugType(drugType);
 
