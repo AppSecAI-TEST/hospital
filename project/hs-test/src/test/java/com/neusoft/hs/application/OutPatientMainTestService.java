@@ -354,7 +354,7 @@ public class OutPatientMainTestService extends AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 5);
 
 		// 完成摆药医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -368,6 +368,17 @@ public class OutPatientMainTestService extends AppTestService {
 		executes = pharmacyAppService.taskDrug(visit001, user303, pageable);
 
 		assertTrue(executes.size() == 1);
+
+		// 完成取药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user303);
+		}
+		
+		pageable = new PageRequest(0, 15);
+		// 通过患者一次就诊得到待取药的任务列表
+		executes = pharmacyAppService.taskDrug(visit002, user303, pageable);
+
+		assertTrue(executes.size() == 4);
 
 		// 完成取药医嘱执行条目
 		for (OrderExecute execute : executes) {
