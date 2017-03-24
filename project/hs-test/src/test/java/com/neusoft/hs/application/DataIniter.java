@@ -204,7 +204,7 @@ public class DataIniter {
 
 	protected OrderFrequencyType orderFrequencyType_9H15H;// 每天2次/早9/下3
 
-	protected OrderFrequencyType orderFrequencyType_10H;// 每天1次/早10
+	protected OrderFrequencyType orderFrequencyType_11H;// 每天1次/早11
 
 	protected TreatmentItemSpec mainDescribeTreatmentItemSpec;// 主诉
 
@@ -398,7 +398,7 @@ public class DataIniter {
 
 		orderFrequencyType_0H = dataIniter.orderFrequencyType_0H;
 		orderFrequencyType_9H15H = dataIniter.orderFrequencyType_9H15H;
-		orderFrequencyType_10H = dataIniter.orderFrequencyType_10H;
+		orderFrequencyType_11H = dataIniter.orderFrequencyType_11H;
 
 		mainDescribeTreatmentItemSpec = dataIniter.mainDescribeTreatmentItemSpec;
 		visitNameTreatmentItemSpec = dataIniter.visitNameTreatmentItemSpec;
@@ -1242,9 +1242,9 @@ public class DataIniter {
 
 		orderFrequencyTypes.add(orderFrequencyType_9H15H);
 
-		orderFrequencyType_10H = new OrderFrequencyTypeDayOne(10);
+		orderFrequencyType_11H = new OrderFrequencyTypeDayOne(11);
 
-		orderFrequencyTypes.add(orderFrequencyType_10H);
+		orderFrequencyTypes.add(orderFrequencyType_11H);
 
 		orderDomainService.createOrderFrequencyTypes(orderFrequencyTypes);
 

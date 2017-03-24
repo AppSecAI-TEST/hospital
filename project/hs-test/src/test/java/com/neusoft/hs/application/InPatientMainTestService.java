@@ -43,6 +43,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		int startedCount;
 		int resolveCount;
 		Date sysDate;
+		Date startDate;
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40", dayCount));
 
@@ -226,6 +227,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 创建药品002长期医嘱
 		sysDate = DateUtil.getSysDate();
+		startDate = DateUtil.getSysDateStart();
 
 		LongOrder drug002Order = new LongOrder();
 		drug002Order.setVisit(visit001);
