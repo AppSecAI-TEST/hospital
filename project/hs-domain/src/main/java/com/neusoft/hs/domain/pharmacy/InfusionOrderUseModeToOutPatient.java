@@ -55,31 +55,32 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		DrugUseModeAssistMaterial orderUseModeAssistMaterial = this
 				.getTheOrderUseModeChargeItem(transportFluid);
 		if (orderUseModeAssistMaterial != null) {
+			// 判断在指定药品规格上绑定材料费进行收费
+			if (drugType.getDrugTypeSpec().isTransportFluidCharge()) {
+				chargeOrderExecute = new ChargeOrderExecute();
+				chargeOrderExecute.setOrder(order);
+				chargeOrderExecute.setVisit(visit);
+				chargeOrderExecute.setBelongDept(order.getBelongDept());
+				chargeOrderExecute.setType(OrderExecute.Type_Change);
 
-			chargeOrderExecute = new ChargeOrderExecute();
-			chargeOrderExecute.setOrder(order);
-			chargeOrderExecute.setVisit(visit);
-			chargeOrderExecute.setBelongDept(order.getBelongDept());
-			chargeOrderExecute.setType(OrderExecute.Type_Change);
+				chargeOrderExecute.addChargeItem(chargeItem);
 
-			chargeOrderExecute.addChargeItem(chargeItem);
+				chargeOrderExecute.addChargeItem(orderUseModeAssistMaterial
+						.getAssistMaterial().getChargeItem());
 
-			chargeOrderExecute.addChargeItem(orderUseModeAssistMaterial
-					.getAssistMaterial().getChargeItem());
+				chargeOrderExecute.setExecuteDept(visit.getDept().getOrg()
+						.getOutChargeDept());
+				chargeOrderExecute.setChargeDept(pharmacy);
+				chargeOrderExecute
+						.setChargeState(OrderExecute.ChargeState_NoCharge);
+				chargeOrderExecute.setCostState(OrderExecute.CostState_NoCost);
+				chargeOrderExecute.setState(OrderExecute.State_Executing);
+				// 统一缴费
+				chargeOrderExecute.setPlanStartDate(sysDate);
+				chargeOrderExecute.setPlanEndDate(sysDate);
 
-			chargeOrderExecute.setExecuteDept(visit.getDept().getOrg()
-					.getOutChargeDept());
-			chargeOrderExecute.setChargeDept(pharmacy);
-			chargeOrderExecute
-					.setChargeState(OrderExecute.ChargeState_NoCharge);
-			chargeOrderExecute.setCostState(OrderExecute.CostState_NoCost);
-			chargeOrderExecute.setState(OrderExecute.State_Executing);
-			// 统一缴费
-			chargeOrderExecute.setPlanStartDate(sysDate);
-			chargeOrderExecute.setPlanEndDate(sysDate);
-
-			team.addOrderExecute(chargeOrderExecute);
-
+				team.addOrderExecute(chargeOrderExecute);
+			}
 		}
 
 		// 摆药执行条目

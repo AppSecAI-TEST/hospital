@@ -49,7 +49,7 @@ public abstract class AppTestService extends DataIniter {
 
 		this.choices = new HashMap<ChoiceItem, Object>();
 		this.choices.put(ChoiceItem.OrderUseModeAssistMaterialToInPatient,
-				onlyOneOrderUseModeAssistMaterialToInPatient);
+				everyOneOrderUseModeAssistMaterialToInPatient);
 		this.choices.put(ChoiceItem.OrderUseModeAssistMaterialToOutPatient,
 				everyOneOrderUseModeAssistMaterialToOutPatient);
 		this.choices.put(ChoiceItem.CancelHC, true);

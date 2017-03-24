@@ -82,6 +82,7 @@ public class OutPatientMainTestService extends AppTestService {
 		int changedCount;
 		TreatmentItem item;
 		Date sysDate;
+		Date startDate;
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
@@ -276,6 +277,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		// 创建药品002长期医嘱
 		sysDate = DateUtil.getSysDate();
+		startDate = DateUtil.getSysDateStart();
 
 		LongOrder drug002Order = new LongOrder();
 		drug002Order.setVisit(visit002);
@@ -285,7 +287,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug002Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
 		drug002Order.setPlanStartDate(sysDate);
-		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 1));
+		drug002Order.setPlanEndDate(DateUtil.addDay(startDate, 2));
 
 		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002,
 				infusionOrderUseModeToOutPatient));
@@ -299,7 +301,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug003Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
 		drug003Order.setPlanStartDate(sysDate);
-		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 1));
+		drug003Order.setPlanEndDate(DateUtil.addDay(startDate, 2));
 
 		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003,
 				infusionOrderUseModeToOutPatient));
@@ -323,7 +325,8 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:42"));
 
 		pageable = new PageRequest(0, 15);
-		executes = cashierAppService.getNeedChageExecutes(visit001, user701, pageable);
+		executes = cashierAppService.getNeedChageExecutes(visit001, user701,
+				pageable);
 
 		assertTrue(executes.size() == 4);
 
@@ -331,11 +334,12 @@ public class OutPatientMainTestService extends AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user701);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:43"));
 
 		pageable = new PageRequest(0, 15);
-		executes = cashierAppService.getNeedChageExecutes(visit002, user701, pageable);
+		executes = cashierAppService.getNeedChageExecutes(visit002, user701,
+				pageable);
 
 		assertTrue(executes.size() == 6);
 
