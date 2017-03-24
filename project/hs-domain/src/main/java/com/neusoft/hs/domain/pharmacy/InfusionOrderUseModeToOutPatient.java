@@ -29,8 +29,9 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		Visit visit = order.getVisit();
 		Pharmacy pharmacy = drugOrderType.getDrugType().getPharmacy();
 		Date sysDate = DateUtil.getSysDate();
-
 		Dept chargeDept = visit.getDept().getOrg().getOutChargeDept();
+
+		ChargeItem assistMaterialChargeItem = null;
 
 		// 收药品费执行条目
 		ChargeOrderExecute chargeOrderExecute = new ChargeOrderExecute();
@@ -64,12 +65,10 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 				chargeOrderExecute.setVisit(visit);
 				chargeOrderExecute.setBelongDept(order.getBelongDept());
 				chargeOrderExecute.setType(OrderExecute.Type_Change);
-
-				chargeOrderExecute.addChargeItem(chargeItem);
-
-				chargeOrderExecute.addChargeItem(orderUseModeAssistMaterial
-						.getAssistMaterial().getChargeItem());
-
+				// 记录辅材收费项目
+				assistMaterialChargeItem = orderUseModeAssistMaterial
+						.getAssistMaterial().getChargeItem();
+				chargeOrderExecute.addChargeItem(assistMaterialChargeItem);
 				chargeOrderExecute.setExecuteDept(chargeDept);
 				chargeOrderExecute.setChargeDept(pharmacy);
 				chargeOrderExecute
@@ -128,6 +127,9 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		transportFluidExecute.setBelongDept(order.getBelongDept());
 		transportFluidExecute.setType(OrderExecute.Type_Transport_Fluid);
 		transportFluidExecute.setDrugType(drugType);
+		if (assistMaterialChargeItem != null) {
+			transportFluidExecute.addChargeItem(assistMaterialChargeItem);
+		}
 		transportFluidExecute.setExecuteDept(order.getExecuteDept());
 		transportFluidExecute.setChargeDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
