@@ -77,9 +77,6 @@ public class ChargeRecord extends IdEntity {
 	@Transient
 	private boolean haveCost = true;
 
-	@Transient
-	private boolean haveCharge = true;
-
 	public static final String Type_PreCharge = "预存";
 
 	public static final String Type_ShouldCharge = "应扣";
@@ -264,14 +261,6 @@ public class ChargeRecord extends IdEntity {
 
 	public void setHaveCost(boolean haveCost) {
 		this.haveCost = haveCost;
-	}
-
-	public boolean isHaveCharge() {
-		return haveCharge;
-	}
-
-	public void setHaveCharge(boolean haveCharge) {
-		this.haveCharge = haveCharge;
 	}
 
 	public String getType() {

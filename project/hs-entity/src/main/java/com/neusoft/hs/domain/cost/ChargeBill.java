@@ -120,8 +120,7 @@ public class ChargeBill extends IdEntity {
 		ChargeRecord chargeRecord = new ChargeRecord();
 		chargeRecord.setAmount(-this.balance);
 		chargeRecord.setHaveCost(false);
-		chargeRecord.setHaveCharge(false);
-
+	
 		this.addChargeRecord(chargeRecord);
 
 		this.balance = 0;

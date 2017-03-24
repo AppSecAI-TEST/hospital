@@ -132,7 +132,6 @@ public class CostDomainService {
 		List<ChargeRecord> chargeRecords = execute.createChargeRecords();
 		if (chargeRecords.size() > 0) {
 			Date sysDate = DateUtil.getSysDate();
-			boolean haveCharge = false;
 			// 设置数据
 			for (ChargeRecord chargeRecord : chargeRecords) {
 				chargeRecord.setOrderExecute(execute);
@@ -140,29 +139,28 @@ public class CostDomainService {
 				chargeRecord.setChargeDept(execute.getChargeDept());
 				chargeRecord.setBelongDept(execute.getBelongDept());
 				chargeRecord.setType(ChargeRecord.Type_ShouldCharge);
-
-				if (chargeRecord.isHaveCharge()) {
-					haveCharge = true;
-				}
 			}
 			// 生成费用记录
 			amount = execute.getVisit().getChargeBill().charging(chargeRecords);
 			// 修改执行条目状态
-			if (haveCharge) {
+			if (execute.getChargeState().equals(
+					OrderExecute.ChargeState_NoCharge)) {
 				execute.setChargeState(OrderExecute.ChargeState_Charge);
 			}
 			// 记录成本
-			List<CostRecord> costRecords = new ArrayList<CostRecord>();
-			CostRecord costRecord;
-			for (ChargeRecord chargeRecord : chargeRecords) {
-				costRecord = chargeRecord.createCostRecord();
-				if (costRecord != null) {
-					costRecords.add(costRecord);
+			if (execute.getCostState().equals(OrderExecute.CostState_NoCost)) {
+				List<CostRecord> costRecords = new ArrayList<CostRecord>();
+				CostRecord costRecord;
+				for (ChargeRecord chargeRecord : chargeRecords) {
+					costRecord = chargeRecord.createCostRecord();
+					if (costRecord != null) {
+						costRecords.add(costRecord);
+					}
 				}
-			}
-			if (costRecords.size() > 0) {
-				costRecordRepo.save(costRecords);
-				execute.setCostState(OrderExecute.CostState_Cost);
+				if (costRecords.size() > 0) {
+					costRecordRepo.save(costRecords);
+					execute.setCostState(OrderExecute.CostState_Cost);
+				}
 			}
 		}
 
