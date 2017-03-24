@@ -2,6 +2,7 @@ package com.neusoft.hs.application;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -226,6 +227,8 @@ public class DataIniter {
 	protected Disease hyperthyroidismDisease;// 甲状腺功能亢进（甲亢）
 
 	protected Disease hypoglycemiaDisease;// 低血糖
+	
+	protected Map<ChoiceItem, Object> choices;
 
 	@Autowired
 	protected RegisterAppService registerAppService;
@@ -411,6 +414,8 @@ public class DataIniter {
 
 		hyperthyroidismDisease = dataIniter.hyperthyroidismDisease;
 		hypoglycemiaDisease = dataIniter.hypoglycemiaDisease;
+		
+		choices = dataIniter.choices;
 	}
 
 	public void clear() {

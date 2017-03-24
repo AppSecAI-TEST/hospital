@@ -16,8 +16,6 @@ import com.neusoft.hs.platform.exception.HsException;
 @Service
 public abstract class AppTestService extends DataIniter {
 
-	protected Map<ChoiceItem, Object> choices;
-
 	@Autowired
 	protected OrderUtil orderUtil;
 
