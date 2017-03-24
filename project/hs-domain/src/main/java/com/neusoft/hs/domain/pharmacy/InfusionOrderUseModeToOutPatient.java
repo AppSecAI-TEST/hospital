@@ -44,8 +44,8 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 
 		chargeOrderExecute.setExecuteDept(chargeDept);
 		chargeOrderExecute.setChargeDept(pharmacy);
-		chargeOrderExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
-		chargeOrderExecute.setCostState(OrderExecute.CostState_NoCost);
+		chargeOrderExecute.setChargeState(OrderExecute.ChargeState_NoApply);
+		chargeOrderExecute.setCostState(OrderExecute.CostState_NoApply);
 		chargeOrderExecute.setState(OrderExecute.State_Executing);
 		// 统一缴费
 		chargeOrderExecute.setPlanStartDate(sysDate);
@@ -73,8 +73,8 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 				chargeOrderExecute.setExecuteDept(chargeDept);
 				chargeOrderExecute.setChargeDept(pharmacy);
 				chargeOrderExecute
-						.setChargeState(OrderExecute.ChargeState_NoCharge);
-				chargeOrderExecute.setCostState(OrderExecute.CostState_NoCost);
+						.setChargeState(OrderExecute.ChargeState_NoApply);
+				chargeOrderExecute.setCostState(OrderExecute.CostState_NoApply);
 				chargeOrderExecute.setState(OrderExecute.State_Executing);
 				// 统一缴费
 				chargeOrderExecute.setPlanStartDate(sysDate);
@@ -112,8 +112,8 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		taskDrugExecute.setType(OrderExecute.Type_Take_Drug);
 		taskDrugExecute.setExecuteDept(pharmacy);
 		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
-		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
-		taskDrugExecute.setCostState(OrderExecute.CostState_NoCost);
+		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
+		taskDrugExecute.setCostState(OrderExecute.CostState_NoApply);
 		// 统一取药
 		taskDrugExecute.setPlanStartDate(sysDate);
 		taskDrugExecute.setPlanEndDate(sysDate);

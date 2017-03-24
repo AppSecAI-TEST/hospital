@@ -148,6 +148,8 @@ public class OrderExecute extends SuperEntity {
 
 	public static final String State_Stoped = "已停止";
 
+	public static final String ChargeState_NoApply = "不适用";
+
 	public static final String ChargeState_NoCharge = "未收费";
 
 	public static final String ChargeState_Charge = "已收费";
@@ -155,6 +157,8 @@ public class OrderExecute extends SuperEntity {
 	public static final String ChargeState_NeedBackCharge = "待退费";
 
 	public static final String ChargeState_BackCharge = "已退费";
+
+	public static final String CostState_NoApply = "不适用";
 
 	public static final String CostState_NoCost = "未发生成本";
 
@@ -571,6 +575,11 @@ public class OrderExecute extends SuperEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+	}
+
+	public List<OrderExecute> getTeamOrderExecutes() {
+		return this.getService(OrderExecuteRepo.class)
+				.findByTeamId(this.teamId);
 	}
 
 	public OrderExecute getNext() {

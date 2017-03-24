@@ -36,8 +36,8 @@ public class InspectOrderType extends OrderType {
 
 			arrange.setExecuteDept(inspectApplyItem.getArrangeDept());
 			arrange.setState(OrderExecute.State_NeedSend);
-			arrange.setChargeState(OrderExecute.ChargeState_NoCharge);
-			arrange.setCostState(OrderExecute.CostState_NoCost);
+			arrange.setChargeState(OrderExecute.ChargeState_NoApply);
+			arrange.setCostState(OrderExecute.CostState_NoApply);
 
 			team.addOrderExecute(arrange);
 

@@ -40,8 +40,8 @@ public class LeaveHospitalOrderType extends OrderType {
 
 		register.setExecuteDept(order.getBelongDept());
 		register.setState(OrderExecute.State_NeedExecute);
-		register.setChargeState(OrderExecute.ChargeState_NoCharge);
-		register.setCostState(OrderExecute.CostState_NoCost);
+		register.setChargeState(OrderExecute.ChargeState_NoApply);
+		register.setCostState(OrderExecute.CostState_NoApply);
 
 		team.addOrderExecute(register);
 
@@ -57,8 +57,8 @@ public class LeaveHospitalOrderType extends OrderType {
 
 		balance.setExecuteDept(order.getExecuteDept());
 		balance.setState(OrderExecute.State_NeedExecute);
-		balance.setChargeState(OrderExecute.ChargeState_NoCharge);
-		balance.setCostState(OrderExecute.CostState_NoCost);
+		balance.setChargeState(OrderExecute.ChargeState_NoApply);
+		balance.setCostState(OrderExecute.CostState_NoApply);
 
 		team.addOrderExecute(balance);
 

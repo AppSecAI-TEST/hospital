@@ -38,9 +38,8 @@ public class OralOrderUseMode extends DrugUseMode {
 			chargeOrderExecute.setExecuteDept(visit.getDept().getOrg()
 					.getOutChargeDept());
 			chargeOrderExecute.setChargeDept(pharmacy);
-			chargeOrderExecute
-					.setChargeState(OrderExecute.ChargeState_NoCharge);
-			chargeOrderExecute.setCostState(OrderExecute.CostState_NoCost);
+			chargeOrderExecute.setChargeState(OrderExecute.ChargeState_NoApply);
+			chargeOrderExecute.setCostState(OrderExecute.CostState_NoApply);
 			chargeOrderExecute.setState(OrderExecute.State_Executing);
 
 			team.addOrderExecute(chargeOrderExecute);
@@ -85,8 +84,8 @@ public class OralOrderUseMode extends DrugUseMode {
 					.getPharmacy());
 		}
 		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
-		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
-		taskDrugExecute.setCostState(OrderExecute.CostState_NoCost);
+		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
+		taskDrugExecute.setCostState(OrderExecute.CostState_NoApply);
 
 		team.addOrderExecute(taskDrugExecute);
 
