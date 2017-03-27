@@ -145,12 +145,8 @@ public class VisitDomainService {
 	 * @param user
 	 * @throws HsException
 	 */
-	public void leaveHospital(String visitId, AbstractUser user)
-			throws HsException {
-		Visit visit = visitRepo.findOne(visitId);
-		if (visit == null) {
-			throw new HsException("visitId=[" + visitId + "]不存在");
-		}
+	public void leaveHospital(Visit visit, AbstractUser user)
+			throws VisitException {
 
 		visit.leaveHospital(user);
 

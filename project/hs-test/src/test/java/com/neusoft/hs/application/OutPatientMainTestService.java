@@ -497,7 +497,7 @@ public class OutPatientMainTestService extends AppTestService {
 		
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 13:30"));
 		
-		visitDomainService.leaveHospital(visit002.getId(), user002);
+		visitAppService.leaveHospital(visit002.getId(), user002);
 		
 		theVisit = visitDomainService.find(visit002.getId());
 

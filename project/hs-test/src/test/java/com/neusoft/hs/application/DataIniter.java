@@ -18,6 +18,7 @@ import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.application.registration.RegistrationAppService;
 import com.neusoft.hs.application.treatment.TreatmentAppService;
+import com.neusoft.hs.application.visit.VisitAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemSpec;
@@ -265,6 +266,9 @@ public class DataIniter {
 
 	@Autowired
 	protected VisitDomainService visitDomainService;
+	
+	@Autowired
+	protected VisitAppService visitAppService;
 
 	@Autowired
 	protected OrderDomainService orderDomainService;
