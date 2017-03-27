@@ -20,6 +20,7 @@ import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 /**
  * 药品医嘱类型
@@ -107,10 +108,18 @@ public class DrugOrderType extends OrderType {
 						order.getPlanStartDate());
 			}
 		} else {
-			for (int day = 0; day < LongOrder.ResolveDays; day++) {
+			LongOrder longorder = (LongOrder) order;
+			int resolveDays;
+			if (order.isInPatient()) {
+				resolveDays = LongOrder.ResolveDays;// 住院长嘱分解指定天数
+			} else {
+				resolveDays = DateUtil.calDay(longorder.getPlanStartDate(),
+						longorder.getPlanEndDate());// 门诊长嘱一次性分解完
+
+			}
+			for (int day = 0; day < resolveDays; day++) {
 				// 计算执行时间
-				List<Date> executeDates = ((LongOrder) order)
-						.calExecuteDates(day);
+				List<Date> executeDates = longorder.calExecuteDates(day);
 
 				for (Date executeDate : executeDates) {
 					// 清空上一频次的执行条目集合
@@ -127,12 +136,19 @@ public class DrugOrderType extends OrderType {
 					}
 				}
 			}
-			// 没有分解出执行条目，设置之前分解的最后一条为last
-			if (order.getResolveOrderExecutes().size() == 0) {
-				OrderExecute lastOrderExecute = order.getLastOrderExecute();
-				lastOrderExecute.setLast(true);
-				lastOrderExecute.save();
+			if (order.isInPatient()) {
+				// 没有分解出执行条目，设置之前分解的最后一条为last
+				if (order.getResolveOrderExecutes().size() == 0) {
+					OrderExecute lastOrderExecute = order.getLastOrderExecute();
+					lastOrderExecute.setLast(true);
+					lastOrderExecute.save();
+				}
+			} else {
+				order.getResolveOrderExecutes()
+						.get(order.getResolveOrderExecutes().size() - 1)
+						.setLast(true);
 			}
+
 		}
 
 	}

@@ -150,8 +150,10 @@ public class OrderDomainService {
 	 * @roseuid 584F49010391
 	 */
 	public int resolve() {
+		// 获得执行中的住院长嘱
 		List<LongOrder> longOrders = orderRepo
-				.findLongOrderByState(Order.State_Executing);
+				.findLongOrderByStateAndPlaceType(Order.State_Executing,
+						Order.PlaceType_InPatient);
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
 			try {

@@ -115,16 +115,28 @@ public class DateUtil {
 	}
 
 	public static Date getSysDateStart() {
+		return getDateStart(getSysDate());
+	}
 
-		Date sysDate = getSysDate();
+	public static Date getDateStart(Date date) {
 
 		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(sysDate);
+		calendar.setTime(date);
 		calendar.set(Calendar.HOUR, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 
 		return calendar.getTime();
+	}
+
+	public static int calDay(Date startDate, Date endDate) {
+		long dayTime = getDateStart(endDate).getTime()
+				- getDateStart(startDate).getTime();
+		if (dayTime == 0L) {
+			return 1;
+		} else {
+			return new Long(dayTime / 86400000).intValue();
+		}
 	}
 }
