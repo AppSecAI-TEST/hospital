@@ -187,28 +187,16 @@ public class CostDomainService {
 		return result;
 	}
 
-	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,
-			Pageable pageable) {
-		return orderExecuteDomainService.getNeedBackChargeOrderExecutes(user,
-				pageable);
-	}
-
 	/**
 	 * 取消医嘱执行条目对应的费用条目
 	 * 
 	 * @param user
-	 * @param executeId
+	 * @param execute
 	 * @throws OrderExecuteException
 	 * @roseuid 5850BC9B0098
 	 */
-	public void unCharging(String executeId, boolean isBackCost, Nurse nurse)
+	public void unCharging(OrderExecute execute, boolean isBackCost, Nurse nurse)
 			throws OrderExecuteException {
-
-		OrderExecute execute = orderExecuteDomainService.find(executeId);
-		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
-		}
 
 		List<ChargeRecord> chargeRecords = execute.getChargeRecords();
 		Float amount = execute.getVisit().getChargeBill()
@@ -228,6 +216,12 @@ public class CostDomainService {
 
 		LogUtil.log(this.getClass(), "护士[{}]将医嘱执行条目[{}]产生的费用{}撤回",
 				nurse.getId(), execute.getId(), amount);
+	}
+
+	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,
+			Pageable pageable) {
+		return orderExecuteDomainService.getNeedBackChargeOrderExecutes(user,
+				pageable);
 	}
 
 	/**

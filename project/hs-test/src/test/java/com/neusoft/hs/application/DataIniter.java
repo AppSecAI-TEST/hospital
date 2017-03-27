@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.cashier.CashierAppService;
+import com.neusoft.hs.application.cost.CostAppService;
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.inpatientdept.MedicalRecordAppService;
 import com.neusoft.hs.application.inpatientdept.OrderAppService;
@@ -260,6 +261,9 @@ public class DataIniter {
 
 	@Autowired
 	protected CostDomainService costDomainService;
+	
+	@Autowired
+	protected CostAppService costAppService;
 
 	@Autowired
 	protected PharmacyDomainService pharmacyDomainService;

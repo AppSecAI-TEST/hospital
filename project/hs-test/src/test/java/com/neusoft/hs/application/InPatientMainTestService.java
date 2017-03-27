@@ -149,7 +149,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(executes.size() == 1);
 
-		costDomainService.unCharging(executes.get(0).getId(), true, user003);
+		costAppService.unCharging(executes.get(0).getId(), true, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 14:05", dayCount));
 
