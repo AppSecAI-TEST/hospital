@@ -21,6 +21,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.Prescription;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.outpatientdept.EnterHospitalOrderType;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugOrderTypeApp;
@@ -541,7 +542,7 @@ public class OutPatientMainTestService extends AppTestService {
 		enterHospitalOrder.setTypeApp(new SampleOrderTypeApp(
 				enterHospitalOrderType));
 
-		enterHospitalOrder.addParam("wardDept", dept000);
+		enterHospitalOrder.addParam(EnterHospitalOrderType.WardDept, dept000);
 
 		orderAppService.create(enterHospitalOrder, user002);
 
@@ -567,7 +568,7 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit001.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_NeedInitAccount));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
 
 		pageable = new PageRequest(0, 15);

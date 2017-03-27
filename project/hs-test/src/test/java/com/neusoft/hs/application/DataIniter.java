@@ -23,7 +23,7 @@ import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemSpec;
 import com.neusoft.hs.domain.diagnosis.Disease;
 import com.neusoft.hs.domain.diagnosis.DiseaseDomainService;
-import com.neusoft.hs.domain.inpatientdept.LeaveHospitalOrderType;
+import com.neusoft.hs.domain.inpatientdept.OutHospitalOrderType;
 import com.neusoft.hs.domain.inpatientdept.SecondNursingOrderType;
 import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
@@ -180,7 +180,7 @@ public class DataIniter {
 
 	protected SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
 
-	protected LeaveHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
+	protected OutHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
 
 	protected InspectOrderType inspectOrderType;// 检查医嘱类型
 
@@ -1098,7 +1098,7 @@ public class DataIniter {
 
 		orderTypes.add(enterHospitalOrderType);
 
-		leaveHospitalOrderType = new LeaveHospitalOrderType();
+		leaveHospitalOrderType = new OutHospitalOrderType();
 		leaveHospitalOrderType.setId("leaveHospitalOrderType");
 		leaveHospitalOrderType.setCode("leaveHospitalOrderType");
 		leaveHospitalOrderType.setName("出院医嘱");

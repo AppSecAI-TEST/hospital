@@ -15,8 +15,8 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
-@DiscriminatorValue("LeaveHospitalBalance")
-public class LeaveHospitalBalanceOrderExecute extends OrderExecute {
+@DiscriminatorValue("OutHospitalBalance")
+public class OutHospitalBalanceOrderExecute extends OrderExecute {
 
 	@Override
 	protected void doFinish(Map<String, Object> params, AbstractUser user)

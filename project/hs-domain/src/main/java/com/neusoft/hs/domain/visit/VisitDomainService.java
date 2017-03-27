@@ -139,6 +139,29 @@ public class VisitDomainService {
 	}
 
 	/**
+	 * 门诊离院
+	 * 
+	 * @param visitId
+	 * @param user
+	 * @throws HsException
+	 */
+	public void leaveHospital(String visitId, AbstractUser user)
+			throws HsException {
+		Visit visit = visitRepo.findOne(visitId);
+		if (visit == null) {
+			throw new HsException("visitId=[" + visitId + "]不存在");
+		}
+
+		visit.leaveHospital(user);
+
+		applicationContext.publishEvent(new VisitLeaveHospitalEvent(visit));
+
+		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]设置为离院状态", user.getId(),
+				visit.getName());
+
+	}
+
+	/**
 	 * @roseuid 5852564401AC
 	 */
 	private void leaveWard() {

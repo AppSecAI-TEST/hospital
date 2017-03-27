@@ -17,7 +17,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.slf4j.LoggerFactory;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeRecord;
@@ -161,7 +160,7 @@ public class Visit extends IdEntity {
 	 * @throws HsException
 	 */
 	public ChargeBill initAccount(float balance, AbstractUser user)
-			throws HsException {
+			throws VisitException {
 
 		ChargeBill chargeBill = new ChargeBill();
 		chargeBill.setBalance(balance);
@@ -207,10 +206,10 @@ public class Visit extends IdEntity {
 	 * @roseuid 5852526403A5
 	 */
 	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
-			throws HsException {
+			throws VisitException {
 		if (!State_NeedIntoWard.equals(this.getState())) {
-			throw new HsException("visit=[" + this.getName() + "]的状态应为["
-					+ State_NeedIntoWard + "]");
+			throw new VisitException(this, "visit=[" + this.getName()
+					+ "]的状态应为[" + State_NeedIntoWard + "]");
 		}
 
 		Date sysDate = DateUtil.getSysDate();
@@ -234,10 +233,10 @@ public class Visit extends IdEntity {
 	 * @throws HsException
 	 * @roseuid 58525F0D0273
 	 */
-	public void leaveWard(AbstractUser user) throws HsException {
+	public void leaveWard(AbstractUser user) throws VisitException {
 		if (!State_IntoWard.equals(this.getState())) {
-			throw new HsException("visit=[" + this.getName() + "]的状态应为["
-					+ State_IntoWard + "]");
+			throw new VisitException(this, "visit=[" + this.getName()
+					+ "]的状态应为[" + State_IntoWard + "]");
 		}
 
 		this.setState(State_NeedLeaveHospitalBalance);
@@ -251,7 +250,7 @@ public class Visit extends IdEntity {
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
-		visitLog.setType(VisitLog.Type_LeaveWard);
+		visitLog.setType(VisitLog.Type_OutWard);
 		visitLog.setOperator(user);
 		visitLog.setCreateDate(sysDate);
 
@@ -265,16 +264,36 @@ public class Visit extends IdEntity {
 	 * @param user
 	 * @throws HsException
 	 */
-	public void balance(AbstractUser user) throws HsException {
+	public void balance(AbstractUser user) throws VisitException {
 		if (!State_NeedLeaveHospitalBalance.equals(this.getState())) {
-			throw new HsException("visit=[" + this.getName() + "]的状态应为["
-					+ State_NeedLeaveHospitalBalance + "]");
+			throw new VisitException(this, "visit=[" + this.getName()
+					+ "]的状态应为[" + State_NeedLeaveHospitalBalance + "]");
 		}
 
 		this.setState(State_OutHospital);
 
 		this.chargeBill.balance();
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_OutHospital);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(DateUtil.getSysDate());
+
+		visitLog.save();
+
+	}
+
+	public void leaveHospital(AbstractUser user) throws VisitException {
+
+		if (this.chargeBill.getBalance() != 0L) {
+			throw new VisitException(this, "visit=[" + this.getName()
+					+ "]的收费单余额[" + this.chargeBill.getBalance() + "]不为零");
+		}
+		this.setState(State_LeaveHospital);
 		
+		
+
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
 		visitLog.setType(VisitLog.Type_LeaveHospital);
@@ -282,7 +301,6 @@ public class Visit extends IdEntity {
 		visitLog.setCreateDate(DateUtil.getSysDate());
 
 		visitLog.save();
-
 	}
 
 	/**

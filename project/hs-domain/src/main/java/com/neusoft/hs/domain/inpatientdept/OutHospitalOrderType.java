@@ -12,8 +12,8 @@ import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
-@DiscriminatorValue("LeaveHospital")
-public class LeaveHospitalOrderType extends OrderType {
+@DiscriminatorValue("OutHospital")
+public class OutHospitalOrderType extends OrderType {
 
 	@Override
 	protected void verify(Order order) throws OrderException {
@@ -29,7 +29,7 @@ public class LeaveHospitalOrderType extends OrderType {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
 		// 出院登记执行条目
-		LeaveHospitalRegisterOrderExecute register = new LeaveHospitalRegisterOrderExecute();
+		OutHospitalRegisterOrderExecute register = new OutHospitalRegisterOrderExecute();
 		register.setOrder(order);
 		register.setVisit(order.getVisit());
 		register.setBelongDept(order.getBelongDept());
@@ -46,7 +46,7 @@ public class LeaveHospitalOrderType extends OrderType {
 		team.addOrderExecute(register);
 
 		// 出院结算执行条目
-		LeaveHospitalBalanceOrderExecute balance = new LeaveHospitalBalanceOrderExecute();
+		OutHospitalBalanceOrderExecute balance = new OutHospitalBalanceOrderExecute();
 		balance.setOrder(order);
 		balance.setVisit(order.getVisit());
 		balance.setBelongDept(order.getBelongDept());

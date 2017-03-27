@@ -40,8 +40,10 @@ public class VisitLog extends IdEntity {
 	public static final String Type_Create = "送诊";
 	public static final String Type_InitAccount = "初始账户";
 	public static final String Type_IntoWard = "进入病房";
-	public static final String Type_LeaveWard = "出院登记";
-	public static final String Type_LeaveHospital = "出院结算";
+	public static final String Type_OutWard = "出院登记";
+	public static final String Type_OutHospital = "出院结算";
+	
+	public static final String Type_LeaveHospital = "门诊离院";
 	
 
 	public Visit getVisit() {

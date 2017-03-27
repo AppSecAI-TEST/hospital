@@ -14,8 +14,8 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
-@DiscriminatorValue("LeaveHospitalRegister")
-public class LeaveHospitalRegisterOrderExecute extends OrderExecute {
+@DiscriminatorValue("OutHospitalRegister")
+public class OutHospitalRegisterOrderExecute extends OrderExecute {
 
 	@Override
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
