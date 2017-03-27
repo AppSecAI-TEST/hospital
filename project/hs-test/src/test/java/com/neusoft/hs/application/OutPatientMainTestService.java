@@ -483,13 +483,13 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 11:00"));
 
 		pageable = new PageRequest(0, 15);
-		// 通过患者一次就诊得到待取药的任务列表
+		// 通过患者一次就诊得到输液的任务列表
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(visit002,
 				OrderExecute.Type_Transport_Fluid, usera01, pageable);
 
 		assertTrue(executes.size() == 2);
 
-		// 完成取药医嘱执行条目
+		// 完成输液医嘱执行条目
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, usera01);
 		}
@@ -567,6 +567,20 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit001.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_NeedInitAccount));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
+
+		pageable = new PageRequest(0, 15);
+		// 通过患者一次就诊得到输液的任务列表
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(visit002,
+				OrderExecute.Type_Transport_Fluid, usera01, pageable);
+
+		assertTrue(executes.size() == 2);
+
+		// 完成输液医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, usera01);
+		}
 
 	}
 
