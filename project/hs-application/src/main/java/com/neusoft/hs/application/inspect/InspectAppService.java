@@ -9,12 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.inspect.InspectApply;
 import com.neusoft.hs.domain.inspect.InspectApplyItem;
+import com.neusoft.hs.domain.inspect.InspectArrangeOrderExecute;
+import com.neusoft.hs.domain.inspect.InspectConfirmOrderExecute;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectException;
 import com.neusoft.hs.domain.order.ApplyDomainService;
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
-import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 
 @Service
@@ -36,15 +38,31 @@ public class InspectAppService {
 
 	public void arrange(String executeId, Date planExecuteDate,
 			AbstractUser user) throws InspectException, OrderExecuteException {
-		inspectDomainService.arrange(executeId, planExecuteDate, user);
-		orderExecuteDomainService.finish(executeId, null, user);
+
+		OrderExecute execute = orderExecuteDomainService.find(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
+
+		inspectDomainService.arrange((InspectArrangeOrderExecute) execute,
+				planExecuteDate, user);
+		orderExecuteDomainService.finish(execute, null, user);
 	}
 
 	public void confirm(String executeId,
 			Map<InspectApplyItem, String> results, AbstractUser user)
 			throws InspectException, OrderExecuteException {
-		inspectDomainService.confirm(executeId, results, user);
-		orderExecuteDomainService.finish(executeId, null, user);
+
+		OrderExecute execute = orderExecuteDomainService.find(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
+
+		inspectDomainService.confirm((InspectConfirmOrderExecute) execute,
+				results, user);
+		orderExecuteDomainService.finish(execute, null, user);
 	}
 
 	public void cancel(String inspectApplyItemId, AbstractUser user)

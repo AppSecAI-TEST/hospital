@@ -69,13 +69,9 @@ public class OrderExecuteDomainService {
 	 * @throws OrderExecuteException
 	 * @roseuid 584F6150022C
 	 */
-	public void send(String executeId, Nurse nurse)
+	public void send(OrderExecute execute, Nurse nurse)
 			throws OrderExecuteException {
-		OrderExecute execute = orderExecuteRepo.findOne(executeId);
-		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
-		}
+
 		execute.send();
 
 		applicationContext.publishEvent(new OrderExecuteSendedEvent(execute));
@@ -107,18 +103,14 @@ public class OrderExecuteDomainService {
 	 * 完成医嘱执行条目
 	 * 
 	 * @param user
-	 * @param executeId
+	 * @param execute
 	 * @param params
 	 * @throws OrderExecuteException
 	 * @roseuid 584FB6AF013C
 	 */
-	public void finish(String executeId, Map<String, Object> params,
+	public void finish(OrderExecute execute, Map<String, Object> params,
 			AbstractUser user) throws OrderExecuteException {
-		OrderExecute execute = orderExecuteRepo.findOne(executeId);
-		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
-		}
+
 		execute.finish(params, user);
 
 		applicationContext.publishEvent(new OrderExecuteFinishedEvent(execute));

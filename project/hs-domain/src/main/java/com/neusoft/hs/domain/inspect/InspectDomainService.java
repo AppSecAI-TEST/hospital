@@ -51,16 +51,10 @@ public class InspectDomainService {
 	 * @param user
 	 * @throws InspectException
 	 */
-	public void arrange(String executeId, Date planExecuteDate,
-			AbstractUser user) throws InspectException {
-		OrderExecute orderExecute = orderExecuteDomainService.find(executeId);
-		if (orderExecute == null) {
-			throw new InspectException("医嘱执行条目[" + executeId + "]不存在");
-		}
+	public void arrange(InspectArrangeOrderExecute orderExecute,
+			Date planExecuteDate, AbstractUser user) throws InspectException {
 
-		InspectArrangeOrderExecute arrangeOrderExecute = (InspectArrangeOrderExecute) orderExecute;
-		InspectApplyItem inspectApplyItem = arrangeOrderExecute
-				.getInspectApplyItem();
+		InspectApplyItem inspectApplyItem = orderExecute.getInspectApplyItem();
 		inspectApplyItem.setPlanExecuteDate(planExecuteDate);
 
 		inspectApplyItem.save();
@@ -79,14 +73,10 @@ public class InspectDomainService {
 	 * @param user
 	 * @throws InspectException
 	 */
-	public void confirm(String executeId,
+	public void confirm(InspectConfirmOrderExecute orderExecute,
 			Map<InspectApplyItem, String> results, AbstractUser user)
 			throws InspectException {
 
-		OrderExecute orderExecute = orderExecuteDomainService.find(executeId);
-		if (orderExecute == null) {
-			throw new InspectException("医嘱执行条目[" + executeId + "]不存在");
-		}
 		Order order = orderExecute.getOrder();
 		Apply apply = order.getApply();
 		if (apply == null) {

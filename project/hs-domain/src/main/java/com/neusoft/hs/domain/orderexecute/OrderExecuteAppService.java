@@ -36,7 +36,12 @@ public class OrderExecuteAppService {
 	 */
 	public void send(String executeId, Nurse nurse)
 			throws OrderExecuteException {
-		orderExecuteDomainService.send(executeId, nurse);
+		OrderExecute execute = orderExecuteDomainService.find(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
+		orderExecuteDomainService.send(execute, nurse);
 	}
 
 	/**
@@ -58,8 +63,8 @@ public class OrderExecuteAppService {
 			String type, AbstractUser user, Pageable pageable) {
 		Date planStartDate = DateUtil.addMinute(DateUtil.getSysDate(),
 				NeedExecuteOrderMinute);
-		return orderExecuteDomainService.getNeedExecuteOrderExecutes(visit,type,
-				user, planStartDate, pageable);
+		return orderExecuteDomainService.getNeedExecuteOrderExecutes(visit,
+				type, user, planStartDate, pageable);
 	}
 
 	/**
@@ -69,6 +74,11 @@ public class OrderExecuteAppService {
 	 */
 	public void finish(String executeId, Map<String, Object> params,
 			AbstractUser user) throws OrderExecuteException {
-		orderExecuteDomainService.finish(executeId, params, user);
+		OrderExecute execute = orderExecuteDomainService.find(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
+		orderExecuteDomainService.finish(execute, params, user);
 	}
 }
