@@ -57,7 +57,12 @@ public abstract class OrderFrequencyType extends SuperEntity {
 	}
 
 	/**
-	 * 计算频次执行时间
+	 * 根据医嘱的计划执行时间段，计算指定天的频次执行时间
+	 * 
+	 * @param order
+	 *            分解的长嘱
+	 * @param currentDate
+	 *            待分解的时间（天）（0点0分0秒）
 	 * 
 	 * @roseuid 587DB2EE02BB
 	 */

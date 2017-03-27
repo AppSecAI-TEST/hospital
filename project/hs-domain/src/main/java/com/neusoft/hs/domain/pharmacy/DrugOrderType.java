@@ -108,6 +108,7 @@ public class DrugOrderType extends OrderType {
 						order.getPlanStartDate());
 			}
 		} else {
+			// 长嘱分解
 			LongOrder longorder = (LongOrder) order;
 			int resolveDays;
 			if (order.isInPatient()) {
@@ -144,13 +145,12 @@ public class DrugOrderType extends OrderType {
 					lastOrderExecute.save();
 				}
 			} else {
+				// 门诊长嘱，分解的最后一条就是last
 				order.getResolveOrderExecutes()
 						.get(order.getResolveOrderExecutes().size() - 1)
 						.setLast(true);
 			}
-
 		}
-
 	}
 
 	public DrugType getDrugType() {
