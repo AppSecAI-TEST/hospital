@@ -105,6 +105,7 @@ public class MedicalRecordClip extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+		this.visit.setMedicalRecordClip(this);
 	}
 
 	public Dept getCheckDept() {

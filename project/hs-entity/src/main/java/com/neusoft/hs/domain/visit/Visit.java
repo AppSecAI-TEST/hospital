@@ -21,6 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.VisitChargeItem;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -121,6 +122,10 @@ public class Visit extends IdEntity {
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private ChargeBill chargeBill;
 
+	@OneToOne(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.REFRESH })
+	private MedicalRecordClip medicalRecordClip;
+
 	public static final String State_WaitingDiagnose = "待门诊";
 
 	public static final String State_Diagnosing = "门诊就诊中";
@@ -140,6 +145,9 @@ public class Visit extends IdEntity {
 	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
 
 	public static final String State_OutHospital = "已出院";
+
+	public Visit() {
+	}
 
 	/**
 	 * 是否初始化过收费单
@@ -291,8 +299,6 @@ public class Visit extends IdEntity {
 					+ "]的收费单余额[" + this.chargeBill.getBalance() + "]不为零");
 		}
 		this.setState(State_LeaveHospital);
-		
-		
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
@@ -372,6 +378,14 @@ public class Visit extends IdEntity {
 
 	public void setChargeBill(ChargeBill chargeBill) {
 		this.chargeBill = chargeBill;
+	}
+
+	public MedicalRecordClip getMedicalRecordClip() {
+		return medicalRecordClip;
+	}
+
+	public void setMedicalRecordClip(MedicalRecordClip medicalRecordClip) {
+		this.medicalRecordClip = medicalRecordClip;
 	}
 
 	public List<Apply> getApplys() {
