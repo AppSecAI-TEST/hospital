@@ -123,22 +123,18 @@ public class OrderDomainService {
 	 * 核对医嘱条目
 	 * 
 	 * @param nurse
-	 * @param orderId
+	 * @param order
 	 * @throws HsException
 	 * @roseuid 584F489E03D2
 	 */
-	public Order verify(String orderId, Nurse nurse) throws OrderException {
-		Order order = orderRepo.findOne(orderId);
-		if (order == null) {
-			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
-		}
+	public Order verify(Order order, Nurse nurse) throws OrderException {
 
 		order.verify();
 
 		applicationContext.publishEvent(new OrderVerifyedEvent(order));
 
 		LogUtil.log(this.getClass(), "护士[{}]核对患者一次就诊[[{}]的医嘱条目[{}],类型为[{}]",
-				nurse.getId(), order.getVisit().getName(), orderId, order
+				nurse.getId(), order.getVisit().getName(), order.getId(), order
 						.getTypeApp().getOrderType().getId());
 
 		return order;
@@ -173,12 +169,7 @@ public class OrderDomainService {
 	 * @throws OrderException
 	 * @roseuid 5850AE8E022C
 	 */
-	public void cancel(String orderId, Doctor doctor) throws OrderException {
-		Order order = orderRepo.findOne(orderId);
-		if (order == null) {
-			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
-		}
-
+	public void cancel(Order order, Doctor doctor) throws OrderException {
 		try {
 			order.cancel(doctor);
 		} catch (OrderExecuteException e) {
@@ -188,8 +179,8 @@ public class OrderDomainService {
 		applicationContext.publishEvent(new OrderCanceledEvent(order));
 
 		LogUtil.log(this.getClass(), "医生[{}]作废了核对患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
-				doctor.getId(), order.getVisit().getName(), orderId, order
-						.getTypeApp().getOrderType().getId());
+				doctor.getId(), order.getVisit().getName(), order.getId(),
+				order.getTypeApp().getOrderType().getId());
 
 	}
 
@@ -200,18 +191,15 @@ public class OrderDomainService {
 	 * @param doctor
 	 * @throws OrderException
 	 */
-	public void delete(String orderId, Doctor doctor) throws OrderException {
-		Order order = orderRepo.findOne(orderId);
-		if (order == null) {
-			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
-		}
+	public void delete(Order order, Doctor doctor) throws OrderException {
+		
 		order.delete();
 
 		applicationContext.publishEvent(new OrderDeletedEvent(order));
 
 		LogUtil.log(this.getClass(), "医生[{}]删除了核对患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
-				doctor.getId(), order.getVisit().getName(), orderId, order
-						.getTypeApp().getOrderType().getId());
+				doctor.getId(), order.getVisit().getName(), order.getId(),
+				order.getTypeApp().getOrderType().getId());
 	}
 
 	public List<Prescription> findPrescriptions(Visit visit) {

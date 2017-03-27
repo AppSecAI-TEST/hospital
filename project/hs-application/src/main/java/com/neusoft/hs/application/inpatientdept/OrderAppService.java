@@ -58,7 +58,11 @@ public class OrderAppService {
 	 * @roseuid 584F48660279
 	 */
 	public Order verify(String orderId, Nurse nurse) throws OrderException {
-		return orderDomainService.verify(orderId, nurse);
+		Order order = orderDomainService.find(orderId);
+		if (order == null) {
+			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+		}
+		return orderDomainService.verify(order, nurse);
 	}
 
 	/**
@@ -68,11 +72,19 @@ public class OrderAppService {
 	 * @roseuid 5850ADFE001C
 	 */
 	public void cancel(String orderId, Doctor doctor) throws OrderException {
-		orderDomainService.cancel(orderId, doctor);
+		Order order = orderDomainService.find(orderId);
+		if (order == null) {
+			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+		}
+		orderDomainService.cancel(order, doctor);
 	}
 
 	public void delete(String orderId, Doctor doctor) throws OrderException {
-		orderDomainService.delete(orderId, doctor);
+		Order order = orderDomainService.find(orderId);
+		if (order == null) {
+			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+		}
+		orderDomainService.delete(order, doctor);
 	}
 
 	/**
