@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.outpatientdept.OutPatientDeptDomainService;
 import com.neusoft.hs.domain.outpatientdept.OutPatientDeptException;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -15,6 +17,9 @@ public class OutPatientDeptAppService {
 
 	@Autowired
 	private OutPatientDeptDomainService outPatientDeptDomainService;
+
+	@Autowired
+	private OutPatientPlanDomainService outPatientPlanDomainService;
 
 	/**
 	 * @roseuid 58BE1877017D
@@ -29,6 +34,12 @@ public class OutPatientDeptAppService {
 	 */
 	public boolean nextVoucher(String planRecordId)
 			throws OutPatientDeptException {
-		return outPatientDeptDomainService.nextVoucher(planRecordId);
+		OutPatientPlanRecord record = outPatientPlanDomainService
+				.findPlanRecord(planRecordId);
+		if (record == null) {
+			throw new OutPatientDeptException("门诊医生排班记录[" + planRecordId
+					+ "]不存在");
+		}
+		return outPatientDeptDomainService.nextVoucher(record);
 	}
 }

@@ -2,44 +2,26 @@
 
 package com.neusoft.hs.domain.outpatientdept;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
-import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.log.LogUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class OutPatientDeptDomainService {
 
-	@Autowired
-	private OutPatientPlanDomainService outPatientPlanDomainService;
-
-	/**
-	 * @roseuid 58BE187701AE
-	 */
-	public OutPatientDeptDomainService() {
-
-	}
-
 	/**
 	 * 叫号
 	 * 
-	 * @param planRecordId
+	 * @param record
 	 * @throws OutPatientDeptException
 	 * @roseuid 58BE14CB03A3
 	 */
-	public boolean nextVoucher(String planRecordId)
+	public boolean nextVoucher(OutPatientPlanRecord record)
 			throws OutPatientDeptException {
-		OutPatientPlanRecord record = outPatientPlanDomainService
-				.findPlanRecord(planRecordId);
-		if (record == null) {
-			throw new OutPatientDeptException("门诊医生排班记录[" + planRecordId
-					+ "]不存在");
-		}
+
 		boolean rtn = record.nextVoucher();
 
 		LogUtil.log(this.getClass(), "医生[{}]叫号", record.getDoctor().getId());

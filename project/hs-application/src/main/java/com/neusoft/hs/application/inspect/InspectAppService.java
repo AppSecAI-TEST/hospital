@@ -67,6 +67,12 @@ public class InspectAppService {
 
 	public void cancel(String inspectApplyItemId, AbstractUser user)
 			throws InspectException {
-		inspectDomainService.cancel(inspectApplyItemId, user);
+		InspectApplyItem inspectApplyItem = inspectDomainService
+				.findInspectApplyItem(inspectApplyItemId);
+		if (inspectApplyItem == null) {
+			throw new InspectException("检查项目inspectApplyItemId=["
+					+ inspectApplyItemId + "]不存在");
+		}
+		inspectDomainService.cancel(inspectApplyItem, user);
 	}
 }

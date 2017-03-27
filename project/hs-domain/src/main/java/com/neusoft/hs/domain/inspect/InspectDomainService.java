@@ -116,15 +116,12 @@ public class InspectDomainService {
 	/**
 	 * 取消检查
 	 * 
-	 * @param inspectApplyItemId
+	 * @param inspectApplyItem
 	 * @param user
 	 * @throws InspectException
 	 */
-	public void cancel(String inspectApplyItemId, AbstractUser user)
+	public void cancel(InspectApplyItem inspectApplyItem, AbstractUser user)
 			throws InspectException {
-
-		InspectApplyItem inspectApplyItem = inspectApplyItemRepo
-				.findOne(inspectApplyItemId);
 
 		if (inspectApplyItem.getState().equals(InspectApplyItem.State_Finished)) {
 			throw new InspectException("检查项目["
@@ -160,6 +157,10 @@ public class InspectDomainService {
 		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]取消检查项目[{}]",
 				user.getId(), arrange.getVisit().getName(),
 				inspectApplyItem.getId());
+	}
+
+	public InspectApplyItem findInspectApplyItem(String inspectApplyItemId) {
+		return inspectApplyItemRepo.findOne(inspectApplyItemId);
 	}
 
 	public void createInspectItems(List<InspectItem> inspectItems) {
