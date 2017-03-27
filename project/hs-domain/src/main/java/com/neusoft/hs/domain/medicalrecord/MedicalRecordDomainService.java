@@ -110,15 +110,13 @@ public class MedicalRecordDomainService {
 	/**
 	 * 签名
 	 * 
-	 * @param id
+	 * @param record
 	 * @param doctor
 	 * @throws MedicalRecordException
 	 */
-	public void sign(String id, Doctor doctor) throws MedicalRecordException {
-		MedicalRecord record = medicalRecordRepo.findOne(id);
-		if (record == null) {
-			throw new MedicalRecordException(null, "id=[" + id + "]病历不存在");
-		}
+	public void sign(MedicalRecord record, Doctor doctor)
+			throws MedicalRecordException {
+
 		record.sign(doctor);
 
 		applicationContext.publishEvent(new MedicalRecordSignedEvent(record));
@@ -131,15 +129,12 @@ public class MedicalRecordDomainService {
 	/**
 	 * 锁定
 	 * 
-	 * @param id
+	 * @param record
 	 * @param user
 	 * @throws MedicalRecordException
 	 */
-	public void fix(String id, AbstractUser user) throws MedicalRecordException {
-		MedicalRecord record = medicalRecordRepo.findOne(id);
-		if (record == null) {
-			throw new MedicalRecordException(null, "id=[" + id + "]病历不存在");
-		}
+	public void fix(MedicalRecord record, AbstractUser user) throws MedicalRecordException {
+
 		record.fix(user);
 
 		applicationContext.publishEvent(new MedicalRecordFixedEvent(record));
@@ -162,13 +157,9 @@ public class MedicalRecordDomainService {
 				user.getId(), visit.getName(), clip.getId(), dept.getId());
 	}
 
-	public void toArchive(String id, AbstractUser user)
+	public void toArchive(MedicalRecordClip clip, AbstractUser user)
 			throws MedicalRecordException {
 
-		MedicalRecordClip clip = medicalRecordClipRepo.findOne(id);
-		if (clip == null) {
-			throw new MedicalRecordException(null, "id=[" + id + "]病历夹不存在");
-		}
 		clip.setState(MedicalRecordClip.State_Archiving);
 		clip.setChecker(user);
 		clip.save();

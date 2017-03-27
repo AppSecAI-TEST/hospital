@@ -35,14 +35,23 @@ public class MedicalRecordAppService {
 	}
 
 	public void sign(String id, Doctor doctor) throws MedicalRecordException {
-		medicalRecordDomainService.sign(id, doctor);
+		MedicalRecord record = medicalRecordDomainService.find(id);
+		if (record == null) {
+			throw new MedicalRecordException(null, "id=[" + id + "]病历不存在");
+		}
+		medicalRecordDomainService.sign(record, doctor);
 	}
 
 	public void fix(String id, AbstractUser user) throws MedicalRecordException {
-		medicalRecordDomainService.fix(id, user);
+		MedicalRecord record = medicalRecordDomainService.find(id);
+		if (record == null) {
+			throw new MedicalRecordException(null, "id=[" + id + "]病历不存在");
+		}
+		medicalRecordDomainService.fix(record, user);
 	}
 
-	public void transfer(Visit visit, Dept dept, AbstractUser user) throws MedicalRecordException {
+	public void transfer(Visit visit, Dept dept, AbstractUser user)
+			throws MedicalRecordException {
 		medicalRecordDomainService.transfer(visit, dept, user);
 	}
 }

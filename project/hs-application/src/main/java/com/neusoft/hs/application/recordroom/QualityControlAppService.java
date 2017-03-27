@@ -25,7 +25,11 @@ public class QualityControlAppService {
 
 	public void pass(String clipId, AbstractUser user)
 			throws MedicalRecordException {
-		medicalRecordDomainService.toArchive(clipId, user);
+		MedicalRecordClip clip = medicalRecordDomainService.findClip(clipId);
+		if (clip == null) {
+			throw new MedicalRecordException(null, "id=[" + clipId + "]病历夹不存在");
+		}
+		medicalRecordDomainService.toArchive(clip, user);
 
 	}
 
