@@ -299,7 +299,9 @@ public class Visit extends IdEntity {
 					+ "]的收费单余额[" + this.chargeBill.getBalance() + "]不为零");
 		}
 		this.setState(State_LeaveHospital);
-
+		
+		this.medicalRecordClip.leaveHospital(user);
+		
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
 		visitLog.setType(VisitLog.Type_LeaveHospital);

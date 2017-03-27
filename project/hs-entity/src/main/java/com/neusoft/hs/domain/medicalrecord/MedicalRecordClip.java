@@ -53,6 +53,8 @@ public class MedicalRecordClip extends IdEntity {
 	private List<MedicalRecord> records;
 
 	public static final String State_Writing = "编写中";
+	
+	public static final String State_Ended = "已结束";
 
 	public static final String State_Checking = "检查中";
 
@@ -89,6 +91,10 @@ public class MedicalRecordClip extends IdEntity {
 		this.checkDept = dept;
 		this.state = State_Checking;
 
+	}
+	
+	public void leaveHospital(AbstractUser user) {
+		this.state = State_Ended;
 	}
 
 	public String getState() {
@@ -135,5 +141,7 @@ public class MedicalRecordClip extends IdEntity {
 	public void save() {
 		this.getService(MedicalRecordClipRepo.class).save(this);
 	}
+
+
 
 }

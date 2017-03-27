@@ -494,13 +494,21 @@ public class OutPatientMainTestService extends AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, usera01);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 13:30"));
+		
+		visitDomainService.leaveHospital(visit002.getId(), user002);
+		
+		theVisit = visitDomainService.find(visit002.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_LeaveHospital));
 
 		// 2016-12-28
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-28"));
 		changedCount = visitDomainService.changeVisitState();
 
-		assertTrue(changedCount == 3);
-
+		assertTrue(changedCount == 2);
+		
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:00"));
 
 		// 创建测试患者
