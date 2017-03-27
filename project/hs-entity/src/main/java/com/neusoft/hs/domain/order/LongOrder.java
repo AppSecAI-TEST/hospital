@@ -38,6 +38,9 @@ public class LongOrder extends Order {
 	@Column(name = "end_date")
 	public Date endDate;
 
+	/**
+	 * 住院长嘱自动分解的天数，1为今天，2为今明两天。。。。
+	 */
 	public static final int ResolveDays = 2;
 
 	public OrderFrequencyType getFrequencyType() {
