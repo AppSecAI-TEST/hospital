@@ -49,6 +49,16 @@
 		<module>hs-portal-thymeleaf</module>
     	<module>hs-portal-swing</module>
     <module>hs-entity</module>
+    <module>hs-server-registration</module>
+    <module>hs-engine-core</module>
+    <module>hs-app-inpatientdept</module>
+    <module>hs-app-outpatientdept</module>
+    <module>hs-app-pharmacy</module>
+    <module>hs-app-recordroom</module>
+    <module>hs-app-inspect</module>
+    <module>hs-app-cost</module>
+    <module>hs-app-visit</module>
+    <module>hs-app-treatment</module>
   </modules>
 
 	<build>

@@ -19,27 +19,57 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-application</artifactId>
+			<artifactId>hs-app-outpatientdept</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-listener</artifactId>
+			<artifactId>hs-app-inpatientdept</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		<!--
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>${h2.version}</version>
+			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-app-inspect</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
-	 	-->
+		<dependency>
+			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-app-pharmacy</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-app-recordroom</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-app-cost</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-app-treatment</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-app-visit</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-engine-listener</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
+			<version>${h2.version}</version> </dependency> -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
-		 
+
 	</dependencies>
 
 	<build>

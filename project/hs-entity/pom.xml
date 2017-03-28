@@ -7,8 +7,8 @@
     <artifactId>hs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>hs-entity</artifactId>
-  <name>hs-entity</name>
+  <artifactId>hs-engine-entity</artifactId>
+  <name>hs-engine-entity</name>
   <url>http://maven.apache.org</url>
   <dependencies>
 		<dependency>
