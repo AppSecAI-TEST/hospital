@@ -44,8 +44,8 @@
 		<module>hs-portal-thymeleaf</module>
    	 	<module>hs-portal-swing</module>
 		
-    <module>hs-app-inpatientdept</module>
-    <module>hs-app-outpatientdept</module>
+    <module>hs-app-inpatient</module>
+    <module>hs-app-outpatient</module>
     <module>hs-app-pharmacy</module>
     <module>hs-app-recordroom</module>
     <module>hs-app-inspect</module>

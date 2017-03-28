@@ -26,12 +26,12 @@
 		</dependency>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-outpatientdept</artifactId>
+			<artifactId>hs-app-outpatient</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-inpatientdept</artifactId>
+			<artifactId>hs-app-inpatient</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
