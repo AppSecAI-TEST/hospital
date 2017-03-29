@@ -1,3 +1,10 @@
+2017.03.--
+
+1、设计模型：将服务于理解业务连续性和复杂性的软件结构调整为可为分布多个物理业务系统做准备的软件结构
+   （portal.listener.application.domain.entity.platform -> portal.app.engine.platform）
+   将原domain中的核心模块与entity合并形成engine，将原domain中其他模块与application中的模块按业务合并为各个独立的app
+
+
 2017.03.28 补补漏
 
 1、实现模型：优化医嘱频次相关基础类
