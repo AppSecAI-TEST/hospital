@@ -1,4 +1,4 @@
-2017.03.--
+2017.03.29 重大结构调整
 
 1、设计模型：将服务于理解业务连续性和复杂性的软件结构调整为可为分布多个物理业务系统做准备的软件结构
    （portal.listener.application.domain.entity.platform -> portal.app.engine.platform）
