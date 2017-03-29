@@ -124,9 +124,9 @@ public class CostDomainService {
 	 * @param execute
 	 * @roseuid 584FBC02036D
 	 */
-	public ExecuteResult charging(OrderExecute execute) {
+	public ChargeResult charging(OrderExecute execute) {
 
-		ExecuteResult result = new ExecuteResult();
+		ChargeResult result = new ChargeResult();
 		result.setExecuteId(execute.getId());
 		// 生成收费项目
 		List<ChargeRecord> chargeRecords = execute.createChargeRecords();

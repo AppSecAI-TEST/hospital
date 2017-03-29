@@ -1,6 +1,6 @@
 package com.neusoft.hs.domain.cost;
 
-public class ExecuteResult {
+public class ChargeResult {
 
 	private String executeId;
 
