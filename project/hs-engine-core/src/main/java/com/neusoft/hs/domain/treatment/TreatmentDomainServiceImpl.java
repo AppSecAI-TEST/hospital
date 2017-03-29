@@ -19,7 +19,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class TreatmentDomainService {
+public class TreatmentDomainServiceImpl implements TreatmentDomainService{
 
 	@Autowired
 	private TreatmentItemRepo treatmentItemRepo;

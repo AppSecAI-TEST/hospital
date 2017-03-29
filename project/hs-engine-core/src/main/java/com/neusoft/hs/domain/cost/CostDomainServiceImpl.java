@@ -25,7 +25,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class CostDomainService {
+public class CostDomainServiceImpl implements CostDomainService{
 
 	@Autowired
 	private ChargeItemRepo chargeItemRepo;

@@ -16,7 +16,7 @@ import com.neusoft.hs.domain.visit.Visit;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class MedicalRecordAppService {
+public class MedicalRecordAppServiceImpl implements MedicalRecordAppService{
 
 	@Autowired
 	private MedicalRecordDomainService medicalRecordDomainService;

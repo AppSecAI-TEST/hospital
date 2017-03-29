@@ -21,7 +21,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class OrderExecuteAppService {
+public class OrderExecuteAppServiceImpl implements OrderExecuteAppService{
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;

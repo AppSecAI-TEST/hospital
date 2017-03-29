@@ -19,7 +19,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class MedicalRecordDomainService {
+public class MedicalRecordDomainServiceImpl implements MedicalRecordDomainService{
 
 	@Autowired
 	private MedicalRecordClipRepo medicalRecordClipRepo;

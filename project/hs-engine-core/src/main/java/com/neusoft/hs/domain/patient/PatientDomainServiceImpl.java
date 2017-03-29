@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class PatientDomainService {
+public class PatientDomainServiceImpl implements PatientDomainService{
 	@Autowired
 	private PatientRepo patientRepo;
 

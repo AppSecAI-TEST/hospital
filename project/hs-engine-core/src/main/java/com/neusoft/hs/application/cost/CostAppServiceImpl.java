@@ -12,7 +12,7 @@ import com.neusoft.hs.domain.organization.Nurse;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class CostAppService {
+public class CostAppServiceImpl implements CostAppService {
 
 	@Autowired
 	private CostDomainService costDomainService;

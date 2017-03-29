@@ -12,7 +12,7 @@ import com.neusoft.hs.platform.exception.HsException;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class VisitAppService {
+public class VisitAppServiceImpl implements VisitAppService{
 
 	@Autowired
 	private VisitDomainService visitDomainService;

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class OrganizationDomainService {
+public class OrganizationDomainServiceImpl implements OrganizationDomainService{
 
 	@Autowired
 	private UnitRepo unitRepo;

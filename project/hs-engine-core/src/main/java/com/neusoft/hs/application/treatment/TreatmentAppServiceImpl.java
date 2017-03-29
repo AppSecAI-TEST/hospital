@@ -16,7 +16,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class TreatmentAppService {
+public class TreatmentAppServiceImpl implements TreatmentAppService{
 
 	public final static int shouldHour = 24;
 

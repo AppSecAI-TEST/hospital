@@ -22,7 +22,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class OrderDomainService {
+public class OrderDomainServiceImpl implements OrderDomainService{
 
 	@Autowired
 	private OrderRepo orderRepo;

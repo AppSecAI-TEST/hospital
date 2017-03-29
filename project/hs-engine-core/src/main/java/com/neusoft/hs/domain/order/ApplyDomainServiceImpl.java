@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class ApplyDomainService {
+public class ApplyDomainServiceImpl implements ApplyDomainService{
 
 	@Autowired
 	private ApplyRepo applyRepo;
