@@ -1,5 +1,6 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.neusoft.hospital</groupId>
 	<artifactId>hs</artifactId>
@@ -51,7 +52,8 @@
 		<module>hs-app-recordroom</module>
 		<module>hs-app-inspect</module>
 		<module>hs-app-cost</module>
-	
+
+		<module>hs-engine-interface</module>
 		<module>hs-engine-core</module>
 		<module>hs-engine-entity</module>
 		<module>hs-engine-listener</module>
@@ -60,7 +62,8 @@
 		<module>hs-platform</module>
 
 		<module>hs-server-registration</module>
-    	</modules>
+
+	</modules>
 
 	<build>
 		<plugins>
