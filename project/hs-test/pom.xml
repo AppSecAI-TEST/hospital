@@ -49,16 +49,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-treatment</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-visit</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
 			<artifactId>hs-engine-listener</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
