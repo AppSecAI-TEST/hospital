@@ -43,7 +43,7 @@ public class ChargeBill extends IdEntity {
 	private String state;
 
 	@NotEmpty(message = "收费模式不能为空")
-	@Column(length = 32)
+	@Column(length = 32, name = "charge_mode")
 	private String chargeMode;
 
 	@OneToMany(mappedBy = "chargeBill", cascade = { CascadeType.ALL })
