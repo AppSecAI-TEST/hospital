@@ -1,6 +1,6 @@
 //Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\application\\inpatientdept\\OrderAppService.java
 
-package com.neusoft.hs.application.inpatientdept;
+package com.neusoft.hs.application.order;
 
 import java.util.Date;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.neusoft.hs.application.inpatientdept;
+package com.neusoft.hs.application.medicalrecord;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
