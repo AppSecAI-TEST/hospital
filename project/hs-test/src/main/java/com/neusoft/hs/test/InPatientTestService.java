@@ -1,4 +1,4 @@
-package com.neusoft.hs.application;
+package com.neusoft.hs.test;
 
 import static org.junit.Assert.assertTrue;
 

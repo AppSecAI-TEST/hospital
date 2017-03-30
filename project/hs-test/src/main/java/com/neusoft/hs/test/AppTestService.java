@@ -1,4 +1,4 @@
-package com.neusoft.hs.application;
+package com.neusoft.hs.test;
 
 import java.util.HashMap;
 

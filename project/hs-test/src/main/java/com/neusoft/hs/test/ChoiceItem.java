@@ -1,4 +1,4 @@
-package com.neusoft.hs.application;
+package com.neusoft.hs.test;
 
 public enum ChoiceItem {
 

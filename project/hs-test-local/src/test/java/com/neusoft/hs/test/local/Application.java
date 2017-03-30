@@ -1,4 +1,4 @@
-package com.neusoft.hs.application;
+package com.neusoft.hs.test.local;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
