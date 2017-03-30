@@ -63,6 +63,7 @@
 		<module>hs-platform</module>
 
 		<module>hs-server-registration</module>
+		<module>hs-engine-stub</module>
 	</modules>
 
 	<build>
