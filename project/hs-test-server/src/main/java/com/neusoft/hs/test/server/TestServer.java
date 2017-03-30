@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
@@ -23,6 +24,7 @@ import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 @EnableJpaRepositories(basePackages = { "com.neusoft.hs.*" })
 @EntityScan(basePackages = { "com.neusoft.hs.*" })
 @ComponentScan(basePackages = { "com.neusoft.hs.*" })
+@EnableFeignClients(basePackages = { "com.neusoft.hs.*" })
 @ImportResource(locations = { "classpath:application-bean.xml" })
 @EnableDiscoveryClient
 public class TestServer {
