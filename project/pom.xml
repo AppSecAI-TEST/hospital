@@ -40,9 +40,10 @@
 	</dependencies>
 
 	<modules>
-		<module>hs-test</module>
 		<module>hs-test-server</module>
-
+		<module>hs-test-local</module>
+		<module>hs-test</module>
+		
 		<module>hs-portal-thymeleaf</module>
 		<module>hs-portal-swing</module>
 
@@ -62,7 +63,6 @@
 		<module>hs-platform</module>
 
 		<module>hs-server-registration</module>
-
 	</modules>
 
 	<build>
