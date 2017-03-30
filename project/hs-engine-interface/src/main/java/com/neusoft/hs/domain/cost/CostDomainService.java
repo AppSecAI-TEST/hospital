@@ -5,7 +5,12 @@ package com.neusoft.hs.domain.cost;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
@@ -15,8 +20,10 @@ import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
+@FeignClient("engine-service")
 public interface CostDomainService {
 
+	@RequestMapping(method = RequestMethod.GET, value = "/cost/visit/list/needInitAccount")
 	public List<Visit> getNeedInitAccount(Pageable pageable);
 
 	/**
@@ -25,8 +32,10 @@ public interface CostDomainService {
 	 * @throws HsException
 	 * @roseuid 584DFD470092
 	 */
-	public ChargeBill createChargeBill(Visit visit, float balance,
-			AbstractUser user) throws HsException;
+	@RequestMapping(method = RequestMethod.POST, value = "/cost/createChargeBill/{visit}/visit/{balance}/balance/{user}/user")
+	public ChargeBill createChargeBill(@PathVariable("visit") Visit visit,
+			@PathVariable("balance") float balance,
+			@PathVariable("user") AbstractUser user) throws HsException;
 
 	/**
 	 * 预存费用
@@ -37,8 +46,10 @@ public interface CostDomainService {
 	 * @return
 	 * @throws HsException
 	 */
-	public ChargeRecord addCost(Visit visit, float balance, AbstractUser user)
-			throws HsException;
+	@RequestMapping(method = RequestMethod.POST, value = "/cost/addCost/{visit}/visit/{balance}/balance/{user}/user")
+	public ChargeRecord addCost(@PathVariable("visit") Visit visit,
+			@PathVariable("balance") float balance,
+			@PathVariable("user") AbstractUser user) throws HsException;
 
 	/**
 	 * 创建自动收费项目
@@ -46,8 +57,10 @@ public interface CostDomainService {
 	 * @param visit
 	 * @roseuid 584E2630028C
 	 */
-	public void createVisitChargeItem(Visit visit, ChargeItem item,
-			Date startDate);
+	@RequestMapping(method = RequestMethod.POST, value = "/cost/createVisitChargeItem/{visit}/visit/{item}/item/{startDate}/startDate")
+	public void createVisitChargeItem(@PathVariable("visit") Visit visit,
+			@PathVariable("item") ChargeItem item,
+			@PathVariable("startDate") Date startDate);
 
 	/**
 	 * 根据医嘱执行条目创建费用条目
@@ -55,7 +68,8 @@ public interface CostDomainService {
 	 * @param execute
 	 * @roseuid 584FBC02036D
 	 */
-	public ChargeResult charging(OrderExecute execute);
+	@RequestMapping(method = RequestMethod.POST, value = "/cost/charging")
+	public ChargeResult charging(@RequestBody OrderExecute execute);
 
 	/**
 	 * 取消医嘱执行条目对应的费用条目

@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.order;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.data.domain.Pageable;
 
 import com.neusoft.hs.domain.organization.Doctor;
@@ -12,6 +13,7 @@ import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
+@FeignClient("engine-service")
 public interface OrderDomainService {
 
 	/**

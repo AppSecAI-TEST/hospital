@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.data.domain.Pageable;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -13,6 +14,7 @@ import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 
+@FeignClient("engine-service")
 public interface OrderExecuteDomainService {
 
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,

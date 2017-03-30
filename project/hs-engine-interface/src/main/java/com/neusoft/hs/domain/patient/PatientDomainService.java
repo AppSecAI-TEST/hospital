@@ -2,7 +2,9 @@
 
 package com.neusoft.hs.domain.patient;
 
+import org.springframework.cloud.netflix.feign.FeignClient;
 
+@FeignClient("engine-service")
 public interface PatientDomainService {
 
 	public Patient findByCardNumber(String cardNumber);

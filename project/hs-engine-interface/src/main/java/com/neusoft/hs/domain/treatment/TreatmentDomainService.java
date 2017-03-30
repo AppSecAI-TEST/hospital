@@ -5,9 +5,12 @@ package com.neusoft.hs.domain.treatment;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.cloud.netflix.feign.FeignClient;
+
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 
+@FeignClient("engine-service")
 public interface TreatmentDomainService {
 
 	/**

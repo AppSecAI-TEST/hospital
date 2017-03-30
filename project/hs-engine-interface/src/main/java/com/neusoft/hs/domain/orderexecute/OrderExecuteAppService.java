@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.orderexecute;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.data.domain.Pageable;
 
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -13,6 +14,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.visit.Visit;
 
+@FeignClient("engine-service")
 public interface OrderExecuteAppService {
 
 	/**

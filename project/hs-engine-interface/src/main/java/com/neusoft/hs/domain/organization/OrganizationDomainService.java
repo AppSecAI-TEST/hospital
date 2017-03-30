@@ -2,6 +2,9 @@ package com.neusoft.hs.domain.organization;
 
 import java.util.List;
 
+import org.springframework.cloud.netflix.feign.FeignClient;
+
+@FeignClient("engine-service")
 public interface OrganizationDomainService {
 
 	public void create(List<Unit> units);

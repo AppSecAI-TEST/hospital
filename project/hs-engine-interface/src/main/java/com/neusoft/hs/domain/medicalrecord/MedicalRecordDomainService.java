@@ -4,11 +4,14 @@ package com.neusoft.hs.domain.medicalrecord;
 
 import java.util.List;
 
+import org.springframework.cloud.netflix.feign.FeignClient;
+
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 
+@FeignClient("engine-service")
 public interface MedicalRecordDomainService {
 
 	/**
