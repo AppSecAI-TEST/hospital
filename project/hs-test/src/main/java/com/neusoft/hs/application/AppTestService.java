@@ -18,10 +18,6 @@ public abstract class AppTestService extends DataIniter {
 	protected TestUtil testUtil;
 
 	public void testInit() {
-		// 初始化Context
-		ApplicationContext applicationContext = SpringApplication
-				.run(Application.class);
-		ApplicationContextUtil.setApplicationContext(applicationContext);
 
 		clear();
 
