@@ -1,5 +1,11 @@
 2017.03.--
 
+1、实现模型：退回到微服务尝试之前的状态保留上一版本1和2的进展，回退3、4、5
+
+
+
+2017.03.30 SpringCloud尝试
+
 1、设计模型：将app中的部分应用（cost、inpatient[order、medicalrecord]、treatment）下移到engine中，并在engine中增加application层
 2、实现模型：增加engine-interface，将engine提供的服务升级为接口
 3、实现模型：创建engine-server，使得engine可以独立启动
