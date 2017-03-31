@@ -42,7 +42,7 @@ public class CostDomainService {
 	}
 
 	/**
-	 * 创建病历夹
+	 * 创建财务账户
 	 * 
 	 * @throws HsException
 	 * @roseuid 584DFD470092
@@ -212,6 +212,13 @@ public class CostDomainService {
 				nurse.getId(), execute.getId(), amount);
 	}
 
+	/**
+	 * 得到需要退费的执行条目列表
+	 * 
+	 * @param user
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,
 			Pageable pageable) {
 		return orderExecuteDomainService.getNeedBackChargeOrderExecutes(user,
@@ -224,7 +231,5 @@ public class CostDomainService {
 	private void balance() {
 
 	}
-
-
 
 }
