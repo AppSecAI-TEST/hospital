@@ -31,6 +31,9 @@ public class CostDomainService {
 	private CostRecordRepo costRecordRepo;
 
 	@Autowired
+	private VisitChargeItemRepo visitChargeItemRepo;
+
+	@Autowired
 	private VisitDomainService visitDomainService;
 
 	@Autowired
@@ -137,7 +140,6 @@ public class CostDomainService {
 					chargeRecord.setCreateDate(sysDate);
 					chargeRecord.setChargeDept(execute.getChargeDept());
 					chargeRecord.setBelongDept(execute.getBelongDept());
-					chargeRecord.setType(ChargeRecord.Type_ShouldCharge);
 				}
 				// 生成费用记录
 				amount = execute.getVisit().getChargeBill()
@@ -223,6 +225,18 @@ public class CostDomainService {
 			Pageable pageable) {
 		return orderExecuteDomainService.getNeedBackChargeOrderExecutes(user,
 				pageable);
+	}
+
+	/**
+	 * 计算滚动费用
+	 */
+	public void calculate() {
+		List<VisitChargeItem> visitChargeItems = visitChargeItemRepo
+				.findByState(VisitChargeItem.State_Normal);
+
+		for (VisitChargeItem visitChargeItem : visitChargeItems) {
+			visitChargeItem.charge();
+		}
 	}
 
 	/**

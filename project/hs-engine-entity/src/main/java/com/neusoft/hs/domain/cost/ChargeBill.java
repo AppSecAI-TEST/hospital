@@ -43,7 +43,7 @@ public class ChargeBill extends IdEntity {
 	private String state;
 
 	@NotEmpty(message = "收费模式不能为空")
-	@Column(length = 32, name="charge_mode")
+	@Column(length = 32, name = "charge_mode")
 	private String chargeMode;
 
 	@OneToMany(mappedBy = "chargeBill", cascade = { CascadeType.ALL })
@@ -72,6 +72,9 @@ public class ChargeBill extends IdEntity {
 
 		ChargeRecord payChargeRecord;
 		for (ChargeRecord chargeRecord : chargeRecords) {
+			if (chargeRecord.getType() == null) {
+				chargeRecord.setType(ChargeRecord.Type_ShouldCharge);
+			}
 			this.addChargeRecord(chargeRecord);
 
 			if (this.chargeMode.equals(ChargeMode_NoPreCharge)) {
@@ -120,7 +123,7 @@ public class ChargeBill extends IdEntity {
 		ChargeRecord chargeRecord = new ChargeRecord();
 		chargeRecord.setAmount(-this.balance);
 		chargeRecord.setHaveCost(false);
-	
+
 		this.addChargeRecord(chargeRecord);
 
 		this.balance = 0;

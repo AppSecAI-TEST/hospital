@@ -2,7 +2,9 @@
 
 package com.neusoft.hs.domain.cost;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,6 +50,23 @@ public class VisitChargeItem extends IdEntity {
 
 	public static final String State_Stop = "已停止";
 
+	public void charge() {
+
+		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
+		ChargeRecord chargeRecord;
+
+		chargeRecord = new ChargeRecord();
+
+		chargeRecord.setPrice(chargeItem.getPrice());
+		chargeRecord.setCount(1);
+		chargeRecord.setAmount(-chargeItem.getPrice());
+		chargeRecord.setChargeItem(chargeItem);
+		chargeRecord.setChargeDept(visit.getDept());
+		chargeRecord.setBelongDept(visit.getDept());
+
+		chargeRecords.add(chargeRecord);
+	}
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -91,5 +110,4 @@ public class VisitChargeItem extends IdEntity {
 	public void save() {
 		this.getService(VisitChargeItemRepo.class).save(this);
 	}
-
 }

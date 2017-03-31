@@ -2,9 +2,13 @@
 
 package com.neusoft.hs.domain.cost;
 
+import java.util.List;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 interface VisitChargeItemRepo extends
 		PagingAndSortingRepository<VisitChargeItem, String> {
+	
+	public List<VisitChargeItem> findByState(String state);
 
 }
