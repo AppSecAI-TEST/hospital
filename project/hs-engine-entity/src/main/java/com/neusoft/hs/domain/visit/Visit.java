@@ -188,6 +188,7 @@ public class Visit extends IdEntity {
 		} else {
 			chargeBill.setChargeMode(ChargeBill.ChargeMode_NoPreCharge);
 		}
+		chargeBill.save();
 
 		this.setChargeBill(chargeBill);
 

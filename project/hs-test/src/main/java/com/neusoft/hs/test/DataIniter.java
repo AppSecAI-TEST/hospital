@@ -260,10 +260,10 @@ public class DataIniter {
 	protected InspectDomainService inspectDomainService;
 
 	@Autowired
-	protected OrganizationAdminDomainService organizationDomainService;
+	protected OrganizationAdminDomainService organizationAdminDomainService;
 
 	@Autowired
-	protected UserAdminDomainService userDomainService;
+	protected UserAdminDomainService userAdminDomainService;
 
 	@Autowired
 	protected CostDomainService costDomainService;
@@ -320,7 +320,7 @@ public class DataIniter {
 	protected OutPatientDeptAppService outPatientDeptAppService;
 
 	@Autowired
-	protected DiseaseAdminDomainService diseaseDomainService;
+	protected DiseaseAdminDomainService diseaseAdminDomainService;
 
 	@Autowired
 	protected PharmacyAppService pharmacyAppService;
@@ -484,7 +484,7 @@ public class DataIniter {
 		// 清空诊疗项目规格
 		treatmentAdminDomainService.clearTreatmentItemSpecs();
 		// 清空疾病类型
-		diseaseDomainService.clearDiseases();
+		diseaseAdminDomainService.clearDiseases();
 		// 清空成本记录
 		costAdminDomainService.clearCostRecords();
 		// 清空收费单
@@ -494,11 +494,11 @@ public class DataIniter {
 		// 清空患者
 		patientAdminDomainService.clear();
 		// 清空用户信息
-		userDomainService.clear();
+		userAdminDomainService.clear();
 		// 清空门诊诊室
 		outPatientPlanDomainService.clearRoom();
 		// 清空组织机构信息
-		organizationDomainService.clear();
+		organizationAdminDomainService.clear();
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -635,12 +635,12 @@ public class DataIniter {
 
 		units.add(dept999);
 
-		organizationDomainService.create(units);
+		organizationAdminDomainService.create(units);
 
 		org.setInChargeDept(dept222);
 		org.setOutChargeDept(dept777);
 
-		organizationDomainService.save(org);
+		organizationAdminDomainService.save(org);
 	}
 
 	private void initRooms() {
@@ -805,7 +805,7 @@ public class DataIniter {
 
 		users.add(user003);
 
-		userDomainService.create(users);
+		userAdminDomainService.create(users);
 	}
 
 	private void initChargeItems() {
@@ -1408,7 +1408,7 @@ public class DataIniter {
 
 		diseases.add(hypoglycemiaDisease);
 
-		diseaseDomainService.createDiseases(diseases);
+		diseaseAdminDomainService.createDiseases(diseases);
 	}
 
 }

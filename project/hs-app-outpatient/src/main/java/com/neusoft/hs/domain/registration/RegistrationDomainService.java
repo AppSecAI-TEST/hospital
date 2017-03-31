@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
+import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
@@ -27,6 +28,9 @@ public class RegistrationDomainService {
 
 	@Autowired
 	private VisitDomainService visitDomainService;
+
+	@Autowired
+	private CostDomainService costDomainService;
 
 	@Autowired
 	private OutPatientPlanDomainService outPatientPlanDomainService;
@@ -60,8 +64,7 @@ public class RegistrationDomainService {
 		if (!voucher.getRepeatVisit()) {
 			visit = visitDomainService.create(createVisitVO);
 			try {
-				ChargeBill chargeBill = visit.initAccount(0, user);
-				chargeBill.save();
+				costDomainService.createChargeBill(visit, 0, user);
 			} catch (HsException e) {
 				throw new VoucherException(e);
 			}
@@ -116,8 +119,8 @@ public class RegistrationDomainService {
 		voucherRepo.save(voucher);
 
 		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]重新排号，号码是[{}], 诊室为[{}]",
-				user.getId(), voucher.getVisit().getName(), voucher.getNumber(),
-				planRecord.getRoom().getId());
+				user.getId(), voucher.getVisit().getName(),
+				voucher.getNumber(), planRecord.getRoom().getId());
 	}
 
 	public Voucher getTheVoucher(OutPatientPlanRecord record, Integer number) {
