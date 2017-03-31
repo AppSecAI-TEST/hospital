@@ -14,8 +14,8 @@ import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
-import com.neusoft.hs.domain.organization.OrganizationDomainService;
-import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
+import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.DoctorComboBoxModel;
@@ -41,8 +41,8 @@ public class RegisterController extends AbstractFrameController {
 	private DoctorComboBoxModel doctorComboBoxModel;
 	private InPatientAppService inPatientAppService;
 	private RegisterAppService registerAppService;
-	private OrganizationDomainService organizationDomainService;
-	private UserDomainService userDomainService;
+	private OrganizationAdminDomainService organizationDomainService;
+	private UserAdminDomainService userDomainService;
 	private VisitValidator validator;
 
 	@Autowired
@@ -50,10 +50,10 @@ public class RegisterController extends AbstractFrameController {
 			AddVisitFrame addFrame, VisitTableModel tableModel,
 			InPatientAppService inPatientAppService,
 			RegisterAppService registerAppService,
-			OrganizationDomainService organizationDomainService,
+			OrganizationAdminDomainService organizationDomainService,
 			InPatientDeptComboBoxModel inPatientDeptComboBoxModel,
 			DoctorComboBoxModel doctorComboBoxModel,
-			UserDomainService userDomainService, VisitValidator validator) {
+			UserAdminDomainService userDomainService, VisitValidator validator) {
 		this.tableFrame = tableFrame;
 		this.addFrame = addFrame;
 		this.tableModel = tableModel;

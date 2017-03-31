@@ -112,21 +112,10 @@ public class TreatmentDomainService {
 		treatmentItemRepo.save(item);
 		applicationContext.publishEvent(new TreatmentItemUpdatedEvent(item));
 	}
-
+	
 	public Iterable<TreatmentItemSpec> getAllTreatmentItemSpecs() {
 		return treatmentItemSpecRepo.findAll();
 	}
 
-	public void createTreatmentItemSpecs(
-			List<TreatmentItemSpec> treatmentItemSpecs) {
-		treatmentItemSpecRepo.save(treatmentItemSpecs);
-	}
 
-	public void clearTreatmentItems() {
-		treatmentItemRepo.deleteAll();
-	}
-
-	public void clearTreatmentItemSpecs() {
-		treatmentItemSpecRepo.deleteAll();
-	}
 }

@@ -25,13 +25,7 @@ public class MedicalRecordDomainService {
 	private MedicalRecordClipRepo medicalRecordClipRepo;
 
 	@Autowired
-	private MedicalRecordTypeRepo medicalRecordTypeRepo;
-
-	@Autowired
 	private MedicalRecordRepo medicalRecordRepo;
-
-	@Autowired
-	private MedicalRecordTypeBuilderRepo medicalRecordTypeBuilderRepo;
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -175,23 +169,4 @@ public class MedicalRecordDomainService {
 	public List<MedicalRecordClip> findClips(String state, Dept dept) {
 		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept);
 	}
-
-	public void createMedicalRecordType(MedicalRecordType type) {
-		medicalRecordTypeRepo.save(type);
-	}
-
-	public void createMedicalRecordTypes(
-			List<MedicalRecordType> medicalRecordTypes) {
-		medicalRecordTypeRepo.save(medicalRecordTypes);
-	}
-
-	/**
-	 * @roseuid 584E167A0000
-	 */
-	public void clear() {
-		medicalRecordTypeBuilderRepo.deleteAll();
-		medicalRecordClipRepo.deleteAll();
-		medicalRecordTypeRepo.deleteAll();
-	}
-
 }

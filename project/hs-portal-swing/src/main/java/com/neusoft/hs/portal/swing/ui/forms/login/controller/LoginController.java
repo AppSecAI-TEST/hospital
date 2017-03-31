@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.portal.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.LoginInfo;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.LoginValidator;
@@ -23,12 +23,12 @@ import com.neusoft.hs.portal.swing.validation.ValidationError;
 public class LoginController extends AbstractFrameController {
 
 	private LoginFrame loginFrame;
-	private UserDomainService userDomainService;
+	private UserAdminDomainService userDomainService;
 	private LoginValidator validator;
 
 	@Autowired
 	public LoginController(LoginFrame loginFrame,
-			UserDomainService userDomainService, LoginValidator validator) {
+			UserAdminDomainService userDomainService, LoginValidator validator) {
 		this.loginFrame = loginFrame;
 		this.userDomainService = userDomainService;
 		this.validator = validator;

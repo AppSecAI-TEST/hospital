@@ -193,10 +193,6 @@ public class VisitDomainService {
 		return visitRepo.findAll(pageable).getContent();
 	}
 
-	public void clear() {
-		visitRepo.deleteAll();
-	}
-
 	/**
 	 * 自动切换患者一次就诊状态
 	 * 

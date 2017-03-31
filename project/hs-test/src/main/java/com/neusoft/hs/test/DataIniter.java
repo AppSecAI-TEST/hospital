@@ -21,19 +21,22 @@ import com.neusoft.hs.application.registration.RegistrationAppService;
 import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.application.visit.VisitAppService;
 import com.neusoft.hs.domain.cost.ChargeItem;
+import com.neusoft.hs.domain.cost.CostAdminDomainService;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemSpec;
 import com.neusoft.hs.domain.diagnosis.Disease;
-import com.neusoft.hs.domain.diagnosis.DiseaseDomainService;
+import com.neusoft.hs.domain.diagnosis.DiseaseAdminDomainService;
 import com.neusoft.hs.domain.inpatientdept.OutHospitalOrderType;
 import com.neusoft.hs.domain.inpatientdept.SecondNursingOrderType;
 import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
 import com.neusoft.hs.domain.inspect.InspectOrderType;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.order.AssistMaterial;
+import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDayOne;
@@ -47,15 +50,16 @@ import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Org;
-import com.neusoft.hs.domain.organization.OrganizationDomainService;
+import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.organization.OutPatientDept;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
-import com.neusoft.hs.domain.organization.UserDomainService;
+import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.domain.outpatientdept.EnterHospitalOrderType;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.outpatientoffice.VoucherType;
+import com.neusoft.hs.domain.patient.PatientAdminDomainService;
 import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugType;
@@ -70,8 +74,10 @@ import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.recordroom.RecordRoomDomainService;
 import com.neusoft.hs.domain.registration.RegistrationDomainService;
 import com.neusoft.hs.domain.treatment.CommonTreatmentItemSpec;
+import com.neusoft.hs.domain.treatment.TreatmentAdminDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
+import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.domain.visit.VisitNameTreatmentItemSpec;
 
@@ -229,7 +235,7 @@ public class DataIniter {
 	protected Disease hyperthyroidismDisease;// 甲状腺功能亢进（甲亢）
 
 	protected Disease hypoglycemiaDisease;// 低血糖
-	
+
 	protected Map<ChoiceItem, Object> choices;
 
 	@Autowired
@@ -254,14 +260,14 @@ public class DataIniter {
 	protected InspectDomainService inspectDomainService;
 
 	@Autowired
-	protected OrganizationDomainService organizationDomainService;
+	protected OrganizationAdminDomainService organizationDomainService;
 
 	@Autowired
-	protected UserDomainService userDomainService;
+	protected UserAdminDomainService userDomainService;
 
 	@Autowired
 	protected CostDomainService costDomainService;
-	
+
 	@Autowired
 	protected CostAppService costAppService;
 
@@ -270,7 +276,7 @@ public class DataIniter {
 
 	@Autowired
 	protected VisitDomainService visitDomainService;
-	
+
 	@Autowired
 	protected VisitAppService visitAppService;
 
@@ -314,10 +320,28 @@ public class DataIniter {
 	protected OutPatientDeptAppService outPatientDeptAppService;
 
 	@Autowired
-	protected DiseaseDomainService diseaseDomainService;
+	protected DiseaseAdminDomainService diseaseDomainService;
 
 	@Autowired
 	protected PharmacyAppService pharmacyAppService;
+
+	@Autowired
+	private CostAdminDomainService costAdminDomainService;
+
+	@Autowired
+	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
+
+	@Autowired
+	private OrderAdminDomainService orderAdminDomainService;
+
+	@Autowired
+	private PatientAdminDomainService patientAdminDomainService;
+
+	@Autowired
+	private TreatmentAdminDomainService treatmentAdminDomainService;
+
+	@Autowired
+	private VisitAdminDomainService visitAdminDomainService;
 
 	public void clone(DataIniter dataIniter) {
 		org = dataIniter.org;
@@ -422,7 +446,7 @@ public class DataIniter {
 
 		hyperthyroidismDisease = dataIniter.hyperthyroidismDisease;
 		hypoglycemiaDisease = dataIniter.hypoglycemiaDisease;
-		
+
 		choices = dataIniter.choices;
 	}
 
@@ -434,17 +458,17 @@ public class DataIniter {
 		// 清空病案
 		recordRoomDomainService.clear();
 		// 清空病历
-		medicalRecordDomainService.clear();
+		medicalRecordAdminDomainService.clear();
 		// 清空处方
-		orderDomainService.clearPrescriptions();
+		orderAdminDomainService.clearPrescriptions();
 		// 清空医嘱用法
 		pharmacyDomainService.clearOrderUseModes();
 		// 清空医嘱类型
-		orderDomainService.clearOrders();
+		orderAdminDomainService.clearOrders();
 		// 清空组合医嘱
-		orderDomainService.clearCompsiteOrdes();
+		orderAdminDomainService.clearCompsiteOrdes();
 		// 清空频次类型
-		orderDomainService.clearOrderFrequencyTypes();
+		orderAdminDomainService.clearOrderFrequencyTypes();
 		// 清空药品类型
 		pharmacyDomainService.clearDrugTypes();
 		// 清空药品规格
@@ -454,21 +478,21 @@ public class DataIniter {
 		// 清空挂号类型
 		outPatientPlanDomainService.clearVoucherType();
 		// 清空计费项目
-		costDomainService.clearChargeItems();
+		costAdminDomainService.clearChargeItems();
 		// 清空诊疗项目信息
-		treatmentDomainService.clearTreatmentItems();
+		treatmentAdminDomainService.clearTreatmentItems();
 		// 清空诊疗项目规格
-		treatmentDomainService.clearTreatmentItemSpecs();
+		treatmentAdminDomainService.clearTreatmentItemSpecs();
 		// 清空疾病类型
 		diseaseDomainService.clearDiseases();
 		// 清空成本记录
-		costDomainService.clearCostRecords();
+		costAdminDomainService.clearCostRecords();
 		// 清空收费单
-		costDomainService.clearChargeBill();
+		costAdminDomainService.clearChargeBill();
 		// 清空患者一次住院
-		visitDomainService.clear();
+		visitAdminDomainService.clear();
 		// 清空患者
-		patientDomainService.clear();
+		patientAdminDomainService.clear();
 		// 清空用户信息
 		userDomainService.clear();
 		// 清空门诊诊室
@@ -916,7 +940,7 @@ public class DataIniter {
 
 		chargeItems.add(ordinaryVoucherTypeChargeItem);
 
-		costDomainService.create(chargeItems);
+		costAdminDomainService.create(chargeItems);
 	}
 
 	private void initDrugTypeSpecs() {
@@ -1128,7 +1152,7 @@ public class DataIniter {
 
 		orderTypes.add(inspectOrderType);
 
-		orderDomainService.createOrderTypes(orderTypes);
+		orderAdminDomainService.createOrderTypes(orderTypes);
 	}
 
 	private void initOrderUseModes() {
@@ -1177,7 +1201,7 @@ public class DataIniter {
 
 		assistMaterials.add(transportFluidAssistMaterial);
 
-		orderDomainService.createAssistMaterials(assistMaterials);
+		orderAdminDomainService.createAssistMaterials(assistMaterials);
 	}
 
 	private void initOrderUseModeAssistMaterials() {
@@ -1254,7 +1278,7 @@ public class DataIniter {
 
 		orderFrequencyTypes.add(orderFrequencyType_11H);
 
-		orderDomainService.createOrderFrequencyTypes(orderFrequencyTypes);
+		orderAdminDomainService.createOrderFrequencyTypes(orderFrequencyTypes);
 
 	}
 
@@ -1286,7 +1310,8 @@ public class DataIniter {
 
 		treatmentItemSpecs.add(diagnosisTreatmentItemSpec);
 
-		treatmentDomainService.createTreatmentItemSpecs(treatmentItemSpecs);
+		treatmentAdminDomainService
+				.createTreatmentItemSpecs(treatmentItemSpecs);
 	}
 
 	private void initMedicalRecordTypes() {
@@ -1349,7 +1374,8 @@ public class DataIniter {
 
 		medicalRecordTypes.add(outPatientRecordMedicalRecordType);
 
-		medicalRecordDomainService.createMedicalRecordTypes(medicalRecordTypes);
+		medicalRecordAdminDomainService
+				.createMedicalRecordTypes(medicalRecordTypes);
 	}
 
 	private void initVoucherTypes() {

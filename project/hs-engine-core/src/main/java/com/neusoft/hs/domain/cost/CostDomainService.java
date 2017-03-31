@@ -28,13 +28,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class CostDomainService {
 
 	@Autowired
-	private ChargeItemRepo chargeItemRepo;
-
-	@Autowired
 	private CostRecordRepo costRecordRepo;
-
-	@Autowired
-	private ChargeBillRepo chargeBillRepo;
 
 	@Autowired
 	private VisitDomainService visitDomainService;
@@ -231,20 +225,6 @@ public class CostDomainService {
 
 	}
 
-	public void create(List<ChargeItem> chargeItems) {
-		chargeItemRepo.save(chargeItems);
-	}
 
-	public void clearChargeItems() {
-		chargeItemRepo.deleteAll();
-	}
-
-	public void clearCostRecords() {
-		costRecordRepo.deleteAll();
-	}
-
-	public void clearChargeBill() {
-		chargeBillRepo.deleteAll();
-	}
 
 }
