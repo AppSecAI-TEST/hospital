@@ -21,6 +21,10 @@ public class UserAdminDomainService {
 		return userRepo.findOne(account);
 	}
 
+	public AbstractUser find(String id) {
+		return userRepo.findOne(id);
+	}
+
 	public List<Doctor> findAllDoctor() {
 		return userRepo.findDoctor();
 	}
