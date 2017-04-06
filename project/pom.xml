@@ -1,6 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.neusoft.hospital</groupId>
 	<artifactId>hs</artifactId>
@@ -13,7 +12,7 @@
 		<spring.version>4.2.6.RELEASE</spring.version>
 		<org.hibernate.version>5.1.0.Final</org.hibernate.version>
 		<com.h2database.version>1.4.191</com.h2database.version>
-		<mysql.version>5.1.38</mysql.version>
+		<mysql.version>5.1.31</mysql.version>
 		<h2.version>1.4.184</h2.version>
 		<ehcache.version>2.10.2</ehcache.version>
 		<org.slf4j.version>1.7.21</org.slf4j.version>
@@ -58,7 +57,8 @@
 		<module>hs-engine-listener</module>
 
 		<module>hs-platform</module>
-	</modules>
+    <module>hs-engine-interface-impl</module>
+  </modules>
 
 	<build>
 		<plugins>
