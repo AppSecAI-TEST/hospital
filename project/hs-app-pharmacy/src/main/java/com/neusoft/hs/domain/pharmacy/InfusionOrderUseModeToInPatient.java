@@ -75,7 +75,7 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 
 		team.addOrderExecute(transportFluidExecute);
 
-		order.addExecutes(team.getExecutes());
+		order.addExecuteTeam(team);
 	}
 
 }

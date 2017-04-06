@@ -12,7 +12,6 @@ import com.neusoft.hs.domain.order.OrderExecuteDAO;
 public class MyService0 {
 	
 	@Autowired
-	@Qualifier(value="myDao")
 	private OrderExecuteDAO orderExecuteDaoy;
 
 }

@@ -71,7 +71,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
 	private Apply apply;
 
-	@OneToMany(mappedBy = "order", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "order", cascade = { CascadeType.REFRESH,
+			CascadeType.REMOVE })
 	@OrderBy("planStartDate ASC")
 	private List<OrderExecute> orderExecutes;
 
@@ -82,6 +83,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	// 一次解析的执行条目集合（多频次）
 	@Transient
 	private List<OrderExecute> resolveOrderExecutes;
+
+	// 一次解析的执行条目集合（多频次）
+	@Transient
+	private List<OrderExecuteTeam> resolveTeams;
 
 	@Column(name = "last_execute_id", length = 36)
 	private String lastOrderExecuteId;
@@ -114,6 +119,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	@Transient
 	private OrderExecuteRepo orderExecuteRepo;
+
+	@Transient
+	private OrderExecuteTeamRepo orderExecuteTeamRepo;
 
 	public static final String State_Created = "已创建/待核对";
 
@@ -180,13 +188,14 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 		resolveFrequencyOrderExecutes = new ArrayList<OrderExecute>();
 		resolveOrderExecutes = new ArrayList<OrderExecute>();
+		resolveTeams = new ArrayList<OrderExecuteTeam>();
 
 		this.typeApp.resolveOrder();
 
 		if (resolveOrderExecutes.size() > 0) {
 			for (OrderExecute orderExecute : resolveOrderExecutes) {
 				// 更新一组执行条目的首条目的状态
-				if (orderExecute.getPreviousId() == null
+				if (orderExecute.getPrevious() == null
 						&& !orderExecute.getState().equals(
 								OrderExecute.State_NeedSend)) {
 					orderExecute.updateState();
@@ -196,6 +205,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 					orderExecute.setCompsiteOrder(this.getCompsiteOrder());
 				}
 			}
+			// 持久化本次分解
+			orderExecuteTeamRepo.save(resolveTeams);
+
 			this.lastOrderExecuteId = resolveOrderExecutes.get(
 					resolveOrderExecutes.size() - 1).getId();
 		}
@@ -251,10 +263,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * @roseuid 584F5C1E019C
 	 */
 	public void save() {
-
 		typeApp.save();
-
-		this.getService(OrderRepo.class).save(this);
 	}
 
 	/**
@@ -262,26 +271,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * 
 	 * @roseuid 584F5A920055
 	 */
-	public void addExecutes(List<OrderExecute> orderExecutes) {
-		if (this.orderExecutes == null || this.orderExecutes.size() == 0) {
-			this.orderExecutes = orderExecutes;
-		} else {
-			this.orderExecutes.addAll(orderExecutes);
-		}
-
-		this.resolveFrequencyOrderExecutes.addAll(orderExecutes);
-		this.resolveOrderExecutes.addAll(orderExecutes);
-	}
-
-	/**
-	 * 给医嘱条目增加执行条目
-	 * 
-	 * @roseuid 584F5A920055
-	 */
-	public void addExecute(OrderExecute orderExecute) {
-		this.orderExecutes.add(orderExecute);
-		this.resolveFrequencyOrderExecutes.add(orderExecute);
-		this.resolveOrderExecutes.add(orderExecute);
+	public void addExecuteTeam(OrderExecuteTeam orderExecuteTeam) {
+		this.resolveTeams.add(orderExecuteTeam);
+		this.resolveFrequencyOrderExecutes.addAll(orderExecuteTeam
+				.getExecutes());
+		this.resolveOrderExecutes.addAll(orderExecuteTeam.getExecutes());
 	}
 
 	public String getName() {
@@ -473,4 +467,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	public void setOrderExecuteRepo(OrderExecuteRepo orderExecuteRepo) {
 		this.orderExecuteRepo = orderExecuteRepo;
 	}
+
+	public void setOrderExecuteTeamRepo(
+			OrderExecuteTeamRepo orderExecuteTeamRepo) {
+		this.orderExecuteTeamRepo = orderExecuteTeamRepo;
+	}
+
 }

@@ -29,6 +29,9 @@ public class OrderDomainService {
 
 	@Autowired
 	private OrderExecuteRepo orderExecuteRepo;
+	
+	@Autowired
+	private OrderExecuteTeamRepo orderExecuteTeamRepo;
 
 	@Autowired
 	private PrescriptionRepo prescriptionRepo;
@@ -79,6 +82,7 @@ public class OrderDomainService {
 
 		// 对于门诊开立的医嘱自动分解
 		for (Order order : orderCommand.getOrders()) {
+			order.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
 			if (!order.isInPatient()) {
 				order.resolve();
 				order.save();
@@ -141,6 +145,7 @@ public class OrderDomainService {
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
 			longOrder.setOrderExecuteRepo(orderExecuteRepo);
+			longOrder.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
 			try {
 				count += longOrder.resolve();
 			} catch (OrderException e) {
@@ -203,7 +208,9 @@ public class OrderDomainService {
 	 * @roseuid 585250700266
 	 */
 	public Order find(String orderId) {
-		return orderRepo.findOne(orderId);
+		Order order =  orderRepo.findOne(orderId);
+		order.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
+		return order;
 	}
 
 	/**

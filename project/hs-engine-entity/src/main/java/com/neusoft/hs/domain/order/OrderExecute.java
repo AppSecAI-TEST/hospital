@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -30,7 +30,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Role;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.platform.entity.SuperEntity;
+import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
 
 /**
@@ -41,11 +41,7 @@ import com.neusoft.hs.platform.util.DateUtil;
  */
 @Entity
 @Table(name = "domain_order_execute")
-public class OrderExecute extends SuperEntity {
-
-	@Id
-	@Column(name = "id", unique = true, nullable = false, length = 36)
-	private String id;
+public class OrderExecute extends IdEntity {
 
 	@NotEmpty(message = "状态不能为空")
 	@Column(length = 32)
@@ -57,24 +53,21 @@ public class OrderExecute extends SuperEntity {
 
 	private Integer count;
 
-	@NotEmpty(message = "组标识不能为空")
-	@Column(name = "team_id", length = 36)
-	private String teamId;
+	@NotNull(message = "执行组不能为空")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "team_id")
+	private OrderExecuteTeam team;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "compsite_order_id")
 	private CompsiteOrder compsiteOrder;
 
-	@Column(name = "previous_id", length = 36)
-	private String previousId;
-
-	@Transient
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "previous_id")
 	private OrderExecute previous;
 
-	@Column(name = "next_id", length = 36)
-	private String nextId;
-
-	@Transient
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "next_id")
 	private OrderExecute next;
 
 	@Column(name = "is_last")
@@ -345,7 +338,7 @@ public class OrderExecute extends SuperEntity {
 	 * @roseuid 584F62CB0254
 	 */
 	public void save() {
-		orderExecuteRepo.save(this);
+		this.getService(OrderExecuteRepo.class).save(this);
 	}
 
 	private Float calAmout(ChargeItem chargeItem) {
@@ -368,19 +361,6 @@ public class OrderExecute extends SuperEntity {
 
 	public OrderExecute() {
 		super();
-		this.id = UUID.randomUUID().toString();
-	}
-
-	public OrderExecute(String id) {
-		this.setId(id);
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getType() {
@@ -399,12 +379,12 @@ public class OrderExecute extends SuperEntity {
 		this.count = count;
 	}
 
-	public String getTeamId() {
-		return teamId;
+	public OrderExecuteTeam getTeam() {
+		return team;
 	}
 
-	public void setTeamId(String teamId) {
-		this.teamId = teamId;
+	public void setTeam(OrderExecuteTeam team) {
+		this.team = team;
 	}
 
 	public CompsiteOrder getCompsiteOrder() {
@@ -413,22 +393,6 @@ public class OrderExecute extends SuperEntity {
 
 	public void setCompsiteOrder(CompsiteOrder compsiteOrder) {
 		this.compsiteOrder = compsiteOrder;
-	}
-
-	public String getPreviousId() {
-		return previousId;
-	}
-
-	public void setPreviousId(String previousId) {
-		this.previousId = previousId;
-	}
-
-	public String getNextId() {
-		return nextId;
-	}
-
-	public void setNextId(String nextId) {
-		this.nextId = nextId;
 	}
 
 	public boolean isLast() {
@@ -583,17 +547,23 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	public List<OrderExecute> getTeamOrderExecutes() {
-		return orderExecuteRepo.findByTeamId(this.teamId);
+		return this.team.getExecutes();
+	}
+
+	public OrderExecute getPrevious() {
+		return previous;
+	}
+
+	public void setPrevious(OrderExecute previous) {
+		this.previous = previous;
 	}
 
 	public OrderExecute getNext() {
-		if (this.next == null) {
-			if (this.nextId != null) {
-				this.next = orderExecuteRepo.findOne(this.nextId);
-				this.next.setOrderExecuteRepo(orderExecuteRepo);
-			}
-		}
-		return this.next;
+		return next;
+	}
+
+	public void setNext(OrderExecute next) {
+		this.next = next;
 	}
 
 	public void setOrderExecuteRepo(OrderExecuteRepo orderExecuteRepo) {

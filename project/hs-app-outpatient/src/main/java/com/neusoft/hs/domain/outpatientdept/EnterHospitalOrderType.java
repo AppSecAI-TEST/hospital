@@ -55,7 +55,7 @@ public class EnterHospitalOrderType extends OrderType {
 
 		team.addOrderExecute(enter);
 
-		order.addExecutes(team.getExecutes());
+		order.addExecuteTeam(team);
 	}
 
 }

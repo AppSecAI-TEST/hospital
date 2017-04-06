@@ -2,7 +2,6 @@ package com.neusoft.hs.domain.inpatientdept;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -10,9 +9,9 @@ import javax.persistence.Entity;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderTypeApp;
-import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @DiscriminatorValue("SecondNursing")
@@ -29,22 +28,24 @@ public class SecondNursingOrderType extends OrderType {
 			List<Date> executeDates = longOrder.calExecuteDates(day);
 
 			for (Date executeDate : executeDates) {
-				OrderExecute execute = this.create(order, executeDate);
+				OrderExecuteTeam executeTeam = this.create(order, executeDate);
 				// 设置执行时间
-				execute.fillPlanDate(executeDate, executeDate);
+				for (OrderExecute execute : executeTeam.getExecutes()) {
+					execute.fillPlanDate(executeDate, executeDate);
+				}
 				// 收集执行条目
-				order.addExecute(execute);
+				order.addExecuteTeam(executeTeam);
 			}
 		}
 
 	}
 
-	private SecondNursingOrderExecute create(Order order, Date startDate) {
+	private OrderExecuteTeam create(Order order, Date startDate) {
 
 		SecondNursingOrderExecute execute = new SecondNursingOrderExecute();
 
-		execute.setId(UUID.randomUUID().toString());
-		execute.setTeamId(UUID.randomUUID().toString());
+		OrderExecuteTeam team = new OrderExecuteTeam();
+		team.addOrderExecute(execute);
 
 		execute.setOrder(order);
 		execute.setVisit(order.getVisit());
@@ -58,7 +59,7 @@ public class SecondNursingOrderType extends OrderType {
 		execute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		execute.setCostState(OrderExecute.CostState_NoCost);
 
-		return execute;
+		return team;
 	}
 
 }

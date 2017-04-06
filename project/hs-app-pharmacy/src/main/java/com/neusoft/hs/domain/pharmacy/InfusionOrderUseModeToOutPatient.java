@@ -110,7 +110,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		dispensingDrugExecute.setPlanEndDate(sysDate);
 
 		team.addOrderExecute(dispensingDrugExecute);
-		chargeOrderExecute.setChargeId(dispensingDrugExecute.getId());
+		chargeOrderExecute.setCharge(dispensingDrugExecute);
 
 		// 取药执行条目
 		TaskDrugOrderExecute taskDrugExecute = new TaskDrugOrderExecute();
@@ -146,10 +146,9 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 
 		team.addOrderExecute(transportFluidExecute);
 		if (assistMaterialChargeOrderExecute != null) {
-			assistMaterialChargeOrderExecute.setChargeId(transportFluidExecute
-					.getId());
+			assistMaterialChargeOrderExecute.setCharge(transportFluidExecute);
 		}
 
-		order.addExecutes(team.getExecutes());
+		order.addExecuteTeam(team);
 	}
 }

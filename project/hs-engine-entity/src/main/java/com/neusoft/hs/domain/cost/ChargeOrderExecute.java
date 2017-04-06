@@ -1,10 +1,11 @@
 package com.neusoft.hs.domain.cost;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 
@@ -12,16 +13,18 @@ import com.neusoft.hs.domain.order.OrderExecute;
 @DiscriminatorValue("Charge")
 public class ChargeOrderExecute extends OrderExecute {
 
-	@NotEmpty(message = "被收费执行条目Id不能为空")
-	@Column(name = "charge_id", length = 36)
-	private String chargeId;
+	@NotNull(message = "被收费执行条目不能为空")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "charge_id")
+	private OrderExecute charge;
 
-	public String getChargeId() {
-		return chargeId;
+	public OrderExecute getCharge() {
+		return charge;
 	}
 
-	public void setChargeId(String chargeId) {
-		this.chargeId = chargeId;
+	public void setCharge(OrderExecute charge) {
+		this.charge = charge;
 	}
 
+	
 }

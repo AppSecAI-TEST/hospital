@@ -62,7 +62,7 @@ public class OutHospitalOrderType extends OrderType {
 
 		team.addOrderExecute(balance);
 
-		order.addExecutes(team.getExecutes());
+		order.addExecuteTeam(team);
 	}
 
 }

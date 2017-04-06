@@ -19,11 +19,9 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class MyService {
 
 	@Autowired
-	@Qualifier(value="myDao")
 	private OrderExecuteDAO orderExecuteDao1;
 	
 	@Autowired
-	@Qualifier(value="myDao")
 	private OrderExecuteDAO orderExecuteDaox;
 	
 	@Autowired
@@ -40,12 +38,12 @@ public class MyService {
 //				.getApplicationContext().getBean(OrderExecuteDAO.class);
 		
 		OrderExecuteDAO orderExecuteDao = (OrderExecuteDAO)ApplicationContextUtil
-				.getApplicationContext().getBean("myDao");
+				.getApplicationContext().getBean("orderExecuteDao");
 		
 		OrderExecuteDAO orderExecuteDao3 = (OrderExecuteDAO) ApplicationContextUtil
-		.getApplicationContext().getAutowireCapableBeanFactory().getBean("myDao");
+		.getApplicationContext().getAutowireCapableBeanFactory().getBean("orderExecuteDao");
 		
-		OrderExecuteDAO orderExecuteDao2 = (OrderExecuteDAO)MyBeanFactory.getBean("myDao");
+		OrderExecuteDAO orderExecuteDao2 = (OrderExecuteDAO)MyBeanFactory.getBean("orderExecuteDao");
 
 		OrderExecute orderExecute2 = orderExecuteDao.find(id);
 

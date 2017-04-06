@@ -65,7 +65,7 @@ public class OralOrderUseMode extends DrugUseMode {
 			dispensingDrugExecute.setState(OrderExecute.State_NeedSend);
 		} else {
 			dispensingDrugExecute.setState(OrderExecute.State_NeedExecute);
-			chargeOrderExecute.setChargeId(dispensingDrugExecute.getId());
+			chargeOrderExecute.setCharge(dispensingDrugExecute);
 		}
 
 		team.addOrderExecute(dispensingDrugExecute);
@@ -87,7 +87,7 @@ public class OralOrderUseMode extends DrugUseMode {
 
 		team.addOrderExecute(taskDrugExecute);
 
-		order.addExecutes(team.getExecutes());
+		order.addExecuteTeam(team);
 	}
 
 }

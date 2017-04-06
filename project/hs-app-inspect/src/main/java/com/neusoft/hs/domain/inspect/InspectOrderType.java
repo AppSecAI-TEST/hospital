@@ -60,7 +60,7 @@ public class InspectOrderType extends OrderType {
 
 			team.addOrderExecute(confirm);
 
-			order.addExecutes(team.getExecutes());
+			order.addExecuteTeam(team);
 		}
 	}
 }
