@@ -88,8 +88,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@Transient
 	private List<OrderExecuteTeam> resolveTeams;
 
-	@Column(name = "last_execute_id", length = 36)
-	private String lastOrderExecuteId;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "last_execute_id")
+	private OrderExecute lastOrderExecute;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id")
@@ -116,9 +117,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	@Transient
 	private Map<String, Object> params = new HashMap<String, Object>();
-
-	@Transient
-	private OrderExecuteRepo orderExecuteRepo;
 
 	@Transient
 	private OrderExecuteTeamRepo orderExecuteTeamRepo;
@@ -208,8 +206,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			// 持久化本次分解
 			orderExecuteTeamRepo.save(resolveTeams);
 
-			this.lastOrderExecuteId = resolveOrderExecutes.get(
-					resolveOrderExecutes.size() - 1).getId();
+			this.lastOrderExecute = resolveOrderExecutes
+					.get(resolveOrderExecutes.size() - 1);
 		}
 
 		LogUtil.log(this.getClass(), "系统分解了医嘱条目[{}],得到{}条执行条目", this.getId(),
@@ -348,14 +346,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	}
 
 	public OrderExecute getLastOrderExecute() {
-		if (this.lastOrderExecuteId == null) {
-			return null;
-		} else {
-			OrderExecute lastOrderExecute = orderExecuteRepo
-					.findOne(this.lastOrderExecuteId);
-			lastOrderExecute.setOrderExecuteRepo(orderExecuteRepo);
-			return lastOrderExecute;
-		}
+		return this.lastOrderExecute;
 	}
 
 	public Doctor getCreator() {
@@ -462,10 +453,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		if (!this.planStartDate.equals(order.planStartDate)) {
 			throw new OrderException(this, "计划开始时间不同");
 		}
-	}
-
-	public void setOrderExecuteRepo(OrderExecuteRepo orderExecuteRepo) {
-		this.orderExecuteRepo = orderExecuteRepo;
 	}
 
 	public void setOrderExecuteTeamRepo(

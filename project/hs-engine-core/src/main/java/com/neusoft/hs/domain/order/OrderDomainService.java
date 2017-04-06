@@ -29,7 +29,7 @@ public class OrderDomainService {
 
 	@Autowired
 	private OrderExecuteRepo orderExecuteRepo;
-	
+
 	@Autowired
 	private OrderExecuteTeamRepo orderExecuteTeamRepo;
 
@@ -85,7 +85,6 @@ public class OrderDomainService {
 			order.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
 			if (!order.isInPatient()) {
 				order.resolve();
-				order.save();
 			}
 		}
 
@@ -144,7 +143,6 @@ public class OrderDomainService {
 						Order.PlaceType_InPatient);
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
-			longOrder.setOrderExecuteRepo(orderExecuteRepo);
 			longOrder.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
 			try {
 				count += longOrder.resolve();
@@ -208,7 +206,7 @@ public class OrderDomainService {
 	 * @roseuid 585250700266
 	 */
 	public Order find(String orderId) {
-		Order order =  orderRepo.findOne(orderId);
+		Order order = orderRepo.findOne(orderId);
 		order.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
 		return order;
 	}
