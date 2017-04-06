@@ -121,7 +121,9 @@ public class OrderExecuteDomainService {
 	}
 
 	public OrderExecute find(String executeId) {
-		return orderExecuteRepo.findOne(executeId);
+		OrderExecute orderExecute = orderExecuteRepo.findOne(executeId);
+		orderExecute.setOrderExecuteRepo(orderExecuteRepo);
+		return orderExecute;
 	}
 
 }

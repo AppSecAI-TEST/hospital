@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -135,6 +136,9 @@ public class OrderExecute extends SuperEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
+
+	@Transient
+	private OrderExecuteRepo orderExecuteRepo;
 
 	public static final String State_NeedSend = "待发送";
 
@@ -341,7 +345,7 @@ public class OrderExecute extends SuperEntity {
 	 * @roseuid 584F62CB0254
 	 */
 	public void save() {
-		this.getService(OrderExecuteRepo.class).save(this);
+		orderExecuteRepo.save(this);
 	}
 
 	private Float calAmout(ChargeItem chargeItem) {
@@ -364,6 +368,7 @@ public class OrderExecute extends SuperEntity {
 
 	public OrderExecute() {
 		super();
+		this.id = UUID.randomUUID().toString();
 	}
 
 	public OrderExecute(String id) {
@@ -578,17 +583,21 @@ public class OrderExecute extends SuperEntity {
 	}
 
 	public List<OrderExecute> getTeamOrderExecutes() {
-		return this.getService(OrderExecuteRepo.class)
-				.findByTeamId(this.teamId);
+		return orderExecuteRepo.findByTeamId(this.teamId);
 	}
 
 	public OrderExecute getNext() {
 		if (this.next == null) {
 			if (this.nextId != null) {
-				this.next = this.getService(OrderExecuteRepo.class).findOne(
-						this.nextId);
+				this.next = orderExecuteRepo.findOne(this.nextId);
+				this.next.setOrderExecuteRepo(orderExecuteRepo);
 			}
 		}
 		return this.next;
 	}
+
+	public void setOrderExecuteRepo(OrderExecuteRepo orderExecuteRepo) {
+		this.orderExecuteRepo = orderExecuteRepo;
+	}
+
 }

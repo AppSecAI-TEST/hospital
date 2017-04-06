@@ -22,7 +22,7 @@ public class OrderExecuteTeam {
 
 	public void addOrderExecute(OrderExecute execute) {
 
-		execute.setId(UUID.randomUUID().toString());
+		//execute.setId(UUID.randomUUID().toString());
 		execute.setTeamId(id);
 
 		if (executes.size() == 0) {

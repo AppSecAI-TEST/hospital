@@ -26,7 +26,10 @@ public class OrderDomainService {
 
 	@Autowired
 	private OrderRepo orderRepo;
-	
+
+	@Autowired
+	private OrderExecuteRepo orderExecuteRepo;
+
 	@Autowired
 	private PrescriptionRepo prescriptionRepo;
 
@@ -137,6 +140,7 @@ public class OrderDomainService {
 						Order.PlaceType_InPatient);
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
+			longOrder.setOrderExecuteRepo(orderExecuteRepo);
 			try {
 				count += longOrder.resolve();
 			} catch (OrderException e) {
@@ -177,7 +181,7 @@ public class OrderDomainService {
 	 * @throws OrderException
 	 */
 	public void delete(Order order, Doctor doctor) throws OrderException {
-		
+
 		order.delete();
 
 		applicationContext.publishEvent(new OrderDeletedEvent(order));

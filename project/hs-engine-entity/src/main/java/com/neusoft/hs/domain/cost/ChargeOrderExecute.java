@@ -1,30 +1,27 @@
 package com.neusoft.hs.domain.cost;
 
-import java.util.Map;
-
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteException;
-import com.neusoft.hs.domain.organization.AbstractUser;
 
 @Entity
 @DiscriminatorValue("Charge")
 public class ChargeOrderExecute extends OrderExecute {
 
-	@Override
-	protected void doFinish(Map<String, Object> params, AbstractUser user)
-			throws OrderExecuteException {
-		super.doFinish(params, user);
+	@NotEmpty(message = "被收费执行条目Id不能为空")
+	@Column(name = "charge_id", length = 36)
+	private String chargeId;
 
-		for (OrderExecute orderExecute : this.getTeamOrderExecutes()) {
-			if (orderExecute.getChargeState().equals(
-					OrderExecute.ChargeState_NoCharge)) {
-				orderExecute.setChargeState(OrderExecute.ChargeState_Charge);
-				orderExecute.save();
-			}
-		}
+	public String getChargeId() {
+		return chargeId;
+	}
+
+	public void setChargeId(String chargeId) {
+		this.chargeId = chargeId;
 	}
 
 }

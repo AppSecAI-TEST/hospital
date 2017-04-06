@@ -24,9 +24,10 @@ public class OralOrderUseMode extends DrugUseMode {
 		Visit visit = order.getVisit();
 		Pharmacy pharmacy = drugOrderType.getDrugType().getPharmacy();
 
+		ChargeOrderExecute chargeOrderExecute = null;
 		if (!order.isInPatient()) {
 			// 收费执行条目
-			ChargeOrderExecute chargeOrderExecute = new ChargeOrderExecute();
+			chargeOrderExecute = new ChargeOrderExecute();
 			chargeOrderExecute.setOrder(order);
 			chargeOrderExecute.setVisit(visit);
 			chargeOrderExecute.setBelongDept(order.getBelongDept());
@@ -64,6 +65,7 @@ public class OralOrderUseMode extends DrugUseMode {
 			dispensingDrugExecute.setState(OrderExecute.State_NeedSend);
 		} else {
 			dispensingDrugExecute.setState(OrderExecute.State_NeedExecute);
+			chargeOrderExecute.setChargeId(dispensingDrugExecute.getId());
 		}
 
 		team.addOrderExecute(dispensingDrugExecute);

@@ -24,7 +24,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.slf4j.LoggerFactory;
 
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -112,6 +111,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	@Transient
 	private Map<String, Object> params = new HashMap<String, Object>();
+
+	@Transient
+	private OrderExecuteRepo orderExecuteRepo;
 
 	public static final String State_Created = "已创建/待核对";
 
@@ -355,8 +357,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		if (this.lastOrderExecuteId == null) {
 			return null;
 		} else {
-			return this.getService(OrderExecuteRepo.class).findOne(
-					this.lastOrderExecuteId);
+			OrderExecute lastOrderExecute = orderExecuteRepo
+					.findOne(this.lastOrderExecuteId);
+			lastOrderExecute.setOrderExecuteRepo(orderExecuteRepo);
+			return lastOrderExecute;
 		}
 	}
 
@@ -466,4 +470,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		}
 	}
 
+	public void setOrderExecuteRepo(OrderExecuteRepo orderExecuteRepo) {
+		this.orderExecuteRepo = orderExecuteRepo;
+	}
 }
