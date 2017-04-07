@@ -275,6 +275,8 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:36"));
 
 		// 创建药品002长期医嘱
 		sysDate = DateUtil.getSysDate();
