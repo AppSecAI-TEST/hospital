@@ -3,8 +3,11 @@ package com.neusoft.hs.domain.inpatientdept;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
@@ -14,8 +17,12 @@ import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderTypeApp;
 
 @Entity
-@DiscriminatorValue("SecondNursing")
-public class SecondNursingOrderType extends OrderType {
+@DiscriminatorValue("Nursing")
+public class NursingOrderType extends OrderType {
+
+	@NotEmpty(message = "护理类型不能为空")
+	@Column(name = "nursing_type", length = 32)
+	private String nursingType;
 
 	@Override
 	public void resolveOrder(OrderTypeApp orderTypeApp) {
@@ -42,7 +49,7 @@ public class SecondNursingOrderType extends OrderType {
 
 	private OrderExecuteTeam create(Order order, Date startDate) {
 
-		SecondNursingOrderExecute execute = new SecondNursingOrderExecute();
+		NursingOrderExecute execute = new NursingOrderExecute();
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
 		team.addOrderExecute(execute);
@@ -50,7 +57,7 @@ public class SecondNursingOrderType extends OrderType {
 		execute.setOrder(order);
 		execute.setVisit(order.getVisit());
 		execute.setBelongDept(order.getBelongDept());
-		execute.setType(OrderExecute.Type_SecondNursing);
+		execute.setType(nursingType);
 		execute.addChargeItem(this.getChargeItem());
 
 		execute.setExecuteDept(order.getBelongDept());
@@ -60,6 +67,14 @@ public class SecondNursingOrderType extends OrderType {
 		execute.setCostState(OrderExecute.CostState_NoCost);
 
 		return team;
+	}
+
+	public String getNursingType() {
+		return nursingType;
+	}
+
+	public void setNursingType(String nursingType) {
+		this.nursingType = nursingType;
 	}
 
 }

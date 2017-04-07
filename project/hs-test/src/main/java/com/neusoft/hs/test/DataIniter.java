@@ -27,7 +27,7 @@ import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemSpec;
 import com.neusoft.hs.domain.diagnosis.Disease;
 import com.neusoft.hs.domain.diagnosis.DiseaseAdminDomainService;
 import com.neusoft.hs.domain.inpatientdept.OutHospitalOrderType;
-import com.neusoft.hs.domain.inpatientdept.SecondNursingOrderType;
+import com.neusoft.hs.domain.inpatientdept.NursingOrderType;
 import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
@@ -38,6 +38,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderDomainService;
+import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDayOne;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDayTwo;
@@ -135,6 +136,8 @@ public class DataIniter {
 	protected ChargeItem drugTypeSpec006ChargeItem;// 药品006计费项目(生地黄)
 
 	protected ChargeItem transportFluidMaterialChargeItem;// 输液材料费
+	
+	protected ChargeItem firstNursingChargeItem;// 一级护理计费项目
 
 	protected ChargeItem secondNursingChargeItem;// 二级护理计费项目
 
@@ -185,8 +188,10 @@ public class DataIniter {
 	protected InspectItem brainHCInspectItem;// 脑核磁检查项目
 
 	protected EnterHospitalOrderType enterHospitalOrderType;// 入院医嘱类型
+	
+	protected NursingOrderType firstNursingOrderType;// 一级护理医嘱类型
 
-	protected SecondNursingOrderType secondNursingOrderType;// 二级护理医嘱类型
+	protected NursingOrderType secondNursingOrderType;// 二级护理医嘱类型
 
 	protected OutHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
 
@@ -384,6 +389,7 @@ public class DataIniter {
 		drugTypeSpec002ChargeItem = dataIniter.drugTypeSpec002ChargeItem;
 		drugTypeSpec003ChargeItem = dataIniter.drugTypeSpec003ChargeItem;
 		transportFluidMaterialChargeItem = dataIniter.transportFluidMaterialChargeItem;
+		firstNursingChargeItem = dataIniter.firstNursingChargeItem;
 		secondNursingChargeItem = dataIniter.secondNursingChargeItem;
 		brainCTChargeItem = dataIniter.brainCTChargeItem;
 		brainHCChargeItem = dataIniter.brainHCChargeItem;
@@ -414,6 +420,7 @@ public class DataIniter {
 		brainHCInspectItem = dataIniter.brainHCInspectItem;
 
 		enterHospitalOrderType = dataIniter.enterHospitalOrderType;
+		firstNursingOrderType = dataIniter.firstNursingOrderType;
 		secondNursingOrderType = dataIniter.secondNursingOrderType;
 		leaveHospitalOrderType = dataIniter.leaveHospitalOrderType;
 		inspectOrderType = dataIniter.inspectOrderType;
@@ -831,6 +838,15 @@ public class DataIniter {
 				.setChargingMode(ChargeItem.ChargingMode_Amount);
 
 		chargeItems.add(drugTypeSpec001ChargeItem);
+		
+		firstNursingChargeItem = new ChargeItem();
+		firstNursingChargeItem.setId("firstNursingChargeItem");
+		firstNursingChargeItem.setCode("firstNursingChargeItem");
+		firstNursingChargeItem.setName("一级护理");
+		firstNursingChargeItem.setPrice(22);
+		firstNursingChargeItem.setChargingMode(ChargeItem.ChargingMode_Day);
+
+		chargeItems.add(firstNursingChargeItem);
 
 		secondNursingChargeItem = new ChargeItem();
 		secondNursingChargeItem.setId("secondNursingChargeItem");
@@ -1137,13 +1153,23 @@ public class DataIniter {
 
 		orderTypes.add(leaveHospitalOrderType);
 
-		secondNursingOrderType = new SecondNursingOrderType();
+		secondNursingOrderType = new NursingOrderType();
 		secondNursingOrderType.setId("secondNursingOrderType");
 		secondNursingOrderType.setCode("secondNursingOrderType");
-		secondNursingOrderType.setName("二级护理");
+		secondNursingOrderType.setName(OrderExecute.Type_SecondNursing);
+		secondNursingOrderType.setNursingType(OrderExecute.Type_SecondNursing);
 		secondNursingOrderType.setChargeItem(secondNursingChargeItem);
 
 		orderTypes.add(secondNursingOrderType);
+		
+		firstNursingOrderType = new NursingOrderType();
+		firstNursingOrderType.setId("firstNursingOrderType");
+		firstNursingOrderType.setCode("firstNursingOrderType");
+		firstNursingOrderType.setName(OrderExecute.Type_FirstNursing);
+		firstNursingOrderType.setNursingType(OrderExecute.Type_FirstNursing);
+		firstNursingOrderType.setChargeItem(firstNursingChargeItem);
+
+		orderTypes.add(firstNursingOrderType);
 
 		inspectOrderType = new InspectOrderType();
 		inspectOrderType.setId("brainCTInspectOrderType");

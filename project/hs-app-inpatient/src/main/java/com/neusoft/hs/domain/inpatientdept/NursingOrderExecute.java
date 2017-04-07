@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import com.neusoft.hs.domain.order.OrderExecute;
 
 @Entity
-@DiscriminatorValue("SecondNursing")
-public class SecondNursingOrderExecute extends OrderExecute {
+@DiscriminatorValue("Nursing")
+public class NursingOrderExecute extends OrderExecute {
 
 }

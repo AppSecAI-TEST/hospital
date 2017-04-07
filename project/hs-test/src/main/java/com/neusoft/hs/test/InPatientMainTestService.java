@@ -40,25 +40,22 @@ public class InPatientMainTestService extends InPatientTestService {
 		Pageable pageable;
 		List<OrderExecute> executes;
 		List<Order> orders;
-		int startedCount;
-		int resolveCount;
 		Date sysDate;
 		Date startDate;
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40", dayCount));
 
 		// 开立二级护理长期医嘱
-		LongOrder secondNursingOrder = new LongOrder();
-		secondNursingOrder.setVisit(visit001);
-		secondNursingOrder.setName("二级护理");
-		secondNursingOrder.setFrequencyType(orderFrequencyType_0H);
-		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
-		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+		LongOrder nursingOrder = new LongOrder();
+		nursingOrder.setVisit(visit001);
+		nursingOrder.setName("一级护理");
+		nursingOrder.setFrequencyType(orderFrequencyType_0H);
+		nursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
+		nursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
-		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
-				secondNursingOrderType));
+		nursingOrder.setTypeApp(new SampleOrderTypeApp(firstNursingOrderType));
 
-		orderAppService.create(secondNursingOrder, user002);
+		orderAppService.create(nursingOrder, user002);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
@@ -597,9 +594,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-05
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-05", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
-		costDomainService.calculate();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 09:10", dayCount));
 

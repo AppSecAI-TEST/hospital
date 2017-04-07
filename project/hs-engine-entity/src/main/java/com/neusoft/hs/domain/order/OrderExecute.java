@@ -164,6 +164,8 @@ public class OrderExecute extends IdEntity {
 	public static final String Type_Configure_Fluid = "配液";
 
 	public static final String Type_Transport_Fluid = "输液";
+	
+	public static final String Type_FirstNursing = "一级护理";
 
 	public static final String Type_SecondNursing = "二级护理";
 
