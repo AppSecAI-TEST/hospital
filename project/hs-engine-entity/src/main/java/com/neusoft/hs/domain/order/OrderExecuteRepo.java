@@ -35,7 +35,4 @@ interface OrderExecuteRepo extends
 			@Param("oldState") String oldState,
 			@Param("chargeBillState") String chargeBillState,
 			@Param("sysDate") Date sysDate, @Param("startDate") Date startDate);
-
-	@Query("select e from OrderExecute e where e.order.id = :orderId and e.next = null")
-	OrderExecute findByLastExecute(@Param("orderId") String orderId);
 }
