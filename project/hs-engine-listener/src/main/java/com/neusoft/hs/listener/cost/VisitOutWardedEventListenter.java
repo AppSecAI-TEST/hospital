@@ -5,6 +5,7 @@ package com.neusoft.hs.listener.cost;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitOutWardedEvent;
 
@@ -17,6 +18,8 @@ public class VisitOutWardedEventListenter implements
 
 		Visit visit = (Visit) event.getSource();
 
-		//visit.get
+		for (VisitChargeItem visitChargeItem : visit.getChargeItems()) {
+			visitChargeItem.setState(VisitChargeItem.State_Stop);
+		}
 	}
 }

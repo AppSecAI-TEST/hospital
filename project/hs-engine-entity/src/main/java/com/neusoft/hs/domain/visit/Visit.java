@@ -126,6 +126,10 @@ public class Visit extends IdEntity {
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private MedicalRecordClip medicalRecordClip;
 
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.REFRESH })
+	private List<VisitChargeItem> chargeItems;
+
 	public static final String State_WaitingDiagnose = "待门诊";
 
 	public static final String State_Diagnosing = "门诊就诊中";
@@ -300,9 +304,9 @@ public class Visit extends IdEntity {
 					+ "]的收费单余额[" + this.chargeBill.getBalance() + "]不为零");
 		}
 		this.setState(State_LeaveHospital);
-		
+
 		this.medicalRecordClip.leaveHospital(user);
-		
+
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
 		visitLog.setType(VisitLog.Type_LeaveHospital);
@@ -494,4 +498,13 @@ public class Visit extends IdEntity {
 	public void setDept(Dept dept) {
 		this.dept = dept;
 	}
+
+	public List<VisitChargeItem> getChargeItems() {
+		return chargeItems;
+	}
+
+	public void setChargeItems(List<VisitChargeItem> chargeItems) {
+		this.chargeItems = chargeItems;
+	}
+
 }
