@@ -9,6 +9,7 @@ import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
+import com.neusoft.hs.domain.order.OrderStopedEvent;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitOutWardedEvent;
@@ -30,6 +31,9 @@ public class OutHospitalRegisterOrderExecute extends OrderExecute {
 				if (order.getState().equals(Order.State_Executing)) {
 					if (order instanceof LongOrder) {
 						((LongOrder) order).stop();
+						// 发出停止长嘱事件
+						ApplicationContextUtil.getApplicationContext().publishEvent(
+								new OrderStopedEvent(visit));
 					} else {
 						throw new OrderExecuteException(this, "医嘱["
 								+ order.getName() + "]状态处于执行中，不能办理出院登记");

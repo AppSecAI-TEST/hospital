@@ -84,6 +84,8 @@ public class ChargeRecord extends IdEntity {
 	public static final String Type_Charged = "已扣";
 
 	public static final String Type_BackCharge = "退费";
+	
+	public static final String Type_Balance = "结账";
 
 	/**
 	 * 根据费用条目创建成本条目

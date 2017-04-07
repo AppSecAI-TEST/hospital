@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderDomainService;
@@ -99,5 +100,17 @@ public class OrderAppService {
 				NeedSendOrderExecuteHour);
 		return orderExecuteDomainService.getNeedSendOrderExecutes(nurse, date,
 				pageable);
+	}
+
+	public void stop(String orderId, Doctor doctor) throws OrderException {
+		Order order = orderDomainService.find(orderId);
+		if (order == null) {
+			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+		} else if (!(order instanceof LongOrder)) {
+			throw new OrderException(order, "orderId=[" + orderId
+					+ "]不是长嘱，不能停止");
+		}
+		orderDomainService.stop((LongOrder) order, doctor);
+
 	}
 }

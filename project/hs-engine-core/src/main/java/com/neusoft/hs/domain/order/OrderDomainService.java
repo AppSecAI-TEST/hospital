@@ -168,10 +168,31 @@ public class OrderDomainService {
 
 		applicationContext.publishEvent(new OrderCanceledEvent(order));
 
-		LogUtil.log(this.getClass(), "医生[{}]作废了核对患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
+		LogUtil.log(this.getClass(), "医生[{}]作废了患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
 				doctor.getId(), order.getVisit().getName(), order.getId(),
 				order.getTypeApp().getOrderType().getId());
 
+	}
+
+	/**
+	 * 停止一个长期医嘱
+	 * 
+	 * @param order
+	 * @param doctor
+	 * @throws OrderException
+	 */
+	public void stop(LongOrder order, Doctor doctor) throws OrderException {
+		try {
+			order.stop();
+		} catch (OrderExecuteException e) {
+			throw new OrderException(order, e);
+		}
+
+		applicationContext.publishEvent(new OrderStopedEvent(order));
+
+		LogUtil.log(this.getClass(), "医生[{}]停止了患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
+				doctor.getId(), order.getVisit().getName(), order.getId(),
+				order.getTypeApp().getOrderType().getId());
 	}
 
 	/**
@@ -213,4 +234,5 @@ public class OrderDomainService {
 	public Iterator<Order> find(List<String> orderIds) {
 		return orderRepo.findAll(orderIds).iterator();
 	}
+
 }
