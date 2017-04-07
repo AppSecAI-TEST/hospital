@@ -119,9 +119,10 @@ public class CostDomainService {
 	 * 根据医嘱执行条目创建费用条目
 	 * 
 	 * @param execute
+	 * @throws CostException
 	 * @roseuid 584FBC02036D
 	 */
-	public ExecuteResult charging(OrderExecute execute) {
+	public ExecuteResult charging(OrderExecute execute) throws CostException {
 
 		ExecuteResult result = new ExecuteResult();
 		result.setExecuteId(execute.getId());
@@ -229,8 +230,9 @@ public class CostDomainService {
 
 	/**
 	 * 计算滚动费用
+	 * @throws CostException 
 	 */
-	public int calculate() {
+	public int calculate() throws CostException {
 		List<VisitChargeItem> visitChargeItems = visitChargeItemRepo
 				.findByState(VisitChargeItem.State_Normal);
 		int count = 0;

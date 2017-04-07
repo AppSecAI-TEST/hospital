@@ -11,6 +11,8 @@ import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.VisitOutHospitalEvent;
+import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -36,5 +38,9 @@ public class OutHospitalBalanceOrderExecute extends OrderExecute {
 			temporaryOrder.setExecuteDate(DateUtil.getSysDate());
 			temporaryOrder.setExecuteUser(user);
 		}
+
+		// 发出患者出院事件
+		ApplicationContextUtil.getApplicationContext().publishEvent(
+				new VisitOutHospitalEvent(visit));
 	}
 }

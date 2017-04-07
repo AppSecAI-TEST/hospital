@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.neusoft.hs.domain.cost.ChargeOrderExecute;
 import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.cost.CostException;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteFinishedEvent;
 
@@ -26,6 +27,10 @@ public class OrderExecuteFinishedEventListenter implements
 			execute = ((ChargeOrderExecute) execute).getCharge();
 		}
 
-		costDomainService.charging(execute);
+		try {
+			costDomainService.charging(execute);
+		} catch (CostException e) {
+			e.printStackTrace();
+		}
 	}
 }

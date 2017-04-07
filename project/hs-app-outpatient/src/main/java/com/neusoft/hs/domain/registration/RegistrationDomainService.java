@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.cost.CostException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
@@ -43,9 +44,10 @@ public class RegistrationDomainService {
 	 * @param user
 	 * @return
 	 * @throws VoucherException
+	 * @throws CostException
 	 */
 	public Voucher register(CreateVisitVO createVisitVO, String planRecordId,
-			AbstractUser user) throws VoucherException {
+			AbstractUser user) throws VoucherException, CostException {
 
 		OutPatientPlanRecord planRecord = outPatientPlanDomainService
 				.findPlanRecord(planRecordId);

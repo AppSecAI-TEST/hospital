@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.ChargeRecord;
+import com.neusoft.hs.domain.cost.CostException;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.registration.RegistrationDomainService;
 import com.neusoft.hs.domain.registration.Voucher;
@@ -82,9 +83,10 @@ public class OutPatientPlanRecord extends IdEntity {
 	/**
 	 * @param voucher
 	 * @throws VoucherException
+	 * @throws CostException
 	 * @roseuid 58B7D9F402FA
 	 */
-	public void occupy(Voucher voucher) throws VoucherException {
+	public void occupy(Voucher voucher) throws VoucherException, CostException {
 		if (this.currentAllotNumber > maxAllotNumber) {
 			throw new VoucherException("诊室[" + room.getName() + "]号源已满");
 		}
@@ -119,7 +121,7 @@ public class OutPatientPlanRecord extends IdEntity {
 		chargeRecord.setChargeItem(chargeItem);
 		chargeRecord.setChargeDept(visit.getDept());
 		chargeRecord.setBelongDept(visit.getDept());
-	
+
 		chargeRecords.add(chargeRecord);
 
 		return chargeRecords;

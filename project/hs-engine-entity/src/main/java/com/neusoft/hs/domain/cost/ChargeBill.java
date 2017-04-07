@@ -64,9 +64,17 @@ public class ChargeBill extends IdEntity {
 	 * 向收费单增加费用条目（当收费模式为【非预交金模式】时，将创建成对出现的费用条目）
 	 * 
 	 * @param chargeRecords2
+	 * @throws CostException
 	 * @roseuid 5850A3D500DE
 	 */
-	public Float charging(List<ChargeRecord> chargeRecords) {
+	public Float charging(List<ChargeRecord> chargeRecords)
+			throws CostException {
+
+		if (this.visit.getState().equals(Visit.State_OutHospital)
+				|| this.visit.getState().equals(Visit.State_LeaveHospital)) {
+			throw new CostException("患者一次就诊[" + this.visit.getName() + "]状态为["
+					+ this.visit.getState() + "],不能增加费用条目");
+		}
 
 		float theConsume = 0F;
 
