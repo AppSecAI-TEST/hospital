@@ -11,6 +11,8 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.VisitOutWardedEvent;
+import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Entity
@@ -40,6 +42,10 @@ public class OutHospitalRegisterOrderExecute extends OrderExecute {
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
+
+		// 发出患者离开病房事件
+		ApplicationContextUtil.getApplicationContext().publishEvent(
+				new VisitOutWardedEvent(visit));
 	}
 
 }
