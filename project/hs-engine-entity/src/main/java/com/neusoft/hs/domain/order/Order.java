@@ -118,9 +118,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@Transient
 	private Map<String, Object> params = new HashMap<String, Object>();
 
-	@Transient
-	private OrderExecuteTeamRepo orderExecuteTeamRepo;
-
 	public static final String State_Created = "已创建/待核对";
 
 	public static final String State_Executing = "执行中";
@@ -204,7 +201,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 				}
 			}
 			// 持久化本次分解
-			orderExecuteTeamRepo.save(resolveTeams);
+			//orderExecuteTeamRepo.save(resolveTeams);
+			
+			this.getService(OrderExecuteTeamRepo.class).save(resolveTeams);
 
 			this.lastOrderExecute = resolveOrderExecutes
 					.get(resolveOrderExecutes.size() - 1);
@@ -454,10 +453,4 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			throw new OrderException(this, "计划开始时间不同");
 		}
 	}
-
-	public void setOrderExecuteTeamRepo(
-			OrderExecuteTeamRepo orderExecuteTeamRepo) {
-		this.orderExecuteTeamRepo = orderExecuteTeamRepo;
-	}
-
 }

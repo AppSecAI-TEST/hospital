@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -129,9 +128,6 @@ public class OrderExecute extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
-
-	@Transient
-	private OrderExecuteRepo orderExecuteRepo;
 
 	public static final String State_NeedSend = "待发送";
 
@@ -565,9 +561,4 @@ public class OrderExecute extends IdEntity {
 	public void setNext(OrderExecute next) {
 		this.next = next;
 	}
-
-	public void setOrderExecuteRepo(OrderExecuteRepo orderExecuteRepo) {
-		this.orderExecuteRepo = orderExecuteRepo;
-	}
-
 }

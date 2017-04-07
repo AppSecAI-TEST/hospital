@@ -82,7 +82,6 @@ public class OrderDomainService {
 
 		// 对于门诊开立的医嘱自动分解
 		for (Order order : orderCommand.getOrders()) {
-			order.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
 			if (!order.isInPatient()) {
 				order.resolve();
 			}
@@ -143,7 +142,6 @@ public class OrderDomainService {
 						Order.PlaceType_InPatient);
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
-			longOrder.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
 			try {
 				count += longOrder.resolve();
 			} catch (OrderException e) {
@@ -206,9 +204,7 @@ public class OrderDomainService {
 	 * @roseuid 585250700266
 	 */
 	public Order find(String orderId) {
-		Order order = orderRepo.findOne(orderId);
-		order.setOrderExecuteTeamRepo(orderExecuteTeamRepo);
-		return order;
+		return orderRepo.findOne(orderId);
 	}
 
 	/**
