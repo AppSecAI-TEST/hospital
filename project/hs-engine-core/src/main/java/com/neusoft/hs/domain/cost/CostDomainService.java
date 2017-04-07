@@ -230,13 +230,21 @@ public class CostDomainService {
 	/**
 	 * 计算滚动费用
 	 */
-	public void calculate() {
+	public int calculate() {
 		List<VisitChargeItem> visitChargeItems = visitChargeItemRepo
 				.findByState(VisitChargeItem.State_Normal);
+		int count = 0;
+		if (visitChargeItems != null) {
+			for (VisitChargeItem visitChargeItem : visitChargeItems) {
+				visitChargeItem.charge();
 
-		for (VisitChargeItem visitChargeItem : visitChargeItems) {
-			visitChargeItem.charge();
+			}
+			count = visitChargeItems.size();
 		}
+
+		LogUtil.log(this.getClass(), "系统自动计算了[{}]张床位费", count);
+
+		return count;
 	}
 
 	/**

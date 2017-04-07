@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public abstract class InPatientTestService extends AppTestService {
 	protected Visit visit001;
 
 	protected int dayCount = 0;
+	
+	@Autowired
+	protected InPatientNightTestService inPatientNightTestService;
 
 	private static final int runCount = 1;// 入院次数
 
@@ -145,14 +149,11 @@ public abstract class InPatientTestService extends AppTestService {
 		Pageable pageable;
 		List<OrderExecute> executes;
 		List<Order> orders;
-		int startedCount;
-		int resolveCount;
 		Visit visit;
 
 		// 2017-01-07
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-07", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:10", dayCount));
 
@@ -192,8 +193,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 2017-01-08
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-08", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-08 09:10", dayCount));
 
@@ -208,10 +208,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 2017-01-09
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-09", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
-
-		assertTrue(startedCount == 1);
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 09:30", dayCount));
 

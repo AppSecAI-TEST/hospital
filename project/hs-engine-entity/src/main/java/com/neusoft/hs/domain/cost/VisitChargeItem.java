@@ -65,6 +65,8 @@ public class VisitChargeItem extends IdEntity {
 		chargeRecord.setBelongDept(visit.getDept());
 
 		chargeRecords.add(chargeRecord);
+
+		this.visit.getChargeBill().charging(chargeRecords);
 	}
 
 	public Date getStartDate() {

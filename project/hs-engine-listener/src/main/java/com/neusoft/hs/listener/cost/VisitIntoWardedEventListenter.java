@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
+import com.neusoft.hs.domain.cost.CostAdminDomainService;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitIntoWardedEvent;
@@ -19,13 +20,15 @@ public class VisitIntoWardedEventListenter implements
 	@Autowired
 	private CostDomainService costDomainService;
 
+	@Autowired
+	private CostAdminDomainService costAdminDomainService;
+
 	@Override
 	public void onApplicationEvent(VisitIntoWardedEvent event) {
 
 		Visit visit = (Visit) event.getSource();
 		// 暂时床位费只有一个计费项目
-		ChargeItem item = new ChargeItem();
-		item.setId("bedChargeItem");
+		ChargeItem item = costAdminDomainService.find("bedChargeItem");
 
 		costDomainService.createVisitChargeItem(visit, item,
 				DateUtil.getSysDate());

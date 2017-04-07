@@ -23,6 +23,10 @@ public class CostAdminDomainService {
 		chargeItemRepo.save(chargeItems);
 	}
 
+	public ChargeItem find(String id) {
+		return chargeItemRepo.findOne(id);
+	}
+
 	public void clearChargeItems() {
 		chargeItemRepo.deleteAll();
 	}

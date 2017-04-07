@@ -210,8 +210,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2016-12-29
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-29", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:10", dayCount));
 
@@ -314,8 +313,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2016-12-30
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-30", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:30", dayCount));
 
@@ -383,8 +381,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2016-12-31
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-31", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 08:30", dayCount));
 
@@ -426,8 +423,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-01
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-01", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:10", dayCount));
 
@@ -519,8 +515,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-02
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-02", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 09:10", dayCount));
 
@@ -554,8 +549,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-03
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-03", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 09:10", dayCount));
 
@@ -589,8 +583,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-04
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-04", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-04 09:10", dayCount));
 
@@ -606,6 +599,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-05", dayCount));
 		resolveCount = orderAppService.resolve();
 		startedCount = orderExecuteAppService.start();
+		costDomainService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 09:10", dayCount));
 
@@ -619,8 +613,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-06
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-06", dayCount));
-		resolveCount = orderAppService.resolve();
-		startedCount = orderExecuteAppService.start();
+		inPatientNightTestService.calculate();
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:10", dayCount));
 
