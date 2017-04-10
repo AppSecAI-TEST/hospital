@@ -35,7 +35,6 @@ import com.neusoft.hs.domain.inspect.InspectOrderType;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
-import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -62,6 +61,7 @@ import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.outpatientoffice.VoucherType;
 import com.neusoft.hs.domain.patient.PatientAdminDomainService;
 import com.neusoft.hs.domain.patient.PatientDomainService;
+import com.neusoft.hs.domain.pharmacy.AssistMaterial;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
@@ -1231,7 +1231,7 @@ public class DataIniter {
 
 		assistMaterials.add(transportFluidAssistMaterial);
 
-		orderAdminDomainService.createAssistMaterials(assistMaterials);
+		pharmacyAdminService.createAssistMaterials(assistMaterials);
 	}
 
 	private void initOrderUseModeAssistMaterials() {

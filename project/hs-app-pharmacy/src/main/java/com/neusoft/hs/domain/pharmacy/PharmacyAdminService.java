@@ -2,6 +2,8 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +14,16 @@ public class PharmacyAdminService {
 
 	@Autowired
 	private PrescriptionRepo prescriptionRepo;
+	
+
+	@Autowired
+	private AssistMaterialRepo assistMaterialRepo;
 
 	public void clearPrescriptions() {
 		prescriptionRepo.deleteAll();
+	}
+	
+	public void createAssistMaterials(List<AssistMaterial> assistMaterials) {
+		assistMaterialRepo.save(assistMaterials);
 	}
 }

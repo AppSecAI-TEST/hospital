@@ -11,14 +11,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.platform.entity.SuperEntity;
@@ -59,9 +57,6 @@ public class ChargeItem extends SuperEntity {
 
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<OrderType> orderTypes;
-
-	@OneToOne(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
-	private AssistMaterial assistMaterial;
 
 	@ManyToMany(mappedBy = "chargeItems", cascade = { CascadeType.ALL })
 	private List<OrderExecute> executes;
@@ -142,14 +137,6 @@ public class ChargeItem extends SuperEntity {
 
 	public void setOrderTypes(List<OrderType> orderTypes) {
 		this.orderTypes = orderTypes;
-	}
-
-	public AssistMaterial getAssistMaterial() {
-		return assistMaterial;
-	}
-
-	public void setAssistMaterial(AssistMaterial assistMaterial) {
-		this.assistMaterial = assistMaterial;
 	}
 
 	public List<OrderExecute> getExecutes() {

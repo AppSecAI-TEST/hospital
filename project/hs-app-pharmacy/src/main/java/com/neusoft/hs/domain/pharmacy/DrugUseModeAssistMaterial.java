@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity

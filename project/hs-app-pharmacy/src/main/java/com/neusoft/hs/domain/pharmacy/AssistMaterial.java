@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.pharmacy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
-@Table(name = "domain_assist_material")
+@Table(name = "app_pharmacy_assist_material")
 public class AssistMaterial extends SuperEntity {
 
 	@Id

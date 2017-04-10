@@ -25,9 +25,6 @@ public class OrderAdminDomainService {
 	@Autowired
 	private OrderFrequencyTypeRepo orderFrequencyTypeRepo;
 
-	@Autowired
-	private AssistMaterialRepo assistMaterialRepo;
-
 	public void createOrderTypes(List<OrderType> orderTypes) {
 		orderTypeRepo.save(orderTypes);
 	}
@@ -56,9 +53,4 @@ public class OrderAdminDomainService {
 	public void clearOrderFrequencyTypes() {
 		orderFrequencyTypeRepo.deleteAll();
 	}
-
-	public void createAssistMaterials(List<AssistMaterial> assistMaterials) {
-		assistMaterialRepo.save(assistMaterials);
-	}
-
 }
