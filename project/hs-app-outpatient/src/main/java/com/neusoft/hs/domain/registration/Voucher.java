@@ -95,8 +95,7 @@ public class Voucher extends IdEntity {
 		if (this.visit.getState().equals(Visit.State_Diagnosing)) {
 			this.visit.setState(Visit.State_Diagnosed_Executing);
 		}
-		this.visit.save();
-
+		
 		LogUtil.log(this.getClass(), "患者一次就诊[{}]离开诊室[{}]", this.visit.getName(),
 				planRecord.getRoom().getId());
 	}
@@ -106,8 +105,7 @@ public class Voucher extends IdEntity {
 	 */
 	public void enter() {
 		this.visit.setState(Visit.State_Diagnosing);
-		this.visit.save();
-
+		
 		LogUtil.log(this.getClass(), "患者一次就诊[{}]进入诊室[{}]", this.visit.getName(),
 				planRecord.getRoom().getId());
 	}

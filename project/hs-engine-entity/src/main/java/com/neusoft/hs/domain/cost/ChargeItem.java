@@ -28,7 +28,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
  *
  */
 @Entity
-@Table(name = "domain_charge_item")
+@Table(name = "domain_cost_charge_item")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "chargeItemCache")
 public class ChargeItem extends SuperEntity {

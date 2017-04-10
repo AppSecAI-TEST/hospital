@@ -22,7 +22,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
  *
  */
 @Entity
-@Table(name = "domain_cost_record")
+@Table(name = "domain_cost_cost_record")
 public class CostRecord extends IdEntity {
 
 	private float cost;

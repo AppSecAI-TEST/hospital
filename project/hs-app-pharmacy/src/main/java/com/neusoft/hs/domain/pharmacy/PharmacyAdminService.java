@@ -26,4 +26,8 @@ public class PharmacyAdminService {
 	public void createAssistMaterials(List<AssistMaterial> assistMaterials) {
 		assistMaterialRepo.save(assistMaterials);
 	}
+	
+	public void clearAssistMaterial(){
+		assistMaterialRepo.deleteAll();
+	}
 }

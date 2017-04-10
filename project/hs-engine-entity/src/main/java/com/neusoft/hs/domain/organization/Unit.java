@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
-@Table(name = "domain_unit")
+@Table(name = "domain_organization_unit")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "unitCache")

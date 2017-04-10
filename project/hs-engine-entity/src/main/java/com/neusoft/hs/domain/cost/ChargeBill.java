@@ -29,7 +29,7 @@ import com.neusoft.hs.platform.util.DateUtil;
  *
  */
 @Entity
-@Table(name = "domain_charge_bill")
+@Table(name = "domain_cost_charge_bill")
 public class ChargeBill extends IdEntity {
 
 	private float balance;

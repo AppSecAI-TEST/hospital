@@ -25,7 +25,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
  *
  */
 @Entity
-@Table(name = "domain_visit_charge_item")
+@Table(name = "domain_cost_visit_charge_item")
 public class VisitChargeItem extends IdEntity {
 
 	@Column(name = "start_date")

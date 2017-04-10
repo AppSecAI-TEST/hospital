@@ -13,7 +13,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.user.User;
 
 @Entity
-@Table(name = "domain_user")
+@Table(name = "domain_organization_user")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class AbstractUser extends SuperEntity implements User {
 

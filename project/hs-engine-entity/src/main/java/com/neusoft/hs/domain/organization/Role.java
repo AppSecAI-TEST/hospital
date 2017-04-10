@@ -16,7 +16,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.platform.entity.IdEntity;
 
 @Entity
-@Table(name = "domain_role")
+@Table(name = "domain_organization_role")
 public class Role extends IdEntity {
 
 	@NotEmpty(message = "名称不能为空")

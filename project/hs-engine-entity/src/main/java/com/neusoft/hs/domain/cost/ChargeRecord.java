@@ -28,7 +28,7 @@ import com.neusoft.hs.platform.util.DateUtil;
  *
  */
 @Entity
-@Table(name = "domain_charge_record")
+@Table(name = "domain_cost_charge_record")
 public class ChargeRecord extends IdEntity {
 
 	private Float amount;

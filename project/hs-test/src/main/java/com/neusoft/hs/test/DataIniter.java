@@ -137,7 +137,7 @@ public class DataIniter {
 	protected ChargeItem drugTypeSpec006ChargeItem;// 药品006计费项目(生地黄)
 
 	protected ChargeItem transportFluidMaterialChargeItem;// 输液材料费
-	
+
 	protected ChargeItem firstNursingChargeItem;// 一级护理计费项目
 
 	protected ChargeItem secondNursingChargeItem;// 二级护理计费项目
@@ -189,7 +189,7 @@ public class DataIniter {
 	protected InspectItem brainHCInspectItem;// 脑核磁检查项目
 
 	protected EnterHospitalOrderType enterHospitalOrderType;// 入院医嘱类型
-	
+
 	protected NursingOrderType firstNursingOrderType;// 一级护理医嘱类型
 
 	protected NursingOrderType secondNursingOrderType;// 二级护理医嘱类型
@@ -279,7 +279,7 @@ public class DataIniter {
 
 	@Autowired
 	protected PharmacyDomainService pharmacyDomainService;
-	
+
 	@Autowired
 	protected PharmacyAdminService pharmacyAdminService;
 
@@ -484,6 +484,8 @@ public class DataIniter {
 		pharmacyDomainService.clearDrugTypes();
 		// 清空药品规格
 		pharmacyDomainService.clearDrugTypeSpecs();
+		// 清空辅材
+		pharmacyAdminService.clearAssistMaterial();
 		// 清空检查项目
 		inspectDomainService.clearInspectItems();
 		// 清空挂号类型
@@ -842,7 +844,7 @@ public class DataIniter {
 				.setChargingMode(ChargeItem.ChargingMode_Amount);
 
 		chargeItems.add(drugTypeSpec001ChargeItem);
-		
+
 		firstNursingChargeItem = new ChargeItem();
 		firstNursingChargeItem.setId("firstNursingChargeItem");
 		firstNursingChargeItem.setCode("firstNursingChargeItem");
@@ -1165,7 +1167,7 @@ public class DataIniter {
 		secondNursingOrderType.setChargeItem(secondNursingChargeItem);
 
 		orderTypes.add(secondNursingOrderType);
-		
+
 		firstNursingOrderType = new NursingOrderType();
 		firstNursingOrderType.setId("firstNursingOrderType");
 		firstNursingOrderType.setCode("firstNursingOrderType");
