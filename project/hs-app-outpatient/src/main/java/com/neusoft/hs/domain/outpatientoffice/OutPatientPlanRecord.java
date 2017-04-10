@@ -252,7 +252,7 @@ public class OutPatientPlanRecord extends IdEntity {
 	/**
 	 * @roseuid 58B7DA30038A
 	 */
-	public void save() {
+	private void save() {
 
 	}
 

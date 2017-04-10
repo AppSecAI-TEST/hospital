@@ -472,12 +472,12 @@ public class DataIniter {
 		medicalRecordAdminDomainService.clear();
 		// 清空处方
 		pharmacyAdminService.clearPrescriptions();
-		// 清空医嘱用法
-		pharmacyDomainService.clearOrderUseModes();
-		// 清空医嘱类型
-		orderAdminDomainService.clearOrders();
+		// 清空医嘱
+		orderAdminDomainService.clearOrderTypeApps();
 		// 清空组合医嘱
 		orderAdminDomainService.clearCompsiteOrdes();
+		// 清空医嘱用法
+		pharmacyDomainService.clearOrderUseModes();
 		// 清空频次类型
 		orderAdminDomainService.clearOrderFrequencyTypes();
 		// 清空药品类型

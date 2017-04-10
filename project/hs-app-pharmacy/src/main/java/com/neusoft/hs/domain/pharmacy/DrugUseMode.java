@@ -42,9 +42,6 @@ public abstract class DrugUseMode extends SuperEntity {
 	@Column(length = 64)
 	private String name;
 
-	@OneToMany(mappedBy = "drugUseMode", cascade = { CascadeType.ALL })
-	private List<DrugOrderTypeApp> drugOrderTypeApps;
-
 	@OneToMany(mappedBy = "orderUseMode", cascade = { CascadeType.ALL })
 	private List<DrugUseModeAssistMaterial> orderUseModeAssistMaterials;
 
@@ -80,14 +77,6 @@ public abstract class DrugUseMode extends SuperEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<DrugOrderTypeApp> getDrugOrderTypeApps() {
-		return drugOrderTypeApps;
-	}
-
-	public void setDrugOrderTypeApps(List<DrugOrderTypeApp> drugOrderTypeApps) {
-		this.drugOrderTypeApps = drugOrderTypeApps;
 	}
 
 	public List<DrugUseModeAssistMaterial> getOrderUseModeAssistMaterials() {
