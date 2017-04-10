@@ -14,7 +14,7 @@ import com.neusoft.hs.domain.order.AssistMaterial;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
-@Table(name = "domain_drug_use_mode_charge_item")
+@Table(name = "app_pharmacy_drug_use_mode_charge_item")
 public class DrugUseModeAssistMaterial extends SuperEntity {
 
 	@Id

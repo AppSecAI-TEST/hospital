@@ -28,9 +28,6 @@ public class OrderAdminDomainService {
 	@Autowired
 	private AssistMaterialRepo assistMaterialRepo;
 
-	@Autowired
-	private PrescriptionRepo prescriptionRepo;
-
 	public void createOrderTypes(List<OrderType> orderTypes) {
 		orderTypeRepo.save(orderTypes);
 	}
@@ -54,10 +51,6 @@ public class OrderAdminDomainService {
 
 	public void clearCompsiteOrdes() {
 		compsiteOrderRepo.deleteAll();
-	}
-
-	public void clearPrescriptions() {
-		prescriptionRepo.deleteAll();
 	}
 
 	public void clearOrderFrequencyTypes() {

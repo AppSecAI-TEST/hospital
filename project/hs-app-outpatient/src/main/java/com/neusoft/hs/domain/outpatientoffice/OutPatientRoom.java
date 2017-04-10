@@ -23,7 +23,7 @@ import com.neusoft.hs.domain.organization.OutPatientDept;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
-@Table(name = "domain_outpatient_room")
+@Table(name = "app_outpatient_room")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "outPatientRoomCache")
 public class OutPatientRoom extends SuperEntity {

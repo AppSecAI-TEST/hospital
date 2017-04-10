@@ -22,7 +22,7 @@ import com.neusoft.hs.platform.exception.HsException;
  *
  */
 @Entity
-@Table(name = "domain_drug_type")
+@Table(name = "app_pharmacy_drug_type")
 public class DrugType extends SuperEntity {
 
 	@Id

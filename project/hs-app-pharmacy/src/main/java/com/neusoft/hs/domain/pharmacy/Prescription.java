@@ -1,6 +1,6 @@
 //Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\domain\\outpatientdept\\Prescription.java
 
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.pharmacy;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,15 +29,15 @@ import com.neusoft.hs.platform.entity.IdEntity;
  *
  */
 @Entity
-@Table(name = "domain_prescription")
+@Table(name = "app_pharmacy_prescription")
 public class Prescription extends IdEntity implements OrderCreateCommand {
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "domain_prescription_order", joinColumns = { @JoinColumn(name = "prescription_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "order_id", referencedColumnName = "id") })
+	@JoinTable(name = "app_pharmacy_prescription_order", joinColumns = { @JoinColumn(name = "prescription_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "order_id", referencedColumnName = "id") })
 	private List<Order> orders;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "domain_prescription_diagnosis_value", joinColumns = { @JoinColumn(name = "prescription_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "diagnosis_value_id", referencedColumnName = "id") })
+	@JoinTable(name = "app_pharmacy_prescription_diagnosis_value", joinColumns = { @JoinColumn(name = "prescription_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "diagnosis_value_id", referencedColumnName = "id") })
 	private List<DiagnosisTreatmentItemValue> diagnosisTreatmentItemValues;
 
 	@Column(length = 256)

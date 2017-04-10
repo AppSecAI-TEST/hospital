@@ -26,7 +26,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
  *
  */
 @Entity
-@Table(name = "domain_drug_use_mode")
+@Table(name = "app_pharmacy_drug_use_mode")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class DrugUseMode extends SuperEntity {
 

@@ -18,13 +18,13 @@ import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.Prescription;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientdept.EnterHospitalOrderType;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugOrderTypeApp;
+import com.neusoft.hs.domain.pharmacy.Prescription;
 import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
@@ -398,13 +398,13 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(executes.size() == 3);
 
-		List<Prescription> prescriptions = orderDomainService
+		List<Prescription> prescriptions = pharmacyDomainService
 				.findPrescriptions(visit001);
 
 		assertTrue(prescriptions.size() == 1);
 		assertTrue(prescriptions.get(0).getIllustrate().equals("水煎服"));
 
-		prescription = orderDomainService.findThePrescription(drug004Order);
+		prescription = pharmacyDomainService.findThePrescription(drug004Order);
 
 		assertTrue(prescription != null);
 

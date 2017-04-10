@@ -23,7 +23,7 @@ import com.neusoft.hs.platform.log.LogUtil;
  *
  */
 @Entity
-@Table(name = "domain_voucher")
+@Table(name = "app_outpatient_voucher")
 public class Voucher extends IdEntity {
 
 	private Integer number;

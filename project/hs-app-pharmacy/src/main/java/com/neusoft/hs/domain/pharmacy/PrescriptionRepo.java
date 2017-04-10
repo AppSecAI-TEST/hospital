@@ -1,11 +1,12 @@
 //Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\domain\\cost\\VisitChargeItemRepo.java
 
-package com.neusoft.hs.domain.order;
+package com.neusoft.hs.domain.pharmacy;
 
 import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.visit.Visit;
 
 interface PrescriptionRepo extends

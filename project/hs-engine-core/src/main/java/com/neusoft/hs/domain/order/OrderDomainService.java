@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.log.LogUtil;
@@ -32,9 +31,6 @@ public class OrderDomainService {
 
 	@Autowired
 	private OrderExecuteTeamRepo orderExecuteTeamRepo;
-
-	@Autowired
-	private PrescriptionRepo prescriptionRepo;
 
 	@Autowired
 	private VisitDomainService visitDomainService;
@@ -211,14 +207,6 @@ public class OrderDomainService {
 		LogUtil.log(this.getClass(), "医生[{}]删除了核对患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
 				doctor.getId(), order.getVisit().getName(), order.getId(),
 				order.getTypeApp().getOrderType().getId());
-	}
-
-	public List<Prescription> findPrescriptions(Visit visit) {
-		return prescriptionRepo.findByVisit(visit);
-	}
-
-	public Prescription findThePrescription(Order order) {
-		return prescriptionRepo.findByOrdersIn(order);
 	}
 
 	/**

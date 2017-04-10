@@ -32,7 +32,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
  *
  */
 @Entity
-@Table(name = "domain_outpatient_plan_record")
+@Table(name = "app_outpatient_plan_record")
 public class OutPatientPlanRecord extends IdEntity {
 
 	@NotNull(message = "计划开始时间不能为空")

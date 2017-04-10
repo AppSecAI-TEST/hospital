@@ -26,8 +26,8 @@ import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemSpec;
 import com.neusoft.hs.domain.diagnosis.Disease;
 import com.neusoft.hs.domain.diagnosis.DiseaseAdminDomainService;
-import com.neusoft.hs.domain.inpatientdept.OutHospitalOrderType;
 import com.neusoft.hs.domain.inpatientdept.NursingOrderType;
+import com.neusoft.hs.domain.inpatientdept.OutHospitalOrderType;
 import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
@@ -71,6 +71,7 @@ import com.neusoft.hs.domain.pharmacy.InfusionOrderUseModeToInPatient;
 import com.neusoft.hs.domain.pharmacy.InfusionOrderUseModeToOutPatient;
 import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
+import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.recordroom.RecordRoomDomainService;
 import com.neusoft.hs.domain.registration.RegistrationDomainService;
@@ -278,6 +279,9 @@ public class DataIniter {
 
 	@Autowired
 	protected PharmacyDomainService pharmacyDomainService;
+	
+	@Autowired
+	protected PharmacyAdminService pharmacyAdminService;
 
 	@Autowired
 	protected VisitDomainService visitDomainService;
@@ -467,7 +471,7 @@ public class DataIniter {
 		// 清空病历
 		medicalRecordAdminDomainService.clear();
 		// 清空处方
-		orderAdminDomainService.clearPrescriptions();
+		pharmacyAdminService.clearPrescriptions();
 		// 清空医嘱用法
 		pharmacyDomainService.clearOrderUseModes();
 		// 清空医嘱类型

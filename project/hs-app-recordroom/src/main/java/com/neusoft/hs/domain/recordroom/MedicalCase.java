@@ -24,7 +24,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
  *
  */
 @Entity
-@Table(name = "domain_medical_case")
+@Table(name = "app_recordroom_medical_case")
 public class MedicalCase extends IdEntity {
 
 	@NotEmpty(message = "病案号不能为空")

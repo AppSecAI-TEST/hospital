@@ -30,7 +30,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
  *
  */
 @Entity
-@Table(name = "domain_drug_type_spec")
+@Table(name = "app_pharmacy_drug_type_spec")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "drugTypeSpecCache")
 public class DrugTypeSpec extends SuperEntity {

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.visit.Visit;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class PharmacyDomainService {
@@ -26,6 +29,9 @@ public class PharmacyDomainService {
 
 	@Autowired
 	private DrugUseModeAssistMaterialRepo orderUseModeAssistMaterialRepo;
+	
+	@Autowired
+	private PrescriptionRepo prescriptionRepo;
 
 	public List<DrugType> findByDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
 		return drugTypeRepo.findByDrugTypeSpec(drugTypeSpec);
@@ -75,6 +81,15 @@ public class PharmacyDomainService {
 
 	public void createOrderUseModes(List<DrugUseMode> orderUseModes) {
 		orderUseModeRepo.save(orderUseModes);
+	}
+	
+
+	public List<Prescription> findPrescriptions(Visit visit) {
+		return prescriptionRepo.findByVisit(visit);
+	}
+
+	public Prescription findThePrescription(Order order) {
+		return prescriptionRepo.findByOrdersIn(order);
 	}
 
 	/**

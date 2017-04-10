@@ -26,7 +26,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
  *
  */
 @Entity
-@Table(name = "domain_voucher_type")
+@Table(name = "app_outpatient_voucher_type")
 public class VoucherType extends SuperEntity {
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)
