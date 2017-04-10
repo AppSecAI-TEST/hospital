@@ -19,7 +19,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
  *
  */
 @Entity
-@Table(name = "domain_inspect_result")
+@Table(name = "app_inspect_result")
 public class InspectResult extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)

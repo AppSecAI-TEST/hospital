@@ -21,7 +21,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
  *
  */
 @Entity
-@Table(name = "domain_inspect_apply_item")
+@Table(name = "app_inspect_apply_item")
 public class InspectApplyItem extends IdEntity {
 
 	private String state = State_Executing;

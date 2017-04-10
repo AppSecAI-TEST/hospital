@@ -24,7 +24,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
  *
  */
 @Entity
-@Table(name = "domain_inspect_item")
+@Table(name = "app_inspect_item")
 public class InspectItem extends SuperEntity {
 
 	@Id
