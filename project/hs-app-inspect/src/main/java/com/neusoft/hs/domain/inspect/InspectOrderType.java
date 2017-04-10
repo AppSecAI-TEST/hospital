@@ -48,6 +48,7 @@ public class InspectOrderType extends OrderType {
 			confirm.setBelongDept(order.getBelongDept());
 			confirm.setType(OrderExecute.Type_Confirm_Inspect);
 			confirm.setInspectApplyItem(inspectApplyItem);
+			confirm.setMain(true);
 
 			confirm.setExecuteDept(inspectApplyItem.getInspectDept());
 			confirm.setChargeDept(inspectApplyItem.getInspectDept());

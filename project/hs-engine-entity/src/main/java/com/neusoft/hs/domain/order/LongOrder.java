@@ -71,6 +71,7 @@ public class LongOrder extends Order {
 	public void updateState(OrderExecute orderExecute) {
 		if (orderExecute.isLast()) {
 			this.setState(Order.State_Finished);
+			this.setEndDate(DateUtil.getSysDate());
 			this.setStateDesc("已完成");
 		}
 	}

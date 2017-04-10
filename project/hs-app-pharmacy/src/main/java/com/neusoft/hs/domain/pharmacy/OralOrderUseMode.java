@@ -81,6 +81,7 @@ public class OralOrderUseMode extends DrugUseMode {
 		} else {
 			taskDrugExecute.setExecuteDept(pharmacy);
 		}
+		taskDrugExecute.setMain(true);
 		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
 		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
 		taskDrugExecute.setCostState(OrderExecute.CostState_NoApply);

@@ -143,6 +143,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
 		transportFluidExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
 		transportFluidExecute.setCostState(OrderExecute.CostState_NoCost);
+		transportFluidExecute.setMain(true);
 
 		team.addOrderExecute(transportFluidExecute);
 		if (assistMaterialChargeOrderExecute != null) {

@@ -29,13 +29,6 @@ public class InspectConfirmOrderExecute extends OrderExecute {
 		super.doFinish(params, user);
 		inspectApplyItem.setExecuteDate(DateUtil.getSysDate());
 		inspectApplyItem.setState(InspectApplyItem.State_Finished);
-
-		Order order = this.getOrder();
-		if (order instanceof TemporaryOrder) {
-			TemporaryOrder temporaryOrder = (TemporaryOrder) order;
-			temporaryOrder.setExecuteDate(DateUtil.getSysDate());
-			temporaryOrder.setExecuteUser(user);
-		}
 	}
 
 	public InspectApplyItem getInspectApplyItem() {

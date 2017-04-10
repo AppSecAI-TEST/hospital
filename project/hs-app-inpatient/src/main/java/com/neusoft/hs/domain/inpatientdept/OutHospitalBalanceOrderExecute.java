@@ -5,16 +5,13 @@ import java.util.Map;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
-import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitOutHospitalEvent;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @DiscriminatorValue("OutHospitalBalance")
@@ -30,13 +27,6 @@ public class OutHospitalBalanceOrderExecute extends OrderExecute {
 			visit.balance(user);
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
-		}
-
-		Order order = this.getOrder();
-		if (order instanceof TemporaryOrder) {
-			TemporaryOrder temporaryOrder = (TemporaryOrder) order;
-			temporaryOrder.setExecuteDate(DateUtil.getSysDate());
-			temporaryOrder.setExecuteUser(user);
 		}
 
 		// 发出患者出院事件

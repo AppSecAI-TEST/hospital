@@ -69,6 +69,9 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "next_id")
 	private OrderExecute next;
 
+	@Column(name = "is_main")
+	private boolean isMain = false;
+
 	@Column(name = "is_last")
 	private boolean isLast = false;
 
@@ -164,7 +167,7 @@ public class OrderExecute extends IdEntity {
 	public static final String Type_Configure_Fluid = "配液";
 
 	public static final String Type_Transport_Fluid = "输液";
-	
+
 	public static final String Type_FirstNursing = "一级护理";
 
 	public static final String Type_SecondNursing = "二级护理";
@@ -232,6 +235,15 @@ public class OrderExecute extends IdEntity {
 		this.endDate = sysDate;
 		this.state = State_Finished;
 		this.actualExecutor = user;
+
+		Order order = this.getOrder();
+		if (order instanceof TemporaryOrder) {
+			if (this.isMain) {
+				TemporaryOrder temporaryOrder = (TemporaryOrder) order;
+				temporaryOrder.setExecuteDate(DateUtil.getSysDate());
+				temporaryOrder.setExecuteUser(user);
+			}
+		}
 
 		OrderExecute next = this.getNext();
 		if (next != null) {
@@ -534,6 +546,14 @@ public class OrderExecute extends IdEntity {
 
 	public void setChargeDept(Dept chargeDept) {
 		this.chargeDept = chargeDept;
+	}
+
+	public boolean isMain() {
+		return isMain;
+	}
+
+	public void setMain(boolean isMain) {
+		this.isMain = isMain;
 	}
 
 	public Visit getVisit() {

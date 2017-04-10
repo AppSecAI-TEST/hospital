@@ -34,6 +34,7 @@ public class OutHospitalOrderType extends OrderType {
 		register.setVisit(order.getVisit());
 		register.setBelongDept(order.getBelongDept());
 		register.setType(OrderExecute.Type_Leave_Hospital_Register);
+		register.setMain(true);
 
 		register.setPlanStartDate(order.getPlanStartDate());
 		register.setPlanEndDate(order.getPlanStartDate());
