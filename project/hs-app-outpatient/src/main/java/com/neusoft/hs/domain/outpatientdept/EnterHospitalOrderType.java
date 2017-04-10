@@ -44,6 +44,7 @@ public class EnterHospitalOrderType extends OrderType {
 		enter.setVisit(order.getVisit());
 		enter.setBelongDept(order.getBelongDept());
 		enter.setType(OrderExecute.Type_Enter_Hospital_Register);
+		enter.setMain(true);
 
 		enter.setPlanStartDate(order.getPlanStartDate());
 		enter.setPlanEndDate(order.getPlanStartDate());
