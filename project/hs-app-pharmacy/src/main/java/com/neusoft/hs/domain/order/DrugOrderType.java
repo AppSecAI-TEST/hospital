@@ -10,15 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
-import com.neusoft.hs.domain.order.LongOrder;
-import com.neusoft.hs.domain.order.Order;
-import com.neusoft.hs.domain.order.OrderException;
-import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderType;
-import com.neusoft.hs.domain.order.OrderTypeApp;
-import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
@@ -46,15 +38,7 @@ public class DrugOrderType extends OrderType {
 				.getTypeApp();
 		if (drugOrderTypeApp.getDrugType() == null) {
 
-			if (drugTypeSpec == null) {
-				throw new OrderException(order, "drugTypeSpec不存在");
-			}
-
-			List<DrugType> drugTypes = this.getService(
-					PharmacyDomainService.class).findByDrugTypeSpec(
-					drugTypeSpec);
-
-			L: for (DrugType drugType : drugTypes) {
+			L: for (DrugType drugType : drugTypeSpec.getDrugTypes()) {
 				if (drugType.getStock() >= order.getCount()) {
 					drugOrderTypeApp.setDrugType(drugType);
 					break L;

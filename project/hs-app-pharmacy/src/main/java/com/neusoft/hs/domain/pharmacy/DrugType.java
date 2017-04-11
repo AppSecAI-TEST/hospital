@@ -141,6 +141,7 @@ public class DrugType extends SuperEntity {
 
 	public void setDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
 		this.drugTypeSpec = drugTypeSpec;
+		drugTypeSpec.addDrugType(this);
 	}
 
 	private void save() {

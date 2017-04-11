@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Cacheable;
@@ -125,6 +126,13 @@ public class DrugTypeSpec extends SuperEntity {
 
 	public void setDrugTypes(List<DrugType> drugTypes) {
 		this.drugTypes = drugTypes;
+	}
+
+	public void addDrugType(DrugType drugType) {
+		if (this.drugTypes == null) {
+			this.drugTypes = new ArrayList<DrugType>();
+		}
+		this.drugTypes.add(drugType);
 	}
 
 }
