@@ -14,7 +14,6 @@ import javax.persistence.OneToOne;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
-import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -85,7 +84,7 @@ public class DrugOrderType extends OrderType {
 
 		if (order instanceof TemporaryOrder) {
 			// 分解执行条目
-			drugUseMode.resolve(order, this);
+			drugUseMode.resolve(order);
 			if (order.getResolveOrderExecutes().size() == 0) {
 				throw new OrderException(order, "没有分解出执行条目");
 			}
@@ -113,7 +112,7 @@ public class DrugOrderType extends OrderType {
 					// 清空上一频次的执行条目集合
 					order.clearResolveFrequencyOrderExecutes();
 					// 分解执行条目
-					drugUseMode.resolve(order, this);
+					drugUseMode.resolve(order);
 					if (order.getResolveFrequencyOrderExecutes().size() == 0) {
 						throw new OrderException(order, "没有分解出执行条目");
 					}

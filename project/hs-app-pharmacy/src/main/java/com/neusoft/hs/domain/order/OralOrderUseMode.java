@@ -5,9 +5,6 @@ import javax.persistence.Entity;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.ChargeOrderExecute;
-import com.neusoft.hs.domain.order.Order;
-import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
@@ -18,7 +15,7 @@ import com.neusoft.hs.domain.visit.Visit;
 public class OralOrderUseMode extends DrugUseMode {
 
 	@Override
-	public void resolve(Order order, DrugOrderType drugOrderType) {
+	public void resolve(Order order) {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
 		

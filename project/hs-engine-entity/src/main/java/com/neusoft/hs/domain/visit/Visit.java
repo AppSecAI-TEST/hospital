@@ -256,11 +256,6 @@ public class Visit extends IdEntity {
 
 		Date sysDate = DateUtil.getSysDate();
 
-		for (VisitChargeItem visitChargeItem : this.visitChargeItems) {
-			visitChargeItem.setState(VisitChargeItem.State_Stop);
-			visitChargeItem.setEndDate(sysDate);
-		}
-
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(this);
 		visitLog.setType(VisitLog.Type_OutWard);

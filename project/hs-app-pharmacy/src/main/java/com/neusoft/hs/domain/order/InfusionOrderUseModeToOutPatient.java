@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.ChargeOrderExecute;
-import com.neusoft.hs.domain.order.Order;
-import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
@@ -25,7 +22,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 	public static final String transportFluid = "transportFluid";
 
 	@Override
-	public void resolve(Order order, DrugOrderType drugOrderType) {
+	public void resolve(Order order) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 		
 		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order

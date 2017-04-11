@@ -16,8 +16,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 /**
@@ -49,12 +49,11 @@ public abstract class DrugUseMode extends SuperEntity {
 	/**
 	 * 分解药品医嘱条目
 	 * 
-	 * @param drugOrderType
 	 * @param order
 	 * @return
 	 * @roseuid 586D9239030F
 	 */
-	public abstract void resolve(Order order, DrugOrderType drugOrderType);
+	public abstract void resolve(Order order);
 
 	public String getId() {
 		return id;
@@ -91,7 +90,7 @@ public abstract class DrugUseMode extends SuperEntity {
 
 	public void addOrderUseModeAssistMaterial(
 			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
-		if(this.orderUseModeAssistMaterials == null){
+		if (this.orderUseModeAssistMaterials == null) {
 			this.orderUseModeAssistMaterials = new ArrayList<DrugUseModeAssistMaterial>();
 		}
 		this.orderUseModeAssistMaterials.add(orderUseModeAssistMaterial);
