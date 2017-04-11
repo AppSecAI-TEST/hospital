@@ -15,7 +15,6 @@ import com.neusoft.hs.domain.inspect.InspectApply;
 import com.neusoft.hs.domain.inspect.InspectApplyItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.CompsiteOrder;
-import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;

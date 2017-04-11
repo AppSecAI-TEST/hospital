@@ -46,28 +46,6 @@ public class InspectDomainService {
 	private ApplicationContext applicationContext;
 
 	/**
-	 * 安排检查
-	 * 
-	 * @param executeId
-	 * @param planExecuteDate
-	 * @param user
-	 * @throws InspectException
-	 */
-	public void arrange(InspectArrangeOrderExecute orderExecute,
-			Date planExecuteDate, AbstractUser user) throws InspectException {
-
-		InspectApplyItem inspectApplyItem = orderExecute.getInspectApplyItem();
-		inspectApplyItem.setPlanExecuteDate(planExecuteDate);
-
-		inspectApplyItem.save();
-
-		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]安排检查[{}]时间为[{}]",
-				user.getId(), orderExecute.getVisit().getName(),
-				inspectApplyItem.getId(), planExecuteDate);
-
-	}
-
-	/**
 	 * 确认检查结果
 	 * 
 	 * @param executeId
