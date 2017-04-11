@@ -1,7 +1,6 @@
 package com.neusoft.hs.domain.inspect;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +52,7 @@ public class InspectDomainService {
 	 * @param user
 	 * @throws InspectException
 	 */
-	public void confirm(InspectConfirmOrderExecute orderExecute,
+	public void confirm(OrderExecute orderExecute,
 			Map<InspectApplyItem, String> results, AbstractUser user)
 			throws InspectException {
 

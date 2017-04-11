@@ -46,10 +46,10 @@ public class InspectAppService {
 			throw new OrderExecuteException(null, "executeId=[" + executeId
 					+ "]不存在");
 		}
-		
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(InspectArrangeOrderExecute.PlanExecuteDate, planExecuteDate);
-		
+
 		orderExecuteDomainService.finish(execute, params, user);
 	}
 
@@ -63,8 +63,7 @@ public class InspectAppService {
 					+ "]不存在");
 		}
 
-		inspectDomainService.confirm((InspectConfirmOrderExecute) execute,
-				results, user);
+		inspectDomainService.confirm(execute, results, user);
 		orderExecuteDomainService.finish(execute, null, user);
 	}
 
