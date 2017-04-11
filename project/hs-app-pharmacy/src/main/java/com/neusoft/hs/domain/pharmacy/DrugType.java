@@ -38,7 +38,7 @@ public class DrugType extends SuperEntity {
 	@JoinColumn(name = "pharmacy_id")
 	private Pharmacy pharmacy;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
 
