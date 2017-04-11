@@ -22,7 +22,7 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 	@JoinColumn(name = "drug_use_mode_id")
 	public DrugUseMode drugUseMode;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_type_id")
 	private DrugType drugType;
 
