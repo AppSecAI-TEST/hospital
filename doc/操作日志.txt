@@ -1,3 +1,8 @@
+2017.04.--
+
+1、实现模型：将检查安排的时间设置由InspectDomainService.arrange中移入到InspectArrangeOrderExecute.doFinish中
+
+
 2017.04.11 优化医嘱、药品医嘱、药房三者间的关系
 
 1、实现模型：增加VisitOutWardedEvent、VisitOutHospitalEvent等事件，通过监听VisitOutWardedEvent实现停止床位费计费
