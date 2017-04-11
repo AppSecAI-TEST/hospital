@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.CompsiteOrder;
+import com.neusoft.hs.domain.order.DrugOrderType;
+import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
@@ -22,8 +24,6 @@ import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientdept.EnterHospitalOrderType;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
-import com.neusoft.hs.domain.pharmacy.DrugOrderType;
-import com.neusoft.hs.domain.pharmacy.DrugOrderTypeApp;
 import com.neusoft.hs.domain.pharmacy.Prescription;
 import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.domain.treatment.Itemable;
@@ -136,10 +136,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug001Order.setCount(1);
 		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
-		DrugOrderType drugOrderType = new DrugOrderType();
-		drugOrderType.setDrugTypeSpec(drugTypeSpec001);
-
-		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType,
+		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType001,
 				oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
@@ -220,10 +217,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug004Order.setCount(20);
 		drug004Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
-		DrugOrderType drugOrderType4 = new DrugOrderType();
-		drugOrderType4.setDrugTypeSpec(drugTypeSpec004);
-
-		drug004Order.setTypeApp(new DrugOrderTypeApp(drugOrderType4,
+		drug004Order.setTypeApp(new DrugOrderTypeApp(drugOrderType004,
 				oralOrderUseMode));
 
 		prescription.addOrder(drug004Order);
@@ -236,10 +230,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug005Order.setCount(15);
 		drug005Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
-		DrugOrderType drugOrderType5 = new DrugOrderType();
-		drugOrderType5.setDrugTypeSpec(drugTypeSpec005);
-
-		drug005Order.setTypeApp(new DrugOrderTypeApp(drugOrderType5,
+		drug005Order.setTypeApp(new DrugOrderTypeApp(drugOrderType005,
 				oralOrderUseMode));
 
 		prescription.addOrder(drug005Order);
@@ -252,10 +243,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug006Order.setCount(100);
 		drug006Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
-		DrugOrderType drugOrderType6 = new DrugOrderType();
-		drugOrderType6.setDrugTypeSpec(drugTypeSpec006);
-
-		drug006Order.setTypeApp(new DrugOrderTypeApp(drugOrderType6,
+		drug006Order.setTypeApp(new DrugOrderTypeApp(drugOrderType006,
 				oralOrderUseMode));
 
 		prescription.addOrder(drug006Order);
@@ -275,7 +263,7 @@ public class OutPatientMainTestService extends AppTestService {
 		theVisit = visitDomainService.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_Diagnosing));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:36"));
 
 		// 创建药品002长期医嘱
@@ -496,11 +484,11 @@ public class OutPatientMainTestService extends AppTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, usera01);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 13:30"));
-		
+
 		visitAppService.leaveHospital(visit002.getId(), user002);
-		
+
 		theVisit = visitDomainService.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_LeaveHospital));
@@ -510,7 +498,7 @@ public class OutPatientMainTestService extends AppTestService {
 		changedCount = visitDomainService.changeVisitState();
 
 		assertTrue(changedCount == 2);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:00"));
 
 		// 创建测试患者

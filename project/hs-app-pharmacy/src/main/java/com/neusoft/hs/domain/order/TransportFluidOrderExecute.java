@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.pharmacy;
+package com.neusoft.hs.domain.order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.pharmacy.DrugType;
 
 @Entity
 @DiscriminatorValue("TransportFluid")

@@ -15,14 +15,14 @@ import com.neusoft.hs.domain.inspect.InspectApply;
 import com.neusoft.hs.domain.inspect.InspectApplyItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.CompsiteOrder;
+import com.neusoft.hs.domain.order.DrugOrderType;
+import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
-import com.neusoft.hs.domain.pharmacy.DrugOrderType;
-import com.neusoft.hs.domain.pharmacy.DrugOrderTypeApp;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
@@ -79,10 +79,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug001Order.setCount(2);
 		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
-		DrugOrderType drugOrderType = new DrugOrderType();
-		drugOrderType.setDrugTypeSpec(drugTypeSpec001);
-
-		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType,
+		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType001,
 				oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);

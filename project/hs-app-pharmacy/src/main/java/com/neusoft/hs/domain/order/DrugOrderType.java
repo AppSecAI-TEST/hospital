@@ -1,6 +1,6 @@
 //Source file: F:\\my_workspace\\201611������ҽ�������\\DesignModel\\DesignElement\\domain\\order\\DrugOrderType.java
 
-package com.neusoft.hs.domain.pharmacy;
+package com.neusoft.hs.domain.order;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +19,10 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
+import com.neusoft.hs.domain.pharmacy.DrugUseMode;
+import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -33,15 +37,14 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class DrugOrderType extends OrderType {
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "drug_type_id")
-	private DrugType drugType;
-
-	@Transient
+	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
 
 	@Override
 	public void check(Order order) throws OrderException {
-		if (this.drugType == null) {
+		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
+				.getTypeApp();
+		if (drugOrderTypeApp.getDrugType() == null) {
 
 			if (drugTypeSpec == null) {
 				throw new OrderException(order, "drugTypeSpec不存在");
@@ -53,23 +56,21 @@ public class DrugOrderType extends OrderType {
 
 			L: for (DrugType drugType : drugTypes) {
 				if (drugType.getStock() >= order.getCount()) {
-					this.drugType = drugType;
+					drugOrderTypeApp.setDrugType(drugType);
 					break L;
 				}
 			}
-			if (this.drugType == null) {
+			if (drugOrderTypeApp.getDrugType() == null) {
 				throw new OrderException(order, "drugTypeSpecId=["
 						+ drugTypeSpec.getId() + "]库存不足");
 			}
 
-			// 根据计算的药品类型找到合适的医嘱类型
-			order.getTypeApp().setOrderType(this.drugType.getDrugOrderType());
 		}
 
 		// 临嘱预扣
 		if (order instanceof TemporaryOrder) {
 			try {
-				this.drugType.withhold(order.getCount());
+				drugOrderTypeApp.getDrugType().withhold(order.getCount());
 			} catch (HsException e) {
 				throw new OrderException(order, e);
 			}
@@ -81,8 +82,10 @@ public class DrugOrderType extends OrderType {
 	public void delete(Order order) throws OrderException {
 		// 解除临嘱预扣
 		if (order instanceof TemporaryOrder) {
+			DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
+					.getTypeApp();
 			try {
-				this.drugType.unWithhold(order.getCount());
+				drugOrderTypeApp.getDrugType().unWithhold(order.getCount());
 			} catch (HsException e) {
 				throw new OrderException(order, e);
 			}
@@ -151,14 +154,6 @@ public class DrugOrderType extends OrderType {
 						.setLast(true);
 			}
 		}
-	}
-
-	public DrugType getDrugType() {
-		return drugType;
-	}
-
-	public void setDrugType(DrugType drugType) {
-		this.drugType = drugType;
 	}
 
 	public DrugTypeSpec getDrugTypeSpec() {

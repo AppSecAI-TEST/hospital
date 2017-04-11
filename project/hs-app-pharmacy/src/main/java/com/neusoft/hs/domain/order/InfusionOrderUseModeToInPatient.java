@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.pharmacy;
+package com.neusoft.hs.domain.order;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
+import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.pharmacy.DrugUseMode;
+import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
 
 @Entity
 @DiscriminatorValue("Infusion_InPatient")
@@ -17,7 +20,10 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 	public void resolve(Order order, DrugOrderType drugOrderType) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
-		DrugType drugType = drugOrderType.getDrugType();
+		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
+				.getTypeApp();
+
+		DrugType drugType = drugOrderTypeApp.getDrugType();
 		// 配液执行条目
 		ConfigureFluidOrderExecute configureFluidDrugExecute = new ConfigureFluidOrderExecute();
 		configureFluidDrugExecute.setOrder(order);
@@ -30,9 +36,9 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		configureFluidDrugExecute.setCount(order.getCount());
 		configureFluidDrugExecute.setDrugType(drugType);
 
-		configureFluidDrugExecute.setExecuteDept(drugOrderType.getDrugType()
+		configureFluidDrugExecute.setExecuteDept(drugOrderTypeApp.getDrugType()
 				.getPharmacy());
-		configureFluidDrugExecute.setChargeDept(drugOrderType.getDrugType()
+		configureFluidDrugExecute.setChargeDept(drugOrderTypeApp.getDrugType()
 				.getPharmacy());
 		configureFluidDrugExecute.setState(OrderExecute.State_NeedSend);
 		configureFluidDrugExecute

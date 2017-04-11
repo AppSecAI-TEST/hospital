@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.pharmacy;
+package com.neusoft.hs.domain.order;
 
 import java.util.Date;
 
@@ -11,6 +11,10 @@ import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.pharmacy.DrugUseMode;
+import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
+import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -23,11 +27,14 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 	@Override
 	public void resolve(Order order, DrugOrderType drugOrderType) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
+		
+		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
+				.getTypeApp();
 
-		DrugType drugType = drugOrderType.getDrugType();
+		DrugType drugType = drugOrderTypeApp.getDrugType();
 		ChargeItem chargeItem = drugType.getDrugTypeSpec().getChargeItem();
 		Visit visit = order.getVisit();
-		Pharmacy pharmacy = drugOrderType.getDrugType().getPharmacy();
+		Pharmacy pharmacy = drugOrderTypeApp.getDrugType().getPharmacy();
 		Date sysDate = DateUtil.getSysDate();
 		Dept chargeDept = visit.getDept().getOrg().getOutChargeDept();
 

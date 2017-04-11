@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.platform.entity.SuperEntity;
 

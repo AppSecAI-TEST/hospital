@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.pharmacy;
+package com.neusoft.hs.domain.order;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -8,6 +8,9 @@ import com.neusoft.hs.domain.cost.ChargeOrderExecute;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteTeam;
+import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.pharmacy.DrugUseMode;
+import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
@@ -18,11 +21,14 @@ public class OralOrderUseMode extends DrugUseMode {
 	public void resolve(Order order, DrugOrderType drugOrderType) {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
+		
+		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
+				.getTypeApp();
 
-		DrugType drugType = drugOrderType.getDrugType();
+		DrugType drugType = drugOrderTypeApp.getDrugType();
 		ChargeItem chargeItem = drugType.getDrugTypeSpec().getChargeItem();
 		Visit visit = order.getVisit();
-		Pharmacy pharmacy = drugOrderType.getDrugType().getPharmacy();
+		Pharmacy pharmacy = drugOrderTypeApp.getDrugType().getPharmacy();
 
 		ChargeOrderExecute chargeOrderExecute = null;
 		if (!order.isInPatient()) {

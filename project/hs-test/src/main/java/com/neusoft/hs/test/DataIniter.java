@@ -35,6 +35,10 @@ import com.neusoft.hs.domain.inspect.InspectOrderType;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
+import com.neusoft.hs.domain.order.DrugOrderType;
+import com.neusoft.hs.domain.order.InfusionOrderUseModeToInPatient;
+import com.neusoft.hs.domain.order.InfusionOrderUseModeToOutPatient;
+import com.neusoft.hs.domain.order.OralOrderUseMode;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -62,14 +66,10 @@ import com.neusoft.hs.domain.outpatientoffice.VoucherType;
 import com.neusoft.hs.domain.patient.PatientAdminDomainService;
 import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.domain.pharmacy.AssistMaterial;
-import com.neusoft.hs.domain.pharmacy.DrugOrderType;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
-import com.neusoft.hs.domain.pharmacy.InfusionOrderUseModeToInPatient;
-import com.neusoft.hs.domain.pharmacy.InfusionOrderUseModeToOutPatient;
-import com.neusoft.hs.domain.pharmacy.OralOrderUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
@@ -476,6 +476,8 @@ public class DataIniter {
 		orderAdminDomainService.clearOrderTypeApps();
 		// 清空组合医嘱
 		orderAdminDomainService.clearCompsiteOrdes();
+		// 清空医嘱类型
+		orderAdminDomainService.clearOrderTypes();
 		// 清空医嘱用法
 		pharmacyDomainService.clearOrderUseModes();
 		// 清空频次类型
@@ -1101,7 +1103,7 @@ public class DataIniter {
 		drugOrderType001.setId("drugOrderType001");
 		drugOrderType001.setCode("drugOrderType001");
 		drugOrderType001.setName("阿司匹林");
-		drugOrderType001.setDrugType(drugType001);
+		drugOrderType001.setDrugTypeSpec(drugTypeSpec001);
 
 		orderTypes.add(drugOrderType001);
 
@@ -1109,7 +1111,7 @@ public class DataIniter {
 		drugOrderType002.setId("drugOrderType002");
 		drugOrderType002.setCode("drugOrderType002");
 		drugOrderType002.setName("头孢3");
-		drugOrderType002.setDrugType(drugType002);
+		drugOrderType002.setDrugTypeSpec(drugTypeSpec002);
 
 		orderTypes.add(drugOrderType002);
 
@@ -1117,7 +1119,7 @@ public class DataIniter {
 		drugOrderType003.setId("drugOrderType003");
 		drugOrderType003.setCode("drugOrderType003");
 		drugOrderType003.setName("5%葡萄糖液");
-		drugOrderType003.setDrugType(drugType003);
+		drugOrderType003.setDrugTypeSpec(drugTypeSpec003);
 
 		orderTypes.add(drugOrderType003);
 
@@ -1125,7 +1127,7 @@ public class DataIniter {
 		drugOrderType004.setId("drugOrderType004");
 		drugOrderType004.setCode("drugOrderType004");
 		drugOrderType004.setName("天花粉");
-		drugOrderType004.setDrugType(drugType004);
+		drugOrderType004.setDrugTypeSpec(drugTypeSpec004);
 
 		orderTypes.add(drugOrderType004);
 
@@ -1133,7 +1135,7 @@ public class DataIniter {
 		drugOrderType005.setId("drugOrderType005");
 		drugOrderType005.setCode("drugOrderType005");
 		drugOrderType005.setName("葛根");
-		drugOrderType005.setDrugType(drugType005);
+		drugOrderType005.setDrugTypeSpec(drugTypeSpec005);
 
 		orderTypes.add(drugOrderType005);
 
@@ -1141,7 +1143,7 @@ public class DataIniter {
 		drugOrderType006.setId("drugOrderType006");
 		drugOrderType006.setCode("drugOrderType006");
 		drugOrderType006.setName("生地黄");
-		drugOrderType006.setDrugType(drugType006);
+		drugOrderType006.setDrugTypeSpec(drugTypeSpec006);
 
 		orderTypes.add(drugOrderType006);
 

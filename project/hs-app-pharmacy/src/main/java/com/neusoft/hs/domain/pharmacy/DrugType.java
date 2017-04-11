@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -32,9 +33,6 @@ public class DrugType extends SuperEntity {
 	private int stock;
 
 	private int withhold;
-
-	@OneToOne(mappedBy = "drugType", cascade = { CascadeType.ALL })
-	private DrugOrderType drugOrderType;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pharmacy_id")
@@ -127,14 +125,6 @@ public class DrugType extends SuperEntity {
 
 	public void setWithhold(int withhold) {
 		this.withhold = withhold;
-	}
-
-	public DrugOrderType getDrugOrderType() {
-		return drugOrderType;
-	}
-
-	public void setDrugOrderType(DrugOrderType drugOrderType) {
-		this.drugOrderType = drugOrderType;
 	}
 
 	public Pharmacy getPharmacy() {

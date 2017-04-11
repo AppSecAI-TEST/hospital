@@ -64,7 +64,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	private Integer count;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_app_id")
 	private OrderTypeApp typeApp;
 
@@ -201,8 +201,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 				}
 			}
 			// 持久化本次分解
-			//orderExecuteTeamRepo.save(resolveTeams);
-			
+			// orderExecuteTeamRepo.save(resolveTeams);
+
 			this.getService(OrderExecuteTeamRepo.class).save(resolveTeams);
 
 			this.lastOrderExecute = resolveOrderExecutes
