@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.outpatientdept;
+package com.neusoft.hs.domain.order;
 
 import java.util.Map;
 

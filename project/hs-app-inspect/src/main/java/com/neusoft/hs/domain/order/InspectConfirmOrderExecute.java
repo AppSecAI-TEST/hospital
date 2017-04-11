@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.inspect;
+package com.neusoft.hs.domain.order;
 
 import java.util.Map;
 
@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.neusoft.hs.domain.inspect.InspectApplyItem;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;

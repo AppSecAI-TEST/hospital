@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.outpatientdept;
+package com.neusoft.hs.domain.order;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

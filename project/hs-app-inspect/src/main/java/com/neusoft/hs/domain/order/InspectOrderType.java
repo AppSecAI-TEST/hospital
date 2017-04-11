@@ -1,8 +1,10 @@
-package com.neusoft.hs.domain.inspect;
+package com.neusoft.hs.domain.order;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.neusoft.hs.domain.inspect.InspectApply;
+import com.neusoft.hs.domain.inspect.InspectApplyItem;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
