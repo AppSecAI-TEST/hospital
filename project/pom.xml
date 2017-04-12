@@ -57,8 +57,10 @@
 		<module>hs-engine-core</module>
 		<module>hs-engine-entity</module>
 		<module>hs-engine-listener</module>
+		
 		<module>hs-engine-interface</module>
 		<module>hs-engine-interface-impl</module>
+		<module>hs-engine-interface-stub</module>
 		<module>hs-engine-server</module>
 		
 		<module>hs-server-registration</module>
