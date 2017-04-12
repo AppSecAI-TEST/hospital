@@ -8,10 +8,6 @@ import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 public class SuperTest {
 
 	public void init() {
-		// 初始化Context
-		ApplicationContext applicationContext = SpringApplication
-				.run(TestServer.class);
-		ApplicationContextUtil.setApplicationContext(applicationContext);
 	}
 
 }

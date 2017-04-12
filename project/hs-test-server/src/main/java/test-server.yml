@@ -6,7 +6,7 @@ spring:
     enabled: false           # Ignore Eureka dashboard FreeMarker templates
   thymeleaf:
     cache: false             # Allow Thymeleaf templates to be reloaded at runtime
-    prefix: classpath:/engine-server/templates/    # Trailing / mandatory
+    prefix: classpath:/test-server/templates/    # Trailing / mandatory
                              # Template location for this application only
   datasource:
     url: jdbc:mysql://localhost:3306/hs?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
@@ -37,7 +37,7 @@ error:
 
 # HTTP Server
 server:
-  port: 2222   # HTTP (Tomcat) port
+  port: 3333   # HTTP (Tomcat) port
 
 # Discovery Server Access
 #  1. DEV ONLY: Reduce the lease renewal interval to speed up registration

@@ -36,12 +36,7 @@ public class TestServer {
 	 *            Program arguments - ignored.
 	 */
 	public static void main(String[] args) {
-
 		System.setProperty("spring.config.name", "test-server");
-
-		ApplicationContext applicationContext = SpringApplication.run(
-				TestServer.class, args);
-
-		ApplicationContextUtil.setApplicationContext(applicationContext);
+		SpringApplication.run(TestServer.class, args);
 	}
 }
