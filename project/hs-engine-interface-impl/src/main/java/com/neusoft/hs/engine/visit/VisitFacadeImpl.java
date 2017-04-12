@@ -23,59 +23,16 @@ public class VisitFacadeImpl implements VisitFacade {
 	private UserAdminDomainService userAdminDomainService;
 
 	@Override
-	public Visit create(CreateVisitDTO createVisitDto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void intoWard(ReceiveVisitDTO receiveVisitDto) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void leaveHospital(LeaveHospitalDTO leaveHospitalDTO) throws HsException {
+	public void leaveHospital(LeaveHospitalDTO leaveHospitalDTO)
+			throws HsException {
 		AbstractUser user = userAdminDomainService.find(leaveHospitalDTO
 				.getOperatorId());
 		if (user == null) {
-			throw new HsException("operatorId=[" + leaveHospitalDTO.getOperatorId()
-					+ "]不存在");
+			throw new HsException("operatorId=["
+					+ leaveHospitalDTO.getOperatorId() + "]不存在");
 		}
 		String visitId = leaveHospitalDTO.getVisitId();
-		
+
 		visitAppService.leaveHospital(visitId, user);
 	}
-
-	@Override
-	public Visit find(String visitId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Visit findLastVisit(String cardNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Visit> listInPatientVisit(int pageNumber, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Visit> findByStateAndDept(String state, String deptId,
-			int pageNumber, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Visit> listVisit(String respDeptId, int pageNumber, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
