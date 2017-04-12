@@ -49,7 +49,7 @@ public class CostFacadeImpl implements CostFacade {
 	}
 
 	@Override
-	public ChargeBill createChargeBill(ChargeBillCreateVO chargeBillCreateVO)
+	public ChargeBill createChargeBill(ChargeBillCreateDTO chargeBillCreateVO)
 			throws HsException {
 
 		Visit visit = visitDomainService.find(chargeBillCreateVO.getVisitId());
@@ -70,7 +70,7 @@ public class CostFacadeImpl implements CostFacade {
 	}
 
 	@Override
-	public ChargeRecord addCost(ChargeBillAddCostVO chargeBillAddCostVO)
+	public ChargeRecord addCost(ChargeBillAddCostDTO chargeBillAddCostVO)
 			throws HsException {
 
 		Visit visit = visitDomainService.find(chargeBillAddCostVO.getVisitId());
@@ -103,7 +103,7 @@ public class CostFacadeImpl implements CostFacade {
 	}
 
 	@Override
-	public void unCharging(UnChargingVO unChargingVO)
+	public void unCharging(UnChargingDTO unChargingVO)
 			throws OrderExecuteException {
 
 		OrderExecute orderExecute = orderExecuteDomainService.find(unChargingVO

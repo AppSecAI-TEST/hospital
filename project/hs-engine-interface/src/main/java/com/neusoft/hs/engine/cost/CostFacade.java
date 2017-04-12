@@ -2,15 +2,10 @@ package com.neusoft.hs.engine.cost;
 
 import java.util.List;
 
-import org.springframework.data.domain.Pageable;
-
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteException;
-import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.organization.Nurse;
-import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -28,21 +23,21 @@ public interface CostFacade {
 	/**
 	 * 创建财务账户
 	 * 
-	 * @param chargeBillCreateVO
+	 * @param chargeBillCreateDto
 	 * @throws HsException
 	 * @roseuid 584DFD470092
 	 */
-	public ChargeBill createChargeBill(ChargeBillCreateVO chargeBillCreateVO)
+	public ChargeBill createChargeBill(ChargeBillCreateDTO chargeBillCreateDto)
 			throws HsException;
 
 	/**
 	 * 预存费用
 	 * 
-	 * @param chargeBillAddCostVO
+	 * @param chargeBillAddCostDto
 	 * @return
 	 * @throws HsException
 	 */
-	public ChargeRecord addCost(ChargeBillAddCostVO chargeBillAddCostVO)
+	public ChargeRecord addCost(ChargeBillAddCostDTO chargeBillAddCostDto)
 			throws HsException;
 
 	/**
@@ -60,11 +55,11 @@ public interface CostFacade {
 	/**
 	 * 取消医嘱执行条目对应的费用条目
 	 * 
-	 * @param unChargingVO
+	 * @param unChargingDto
 	 * @throws OrderExecuteException
 	 * @roseuid 5850BC9B0098
 	 */
-	public void unCharging(UnChargingVO unChargingVO)
+	public void unCharging(UnChargingDTO unChargingDto)
 			throws OrderExecuteException;
 
 }

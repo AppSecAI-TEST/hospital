@@ -2,7 +2,7 @@ package com.neusoft.hs.engine.cost;
 
 import java.io.Serializable;
 
-public class UnChargingVO implements Serializable{
+public class UnChargingDTO implements Serializable{
 
 	private static final long serialVersionUID = -3281157492029115760L;
 
