@@ -31,6 +31,7 @@ import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.engine.visit.LeaveHospitalDTO;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -487,7 +488,12 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 13:30"));
 
-		visitAppService.leaveHospital(visit002.getId(), user002);
+		
+		//visitAppService.leaveHospital(visit002.getId(), user002);
+		LeaveHospitalDTO leaveHospitalDTO = new LeaveHospitalDTO();
+		leaveHospitalDTO.setVisitId(visit002.getId());
+		leaveHospitalDTO.setOperatorId(user002.getId());
+		visitFacade.leaveHospital(leaveHospitalDTO);
 
 		theVisit = visitDomainService.find(visit002.getId());
 

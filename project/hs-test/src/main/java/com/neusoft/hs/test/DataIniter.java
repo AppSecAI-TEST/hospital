@@ -82,6 +82,7 @@ import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.domain.visit.VisitNameTreatmentItemSpec;
+import com.neusoft.hs.engine.visit.VisitFacade;
 
 public class DataIniter {
 
@@ -333,6 +334,9 @@ public class DataIniter {
 
 	@Autowired
 	protected PharmacyAppService pharmacyAppService;
+	
+	@Autowired
+	protected VisitFacade visitFacade;
 
 	@Autowired
 	private CostAdminDomainService costAdminDomainService;
