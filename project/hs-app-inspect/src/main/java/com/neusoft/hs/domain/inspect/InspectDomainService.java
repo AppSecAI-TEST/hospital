@@ -85,8 +85,6 @@ public class InspectDomainService {
 			inspectApply.addInspectResult(inspectResult);
 		}
 
-		applyDomainService.save(inspectApply);
-
 		LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]确认检查结果[{}]",
 				user.getId(), orderExecute.getVisit().getName(),
 				inspectApply.getId());
