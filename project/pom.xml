@@ -66,6 +66,7 @@
 		<module>hs-server-registration</module>
 
 		<module>hs-platform</module>
+		<module>hs-engine-rest</module>
 	</modules>
 
 	<build>
