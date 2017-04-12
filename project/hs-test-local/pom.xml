@@ -17,16 +17,6 @@
 			<artifactId>hs-test</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-engine-core</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-engine-listener</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
 		<!-- <dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
 			<version>${h2.version}</version> </dependency> -->
 		<dependency>

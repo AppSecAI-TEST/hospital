@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 
-@EnableTransactionManagement
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = { "com.neusoft.hs.*" })
 @EntityScan(basePackages = { "com.neusoft.hs.*" })
@@ -23,9 +22,6 @@ import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 public class Application {
 
 	public static void main(String[] args) {
-		ApplicationContext applicationContext = SpringApplication.run(
-				Application.class, args);
-
-		ApplicationContextUtil.setApplicationContext(applicationContext);
+		SpringApplication.run(Application.class, args);
 	}
 }
