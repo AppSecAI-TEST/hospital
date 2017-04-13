@@ -50,6 +50,7 @@ import com.neusoft.hs.domain.order.OutHospitalOrderType;
 import com.neusoft.hs.domain.order.TemporaryOrderListTreatmentItemSpec;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.CommonDept;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
@@ -566,7 +567,7 @@ public class DataIniter {
 
 		units.add(org);
 
-		dept111 = new Dept();
+		dept111 = new CommonDept();
 		dept111.setId("dept111");
 		dept111.setName("住院处");
 		dept111.setParent(org);
@@ -574,7 +575,7 @@ public class DataIniter {
 
 		units.add(dept111);
 
-		dept222 = new Dept();
+		dept222 = new CommonDept();
 		dept222.setId("dept222");
 		dept222.setName("住院收费处");
 		dept222.setParent(org);
@@ -606,7 +607,7 @@ public class DataIniter {
 
 		units.add(dept555);
 
-		dept666 = new Dept();
+		dept666 = new CommonDept();
 		dept666.setId("dept666");
 		dept666.setName("病案室");
 		dept666.setParent(org);
@@ -614,7 +615,7 @@ public class DataIniter {
 
 		units.add(dept666);
 
-		dept777 = new Dept();
+		dept777 = new CommonDept();
 		dept777.setId("dept777");
 		dept777.setName("门诊收费部门");
 		dept777.setParent(org);

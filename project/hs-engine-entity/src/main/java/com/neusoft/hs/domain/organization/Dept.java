@@ -5,7 +5,6 @@ package com.neusoft.hs.domain.organization;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -18,8 +17,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
-@DiscriminatorValue("Dept")
-public class Dept extends Unit {
+public abstract class Dept extends Unit {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "org_id")
