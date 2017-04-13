@@ -21,6 +21,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
@@ -38,10 +39,12 @@ public abstract class Unit extends SuperEntity {
 	@Column(length = 32)
 	private String name;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
 	private Unit parent;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	private List<Unit> children;

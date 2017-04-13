@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.order.Order;
 
 @Entity
@@ -27,9 +28,11 @@ public class Doctor extends AbstractUser {
 	@JoinColumn(name = "superior_id")
 	private Doctor superior;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "superior", cascade = { CascadeType.REFRESH })
 	private List<Doctor> subordinates;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "creator", cascade = { CascadeType.REFRESH })
 	@OrderBy("createDate DESC")
 	private List<Order> orders;

@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 
@@ -16,9 +17,11 @@ import com.neusoft.hs.domain.order.OrderExecute;
 @DiscriminatorValue("InPatientDept")
 public class InPatientDept extends Dept {
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
 	private List<Nurse> nurses;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
 	private List<Doctor> doctors;
 

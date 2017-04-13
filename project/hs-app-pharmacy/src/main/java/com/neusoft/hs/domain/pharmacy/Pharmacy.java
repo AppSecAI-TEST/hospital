@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.organization.Dept;
 
 /**
@@ -21,6 +22,7 @@ import com.neusoft.hs.domain.organization.Dept;
 @DiscriminatorValue("Pharmacy")
 public class Pharmacy extends Dept {
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacy", cascade = { CascadeType.ALL })
 	private List<DrugType> drugTypes;
 

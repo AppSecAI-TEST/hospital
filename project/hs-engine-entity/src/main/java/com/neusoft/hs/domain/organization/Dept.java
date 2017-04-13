@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -23,21 +24,27 @@ public abstract class Dept extends Unit {
 	@JoinColumn(name = "org_id")
 	private Org org;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
 	private List<Order> belongOrders;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
 	private List<OrderExecute> belongOrderExecutes;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.REFRESH })
 	private List<Order> orders;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.REFRESH })
 	private List<OrderExecute> orderExecutes;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "chargeDept", cascade = { CascadeType.REFRESH })
 	private List<ChargeRecord> chargeRecords;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
 	private List<Visit> visits;
 

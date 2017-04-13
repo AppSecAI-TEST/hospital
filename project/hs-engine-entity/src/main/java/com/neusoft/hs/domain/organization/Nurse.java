@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
@@ -22,6 +23,7 @@ public class Nurse extends AbstractUser {
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "respNurse", cascade = { CascadeType.REFRESH })
 	private List<Visit> visits;
 
