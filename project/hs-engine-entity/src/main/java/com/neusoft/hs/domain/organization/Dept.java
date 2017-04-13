@@ -20,6 +20,7 @@ import com.neusoft.hs.domain.visit.Visit;
 @Entity
 public abstract class Dept extends Unit {
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "org_id")
 	private Org org;

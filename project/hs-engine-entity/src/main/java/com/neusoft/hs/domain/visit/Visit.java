@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.VisitChargeItem;
@@ -97,35 +98,43 @@ public class Visit extends IdEntity {
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private List<VisitChargeItem> visitChargeItems;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	@OrderBy("createDate DESC")
 	private List<VisitLog> logs;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private List<Order> orders;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private List<Apply> applys;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private List<OrderExecute> executes;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "visit", cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private ChargeBill chargeBill;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "visit", cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private MedicalRecordClip medicalRecordClip;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
 	private List<VisitChargeItem> chargeItems;

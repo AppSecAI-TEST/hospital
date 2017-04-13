@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"}) 
 public abstract class SuperEntity implements Serializable {
 
 	public abstract String getId();

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -41,6 +42,7 @@ public class Patient extends IdEntity {
 	@Column(name = "create_date")
 	private Date createDate;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "patient", cascade = { CascadeType.ALL })
 	private List<Visit> visits;
 
