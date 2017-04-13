@@ -42,7 +42,8 @@ public abstract class Unit extends SuperEntity {
 	@JoinColumn(name = "parent_id")
 	private Unit parent;
 
-	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "parent", cascade = { CascadeType.REMOVE,
+			CascadeType.REFRESH })
 	private List<Unit> children;
 
 	public String getId() {

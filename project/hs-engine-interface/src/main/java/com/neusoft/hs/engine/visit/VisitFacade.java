@@ -14,7 +14,7 @@ public interface VisitFacade {
 	public void leaveHospital(LeaveHospitalDTO leaveHospitalDTO)
 			throws HsException;
 
-//	public Visit find(String visitId);
+	public Visit find(String visitId);
 //
 //	public Visit findLastVisit(String cardNumber);
 //

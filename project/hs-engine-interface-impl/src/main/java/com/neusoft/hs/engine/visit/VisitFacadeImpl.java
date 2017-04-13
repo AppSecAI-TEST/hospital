@@ -1,7 +1,5 @@
 package com.neusoft.hs.engine.visit;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +8,7 @@ import com.neusoft.hs.application.visit.VisitAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Service
@@ -18,6 +17,9 @@ public class VisitFacadeImpl implements VisitFacade {
 
 	@Autowired
 	private VisitAppService visitAppService;
+	
+	@Autowired
+	private VisitDomainService visitDomainService;
 
 	@Autowired
 	private UserAdminDomainService userAdminDomainService;
@@ -35,4 +37,11 @@ public class VisitFacadeImpl implements VisitFacade {
 
 		visitAppService.leaveHospital(visitId, user);
 	}
+
+	@Override
+	public Visit find(String visitId) {
+		return visitDomainService.find(visitId);
+	}
+	
+	
 }
