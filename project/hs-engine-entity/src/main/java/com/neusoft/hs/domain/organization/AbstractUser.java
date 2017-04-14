@@ -9,12 +9,15 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.neusoft.hs.platform.entity.SuperEntity;
 import com.neusoft.hs.platform.user.User;
 
 @Entity
 @Table(name = "domain_organization_user")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonTypeInfo(use=com.fasterxml.jackson.annotation.JsonTypeInfo.Id.CLASS,include=As.PROPERTY,property="@class")
 public abstract class AbstractUser extends SuperEntity implements User {
 
 	@Id

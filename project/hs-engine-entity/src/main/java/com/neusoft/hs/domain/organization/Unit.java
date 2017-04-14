@@ -22,6 +22,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
@@ -29,6 +31,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "unitCache")
+@JsonTypeInfo(use=com.fasterxml.jackson.annotation.JsonTypeInfo.Id.CLASS,include=As.PROPERTY,property="@class")
 public abstract class Unit extends SuperEntity {
 
 	@Id

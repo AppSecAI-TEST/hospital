@@ -5,12 +5,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
-import org.springframework.context.ApplicationContext;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 
 /**
  * Run as a micro-service, registering with the Discovery Server (Eureka).
@@ -27,6 +26,8 @@ import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 @EnableFeignClients(basePackages = { "com.neusoft.hs.*" })
 @ImportResource(locations = { "classpath:application-bean.xml" })
 @EnableDiscoveryClient
+@EnableZuulProxy
+@EnableHystrix
 public class TestServer {
 
 	/**

@@ -490,6 +490,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		
 		//visitAppService.leaveHospital(visit002.getId(), user002);
+		
+		Visit tempVisit = visitFacade.find(visit002.getId());
 		LeaveHospitalDTO leaveHospitalDTO = new LeaveHospitalDTO();
 		leaveHospitalDTO.setVisitId(visit002.getId());
 		leaveHospitalDTO.setOperatorId(user002.getId());
