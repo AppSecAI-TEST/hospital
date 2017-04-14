@@ -64,12 +64,13 @@
 		<module>hs-engine-interface</module>
 		<module>hs-engine-interface-impl</module>
 		<module>hs-engine-interface-stub</module>
+		<module>hs-engine-interface-rest</module>
 		<module>hs-engine-server</module>
 		
 		<module>hs-server-registration</module>
 
 		<module>hs-platform</module>
-		<module>hs-engine-rest</module>
+		
 	</modules>
 
 	<build>

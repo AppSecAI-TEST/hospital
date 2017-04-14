@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-engine-rest</artifactId>
+			<artifactId>hs-engine-interface-rest</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 
