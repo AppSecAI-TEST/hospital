@@ -1,6 +1,12 @@
 2017.04.--
 
 1、实现模型：将检查安排的时间设置由InspectDomainService.arrange中移入到InspectArrangeOrderExecute.doFinish中
+2、实现模型：按着药房应用的模式调整其他应用
+3、实现模型：编程engine中Visit组件第一个粗粒度接口：患者离院
+4、实现模型：恢复2017.03.30中3、4、5，并创建hs-engine-interface-impl、hs-engine-interface-stub和hs-engine-rest三个moudle用于编写引擎接口
+5、实现模型：升级了基础设施（springboot 1.3.5->1.5.2, springcloud ->1.2.0, springcloudeureka -> 1.3.0, spring -> 4.3.7）
+6、实现模型：跑通了通过engine实现的患者离院
+
 
 
 2017.04.11 优化医嘱、药品医嘱、药房三者间的关系
