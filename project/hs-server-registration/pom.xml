@@ -17,7 +17,7 @@
 			<!-- Eureka service registration -->
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
-			<version>${spring.cloud.eureka.server.version}</version>
+			<version>${spring.cloud.eureka.version}</version>
 		</dependency>
 	</dependencies>
 </project>
