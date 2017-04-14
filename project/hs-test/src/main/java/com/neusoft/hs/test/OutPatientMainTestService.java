@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.CompsiteOrder;
-import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.EnterHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
@@ -491,7 +490,6 @@ public class OutPatientMainTestService extends AppTestService {
 		
 		//visitAppService.leaveHospital(visit002.getId(), user002);
 		
-		Visit tempVisit = visitFacade.find(visit002.getId());
 		LeaveHospitalDTO leaveHospitalDTO = new LeaveHospitalDTO();
 		leaveHospitalDTO.setVisitId(visit002.getId());
 		leaveHospitalDTO.setOperatorId(user002.getId());
