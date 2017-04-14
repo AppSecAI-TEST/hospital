@@ -11,7 +11,7 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
 @RestController
-public class VisitRestController {
+public class VisitFrontRestController {
 
 	@Autowired
 	private VisitFacade visitFacade;
