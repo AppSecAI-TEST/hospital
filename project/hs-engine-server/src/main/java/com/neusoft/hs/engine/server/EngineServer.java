@@ -23,7 +23,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = { "com.neusoft.hs.*" })
 @ImportResource(locations = { "classpath:application-bean.xml" })
 @EnableDiscoveryClient
-@EnableHystrix
+//@EnableHystrix
 public class EngineServer {
 
 	/**

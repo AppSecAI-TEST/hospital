@@ -26,8 +26,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableFeignClients(basePackages = { "com.neusoft.hs.*" })
 @ImportResource(locations = { "classpath:application-bean.xml" })
 @EnableDiscoveryClient
-@EnableZuulProxy
-@EnableHystrix
+//@EnableZuulProxy
+//@EnableHystrix
 public class TestServer {
 
 	/**
