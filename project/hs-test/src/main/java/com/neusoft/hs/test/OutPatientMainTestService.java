@@ -281,8 +281,10 @@ public class OutPatientMainTestService extends AppTestService {
 		drug002Order.setPlanEndDate(DateUtil.addDay(startDate, 2));
 		drug002Order.setExecuteDept(deptaaa);
 
-		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002,
-				infusionOrderUseModeToOutPatient));
+		DrugOrderTypeApp drugOrderTypeApp002 = new DrugOrderTypeApp(
+				drugOrderType002, infusionOrderUseModeToOutPatient);
+		drugOrderTypeApp002.setDrugType(drugType002);
+		drug002Order.setTypeApp(drugOrderTypeApp002);
 
 		// 创建药品003长期医嘱
 		LongOrder drug003Order = new LongOrder();
@@ -296,8 +298,10 @@ public class OutPatientMainTestService extends AppTestService {
 		drug003Order.setPlanEndDate(DateUtil.addDay(startDate, 2));
 		drug003Order.setExecuteDept(deptaaa);
 
-		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003,
-				infusionOrderUseModeToOutPatient));
+		DrugOrderTypeApp drugOrderTypeApp003 = new DrugOrderTypeApp(
+				drugOrderType003, infusionOrderUseModeToOutPatient);
+		drugOrderTypeApp003.setDrugType(drugType003);
+		drug003Order.setTypeApp(drugOrderTypeApp003);
 
 		CompsiteOrder drug002003Order = new CompsiteOrder();
 		drug002003Order.addOrder(drug002Order);
@@ -487,9 +491,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 13:30"));
 
-		
-		//visitAppService.leaveHospital(visit002.getId(), user002);
-		
+		// visitAppService.leaveHospital(visit002.getId(), user002);
+
 		LeaveHospitalDTO leaveHospitalDTO = new LeaveHospitalDTO();
 		leaveHospitalDTO.setVisitId(visit002.getId());
 		leaveHospitalDTO.setOperatorId(user002.getId());
