@@ -20,8 +20,16 @@ interface OrderExecuteRepo extends
 	List<OrderExecute> findByStateAndBelongDeptAndPlanStartDateLessThan(
 			String state, Dept dept, Date planStartDate, Pageable pageable);
 
+	List<OrderExecute> findByStateAndBelongDeptInAndPlanStartDateLessThan(
+			String state, List<Dept> depts, Date planStartDate,
+			Pageable pageable);
+
 	List<OrderExecute> findByStateAndExecuteDeptAndPlanStartDateLessThan(
 			String state, Dept dept, Date planStartDate, Pageable pageable);
+
+	List<OrderExecute> findByStateAndExecuteDeptInAndPlanStartDateLessThan(
+			String state, List<Dept> depts, Date planStartDate,
+			Pageable pageable);
 
 	List<OrderExecute> findByVisitAndTypeAndStateAndExecuteDeptAndPlanStartDateLessThan(
 			Visit visit, String type, String state, Dept dept,

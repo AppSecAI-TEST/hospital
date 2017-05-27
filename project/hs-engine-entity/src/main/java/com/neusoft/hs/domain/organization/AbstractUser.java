@@ -1,5 +1,7 @@
 package com.neusoft.hs.domain.organization;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +19,7 @@ import com.neusoft.hs.platform.user.User;
 @Entity
 @Table(name = "domain_organization_user")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonTypeInfo(use=com.fasterxml.jackson.annotation.JsonTypeInfo.Id.CLASS,include=As.PROPERTY,property="@class")
+@JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.CLASS, include = As.PROPERTY, property = "@class")
 public abstract class AbstractUser extends SuperEntity implements User {
 
 	@Id
@@ -47,6 +49,8 @@ public abstract class AbstractUser extends SuperEntity implements User {
 	public abstract Dept getDept();
 
 	public abstract void setDept(Dept dept);
+
+	public abstract List<Dept> getOperationDepts();
 
 	@Override
 	public String toString() {

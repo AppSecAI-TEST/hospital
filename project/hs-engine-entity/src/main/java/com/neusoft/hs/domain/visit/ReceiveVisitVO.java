@@ -1,27 +1,29 @@
 package com.neusoft.hs.domain.visit;
 
+import com.neusoft.hs.domain.organization.Nurse;
+
 public class ReceiveVisitVO {
 
-	private String visitId;
+	private Visit visit;
 
-	private String nurseId;
+	private Nurse nurse;
 
 	private String bed;
 
-	public String getVisitId() {
-		return visitId;
+	public Visit getVisit() {
+		return visit;
 	}
 
-	public void setVisitId(String visitId) {
-		this.visitId = visitId;
+	public void setVisit(Visit visit) {
+		this.visit = visit;
 	}
 
-	public String getNurseId() {
-		return nurseId;
+	public Nurse getNurse() {
+		return nurse;
 	}
 
-	public void setNurseId(String nurseId) {
-		this.nurseId = nurseId;
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
 	}
 
 	public String getBed() {

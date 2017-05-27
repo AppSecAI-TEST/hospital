@@ -7,10 +7,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 
 @Entity
@@ -19,25 +19,17 @@ public class InPatientDept extends Dept {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
-	private List<Nurse> nurses;
+	private List<Doctor> doctors;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
-	private List<Doctor> doctors;
+	@ManyToMany(mappedBy = "depts", cascade = { CascadeType.REFRESH })
+	private List<InPatientAreaDept> areas;
 
 	public InPatientDept() {
 	}
 
 	public InPatientDept(String id) {
 		this.setId(id);
-	}
-
-	public List<Nurse> getNurses() {
-		return nurses;
-	}
-
-	public void setNurses(List<Nurse> nurses) {
-		this.nurses = nurses;
 	}
 
 	public List<Doctor> getDoctors() {
@@ -47,4 +39,13 @@ public class InPatientDept extends Dept {
 	public void setDoctors(List<Doctor> doctors) {
 		this.doctors = doctors;
 	}
+
+	public List<InPatientAreaDept> getAreas() {
+		return areas;
+	}
+
+	public void setAreas(List<InPatientAreaDept> areas) {
+		this.areas = areas;
+	}
+
 }

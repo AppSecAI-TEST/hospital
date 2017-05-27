@@ -54,6 +54,7 @@ import com.neusoft.hs.domain.organization.CommonDept;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
+import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Org;
 import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
@@ -99,6 +100,7 @@ public class DataIniter {
 	protected Dept deptaaa;// 门诊输液中心
 
 	protected InPatientDept dept000;// 内泌五
+	protected InPatientAreaDept dept000n;// 内泌五护士站
 
 	protected OutPatientDept dept999;// 内分泌门诊
 
@@ -335,7 +337,7 @@ public class DataIniter {
 
 	@Autowired
 	protected PharmacyAppService pharmacyAppService;
-	
+
 	@Autowired
 	protected VisitFacade visitFacade;
 
@@ -647,6 +649,15 @@ public class DataIniter {
 
 		units.add(dept000);
 
+		dept000n = new InPatientAreaDept();
+		dept000n.setId("dept000n");
+		dept000n.setName("内泌五护士站");
+		dept000n.setParent(org);
+		dept000n.setOrg(org);
+		dept000n.addDept(dept000);
+
+		units.add(dept000n);
+
 		dept999 = new OutPatientDept();
 		dept999.setId("dept999");
 		dept999.setName("内分泌门诊");
@@ -821,7 +832,7 @@ public class DataIniter {
 
 		user003.setId("nurse003");
 		user003.setName("内泌五护士-小乔");
-		user003.setDept(dept000);
+		user003.setDept(dept000n);
 
 		users.add(user003);
 

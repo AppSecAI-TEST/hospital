@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.organization;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -13,7 +14,7 @@ import javax.persistence.ManyToOne;
 @Entity
 @DiscriminatorValue("Staff")
 public class Staff extends AbstractUser {
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
@@ -60,6 +61,16 @@ public class Staff extends AbstractUser {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
+	}
+
+	@Override
+	public List<Dept> getOperationDepts() {
+
+		List<Dept> depts = new ArrayList<Dept>();
+
+		depts.add(dept);
+
+		return depts;
 	}
 
 }

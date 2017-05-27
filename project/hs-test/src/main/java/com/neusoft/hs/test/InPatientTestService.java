@@ -27,7 +27,7 @@ public abstract class InPatientTestService extends AppTestService {
 	protected Visit visit001;
 
 	protected int dayCount = 0;
-	
+
 	@Autowired
 	protected InPatientNightTestService inPatientNightTestService;
 
@@ -127,9 +127,9 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 接诊
 		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
-		receiveVisitVO.setVisitId(visit001.getId());
+		receiveVisitVO.setVisit(visit001);
 		receiveVisitVO.setBed("bed001");
-		receiveVisitVO.setNurseId(user003.getId());
+		receiveVisitVO.setNurse(user003);
 
 		inPatientAppService.receive(receiveVisitVO, user001);
 

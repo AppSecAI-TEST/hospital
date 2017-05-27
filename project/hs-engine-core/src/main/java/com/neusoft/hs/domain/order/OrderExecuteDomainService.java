@@ -33,16 +33,16 @@ public class OrderExecuteDomainService {
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
 			Date planStartDate, Pageable pageable) {
 		return orderExecuteRepo
-				.findByStateAndBelongDeptAndPlanStartDateLessThan(
-						OrderExecute.State_NeedSend, nurse.getDept(),
+				.findByStateAndBelongDeptInAndPlanStartDateLessThan(
+						OrderExecute.State_NeedSend, nurse.getOperationDepts(),
 						planStartDate, pageable);
 	}
 
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
 			Date planStartDate, Pageable pageable) {
 		return orderExecuteRepo
-				.findByStateAndExecuteDeptAndPlanStartDateLessThan(
-						OrderExecute.State_Executing, user.getDept(),
+				.findByStateAndExecuteDeptInAndPlanStartDateLessThan(
+						OrderExecute.State_Executing, user.getOperationDepts(),
 						planStartDate, pageable);
 	}
 

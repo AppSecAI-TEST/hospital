@@ -123,10 +123,10 @@ public class VisitDomainService {
 	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
 			throws HsException {
 
-		Visit visit = visitRepo.findOne(receiveVisitVO.getVisitId());
+		Visit visit = visitRepo.findOne(receiveVisitVO.getVisit().getId());
 		if (visit == null) {
-			throw new HsException("visitId=[" + receiveVisitVO.getVisitId()
-					+ "]不存在");
+			throw new HsException("visitId=["
+					+ receiveVisitVO.getVisit().getId() + "]不存在");
 		}
 
 		visit.intoWard(receiveVisitVO, user);

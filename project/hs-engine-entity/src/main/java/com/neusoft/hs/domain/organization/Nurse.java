@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.organization;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -84,6 +85,19 @@ public class Nurse extends AbstractUser {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
+	}
+
+	public List<Dept> getOperationDepts() {
+
+		List<Dept> depts = new ArrayList<Dept>();
+
+		if (dept instanceof InPatientAreaDept) {
+			depts.addAll(((InPatientAreaDept)dept).getDepts());
+		} else {
+			depts.add(dept);
+		}
+
+		return depts;
 	}
 
 }

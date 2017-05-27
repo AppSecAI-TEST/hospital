@@ -95,6 +95,10 @@ public class Visit extends IdEntity {
 	private Dept dept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "area_id")
+	private Dept area;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
 
@@ -235,8 +239,11 @@ public class Visit extends IdEntity {
 		}
 
 		Date sysDate = DateUtil.getSysDate();
-		this.respNurse = new Nurse(receiveVisitVO.getNurseId());
+		
+		this.respNurse = receiveVisitVO.getNurse();
+		this.area = receiveVisitVO.getNurse().getDept();
 		this.bed = receiveVisitVO.getBed();
+		
 		this.setState(State_IntoWard);
 		this.intoWardDate = sysDate;
 
@@ -501,6 +508,14 @@ public class Visit extends IdEntity {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
+	}
+
+	public Dept getArea() {
+		return area;
+	}
+
+	public void setArea(Dept area) {
+		this.area = area;
 	}
 
 	public List<VisitChargeItem> getChargeItems() {

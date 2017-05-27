@@ -101,8 +101,8 @@ public class OrderDomainService {
 	}
 
 	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {
-		return orderRepo.findByStateAndBelongDept(Order.State_Created,
-				nurse.getDept(), pageable);
+		return orderRepo.findByStateAndBelongDeptIn(Order.State_Created,
+				nurse.getOperationDepts(), pageable);
 	}
 
 	/**
