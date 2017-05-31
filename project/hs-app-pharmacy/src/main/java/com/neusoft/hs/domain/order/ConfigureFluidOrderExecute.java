@@ -9,9 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -23,6 +22,10 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_type_id")
 	private DrugType drugType;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fluid_order_id")
+	private ConfigureFluidOrder fluidOrder;
 
 	public static int PlanDateAdvanceHours = 4;// 相对输液配液提前执行小时数
 
@@ -58,5 +61,13 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 
 	public void setDrugType(DrugType drugType) {
 		this.drugType = drugType;
+	}
+
+	public ConfigureFluidOrder getFluidOrder() {
+		return fluidOrder;
+	}
+
+	public void setFluidOrder(ConfigureFluidOrder fluidOrder) {
+		this.fluidOrder = fluidOrder;
 	}
 }
