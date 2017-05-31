@@ -29,7 +29,7 @@ public class PharmacyDomainService {
 
 	@Autowired
 	private DrugUseModeAssistMaterialRepo orderUseModeAssistMaterialRepo;
-	
+
 	@Autowired
 	private PrescriptionRepo prescriptionRepo;
 
@@ -82,7 +82,6 @@ public class PharmacyDomainService {
 	public void createOrderUseModes(List<DrugUseMode> orderUseModes) {
 		orderUseModeRepo.save(orderUseModes);
 	}
-	
 
 	public List<Prescription> findPrescriptions(Visit visit) {
 		return prescriptionRepo.findByVisit(visit);
@@ -90,6 +89,10 @@ public class PharmacyDomainService {
 
 	public Prescription findThePrescription(Order order) {
 		return prescriptionRepo.findByOrdersIn(order);
+	}
+
+	public DrugType findTheDrugType(String id) {
+		return drugTypeRepo.findOne(id);
 	}
 
 	/**

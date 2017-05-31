@@ -136,8 +136,8 @@ public class OutPatientMainTestService extends AppTestService {
 		drug001Order.setCount(1);
 		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
-		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType001,
-				drugType001, oralOrderUseMode));
+		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType001, testUtil
+				.getDrugType(drugType001), oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
 
@@ -217,8 +217,8 @@ public class OutPatientMainTestService extends AppTestService {
 		drug004Order.setCount(20);
 		drug004Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
-		drug004Order.setTypeApp(new DrugOrderTypeApp(drugOrderType004,
-				drugType004, oralOrderUseMode));
+		drug004Order.setTypeApp(new DrugOrderTypeApp(drugOrderType004, testUtil
+				.getDrugType(drugType004), oralOrderUseMode));
 
 		prescription.addOrder(drug004Order);
 
@@ -230,8 +230,8 @@ public class OutPatientMainTestService extends AppTestService {
 		drug005Order.setCount(15);
 		drug005Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
-		drug005Order.setTypeApp(new DrugOrderTypeApp(drugOrderType005,
-				drugType005, oralOrderUseMode));
+		drug005Order.setTypeApp(new DrugOrderTypeApp(drugOrderType005, testUtil
+				.getDrugType(drugType005), oralOrderUseMode));
 
 		prescription.addOrder(drug005Order);
 
@@ -243,8 +243,8 @@ public class OutPatientMainTestService extends AppTestService {
 		drug006Order.setCount(100);
 		drug006Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
-		drug006Order.setTypeApp(new DrugOrderTypeApp(drugOrderType006,
-				drugType006, oralOrderUseMode));
+		drug006Order.setTypeApp(new DrugOrderTypeApp(drugOrderType006, testUtil
+				.getDrugType(drugType006), oralOrderUseMode));
 
 		prescription.addOrder(drug006Order);
 
@@ -281,10 +281,8 @@ public class OutPatientMainTestService extends AppTestService {
 		drug002Order.setPlanEndDate(DateUtil.addDay(startDate, 2));
 		drug002Order.setExecuteDept(deptaaa);
 
-		DrugOrderTypeApp drugOrderTypeApp002 = new DrugOrderTypeApp(
-				drugOrderType002, drugType002, infusionOrderUseModeToOutPatient);
-		drugOrderTypeApp002.setDrugType(drugType002);
-		drug002Order.setTypeApp(drugOrderTypeApp002);
+		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002, testUtil
+				.getDrugType(drugType002), infusionOrderUseModeToOutPatient));
 
 		// 创建药品003长期医嘱
 		LongOrder drug003Order = new LongOrder();
@@ -298,10 +296,8 @@ public class OutPatientMainTestService extends AppTestService {
 		drug003Order.setPlanEndDate(DateUtil.addDay(startDate, 2));
 		drug003Order.setExecuteDept(deptaaa);
 
-		DrugOrderTypeApp drugOrderTypeApp003 = new DrugOrderTypeApp(
-				drugOrderType003, drugType003, infusionOrderUseModeToOutPatient);
-		drugOrderTypeApp003.setDrugType(drugType003);
-		drug003Order.setTypeApp(drugOrderTypeApp003);
+		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003, testUtil
+				.getDrugType(drugType003), infusionOrderUseModeToOutPatient));
 
 		CompsiteOrder drug002003Order = new CompsiteOrder();
 		drug002003Order.addOrder(drug002Order);

@@ -38,7 +38,7 @@ public class DrugType extends SuperEntity {
 	@JoinColumn(name = "pharmacy_id")
 	private Pharmacy pharmacy;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
 
@@ -144,7 +144,7 @@ public class DrugType extends SuperEntity {
 		drugTypeSpec.addDrugType(this);
 	}
 
-	private void save() {
+	public void save() {
 		this.getService(DrugTypeRepo.class).save(this);
 	}
 }
