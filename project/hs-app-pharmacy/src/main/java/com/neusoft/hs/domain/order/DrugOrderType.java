@@ -35,21 +35,6 @@ public class DrugOrderType extends OrderType {
 	public void check(Order order) throws OrderException {
 		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
 				.getTypeApp();
-		if (drugOrderTypeApp.getDrugType() == null) {
-
-			L: for (DrugType drugType : drugTypeSpec.getDrugTypes()) {
-				if (drugType.getStock() >= order.getCount()) {
-					drugOrderTypeApp.setDrugType(drugType);
-					break L;
-				}
-			}
-			if (drugOrderTypeApp.getDrugType() == null) {
-				throw new OrderException(order, "drugTypeSpecId=["
-						+ drugTypeSpec.getId() + "]库存不足");
-			}
-
-		}
-
 		// 临嘱预扣
 		if (order instanceof TemporaryOrder) {
 			try {

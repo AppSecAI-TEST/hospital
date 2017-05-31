@@ -137,7 +137,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
 		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType001,
-				oralOrderUseMode));
+				drugType001, oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
 
@@ -218,7 +218,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug004Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
 		drug004Order.setTypeApp(new DrugOrderTypeApp(drugOrderType004,
-				oralOrderUseMode));
+				drugType004, oralOrderUseMode));
 
 		prescription.addOrder(drug004Order);
 
@@ -231,7 +231,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug005Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
 		drug005Order.setTypeApp(new DrugOrderTypeApp(drugOrderType005,
-				oralOrderUseMode));
+				drugType005, oralOrderUseMode));
 
 		prescription.addOrder(drug005Order);
 
@@ -244,7 +244,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug006Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 
 		drug006Order.setTypeApp(new DrugOrderTypeApp(drugOrderType006,
-				oralOrderUseMode));
+				drugType006, oralOrderUseMode));
 
 		prescription.addOrder(drug006Order);
 
@@ -282,7 +282,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug002Order.setExecuteDept(deptaaa);
 
 		DrugOrderTypeApp drugOrderTypeApp002 = new DrugOrderTypeApp(
-				drugOrderType002, infusionOrderUseModeToOutPatient);
+				drugOrderType002, drugType002, infusionOrderUseModeToOutPatient);
 		drugOrderTypeApp002.setDrugType(drugType002);
 		drug002Order.setTypeApp(drugOrderTypeApp002);
 
@@ -299,7 +299,7 @@ public class OutPatientMainTestService extends AppTestService {
 		drug003Order.setExecuteDept(deptaaa);
 
 		DrugOrderTypeApp drugOrderTypeApp003 = new DrugOrderTypeApp(
-				drugOrderType003, infusionOrderUseModeToOutPatient);
+				drugOrderType003, drugType003, infusionOrderUseModeToOutPatient);
 		drugOrderTypeApp003.setDrugType(drugType003);
 		drug003Order.setTypeApp(drugOrderTypeApp003);
 

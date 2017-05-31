@@ -30,8 +30,10 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 		super();
 	}
 
-	public DrugOrderTypeApp(OrderType orderType, DrugUseMode drugUseMode) {
+	public DrugOrderTypeApp(OrderType orderType, DrugType drugType,
+			DrugUseMode drugUseMode) {
 		super(orderType);
+		this.drugType = drugType;
 		this.drugUseMode = drugUseMode;
 	}
 

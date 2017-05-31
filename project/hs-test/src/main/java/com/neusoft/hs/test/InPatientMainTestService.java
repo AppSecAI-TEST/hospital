@@ -80,7 +80,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
 		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType001,
-				oralOrderUseMode));
+				drugType001, oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
 
@@ -232,10 +232,8 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug002Order.setPlanStartDate(sysDate);
 		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
-		DrugOrderTypeApp drugOrderTypeApp002 = new DrugOrderTypeApp(
-				drugOrderType002, infusionOrderUseModeToInPatient);
-		drugOrderTypeApp002.setDrugType(drugType002p);
-		drug002Order.setTypeApp(drugOrderTypeApp002);
+		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002,
+				drugType002p, infusionOrderUseModeToInPatient));
 
 		// 创建药品003长期医嘱
 		LongOrder drug003Order = new LongOrder();
@@ -248,10 +246,8 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug003Order.setPlanStartDate(sysDate);
 		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
 
-		DrugOrderTypeApp drugOrderTypeApp003 = new DrugOrderTypeApp(
-				drugOrderType003, infusionOrderUseModeToInPatient);
-		drugOrderTypeApp003.setDrugType(drugType003p);
-		drug003Order.setTypeApp(drugOrderTypeApp003);
+		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003,
+				drugType003p, infusionOrderUseModeToInPatient));
 
 		CompsiteOrder drug002003Order = new CompsiteOrder();
 		drug002003Order.addOrder(drug002Order);
