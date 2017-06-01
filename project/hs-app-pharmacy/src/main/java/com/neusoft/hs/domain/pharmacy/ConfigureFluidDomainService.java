@@ -4,6 +4,7 @@ package com.neusoft.hs.domain.pharmacy;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,9 @@ import com.neusoft.hs.domain.organization.InPatientAreaDept;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class ConfigureFluidDomainService {
+
+	@Autowired
+	private ConfigureFluidBatchRepo configureFluidBatchRepo;
 
 	/**
 	 * @param executes
@@ -31,11 +35,20 @@ public class ConfigureFluidDomainService {
 		fluidOrder.setCreator(user);
 		fluidOrder.setArea(area);
 		fluidOrder.setBatch(batch);
-		fluidOrder.setPharmacy((Pharmacy)user.getDept());
+		fluidOrder.setPharmacy((Pharmacy) user.getDept());
 
 		fluidOrder.save();
 
 		return fluidOrder;
 
 	}
+
+	public void createConfigureFluidBatchs(List<ConfigureFluidBatch> batchs) {
+		configureFluidBatchRepo.save(batchs);
+	}
+
+	public void clearConfigureFluidBatch() {
+		configureFluidBatchRepo.deleteAll();
+	}
+
 }

@@ -6,7 +6,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,11 +32,15 @@ public class ConfigureFluidBatch extends SuperEntity {
 	@Column(length = 32)
 	private String name;
 
-	@NotEmpty(message = "开始时间不能为空")
-	private Date begin;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pharmacy_id")
+	private Pharmacy pharmacy;
 
-	@NotEmpty(message = "截止时间不能为空")
-	private Date end;
+	private int beginDate;
+
+	private int endDate;
+
+	private int planExecuteDate;
 
 	public String getId() {
 		return id;
@@ -41,22 +48,6 @@ public class ConfigureFluidBatch extends SuperEntity {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public Date getBegin() {
-		return begin;
-	}
-
-	public void setBegin(Date begin) {
-		this.begin = begin;
-	}
-
-	public Date getEnd() {
-		return end;
-	}
-
-	public void setEnd(Date end) {
-		this.end = end;
 	}
 
 	public String getCode() {
@@ -73,6 +64,38 @@ public class ConfigureFluidBatch extends SuperEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
+	}
+
+	public int getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(int beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public int getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(int endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getPlanExecuteDate() {
+		return planExecuteDate;
+	}
+
+	public void setPlanExecuteDate(int planExecuteDate) {
+		this.planExecuteDate = planExecuteDate;
 	}
 
 }

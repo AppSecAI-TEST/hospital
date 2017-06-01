@@ -2,12 +2,13 @@
 
 package com.neusoft.hs.domain.order;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Map;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
+import com.neusoft.hs.platform.util.DateUtil;
 
 public class ConfigureFluidBatchFilter implements OrderExecuteFilter {
 
@@ -24,11 +25,15 @@ public class ConfigureFluidBatchFilter implements OrderExecuteFilter {
 
 		OrderExecuteFilterCondition condition = new OrderExecuteFilterCondition();
 
-		condition.setBegin(batch.getBegin());
-		condition.setEnd(batch.getEnd());
+		Date begin = DateUtil.addHour(DateUtil.getSysDateStart(),
+				batch.getBeginDate());
+		Date end = DateUtil.addHour(DateUtil.getSysDateStart(),
+				batch.getEndDate());
+		condition.setBegin(begin);
+		condition.setEnd(end);
 
 		condition.setBelongDepts(area.getDepts());
-		
+
 		return condition;
 	}
 

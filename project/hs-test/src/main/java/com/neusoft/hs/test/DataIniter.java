@@ -53,8 +53,8 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.CommonDept;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
+import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Org;
 import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
@@ -68,6 +68,8 @@ import com.neusoft.hs.domain.outpatientoffice.VoucherType;
 import com.neusoft.hs.domain.patient.PatientAdminDomainService;
 import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.domain.pharmacy.AssistMaterial;
+import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
+import com.neusoft.hs.domain.pharmacy.ConfigureFluidDomainService;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
@@ -121,11 +123,11 @@ public class DataIniter {
 	protected Staff user801;// 中药房摆发药岗位-郭嘉
 	protected Staff user901;// 儿科门诊挂号岗位-黄忠
 	protected Nurse usera01;// 门诊输液中心护士-甘夫人
-	
+
 	protected Staff userb01;// 配液中心-摆药岗位-刘禅
 	protected Staff userb02;// 配液中心-配液岗位-关羽
 	protected Staff userb03;// 配液中心-发药岗位-诸葛亮
-	
+
 	protected Staff user001;// 内泌五接诊护士-大乔
 	protected Doctor user002;// 内泌五医生-貂蝉
 	protected Nurse user003;// 内泌五护士-小乔
@@ -179,7 +181,7 @@ public class DataIniter {
 	protected DrugType drugType005;// 药房下的药品类型005（有库存属性）
 
 	protected DrugType drugType006;// 药房下的药品类型006（有库存属性）
-	
+
 	protected DrugType drugType002p;// 配液中心下的药品类型002（有库存属性）
 
 	protected DrugType drugType003p;// 配液中心下的药品类型003（有库存属性）
@@ -195,7 +197,7 @@ public class DataIniter {
 	protected DrugOrderType drugOrderType005;// 药品医嘱类型005
 
 	protected DrugOrderType drugOrderType006;// 药品医嘱类型006
-	
+
 	protected InspectItem brainCTInspectItem;// 脑CT检查项目
 
 	protected InspectItem brainHCInspectItem;// 脑核磁检查项目
@@ -253,6 +255,10 @@ public class DataIniter {
 	protected Disease hyperthyroidismDisease;// 甲状腺功能亢进（甲亢）
 
 	protected Disease hypoglycemiaDisease;// 低血糖
+
+	protected ConfigureFluidBatch morningConfigureFluidBatch;// 上午配液批次
+
+	protected ConfigureFluidBatch afternoonConfigureFluidBatch;// 下午配液批次
 
 	protected Map<ChoiceItem, Object> choices;
 
@@ -367,6 +373,9 @@ public class DataIniter {
 	@Autowired
 	private VisitAdminDomainService visitAdminDomainService;
 
+	@Autowired
+	private ConfigureFluidDomainService configureFluidDomainService;
+
 	public void clone(DataIniter dataIniter) {
 		org = dataIniter.org;
 
@@ -402,7 +411,7 @@ public class DataIniter {
 		userb01 = dataIniter.userb01;
 		userb02 = dataIniter.userb02;
 		userb03 = dataIniter.userb03;
-		
+
 		user001 = dataIniter.user001;
 		user002 = dataIniter.user002;
 		user003 = dataIniter.user003;
@@ -431,7 +440,7 @@ public class DataIniter {
 		drugType004 = dataIniter.drugType004;
 		drugType005 = dataIniter.drugType005;
 		drugType006 = dataIniter.drugType006;
-		
+
 		drugType002p = dataIniter.drugType002p;
 		drugType003p = dataIniter.drugType003p;
 
@@ -479,6 +488,9 @@ public class DataIniter {
 
 		hyperthyroidismDisease = dataIniter.hyperthyroidismDisease;
 		hypoglycemiaDisease = dataIniter.hypoglycemiaDisease;
+
+		morningConfigureFluidBatch = dataIniter.morningConfigureFluidBatch;
+		afternoonConfigureFluidBatch = dataIniter.afternoonConfigureFluidBatch;
 
 		choices = dataIniter.choices;
 	}
@@ -530,6 +542,8 @@ public class DataIniter {
 		visitAdminDomainService.clear();
 		// 清空患者
 		patientAdminDomainService.clear();
+		// 清空配液批次
+		configureFluidDomainService.clearConfigureFluidBatch();
 		// 清空用户信息
 		userAdminDomainService.clear();
 		// 清空门诊诊室
@@ -572,6 +586,8 @@ public class DataIniter {
 		initVoucherTypes();
 
 		initDiseases();
+
+		initConfigureFluidBatchs();
 	}
 
 	private void initOrgs() {
@@ -655,7 +671,7 @@ public class DataIniter {
 		deptaaa.setOrg(org);
 
 		units.add(deptaaa);
-		
+
 		deptbbb = new Pharmacy();
 		deptbbb.setId("deptbbb");
 		deptbbb.setName("配液中心");
@@ -826,7 +842,7 @@ public class DataIniter {
 		usera01.setDept(deptaaa);
 
 		users.add(usera01);
-		
+
 		userb01 = new Staff();
 
 		userb01.setId("staffb01");
@@ -834,7 +850,7 @@ public class DataIniter {
 		userb01.setDept(deptbbb);
 
 		users.add(userb01);
-		
+
 		userb02 = new Staff();
 
 		userb02.setId("staffb02");
@@ -842,7 +858,7 @@ public class DataIniter {
 		userb02.setDept(deptbbb);
 
 		users.add(userb02);
-		
+
 		userb03 = new Staff();
 
 		userb03.setId("staffb03");
@@ -850,7 +866,6 @@ public class DataIniter {
 		userb03.setDept(deptbbb);
 
 		users.add(userb03);
-		
 
 		user001 = new Staff();
 
@@ -1124,7 +1139,7 @@ public class DataIniter {
 		drugType006.setStock(2000);
 
 		drugTypes.add(drugType006);
-		
+
 		drugType002p = new DrugType();
 		drugType002p.setId("drugType002p");
 		drugType002p.setDrugTypeSpec(drugTypeSpec002);
@@ -1218,7 +1233,7 @@ public class DataIniter {
 		drugOrderType006.setDrugTypeSpec(drugTypeSpec006);
 
 		orderTypes.add(drugOrderType006);
-		
+
 		enterHospitalOrderType = new EnterHospitalOrderType();
 		enterHospitalOrderType.setId("enterHospitalOrderType");
 		enterHospitalOrderType.setCode("enterHospitalOrderType");
@@ -1515,6 +1530,35 @@ public class DataIniter {
 		diseases.add(hypoglycemiaDisease);
 
 		diseaseAdminDomainService.createDiseases(diseases);
+	}
+
+	private void initConfigureFluidBatchs() {
+
+		List<ConfigureFluidBatch> batchs = new ArrayList<ConfigureFluidBatch>();
+
+		morningConfigureFluidBatch = new ConfigureFluidBatch();
+		morningConfigureFluidBatch.setId("上午配液");
+		morningConfigureFluidBatch.setCode("上午配液");
+		morningConfigureFluidBatch.setName("上午配液");
+		morningConfigureFluidBatch.setBeginDate(0);
+		morningConfigureFluidBatch.setEndDate(12);
+		morningConfigureFluidBatch.setPlanExecuteDate(9);
+		morningConfigureFluidBatch.setPharmacy(deptbbb);
+
+		batchs.add(morningConfigureFluidBatch);
+
+		afternoonConfigureFluidBatch = new ConfigureFluidBatch();
+		afternoonConfigureFluidBatch.setId("下午配液");
+		afternoonConfigureFluidBatch.setCode("下午配液");
+		afternoonConfigureFluidBatch.setName("下午配液");
+		afternoonConfigureFluidBatch.setBeginDate(12);
+		afternoonConfigureFluidBatch.setEndDate(24);
+		afternoonConfigureFluidBatch.setPlanExecuteDate(14);
+		afternoonConfigureFluidBatch.setPharmacy(deptbbb);
+
+		batchs.add(afternoonConfigureFluidBatch);
+
+		configureFluidDomainService.createConfigureFluidBatchs(batchs);
 	}
 
 }
