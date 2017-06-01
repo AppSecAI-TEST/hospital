@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
@@ -124,4 +125,20 @@ public class OrderExecuteDomainService {
 		return orderExecuteRepo.findOne(executeId);
 	}
 
+	public List<OrderExecute> find(OrderExecuteFilter filter,
+			Map<String, Object> params, AbstractUser user, Pageable pageable) {
+		OrderExecuteFilterCondition condition = filter.createCondition(params,
+				user);
+
+		Date begin = condition.getBegin();
+		Date end = condition.getEnd();
+
+		List<? extends Dept> belongDepts = condition.getBelongDepts();
+
+		return orderExecuteRepo
+				.findByStateAndBelongDeptInAndPlanStartDateLessThanAndPlanEndDateGreaterThan(
+						OrderExecute.State_Executing, belongDepts, begin, end,
+						pageable);
+
+	}
 }

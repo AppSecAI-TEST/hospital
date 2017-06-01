@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
+import com.neusoft.hs.domain.order.OrderExecuteFilter;
+import com.neusoft.hs.domain.order.OrderExecuteFilterCondition;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.visit.Visit;
@@ -51,6 +53,26 @@ public class OrderExecuteAppService {
 		return orderExecuteDomainService.start();
 	}
 
+	/**
+	 * @param user
+	 * @param executeId
+	 * @roseuid 584FB68C010C
+	 */
+	public void finish(String executeId, Map<String, Object> params,
+			AbstractUser user) throws OrderExecuteException {
+		OrderExecute execute = orderExecuteDomainService.find(executeId);
+		if (execute == null) {
+			throw new OrderExecuteException(null, "executeId=[" + executeId
+					+ "]不存在");
+		}
+		orderExecuteDomainService.finish(execute, params, user);
+	}
+
+	public List<OrderExecute> find(OrderExecuteFilter filter,
+			Map<String, Object> params, AbstractUser user, Pageable pageable) {
+		return orderExecuteDomainService.find(filter, params, user, pageable);
+	}
+
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
 			Pageable pageable) {
 		Date planStartDate = DateUtil.addMinute(DateUtil.getSysDate(),
@@ -67,18 +89,4 @@ public class OrderExecuteAppService {
 				type, user, planStartDate, pageable);
 	}
 
-	/**
-	 * @param user
-	 * @param executeId
-	 * @roseuid 584FB68C010C
-	 */
-	public void finish(String executeId, Map<String, Object> params,
-			AbstractUser user) throws OrderExecuteException {
-		OrderExecute execute = orderExecuteDomainService.find(executeId);
-		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
-		}
-		orderExecuteDomainService.finish(execute, params, user);
-	}
 }
