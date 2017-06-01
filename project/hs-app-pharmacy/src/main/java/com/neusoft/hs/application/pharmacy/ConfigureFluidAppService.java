@@ -31,7 +31,7 @@ public class ConfigureFluidAppService {
 
 	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
-	
+
 	@Autowired
 	private PrintDomainService printDomainService;
 
@@ -40,8 +40,8 @@ public class ConfigureFluidAppService {
 	 * @param inpatientAreaDept
 	 * @roseuid 592E613203CB
 	 */
-	public void print(InPatientAreaDept area, ConfigureFluidBatch batch,
-			AbstractUser user) {
+	public ConfigureFluidOrder print(InPatientAreaDept area,
+			ConfigureFluidBatch batch, AbstractUser user) {
 		ConfigureFluidBatchFilter filter = new ConfigureFluidBatchFilter();
 
 		filter.setArea(area);
@@ -51,6 +51,10 @@ public class ConfigureFluidAppService {
 
 		List<OrderExecute> executes = orderExecuteAppService.find(filter, null,
 				user, pageable);
+
+		if (executes == null || executes.size() == 0) {
+			return null;
+		}
 
 		List<ConfigureFluidOrderExecute> fluidOrderExecutes = new ArrayList<ConfigureFluidOrderExecute>();
 		executes.forEach(item -> {
@@ -63,10 +67,12 @@ public class ConfigureFluidAppService {
 			}
 		});
 
-		ConfigureFluidOrder fluidOrder = configureFluidDomainService.createOrder(area, batch,
-				fluidOrderExecutes, user);
-		
+		ConfigureFluidOrder fluidOrder = configureFluidDomainService
+				.createOrder(area, batch, fluidOrderExecutes, user);
+
 		printDomainService.print(fluidOrder);
+
+		return fluidOrder;
 
 	}
 }

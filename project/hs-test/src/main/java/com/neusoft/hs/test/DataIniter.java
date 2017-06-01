@@ -14,6 +14,7 @@ import com.neusoft.hs.application.inspect.InspectAppService;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
+import com.neusoft.hs.application.pharmacy.ConfigureFluidAppService;
 import com.neusoft.hs.application.pharmacy.PharmacyAppService;
 import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
@@ -356,6 +357,9 @@ public class DataIniter {
 	protected VisitFacade visitFacade;
 
 	@Autowired
+	protected ConfigureFluidAppService configureFluidAppService;
+
+	@Autowired
 	private CostAdminDomainService costAdminDomainService;
 
 	@Autowired
@@ -391,6 +395,7 @@ public class DataIniter {
 		dept999 = dataIniter.dept999;
 		deptaaa = dataIniter.deptaaa;
 		deptbbb = dataIniter.deptbbb;
+		dept000n = dataIniter.dept000n;
 
 		room901 = dataIniter.room901;
 
@@ -542,6 +547,8 @@ public class DataIniter {
 		visitAdminDomainService.clear();
 		// 清空患者
 		patientAdminDomainService.clear();
+		// 清空配液单
+		configureFluidDomainService.clearConfigureFluidOrder();
 		// 清空配液批次
 		configureFluidDomainService.clearConfigureFluidBatch();
 		// 清空用户信息

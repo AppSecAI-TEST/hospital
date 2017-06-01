@@ -64,9 +64,9 @@
 		<appender-ref ref="CONSOLE" /> 
 		<!-- <appender-ref ref="INFO_FILE" /> <appender-ref ref="ERROR_FILE" /> -->
 	</root>
-
+	<!-- 
 	<logger name="com.neusoft.hs">
 		<appender-ref ref="INFO_FILE" />
 	</logger>
-
+ 	-->
 </configuration>

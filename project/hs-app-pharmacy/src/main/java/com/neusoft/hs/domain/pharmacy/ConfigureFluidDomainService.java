@@ -18,6 +18,9 @@ public class ConfigureFluidDomainService {
 
 	@Autowired
 	private ConfigureFluidBatchRepo configureFluidBatchRepo;
+	
+	@Autowired
+	private ConfigureFluidOrderRepo configureFluidOrderRepo;
 
 	/**
 	 * @param executes
@@ -41,6 +44,10 @@ public class ConfigureFluidDomainService {
 
 		return fluidOrder;
 
+	}
+	
+	public void clearConfigureFluidOrder() {
+		configureFluidOrderRepo.deleteAll();
 	}
 
 	public void createConfigureFluidBatchs(List<ConfigureFluidBatch> batchs) {
