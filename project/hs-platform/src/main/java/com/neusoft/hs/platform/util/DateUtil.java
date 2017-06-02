@@ -122,7 +122,7 @@ public class DateUtil {
 
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(date);
-		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
@@ -139,4 +139,12 @@ public class DateUtil {
 			return new Long(dayTime / 86400000).intValue();
 		}
 	}
+	
+	public static void main(String[] args) throws HsException {
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
+		
+		System.out.println(DateUtil.toString(DateUtil.getDateStart(DateUtil.getSysDate())));
+	}
+	
+	
 }

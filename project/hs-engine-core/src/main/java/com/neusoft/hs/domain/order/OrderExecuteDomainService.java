@@ -136,7 +136,7 @@ public class OrderExecuteDomainService {
 		List<? extends Dept> belongDepts = condition.getBelongDepts();
 
 		return orderExecuteRepo
-				.findByStateAndBelongDeptInAndPlanStartDateLessThanAndPlanEndDateGreaterThan(
+				.findByStateAndBelongDeptInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
 						OrderExecute.State_Executing, belongDepts, begin, end,
 						pageable);
 

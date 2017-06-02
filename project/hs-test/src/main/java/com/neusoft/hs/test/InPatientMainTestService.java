@@ -22,6 +22,7 @@ import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;

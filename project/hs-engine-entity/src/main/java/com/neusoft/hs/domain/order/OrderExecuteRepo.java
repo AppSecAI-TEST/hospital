@@ -37,7 +37,7 @@ interface OrderExecuteRepo extends
 
 	List<OrderExecute> findByChargeState(String chargeState, Pageable pageable);
 
-	List<OrderExecute> findByStateAndBelongDeptInAndPlanStartDateLessThanAndPlanEndDateGreaterThan(
+	List<OrderExecute> findByStateAndBelongDeptInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
 			String state, List<? extends Dept> belongDepts,
 			Date begin, Date end, Pageable pageable);
 
