@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.order.ConfigureFluidBatchFilter;
 import com.neusoft.hs.domain.order.ConfigureFluidOrderExecute;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteDomainService;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
@@ -33,15 +35,20 @@ public class ConfigureFluidAppService {
 	private OrderExecuteAppService orderExecuteAppService;
 
 	@Autowired
+	private OrderExecuteDomainService orderExecuteDomainService;
+
+	@Autowired
 	private PrintDomainService printDomainService;
 
 	/**
 	 * @param batch
 	 * @param inpatientAreaDept
+	 * @throws OrderExecuteException
 	 * @roseuid 592E613203CB
 	 */
 	public ConfigureFluidOrder print(InPatientAreaDept area,
-			ConfigureFluidBatch batch, AbstractUser user) {
+			ConfigureFluidBatch batch, AbstractUser user)
+			throws OrderExecuteException {
 		ConfigureFluidBatchFilter filter = new ConfigureFluidBatchFilter();
 
 		filter.setArea(area);
@@ -71,6 +78,10 @@ public class ConfigureFluidAppService {
 				.createOrder(area, batch, fluidOrderExecutes, user);
 
 		printDomainService.print(fluidOrder);
+
+		for (OrderExecute execute : executes) {
+			orderExecuteDomainService.finish(execute, null, user);
+		}
 
 		return fluidOrder;
 
