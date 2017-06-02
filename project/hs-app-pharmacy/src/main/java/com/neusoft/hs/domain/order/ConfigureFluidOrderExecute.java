@@ -27,7 +27,7 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 	@JoinColumn(name = "fluid_order_id")
 	private ConfigureFluidOrder fluidOrder;
 
-	public static int PlanDateAdvanceHours = 4;// 相对输液配液提前执行小时数
+	public static int PlanDateAdvanceHours = 2;// 相对输液配液提前执行小时数
 
 	@Override
 	protected void doFinish(Map<String, Object> params, AbstractUser user)

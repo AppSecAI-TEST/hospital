@@ -87,7 +87,6 @@ public class DrugOrderType extends OrderType {
 			} else {
 				resolveDays = DateUtil.calDay(longorder.getPlanStartDate(),
 						longorder.getPlanEndDate());// 门诊长嘱一次性分解完
-
 			}
 			for (int day = 0; day < resolveDays; day++) {
 				// 计算执行时间

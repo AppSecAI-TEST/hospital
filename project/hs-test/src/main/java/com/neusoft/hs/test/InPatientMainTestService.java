@@ -22,7 +22,6 @@ import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
-import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
@@ -273,7 +272,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 6);
+		assertTrue(executes.size() == 4);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -282,21 +281,20 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05", dayCount));
 
-		// pageable = new PageRequest(0, 15);
-		// executes =
-		// orderExecuteAppService.getNeedExecuteOrderExecutes(userb02,
-		// pageable);
-		//
-		// assertTrue(executes.size() == 2);
-		//
-		// // 完成配液医嘱执行条目
-		// for (OrderExecute execute : executes) {
-		// orderExecuteAppService.finish(execute.getId(), null, userb02);
-		// }
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userb02,
+				pageable);
 
-		ConfigureFluidOrder fluidOrder = configureFluidAppService.print(
-				dept000n, afternoonConfigureFluidBatch, userb02);
-		assertTrue(fluidOrder.getExecutes().size() == 2);
+		assertTrue(executes.size() == 2);
+
+		// 完成配液医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, userb02);
+		}
+
+//		ConfigureFluidOrder fluidOrder = configureFluidAppService.print(
+//				dept000n, afternoonConfigureFluidBatch, userb02);
+//		assertTrue(fluidOrder.getExecutes().size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30", dayCount));
 
@@ -320,7 +318,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 4);
 
 		// 发送医嘱执行条目
 		for (OrderExecute execute : executes) {
