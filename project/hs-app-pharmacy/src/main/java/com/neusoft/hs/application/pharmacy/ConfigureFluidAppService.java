@@ -22,6 +22,7 @@ import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidDomainService;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
+import com.neusoft.hs.domain.pharmacy.PharmacyException;
 import com.neusoft.hs.platform.print.PrintDomainService;
 
 @Service
@@ -79,11 +80,25 @@ public class ConfigureFluidAppService {
 
 		printDomainService.print(fluidOrder);
 
-		for (OrderExecute execute : executes) {
-			orderExecuteDomainService.finish(execute, null, user);
+		return fluidOrder;
+	}
+
+	/**
+	 * @param fluidOrderId
+	 * @throws PharmacyException
+	 * @throws OrderExecuteException
+	 * @roseuid 5930F45401DC
+	 */
+	public ConfigureFluidOrder finish(String fluidOrderId, AbstractUser user)
+			throws PharmacyException, OrderExecuteException {
+		ConfigureFluidOrder fluidOrder = configureFluidDomainService
+				.getConfigureFluidOrder(fluidOrderId);
+		if (fluidOrder == null) {
+			throw new PharmacyException("fluidOrderId=[" + fluidOrderId
+					+ "]不存在");
 		}
+		configureFluidDomainService.finishOrder(fluidOrder, user);
 
 		return fluidOrder;
-
 	}
 }

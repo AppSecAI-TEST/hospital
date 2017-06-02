@@ -4,6 +4,6 @@ package com.neusoft.hs.domain.pharmacy;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ConfigureFluidOrderRepo extends
+interface ConfigureFluidOrderRepo extends
 		PagingAndSortingRepository<ConfigureFluidOrder, String> {
 }
