@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
@@ -10,11 +11,11 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.NumberUtil;
 
 @Entity
 @DiscriminatorValue("DispensingDrug")
@@ -24,9 +25,17 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 	@JoinColumn(name = "drug_type_id")
 	private DrugType drugType;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "dispense_drug_win_id")
+	private DispenseDrugWin dispenseDrugWin;
+
 	@Override
-	protected void doSend() throws OrderExecuteException {
-		
+	protected void doExecuteBefore() throws OrderExecuteException {
+		List<DispenseDrugWin> wins = this.drugType.getPharmacy()
+				.getDispenseDrugWins();
+		if (wins != null && wins.size() > 0) {
+			dispenseDrugWin = wins.get(NumberUtil.random(wins.size()));
+		}
 	}
 
 	@Override
@@ -54,5 +63,13 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 
 	public void setDrugType(DrugType drugType) {
 		this.drugType = drugType;
+	}
+
+	public DispenseDrugWin getDispenseDrugWin() {
+		return dispenseDrugWin;
+	}
+
+	public void setDispenseDrugWin(DispenseDrugWin dispenseDrugWin) {
+		this.dispenseDrugWin = dispenseDrugWin;
 	}
 }

@@ -17,6 +17,7 @@ import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.exception.HsException;
@@ -39,11 +40,12 @@ public class OrderAppService {
 	/**
 	 * @param doctor
 	 * @param order
+	 * @throws OrderExecuteException
 	 * @throws HsException
 	 * @roseuid 584E5239011A
 	 */
 	public List<Order> create(OrderCreateCommand orderCommand, Doctor doctor)
-			throws OrderException {
+			throws OrderException, OrderExecuteException {
 		return orderDomainService.create(orderCommand, doctor);
 	}
 
@@ -54,10 +56,12 @@ public class OrderAppService {
 	/**
 	 * @param nurse
 	 * @param orderId
+	 * @throws OrderExecuteException
 	 * @throws HsException
 	 * @roseuid 584F48660279
 	 */
-	public Order verify(String orderId, Nurse nurse) throws OrderException {
+	public Order verify(String orderId, Nurse nurse) throws OrderException,
+			OrderExecuteException {
 		Order order = orderDomainService.find(orderId);
 		if (order == null) {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");

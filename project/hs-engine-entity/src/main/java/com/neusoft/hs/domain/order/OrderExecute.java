@@ -196,7 +196,6 @@ public class OrderExecute extends IdEntity {
 			throw new OrderExecuteException(this, "state=[" + this.state
 					+ "]不是" + State_NeedSend);
 		}
-		this.doSend();
 
 		this.updateState();
 		this.sendDate = DateUtil.getSysDate();
@@ -205,22 +204,23 @@ public class OrderExecute extends IdEntity {
 	}
 
 	/**
-	 * 发送医嘱条目回调函数
+	 * 医嘱条目执行前回调函数
 	 * 
 	 * @throws OrderExecuteException
 	 */
-	protected void doSend() throws OrderExecuteException {
-		// TODO Auto-generated method stub
-
+	protected void doExecuteBefore() throws OrderExecuteException {
 	}
 
 	/**
 	 * 根据系统时间更新执行条目状态
+	 * 
+	 * @throws OrderExecuteException
 	 */
-	public void updateState() {
+	public void updateState() throws OrderExecuteException {
 		Date sysDate = DateUtil.getSysDate();
 		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
 		if (this.planStartDate != null && this.planStartDate.before(startDate)) {
+			this.doExecuteBefore();
 			this.state = State_Executing;
 			this.startDate = sysDate;
 		} else {
@@ -259,6 +259,7 @@ public class OrderExecute extends IdEntity {
 
 		OrderExecute next = this.getNext();
 		if (next != null) {
+			next.doExecuteBefore();
 			next.setState(OrderExecute.State_Executing);
 			next.setStartDate(sysDate);
 

@@ -43,11 +43,12 @@ public class OrderDomainService {
 	 * 
 	 * @param doctor
 	 * @param order
-	 * @throws HsException
+	 * @throws OrderExecuteException
+	 * @throws OrderException
 	 * @roseuid 584E526102FB
 	 */
 	public List<Order> create(OrderCreateCommand orderCommand, Doctor doctor)
-			throws OrderException {
+			throws OrderException, OrderExecuteException {
 
 		List<Order> orders = new ArrayList<Order>();
 
@@ -110,10 +111,12 @@ public class OrderDomainService {
 	 * 
 	 * @param nurse
 	 * @param order
+	 * @throws OrderExecuteException
 	 * @throws HsException
 	 * @roseuid 584F489E03D2
 	 */
-	public Order verify(Order order, Nurse nurse) throws OrderException {
+	public Order verify(Order order, Nurse nurse) throws OrderException,
+			OrderExecuteException {
 
 		order.verify();
 
@@ -141,6 +144,8 @@ public class OrderDomainService {
 			try {
 				count += longOrder.resolve();
 			} catch (OrderException e) {
+				e.printStackTrace();
+			} catch (OrderExecuteException e) {
 				e.printStackTrace();
 			}
 		}

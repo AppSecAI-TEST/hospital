@@ -161,8 +161,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * 
 	 * @return
 	 * @throws OrderException
+	 * @throws OrderExecuteException
 	 */
-	public int verify() throws OrderException {
+	public int verify() throws OrderException, OrderExecuteException {
 		this.setState(State_Executing);
 		int count = this.resolve();
 		this.typeApp.verify();
@@ -173,9 +174,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * 医嘱条目分解 该功能将委托给@OrderType.resolveOrder完成
 	 * 
 	 * @throws OrderException
+	 * @throws OrderExecuteException
 	 * @roseuid 584F494100C2
 	 */
-	public int resolve() throws OrderException {
+	public int resolve() throws OrderException, OrderExecuteException {
 		if (!this.state.equals(State_Executing)) {
 			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
 					+ this.state + "],不能分解");
