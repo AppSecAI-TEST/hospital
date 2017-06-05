@@ -25,6 +25,11 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 	private DrugType drugType;
 
 	@Override
+	protected void doSend() throws OrderExecuteException {
+		
+	}
+
+	@Override
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
 		try {

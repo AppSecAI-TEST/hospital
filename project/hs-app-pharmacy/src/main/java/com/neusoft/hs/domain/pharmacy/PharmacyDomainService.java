@@ -22,6 +22,9 @@ public class PharmacyDomainService {
 	private PharmacyRepo pharmacyRepo;
 
 	@Autowired
+	private DispenseDrugWinRepo dispenseDrugWinRepo;
+
+	@Autowired
 	private DrugTypeRepo drugTypeRepo;
 
 	@Autowired
@@ -51,6 +54,14 @@ public class PharmacyDomainService {
 
 	public void clearPharmacys() {
 		pharmacyRepo.deleteAll();
+	}
+
+	public void createDispenseDrugWins(List<DispenseDrugWin> dispenseDrugWins) {
+		dispenseDrugWinRepo.save(dispenseDrugWins);
+	}
+
+	public void clearDispenseDrugWins() {
+		dispenseDrugWinRepo.deleteAll();
 	}
 
 	public void createDrugTypes(List<DrugType> drugTypes) {
@@ -108,4 +119,5 @@ public class PharmacyDomainService {
 	private void unSend() {
 
 	}
+
 }

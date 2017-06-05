@@ -61,6 +61,27 @@ public class OrderExecuteDomainService {
 		return orderExecuteRepo.findByChargeState(
 				OrderExecute.ChargeState_NeedBackCharge, pageable);
 	}
+	
+	public OrderExecute find(String executeId) {
+		return orderExecuteRepo.findOne(executeId);
+	}
+
+	public List<OrderExecute> find(OrderExecuteFilter filter,
+			Map<String, Object> params, AbstractUser user, Pageable pageable) {
+		OrderExecuteFilterCondition condition = filter.createCondition(params,
+				user);
+
+		Date begin = condition.getBegin();
+		Date end = condition.getEnd();
+
+		List<? extends Dept> belongDepts = condition.getBelongDepts();
+
+		return orderExecuteRepo
+				.findByStateAndBelongDeptInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+						OrderExecute.State_Executing, belongDepts, begin, end,
+						pageable);
+
+	}
 
 	/**
 	 * 发送医嘱执行条目
@@ -119,26 +140,5 @@ public class OrderExecuteDomainService {
 		LogUtil.log(this.getClass(), "用户[{}]完成了患者一次就诊[{}]的医嘱执行条目{},类型为[{}]",
 				user.getId(), execute.getVisit().getName(), execute.getId(),
 				execute.getType());
-	}
-
-	public OrderExecute find(String executeId) {
-		return orderExecuteRepo.findOne(executeId);
-	}
-
-	public List<OrderExecute> find(OrderExecuteFilter filter,
-			Map<String, Object> params, AbstractUser user, Pageable pageable) {
-		OrderExecuteFilterCondition condition = filter.createCondition(params,
-				user);
-
-		Date begin = condition.getBegin();
-		Date end = condition.getEnd();
-
-		List<? extends Dept> belongDepts = condition.getBelongDepts();
-
-		return orderExecuteRepo
-				.findByStateAndBelongDeptInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
-						OrderExecute.State_Executing, belongDepts, begin, end,
-						pageable);
-
 	}
 }

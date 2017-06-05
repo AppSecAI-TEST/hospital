@@ -196,10 +196,22 @@ public class OrderExecute extends IdEntity {
 			throw new OrderExecuteException(this, "state=[" + this.state
 					+ "]不是" + State_NeedSend);
 		}
+		this.doSend();
+
 		this.updateState();
 		this.sendDate = DateUtil.getSysDate();
 
 		this.order.setStateDesc(this.type + "执行条目已发送");
+	}
+
+	/**
+	 * 发送医嘱条目回调函数
+	 * 
+	 * @throws OrderExecuteException
+	 */
+	protected void doSend() throws OrderExecuteException {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**

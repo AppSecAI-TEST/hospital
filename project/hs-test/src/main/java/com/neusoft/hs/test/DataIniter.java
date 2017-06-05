@@ -71,6 +71,7 @@ import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.domain.pharmacy.AssistMaterial;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidDomainService;
+import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
@@ -109,6 +110,10 @@ public class DataIniter {
 	protected OutPatientDept dept999;// 内分泌门诊
 
 	protected OutPatientRoom room901;// 内分泌门诊一诊室
+
+	protected DispenseDrugWin dispenseDrugWin01;// 西药房摆药窗口01
+
+	protected DispenseDrugWin dispenseDrugWin02;// 西药房摆药窗口02
 
 	protected Staff user101;// 住院处送诊人-曹操
 	protected Staff user201;// 住院收费处-张飞
@@ -398,6 +403,8 @@ public class DataIniter {
 		dept000n = dataIniter.dept000n;
 
 		room901 = dataIniter.room901;
+		dispenseDrugWin01 = dataIniter.dispenseDrugWin01;
+		dispenseDrugWin02 = dataIniter.dispenseDrugWin02;
 
 		user101 = dataIniter.user101;
 		user201 = dataIniter.user201;
@@ -553,6 +560,8 @@ public class DataIniter {
 		configureFluidDomainService.clearConfigureFluidBatch();
 		// 清空用户信息
 		userAdminDomainService.clear();
+		// 清空摆药窗口
+		pharmacyDomainService.clearDispenseDrugWins();
 		// 清空门诊诊室
 		outPatientPlanDomainService.clearRoom();
 		// 清空组织机构信息
@@ -565,6 +574,8 @@ public class DataIniter {
 		initOrgs();
 
 		initRooms();
+
+		initDispenseDrugWins();
 
 		initUsers();
 
@@ -732,6 +743,31 @@ public class DataIniter {
 		rooms.add(room901);
 
 		outPatientPlanDomainService.createRooms(rooms);
+	}
+
+	private void initDispenseDrugWins() {
+
+		List<DispenseDrugWin> dispenseDrugWins = new ArrayList<DispenseDrugWin>();
+
+		dispenseDrugWin01 = new DispenseDrugWin();
+		dispenseDrugWin01.setId("dispenseDrugWin01");
+		dispenseDrugWin01.setName("西药房摆药窗口01");
+		dispenseDrugWin01.setPharmacy(dept333);
+		
+		dispenseDrugWin01.setState(DispenseDrugWin.State_Normal);
+
+		dispenseDrugWins.add(dispenseDrugWin01);
+
+		dispenseDrugWin02 = new DispenseDrugWin();
+		dispenseDrugWin02.setId("dispenseDrugWin02");
+		dispenseDrugWin02.setName("西药房摆药窗口01");
+		dispenseDrugWin02.setPharmacy(dept333);
+		
+		dispenseDrugWin02.setState(DispenseDrugWin.State_Normal);
+
+		dispenseDrugWins.add(dispenseDrugWin02);
+
+		pharmacyDomainService.createDispenseDrugWins(dispenseDrugWins);
 	}
 
 	private void initUsers() {

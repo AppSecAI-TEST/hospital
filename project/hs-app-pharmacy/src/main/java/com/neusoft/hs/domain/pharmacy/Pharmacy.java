@@ -26,6 +26,10 @@ public class Pharmacy extends Dept {
 	@OneToMany(mappedBy = "pharmacy", cascade = { CascadeType.ALL })
 	private List<DrugType> drugTypes;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "pharmacy", cascade = { CascadeType.ALL })
+	private List<DispenseDrugWin> dispenseDrugWins;
+
 	public List<DrugType> getDrugTypes() {
 		return drugTypes;
 	}
@@ -34,4 +38,11 @@ public class Pharmacy extends Dept {
 		this.drugTypes = drugTypes;
 	}
 
+	public List<DispenseDrugWin> getDispenseDrugWins() {
+		return dispenseDrugWins;
+	}
+
+	public void setDispenseDrugWins(List<DispenseDrugWin> dispenseDrugWins) {
+		this.dispenseDrugWins = dispenseDrugWins;
+	}
 }

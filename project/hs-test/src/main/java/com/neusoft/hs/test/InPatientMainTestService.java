@@ -282,6 +282,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05", dayCount));
 
+		// //以执行条目方式完成配液
 		// pageable = new PageRequest(0, 15);
 		// executes =
 		// orderExecuteAppService.getNeedExecuteOrderExecutes(userb02,

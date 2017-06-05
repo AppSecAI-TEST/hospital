@@ -52,6 +52,9 @@ public class ConfigureFluidDomainService {
 		fluidOrder.setState(ConfigureFluidOrder.State_NeedExecute);
 
 		fluidOrder.save();
+		
+		applicationContext.publishEvent(new ConfigureFluidOrderCreatedEvent(
+				fluidOrder));
 
 		LogUtil.log(this.getClass(), "人员[{}]创建了住院病区[{}]批次为[{}]的配液单[{}]",
 				user.getId(), area.getName(), batch.getName(),
