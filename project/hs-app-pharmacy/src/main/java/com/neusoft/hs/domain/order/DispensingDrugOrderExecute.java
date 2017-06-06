@@ -19,11 +19,7 @@ import com.neusoft.hs.platform.util.NumberUtil;
 
 @Entity
 @DiscriminatorValue("DispensingDrug")
-public class DispensingDrugOrderExecute extends OrderExecute {
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "drug_type_id")
-	private DrugType drugType;
+public class DispensingDrugOrderExecute extends DrugOrderExecute {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dispense_drug_win_id")
@@ -31,7 +27,7 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 
 	@Override
 	protected void doExecuteBefore() throws OrderExecuteException {
-		List<DispenseDrugWin> wins = this.drugType.getPharmacy()
+		List<DispenseDrugWin> wins = this.getDrugType().getPharmacy()
 				.getDispenseDrugWins();
 		if (wins != null && wins.size() > 0) {
 			dispenseDrugWin = wins.get(NumberUtil.random(wins.size()));
@@ -42,7 +38,7 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
 		try {
-			drugType.send(getCount());
+			this.getDrugType().send(getCount());
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
@@ -51,18 +47,10 @@ public class DispensingDrugOrderExecute extends OrderExecute {
 	@Override
 	protected void doCancel() throws OrderExecuteException {
 		try {
-			drugType.unSend(getCount());
+			this.getDrugType().unSend(getCount());
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
-	}
-
-	public DrugType getDrugType() {
-		return drugType;
-	}
-
-	public void setDrugType(DrugType drugType) {
-		this.drugType = drugType;
 	}
 
 	public DispenseDrugWin getDispenseDrugWin() {

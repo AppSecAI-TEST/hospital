@@ -11,17 +11,12 @@ import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
-import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @DiscriminatorValue("ConfigureFluid")
-public class ConfigureFluidOrderExecute extends OrderExecute {
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "drug_type_id")
-	private DrugType drugType;
+public class ConfigureFluidOrderExecute extends DrugOrderExecute {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fluid_order_id")
@@ -33,7 +28,7 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
 		try {
-			drugType.send(getCount());
+			this.getDrugType().send(getCount());
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
@@ -42,7 +37,7 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 	@Override
 	protected void doCancel() throws OrderExecuteException {
 		try {
-			drugType.unSend(getCount());
+			this.getDrugType().unSend(getCount());
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
@@ -53,14 +48,6 @@ public class ConfigureFluidOrderExecute extends OrderExecute {
 		super.fillPlanDate(
 				DateUtil.addHour(planStartDate, -PlanDateAdvanceHours),
 				DateUtil.addHour(planEndDate, -PlanDateAdvanceHours));
-	}
-
-	public DrugType getDrugType() {
-		return drugType;
-	}
-
-	public void setDrugType(DrugType drugType) {
-		this.drugType = drugType;
 	}
 
 	public ConfigureFluidOrder getFluidOrder() {
