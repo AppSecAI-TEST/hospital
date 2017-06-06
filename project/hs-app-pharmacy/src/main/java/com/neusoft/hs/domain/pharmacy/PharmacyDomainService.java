@@ -112,7 +112,7 @@ public class PharmacyDomainService {
 	 * @throws OrderExecuteException
 	 * @roseuid 5930F4D20354
 	 */
-	public void finishOrder(DispensingDrugOrder dispensingDrugOrder,
+	public void dispenseOrder(DispensingDrugOrder dispensingDrugOrder,
 			AbstractUser user) throws OrderExecuteException {
 		for (DispensingDrugOrderExecute execute : dispensingDrugOrder
 				.getExecutes()) {
@@ -124,9 +124,26 @@ public class PharmacyDomainService {
 		applicationContext.publishEvent(new DispensingDrugOrderFinishedEvent(
 				dispensingDrugOrder));
 
-		LogUtil.log(this.getClass(), "人员[{}]将配液单[{}]设置为完成", user.getId(),
+		LogUtil.log(this.getClass(), "人员[{}]将摆药单[{}]设置为已完成", user.getId(),
 				dispensingDrugOrder.getId());
 
+	}
+
+	public void distributeOrder(DispensingDrugOrder dispensingDrugOrder,
+			AbstractUser user) throws OrderExecuteException {
+		for (DispensingDrugOrderExecute execute : dispensingDrugOrder
+				.getExecutes()) {
+			orderExecuteDomainService.finish(execute.getNext(), null, user);
+		}
+
+		dispensingDrugOrder.distribute(user);
+
+		applicationContext
+				.publishEvent(new DispensingDrugOrderDistributedEvent(
+						dispensingDrugOrder));
+
+		LogUtil.log(this.getClass(), "人员[{}]将摆药单[{}]设置为已发出", user.getId(),
+				dispensingDrugOrder.getId());
 	}
 
 	public DispensingDrugOrder getDispensingDrugOrder(String id) {

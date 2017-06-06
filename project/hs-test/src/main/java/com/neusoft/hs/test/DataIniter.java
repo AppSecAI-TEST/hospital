@@ -15,7 +15,6 @@ import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
 import com.neusoft.hs.application.pharmacy.ConfigureFluidAppService;
-import com.neusoft.hs.application.pharmacy.OutPatientPharmacyAppService;
 import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.application.registration.RegistrationAppService;
@@ -72,6 +71,7 @@ import com.neusoft.hs.domain.pharmacy.AssistMaterial;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidDomainService;
 import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
+import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
@@ -95,14 +95,14 @@ public class DataIniter {
 	protected Org org;// 哈医大二院
 	protected Dept dept111;// 住院处
 	protected Dept dept222;// 住院收费处
-	
+
 	protected InspectDept dept444;// CT室
 	protected InspectDept dept555;// 核磁检查室
 	protected Dept dept666;// 病案室
 	protected Dept dept777;// 门诊收费部门
-	
+
 	protected Dept deptaaa;// 门诊输液中心
-	
+
 	protected Pharmacy dept333;// 门诊西药房
 	protected Pharmacy dept888;// 门诊中药房
 	protected Pharmacy deptbbb;// 配液中心
@@ -115,9 +115,9 @@ public class DataIniter {
 
 	protected OutPatientRoom room901;// 内分泌门诊一诊室
 
-	protected DispenseDrugWin dispenseDrugWin01;// 西药房摆药窗口01
+	protected DispenseDrugWin dispenseDrugWin01;// 门诊西药房摆药窗口01
 
-	protected DispenseDrugWin dispenseDrugWin02;// 西药房摆药窗口02
+	protected DispenseDrugWin dispenseDrugWin02;// 门诊西药房摆药窗口02
 
 	protected Staff user101;// 住院处送诊人-曹操
 	protected Staff user201;// 住院收费处-张飞
@@ -137,7 +137,7 @@ public class DataIniter {
 	protected Staff userb01;// 配液中心-摆药岗位-刘禅
 	protected Staff userb02;// 配液中心-配液岗位-关羽
 	protected Staff userb03;// 配液中心-发药岗位-诸葛亮
-	
+
 	protected Staff userc01;// 住院西药房摆药岗位-姜维
 	protected Staff userc03;// 住院西药房发药岗位-庞统
 
@@ -198,7 +198,7 @@ public class DataIniter {
 	protected DrugType drugType002p;// 配液中心下的药品类型002（有库存属性）
 
 	protected DrugType drugType003p;// 配液中心下的药品类型003（有库存属性）
-	
+
 	protected DrugType drugType001I;// 住院西药房下的药品类型001（有库存属性）
 
 	protected DrugOrderType drugOrderType001;// 药品医嘱类型001
@@ -274,6 +274,8 @@ public class DataIniter {
 	protected ConfigureFluidBatch morningConfigureFluidBatch;// 上午配液批次
 
 	protected ConfigureFluidBatch afternoonConfigureFluidBatch;// 下午配液批次
+
+	protected DispensingDrugBatch dayDispensingDrugBatch;// 一天一次住院摆药批次
 
 	protected Map<ChoiceItem, Object> choices;
 
@@ -407,7 +409,7 @@ public class DataIniter {
 		deptaaa = dataIniter.deptaaa;
 		deptbbb = dataIniter.deptbbb;
 		deptccc = dataIniter.deptccc;
-		
+
 		dept000n = dataIniter.dept000n;
 
 		room901 = dataIniter.room901;
@@ -459,16 +461,16 @@ public class DataIniter {
 		drugType001 = dataIniter.drugType001;
 		drugType002 = dataIniter.drugType002;
 		drugType003 = dataIniter.drugType003;
-		
+
 		drugType004 = dataIniter.drugType004;
 		drugType005 = dataIniter.drugType005;
 		drugType006 = dataIniter.drugType006;
 
 		drugType002p = dataIniter.drugType002p;
 		drugType003p = dataIniter.drugType003p;
-		
+
 		drugType001I = dataIniter.drugType001I;
-	
+
 		drugOrderType001 = dataIniter.drugOrderType001;
 		drugOrderType002 = dataIniter.drugOrderType002;
 		drugOrderType003 = dataIniter.drugOrderType003;
@@ -516,6 +518,8 @@ public class DataIniter {
 
 		morningConfigureFluidBatch = dataIniter.morningConfigureFluidBatch;
 		afternoonConfigureFluidBatch = dataIniter.afternoonConfigureFluidBatch;
+
+		dayDispensingDrugBatch = dataIniter.dayDispensingDrugBatch;
 
 		choices = dataIniter.choices;
 	}
@@ -571,6 +575,8 @@ public class DataIniter {
 		configureFluidDomainService.clearConfigureFluidOrder();
 		// 清空配液批次
 		configureFluidDomainService.clearConfigureFluidBatch();
+		// 清空住院药房摆药批次
+		pharmacyAdminService.clearDispensingDrugBatch();
 		// 清空用户信息
 		userAdminDomainService.clear();
 		// 清空摆药窗口
@@ -619,6 +625,8 @@ public class DataIniter {
 		initDiseases();
 
 		initConfigureFluidBatchs();
+
+		initDispensingDrugBatchs();
 	}
 
 	private void initOrgs() {
@@ -710,7 +718,7 @@ public class DataIniter {
 		deptbbb.setOrg(org);
 
 		units.add(deptbbb);
-		
+
 		deptccc = new Pharmacy();
 		deptccc.setId("deptccc");
 		deptccc.setName("住院西药房");
@@ -772,18 +780,18 @@ public class DataIniter {
 
 		dispenseDrugWin01 = new DispenseDrugWin();
 		dispenseDrugWin01.setId("dispenseDrugWin01");
-		dispenseDrugWin01.setName("西药房摆药窗口01");
+		dispenseDrugWin01.setName("门诊西药房摆药窗口01");
 		dispenseDrugWin01.setPharmacy(dept333);
-		
+
 		dispenseDrugWin01.setState(DispenseDrugWin.State_Normal);
 
 		dispenseDrugWins.add(dispenseDrugWin01);
 
 		dispenseDrugWin02 = new DispenseDrugWin();
 		dispenseDrugWin02.setId("dispenseDrugWin02");
-		dispenseDrugWin02.setName("西药房摆药窗口01");
+		dispenseDrugWin02.setName("门诊西药房摆药窗口01");
 		dispenseDrugWin02.setPharmacy(dept333);
-		
+
 		dispenseDrugWin02.setState(DispenseDrugWin.State_Normal);
 
 		dispenseDrugWins.add(dispenseDrugWin02);
@@ -930,7 +938,7 @@ public class DataIniter {
 		userb03.setDept(deptbbb);
 
 		users.add(userb03);
-		
+
 		userc01 = new Staff();
 
 		userc01.setId("staffc01");
@@ -1179,7 +1187,7 @@ public class DataIniter {
 		drugType001.setStock(100);
 
 		drugTypes.add(drugType001);
-		
+
 		drugType002 = new DrugType();
 		drugType002.setId("drugType002");
 		drugType002.setDrugTypeSpec(drugTypeSpec002);
@@ -1235,7 +1243,7 @@ public class DataIniter {
 		drugType003p.setStock(2000);
 
 		drugTypes.add(drugType003p);
-		
+
 		drugType001I = new DrugType();
 		drugType001I.setId("drugType001I");
 		drugType001I.setDrugTypeSpec(drugTypeSpec001);
@@ -1243,7 +1251,7 @@ public class DataIniter {
 		drugType001I.setStock(200);
 
 		drugTypes.add(drugType001I);
-		
+
 		pharmacyAdminService.createDrugTypes(drugTypes);
 	}
 
@@ -1647,6 +1655,24 @@ public class DataIniter {
 		batchs.add(afternoonConfigureFluidBatch);
 
 		configureFluidDomainService.createConfigureFluidBatchs(batchs);
+	}
+
+	private void initDispensingDrugBatchs() {
+		
+		List<DispensingDrugBatch> batchs = new ArrayList<DispensingDrugBatch>();
+
+		dayDispensingDrugBatch = new DispensingDrugBatch();
+		dayDispensingDrugBatch.setId("住院西药房摆药一天一次");
+		dayDispensingDrugBatch.setCode("住院西药房摆药一天一次");
+		dayDispensingDrugBatch.setName("住院西药房摆药一天一次");
+		dayDispensingDrugBatch.setBeginDate(0);
+		dayDispensingDrugBatch.setEndDate(24);
+		dayDispensingDrugBatch.setPlanExecuteDate(10);
+		dayDispensingDrugBatch.setPharmacy(deptccc);
+
+		batchs.add(dayDispensingDrugBatch);
+
+		pharmacyAdminService.createDispensingDrugBatchs(batchs);
 	}
 
 }

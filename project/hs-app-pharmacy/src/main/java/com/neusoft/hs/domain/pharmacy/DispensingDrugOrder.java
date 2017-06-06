@@ -58,7 +58,7 @@ public class DispensingDrugOrder extends IdEntity implements Printable {
 
 	public static final String State_Executed = "已执行";
 
-	public static final String State_Sended = "已送达";
+	public static final String State_Sended = "已发出";
 
 	/**
 	 * @roseuid 592E6E7C034E
@@ -119,15 +119,18 @@ public class DispensingDrugOrder extends IdEntity implements Printable {
 		});
 	}
 
-	@Override
-	public Map<String, Object> getPrintData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void finish(AbstractUser user) {
 		this.state = State_Executed;
 		this.finishDate = DateUtil.getSysDate();
 	}
 
+	public void distribute(AbstractUser user) {
+		this.state = State_Sended;
+	}
+
+	@Override
+	public Map<String, Object> getPrintData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

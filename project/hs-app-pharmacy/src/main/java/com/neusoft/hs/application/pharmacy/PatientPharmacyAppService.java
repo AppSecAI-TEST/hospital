@@ -89,15 +89,29 @@ public class PatientPharmacyAppService {
 	 * @throws OrderExecuteException
 	 * @roseuid 5930F45401DC
 	 */
-	public DispensingDrugOrder finish(String dispensingDrugOrderId, AbstractUser user)
-			throws PharmacyException, OrderExecuteException {
+	public DispensingDrugOrder dispense(String dispensingDrugOrderId,
+			AbstractUser user) throws PharmacyException, OrderExecuteException {
 		DispensingDrugOrder dispensingDrugOrder = pharmacyDomainService
 				.getDispensingDrugOrder(dispensingDrugOrderId);
 		if (dispensingDrugOrder == null) {
-			throw new PharmacyException("dispensingDrugOrderId=[" + dispensingDrugOrder
-					+ "]不存在");
+			throw new PharmacyException("dispensingDrugOrderId=["
+					+ dispensingDrugOrder + "]不存在");
 		}
-		pharmacyDomainService.finishOrder(dispensingDrugOrder, user);
+		pharmacyDomainService.dispenseOrder(dispensingDrugOrder, user);
+
+		return dispensingDrugOrder;
+	}
+
+	public DispensingDrugOrder distribute(String dispensingDrugOrderId,
+			AbstractUser user) throws PharmacyException, OrderExecuteException {
+
+		DispensingDrugOrder dispensingDrugOrder = pharmacyDomainService
+				.getDispensingDrugOrder(dispensingDrugOrderId);
+		if (dispensingDrugOrder == null) {
+			throw new PharmacyException("dispensingDrugOrderId=["
+					+ dispensingDrugOrder + "]不存在");
+		}
+		pharmacyDomainService.distributeOrder(dispensingDrugOrder, user);
 
 		return dispensingDrugOrder;
 	}

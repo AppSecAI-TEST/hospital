@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.application.pharmacy.PatientPharmacyAppService;
 import com.neusoft.hs.domain.inspect.InspectApply;
 import com.neusoft.hs.domain.inspect.InspectApplyItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
@@ -23,6 +25,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
+import com.neusoft.hs.domain.pharmacy.DispensingDrugOrder;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
@@ -34,6 +37,9 @@ import com.neusoft.hs.platform.util.DateUtil;
 @Service
 public class InPatientMainTestService extends InPatientTestService {
 
+	@Autowired
+	private PatientPharmacyAppService patientPharmacyAppService;
+
 	@Override
 	protected void treatment() throws HsException {
 
@@ -42,6 +48,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		List<Order> orders;
 		Date sysDate;
 		Date startDate;
+		DispensingDrugOrder dispensingDrugOrder;
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40", dayCount));
 
@@ -109,30 +116,46 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15", dayCount));
 
-		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userc01,
-				pageable);
+		// pageable = new PageRequest(0, 15);
+		// executes =
+		// orderExecuteAppService.getNeedExecuteOrderExecutes(userc01,
+		// pageable);
+		//
+		// assertTrue(executes.size() == 1);
+		//
+		// // 完成摆药医嘱执行条目
+		// orderExecuteAppService.finish(executes.get(0).getId(), null,
+		// userc01);
 
-		assertTrue(executes.size() == 1);
+		dispensingDrugOrder = patientPharmacyAppService.print(dept000n,
+				dayDispensingDrugBatch, userc01);
 
-		// 完成摆药医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), null, userc01);
+		assertTrue(dispensingDrugOrder.getExecutes().size() == 1);
+
+		patientPharmacyAppService
+				.dispense(dispensingDrugOrder.getId(), userc01);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30", dayCount));
 
-		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userc03,
-				pageable);
+		// pageable = new PageRequest(0, 15);
+		// executes =
+		// orderExecuteAppService.getNeedExecuteOrderExecutes(userc03,
+		// pageable);
+		//
+		// assertTrue(executes.size() == 1);
+		//
+		// // 完成发药医嘱执行条目
+		// for (OrderExecute execute : executes) {
+		// orderExecuteAppService.finish(execute.getId(), null, userc03);
+		// }
 
-		assertTrue(executes.size() == 1);
-
-		// 完成发药医嘱执行条目
-		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), null, userc03);
-		}
+		dispensingDrugOrder = patientPharmacyAppService.distribute(
+				dispensingDrugOrder.getId(), userc01);
 		
+		assertTrue(dispensingDrugOrder.getExecutes().size() == 1);
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:32", dayCount));
-		
+
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
