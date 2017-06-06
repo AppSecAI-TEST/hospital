@@ -4,6 +4,7 @@
 2、分析、设计、实现模型：增加了摆药窗口、向OrderExecute增加doExecuteBefore，向DispensingDrugOrderExecute的doExecuteBefore中增加自动计算摆药窗口代码
 3、设计模型：为药房医嘱执行补丁增加基础抽象类DrugOrderExecute，用以被药房业务的执行条目继承
 4、用例模型：调整药房有关系统用例，区分了住院和门诊
+5、实现模型：模仿配液单完成基于摆药单的住院摆发药工作场景
 
 
 
