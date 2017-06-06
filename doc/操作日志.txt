@@ -1,7 +1,9 @@
 2017.06.--
 
 1、分析模型：更新了分解医嘱、发送医嘱条目、完成医嘱条目用例实现，更改了分析包结构图
-2、分析、设计模型：增加了摆药窗口、向OrderExecute增加doExecuteBefore，向DispensingDrugOrderExecute的doExecuteBefore中增加自动计算摆药窗口代码
+2、分析、设计、实现模型：增加了摆药窗口、向OrderExecute增加doExecuteBefore，向DispensingDrugOrderExecute的doExecuteBefore中增加自动计算摆药窗口代码
+3、设计模型：为药房医嘱执行补丁增加基础抽象类DrugOrderExecute，用以被药房业务的执行条目继承
+
 
 
 2017.06.05 基于配液单的配液工作场景，状态报告
