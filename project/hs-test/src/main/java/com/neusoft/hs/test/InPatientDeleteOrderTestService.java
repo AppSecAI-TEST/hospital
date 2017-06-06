@@ -43,7 +43,7 @@ public class InPatientDeleteOrderTestService extends InPatientTestService {
 		drugOrderType.setDrugTypeSpec(drugTypeSpec001);
 
 		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType, testUtil
-				.getDrugType(drugType001), oralOrderUseMode));
+				.getDrugType(drugType001I), oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
 

@@ -121,12 +121,25 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30", dayCount));
 
 		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userc03,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成发药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, userc03);
+		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:32", dayCount));
+		
+		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(executes.size() == 1);
 
-		// 完成医嘱执行条目
+		// 完成当天的一级护理医嘱
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}

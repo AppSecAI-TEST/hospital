@@ -18,7 +18,7 @@ public class OralOrderUseMode extends DrugUseMode {
 	public void resolve(Order order) {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
-		
+
 		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
 				.getTypeApp();
 
@@ -79,11 +79,7 @@ public class OralOrderUseMode extends DrugUseMode {
 		taskDrugExecute.setVisit(visit);
 		taskDrugExecute.setBelongDept(order.getBelongDept());
 		taskDrugExecute.setType(OrderExecute.Type_Take_Drug);
-		if (order.isInPatient()) {
-			taskDrugExecute.setExecuteDept(order.getBelongDept());
-		} else {
-			taskDrugExecute.setExecuteDept(pharmacy);
-		}
+		taskDrugExecute.setExecuteDept(pharmacy);
 		taskDrugExecute.setMain(true);
 		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
 		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
