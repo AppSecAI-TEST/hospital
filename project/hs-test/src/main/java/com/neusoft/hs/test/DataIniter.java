@@ -95,14 +95,18 @@ public class DataIniter {
 	protected Org org;// 哈医大二院
 	protected Dept dept111;// 住院处
 	protected Dept dept222;// 住院收费处
-	protected Pharmacy dept333;// 西药房
+	
 	protected InspectDept dept444;// CT室
 	protected InspectDept dept555;// 核磁检查室
 	protected Dept dept666;// 病案室
 	protected Dept dept777;// 门诊收费部门
-	protected Pharmacy dept888;// 中药房
+	
 	protected Dept deptaaa;// 门诊输液中心
+	
+	protected Pharmacy dept333;// 门诊西药房
+	protected Pharmacy dept888;// 门诊中药房
 	protected Pharmacy deptbbb;// 配液中心
+	protected Pharmacy deptccc;// 住院西药房
 
 	protected InPatientDept dept000;// 内泌五
 	protected InPatientAreaDept dept000n;// 内泌五护士站
@@ -117,8 +121,8 @@ public class DataIniter {
 
 	protected Staff user101;// 住院处送诊人-曹操
 	protected Staff user201;// 住院收费处-张飞
-	protected Staff user301;// 西药房摆药岗位-赵云
-	protected Staff user303;// 西药房发药岗位-吕布
+	protected Staff user301;// 门诊西药房摆药岗位-赵云
+	protected Staff user303;// 门诊西药房发药岗位-吕布
 	protected Staff user401;// CT室安排检查员-吕玲绮
 	protected Staff user402;// CT室检查师-张合
 	protected Staff user501;// 核磁检查室安排检查员-周瑜
@@ -126,13 +130,16 @@ public class DataIniter {
 	protected Staff user601;// 质控岗位-刘备
 	protected Staff user602;// 病案室岗位-孙权
 	protected Staff user701;// 门诊收费部门收费员-魏延
-	protected Staff user801;// 中药房摆发药岗位-郭嘉
+	protected Staff user801;// 门诊中药房摆发药岗位-郭嘉
 	protected Staff user901;// 儿科门诊挂号岗位-黄忠
 	protected Nurse usera01;// 门诊输液中心护士-甘夫人
 
 	protected Staff userb01;// 配液中心-摆药岗位-刘禅
 	protected Staff userb02;// 配液中心-配液岗位-关羽
 	protected Staff userb03;// 配液中心-发药岗位-诸葛亮
+	
+	protected Staff userc01;// 住院西药房摆药岗位-姜维
+	protected Staff userc03;// 住院西药房发药岗位-庞统
 
 	protected Staff user001;// 内泌五接诊护士-大乔
 	protected Doctor user002;// 内泌五医生-貂蝉
@@ -176,21 +183,27 @@ public class DataIniter {
 
 	protected DrugTypeSpec drugTypeSpec006;// 药品规格006
 
-	protected DrugType drugType001;// 药房下的药品类型001（有库存属性）
+	protected DrugType drugType001;// 门诊西药房下的药品类型001（有库存属性）
 
-	protected DrugType drugType002;// 药房下的药品类型002（有库存属性）
+	protected DrugType drugType002;// 门诊西药房下的药品类型002（有库存属性）
 
-	protected DrugType drugType003;// 药房下的药品类型003（有库存属性）
+	protected DrugType drugType003;// 门诊西药房下的药品类型003（有库存属性）
 
-	protected DrugType drugType004;// 药房下的药品类型004（有库存属性）
+	protected DrugType drugType004;// 门诊中药房下的药品类型004（有库存属性）
 
-	protected DrugType drugType005;// 药房下的药品类型005（有库存属性）
+	protected DrugType drugType005;// 门诊中药房下的药品类型005（有库存属性）
 
-	protected DrugType drugType006;// 药房下的药品类型006（有库存属性）
+	protected DrugType drugType006;// 门诊中药房下的药品类型006（有库存属性）
 
 	protected DrugType drugType002p;// 配液中心下的药品类型002（有库存属性）
 
 	protected DrugType drugType003p;// 配液中心下的药品类型003（有库存属性）
+	
+	protected DrugType drugType001I;// 住院西药房下的药品类型001（有库存属性）
+
+	protected DrugType drugType002I;// 住院西药房下的药品类型002（有库存属性）
+
+	protected DrugType drugType003I;// 住院西药房下的药品类型003（有库存属性）
 
 	protected DrugOrderType drugOrderType001;// 药品医嘱类型001
 
@@ -400,6 +413,8 @@ public class DataIniter {
 		dept999 = dataIniter.dept999;
 		deptaaa = dataIniter.deptaaa;
 		deptbbb = dataIniter.deptbbb;
+		deptccc = dataIniter.deptccc;
+		
 		dept000n = dataIniter.dept000n;
 
 		room901 = dataIniter.room901;
@@ -423,6 +438,8 @@ public class DataIniter {
 		userb01 = dataIniter.userb01;
 		userb02 = dataIniter.userb02;
 		userb03 = dataIniter.userb03;
+		userc01 = dataIniter.userc01;
+		userc03 = dataIniter.userc03;
 
 		user001 = dataIniter.user001;
 		user002 = dataIniter.user002;
@@ -449,12 +466,17 @@ public class DataIniter {
 		drugType001 = dataIniter.drugType001;
 		drugType002 = dataIniter.drugType002;
 		drugType003 = dataIniter.drugType003;
+		
 		drugType004 = dataIniter.drugType004;
 		drugType005 = dataIniter.drugType005;
 		drugType006 = dataIniter.drugType006;
 
 		drugType002p = dataIniter.drugType002p;
 		drugType003p = dataIniter.drugType003p;
+		
+		drugType001I = dataIniter.drugType001I;
+		drugType002I = dataIniter.drugType002I;
+		drugType003I = dataIniter.drugType003I;
 
 		drugOrderType001 = dataIniter.drugOrderType001;
 		drugOrderType002 = dataIniter.drugOrderType002;
@@ -636,7 +658,7 @@ public class DataIniter {
 
 		dept333 = new Pharmacy();
 		dept333.setId("dept333");
-		dept333.setName("西药房");
+		dept333.setName("门诊西药房");
 		dept333.setParent(org);
 		dept333.setOrg(org);
 
@@ -676,7 +698,7 @@ public class DataIniter {
 
 		dept888 = new Pharmacy();
 		dept888.setId("dept888");
-		dept888.setName("中药房");
+		dept888.setName("门诊中药房");
 		dept888.setParent(org);
 		dept888.setOrg(org);
 
@@ -697,6 +719,14 @@ public class DataIniter {
 		deptbbb.setOrg(org);
 
 		units.add(deptbbb);
+		
+		deptccc = new Pharmacy();
+		deptccc.setId("deptccc");
+		deptccc.setName("住院西药房");
+		deptccc.setParent(org);
+		deptccc.setOrg(org);
+
+		units.add(deptccc);
 
 		dept000 = new InPatientDept();
 		dept000.setId("dept000");
@@ -793,7 +823,7 @@ public class DataIniter {
 		user301 = new Staff();
 
 		user301.setId("staff301");
-		user301.setName("西药房摆药岗位-赵云");
+		user301.setName("门诊西药房摆药岗位-赵云");
 		user301.setDept(dept333);
 
 		users.add(user301);
@@ -801,7 +831,7 @@ public class DataIniter {
 		user303 = new Staff();
 
 		user303.setId("staff303");
-		user303.setName("西药房发药岗位-郭嘉");
+		user303.setName("门诊西药房发药岗位-郭嘉");
 		user303.setDept(dept333);
 
 		users.add(user303);
@@ -865,7 +895,7 @@ public class DataIniter {
 		user801 = new Staff();
 
 		user801.setId("staff801");
-		user801.setName("中药房摆发药岗位-郭嘉");
+		user801.setName("门诊中药房摆发药岗位-郭嘉");
 		user801.setDept(dept888);
 
 		users.add(user801);
@@ -909,6 +939,22 @@ public class DataIniter {
 		userb03.setDept(deptbbb);
 
 		users.add(userb03);
+		
+		userc01 = new Staff();
+
+		userc01.setId("staffc01");
+		userc01.setName("住院西药房摆药岗位-姜维");
+		userc01.setDept(deptccc);
+
+		users.add(userc01);
+
+		userc03 = new Staff();
+
+		userc03.setId("staffc03");
+		userc03.setName("住院西药房发药岗位-庞统");
+		userc03.setDept(deptccc);
+
+		users.add(userc03);
 
 		user001 = new Staff();
 
@@ -1142,7 +1188,7 @@ public class DataIniter {
 		drugType001.setStock(100);
 
 		drugTypes.add(drugType001);
-
+		
 		drugType002 = new DrugType();
 		drugType002.setId("drugType002");
 		drugType002.setDrugTypeSpec(drugTypeSpec002);
@@ -1198,6 +1244,30 @@ public class DataIniter {
 		drugType003p.setStock(2000);
 
 		drugTypes.add(drugType003p);
+		
+		drugType001I = new DrugType();
+		drugType001I.setId("drugType001I");
+		drugType001I.setDrugTypeSpec(drugTypeSpec001);
+		drugType001I.setPharmacy(deptccc);
+		drugType001I.setStock(200);
+
+		drugTypes.add(drugType001I);
+		
+		drugType002I = new DrugType();
+		drugType002I.setId("drugType002I");
+		drugType002I.setDrugTypeSpec(drugTypeSpec002);
+		drugType002I.setPharmacy(deptccc);
+		drugType002I.setStock(2400);
+
+		drugTypes.add(drugType002I);
+
+		drugType003I = new DrugType();
+		drugType003I.setId("drugType003I");
+		drugType003I.setDrugTypeSpec(drugTypeSpec003);
+		drugType003I.setPharmacy(deptccc);
+		drugType003I.setStock(6000);
+
+		drugTypes.add(drugType003I);
 
 		pharmacyDomainService.createDrugTypes(drugTypes);
 	}
