@@ -81,7 +81,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
 		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType001, testUtil
-				.getDrugType(drugType001), oralOrderUseMode));
+				.getDrugType(drugType001I), oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
 
@@ -110,13 +110,13 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15", dayCount));
 
 		pageable = new PageRequest(0, 15);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userc01,
 				pageable);
 
 		assertTrue(executes.size() == 1);
 
 		// 完成摆药医嘱执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), null, user301);
+		orderExecuteAppService.finish(executes.get(0).getId(), null, userc01);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30", dayCount));
 

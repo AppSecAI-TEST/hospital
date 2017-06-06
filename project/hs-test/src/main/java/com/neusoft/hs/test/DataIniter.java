@@ -201,10 +201,6 @@ public class DataIniter {
 	
 	protected DrugType drugType001I;// 住院西药房下的药品类型001（有库存属性）
 
-	protected DrugType drugType002I;// 住院西药房下的药品类型002（有库存属性）
-
-	protected DrugType drugType003I;// 住院西药房下的药品类型003（有库存属性）
-
 	protected DrugOrderType drugOrderType001;// 药品医嘱类型001
 
 	protected DrugOrderType drugOrderType002;// 药品医嘱类型002
@@ -475,9 +471,7 @@ public class DataIniter {
 		drugType003p = dataIniter.drugType003p;
 		
 		drugType001I = dataIniter.drugType001I;
-		drugType002I = dataIniter.drugType002I;
-		drugType003I = dataIniter.drugType003I;
-
+	
 		drugOrderType001 = dataIniter.drugOrderType001;
 		drugOrderType002 = dataIniter.drugOrderType002;
 		drugOrderType003 = dataIniter.drugOrderType003;
@@ -1253,22 +1247,6 @@ public class DataIniter {
 
 		drugTypes.add(drugType001I);
 		
-		drugType002I = new DrugType();
-		drugType002I.setId("drugType002I");
-		drugType002I.setDrugTypeSpec(drugTypeSpec002);
-		drugType002I.setPharmacy(deptccc);
-		drugType002I.setStock(2400);
-
-		drugTypes.add(drugType002I);
-
-		drugType003I = new DrugType();
-		drugType003I.setId("drugType003I");
-		drugType003I.setDrugTypeSpec(drugTypeSpec003);
-		drugType003I.setPharmacy(deptccc);
-		drugType003I.setStock(6000);
-
-		drugTypes.add(drugType003I);
-
 		pharmacyDomainService.createDrugTypes(drugTypes);
 	}
 
