@@ -58,7 +58,7 @@ public abstract class AppTestService extends DataIniter {
 	private void choiceOrderUseModeAssistMaterial(
 			DrugUseModeAssistMaterial orderUseModeAssistMaterial) {
 		// 持久化
-		pharmacyDomainService
+		pharmacyAdminService
 				.createOrderUseModeAssistMaterial(orderUseModeAssistMaterial);
 		// 同步内存
 		orderUseModeAssistMaterial.getOrderUseMode()

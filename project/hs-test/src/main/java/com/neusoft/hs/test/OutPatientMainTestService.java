@@ -7,10 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.application.pharmacy.OutPatientPharmacyAppService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.CompsiteOrder;
@@ -36,6 +38,9 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 public class OutPatientMainTestService extends AppTestService {
+	
+	@Autowired
+	private OutPatientPharmacyAppService outPatientPharmacyAppService;
 
 	protected Visit visit001;
 
@@ -358,7 +363,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		pageable = new PageRequest(0, 15);
 		// 通过患者一次就诊得到待取药的任务列表
-		executes = pharmacyAppService.taskDrug(visit001, user303, pageable);
+		executes = outPatientPharmacyAppService.taskDrug(visit001, user303, pageable);
 
 		assertTrue(executes.size() == 1);
 
@@ -369,7 +374,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		pageable = new PageRequest(0, 15);
 		// 通过患者一次就诊得到待取药的任务列表
-		executes = pharmacyAppService.taskDrug(visit002, user303, pageable);
+		executes = outPatientPharmacyAppService.taskDrug(visit002, user303, pageable);
 
 		assertTrue(executes.size() == 4);
 
@@ -405,7 +410,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		pageable = new PageRequest(0, 15);
 		// 通过患者一次就诊得到待取药的任务列表
-		executes = pharmacyAppService.taskDrug(visit001, user801, pageable);
+		executes = outPatientPharmacyAppService.taskDrug(visit001, user801, pageable);
 
 		assertTrue(executes.size() == 3);
 

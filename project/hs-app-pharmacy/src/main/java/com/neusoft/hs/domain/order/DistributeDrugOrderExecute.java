@@ -12,8 +12,8 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
 
 @Entity
-@DiscriminatorValue("TaskDrug")
-public class TaskDrugOrderExecute extends DrugOrderExecute {
+@DiscriminatorValue("DistributeDrug")
+public class DistributeDrugOrderExecute extends DrugOrderExecute {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dispense_drug_win_id")

@@ -15,7 +15,7 @@ import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
 import com.neusoft.hs.application.pharmacy.ConfigureFluidAppService;
-import com.neusoft.hs.application.pharmacy.PharmacyAppService;
+import com.neusoft.hs.application.pharmacy.OutPatientPharmacyAppService;
 import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.application.registration.RegistrationAppService;
@@ -365,9 +365,6 @@ public class DataIniter {
 	protected DiseaseAdminDomainService diseaseAdminDomainService;
 
 	@Autowired
-	protected PharmacyAppService pharmacyAppService;
-
-	@Autowired
 	protected VisitFacade visitFacade;
 
 	@Autowired
@@ -541,13 +538,13 @@ public class DataIniter {
 		// 清空医嘱类型
 		orderAdminDomainService.clearOrderTypes();
 		// 清空医嘱用法
-		pharmacyDomainService.clearOrderUseModes();
+		pharmacyAdminService.clearOrderUseModes();
 		// 清空频次类型
 		orderAdminDomainService.clearOrderFrequencyTypes();
 		// 清空药品类型
-		pharmacyDomainService.clearDrugTypes();
+		pharmacyAdminService.clearDrugTypes();
 		// 清空药品规格
-		pharmacyDomainService.clearDrugTypeSpecs();
+		pharmacyAdminService.clearDrugTypeSpecs();
 		// 清空辅材
 		pharmacyAdminService.clearAssistMaterial();
 		// 清空检查项目
@@ -577,7 +574,7 @@ public class DataIniter {
 		// 清空用户信息
 		userAdminDomainService.clear();
 		// 清空摆药窗口
-		pharmacyDomainService.clearDispenseDrugWins();
+		pharmacyAdminService.clearDispenseDrugWins();
 		// 清空门诊诊室
 		outPatientPlanDomainService.clearRoom();
 		// 清空组织机构信息
@@ -791,7 +788,7 @@ public class DataIniter {
 
 		dispenseDrugWins.add(dispenseDrugWin02);
 
-		pharmacyDomainService.createDispenseDrugWins(dispenseDrugWins);
+		pharmacyAdminService.createDispenseDrugWins(dispenseDrugWins);
 	}
 
 	private void initUsers() {
@@ -1168,7 +1165,7 @@ public class DataIniter {
 
 		drugTypeSpecs.add(drugTypeSpec006);
 
-		pharmacyDomainService.createDrugTypeSpecs(drugTypeSpecs);
+		pharmacyAdminService.createDrugTypeSpecs(drugTypeSpecs);
 	}
 
 	private void initDrugTypes() {
@@ -1247,7 +1244,7 @@ public class DataIniter {
 
 		drugTypes.add(drugType001I);
 		
-		pharmacyDomainService.createDrugTypes(drugTypes);
+		pharmacyAdminService.createDrugTypes(drugTypes);
 	}
 
 	private void initInspectItems() {
@@ -1396,7 +1393,7 @@ public class DataIniter {
 
 		orderUseModes.add(infusionOrderUseModeToOutPatient);
 
-		pharmacyDomainService.createOrderUseModes(orderUseModes);
+		pharmacyAdminService.createOrderUseModes(orderUseModes);
 
 	}
 

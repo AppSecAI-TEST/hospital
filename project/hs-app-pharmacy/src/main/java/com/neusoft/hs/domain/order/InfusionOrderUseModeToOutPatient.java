@@ -117,20 +117,20 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		chargeOrderExecute.setCharge(dispensingDrugExecute);
 
 		// 取药执行条目
-		TaskDrugOrderExecute taskDrugExecute = new TaskDrugOrderExecute();
-		taskDrugExecute.setOrder(order);
-		taskDrugExecute.setVisit(visit);
-		taskDrugExecute.setBelongDept(order.getBelongDept());
-		taskDrugExecute.setType(OrderExecute.Type_Take_Drug);
-		taskDrugExecute.setExecuteDept(pharmacy);
-		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
-		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
-		taskDrugExecute.setCostState(OrderExecute.CostState_NoApply);
-		// 统一取药
-		taskDrugExecute.setPlanStartDate(sysDate);
-		taskDrugExecute.setPlanEndDate(sysDate);
+		DistributeDrugOrderExecute distributeDrugExecute = new DistributeDrugOrderExecute();
+		distributeDrugExecute.setOrder(order);
+		distributeDrugExecute.setVisit(visit);
+		distributeDrugExecute.setBelongDept(order.getBelongDept());
+		distributeDrugExecute.setType(OrderExecute.Type_Take_Drug);
+		distributeDrugExecute.setExecuteDept(pharmacy);
+		distributeDrugExecute.setState(OrderExecute.State_NeedExecute);
+		distributeDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
+		distributeDrugExecute.setCostState(OrderExecute.CostState_NoApply);
+		// 统一发药
+		distributeDrugExecute.setPlanStartDate(sysDate);
+		distributeDrugExecute.setPlanEndDate(sysDate);
 
-		team.addOrderExecute(taskDrugExecute);
+		team.addOrderExecute(distributeDrugExecute);
 
 		// 输液执行条目
 		TransportFluidOrderExecute transportFluidExecute = new TransportFluidOrderExecute();

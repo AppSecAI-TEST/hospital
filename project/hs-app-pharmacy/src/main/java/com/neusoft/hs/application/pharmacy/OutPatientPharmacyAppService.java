@@ -16,7 +16,7 @@ import com.neusoft.hs.domain.visit.Visit;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class PharmacyAppService {
+public class OutPatientPharmacyAppService {
 
 	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;

@@ -74,18 +74,18 @@ public class OralOrderUseMode extends DrugUseMode {
 		team.addOrderExecute(dispensingDrugExecute);
 
 		// 取药执行条目
-		TaskDrugOrderExecute taskDrugExecute = new TaskDrugOrderExecute();
-		taskDrugExecute.setOrder(order);
-		taskDrugExecute.setVisit(visit);
-		taskDrugExecute.setBelongDept(order.getBelongDept());
-		taskDrugExecute.setType(OrderExecute.Type_Take_Drug);
-		taskDrugExecute.setExecuteDept(pharmacy);
-		taskDrugExecute.setMain(true);
-		taskDrugExecute.setState(OrderExecute.State_NeedExecute);
-		taskDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
-		taskDrugExecute.setCostState(OrderExecute.CostState_NoApply);
+		DistributeDrugOrderExecute distributeDrugExecute = new DistributeDrugOrderExecute();
+		distributeDrugExecute.setOrder(order);
+		distributeDrugExecute.setVisit(visit);
+		distributeDrugExecute.setBelongDept(order.getBelongDept());
+		distributeDrugExecute.setType(OrderExecute.Type_Take_Drug);
+		distributeDrugExecute.setExecuteDept(pharmacy);
+		distributeDrugExecute.setMain(true);
+		distributeDrugExecute.setState(OrderExecute.State_NeedExecute);
+		distributeDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
+		distributeDrugExecute.setCostState(OrderExecute.CostState_NoApply);
 
-		team.addOrderExecute(taskDrugExecute);
+		team.addOrderExecute(distributeDrugExecute);
 
 		order.addExecuteTeam(team);
 	}

@@ -13,13 +13,17 @@ import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
-import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.pharmacy.DispensingDrugOrder;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.NumberUtil;
 
 @Entity
 @DiscriminatorValue("DispensingDrug")
 public class DispensingDrugOrderExecute extends DrugOrderExecute {
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "dispense_drug_order_id")
+	private DispensingDrugOrder dispensingDrugOrder;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dispense_drug_win_id")
@@ -60,4 +64,13 @@ public class DispensingDrugOrderExecute extends DrugOrderExecute {
 	public void setDispenseDrugWin(DispenseDrugWin dispenseDrugWin) {
 		this.dispenseDrugWin = dispenseDrugWin;
 	}
+
+	public DispensingDrugOrder getDispensingDrugOrder() {
+		return dispensingDrugOrder;
+	}
+
+	public void setDispensingDrugOrder(DispensingDrugOrder dispensingDrugOrder) {
+		this.dispensingDrugOrder = dispensingDrugOrder;
+	}
+
 }
