@@ -36,9 +36,6 @@ public class OralOrderUseMode extends DrugUseMode {
 			chargeOrderExecute.setBelongDept(order.getBelongDept());
 			chargeOrderExecute.setType(OrderExecute.Type_Change);
 
-			chargeOrderExecute.addChargeItem(chargeItem);
-			chargeOrderExecute.setCount(order.getCount());
-
 			chargeOrderExecute.setExecuteDept(visit.getDept().getOrg()
 					.getOutChargeDept());
 			chargeOrderExecute.setChargeDept(pharmacy);

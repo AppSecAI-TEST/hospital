@@ -44,9 +44,6 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		chargeOrderExecute.setBelongDept(order.getBelongDept());
 		chargeOrderExecute.setType(OrderExecute.Type_Change);
 
-		chargeOrderExecute.addChargeItem(chargeItem);
-		chargeOrderExecute.setCount(order.getCount());
-
 		chargeOrderExecute.setExecuteDept(chargeDept);
 		chargeOrderExecute.setChargeDept(pharmacy);
 		chargeOrderExecute.setChargeState(OrderExecute.ChargeState_NoApply);
@@ -76,8 +73,6 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 				// 记录辅材收费项目
 				assistMaterialChargeItem = orderUseModeAssistMaterial
 						.getAssistMaterial().getChargeItem();
-				assistMaterialChargeOrderExecute
-						.addChargeItem(assistMaterialChargeItem);
 				assistMaterialChargeOrderExecute.setExecuteDept(chargeDept);
 				assistMaterialChargeOrderExecute.setChargeDept(pharmacy);
 				assistMaterialChargeOrderExecute
