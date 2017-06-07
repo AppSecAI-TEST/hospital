@@ -46,17 +46,17 @@ public class CheckTestService extends AppTestService {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<OrderExecute> orderExecutes;
 
-		orderExecutes = orderExecuteDomainService.find(
+		orderExecutes = orderExecuteDomainService.findByState(
 				OrderExecute.State_Finished, pageable);
 
 		assertTrue(orderExecutes.size() == 63);
 
-		orderExecutes = orderExecuteDomainService.find(
+		orderExecutes = orderExecuteDomainService.findByState(
 				OrderExecute.State_Canceled, pageable);
 
 		assertTrue(orderExecutes.size() == 4);
 
-		orderExecutes = orderExecuteDomainService.find(
+		orderExecutes = orderExecuteDomainService.findByState(
 				OrderExecute.State_Stoped, pageable);
 
 		assertTrue(orderExecutes.size() == 2);
