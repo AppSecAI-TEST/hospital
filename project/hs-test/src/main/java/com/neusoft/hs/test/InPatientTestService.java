@@ -287,8 +287,12 @@ public abstract class InPatientTestService extends AppTestService {
 				inspectResultMedicalRecordType, user002);
 	}
 
-	public void setVisit(Visit visit) {
-		this.visit001 = visit;
+	public Visit getVisit001() {
+		return visit001;
+	}
+
+	public void setVisit001(Visit visit001) {
+		this.visit001 = visit001;
 	}
 
 }

@@ -65,6 +65,10 @@ public class OrderExecuteDomainService {
 	public OrderExecute find(String executeId) {
 		return orderExecuteRepo.findOne(executeId);
 	}
+	
+	public List<OrderExecute> find(String state, Pageable pageable) {
+		return orderExecuteRepo.findByState(state, pageable);
+	}
 
 	public List<OrderExecute> find(OrderExecuteFilter filter,
 			Map<String, Object> params, AbstractUser user, Pageable pageable) {

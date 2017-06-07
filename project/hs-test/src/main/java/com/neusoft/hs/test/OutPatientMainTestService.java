@@ -38,7 +38,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 public class OutPatientMainTestService extends AppTestService {
-	
+
 	@Autowired
 	private OutPatientPharmacyAppService outPatientPharmacyAppService;
 
@@ -363,7 +363,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		pageable = new PageRequest(0, 15);
 		// 通过患者一次就诊得到待取药的任务列表
-		executes = outPatientPharmacyAppService.taskDrug(visit001, user303, pageable);
+		executes = outPatientPharmacyAppService.taskDrug(visit001, user303,
+				pageable);
 
 		assertTrue(executes.size() == 1);
 
@@ -374,7 +375,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		pageable = new PageRequest(0, 15);
 		// 通过患者一次就诊得到待取药的任务列表
-		executes = outPatientPharmacyAppService.taskDrug(visit002, user303, pageable);
+		executes = outPatientPharmacyAppService.taskDrug(visit002, user303,
+				pageable);
 
 		assertTrue(executes.size() == 4);
 
@@ -410,7 +412,8 @@ public class OutPatientMainTestService extends AppTestService {
 
 		pageable = new PageRequest(0, 15);
 		// 通过患者一次就诊得到待取药的任务列表
-		executes = outPatientPharmacyAppService.taskDrug(visit001, user801, pageable);
+		executes = outPatientPharmacyAppService.taskDrug(visit001, user801,
+				pageable);
 
 		assertTrue(executes.size() == 3);
 
@@ -593,7 +596,16 @@ public class OutPatientMainTestService extends AppTestService {
 
 	}
 
-	public Visit getVisit() {
+	public Visit getVisit001() {
 		return visit001;
 	}
+
+	public Visit getVisit002() {
+		return visit002;
+	}
+
+	public Visit getVisit003() {
+		return visit003;
+	}
+
 }

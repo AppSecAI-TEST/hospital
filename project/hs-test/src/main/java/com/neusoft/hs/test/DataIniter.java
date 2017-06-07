@@ -42,6 +42,7 @@ import com.neusoft.hs.domain.order.OralOrderUseMode;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDayOne;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDayTwo;
@@ -293,6 +294,9 @@ public class DataIniter {
 
 	@Autowired
 	protected OrderExecuteAppService orderExecuteAppService;
+	
+	@Autowired
+	protected OrderExecuteDomainService orderExecuteDomainService;
 
 	@Autowired
 	protected InspectAppService inspectAppService;
