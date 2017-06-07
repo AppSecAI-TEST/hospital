@@ -37,9 +37,21 @@ interface OrderExecuteRepo extends
 
 	List<OrderExecute> findByChargeState(String chargeState, Pageable pageable);
 
-	List<OrderExecute> findByStateAndBelongDeptInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
-			String state, List<? extends Dept> belongDepts,
+	List<OrderExecute> findByStateAndBelongDeptInAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+			String state, List<? extends Dept> belongDepts, List<String> types,
 			Date begin, Date end, Pageable pageable);
+
+	List<OrderExecute> findByStateAndBelongDeptInAndTypeAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+			String state, List<? extends Dept> belongDepts, String type,
+			Date begin, Date end, Pageable pageable);
+
+	List<OrderExecute> findByStateAndBelongDeptAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+			String state, Dept belongDept, List<String> types, Date begin,
+			Date end, Pageable pageable);
+
+	List<OrderExecute> findByStateAndBelongDeptAndTypeAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+			String state, Dept belongDept, String type, Date begin, Date end,
+			Pageable pageable);
 
 	@Modifying
 	@Query("update OrderExecute e set e.state = :newState, e.startDate = :sysDate where e.planStartDate < :startDate AND e.state = :oldState AND e.previous = null AND e.visit in (select b.visit from ChargeBill b where b.balance > 0 AND b.state = :chargeBillState)")

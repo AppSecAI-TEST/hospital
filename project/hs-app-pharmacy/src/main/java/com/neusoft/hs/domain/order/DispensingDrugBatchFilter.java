@@ -31,6 +31,7 @@ public class DispensingDrugBatchFilter implements OrderExecuteFilter {
 				batch.getEndDate());
 		condition.setBegin(begin);
 		condition.setEnd(end);
+		condition.addType(OrderExecute.Type_Dispense_Drug);
 
 		condition.setBelongDepts(area.getDepts());
 

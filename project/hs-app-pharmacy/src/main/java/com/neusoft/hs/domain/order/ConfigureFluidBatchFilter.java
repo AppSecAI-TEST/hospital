@@ -31,6 +31,7 @@ public class ConfigureFluidBatchFilter implements OrderExecuteFilter {
 				batch.getEndDate());
 		condition.setBegin(begin);
 		condition.setEnd(end);
+		condition.addType(OrderExecute.Type_Configure_Fluid);
 
 		condition.setBelongDepts(area.getDepts());
 

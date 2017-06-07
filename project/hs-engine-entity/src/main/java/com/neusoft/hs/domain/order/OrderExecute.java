@@ -162,7 +162,7 @@ public class OrderExecute extends IdEntity {
 
 	public static final String Type_Dispense_Drug = "摆药";
 
-	public static final String Type_Take_Drug = "取药";
+	public static final String Type_Distribute_Drug = "发药";
 
 	public static final String Type_Configure_Fluid = "配液";
 

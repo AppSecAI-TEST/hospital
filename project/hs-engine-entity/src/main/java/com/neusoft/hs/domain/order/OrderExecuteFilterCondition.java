@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class OrderExecuteFilterCondition {
 	private Dept executeDept;
 
 	private List<? extends Dept> belongDepts;
+	
+	private List<String> types;
 
 	public Date getBegin() {
 		return begin;
@@ -47,6 +50,21 @@ public class OrderExecuteFilterCondition {
 
 	public void setBelongDepts(List<? extends Dept> belongDepts) {
 		this.belongDepts = belongDepts;
+	}
+
+	public List<String> getTypes() {
+		return types;
+	}
+
+	public void setTypes(List<String> types) {
+		this.types = types;
+	}
+	
+	public void addType(String type){
+		if(this.types == null){
+			this.types = new ArrayList<String>();
+		}
+		this.types.add(type);
 	}
 
 }

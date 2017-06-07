@@ -61,7 +61,7 @@ public class OrderExecuteDomainService {
 		return orderExecuteRepo.findByChargeState(
 				OrderExecute.ChargeState_NeedBackCharge, pageable);
 	}
-	
+
 	public OrderExecute find(String executeId) {
 		return orderExecuteRepo.findOne(executeId);
 	}
@@ -73,14 +73,36 @@ public class OrderExecuteDomainService {
 
 		Date begin = condition.getBegin();
 		Date end = condition.getEnd();
+		List<String> types = condition.getTypes();
 
 		List<? extends Dept> belongDepts = condition.getBelongDepts();
 
-		return orderExecuteRepo
-				.findByStateAndBelongDeptInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
-						OrderExecute.State_Executing, belongDepts, begin, end,
-						pageable);
-
+		if (belongDepts.size() > 1) {
+			if (types.size() > 0) {
+				return orderExecuteRepo
+						.findByStateAndBelongDeptInAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+								OrderExecute.State_Executing, belongDepts,
+								types, begin, end, pageable);
+			} else {
+				return orderExecuteRepo
+						.findByStateAndBelongDeptInAndTypeAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+								OrderExecute.State_Executing, belongDepts,
+								types.get(0), begin, end, pageable);
+			}
+		} else {
+			if (types.size() > 0) {
+				return orderExecuteRepo
+						.findByStateAndBelongDeptAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+								OrderExecute.State_Executing,
+								belongDepts.get(0), types, begin, end, pageable);
+			} else {
+				return orderExecuteRepo
+						.findByStateAndBelongDeptAndTypeAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+								OrderExecute.State_Executing,
+								belongDepts.get(0), types.get(0), begin, end,
+								pageable);
+			}
+		}
 	}
 
 	/**

@@ -575,6 +575,8 @@ public class DataIniter {
 		configureFluidDomainService.clearConfigureFluidOrder();
 		// 清空配液批次
 		configureFluidDomainService.clearConfigureFluidBatch();
+		// 清空住院药房摆药单
+		pharmacyAdminService.clearDispensingDrugOrder();
 		// 清空住院药房摆药批次
 		pharmacyAdminService.clearDispensingDrugBatch();
 		// 清空用户信息
