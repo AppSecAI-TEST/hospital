@@ -56,16 +56,19 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		DrugUseModeAssistMaterial orderUseModeAssistMaterial = this
 				.getTheOrderUseModeChargeItem(transportFluid);
 		if (orderUseModeAssistMaterial != null) {
-			if (orderUseModeAssistMaterial.getChargeMode().equals(
-					DrugUseModeAssistMaterial.everyOne)) {
-				transportFluidExecute.addChargeItem(orderUseModeAssistMaterial
-						.getAssistMaterial().getChargeItem());
-			} else if (orderUseModeAssistMaterial.getChargeMode().equals(
-					DrugUseModeAssistMaterial.onlyOne)) {
-				if (order.getOrderExecutes().size() == 0) {
+			if (drugType.getDrugTypeSpec().isTransportFluidCharge()) {
+				if (orderUseModeAssistMaterial.getChargeMode().equals(
+						DrugUseModeAssistMaterial.everyOne)) {
 					transportFluidExecute
 							.addChargeItem(orderUseModeAssistMaterial
 									.getAssistMaterial().getChargeItem());
+				} else if (orderUseModeAssistMaterial.getChargeMode().equals(
+						DrugUseModeAssistMaterial.onlyOne)) {
+					if (order.getOrderExecutes().size() == 0) {
+						transportFluidExecute
+								.addChargeItem(orderUseModeAssistMaterial
+										.getAssistMaterial().getChargeItem());
+					}
 				}
 			}
 		}

@@ -197,14 +197,22 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 								OrderExecute.State_NeedSend)) {
 					orderExecute.updateState();
 				}
+				// 更新执行条目的费用状态
+				if (orderExecute.getChargeItems() == null
+						|| orderExecute.getChargeItems().size() == 0) {
+					orderExecute
+							.setChargeState(OrderExecute.ChargeState_NoApply);
+					orderExecute.setCostState(OrderExecute.CostState_NoApply);
+				} else {
+					orderExecute
+							.setChargeState(OrderExecute.ChargeState_NoCharge);
+					orderExecute.setCostState(OrderExecute.CostState_NoCost);
+				}
 				// 设置医嘱组合
 				if (this.getCompsiteOrder() != null) {
 					orderExecute.setCompsiteOrder(this.getCompsiteOrder());
 				}
 			}
-			// 持久化本次分解
-			// orderExecuteTeamRepo.save(resolveTeams);
-
 			this.getService(OrderExecuteTeamRepo.class).save(resolveTeams);
 
 			this.lastOrderExecute = resolveOrderExecutes
