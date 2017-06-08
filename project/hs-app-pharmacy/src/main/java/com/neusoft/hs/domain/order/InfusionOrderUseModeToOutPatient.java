@@ -46,8 +46,6 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 
 		chargeOrderExecute.setExecuteDept(chargeDept);
 		chargeOrderExecute.setChargeDept(pharmacy);
-		chargeOrderExecute.setChargeState(OrderExecute.ChargeState_NoApply);
-		chargeOrderExecute.setCostState(OrderExecute.CostState_NoApply);
 		chargeOrderExecute.setState(OrderExecute.State_Executing);
 		// 统一缴费
 		chargeOrderExecute.setPlanStartDate(sysDate);
@@ -76,10 +74,6 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 				assistMaterialChargeOrderExecute.setExecuteDept(chargeDept);
 				assistMaterialChargeOrderExecute.setChargeDept(pharmacy);
 				assistMaterialChargeOrderExecute
-						.setChargeState(OrderExecute.ChargeState_NoApply);
-				assistMaterialChargeOrderExecute
-						.setCostState(OrderExecute.CostState_NoApply);
-				assistMaterialChargeOrderExecute
 						.setState(OrderExecute.State_Executing);
 				// 统一缴费
 				assistMaterialChargeOrderExecute.setPlanStartDate(sysDate);
@@ -101,8 +95,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 
 		dispensingDrugExecute.setExecuteDept(pharmacy);
 		dispensingDrugExecute.setChargeDept(pharmacy);
-		dispensingDrugExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
-		dispensingDrugExecute.setCostState(OrderExecute.CostState_NoCost);
+
 		dispensingDrugExecute.setState(OrderExecute.State_NeedExecute);
 		// 统一摆药
 		dispensingDrugExecute.setPlanStartDate(sysDate);
@@ -119,8 +112,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		distributeDrugExecute.setType(OrderExecute.Type_Distribute_Drug);
 		distributeDrugExecute.setExecuteDept(pharmacy);
 		distributeDrugExecute.setState(OrderExecute.State_NeedExecute);
-		distributeDrugExecute.setChargeState(OrderExecute.ChargeState_NoApply);
-		distributeDrugExecute.setCostState(OrderExecute.CostState_NoApply);
+
 		// 统一发药
 		distributeDrugExecute.setPlanStartDate(sysDate);
 		distributeDrugExecute.setPlanEndDate(sysDate);
@@ -140,8 +132,7 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		transportFluidExecute.setExecuteDept(order.getExecuteDept());
 		transportFluidExecute.setChargeDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
-		transportFluidExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
-		transportFluidExecute.setCostState(OrderExecute.CostState_NoCost);
+
 		transportFluidExecute.setMain(true);
 
 		team.addOrderExecute(transportFluidExecute);

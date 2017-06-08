@@ -18,6 +18,8 @@ interface OrderExecuteRepo extends
 		PagingAndSortingRepository<OrderExecute, String> {
 	
 	List<OrderExecute> findByState(String state, Pageable pageable);
+	
+	List<OrderExecute> findByChargeState(String chargeState, Pageable pageable);
 
 	List<OrderExecute> findByStateAndBelongDeptAndPlanStartDateLessThan(
 			String state, Dept dept, Date planStartDate, Pageable pageable);
@@ -36,8 +38,6 @@ interface OrderExecuteRepo extends
 	List<OrderExecute> findByVisitAndTypeAndStateAndExecuteDeptAndPlanStartDateLessThan(
 			Visit visit, String type, String state, Dept dept,
 			Date planStartDate, Pageable pageable);
-
-	List<OrderExecute> findByChargeState(String chargeState, Pageable pageable);
 
 	List<OrderExecute> findByStateAndBelongDeptInAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
 			String state, List<? extends Dept> belongDepts, List<String> types,

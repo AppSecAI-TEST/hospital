@@ -51,8 +51,6 @@ public class EnterHospitalOrderType extends OrderType {
 
 		enter.setExecuteDept(order.getExecuteDept());
 		enter.setState(OrderExecute.State_Executing);
-		enter.setChargeState(OrderExecute.ChargeState_NoApply);
-		enter.setCostState(OrderExecute.CostState_NoApply);
 
 		team.addOrderExecute(enter);
 

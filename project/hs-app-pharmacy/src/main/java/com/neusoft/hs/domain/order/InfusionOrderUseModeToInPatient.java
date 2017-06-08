@@ -38,9 +38,6 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		configureFluidDrugExecute.setChargeDept(drugOrderTypeApp.getDrugType()
 				.getPharmacy());
 		configureFluidDrugExecute.setState(OrderExecute.State_NeedSend);
-		configureFluidDrugExecute
-				.setChargeState(OrderExecute.ChargeState_NoCharge);
-		configureFluidDrugExecute.setCostState(OrderExecute.CostState_NoCost);
 
 		team.addOrderExecute(configureFluidDrugExecute);
 
@@ -76,8 +73,6 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
 		transportFluidExecute.setChargeDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
-		transportFluidExecute.setChargeState(OrderExecute.ChargeState_NoCharge);
-		transportFluidExecute.setCostState(OrderExecute.CostState_NoCost);
 
 		team.addOrderExecute(transportFluidExecute);
 

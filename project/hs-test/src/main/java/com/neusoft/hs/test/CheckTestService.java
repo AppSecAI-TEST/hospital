@@ -60,6 +60,21 @@ public class CheckTestService extends AppTestService {
 				OrderExecute.State_Stoped, pageable);
 
 		assertTrue(orderExecutes.size() == 2);
+		
+		orderExecutes = orderExecuteDomainService.findByChargeState(
+				OrderExecute.ChargeState_Charge, pageable);
+
+		assertTrue(orderExecutes.size() == 35);
+		
+		orderExecutes = orderExecuteDomainService.findByChargeState(
+				OrderExecute.ChargeState_BackCharge, pageable);
+
+		assertTrue(orderExecutes.size() == 1);
+		
+		orderExecutes = orderExecuteDomainService.findByChargeState(
+				OrderExecute.ChargeState_NoCharge, pageable);
+
+		assertTrue(orderExecutes.size() == 3);
 
 	}
 

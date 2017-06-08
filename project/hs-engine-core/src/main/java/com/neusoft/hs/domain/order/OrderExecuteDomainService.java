@@ -70,6 +70,10 @@ public class OrderExecuteDomainService {
 		return orderExecuteRepo.findByState(state, pageable);
 	}
 
+	public List<OrderExecute> findByChargeState(String chargeState, Pageable pageable) {
+		return orderExecuteRepo.findByChargeState(chargeState, pageable);
+	}
+	
 	public List<OrderExecute> find(OrderExecuteFilter filter,
 			Map<String, Object> params, AbstractUser user, Pageable pageable) {
 		OrderExecuteFilterCondition condition = filter.createCondition(params,
