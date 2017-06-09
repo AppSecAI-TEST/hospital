@@ -54,7 +54,7 @@ public class DrugOrderType extends OrderType {
 			DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
 					.getTypeApp();
 			try {
-				drugOrderTypeApp.unWithhold(drugTypeSpec, order.getCount());
+				drugOrderTypeApp.unWithhold();
 			} catch (PharmacyException e) {
 				throw new OrderException(order, e);
 			}

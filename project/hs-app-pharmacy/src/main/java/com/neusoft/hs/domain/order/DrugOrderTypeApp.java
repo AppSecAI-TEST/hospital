@@ -11,12 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.neusoft.hs.domain.order.OrderType;
-import com.neusoft.hs.domain.order.OrderTypeApp;
-import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugTypeConsumeRecord;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
@@ -87,10 +83,8 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 		this.setConsumeRecords(this.pharmacy.withhold(drugTypeSpec, count));
 	}
 
-	public void unWithhold(DrugTypeSpec drugTypeSpec, Integer count)
-			throws PharmacyException {
+	public void unWithhold() throws PharmacyException {
 		this.pharmacy.unWithhold(consumeRecords);
-
 	}
 
 }
