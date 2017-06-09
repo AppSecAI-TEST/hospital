@@ -41,6 +41,9 @@ public class PharmacyAdminService {
 
 	@Autowired
 	private DispensingDrugOrderRepo dispensingDrugOrderRepo;
+	
+	@Autowired
+	private DrugTypeConsumeRecordRepo drugTypeConsumeRecordRepo;
 
 	public void createDrugTypeSpecs(List<DrugTypeSpec> drugTypeSpecs) {
 		drugTypeSpecRepo.save(drugTypeSpecs);
@@ -114,5 +117,9 @@ public class PharmacyAdminService {
 
 	public void clearDispensingDrugBatch() {
 		dispensingDrugBatchRepo.deleteAll();
+	}
+
+	public void clearDrugTypeConsumeRecords() {
+		drugTypeConsumeRecordRepo.deleteAll();
 	}
 }

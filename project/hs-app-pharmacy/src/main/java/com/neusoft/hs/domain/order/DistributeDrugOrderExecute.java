@@ -28,10 +28,10 @@ public class DistributeDrugOrderExecute extends DrugOrderExecute {
 				this.dispenseDrugWin = dispensingDrugOrderExecute
 						.getDispenseDrugWin();
 			}
-			if (previos instanceof DrugOrderExecute) {
-				DrugOrderExecute drugOrderExecute = (DrugOrderExecute) previos;
-				this.setDrugType(drugOrderExecute.getDrugType());
-			}
+//			if (previos instanceof DrugOrderExecute) {
+//				DrugOrderExecute drugOrderExecute = (DrugOrderExecute) previos;
+//				this.setDrugType(drugOrderExecute.getDrugType());
+//			}
 		}
 
 	}

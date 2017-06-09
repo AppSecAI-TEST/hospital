@@ -2,17 +2,26 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.pharmacy.DrugTypeConsumeRecord;
+import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
+import com.neusoft.hs.domain.pharmacy.Pharmacy;
+import com.neusoft.hs.domain.pharmacy.PharmacyException;
 
 @Entity
 @DiscriminatorValue("Drug")
@@ -22,18 +31,22 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 	@JoinColumn(name = "drug_use_mode_id")
 	public DrugUseMode drugUseMode;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "drug_type_id")
-	private DrugType drugType;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pharmacy_id")
+	private Pharmacy pharmacy;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "drugOrderTypeApp", cascade = { CascadeType.ALL })
+	private List<DrugTypeConsumeRecord> consumeRecords;
 
 	public DrugOrderTypeApp() {
 		super();
 	}
 
-	public DrugOrderTypeApp(OrderType orderType, DrugType drugType,
+	public DrugOrderTypeApp(OrderType orderType, Pharmacy pharmacy,
 			DrugUseMode drugUseMode) {
 		super(orderType);
-		this.drugType = drugType;
+		this.pharmacy = pharmacy;
 		this.drugUseMode = drugUseMode;
 	}
 
@@ -45,11 +58,35 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 		this.drugUseMode = drugUseMode;
 	}
 
-	public DrugType getDrugType() {
-		return drugType;
+	public Pharmacy getPharmacy() {
+		return pharmacy;
 	}
 
-	public void setDrugType(DrugType drugType) {
-		this.drugType = drugType;
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
 	}
+
+	public List<DrugTypeConsumeRecord> getConsumeRecords() {
+		return consumeRecords;
+	}
+
+	public void setConsumeRecords(List<DrugTypeConsumeRecord> consumeRecords) {
+		this.consumeRecords = consumeRecords;
+	}
+
+	public DrugTypeSpec getDrugTypeSpec() {
+		return ((DrugOrderType) this.getOrderType()).getDrugTypeSpec();
+	}
+
+	public void withhold(DrugTypeSpec drugTypeSpec, Integer count)
+			throws PharmacyException {
+		this.consumeRecords = this.pharmacy.withhold(drugTypeSpec, count);
+	}
+
+	public void unWithhold(DrugTypeSpec drugTypeSpec, Integer count)
+			throws PharmacyException {
+		this.pharmacy.unWithhold(consumeRecords);
+
+	}
+
 }

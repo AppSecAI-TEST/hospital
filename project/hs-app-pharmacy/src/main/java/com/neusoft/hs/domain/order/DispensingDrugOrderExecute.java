@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
 import com.neusoft.hs.domain.pharmacy.DispensingDrugOrder;
+import com.neusoft.hs.domain.pharmacy.DrugTypeConsumeRecord;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.NumberUtil;
 
@@ -31,8 +32,7 @@ public class DispensingDrugOrderExecute extends DrugOrderExecute {
 
 	@Override
 	protected void doExecuteBefore() throws OrderExecuteException {
-		List<DispenseDrugWin> wins = this.getDrugType().getPharmacy()
-				.getDispenseDrugWins();
+		List<DispenseDrugWin> wins = this.getPharmacy().getDispenseDrugWins();
 		if (wins != null && wins.size() > 0) {
 			dispenseDrugWin = wins.get(NumberUtil.random(wins.size()));
 		}
@@ -42,7 +42,9 @@ public class DispensingDrugOrderExecute extends DrugOrderExecute {
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
 		try {
-			this.getDrugType().send(getCount());
+			List<DrugTypeConsumeRecord> consumeRecords = this.getPharmacy()
+					.send(this.getDrugTypeSpec(), getCount());
+			this.setConsumeRecords(consumeRecords);
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
@@ -51,7 +53,7 @@ public class DispensingDrugOrderExecute extends DrugOrderExecute {
 	@Override
 	protected void doCancel() throws OrderExecuteException {
 		try {
-			this.getDrugType().unSend(getCount());
+			this.getPharmacy().unSend(this.getConsumeRecords());
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}

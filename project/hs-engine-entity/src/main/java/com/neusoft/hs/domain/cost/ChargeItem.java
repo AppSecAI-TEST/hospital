@@ -9,7 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteChargeItemRecord;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.platform.entity.SuperEntity;
 
@@ -58,8 +58,8 @@ public class ChargeItem extends SuperEntity {
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<OrderType> orderTypes;
 
-	@ManyToMany(mappedBy = "chargeItems", cascade = { CascadeType.ALL })
-	private List<OrderExecute> executes;
+	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	private List<OrderExecuteChargeItemRecord> orderExecuteChargeItemRecords;
 
 	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
 	private List<VisitChargeItem> visitChargeItems;
@@ -139,12 +139,13 @@ public class ChargeItem extends SuperEntity {
 		this.orderTypes = orderTypes;
 	}
 
-	public List<OrderExecute> getExecutes() {
-		return executes;
+	public List<OrderExecuteChargeItemRecord> getOrderExecuteChargeItemRecords() {
+		return orderExecuteChargeItemRecords;
 	}
 
-	public void setExecutes(List<OrderExecute> executes) {
-		this.executes = executes;
+	public void setOrderExecuteChargeItemRecords(
+			List<OrderExecuteChargeItemRecord> orderExecuteChargeItemRecords) {
+		this.orderExecuteChargeItemRecords = orderExecuteChargeItemRecords;
 	}
 
 }

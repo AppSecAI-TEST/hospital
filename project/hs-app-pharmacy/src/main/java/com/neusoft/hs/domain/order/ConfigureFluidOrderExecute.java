@@ -1,6 +1,7 @@
 package com.neusoft.hs.domain.order;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
@@ -11,6 +12,7 @@ import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
+import com.neusoft.hs.domain.pharmacy.DrugTypeConsumeRecord;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -28,7 +30,9 @@ public class ConfigureFluidOrderExecute extends DrugOrderExecute {
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
 		try {
-			this.getDrugType().send(getCount());
+			List<DrugTypeConsumeRecord> consumeRecords = this.getPharmacy()
+					.send(this.getDrugTypeSpec(), getCount());
+			this.setConsumeRecords(consumeRecords);
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}
@@ -37,7 +41,7 @@ public class ConfigureFluidOrderExecute extends DrugOrderExecute {
 	@Override
 	protected void doCancel() throws OrderExecuteException {
 		try {
-			this.getDrugType().unSend(getCount());
+			this.getPharmacy().unSend(this.getConsumeRecords());
 		} catch (HsException e) {
 			throw new OrderExecuteException(this, e);
 		}

@@ -12,8 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -108,9 +106,8 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "domain_order_execute_charge_item", joinColumns = { @JoinColumn(name = "order_execute_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "charge_item_id", referencedColumnName = "id") })
-	private List<ChargeItem> chargeItems;
+	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.ALL })
+	private List<OrderExecuteChargeItemRecord> chargeItemRecords;
 
 	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.ALL })
 	@OrderBy("createDate DESC")
@@ -212,23 +209,6 @@ public class OrderExecute extends IdEntity {
 	}
 
 	/**
-	 * 根据系统时间更新执行条目状态
-	 * 
-	 * @throws OrderExecuteException
-	 */
-	public void updateState() throws OrderExecuteException {
-		Date sysDate = DateUtil.getSysDate();
-		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
-		if (this.planStartDate != null && this.planStartDate.before(startDate)) {
-			this.doExecuteBefore();
-			this.state = State_Executing;
-			this.startDate = sysDate;
-		} else {
-			this.state = State_NeedExecute;
-		}
-	}
-
-	/**
 	 * 完成一条执行条目
 	 * 
 	 * 当有下一条执行条目时将其状态置为【执行中】
@@ -292,12 +272,15 @@ public class OrderExecute extends IdEntity {
 	public List<ChargeRecord> createChargeRecords() {
 		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
 
-		if (this.chargeItems != null && this.chargeItems.size() > 0) {
-			for (ChargeItem chargeItem : this.chargeItems) {
+		if (this.chargeItemRecords != null && this.chargeItemRecords.size() > 0) {
+			for (OrderExecuteChargeItemRecord chargeItemRecord : this.chargeItemRecords) {
 				ChargeRecord chargeRecord = new ChargeRecord();
+
+				ChargeItem chargeItem = chargeItemRecord.getChargeItem();
+
 				chargeRecord.setPrice(chargeItem.getPrice());
-				chargeRecord.setCount(count);
-				chargeRecord.setAmount(-this.calAmout(chargeItem));
+				chargeRecord.setCount(chargeItemRecord.getCount());
+				chargeRecord.setAmount(-this.calAmout(chargeItemRecord));
 				chargeRecord.setChargeItem(chargeItem);
 
 				chargeRecords.add(chargeRecord);
@@ -364,12 +347,13 @@ public class OrderExecute extends IdEntity {
 		this.getService(OrderExecuteRepo.class).save(this);
 	}
 
-	private Float calAmout(ChargeItem chargeItem) {
-		if (this.getOrder().getCount() == null
-				|| this.getOrder().getCount() == 0) {
-			return chargeItem.getPrice();
+	private Float calAmout(OrderExecuteChargeItemRecord chargeItemRecord) {
+		if (chargeItemRecord.getCount() == null
+				|| chargeItemRecord.getCount() == 0) {
+			return chargeItemRecord.getChargeItem().getPrice();
 		} else {
-			return chargeItem.getPrice() * this.getOrder().getCount();
+			return chargeItemRecord.getChargeItem().getPrice()
+					* chargeItemRecord.getCount();
 		}
 	}
 
@@ -514,19 +498,32 @@ public class OrderExecute extends IdEntity {
 		this.order = order;
 	}
 
-	public List<ChargeItem> getChargeItems() {
-		return chargeItems;
+	public List<OrderExecuteChargeItemRecord> getChargeItemRecords() {
+		return chargeItemRecords;
 	}
 
-	public void setChargeItems(List<ChargeItem> chargeItems) {
-		this.chargeItems = chargeItems;
+	public void setChargeItemRecords(
+			List<OrderExecuteChargeItemRecord> chargeItemRecords) {
+		this.chargeItemRecords = chargeItemRecords;
+	}
+
+	public void addChargeItemRecord(
+			OrderExecuteChargeItemRecord chargeItemRecord) {
+		if (this.chargeItemRecords == null) {
+			this.chargeItemRecords = new ArrayList<OrderExecuteChargeItemRecord>();
+		}
+		this.chargeItemRecords.add(chargeItemRecord);
 	}
 
 	public void addChargeItem(ChargeItem chargeItem) {
-		if (this.chargeItems == null) {
-			this.chargeItems = new ArrayList<ChargeItem>();
-		}
-		this.chargeItems.add(chargeItem);
+
+		OrderExecuteChargeItemRecord record = new OrderExecuteChargeItemRecord();
+
+		record.setChargeItem(chargeItem);
+		record.setCount(this.getOrder().getCount());
+		record.setOrderExecute(this);
+
+		this.addChargeItemRecord(record);
 	}
 
 	public List<ChargeRecord> getChargeRecords() {
@@ -595,5 +592,44 @@ public class OrderExecute extends IdEntity {
 
 	public void setNext(OrderExecute next) {
 		this.next = next;
+	}
+
+	/**
+	 * 根据系统时间更新执行条目状态
+	 * 
+	 * @throws OrderExecuteException
+	 */
+	void updateState() throws OrderExecuteException {
+		Date sysDate = DateUtil.getSysDate();
+		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
+		if (this.planStartDate != null && this.planStartDate.before(startDate)) {
+			this.doExecuteBefore();
+			this.state = State_Executing;
+			this.startDate = sysDate;
+		} else {
+			this.state = State_NeedExecute;
+		}
+	}
+
+	void updateChargeState() {
+		if (this.chargeState == null) {
+			if (this.chargeItemRecords == null
+					|| this.chargeItemRecords.size() == 0) {
+				this.chargeState = ChargeState_NoApply;
+			} else {
+				this.chargeState = ChargeState_NoCharge;
+			}
+		}
+	}
+
+	void updateCostState() {
+		if (this.costState == null) {
+			if (this.chargeItemRecords == null
+					|| this.chargeItemRecords.size() == 0) {
+				this.costState = CostState_NoApply;
+			} else {
+				this.costState = CostState_NoCost;
+			}
+		}
 	}
 }

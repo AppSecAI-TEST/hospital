@@ -11,9 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import com.neusoft.hs.domain.pharmacy.DrugType;
+import com.neusoft.hs.domain.pharmacy.DrugTypeConsumeRecord;
 import com.neusoft.hs.domain.pharmacy.DrugTypeSpec;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
+import com.neusoft.hs.domain.pharmacy.PharmacyException;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -38,8 +39,8 @@ public class DrugOrderType extends OrderType {
 		// 临嘱预扣
 		if (order instanceof TemporaryOrder) {
 			try {
-				drugOrderTypeApp.getDrugType().withhold(order.getCount());
-			} catch (HsException e) {
+				drugOrderTypeApp.withhold(drugTypeSpec, order.getCount());
+			} catch (PharmacyException e) {
 				throw new OrderException(order, e);
 			}
 		}
@@ -53,8 +54,8 @@ public class DrugOrderType extends OrderType {
 			DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
 					.getTypeApp();
 			try {
-				drugOrderTypeApp.getDrugType().unWithhold(order.getCount());
-			} catch (HsException e) {
+				drugOrderTypeApp.unWithhold(drugTypeSpec, order.getCount());
+			} catch (PharmacyException e) {
 				throw new OrderException(order, e);
 			}
 		}

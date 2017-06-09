@@ -539,6 +539,8 @@ public class DataIniter {
 		medicalRecordAdminDomainService.clear();
 		// 清空处方
 		pharmacyAdminService.clearPrescriptions();
+		//清空药品消费记录
+		pharmacyAdminService.clearDrugTypeConsumeRecords();
 		// 清空医嘱
 		orderAdminDomainService.clearOrderTypeApps();
 		// 清空组合医嘱

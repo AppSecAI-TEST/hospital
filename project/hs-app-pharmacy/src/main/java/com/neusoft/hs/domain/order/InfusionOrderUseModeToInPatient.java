@@ -3,9 +3,9 @@ package com.neusoft.hs.domain.order;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
+import com.neusoft.hs.domain.pharmacy.Pharmacy;
 
 @Entity
 @DiscriminatorValue("Infusion_InPatient")
@@ -20,25 +20,25 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
 				.getTypeApp();
 
-		DrugType drugType = drugOrderTypeApp.getDrugType();
+		Pharmacy pharmacy = drugOrderTypeApp.getPharmacy();
+
 		// 配液执行条目
 		ConfigureFluidOrderExecute configureFluidDrugExecute = new ConfigureFluidOrderExecute();
 		configureFluidDrugExecute.setOrder(order);
 		configureFluidDrugExecute.setVisit(order.getVisit());
 		configureFluidDrugExecute.setBelongDept(order.getBelongDept());
 		configureFluidDrugExecute.setType(OrderExecute.Type_Configure_Fluid);
-
-		configureFluidDrugExecute.addChargeItem(drugType.getDrugTypeSpec()
-				.getChargeItem());
+		configureFluidDrugExecute.addChargeItem(drugOrderTypeApp
+				.getDrugTypeSpec().getChargeItem());
 		configureFluidDrugExecute.setCount(order.getCount());
-		configureFluidDrugExecute.setDrugType(drugType);
-
-		configureFluidDrugExecute.setExecuteDept(drugOrderTypeApp.getDrugType()
-				.getPharmacy());
-		configureFluidDrugExecute.setChargeDept(drugOrderTypeApp.getDrugType()
-				.getPharmacy());
+	
+		configureFluidDrugExecute.setExecuteDept(pharmacy);
+		configureFluidDrugExecute.setChargeDept(pharmacy);
 		configureFluidDrugExecute.setState(OrderExecute.State_NeedSend);
-
+		
+		configureFluidDrugExecute.setPharmacy(pharmacy);
+		configureFluidDrugExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
+		
 		team.addOrderExecute(configureFluidDrugExecute);
 
 		// 输液执行条目
@@ -47,13 +47,12 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		transportFluidExecute.setVisit(order.getVisit());
 		transportFluidExecute.setBelongDept(order.getBelongDept());
 		transportFluidExecute.setType(OrderExecute.Type_Transport_Fluid);
-		transportFluidExecute.setDrugType(drugType);
 
 		// 处理辅材产生的费用
 		DrugUseModeAssistMaterial orderUseModeAssistMaterial = this
 				.getTheOrderUseModeChargeItem(transportFluid);
 		if (orderUseModeAssistMaterial != null) {
-			if (drugType.getDrugTypeSpec().isTransportFluidCharge()) {
+			if (drugOrderTypeApp.getDrugTypeSpec().isTransportFluidCharge()) {
 				if (orderUseModeAssistMaterial.getChargeMode().equals(
 						DrugUseModeAssistMaterial.everyOne)) {
 					transportFluidExecute
@@ -73,6 +72,9 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
 		transportFluidExecute.setChargeDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
+		
+		transportFluidExecute.setPharmacy(pharmacy);
+		transportFluidExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
 
 		team.addOrderExecute(transportFluidExecute);
 
