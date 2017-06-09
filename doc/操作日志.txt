@@ -1,4 +1,4 @@
-2017.06.--
+2017.06.09 优化医嘱执行和药房的接口
 
 1、分析模型：更新了分解医嘱、发送医嘱条目、完成医嘱条目用例实现，更改了分析包结构图
 2、分析、设计、实现模型：增加了摆药窗口、向OrderExecute增加doExecuteBefore，向DispensingDrugOrderExecute的doExecuteBefore中增加自动计算摆药窗口代码
