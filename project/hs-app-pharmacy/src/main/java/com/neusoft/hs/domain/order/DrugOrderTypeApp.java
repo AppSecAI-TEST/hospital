@@ -72,6 +72,10 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 
 	public void setConsumeRecords(List<DrugTypeConsumeRecord> consumeRecords) {
 		this.consumeRecords = consumeRecords;
+		
+		for (DrugTypeConsumeRecord record : consumeRecords) {
+			record.setDrugOrderTypeApp(this);
+		}
 	}
 
 	public DrugTypeSpec getDrugTypeSpec() {

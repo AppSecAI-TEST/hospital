@@ -51,5 +51,9 @@ public abstract class DrugOrderExecute extends OrderExecute {
 
 	public void setConsumeRecords(List<DrugTypeConsumeRecord> consumeRecords) {
 		this.consumeRecords = consumeRecords;
+
+		for (DrugTypeConsumeRecord record : consumeRecords) {
+			record.setDrugOrderExecute(this);
+		}
 	}
 }

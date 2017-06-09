@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.neusoft.hs.domain.order.DrugOrderExecute;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.platform.entity.IdEntity;
