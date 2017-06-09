@@ -72,7 +72,7 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 
 	public void setConsumeRecords(List<DrugTypeConsumeRecord> consumeRecords) {
 		this.consumeRecords = consumeRecords;
-		
+
 		for (DrugTypeConsumeRecord record : consumeRecords) {
 			record.setDrugOrderTypeApp(this);
 		}
@@ -84,7 +84,7 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 
 	public void withhold(DrugTypeSpec drugTypeSpec, Integer count)
 			throws PharmacyException {
-		this.consumeRecords = this.pharmacy.withhold(drugTypeSpec, count);
+		this.setConsumeRecords(this.pharmacy.withhold(drugTypeSpec, count));
 	}
 
 	public void unWithhold(DrugTypeSpec drugTypeSpec, Integer count)

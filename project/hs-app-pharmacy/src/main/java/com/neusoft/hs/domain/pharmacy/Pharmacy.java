@@ -49,6 +49,7 @@ public class Pharmacy extends Dept {
 		DrugTypeConsumeRecord consumeRecord = new DrugTypeConsumeRecord();
 		consumeRecord.setDrugType(theDrugType);
 		consumeRecord.setCount(count);
+		consumeRecord.setType(DrugTypeConsumeRecord.Type_Withhold);
 		consumeRecord.setCreateDate(DateUtil.getSysDate());
 
 		consumeRecords.add(consumeRecord);
@@ -82,6 +83,7 @@ public class Pharmacy extends Dept {
 		DrugTypeConsumeRecord consumeRecord = new DrugTypeConsumeRecord();
 		consumeRecord.setDrugType(theDrugType);
 		consumeRecord.setCount(count);
+		consumeRecord.setType(DrugTypeConsumeRecord.Type_Dispense);
 		consumeRecord.setCreateDate(DateUtil.getSysDate());
 
 		consumeRecords.add(consumeRecord);

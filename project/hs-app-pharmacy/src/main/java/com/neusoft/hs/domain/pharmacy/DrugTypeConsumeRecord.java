@@ -37,6 +37,10 @@ public class DrugTypeConsumeRecord extends IdEntity {
 	@JoinColumn(name = "drug_order_execute_id")
 	private DrugOrderExecute drugOrderExecute;
 
+	public static final String Type_Withhold = "预扣";
+
+	public static final String Type_Dispense = "摆药";
+
 	public DrugType getDrugType() {
 		return drugType;
 	}
