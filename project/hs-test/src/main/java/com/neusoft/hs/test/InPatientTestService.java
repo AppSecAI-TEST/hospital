@@ -26,9 +26,9 @@ import com.neusoft.hs.platform.util.DateUtil;
 public abstract class InPatientTestService extends AppTestService {
 
 	protected Visit visit001;
-	
+
 	protected Visit visit004;
-	
+
 	protected List<Visit> visitList = new ArrayList<Visit>();
 
 	protected int dayCount = 0;
@@ -91,10 +91,10 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setRespDoctor(user002);
 		// 送诊
 		visit001 = registerAppService.register(createVisitVO);
-		
+
 		visitList.add(visit001);
 	}
-	
+
 	protected void createVisit004() throws HsException {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:52", dayCount));
@@ -109,7 +109,7 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setRespDoctor(user002);
 		// 送诊
 		visit004 = registerAppService.register(createVisitVO);
-		
+
 		visitList.add(visit004);
 	}
 
@@ -124,14 +124,14 @@ public abstract class InPatientTestService extends AppTestService {
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
 
 		assertTrue(visits.size() == 2);
-		for(Visit v : visits){
+		for (Visit v : visits) {
 			assertTrue(visitList.contains(v));
-		}		
-		
+		}
+
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
-		
+
 		visit = visitDomainService.find(visit004.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
@@ -144,20 +144,20 @@ public abstract class InPatientTestService extends AppTestService {
 		} else {
 			cashierAppService.addCost(visit001.getId(), 2000F, user201);
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:12", dayCount));
-		
+
 		cashierAppService.initAccount(visit004.getId(), 3000F, user201);
 
 		pageable = new PageRequest(0, 15);
 		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
 
 		assertTrue(visits.size() == 2);
-		
+
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
-		
+
 		visit = visitDomainService.find(visit004.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
@@ -171,7 +171,7 @@ public abstract class InPatientTestService extends AppTestService {
 		receiveVisitVO.setNurse(user003);
 
 		inPatientAppService.receive(receiveVisitVO, user001);
-		
+
 		receiveVisitVO = new ReceiveVisitVO();
 		receiveVisitVO.setVisit(visit004);
 		receiveVisitVO.setBed("bed004");
@@ -183,11 +183,11 @@ public abstract class InPatientTestService extends AppTestService {
 		visits = inPatientAppService.InWardVisits(dept000, pageable);
 
 		assertTrue(visits.size() == 2);
-		
+
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_IntoWard));
-		
+
 		visit = visitDomainService.find(visit004.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_IntoWard));
@@ -207,29 +207,30 @@ public abstract class InPatientTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:10", dayCount));
 
 		// 开立出院临时医嘱
-		Order leaveHospitalOrder = new TemporaryOrder();
-		leaveHospitalOrder.setVisit(visit001);
-		leaveHospitalOrder.setName("出院医嘱");
-		leaveHospitalOrder.setPlanStartDate(DateUtil.createDay("2017-01-09",
+		Order leaveHospitalOrder001 = new TemporaryOrder();
+		leaveHospitalOrder001.setVisit(visit001);
+		leaveHospitalOrder001.setName("出院医嘱");
+		leaveHospitalOrder001.setPlanStartDate(DateUtil.createDay("2017-01-09",
 				dayCount));
-		leaveHospitalOrder.setExecuteDept(dept222);
-		leaveHospitalOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+		leaveHospitalOrder001.setExecuteDept(dept222);
+		leaveHospitalOrder001
+				.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
-		leaveHospitalOrder.setTypeApp(new SampleOrderTypeApp(
+		leaveHospitalOrder001.setTypeApp(new SampleOrderTypeApp(
 				leaveHospitalOrderType));
 
-		orderAppService.create(leaveHospitalOrder, user002);
+		orderAppService.create(leaveHospitalOrder001, user002);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
 		assertTrue(orders.size() == 1);
-		assertTrue(orders.get(0).getId().equals(leaveHospitalOrder.getId()));
+		assertTrue(orders.get(0).getId().equals(leaveHospitalOrder001.getId()));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:30", dayCount));
 
 		// 核对医嘱
-		orderAppService.verify(leaveHospitalOrder.getId(), user003);
+		orderAppService.verify(leaveHospitalOrder001.getId(), user003);
 
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
@@ -291,6 +292,63 @@ public abstract class InPatientTestService extends AppTestService {
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_OutHospital));
+
+		// 开立出院临时医嘱
+		Order leaveHospitalOrder002 = new TemporaryOrder();
+		leaveHospitalOrder002.setVisit(visit004);
+		leaveHospitalOrder002.setName("出院医嘱");
+		leaveHospitalOrder002.setPlanStartDate(DateUtil.createDay("2017-01-09",
+				dayCount));
+		leaveHospitalOrder002.setExecuteDept(dept222);
+		leaveHospitalOrder002
+				.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+
+		leaveHospitalOrder002.setTypeApp(new SampleOrderTypeApp(
+				leaveHospitalOrderType));
+
+		orderAppService.create(leaveHospitalOrder002, user002);
+
+		pageable = new PageRequest(0, 15);
+		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
+
+		assertTrue(orders.size() == 1);
+		assertTrue(orders.get(0).getId().equals(leaveHospitalOrder002.getId()));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 11:00", dayCount));
+
+		// 核对医嘱
+		orderAppService.verify(leaveHospitalOrder002.getId(), user003);
+
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 11:02", dayCount));
+
+		// 完成医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
+		
+		visit = visitDomainService.find(visit004.getId());
+
+		assertTrue(visit.getState()
+				.equals(Visit.State_NeedLeaveHospitalBalance));
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 11:30", dayCount));
+		
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成出院结算医嘱执行条目
+		orderExecuteAppService.finish(executes.get(0).getId(), null, user201);
+
+		visit = visitDomainService.find(visit004.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_OutHospital));
 	}
 
 	public void followUp() throws HsException {
@@ -342,7 +400,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 	public void setVisit001(Visit visit001) {
 		this.visit001 = visit001;
-		
+
 		visitList.add(visit001);
 	}
 
