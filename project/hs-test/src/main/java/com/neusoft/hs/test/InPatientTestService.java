@@ -217,9 +217,8 @@ public abstract class InPatientTestService extends AppTestService {
 		leaveHospitalOrder001.setExecuteDept(dept222);
 		leaveHospitalOrder001
 				.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-
-		leaveHospitalOrder001.setTypeApp(new SampleOrderTypeApp(
-				leaveHospitalOrderType));
+		
+		leaveHospitalOrder001.setOrderType(leaveHospitalOrderType);
 
 		orderAppService.create(leaveHospitalOrder001, user002);
 
@@ -310,9 +309,8 @@ public abstract class InPatientTestService extends AppTestService {
 		leaveHospitalOrder002.setExecuteDept(dept222);
 		leaveHospitalOrder002
 				.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-
-		leaveHospitalOrder002.setTypeApp(new SampleOrderTypeApp(
-				leaveHospitalOrderType));
+		
+		leaveHospitalOrder002.setOrderType(leaveHospitalOrderType);
 
 		orderAppService.create(leaveHospitalOrder002, user002);
 

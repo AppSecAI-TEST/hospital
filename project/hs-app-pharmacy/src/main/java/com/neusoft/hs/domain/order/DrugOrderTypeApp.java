@@ -39,9 +39,7 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 		super();
 	}
 
-	public DrugOrderTypeApp(OrderType orderType, Pharmacy pharmacy,
-			DrugUseMode drugUseMode) {
-		super(orderType);
+	public DrugOrderTypeApp(Pharmacy pharmacy, DrugUseMode drugUseMode) {
 		this.pharmacy = pharmacy;
 		this.drugUseMode = drugUseMode;
 	}
@@ -75,7 +73,8 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 	}
 
 	public DrugTypeSpec getDrugTypeSpec() {
-		return ((DrugOrderType) this.getOrderType()).getDrugTypeSpec();
+		return ((DrugOrderType) this.getOrder().getOrderType())
+				.getDrugTypeSpec();
 	}
 
 	public void withhold(DrugTypeSpec drugTypeSpec, Integer count)

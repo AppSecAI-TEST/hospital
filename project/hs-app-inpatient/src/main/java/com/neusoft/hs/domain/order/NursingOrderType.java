@@ -23,6 +23,11 @@ public class NursingOrderType extends OrderType {
 	@NotEmpty(message = "护理类型不能为空")
 	@Column(name = "nursing_type", length = 32)
 	private String nursingType;
+	
+	@Override
+	protected void check(Order order) throws OrderException {
+		//order.getVisit().getOrders()
+	}
 
 	@Override
 	public void resolveOrder(OrderTypeApp orderTypeApp) {

@@ -26,6 +26,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -525,5 +526,9 @@ public class Visit extends IdEntity {
 	public void setChargeItems(List<VisitChargeItem> chargeItems) {
 		this.chargeItems = chargeItems;
 	}
+	
+//	public List<Order> getOrders(OrderType type) {
+//		return this.getService(OrderRepo.class).f;
+//	}
 
 }

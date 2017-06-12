@@ -25,20 +25,11 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class OrderTypeApp extends IdEntity {
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "order_type_id")
-	private OrderType orderType;
-
 	@OneToOne(mappedBy = "typeApp", cascade = { CascadeType.ALL })
 	private Order order;
 
 	public OrderTypeApp() {
 		super();
-	}
-
-	public OrderTypeApp(OrderType orderType) {
-		super();
-		this.orderType = orderType;
 	}
 
 	/**
@@ -48,31 +39,23 @@ public abstract class OrderTypeApp extends IdEntity {
 	 * @roseuid 584F4A3201B9
 	 */
 	public void resolveOrder() throws OrderException {
-		orderType.resolveOrder(this);
+		order.getOrderType().resolveOrder(this);
 	}
 
 	public void check() throws OrderException {
-		orderType.check(order);
+		order.getOrderType().check(order);
 	}
 
 	public void create() throws OrderException {
-		orderType.create(order);
+		order.getOrderType().create(order);
 	}
 
 	public void verify() throws OrderException {
-		orderType.verify(order);
+		order.getOrderType().verify(order);
 	}
 
 	public void delete() throws OrderException {
-		orderType.delete(order);
-	}
-
-	public OrderType getOrderType() {
-		return orderType;
-	}
-
-	public void setOrderType(OrderType orderType) {
-		this.orderType = orderType;
+		order.getOrderType().delete(order);
 	}
 
 	public Order getOrder() {

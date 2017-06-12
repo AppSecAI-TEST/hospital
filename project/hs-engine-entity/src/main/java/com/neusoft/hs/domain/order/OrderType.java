@@ -14,7 +14,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -64,7 +63,7 @@ public abstract class OrderType extends SuperEntity {
 	private List<OrderType> children;
 
 	@OneToMany(mappedBy = "orderType", cascade = { CascadeType.ALL })
-	private List<OrderTypeApp> OrderTypeApps;
+	private List<Order> orders;
 
 	/**
 	 * 医嘱创建时的检查回调函数
@@ -163,13 +162,4 @@ public abstract class OrderType extends SuperEntity {
 	public void setChildren(List<OrderType> children) {
 		this.children = children;
 	}
-
-	public List<OrderTypeApp> getOrderTypeApps() {
-		return OrderTypeApps;
-	}
-
-	public void setOrderTypeApps(List<OrderTypeApp> orderTypeApps) {
-		OrderTypeApps = orderTypeApps;
-	}
-
 }

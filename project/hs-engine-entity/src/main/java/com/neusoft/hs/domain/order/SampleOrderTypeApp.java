@@ -12,8 +12,4 @@ public class SampleOrderTypeApp extends OrderTypeApp {
 	public SampleOrderTypeApp() {
 		super();
 	}
-
-	public SampleOrderTypeApp(OrderType orderType) {
-		super(orderType);
-	}
 }

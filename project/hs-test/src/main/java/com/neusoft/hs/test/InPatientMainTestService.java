@@ -49,7 +49,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		Date sysDate;
 		Date startDate;
 		DispensingDrugOrder dispensingDrugOrder;
-		
+
 		LongOrder firstNursingOrder;
 		LongOrder secondNursingOrder;
 
@@ -62,12 +62,10 @@ public class InPatientMainTestService extends InPatientTestService {
 		firstNursingOrder.setFrequencyType(orderFrequencyType_0H);
 		firstNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 		firstNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-
-		firstNursingOrder.setTypeApp(new SampleOrderTypeApp(
-				firstNursingOrderType));
+		firstNursingOrder.setOrderType(firstNursingOrderType);
 
 		orderAppService.create(firstNursingOrder, user002);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:42", dayCount));
 
 		// 为004开立二级护理长期医嘱
@@ -77,9 +75,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		secondNursingOrder.setFrequencyType(orderFrequencyType_0H);
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-
-		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
-				secondNursingOrderType));
+		secondNursingOrder.setOrderType(secondNursingOrderType);
 
 		orderAppService.create(secondNursingOrder, user002);
 
@@ -104,8 +100,9 @@ public class InPatientMainTestService extends InPatientTestService {
 		drug001Order.setPlanStartDate(DateUtil.getSysDate());
 		drug001Order.setCount(2);
 		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+		drug001Order.setOrderType(drugOrderType001);
 
-		drug001Order.setTypeApp(new DrugOrderTypeApp(drugOrderType001, deptccc,
+		drug001Order.setTypeApp(new DrugOrderTypeApp(deptccc,
 				oralOrderUseMode));
 
 		orderAppService.create(drug001Order, user002);
@@ -289,8 +286,10 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		drug002Order.setPlanStartDate(sysDate);
 		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
+		
+		drug002Order.setOrderType(drugOrderType002);
 
-		drug002Order.setTypeApp(new DrugOrderTypeApp(drugOrderType002, deptbbb,
+		drug002Order.setTypeApp(new DrugOrderTypeApp(deptbbb,
 				infusionOrderUseModeToInPatient));
 
 		// 创建药品003长期医嘱
@@ -303,8 +302,10 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		drug003Order.setPlanStartDate(sysDate);
 		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
+		
+		drug003Order.setOrderType(drugOrderType003);
 
-		drug003Order.setTypeApp(new DrugOrderTypeApp(drugOrderType003, deptbbb,
+		drug003Order.setTypeApp(new DrugOrderTypeApp(deptbbb,
 				infusionOrderUseModeToInPatient));
 
 		CompsiteOrder drug002003Order = new CompsiteOrder();
@@ -504,7 +505,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		TemporaryOrder brainInspectOrder = new TemporaryOrder();
 		brainInspectOrder.setVisit(visit001);
 		brainInspectOrder.setName("脑部检查");
-		brainInspectOrder.setTypeApp(new SampleOrderTypeApp(inspectOrderType));
+		brainInspectOrder.setOrderType(inspectOrderType);
 		brainInspectOrder.setPlanStartDate(DateUtil.getSysDate());
 		brainInspectOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 
@@ -625,7 +626,7 @@ public class InPatientMainTestService extends InPatientTestService {
 				pageable);
 
 		assertTrue(executes.size() == 2);
-		
+
 		// 完成当天的护理医嘱
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user003);
@@ -685,10 +686,8 @@ public class InPatientMainTestService extends InPatientTestService {
 		secondNursingOrder.setFrequencyType(orderFrequencyType_0H);
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-
-		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
-				secondNursingOrderType));
-
+		secondNursingOrder.setOrderType(secondNursingOrderType);
+		
 		orderAppService.create(secondNursingOrder, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 08:40", dayCount));

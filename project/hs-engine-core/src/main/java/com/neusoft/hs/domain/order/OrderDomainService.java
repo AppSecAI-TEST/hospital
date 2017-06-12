@@ -91,7 +91,7 @@ public class OrderDomainService {
 		for (Order order : orderCommand.getOrders()) {
 			order.create();
 			orderIds.add(order.getId());
-			orderTypes.add(order.getTypeApp().getOrderType().getId());
+			orderTypes.add(order.getOrderType().getId());
 		}
 
 		LogUtil.log(this.getClass(), "医生[{}]给患者一次就诊[{}]创建医嘱条目{},医嘱类型为{}",
@@ -124,7 +124,7 @@ public class OrderDomainService {
 
 		LogUtil.log(this.getClass(), "护士[{}]核对患者一次就诊[[{}]的医嘱条目[{}],类型为[{}]",
 				nurse.getId(), order.getVisit().getName(), order.getId(), order
-						.getTypeApp().getOrderType().getId());
+						.getOrderType().getId());
 
 		return order;
 	}
@@ -171,7 +171,7 @@ public class OrderDomainService {
 
 		LogUtil.log(this.getClass(), "医生[{}]作废了患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
 				doctor.getId(), order.getVisit().getName(), order.getId(),
-				order.getTypeApp().getOrderType().getId());
+				order.getOrderType().getId());
 
 	}
 
@@ -193,7 +193,7 @@ public class OrderDomainService {
 
 		LogUtil.log(this.getClass(), "医生[{}]停止了患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
 				doctor.getId(), order.getVisit().getName(), order.getId(),
-				order.getTypeApp().getOrderType().getId());
+				order.getOrderType().getId());
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class OrderDomainService {
 
 		LogUtil.log(this.getClass(), "医生[{}]删除了核对患者一次就诊[[{}]的医嘱条目{},类型为[{}]",
 				doctor.getId(), order.getVisit().getName(), order.getId(),
-				order.getTypeApp().getOrderType().getId());
+				order.getOrderType().getId());
 	}
 
 	/**

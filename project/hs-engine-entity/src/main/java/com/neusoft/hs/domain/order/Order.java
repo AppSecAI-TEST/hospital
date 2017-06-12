@@ -54,6 +54,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@Column(name = "state_desc", length = 128)
 	private String stateDesc;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "order_type_id")
+	private OrderType orderType;
+
 	@NotEmpty(message = "位置类型不能为空")
 	@Column(name = "place_type", length = 32)
 	private String placeType;
@@ -127,6 +131,10 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	public static final String State_Canceled = "已作废";
 
 	public static final String State_Stoped = "已停止";
+
+	public Order() {
+		this.setTypeApp(new SampleOrderTypeApp());
+	}
 
 	/**
 	 * 创建医嘱条目前的检查回调函数 该回调函数将职责委托给医嘱类型@OrderType完成
@@ -300,6 +308,14 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		this.stateDesc = stateDesc;
 	}
 
+	public OrderType getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(OrderType orderType) {
+		this.orderType = orderType;
+	}
+
 	public Date getPlanStartDate() {
 		return planStartDate;
 	}
@@ -322,7 +338,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setTypeApp(OrderTypeApp typeApp) {
 		this.typeApp = typeApp;
-		this.typeApp.setOrder(this);
+		this.typeApp.setOrder(this);	
 	}
 
 	public List<OrderExecute> getOrderExecutes() {
