@@ -554,6 +554,7 @@ public class OutPatientMainTestService extends AppTestService {
 				enterHospitalOrderType));
 
 		enterHospitalOrder.addParam(EnterHospitalOrderType.WardDept, dept000);
+		enterHospitalOrder.addParam(EnterHospitalOrderType.RespDoctor, user002);
 
 		orderAppService.create(enterHospitalOrder, user002);
 

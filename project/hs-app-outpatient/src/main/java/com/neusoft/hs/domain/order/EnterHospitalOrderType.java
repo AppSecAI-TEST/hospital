@@ -3,13 +3,8 @@ package com.neusoft.hs.domain.order;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.neusoft.hs.domain.order.Order;
-import com.neusoft.hs.domain.order.OrderException;
-import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteTeam;
-import com.neusoft.hs.domain.order.OrderType;
-import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
@@ -18,6 +13,8 @@ public class EnterHospitalOrderType extends OrderType {
 
 	public static final String WardDept = "wardDept";
 
+	public static final String RespDoctor = "respDoctor";
+
 	@Override
 	protected void create(Order order) throws OrderException {
 
@@ -25,8 +22,15 @@ public class EnterHospitalOrderType extends OrderType {
 		if (wardDept == null) {
 			throw new OrderException(null, "创建住院医嘱未指定住院科室");
 		}
+
+		Doctor respDoctor = (Doctor) order.getParam(RespDoctor);
+		if (respDoctor == null) {
+			throw new OrderException(null, "创建住院医嘱未指定责任医生");
+		}
+
 		Visit visit = order.getVisit();
 		visit.setDept(wardDept);
+		visit.setRespDoctor(respDoctor);
 		visit.setState(Visit.State_WaitingEnterHospital);
 		visit.save();
 	}
