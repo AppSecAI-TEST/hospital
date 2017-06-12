@@ -36,9 +36,6 @@ public class PatientPharmacyAppService {
 	private OrderExecuteAppService orderExecuteAppService;
 
 	@Autowired
-	private OrderExecuteDomainService orderExecuteDomainService;
-
-	@Autowired
 	private PrintDomainService printDomainService;
 
 	/**

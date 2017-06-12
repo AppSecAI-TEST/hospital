@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.order.ConfigureFluidBatchFilter;
 import com.neusoft.hs.domain.order.ConfigureFluidOrderExecute;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -34,9 +33,6 @@ public class ConfigureFluidAppService {
 
 	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
-
-	@Autowired
-	private OrderExecuteDomainService orderExecuteDomainService;
 
 	@Autowired
 	private PrintDomainService printDomainService;

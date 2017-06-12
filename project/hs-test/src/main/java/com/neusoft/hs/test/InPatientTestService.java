@@ -2,6 +2,7 @@ package com.neusoft.hs.test;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ import com.neusoft.hs.platform.util.DateUtil;
 public abstract class InPatientTestService extends AppTestService {
 
 	protected Visit visit001;
+	
+	protected Visit visit004;
+	
+	protected List<Visit> visitList = new ArrayList<Visit>();
 
 	protected int dayCount = 0;
 
@@ -51,7 +56,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 			dayCount = count * 20;
 
-			this.createVisit();
+			this.createVisit001();
 
 			this.doExecute();
 
@@ -72,7 +77,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 	protected abstract void treatment() throws HsException;
 
-	protected void createVisit() throws HsException {
+	protected void createVisit001() throws HsException {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:50", dayCount));
 		// 创建测试患者
@@ -86,6 +91,26 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setRespDoctor(user002);
 		// 送诊
 		visit001 = registerAppService.register(createVisitVO);
+		
+		visitList.add(visit001);
+	}
+	
+	protected void createVisit004() throws HsException {
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:52", dayCount));
+		// 创建测试患者
+		CreateVisitVO createVisitVO = new CreateVisitVO();
+		createVisitVO.setCardNumber("aaa");
+		createVisitVO.setName("测试患者004");
+		createVisitVO.setBirthday(DateUtil.createDay("1980-01-22"));
+		createVisitVO.setSex("男");
+		createVisitVO.setOperator(user002);
+		createVisitVO.setDept(dept000);
+		createVisitVO.setRespDoctor(user002);
+		// 送诊
+		visit004 = registerAppService.register(createVisitVO);
+		
+		visitList.add(visit004);
 	}
 
 	protected void intoWard() throws HsException {
@@ -93,14 +118,21 @@ public abstract class InPatientTestService extends AppTestService {
 		Pageable pageable;
 		List<Visit> visits;
 		Visit visit;
+		ReceiveVisitVO receiveVisitVO;
 
 		pageable = new PageRequest(0, 15);
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
 
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
+		assertTrue(visits.size() == 2);
+		for(Visit v : visits){
+			assertTrue(visitList.contains(v));
+		}		
+		
 		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
+		
+		visit = visitDomainService.find(visit004.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_NeedInitAccount));
 
@@ -112,23 +144,37 @@ public abstract class InPatientTestService extends AppTestService {
 		} else {
 			cashierAppService.addCost(visit001.getId(), 2000F, user201);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:12", dayCount));
+		
+		cashierAppService.initAccount(visit004.getId(), 3000F, user201);
 
 		pageable = new PageRequest(0, 15);
 		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
 
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
+		assertTrue(visits.size() == 2);
+		
 		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
+		
+		visit = visitDomainService.find(visit004.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_NeedIntoWard));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30", dayCount));
 
 		// 接诊
-		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();
+		receiveVisitVO = new ReceiveVisitVO();
 		receiveVisitVO.setVisit(visit001);
 		receiveVisitVO.setBed("bed001");
+		receiveVisitVO.setNurse(user003);
+
+		inPatientAppService.receive(receiveVisitVO, user001);
+		
+		receiveVisitVO = new ReceiveVisitVO();
+		receiveVisitVO.setVisit(visit004);
+		receiveVisitVO.setBed("bed004");
 		receiveVisitVO.setNurse(user003);
 
 		inPatientAppService.receive(receiveVisitVO, user001);
@@ -136,10 +182,13 @@ public abstract class InPatientTestService extends AppTestService {
 		pageable = new PageRequest(0, 15);
 		visits = inPatientAppService.InWardVisits(dept000, pageable);
 
-		assertTrue(visits.size() == 1);
-		assertTrue(visits.get(0).getId().equals(visit001.getId()));
-
+		assertTrue(visits.size() == 2);
+		
 		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_IntoWard));
+		
+		visit = visitDomainService.find(visit004.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_IntoWard));
 	}
@@ -293,6 +342,8 @@ public abstract class InPatientTestService extends AppTestService {
 
 	public void setVisit001(Visit visit001) {
 		this.visit001 = visit001;
+		
+		visitList.add(visit001);
 	}
 
 }
