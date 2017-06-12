@@ -23,6 +23,8 @@ public class CheckTestService extends AppTestService {
 
 	private Visit visit003;
 
+	private Visit visit004;
+
 	@Override
 	public void execute() throws HsException {
 
@@ -42,6 +44,11 @@ public class CheckTestService extends AppTestService {
 				.getChargeBill().getConsume();
 
 		assertTrue(balance == 7F);
+		
+		balance = this.visitDomainService.find(visit004.getId())
+				.getChargeBill().getConsume();
+
+		assertTrue(balance == 344F);
 
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<OrderExecute> orderExecutes;
@@ -49,7 +56,7 @@ public class CheckTestService extends AppTestService {
 		orderExecutes = orderExecuteDomainService.findByState(
 				OrderExecute.State_Finished, pageable);
 
-		assertTrue(orderExecutes.size() == 65);
+		assertTrue(orderExecutes.size() == 78);
 
 		orderExecutes = orderExecuteDomainService.findByState(
 				OrderExecute.State_Canceled, pageable);
@@ -59,22 +66,22 @@ public class CheckTestService extends AppTestService {
 		orderExecutes = orderExecuteDomainService.findByState(
 				OrderExecute.State_Stoped, pageable);
 
-		assertTrue(orderExecutes.size() == 2);
-		
+		assertTrue(orderExecutes.size() == 3);
+
 		orderExecutes = orderExecuteDomainService.findByChargeState(
 				OrderExecute.ChargeState_Charge, pageable);
 
-		assertTrue(orderExecutes.size() == 35);
-		
+		assertTrue(orderExecutes.size() == 48);
+
 		orderExecutes = orderExecuteDomainService.findByChargeState(
 				OrderExecute.ChargeState_BackCharge, pageable);
 
 		assertTrue(orderExecutes.size() == 1);
-		
+
 		orderExecutes = orderExecuteDomainService.findByChargeState(
 				OrderExecute.ChargeState_NoCharge, pageable);
 
-		assertTrue(orderExecutes.size() == 3);
+		assertTrue(orderExecutes.size() == 4);
 
 	}
 
@@ -100,6 +107,14 @@ public class CheckTestService extends AppTestService {
 
 	public void setVisit003(Visit visit003) {
 		this.visit003 = visit003;
+	}
+
+	public Visit getVisit004() {
+		return visit004;
+	}
+
+	public void setVisit004(Visit visit004) {
+		this.visit004 = visit004;
 	}
 
 }

@@ -49,11 +49,14 @@ public class InPatientMainTestService extends InPatientTestService {
 		Date sysDate;
 		Date startDate;
 		DispensingDrugOrder dispensingDrugOrder;
+		
+		LongOrder firstNursingOrder;
+		LongOrder secondNursingOrder;
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40", dayCount));
 
-		// 开立一级护理长期医嘱
-		LongOrder firstNursingOrder = new LongOrder();
+		// 为001开立一级护理长期医嘱
+		firstNursingOrder = new LongOrder();
 		firstNursingOrder.setVisit(visit001);
 		firstNursingOrder.setName("一级护理");
 		firstNursingOrder.setFrequencyType(orderFrequencyType_0H);
@@ -64,11 +67,26 @@ public class InPatientMainTestService extends InPatientTestService {
 				firstNursingOrderType));
 
 		orderAppService.create(firstNursingOrder, user002);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:42", dayCount));
+
+		// 为004开立二级护理长期医嘱
+		secondNursingOrder = new LongOrder();
+		secondNursingOrder.setVisit(visit004);
+		secondNursingOrder.setName("二级护理");
+		secondNursingOrder.setFrequencyType(orderFrequencyType_0H);
+		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
+		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+
+		secondNursingOrder.setTypeApp(new SampleOrderTypeApp(
+				secondNursingOrderType));
+
+		orderAppService.create(secondNursingOrder, user002);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
-		assertTrue(orders.size() == 1);
+		assertTrue(orders.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:45", dayCount));
 
@@ -160,7 +178,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		// 完成当天的一级护理医嘱
 		for (OrderExecute execute : executes) {
@@ -249,9 +267,12 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
+		// 完成当天的一级护理医嘱
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 10:10", dayCount));
 
@@ -386,7 +407,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 3);
+		assertTrue(executes.size() == 4);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -454,7 +475,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 3);
+		assertTrue(executes.size() == 4);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -471,9 +492,12 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
+		// 完成当天的护理医嘱
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:30", dayCount));
 
@@ -563,9 +587,12 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
+		// 完成当天的护理医嘱
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 14:40", dayCount));
 
@@ -597,9 +624,12 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
-
-		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
+		assertTrue(executes.size() == 2);
+		
+		// 完成当天的护理医嘱
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 15:00", dayCount));
 
@@ -631,9 +661,12 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
+		// 完成当天的护理医嘱
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
 
 		// 2017-01-05
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-05", dayCount));
@@ -646,7 +679,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 08:30", dayCount));
 
 		// 开立二级护理长期医嘱
-		LongOrder secondNursingOrder = new LongOrder();
+		secondNursingOrder = new LongOrder();
 		secondNursingOrder.setVisit(visit001);
 		secondNursingOrder.setName("二级护理");
 		secondNursingOrder.setFrequencyType(orderFrequencyType_0H);
@@ -676,9 +709,12 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
+		// 完成当天的护理医嘱
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
 
 		// 2017-01-06
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-06", dayCount));
@@ -690,9 +726,12 @@ public class InPatientMainTestService extends InPatientTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
-		orderExecuteAppService.finish(executes.get(0).getId(), null, user003);
+		// 完成当天的护理医嘱
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
 
 	}
 }

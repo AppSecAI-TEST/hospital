@@ -15,7 +15,7 @@ public class PatientMainTestService extends AppTestService {
 	private InPatientMainTestService inPatientMainTestService;
 
 	@Autowired
-	CheckTestService checkTestService;
+	private CheckTestService checkTestService;
 
 	@Override
 	public void testInit() {
@@ -45,6 +45,8 @@ public class PatientMainTestService extends AppTestService {
 		checkTestService.setVisit002(outPatientMainTestService.getVisit002());
 
 		checkTestService.setVisit003(outPatientMainTestService.getVisit003());
+		
+		checkTestService.setVisit004(inPatientMainTestService.getVisit004());
 
 		checkTestService.execute();
 	}

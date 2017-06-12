@@ -428,7 +428,7 @@ public class OutPatientMainTestService extends AppTestService {
 		createVisitVO = new CreateVisitVO();
 		createVisitVO.setCardNumber("zzz");
 		createVisitVO.setName("测试患者003");
-		createVisitVO.setBirthday(DateUtil.createDay("2009-11-03"));
+		createVisitVO.setBirthday(DateUtil.createDay("2008-08-03"));
 		createVisitVO.setSex("女");
 		createVisitVO.setOperator(user901);
 

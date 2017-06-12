@@ -172,6 +172,8 @@ public abstract class InPatientTestService extends AppTestService {
 
 		inPatientAppService.receive(receiveVisitVO, user001);
 
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:32", dayCount));
+
 		receiveVisitVO = new ReceiveVisitVO();
 		receiveVisitVO.setVisit(visit004);
 		receiveVisitVO.setBed("bed004");
@@ -235,6 +237,8 @@ public abstract class InPatientTestService extends AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
+		
+		assertTrue(executes.size() == 2);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -250,6 +254,8 @@ public abstract class InPatientTestService extends AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
+		
+		assertTrue(executes.size() == 2);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -266,7 +272,7 @@ public abstract class InPatientTestService extends AppTestService {
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
@@ -292,6 +298,8 @@ public abstract class InPatientTestService extends AppTestService {
 		visit = visitDomainService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_OutHospital));
+
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 10:40", dayCount));
 
 		// 开立出院临时医嘱
 		Order leaveHospitalOrder002 = new TemporaryOrder();
@@ -322,21 +330,21 @@ public abstract class InPatientTestService extends AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 11:02", dayCount));
 
 		// 完成医嘱执行条目
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
-		
+
 		visit = visitDomainService.find(visit004.getId());
 
 		assertTrue(visit.getState()
 				.equals(Visit.State_NeedLeaveHospitalBalance));
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 11:30", dayCount));
-		
+
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
 				pageable);
@@ -402,6 +410,14 @@ public abstract class InPatientTestService extends AppTestService {
 		this.visit001 = visit001;
 
 		visitList.add(visit001);
+	}
+
+	public Visit getVisit004() {
+		return visit004;
+	}
+
+	public void setVisit004(Visit visit004) {
+		this.visit004 = visit004;
 	}
 
 }
