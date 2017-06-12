@@ -23,10 +23,16 @@ public class NursingOrderType extends OrderType {
 	@NotEmpty(message = "护理类型不能为空")
 	@Column(name = "nursing_type", length = 32)
 	private String nursingType;
-	
+
 	@Override
 	protected void check(Order order) throws OrderException {
-		//order.getVisit().getOrders()
+		List<Order> orders = this.getService(OrderDAO.class)
+				.findExecutingByVisitAndOrderType(order.getVisit(), this);
+
+		if (orders.size() > 0) {
+			throw new OrderException(order, "患者[" + order.getVisit().getName()
+					+ "]有在执行的护理医嘱[" + orders.get(0).getId() + "]");
+		}
 	}
 
 	@Override
