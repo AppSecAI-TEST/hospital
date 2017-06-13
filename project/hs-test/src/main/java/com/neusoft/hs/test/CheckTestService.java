@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
@@ -30,6 +31,8 @@ public class CheckTestService extends AppTestService {
 
 		float balance;
 
+		List<Order> orders;
+
 		balance = this.visitDomainService.find(visit001.getId())
 				.getChargeBill().getConsume();
 
@@ -44,7 +47,7 @@ public class CheckTestService extends AppTestService {
 				.getChargeBill().getConsume();
 
 		assertTrue(balance == 7F);
-		
+
 		balance = this.visitDomainService.find(visit004.getId())
 				.getChargeBill().getConsume();
 
@@ -82,6 +85,14 @@ public class CheckTestService extends AppTestService {
 				OrderExecute.ChargeState_NoCharge, pageable);
 
 		assertTrue(orderExecutes.size() == 4);
+
+		orders = orderAdminDomainService.findAll(pageable);
+
+		assertTrue(orders.size() == 17);
+
+		orders = orderDomainService.find(visit001, pageable);
+
+		assertTrue(orders.size() == 12);
 
 	}
 

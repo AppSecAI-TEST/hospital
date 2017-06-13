@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.log.LogUtil;
@@ -226,6 +227,10 @@ public class OrderDomainService {
 	 */
 	public Iterator<Order> find(List<String> orderIds) {
 		return orderRepo.findAll(orderIds).iterator();
+	}
+	
+	public List<Order> find(Visit visit, Pageable pageable){
+		return orderRepo.findByVisit(visit, pageable);
 	}
 
 }

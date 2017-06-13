@@ -266,7 +266,7 @@ public class DataIniter {
 
 	protected MedicalRecordType inspectResultMedicalRecordType;// 检查单
 
-	protected VoucherType ordinaryVoucherType;// 普通号
+	protected VoucherType ordinaryVoucherType;// 普通号order
 
 	protected Disease hyperthyroidismDisease;// 甲状腺功能亢进（甲亢）
 
@@ -383,7 +383,7 @@ public class DataIniter {
 	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
 
 	@Autowired
-	private OrderAdminDomainService orderAdminDomainService;
+	protected OrderAdminDomainService orderAdminDomainService;
 
 	@Autowired
 	private PatientAdminDomainService patientAdminDomainService;
