@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.domain.patient.PatientDomainService;
@@ -119,7 +120,7 @@ public class VisitDomainService {
 	 * @return
 	 */
 	public Visit repeat(CreateVisitVO createVisitVO) throws VisitException {
-		
+
 		Visit visit = this.findLastVisit(createVisitVO.getCardNumber());
 		if (visit == null) {
 			throw new VisitException(null, "未发现号码为["
@@ -223,16 +224,29 @@ public class VisitDomainService {
 	 * 
 	 * @return
 	 */
-	public int changeVisitState() {
+	public int changeVisitState(Admin admin) {
 		Date changeDate = DateUtil.reduceHour(DateUtil.getSysDate(), 10);
-		int count = visitRepo.changeVisitState(Visit.State_LeaveHospital,
+		List<Visit> visits = visitRepo.findByStateAndVoucherDateLessThan(
 				Visit.State_Diagnosed_Executing, changeDate);
+		for (Visit visit : visits) {
+			visit.setState(Visit.State_LeaveHospital);
+			visit.save();
+
+			VisitLog visitLog = new VisitLog();
+			visitLog.setVisit(visit);
+			visitLog.setType(VisitLog.Type_LeaveHospital);
+			visitLog.setOperator(admin);
+			visitLog.setCreateDate(DateUtil.getSysDate());
+
+			visitLog.save();
+
+		}
 
 		LogUtil.log(this.getClass(), "系统修改患者状态由[{}]到[{}]{}个",
 				Visit.State_Diagnosed_Executing, Visit.State_LeaveHospital,
-				count);
+				visits.size());
 
-		return count;
+		return visits.size();
 	}
 
 }

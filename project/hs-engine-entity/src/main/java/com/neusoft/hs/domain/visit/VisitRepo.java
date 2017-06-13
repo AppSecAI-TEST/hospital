@@ -26,6 +26,9 @@ interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 	int changeVisitState(@Param("newState") String newState,
 			@Param("oldState") String oldState,
 			@Param("changeDate") Date changeDate);
+	
+	
+	List<Visit> findByStateAndVoucherDateLessThan(String state, Date voucherDate);
 
 	Visit findByLastAndCardNumber(Boolean last, String cardNumber);
 }

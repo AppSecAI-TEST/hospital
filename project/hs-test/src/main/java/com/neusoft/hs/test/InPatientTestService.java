@@ -204,7 +204,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 2017-01-07
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-07", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-07 10:10", dayCount));
 
@@ -246,7 +246,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 2017-01-08
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-08", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-08 09:10", dayCount));
 
@@ -263,7 +263,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 2017-01-09
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-09", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 09:30", dayCount));
 

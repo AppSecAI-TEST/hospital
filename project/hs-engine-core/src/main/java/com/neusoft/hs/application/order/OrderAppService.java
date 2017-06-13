@@ -18,6 +18,7 @@ import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
+import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.exception.HsException;
@@ -94,8 +95,8 @@ public class OrderAppService {
 	/**
 	 * @roseuid 5850EE16024D
 	 */
-	public int resolve() {
-		return orderDomainService.resolve();
+	public int resolve(Admin admin) {
+		return orderDomainService.resolve(admin);
 	}
 
 	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,

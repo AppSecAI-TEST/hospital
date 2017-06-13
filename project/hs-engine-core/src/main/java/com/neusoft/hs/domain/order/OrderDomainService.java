@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.visit.Visit;
@@ -135,7 +136,7 @@ public class OrderDomainService {
 	 * 
 	 * @roseuid 584F49010391
 	 */
-	public int resolve() {
+	public int resolve(Admin admin) {
 		// 获得执行中的住院长嘱
 		List<LongOrder> longOrders = orderRepo
 				.findLongOrderByStateAndPlaceType(Order.State_Executing,
@@ -228,8 +229,8 @@ public class OrderDomainService {
 	public Iterator<Order> find(List<String> orderIds) {
 		return orderRepo.findAll(orderIds).iterator();
 	}
-	
-	public List<Order> find(Visit visit, Pageable pageable){
+
+	public List<Order> find(Visit visit, Pageable pageable) {
 		return orderRepo.findByVisit(visit, pageable);
 	}
 

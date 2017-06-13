@@ -15,6 +15,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
@@ -233,7 +234,7 @@ public class CostDomainService {
 	 * 
 	 * @throws CostException
 	 */
-	public int calculate() throws CostException {
+	public int calculate(Admin admin) throws CostException {
 		List<VisitChargeItem> visitChargeItems = visitChargeItemRepo
 				.findByState(VisitChargeItem.State_Normal);
 		int count = 0;

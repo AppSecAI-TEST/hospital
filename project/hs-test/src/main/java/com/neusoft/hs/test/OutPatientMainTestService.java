@@ -514,7 +514,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		// 2016-12-28
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-28"));
-		changedCount = visitDomainService.changeVisitState();
+		changedCount = visitDomainService.changeVisitState(admin001);
 
 		assertTrue(changedCount == 2);
 

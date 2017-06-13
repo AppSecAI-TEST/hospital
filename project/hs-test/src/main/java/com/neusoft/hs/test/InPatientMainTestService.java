@@ -275,7 +275,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2016-12-29
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-29", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:10", dayCount));
 
@@ -394,7 +394,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2016-12-30
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-30", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:30", dayCount));
 
@@ -462,7 +462,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2016-12-31
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-31", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 08:30", dayCount));
 
@@ -504,7 +504,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-01
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-01", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-01 09:10", dayCount));
 
@@ -599,7 +599,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-02
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-02", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-02 09:10", dayCount));
 
@@ -636,7 +636,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-03
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-03", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-03 09:10", dayCount));
 
@@ -673,7 +673,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-04
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-04", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-04 09:10", dayCount));
 
@@ -690,7 +690,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-05
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-05", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 08:20", dayCount));
 
@@ -736,7 +736,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		// 2017-01-06
 		DateUtil.setSysDate(DateUtil.createDay("2017-01-06", dayCount));
-		inPatientNightTestService.calculate();
+		inPatientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:10", dayCount));
 

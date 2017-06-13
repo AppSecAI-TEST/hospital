@@ -51,6 +51,7 @@ import com.neusoft.hs.domain.order.OutHospitalOrderType;
 import com.neusoft.hs.domain.order.TemporaryOrderListTreatmentItemSpec;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.CommonDept;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -145,6 +146,8 @@ public class DataIniter {
 	protected Staff user001;// 内泌五接诊护士-大乔
 	protected Doctor user002;// 内泌五医生-貂蝉
 	protected Nurse user003;// 内泌五护士-小乔
+
+	protected Admin admin001;// 超级管理员-孙尚香
 
 	protected ChargeItem bedChargeItem;// 床位费计费项目【暂时床位费只设一个计费项目】
 
@@ -294,7 +297,7 @@ public class DataIniter {
 
 	@Autowired
 	protected OrderExecuteAppService orderExecuteAppService;
-	
+
 	@Autowired
 	protected OrderExecuteDomainService orderExecuteDomainService;
 
@@ -444,6 +447,8 @@ public class DataIniter {
 		user002 = dataIniter.user002;
 		user003 = dataIniter.user003;
 
+		admin001 = dataIniter.admin001;
+
 		bedChargeItem = dataIniter.bedChargeItem;
 		drugTypeSpec001ChargeItem = dataIniter.drugTypeSpec001ChargeItem;
 		drugTypeSpec002ChargeItem = dataIniter.drugTypeSpec002ChargeItem;
@@ -539,7 +544,7 @@ public class DataIniter {
 		medicalRecordAdminDomainService.clear();
 		// 清空处方
 		pharmacyAdminService.clearPrescriptions();
-		//清空药品消费记录
+		// 清空药品消费记录
 		pharmacyAdminService.clearDrugTypeConsumeRecords();
 		// 清空医嘱
 		orderAdminDomainService.clearOrderTypeApps();
@@ -986,6 +991,13 @@ public class DataIniter {
 		user003.setDept(dept000n);
 
 		users.add(user003);
+
+		admin001 = new Admin();
+
+		admin001.setId("admin001");
+		admin001.setName("超级管理员-孙尚香");
+
+		users.add(admin001);
 
 		userAdminDomainService.create(users);
 	}
@@ -1666,7 +1678,7 @@ public class DataIniter {
 	}
 
 	private void initDispensingDrugBatchs() {
-		
+
 		List<DispensingDrugBatch> batchs = new ArrayList<DispensingDrugBatch>();
 
 		dayDispensingDrugBatch = new DispensingDrugBatch();

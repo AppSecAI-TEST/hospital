@@ -15,8 +15,8 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.order.OrderExecuteFilter;
-import com.neusoft.hs.domain.order.OrderExecuteFilterCondition;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -49,8 +49,8 @@ public class OrderExecuteAppService {
 	/**
 	 * @roseuid 584F67A6034B
 	 */
-	public int start() throws OrderExecuteException {
-		return orderExecuteDomainService.start();
+	public int start(Admin admin) throws OrderExecuteException {
+		return orderExecuteDomainService.start(admin);
 	}
 
 	/**

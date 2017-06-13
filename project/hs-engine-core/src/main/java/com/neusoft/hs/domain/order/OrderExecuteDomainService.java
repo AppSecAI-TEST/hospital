@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
@@ -139,7 +140,7 @@ public class OrderExecuteDomainService {
 	 * 
 	 * @roseuid 584F691702B2
 	 */
-	public int start() throws OrderExecuteException {
+	public int start(Admin admin) throws OrderExecuteException {
 		Date sysDate = DateUtil.getSysDate();
 		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
 		int count = orderExecuteRepo.start(OrderExecute.State_Executing,
