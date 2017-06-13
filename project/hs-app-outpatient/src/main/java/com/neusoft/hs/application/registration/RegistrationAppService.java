@@ -10,6 +10,7 @@ import com.neusoft.hs.domain.outpatientoffice.VoucherException;
 import com.neusoft.hs.domain.registration.RegistrationDomainService;
 import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
+import com.neusoft.hs.domain.visit.VisitException;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -19,7 +20,8 @@ public class RegistrationAppService {
 	private RegistrationDomainService registrationDomainService;
 
 	public Voucher register(CreateVisitVO createVisitVO, String planRecordId,
-			AbstractUser user) throws VoucherException, CostException {
+			AbstractUser user) throws VoucherException, CostException,
+			VisitException {
 		return registrationDomainService.register(createVisitVO, planRecordId,
 				user);
 	}

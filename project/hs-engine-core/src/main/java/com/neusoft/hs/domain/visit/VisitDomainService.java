@@ -99,7 +99,7 @@ public class VisitDomainService {
 
 		VisitLog visitLog = new VisitLog();
 		visitLog.setVisit(visit);
-		visitLog.setType(VisitLog.Type_Create);
+		visitLog.calType(createVisitVO.isInPatient());
 		visitLog.setOperator(createVisitVO.getOperator());
 		visitLog.setCreateDate(DateUtil.getSysDate());
 
@@ -110,6 +110,31 @@ public class VisitDomainService {
 
 		return visit;
 
+	}
+
+	/**
+	 * 门诊复诊
+	 * 
+	 * @param createVisitVO
+	 * @return
+	 */
+	public Visit repeat(CreateVisitVO createVisitVO) throws VisitException {
+		
+		Visit visit = this.findLastVisit(createVisitVO.getCardNumber());
+		if (visit == null) {
+			throw new VisitException(null, "未发现号码为["
+					+ createVisitVO.getCardNumber() + "]的就诊记录");
+		}
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(visit);
+		visitLog.setType(VisitLog.Type_Repeat);
+		visitLog.setOperator(createVisitVO.getOperator());
+		visitLog.setCreateDate(DateUtil.getSysDate());
+
+		visitLog.save();
+
+		return visit;
 	}
 
 	/**

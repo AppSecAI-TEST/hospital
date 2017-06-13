@@ -51,7 +51,7 @@ public class CostDomainService {
 	 * @roseuid 584DFD470092
 	 */
 	public ChargeBill createChargeBill(Visit visit, float balance,
-			AbstractUser user) throws HsException {
+			AbstractUser user) {
 		ChargeBill chargeBill = visit.initAccount(balance, user);
 		return chargeBill;
 	}
@@ -230,7 +230,8 @@ public class CostDomainService {
 
 	/**
 	 * 计算滚动费用
-	 * @throws CostException 
+	 * 
+	 * @throws CostException
 	 */
 	public int calculate() throws CostException {
 		List<VisitChargeItem> visitChargeItems = visitChargeItemRepo

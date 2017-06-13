@@ -186,8 +186,7 @@ public class Visit extends IdEntity {
 	 * @return
 	 * @throws HsException
 	 */
-	public ChargeBill initAccount(float balance, AbstractUser user)
-			throws VisitException {
+	public ChargeBill initAccount(float balance, AbstractUser user) {
 
 		ChargeBill chargeBill = new ChargeBill();
 		chargeBill.setBalance(balance);
@@ -241,11 +240,11 @@ public class Visit extends IdEntity {
 		}
 
 		Date sysDate = DateUtil.getSysDate();
-		
+
 		this.respNurse = receiveVisitVO.getNurse();
 		this.area = receiveVisitVO.getNurse().getDept();
 		this.bed = receiveVisitVO.getBed();
-		
+
 		this.setState(State_IntoWard);
 		this.intoWardDate = sysDate;
 

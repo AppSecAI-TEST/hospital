@@ -23,6 +23,8 @@ public class CreateVisitVO {
 
 	private Dept dept;
 
+	private boolean inPatient;
+
 	private AbstractUser operator;
 
 	private boolean repeatVisit = false;
@@ -97,5 +99,13 @@ public class CreateVisitVO {
 
 	public void setRepeatVisit(boolean repeatVisit) {
 		this.repeatVisit = repeatVisit;
+	}
+
+	public boolean isInPatient() {
+		return inPatient;
+	}
+
+	public void setInPatient(boolean inPatient) {
+		this.inPatient = inPatient;
 	}
 }

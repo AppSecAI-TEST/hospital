@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -37,14 +35,15 @@ public class VisitLog extends IdEntity {
 	@Column(name = "create_date")
 	private Date createDate;
 
-	public static final String Type_Create = "送诊";
+	public static final String Type_First = "初诊";
+	public static final String Type_Repeat = "复诊";
+	public static final String Type_Referral = "送诊";
 	public static final String Type_InitAccount = "初始账户";
 	public static final String Type_IntoWard = "进入病房";
 	public static final String Type_OutWard = "出院登记";
 	public static final String Type_OutHospital = "出院结算";
-	
+
 	public static final String Type_LeaveHospital = "门诊离院";
-	
 
 	public Visit getVisit() {
 		return visit;
@@ -84,6 +83,15 @@ public class VisitLog extends IdEntity {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String calType(boolean isInPatient) {
+		if (isInPatient) {
+			this.type = VisitLog.Type_Referral;
+		} else {
+			this.type = VisitLog.Type_First;
+		}
+		return this.type;
 	}
 
 	public void save() {

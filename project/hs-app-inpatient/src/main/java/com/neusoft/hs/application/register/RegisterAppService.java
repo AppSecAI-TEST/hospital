@@ -26,6 +26,7 @@ public class RegisterAppService {
 	 */
 	public Visit register(CreateVisitVO createVisitVO) {
 		createVisitVO.setState(Visit.State_NeedInitAccount);
+		createVisitVO.setInPatient(true);
 		return visitDomainService.create(createVisitVO);
 	}
 

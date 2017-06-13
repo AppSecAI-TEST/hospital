@@ -16,6 +16,7 @@ import com.neusoft.hs.domain.outpatientoffice.VoucherException;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
+import com.neusoft.hs.domain.visit.VisitException;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -45,9 +46,11 @@ public class RegistrationDomainService {
 	 * @return
 	 * @throws VoucherException
 	 * @throws CostException
+	 * @throws VisitException
 	 */
 	public Voucher register(CreateVisitVO createVisitVO, String planRecordId,
-			AbstractUser user) throws VoucherException, CostException {
+			AbstractUser user) throws VoucherException, CostException,
+			VisitException {
 
 		OutPatientPlanRecord planRecord = outPatientPlanDomainService
 				.findPlanRecord(planRecordId);
@@ -59,24 +62,16 @@ public class RegistrationDomainService {
 		voucher.setRepeatVisit(createVisitVO.isRepeatVisit());
 		voucher.setCreateDate(DateUtil.getSysDate());
 
+		createVisitVO.setInPatient(false);
 		createVisitVO.setState(Visit.State_WaitingDiagnose);
 		createVisitVO.setDept(planRecord.getRoom().getDept());
 
 		Visit visit = null;
 		if (!voucher.getRepeatVisit()) {
 			visit = visitDomainService.create(createVisitVO);
-			try {
-				costDomainService.createChargeBill(visit, 0, user);
-			} catch (HsException e) {
-				throw new VoucherException(e);
-			}
+			costDomainService.createChargeBill(visit, 0, user);
 		} else {
-			visit = visitDomainService.findLastVisit(createVisitVO
-					.getCardNumber());
-			if (visit == null) {
-				throw new VoucherException("未发现号码为["
-						+ createVisitVO.getCardNumber() + "]的就诊记录");
-			}
+			visit = visitDomainService.repeat(createVisitVO);
 		}
 
 		voucher.setVisit(visit);
