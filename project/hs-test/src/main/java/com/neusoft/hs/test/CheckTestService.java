@@ -48,7 +48,7 @@ public class CheckTestService extends AppTestService {
 		balance = this.visitDomainService.find(visit004.getId())
 				.getChargeBill().getConsume();
 
-		assertTrue(balance == 344F);
+		assertTrue(balance == 464F);
 
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<OrderExecute> orderExecutes;
@@ -56,7 +56,7 @@ public class CheckTestService extends AppTestService {
 		orderExecutes = orderExecuteDomainService.findByState(
 				OrderExecute.State_Finished, pageable);
 
-		assertTrue(orderExecutes.size() == 78);
+		assertTrue(orderExecutes.size() == 80);
 
 		orderExecutes = orderExecuteDomainService.findByState(
 				OrderExecute.State_Canceled, pageable);
@@ -71,7 +71,7 @@ public class CheckTestService extends AppTestService {
 		orderExecutes = orderExecuteDomainService.findByChargeState(
 				OrderExecute.ChargeState_Charge, pageable);
 
-		assertTrue(orderExecutes.size() == 48);
+		assertTrue(orderExecutes.size() == 49);
 
 		orderExecutes = orderExecuteDomainService.findByChargeState(
 				OrderExecute.ChargeState_BackCharge, pageable);

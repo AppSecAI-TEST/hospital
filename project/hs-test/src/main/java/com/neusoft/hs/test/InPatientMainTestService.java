@@ -22,7 +22,6 @@ import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
 import com.neusoft.hs.domain.pharmacy.DispensingDrugOrder;
@@ -49,6 +48,8 @@ public class InPatientMainTestService extends InPatientTestService {
 		Date sysDate;
 		Date startDate;
 		DispensingDrugOrder dispensingDrugOrder;
+		Order drug001Order1;
+		Order drug001Order4;
 
 		LongOrder firstNursingOrder;
 		LongOrder secondNursingOrder;
@@ -93,24 +94,38 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:55", dayCount));
 
-		// 开立药品临时医嘱
-		Order drug001Order = new TemporaryOrder();
-		drug001Order.setVisit(visit001);
-		drug001Order.setName("药品001");
-		drug001Order.setPlanStartDate(DateUtil.getSysDate());
-		drug001Order.setCount(2);
-		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		drug001Order.setOrderType(drugOrderType001);
+		// 为患者001开立药品临时医嘱
+		drug001Order1 = new TemporaryOrder();
+		drug001Order1.setVisit(visit001);
+		drug001Order1.setName("药品001");
+		drug001Order1.setPlanStartDate(DateUtil.getSysDate());
+		drug001Order1.setCount(2);
+		drug001Order1.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+		drug001Order1.setOrderType(drugOrderType001);
 
-		drug001Order.setTypeApp(new DrugOrderTypeApp(deptccc,
-				oralOrderUseMode));
+		drug001Order1
+				.setTypeApp(new DrugOrderTypeApp(deptccc, oralOrderUseMode));
 
-		orderAppService.create(drug001Order, user002);
+		orderAppService.create(drug001Order1, user002);
+
+		// 为患者004开立药品临时医嘱
+		drug001Order4 = new TemporaryOrder();
+		drug001Order4.setVisit(visit004);
+		drug001Order4.setName("药品001");
+		drug001Order4.setPlanStartDate(DateUtil.getSysDate());
+		drug001Order4.setCount(4);
+		drug001Order4.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+		drug001Order4.setOrderType(drugOrderType001);
+
+		drug001Order4
+				.setTypeApp(new DrugOrderTypeApp(deptccc, oralOrderUseMode));
+
+		orderAppService.create(drug001Order4, user002);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
-		assertTrue(orders.size() == 1);
+		assertTrue(orders.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00", dayCount));
 
@@ -122,12 +137,14 @@ public class InPatientMainTestService extends InPatientTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderAppService.getNeedSendOrderExecutes(user003, pageable);
 
-		assertTrue(executes.size() == 1);
+		assertTrue(executes.size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:05", dayCount));
 
 		// 发送医嘱执行条目
-		orderExecuteAppService.send(executes.get(0).getId(), user003);
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.send(execute.getId(), user003);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15", dayCount));
 
@@ -145,7 +162,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		dispensingDrugOrder = patientPharmacyAppService.print(dept000n,
 				dayDispensingDrugBatch, userc01);
 
-		assertTrue(dispensingDrugOrder.getExecutes().size() == 1);
+		assertTrue(dispensingDrugOrder.getExecutes().size() == 2);
 
 		patientPharmacyAppService
 				.dispense(dispensingDrugOrder.getId(), userc01);
@@ -167,7 +184,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		dispensingDrugOrder = patientPharmacyAppService.distribute(
 				dispensingDrugOrder.getId(), userc01);
 
-		assertTrue(dispensingDrugOrder.getExecutes().size() == 1);
+		assertTrue(dispensingDrugOrder.getExecutes().size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:32", dayCount));
 
@@ -185,7 +202,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:45", dayCount));
 
 		// 取消医嘱条目
-		orderAppService.cancel(drug001Order.getId(), user002);
+		orderAppService.cancel(drug001Order1.getId(), user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 13:45", dayCount));
 
@@ -286,7 +303,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		drug002Order.setPlanStartDate(sysDate);
 		drug002Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
-		
+
 		drug002Order.setOrderType(drugOrderType002);
 
 		drug002Order.setTypeApp(new DrugOrderTypeApp(deptbbb,
@@ -302,7 +319,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		drug003Order.setPlanStartDate(sysDate);
 		drug003Order.setPlanEndDate(DateUtil.addDay(sysDate, 2));
-		
+
 		drug003Order.setOrderType(drugOrderType003);
 
 		drug003Order.setTypeApp(new DrugOrderTypeApp(deptbbb,
@@ -687,7 +704,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
 		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 		secondNursingOrder.setOrderType(secondNursingOrderType);
-		
+
 		orderAppService.create(secondNursingOrder, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 08:40", dayCount));

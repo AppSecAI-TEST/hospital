@@ -32,32 +32,6 @@ public abstract class OrderTypeApp extends IdEntity {
 		super();
 	}
 
-	/**
-	 * @param order
-	 * @return
-	 * @throws OrderException
-	 * @roseuid 584F4A3201B9
-	 */
-	public void resolveOrder() throws OrderException {
-		order.getOrderType().resolveOrder(this);
-	}
-
-	public void check() throws OrderException {
-		order.getOrderType().check(order);
-	}
-
-	public void create() throws OrderException {
-		order.getOrderType().create(order);
-	}
-
-	public void verify() throws OrderException {
-		order.getOrderType().verify(order);
-	}
-
-	public void delete() throws OrderException {
-		order.getOrderType().delete(order);
-	}
-
 	public Order getOrder() {
 		return order;
 	}

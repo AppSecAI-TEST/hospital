@@ -148,11 +148,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			throw new OrderException(this, "visit不能为空");
 		}
 
-		if (this.typeApp == null) {
-			throw new OrderException(this, "orderTypeApp不能为空");
+		if (this.orderType == null) {
+			throw new OrderException(this, "orderType不能为空");
 		}
 
-		this.typeApp.check();
+		this.orderType.check(this);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * @throws OrderException
 	 */
 	protected void create() throws OrderException {
-		this.typeApp.create();
+		this.orderType.create(this);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	public int verify() throws OrderException, OrderExecuteException {
 		this.setState(State_Executing);
 		int count = this.resolve();
-		this.typeApp.verify();
+		this.orderType.verify(this);
 		return count;
 	}
 
@@ -195,7 +195,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 		resolveOrderExecutes = new ArrayList<OrderExecute>();
 		resolveTeams = new ArrayList<OrderExecuteTeam>();
 
-		this.typeApp.resolveOrder();
+		this.orderType.resolveOrder(this.typeApp);
 
 		if (resolveOrderExecutes.size() > 0) {
 			for (OrderExecute orderExecute : resolveOrderExecutes) {
@@ -253,7 +253,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			this.apply.delete();
 		}
 
-		this.typeApp.delete();
+		this.orderType.delete(this);
 
 		this.getService(OrderRepo.class).delete(this);
 	}
@@ -338,7 +338,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setTypeApp(OrderTypeApp typeApp) {
 		this.typeApp = typeApp;
-		this.typeApp.setOrder(this);	
+		this.typeApp.setOrder(this);
 	}
 
 	public List<OrderExecute> getOrderExecutes() {
