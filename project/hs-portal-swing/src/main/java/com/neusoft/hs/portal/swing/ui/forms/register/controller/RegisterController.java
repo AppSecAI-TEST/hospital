@@ -99,7 +99,8 @@ public class RegisterController extends AbstractFrameController {
 	}
 
 	private void loadDoctors() {
-		List<Doctor> doctors = this.userDomainService.findAllDoctor();
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		List<Doctor> doctors = this.userDomainService.findDoctor(pageable);
 		doctorComboBoxModel.clear();
 		doctorComboBoxModel.addElements(doctors);
 	}
