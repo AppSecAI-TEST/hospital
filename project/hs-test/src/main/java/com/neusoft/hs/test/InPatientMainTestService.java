@@ -107,6 +107,8 @@ public class InPatientMainTestService extends InPatientTestService {
 				.setTypeApp(new DrugOrderTypeApp(deptccc, oralOrderUseMode));
 
 		orderAppService.create(drug001Order1, user002);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:56", dayCount));
 
 		// 为患者004开立药品临时医嘱
 		drug001Order4 = new TemporaryOrder();
