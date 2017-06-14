@@ -93,6 +93,7 @@ public interface ConstMessagesEN {
         String NAME = "名称";
         String Account = "账号";
         String InitAccount = "初始化账户";
+        String InitBlanace = "预存金额";
   
         
         String ID = "ID";
