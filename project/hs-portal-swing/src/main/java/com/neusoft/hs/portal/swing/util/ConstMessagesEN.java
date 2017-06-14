@@ -26,7 +26,7 @@ public interface ConstMessagesEN {
     }
 
     interface Labels {
-        String MAIN_MENU = "住院业务";
+        String MAIN_MENU = "医院业务";
         String CLIENTS = "Clients";
         String RESERVATIONS = "Reservations";
         String ADDRESSES = "Addresses";
@@ -73,8 +73,8 @@ public interface ConstMessagesEN {
         String ROOM_X_RESERVATIONS = "Rooms reservations";
         String RESERVATION = "Reservation";
         String PRICE = "Price";
-        String FORMS = "Forms";
-        String REPORTS = "Raports";
+        String FORMS = "日常业务";
+        String REPORTS = "统计业务";
         String PAYMENT_COUNT = "Payment coun";
         String NUMBER_OF_COUNT = "Number of count";
         String NUMBER_OF_RESERVATIONS = "Number of reservations";

@@ -2,12 +2,16 @@ package com.neusoft.hs.portal.swing.ui.forms.login.view;
 
 import java.awt.GridLayout;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.portal.swing.ui.forms.login.model.AbstractUserComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.LoginInfo;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
@@ -21,9 +25,13 @@ public class LoginFormPanel extends JPanel {
 	private static final int VERTICAL_GAP = 20;
 	private static final int TEXT_FIELD_COLUMNS = 20;
 
-	private JTextField accountTF;
+//	private JTextField accountTF;
+	private JComboBox<AbstractUser> accountCB;
+	private AbstractUserComboBoxModel abstractUserComboBoxModel;
 
-	public LoginFormPanel() {
+	@Autowired
+	public LoginFormPanel(AbstractUserComboBoxModel abstractUserComboBoxModel) {
+		this.abstractUserComboBoxModel = abstractUserComboBoxModel;
 		setPanelUp();
 		initComponents();
 	}
@@ -37,22 +45,18 @@ public class LoginFormPanel extends JPanel {
 	private void initComponents() {
 		JLabel nameLbl = new JLabel(ConstMessagesEN.Labels.Account);
 
-		accountTF = new JTextField(TEXT_FIELD_COLUMNS);
+		accountCB = new JComboBox<AbstractUser>(abstractUserComboBoxModel);
 
 		add(nameLbl);
-		add(accountTF);
+		add(accountCB);
 	}
 
-	public LoginInfo getEntityFromForm() {
-
-		LoginInfo loginInfo = new LoginInfo();
-		loginInfo.setAccount(accountTF.getText());
-
-		return loginInfo;
+	public AbstractUser getEntityFromForm() {
+		return abstractUserComboBoxModel.getSelectedItem();
 	}
 
 	public void clearForm() {
-		accountTF.setText("");
+		//accountTF.setText("");
 	}
 
 }

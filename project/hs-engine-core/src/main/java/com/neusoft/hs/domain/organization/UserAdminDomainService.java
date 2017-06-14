@@ -22,8 +22,8 @@ public class UserAdminDomainService {
 		return userRepo.findOne(account);
 	}
 
-	public AbstractUser find(String id) {
-		return userRepo.findOne(id);
+	public List<AbstractUser> find(Pageable pageable) {
+		return userRepo.findAll(pageable).getContent();
 	}
 
 	public List<Doctor> findDoctor(Pageable pageable) {

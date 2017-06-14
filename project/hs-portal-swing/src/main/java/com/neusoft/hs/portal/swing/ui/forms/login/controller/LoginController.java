@@ -1,15 +1,20 @@
 package com.neusoft.hs.portal.swing.ui.forms.login.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.portal.security.UserUtil;
+import com.neusoft.hs.portal.swing.ui.forms.login.model.AbstractUserComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.LoginInfo;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.LoginValidator;
 import com.neusoft.hs.portal.swing.ui.forms.login.view.LoginFormBtnPanel;
@@ -23,14 +28,19 @@ import com.neusoft.hs.portal.swing.validation.ValidationError;
 public class LoginController extends AbstractFrameController {
 
 	private LoginFrame loginFrame;
-	private UserAdminDomainService userDomainService;
+	private UserAdminDomainService userAdminDomainService;
 	private LoginValidator validator;
+
+	private AbstractUserComboBoxModel abstractUserComboBoxModel;
 
 	@Autowired
 	public LoginController(LoginFrame loginFrame,
-			UserAdminDomainService userDomainService, LoginValidator validator) {
+			UserAdminDomainService userDomainService,
+			AbstractUserComboBoxModel abstractUserComboBoxModel,
+			LoginValidator validator) {
 		this.loginFrame = loginFrame;
-		this.userDomainService = userDomainService;
+		this.userAdminDomainService = userDomainService;
+		this.abstractUserComboBoxModel = abstractUserComboBoxModel;
 		this.validator = validator;
 	}
 
@@ -44,7 +54,15 @@ public class LoginController extends AbstractFrameController {
 
 	@Override
 	public void prepareAndOpenFrame() {
+		this.loadUsers();
 		showLoginFrame();
+	}
+
+	private void loadUsers() {
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		List<AbstractUser> users = userAdminDomainService.find(pageable);
+		abstractUserComboBoxModel.clear();
+		abstractUserComboBoxModel.addElements(users);
 	}
 
 	private void showLoginFrame() {
@@ -53,22 +71,29 @@ public class LoginController extends AbstractFrameController {
 
 	private void login() {
 		LoginFormPanel formPanel = loginFrame.getFormPanel();
-		LoginInfo entity = formPanel.getEntityFromForm();
-		Optional<ValidationError> errors = validator.validate(entity);
-		if (errors.isPresent()) {
-			ValidationError validationError = errors.get();
-			Notifications.showFormValidationAlert(validationError.getMessage());
-		} else {
-			AbstractUser user = userDomainService.findTheUserByAccount(entity
-					.getAccount());
-			if (user == null) {
-				Notifications.showFormValidationAlert("用户不存在");
-				return;
-			}
-			UserUtil.setUser(user);
-			closeModalWindow();
-		}
+		AbstractUser user = formPanel.getEntityFromForm();
+		UserUtil.setUser(user);
+		closeModalWindow();
 	}
+
+	// private void login() {
+	// LoginFormPanel formPanel = loginFrame.getFormPanel();
+	// LoginInfo entity = formPanel.getEntityFromForm();
+	// Optional<ValidationError> errors = validator.validate(entity);
+	// if (errors.isPresent()) {
+	// ValidationError validationError = errors.get();
+	// Notifications.showFormValidationAlert(validationError.getMessage());
+	// } else {
+	// AbstractUser user = userDomainService.findTheUserByAccount(entity
+	// .getAccount());
+	// if (user == null) {
+	// Notifications.showFormValidationAlert("用户不存在");
+	// return;
+	// }
+	// UserUtil.setUser(user);
+	// closeModalWindow();
+	// }
+	// }
 
 	private void closeModalWindow() {
 		loginFrame.getFormPanel().clearForm();

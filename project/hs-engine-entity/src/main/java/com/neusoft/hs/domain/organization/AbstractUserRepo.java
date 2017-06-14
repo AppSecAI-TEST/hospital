@@ -13,5 +13,4 @@ interface AbstractUserRepo extends
 
 	@Query("select d from Doctor d")
 	List<Doctor> findDoctor(Pageable pageable);
-
 }
