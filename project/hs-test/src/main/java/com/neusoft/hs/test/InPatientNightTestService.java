@@ -7,7 +7,7 @@ import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.Admin;
 
 @Service
-public class InPatientNightTestService extends DataIniter {
+public class InPatientNightTestService extends AppTestService {
 
 	public void calculate(Admin admin) throws OrderExecuteException, CostException {
 		orderAppService.resolve(admin);

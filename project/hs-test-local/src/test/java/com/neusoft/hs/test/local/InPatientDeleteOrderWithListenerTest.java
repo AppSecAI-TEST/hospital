@@ -13,7 +13,7 @@ import com.neusoft.hs.test.AppTestService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class InPatientDeleteOrderWithListenerTest extends SuperTest{
+public class InPatientDeleteOrderWithListenerTest{
 
 	@Autowired
 	@Qualifier(value = "inPatientDeleteOrderTestService")
@@ -21,7 +21,6 @@ public class InPatientDeleteOrderWithListenerTest extends SuperTest{
 
 	@Before
 	public void testInit() {
-		this.init();
 		appTestService.testInit();
 	}
 
