@@ -14,6 +14,8 @@ import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.portal.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
@@ -88,12 +90,13 @@ public class VisitFormPanel extends JPanel {
 		add(respDoctorCB);
 	}
 
-	public CreateVisitVO getEntityFromForm() {
+	public CreateVisitVO getEntityFromForm() throws HsException {
 
 		CreateVisitVO createVisitVO = new CreateVisitVO();
 		createVisitVO.setName(nameTF.getText());
 		createVisitVO.setDept(respDeptComboBoxModel.getSelectedItem());
 		createVisitVO.setRespDoctor(respDoctorComboBoxModel.getSelectedItem());
+		createVisitVO.setOperator(UserUtil.getUser());
 		
 		return createVisitVO;
 	}

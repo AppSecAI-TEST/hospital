@@ -3,6 +3,7 @@ package com.neusoft.hs.portal.swing.ui.forms.forms.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.neusoft.hs.portal.swing.ui.forms.cashier.controller.CashierController;
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.FormsFrame;
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
@@ -11,24 +12,25 @@ import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 @Controller
 public class FormsController extends AbstractFrameController {
 
+	@Autowired
 	private FormsFrame mainMenuFrame;
+
+	@Autowired
 	private LoginController loginController;
+
+	@Autowired
 	private RegisterController registerController;
 
 	@Autowired
-	public FormsController(FormsFrame mainMenuFrame,
-			LoginController loginController,
-			RegisterController registerController) {
-		this.mainMenuFrame = mainMenuFrame;
-		this.loginController = loginController;
-		this.registerController = registerController;
-	}
+	private CashierController cashierController;
 
+	
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
 		registerAction(mainMenuFrame.getRegisterBtn(),
 				(e) -> openRegisterWindow());
-
+		registerAction(mainMenuFrame.getCashierBtn(),
+				(e) -> openCashierWindow());
 		mainMenuFrame.setVisible(true);
 	}
 
@@ -38,6 +40,10 @@ public class FormsController extends AbstractFrameController {
 
 	private void openRegisterWindow() {
 		registerController.prepareAndOpenFrame();
+	}
+
+	private void openCashierWindow() {
+		cashierController.prepareAndOpenFrame();
 	}
 
 }

@@ -18,6 +18,7 @@ import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.register.model.VisitTableModel;
@@ -39,7 +40,6 @@ public class RegisterController extends AbstractFrameController {
 	private VisitTableModel tableModel;
 	private InPatientDeptComboBoxModel inPatientDeptComboBoxModel;
 	private DoctorComboBoxModel doctorComboBoxModel;
-	private InPatientAppService inPatientAppService;
 	private RegisterAppService registerAppService;
 	private OrganizationAdminDomainService organizationDomainService;
 	private UserAdminDomainService userDomainService;
@@ -48,7 +48,6 @@ public class RegisterController extends AbstractFrameController {
 	@Autowired
 	public RegisterController(VisitTableFrame tableFrame,
 			AddVisitFrame addFrame, VisitTableModel tableModel,
-			InPatientAppService inPatientAppService,
 			RegisterAppService registerAppService,
 			OrganizationAdminDomainService organizationDomainService,
 			InPatientDeptComboBoxModel inPatientDeptComboBoxModel,
@@ -57,7 +56,6 @@ public class RegisterController extends AbstractFrameController {
 		this.tableFrame = tableFrame;
 		this.addFrame = addFrame;
 		this.tableModel = tableModel;
-		this.inPatientAppService = inPatientAppService;
 		this.registerAppService = registerAppService;
 		this.organizationDomainService = organizationDomainService;
 		this.userDomainService = userDomainService;
@@ -115,7 +113,12 @@ public class RegisterController extends AbstractFrameController {
 
 	private void saveEntity() {
 		VisitFormPanel formPanel = addFrame.getFormPanel();
-		CreateVisitVO entity = formPanel.getEntityFromForm();
+		CreateVisitVO entity = null;
+		try {
+			entity = formPanel.getEntityFromForm();
+		} catch (HsException e) {
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
 		Optional<ValidationError> errors = validator.validate(entity);
 		if (errors.isPresent()) {
 			ValidationError validationError = errors.get();

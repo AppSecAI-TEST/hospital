@@ -15,6 +15,7 @@ public interface ConstMessagesEN {
         String ROOM_X_RESERVATION_MODAL = "Adding room reservations";
         
         String Login_MODAL = "登陆";
+        String Register_MODAL = "接诊";
     }
 
     interface Messages {
@@ -30,9 +31,10 @@ public interface ConstMessagesEN {
         String CLIENTS = "Clients";
         String RESERVATIONS = "Reservations";
         String ADDRESSES = "Addresses";
-        String ADD_BTN = "Add";
+        String ADD_BTN = "增加";
+        String CONFIRM_BTN = "确定";
         
-        String REMOVE_BTN = "Remove";
+        String REMOVE_BTN = "删除";
         
         String SURNAME = "Surname";
         String PESEL = "Pesel";
@@ -90,7 +92,7 @@ public interface ConstMessagesEN {
         String RespDoctor = "责任医生";
         String NAME = "名称";
         String Account = "账号";
-        
+        String InitAccount = "初始化账户";
   
         
         String ID = "ID";

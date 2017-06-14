@@ -23,7 +23,7 @@ public class AddVisitFrame extends JDialog {
     }
 
     private void setFrameUp() {
-        setTitle(ConstMessagesEN.DialogTitles.PAYMENT_MODAL);
+        setTitle(ConstMessagesEN.DialogTitles.Register_MODAL);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
