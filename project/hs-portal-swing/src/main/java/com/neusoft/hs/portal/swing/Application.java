@@ -20,7 +20,7 @@ import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 @ComponentScan(basePackages = { "com.neusoft.hs.*" })
 @ImportResource(locations = { "classpath:application-bean.xml" })
 // @EnableScheduling
-@EnableAsync
+//@EnableAsync
 public class Application {
 
 	public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class Application {
 				Application.class).headless(false).run(args);
 		ApplicationContextUtil.setApplicationContext(context);
 		//初始化基础数据
-		context.getBean(InitDataService.class).init();
+		//context.getBean(InitDataService.class).init();
 		//启动主窗口
 		MainMenuController mainMenuController = context
 				.getBean(MainMenuController.class);

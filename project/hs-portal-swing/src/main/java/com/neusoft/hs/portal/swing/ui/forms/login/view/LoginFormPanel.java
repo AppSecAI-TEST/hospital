@@ -1,5 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.login.view;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JComboBox;
@@ -19,7 +20,7 @@ import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 @Component
 public class LoginFormPanel extends JPanel {
 
-	private static final int LAYOUT_ROWS = 3;
+	private static final int LAYOUT_ROWS = 1;
 	private static final int LAYOUT_COLS = 2;
 	private static final int HORIZONTAL_GAP = 0;
 	private static final int VERTICAL_GAP = 20;
@@ -46,6 +47,7 @@ public class LoginFormPanel extends JPanel {
 		JLabel nameLbl = new JLabel(ConstMessagesEN.Labels.Account);
 
 		accountCB = new JComboBox<AbstractUser>(abstractUserComboBoxModel);
+		accountCB.setPreferredSize(new Dimension(200, 30));
 
 		add(nameLbl);
 		add(accountCB);
