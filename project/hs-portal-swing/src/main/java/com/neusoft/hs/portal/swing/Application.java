@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import com.neusoft.hs.data.init.InitDataService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.portal.swing.ui.main_menu.controller.MainMenuController;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
@@ -23,10 +24,15 @@ import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 public class Application {
 
 	public static void main(String[] args) {
+		
 		LookAndFeelUtils.setWindowsLookAndFeel();
+		
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(
 				Application.class).headless(false).run(args);
 		ApplicationContextUtil.setApplicationContext(context);
+		//初始化基础数据
+		context.getBean(InitDataService.class).init();
+		//启动主窗口
 		MainMenuController mainMenuController = context
 				.getBean(MainMenuController.class);
 		mainMenuController.prepareAndOpenFrame();
