@@ -19,32 +19,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-outpatient</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-inpatient</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-inspect</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-pharmacy</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-recordroom</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.neusoft.hospital</groupId>
-			<artifactId>hs-app-cost</artifactId>
+			<artifactId>hs-data-init</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
