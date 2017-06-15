@@ -20,7 +20,7 @@ import com.neusoft.hs.domain.visit.Visit;
 @DiscriminatorValue("Nurse")
 public class Nurse extends AbstractUser {
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
 

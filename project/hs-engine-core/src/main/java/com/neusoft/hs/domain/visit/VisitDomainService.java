@@ -81,6 +81,7 @@ public class VisitDomainService {
 		visit.setCreateDate(DateUtil.getSysDate());
 		visit.setState(createVisitVO.getState());
 		visit.setDept(createVisitVO.getDept());
+		visit.setArea(createVisitVO.getArea());
 		visit.setRespDoctor(createVisitVO.getRespDoctor());
 		visit.setLast(true);
 
@@ -209,6 +210,11 @@ public class VisitDomainService {
 	public List<Visit> findByStateAndDept(String state, Dept dept,
 			Pageable pageable) {
 		return visitRepo.findByStateAndDept(state, dept, pageable);
+	}
+	
+	public List<Visit> findByStateAndArea(String state, Dept area,
+			Pageable pageable) {
+		return visitRepo.findByStateAndArea(state, area, pageable);
 	}
 
 	public List<Visit> listVisit(Dept respDept, Pageable pageable) {

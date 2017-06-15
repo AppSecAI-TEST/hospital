@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 interface AbstractUserRepo extends
 		PagingAndSortingRepository<AbstractUser, String> {
@@ -15,5 +16,5 @@ interface AbstractUserRepo extends
 	List<Doctor> findDoctor(Pageable pageable);
 
 	@Query("select n from Nurse n where n.dept in (:depts)")
-	List<Nurse> findNurse(List<Dept> depts, Pageable pageable);
+	List<Nurse> findNurse(@Param("depts") List<Dept> depts, Pageable pageable);
 }

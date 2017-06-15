@@ -21,7 +21,7 @@ import com.neusoft.hs.domain.order.Order;
 @DiscriminatorValue("Doctor")
 public class Doctor extends AbstractUser {
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private InPatientDept dept;
 

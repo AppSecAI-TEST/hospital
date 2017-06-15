@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 @DiscriminatorValue("Staff")
 public class Staff extends AbstractUser {
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
 

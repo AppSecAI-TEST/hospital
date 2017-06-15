@@ -88,6 +88,7 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 		createVisitVO.setDept(dept000);
+		createVisitVO.setArea(dept000n);
 		createVisitVO.setRespDoctor(user002);
 		// 送诊
 		visit001 = registerAppService.register(createVisitVO);
@@ -106,6 +107,7 @@ public abstract class InPatientTestService extends AppTestService {
 		createVisitVO.setSex("男");
 		createVisitVO.setOperator(user002);
 		createVisitVO.setDept(dept000);
+		createVisitVO.setArea(dept000n);
 		createVisitVO.setRespDoctor(user002);
 		// 送诊
 		visit004 = registerAppService.register(createVisitVO);

@@ -22,7 +22,6 @@ import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.Prescription;
@@ -558,6 +557,7 @@ public class OutPatientMainTestService extends AppTestService {
 		enterHospitalOrder.setOrderType(enterHospitalOrderType);
 
 		enterHospitalOrder.addParam(EnterHospitalOrderType.WardDept, dept000);
+		enterHospitalOrder.addParam(EnterHospitalOrderType.WardArea, dept000n);
 		enterHospitalOrder.addParam(EnterHospitalOrderType.RespDoctor, user002);
 
 		orderAppService.create(enterHospitalOrder, user002);

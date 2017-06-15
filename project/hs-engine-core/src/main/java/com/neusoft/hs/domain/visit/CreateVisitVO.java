@@ -23,6 +23,8 @@ public class CreateVisitVO {
 
 	private Dept dept;
 
+	private Dept area;
+
 	private boolean inPatient;
 
 	private AbstractUser operator;
@@ -83,6 +85,14 @@ public class CreateVisitVO {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
+	}
+
+	public Dept getArea() {
+		return area;
+	}
+
+	public void setArea(Dept area) {
+		this.area = area;
 	}
 
 	public AbstractUser getOperator() {

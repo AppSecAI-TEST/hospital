@@ -24,7 +24,7 @@ public class InPatientAppService {
 	private VisitDomainService visitDomainService;
 
 	public List<Visit> getNeedReceiveVisits(AbstractUser user, Pageable pageable) {
-		return visitDomainService.findByStateAndDept(Visit.State_NeedIntoWard,
+		return visitDomainService.findByStateAndArea(Visit.State_NeedIntoWard,
 				user.getDept(), pageable);
 	}
 

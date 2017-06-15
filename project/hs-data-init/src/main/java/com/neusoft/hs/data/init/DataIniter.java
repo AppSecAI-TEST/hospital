@@ -913,7 +913,7 @@ public class DataIniter {
 
 		user001.setId("staff001");
 		user001.setName("内泌五接诊护士-大乔");
-		user001.setDept(dept000);
+		user001.setDept(dept000n);
 
 		users.add(user001);
 
