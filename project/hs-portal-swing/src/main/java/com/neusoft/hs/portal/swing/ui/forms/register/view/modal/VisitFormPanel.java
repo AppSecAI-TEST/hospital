@@ -16,8 +16,8 @@ import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.security.UserUtil;
-import com.neusoft.hs.portal.swing.ui.forms.register.model.DoctorComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.forms.register.model.InPatientDeptComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.DoctorComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 

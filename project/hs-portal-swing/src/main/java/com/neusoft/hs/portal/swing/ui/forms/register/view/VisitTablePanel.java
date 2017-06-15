@@ -10,7 +10,7 @@ import javax.swing.ListSelectionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.neusoft.hs.portal.swing.ui.forms.register.model.VisitTableModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 
 @Component
 public class VisitTablePanel extends JPanel {

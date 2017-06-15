@@ -87,12 +87,13 @@ public interface ConstMessagesEN {
         String CANCEL_BTN = "取消";
         
         String Login = "登陆";
-        String Register = "接诊";
+        String Register = "送诊";
         String InPatientDept = "住院科室";
         String RespDoctor = "责任医生";
         String NAME = "名称";
         String Account = "账号";
         String InitAccount = "初始化账户";
+        String ReceiveVisit = "接诊";
         String InitBlanace = "预存金额";
   
         

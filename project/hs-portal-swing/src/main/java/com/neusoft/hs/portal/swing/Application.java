@@ -31,7 +31,7 @@ public class Application {
 				Application.class).headless(false).run(args);
 		ApplicationContextUtil.setApplicationContext(context);
 		//初始化基础数据
-		context.getBean(InitDataService.class).init();
+		//context.getBean(InitDataService.class).init();
 		//启动主窗口
 		MainMenuController mainMenuController = context
 				.getBean(MainMenuController.class);

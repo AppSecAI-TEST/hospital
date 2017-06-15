@@ -13,9 +13,9 @@ import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.security.UserUtil;
-import com.neusoft.hs.portal.swing.ui.forms.cashier.model.NeedInitAccountVisitTableModel;
-import com.neusoft.hs.portal.swing.ui.forms.cashier.view.CashierTableFrame;
+import com.neusoft.hs.portal.swing.ui.forms.cashier.view.CashierInitAccountTableFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
@@ -25,10 +25,10 @@ public class CashierController extends AbstractFrameController {
 	private CashierAppService cashierAppService;
 
 	@Autowired
-	private CashierTableFrame cashierTableFrame;
+	private CashierInitAccountTableFrame cashierTableFrame;
 
 	@Autowired
-	private NeedInitAccountVisitTableModel tableModel;
+	private VisitTableModel tableModel;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -54,6 +54,7 @@ public class CashierController extends AbstractFrameController {
 		try {
 			String visitId = cashierTableFrame.getSelectedVisitId();
 			Float balance = cashierTableFrame.getBalance();
+			
 			cashierAppService.initAccount(visitId, balance, UserUtil.getUser());
 
 			loadNeedInitAccountVisits();

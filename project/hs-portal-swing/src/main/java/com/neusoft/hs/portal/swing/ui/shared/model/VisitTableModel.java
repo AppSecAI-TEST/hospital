@@ -1,9 +1,8 @@
-package com.neusoft.hs.portal.swing.ui.forms.register.model;
+package com.neusoft.hs.portal.swing.ui.shared.model;
 
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.portal.swing.ui.shared.model.DefaultTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 import com.neusoft.hs.portal.swing.util.DateFormatter;
 

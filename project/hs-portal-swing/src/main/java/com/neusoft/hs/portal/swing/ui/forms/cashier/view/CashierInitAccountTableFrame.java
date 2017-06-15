@@ -16,13 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.portal.framework.exception.UIException;
-import com.neusoft.hs.portal.swing.ui.forms.cashier.model.NeedInitAccountVisitTableModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 
 @Component
-public class CashierTableFrame extends JFrame {
+public class CashierInitAccountTableFrame extends JFrame {
 
-	private NeedInitAccountVisitTableModel visitTableModel;
+	private VisitTableModel visitTableModel;
 
 	private JTable table;
 
@@ -37,7 +37,7 @@ public class CashierTableFrame extends JFrame {
 	private static final int TEXT_FIELD_COLUMNS = 20;
 
 	@Autowired
-	public CashierTableFrame(NeedInitAccountVisitTableModel visitTableModel) {
+	public CashierInitAccountTableFrame(VisitTableModel visitTableModel) {
 
 		this.visitTableModel = visitTableModel;
 
@@ -65,7 +65,7 @@ public class CashierTableFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.Register);
+		setTitle(ConstMessagesEN.Labels.InitBlanace);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
