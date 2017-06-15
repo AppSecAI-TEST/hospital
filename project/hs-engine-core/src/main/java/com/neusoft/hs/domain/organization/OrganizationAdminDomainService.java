@@ -3,6 +3,7 @@ package com.neusoft.hs.domain.organization;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,12 @@ public class OrganizationAdminDomainService {
 		unitRepo.deleteAll();
 	}
 
-	public List<InPatientDept> findAllInPatientDept() {
-		return unitRepo.findInPatientDept();
+	public List<InPatientDept> findInPatientDept(Pageable pageable) {
+		return unitRepo.findInPatientDept(pageable);
+	}
+
+	public List<InPatientAreaDept> findInPatientArea(Pageable pageable) {
+		return unitRepo.findInPatientArea(pageable);
 	}
 
 	public Dept findTheDept(String id) {

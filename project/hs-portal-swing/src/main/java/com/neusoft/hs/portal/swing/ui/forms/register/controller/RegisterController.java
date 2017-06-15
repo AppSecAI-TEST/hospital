@@ -10,9 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.register.RegisterAppService;
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
@@ -26,6 +26,7 @@ import com.neusoft.hs.portal.swing.ui.forms.register.view.modal.VisitFormBtnPane
 import com.neusoft.hs.portal.swing.ui.forms.register.view.modal.VisitFormPanel;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.DoctorComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -39,6 +40,7 @@ public class RegisterController extends AbstractFrameController {
 	private AddVisitFrame addFrame;
 	private VisitTableModel tableModel;
 	private InPatientDeptComboBoxModel inPatientDeptComboBoxModel;
+	private InPatientAreaComboBoxModel inPatientAreaComboBoxModel;
 	private DoctorComboBoxModel doctorComboBoxModel;
 	private RegisterAppService registerAppService;
 	private OrganizationAdminDomainService organizationDomainService;
@@ -51,6 +53,7 @@ public class RegisterController extends AbstractFrameController {
 			RegisterAppService registerAppService,
 			OrganizationAdminDomainService organizationDomainService,
 			InPatientDeptComboBoxModel inPatientDeptComboBoxModel,
+			InPatientAreaComboBoxModel inPatientAreaComboBoxModel,
 			DoctorComboBoxModel doctorComboBoxModel,
 			UserAdminDomainService userDomainService, VisitValidator validator) {
 		this.tableFrame = tableFrame;
@@ -60,6 +63,7 @@ public class RegisterController extends AbstractFrameController {
 		this.organizationDomainService = organizationDomainService;
 		this.userDomainService = userDomainService;
 		this.inPatientDeptComboBoxModel = inPatientDeptComboBoxModel;
+		this.inPatientAreaComboBoxModel = inPatientAreaComboBoxModel;
 		this.doctorComboBoxModel = doctorComboBoxModel;
 		this.validator = validator;
 	}
@@ -75,25 +79,35 @@ public class RegisterController extends AbstractFrameController {
 	}
 
 	@Override
-	public void prepareAndOpenFrame() throws HsException{
+	public void prepareAndOpenFrame() throws HsException {
 		loadEntities();
 		loadInPatientDepts();
+		loadInPatientAreas();
 		loadDoctors();
 		showTableFrame();
 	}
 
 	private void loadEntities() {
-		Pageable pageable = new PageRequest(0, 15);
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<Visit> entities = registerAppService.listVisit(pageable);
 		tableModel.clear();
 		tableModel.addEntities(entities);
 	}
 
 	private void loadInPatientDepts() {
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<InPatientDept> depts = organizationDomainService
-				.findAllInPatientDept();
+				.findInPatientDept(pageable);
 		inPatientDeptComboBoxModel.clear();
 		inPatientDeptComboBoxModel.addElements(depts);
+	}
+
+	private void loadInPatientAreas() {
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		List<InPatientAreaDept> areas = organizationDomainService
+				.findInPatientArea(pageable);
+		inPatientAreaComboBoxModel.clear();
+		inPatientAreaComboBoxModel.addElements(areas);
 	}
 
 	private void loadDoctors() {

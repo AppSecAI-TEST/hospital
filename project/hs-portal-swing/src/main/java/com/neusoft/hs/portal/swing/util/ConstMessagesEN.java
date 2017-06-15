@@ -89,6 +89,7 @@ public interface ConstMessagesEN {
         String Login = "登陆";
         String Register = "送诊";
         String InPatientDept = "住院科室";
+        String InPatientArea = "住院病区";
         String RespDoctor = "责任医生";
         String NAME = "名称";
         String Account = "账号";
