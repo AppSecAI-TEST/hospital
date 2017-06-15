@@ -10,13 +10,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
+import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.ReceiveVisitFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.ui.shared.model.NurseComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -27,10 +30,16 @@ public class ReceiveController extends AbstractFrameController {
 	private InPatientAppService inPatientAppService;
 
 	@Autowired
+	private UserAdminDomainService userAdminDomainService;
+
+	@Autowired
 	private ReceiveVisitFrame receiveVisitFrame;
 
 	@Autowired
 	private VisitTableModel tableModel;
+
+	@Autowired
+	private NurseComboBoxModel respNurseComboBoxModel;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -40,6 +49,7 @@ public class ReceiveController extends AbstractFrameController {
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
 		loadReceiveVisits();
+		loadNurses();
 		receiveVisitFrame.setVisible(true);
 	}
 
@@ -51,6 +61,13 @@ public class ReceiveController extends AbstractFrameController {
 
 		tableModel.clear();
 		tableModel.addEntities(entities);
+	}
+
+	private void loadNurses() {
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		List<Nurse> nurses = this.userAdminDomainService.findNurse(pageable);
+		respNurseComboBoxModel.clear();
+		respNurseComboBoxModel.addElements(nurses);
 	}
 
 	private void receive() {

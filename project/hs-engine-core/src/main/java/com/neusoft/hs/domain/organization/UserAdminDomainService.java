@@ -33,6 +33,10 @@ public class UserAdminDomainService {
 	public List<Doctor> findDoctor(Pageable pageable) {
 		return userRepo.findDoctor(pageable);
 	}
+	
+	public List<Nurse> findNurse(Pageable pageable){
+		return userRepo.findNurse(pageable);
+	}
 
 	public void clear() {
 		userRepo.deleteAll();

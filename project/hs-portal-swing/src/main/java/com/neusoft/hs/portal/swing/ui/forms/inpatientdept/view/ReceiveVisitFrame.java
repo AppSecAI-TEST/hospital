@@ -33,6 +33,7 @@ public class ReceiveVisitFrame extends JFrame {
 	private JTextField bedTF;
 
 	private JComboBox<Nurse> resNurseCB;
+	
 	private NurseComboBoxModel respNurseComboBoxModel;
 
 	private JButton confirmBtn;
@@ -68,10 +69,7 @@ public class ReceiveVisitFrame extends JFrame {
 		JLabel nurseLbl = new JLabel(ConstMessagesEN.Labels.RespNurse);
 		buttonPanel.add(nurseLbl);
 
-		bedTF = new JTextField(TEXT_FIELD_COLUMNS);
-		buttonPanel.add(bedTF);
-
-		resNurseCB = new JComboBox<>(respNurseComboBoxModel);
+		resNurseCB = new JComboBox<>(this.respNurseComboBoxModel);
 		buttonPanel.add(resNurseCB);
 
 		confirmBtn = new JButton(ConstMessagesEN.Labels.CONFIRM_BTN);

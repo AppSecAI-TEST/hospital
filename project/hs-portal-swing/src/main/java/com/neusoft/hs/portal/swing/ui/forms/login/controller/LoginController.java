@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -60,7 +61,9 @@ public class LoginController extends AbstractFrameController {
 	}
 
 	private void loadUsers() {
-		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		Sort sort = new Sort("name");
+		PageRequest pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
+		
 		List<AbstractUser> users = userAdminDomainService.find(pageable);
 		abstractUserComboBoxModel.clear();
 		abstractUserComboBoxModel.addElements(users);
