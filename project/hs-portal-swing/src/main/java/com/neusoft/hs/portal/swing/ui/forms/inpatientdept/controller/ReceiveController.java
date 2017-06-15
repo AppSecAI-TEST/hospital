@@ -1,5 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
-import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
@@ -63,9 +64,14 @@ public class ReceiveController extends AbstractFrameController {
 		tableModel.addEntities(entities);
 	}
 
-	private void loadNurses() {
+	private void loadNurses() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
-		List<Nurse> nurses = this.userAdminDomainService.findNurse(pageable);
+		
+		List<Dept> depts = new ArrayList<Dept>();
+		Dept dept = UserUtil.getUser().getDept();
+		depts.add(dept);
+		
+		List<Nurse> nurses = this.userAdminDomainService.findNurse(depts, pageable);
 		respNurseComboBoxModel.clear();
 		respNurseComboBoxModel.addElements(nurses);
 	}

@@ -14,6 +14,6 @@ interface AbstractUserRepo extends
 	@Query("select d from Doctor d")
 	List<Doctor> findDoctor(Pageable pageable);
 
-	@Query("select n from Nurse n")
-	List<Nurse> findNurse(Pageable pageable);
+	@Query("select n from Nurse n where n.dept in (:depts)")
+	List<Nurse> findNurse(List<Dept> depts, Pageable pageable);
 }
