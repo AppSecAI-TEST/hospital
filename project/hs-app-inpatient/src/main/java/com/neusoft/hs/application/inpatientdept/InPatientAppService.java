@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
-import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -24,9 +23,9 @@ public class InPatientAppService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-	public List<Visit> getNeedReceiveVisits(Staff staff, Pageable pageable) {
+	public List<Visit> getNeedReceiveVisits(AbstractUser user, Pageable pageable) {
 		return visitDomainService.findByStateAndDept(Visit.State_NeedIntoWard,
-				staff.getDept(), pageable);
+				user.getDept(), pageable);
 	}
 
 	public List<Visit> InWardVisits(Dept dept, Pageable pageable) {

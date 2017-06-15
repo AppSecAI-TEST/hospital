@@ -36,7 +36,7 @@ public class CashierController extends AbstractFrameController {
 	}
 
 	@Override
-	public void prepareAndOpenFrame() {
+	public void prepareAndOpenFrame() throws HsException{
 		loadNeedInitAccountVisits();
 		cashierTableFrame.setVisible(true);
 	}

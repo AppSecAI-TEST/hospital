@@ -95,6 +95,8 @@ public interface ConstMessagesEN {
         String InitAccount = "初始化账户";
         String ReceiveVisit = "接诊";
         String InitBlanace = "预存金额";
+        String Bed = "床位";
+        String RespNurse = "责任护士";
   
         
         String ID = "ID";

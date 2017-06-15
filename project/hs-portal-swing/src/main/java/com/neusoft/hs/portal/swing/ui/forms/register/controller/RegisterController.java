@@ -75,7 +75,7 @@ public class RegisterController extends AbstractFrameController {
 	}
 
 	@Override
-	public void prepareAndOpenFrame() {
+	public void prepareAndOpenFrame() throws HsException{
 		loadEntities();
 		loadInPatientDepts();
 		loadDoctors();

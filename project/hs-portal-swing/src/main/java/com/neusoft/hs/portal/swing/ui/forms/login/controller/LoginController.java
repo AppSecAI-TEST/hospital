@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
+import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.AbstractUserComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.LoginInfo;
@@ -53,7 +54,7 @@ public class LoginController extends AbstractFrameController {
 	}
 
 	@Override
-	public void prepareAndOpenFrame() {
+	public void prepareAndOpenFrame() throws HsException{
 		this.loadUsers();
 		showLoginFrame();
 	}

@@ -24,6 +24,10 @@ public class VisitTableModel extends DefaultTableModel<Visit> {
 		}
 	}
 
+	public Visit getVisit(int rowIndex) {
+		return entities.get(rowIndex);
+	}
+
 	@Override
 	public String[] getColumnLabels() {
 		return new String[] { ConstMessagesEN.Labels.ID,
