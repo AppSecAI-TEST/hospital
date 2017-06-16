@@ -29,10 +29,16 @@ public class OrderAdminDomainService {
 	public List<Order> findAll(Pageable pageable) {
 		return orderRepo.findAll(pageable).getContent();
 	}
+	
+	public List<OrderType> findOrderType(Pageable pageable){
+		return orderTypeRepo.findAll(pageable).getContent();
+	}
 
 	public void createOrderTypes(List<OrderType> orderTypes) {
 		orderTypeRepo.save(orderTypes);
 	}
+	
+	
 
 	public void createOrderFrequencyTypes(
 			List<OrderFrequencyType> orderFrequencyTypes) {

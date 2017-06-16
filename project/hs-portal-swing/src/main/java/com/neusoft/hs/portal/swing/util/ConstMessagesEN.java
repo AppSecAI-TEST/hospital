@@ -115,6 +115,13 @@ public interface ConstMessagesEN {
         String VisitName = "患者姓名";
         String IntoWardDate = "进入病房时间";
 		
+        String Visit = "患者";
+        String OrderType = "医嘱类型";
+        String PlanStartDate = "计划开始时间";
+        String PlaceType = "位置";
+        String FrequencyType = "频次";
+        String OrderUseMode = "用法";
+        String Count = "数量";
     }
 
     interface ValidationMessages {
