@@ -26,15 +26,15 @@ import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 
 @Component
 public class CreateOrderPanel extends JPanel {
-	
+
 	private JTextField planStartDateTF;
 
 	private JTextField placeTypeTF;
-	
+
 	private JTextField frequencyTypeTF;
-	
+
 	private JTextField orderUseModeTF;
-	
+
 	private JTextField countTF;
 
 	private JComboBox<Visit> visitCB;
@@ -42,13 +42,13 @@ public class CreateOrderPanel extends JPanel {
 
 	private JComboBox<OrderType> orderTypeCB;
 	private OrderTypeComboBoxModel orderTypeComboBoxModel;
-	
+
 	private JComboBox<String> placeTypeCB;
 	private StringComboBoxModel placeTypeComboBoxModel;
-	
+
 	private JComboBox<OrderFrequencyType> frequencyTypeCB;
 	private OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel;
-	
+
 	private JComboBox<DrugUseMode> orderUseModeCB;
 	private DrugUseModeComboBoxModel orderUseModeComboBoxModel;
 
@@ -62,10 +62,16 @@ public class CreateOrderPanel extends JPanel {
 
 	@Autowired
 	public CreateOrderPanel(VisitComboBoxModel visitComboBoxModel,
-			OrderTypeComboBoxModel orderTypeComboBoxModel) {
+			OrderTypeComboBoxModel orderTypeComboBoxModel,
+			StringComboBoxModel placeTypeComboBoxModel,
+			OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel,
+			DrugUseModeComboBoxModel orderUseModeComboBoxModel) {
 		this.visitComboBoxModel = visitComboBoxModel;
 		this.orderTypeComboBoxModel = orderTypeComboBoxModel;
-		
+		this.placeTypeComboBoxModel = placeTypeComboBoxModel;
+		this.frequencyTypeComboBoxModel = frequencyTypeComboBoxModel;
+		this.orderUseModeComboBoxModel = orderUseModeComboBoxModel;
+
 		setPanelUp();
 		initComponents();
 	}
@@ -80,34 +86,36 @@ public class CreateOrderPanel extends JPanel {
 		JPanel formPanl = new JPanel();
 		formPanl.setLayout(new GridLayout(LAYOUT_ROWS, LAYOUT_COLS,
 				HORIZONTAL_GAP, VERTICAL_GAP));
-		
+
 		JLabel visitLbl = new JLabel(ConstMessagesEN.Labels.Visit);
 		JLabel orderTypeLbl = new JLabel(ConstMessagesEN.Labels.OrderType);
-		JLabel planStartDateLbl = new JLabel(ConstMessagesEN.Labels.PlanStartDate);
+		JLabel planStartDateLbl = new JLabel(
+				ConstMessagesEN.Labels.PlanStartDate);
 		JLabel placeTypeLbl = new JLabel(ConstMessagesEN.Labels.PlaceType);
-		JLabel frequencyTypeLbl = new JLabel(ConstMessagesEN.Labels.FrequencyType);
+		JLabel frequencyTypeLbl = new JLabel(
+				ConstMessagesEN.Labels.FrequencyType);
 		JLabel orderUseModeLbl = new JLabel(ConstMessagesEN.Labels.OrderUseMode);
 		JLabel countLbl = new JLabel(ConstMessagesEN.Labels.Count);
 
 		planStartDateTF = new JTextField(TEXT_FIELD_COLUMNS);
 		countTF = new JTextField(TEXT_FIELD_COLUMNS);
-	
+
 		visitCB = new JComboBox<>(visitComboBoxModel);
 		orderTypeCB = new JComboBox<>(orderTypeComboBoxModel);
 		placeTypeCB = new JComboBox<>(placeTypeComboBoxModel);
-		
+
 		frequencyTypeCB = new JComboBox<>(frequencyTypeComboBoxModel);
 		orderUseModeCB = new JComboBox<>(orderUseModeComboBoxModel);
-		
+
 		formPanl.add(visitLbl);
 		formPanl.add(visitCB);
-		
+
 		formPanl.add(orderTypeLbl);
 		formPanl.add(orderTypeCB);
-		
+
 		formPanl.add(planStartDateLbl);
 		formPanl.add(planStartDateTF);
-		
+
 		formPanl.add(placeTypeLbl);
 		formPanl.add(placeTypeCB);
 
@@ -119,7 +127,6 @@ public class CreateOrderPanel extends JPanel {
 
 		formPanl.add(countLbl);
 		formPanl.add(countTF);
-		
 
 		add(formPanl, BorderLayout.SOUTH);
 

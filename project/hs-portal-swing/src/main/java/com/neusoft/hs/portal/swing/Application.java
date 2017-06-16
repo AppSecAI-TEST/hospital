@@ -18,7 +18,7 @@ import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 @EnableJpaRepositories(basePackages = { "com.neusoft.hs.*" })
 @EntityScan(basePackages = { "com.neusoft.hs.*" })
 @ComponentScan(basePackages = { "com.neusoft.hs.*" })
-@ImportResource(locations = { "classpath:application-bean.xml" })
+//@ImportResource(locations = { "classpath:application-bean.xml" })
 // @EnableScheduling
 //@EnableAsync
 public class Application {
