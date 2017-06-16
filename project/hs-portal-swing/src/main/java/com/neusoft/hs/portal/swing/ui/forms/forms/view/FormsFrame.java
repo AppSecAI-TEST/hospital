@@ -19,6 +19,8 @@ public class FormsFrame extends JFrame {
 
 	private JButton receiveBtn;
 
+	private JButton createOrderBtn;
+
 	public FormsFrame() {
 		setFrameUp();
 		initComponents();
@@ -40,11 +42,13 @@ public class FormsFrame extends JFrame {
 		registerBtn = new JButton(ConstMessagesEN.Labels.Register);
 		cashierBtn = new JButton(ConstMessagesEN.Labels.InitAccount);
 		receiveBtn = new JButton(ConstMessagesEN.Labels.ReceiveVisit);
+		createOrderBtn = new JButton(ConstMessagesEN.Labels.CreateOrder);
 
 		add(loginBtn);
 		add(registerBtn);
 		add(cashierBtn);
 		add(receiveBtn);
+		add(createOrderBtn);
 	}
 
 	public JButton getLoginBtn() {
@@ -62,4 +66,9 @@ public class FormsFrame extends JFrame {
 	public JButton getReceiveBtn() {
 		return receiveBtn;
 	}
+
+	public JButton getCreateOrderBtn() {
+		return createOrderBtn;
+	}
+
 }

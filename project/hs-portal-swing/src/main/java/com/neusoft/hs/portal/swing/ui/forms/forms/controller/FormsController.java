@@ -8,6 +8,7 @@ import com.neusoft.hs.portal.swing.ui.forms.cashier.controller.CashierController
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.FormsFrame;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveController;
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
+import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -25,10 +26,13 @@ public class FormsController extends AbstractFrameController {
 	private RegisterController registerController;
 
 	@Autowired
-	private ReceiveController receiveController;
-	
-	@Autowired
 	private CashierController cashierController;
+
+	@Autowired
+	private ReceiveController receiveController;
+
+	@Autowired
+	private OrderController orderController;
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
@@ -38,6 +42,9 @@ public class FormsController extends AbstractFrameController {
 				(e) -> openCashierWindow());
 		registerAction(mainMenuFrame.getReceiveBtn(),
 				(e) -> openReceiveWindow());
+		registerAction(mainMenuFrame.getCreateOrderBtn(),
+				(e) -> openCreateOrderWindow());
+
 		mainMenuFrame.setVisible(true);
 	}
 
@@ -67,10 +74,19 @@ public class FormsController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void openReceiveWindow() {
 		try {
 			receiveController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openCreateOrderWindow() {
+		try {
+			orderController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

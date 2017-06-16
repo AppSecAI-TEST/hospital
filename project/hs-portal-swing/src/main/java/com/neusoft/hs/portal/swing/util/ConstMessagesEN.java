@@ -16,6 +16,7 @@ public interface ConstMessagesEN {
         
         String Login_MODAL = "登陆";
         String Register_MODAL = "接诊";
+
     }
 
     interface Messages {
@@ -98,9 +99,16 @@ public interface ConstMessagesEN {
         String InitBlanace = "预存金额";
         String Bed = "床位";
         String RespNurse = "责任护士";
+        String CreateOrder = "开立医嘱";
+        String Order = "医嘱";
   
         
         String ID = "ID";
+        String Name = "名称";
+        String State = "状态";
+        String Type = "类型";
+        String CreateDate = "创建时间";
+        
         String CarNumber = "身份证号";
         String Birthday = "生日";
         String Sex = "性别";

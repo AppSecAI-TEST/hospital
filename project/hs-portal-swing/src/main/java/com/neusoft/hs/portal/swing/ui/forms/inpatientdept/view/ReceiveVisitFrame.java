@@ -33,7 +33,7 @@ public class ReceiveVisitFrame extends JFrame {
 	private JTextField bedTF;
 
 	private JComboBox<Nurse> resNurseCB;
-	
+
 	private NurseComboBoxModel respNurseComboBoxModel;
 
 	private JButton confirmBtn;
@@ -50,6 +50,20 @@ public class ReceiveVisitFrame extends JFrame {
 
 		this.visitTableModel = visitTableModel;
 		this.respNurseComboBoxModel = respNurseComboBoxModel;
+
+		initComponents();
+		setFrameUp();
+	}
+
+	private void setFrameUp() {
+		setTitle(ConstMessagesEN.Labels.ReceiveVisit);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		setLocationRelativeTo(null);
+		setResizable(false);
+	}
+
+	private void initComponents() {
 
 		table = new JTable(this.visitTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -76,16 +90,6 @@ public class ReceiveVisitFrame extends JFrame {
 		buttonPanel.add(confirmBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
-
-		setFrameUp();
-	}
-
-	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.InitBlanace);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-		setLocationRelativeTo(null);
-		setResizable(false);
 	}
 
 	public JButton getConfirmBtn() {

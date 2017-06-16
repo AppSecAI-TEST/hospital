@@ -41,6 +41,20 @@ public class CashierInitAccountTableFrame extends JFrame {
 
 		this.visitTableModel = visitTableModel;
 
+		initComponents();
+		setFrameUp();
+	}
+
+	private void setFrameUp() {
+		setTitle(ConstMessagesEN.Labels.InitBlanace);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		setLocationRelativeTo(null);
+		setResizable(false);
+	}
+
+	private void initComponents() {
+
 		table = new JTable(this.visitTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -60,16 +74,6 @@ public class CashierInitAccountTableFrame extends JFrame {
 		buttonPanel.add(confirmBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
-
-		setFrameUp();
-	}
-
-	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.InitBlanace);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-		setLocationRelativeTo(null);
-		setResizable(false);
 	}
 
 	public JButton getConfirmBtn() {
