@@ -18,9 +18,9 @@ public class OrderFrame extends JFrame {
 
 	private CreateOrderPanel createOrderPanel;
 
-	private static final int DEFAULT_WIDTH = 500;
+	private static final int DEFAULT_WIDTH = 1000;
 
-	private static final int DEFAULT_HEIGHT = 300;
+	private static final int DEFAULT_HEIGHT = 600;
 
 	@Autowired
 	public OrderFrame(OrderListPanel orderListPanel,
@@ -41,7 +41,8 @@ public class OrderFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		setLayout(new GridLayout(2, 1, 0, 20));
+		setLayout(new GridLayout(2, 1));
+		
 		add(orderListPanel);
 		add(createOrderPanel);
 	}

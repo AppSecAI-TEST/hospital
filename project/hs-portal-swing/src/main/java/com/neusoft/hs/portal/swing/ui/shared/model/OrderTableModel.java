@@ -16,12 +16,14 @@ public class OrderTableModel extends DefaultTableModel<Order> {
 		case 0:
 			return order.getId();
 		case 1:
-			return order.getName();
+			return order.getVisit().getName();
 		case 2:
-			return order.getState();
+			return order.getName();
 		case 3:
-			return order.getOrderType();
+			return order.getState();
 		case 4:
+			return order.getOrderType();
+		case 5:
 			return DateFormatter.formatDate(order.getCreateDate());
 		default:
 			return "";
@@ -35,9 +37,8 @@ public class OrderTableModel extends DefaultTableModel<Order> {
 	@Override
 	public String[] getColumnLabels() {
 		return new String[] { ConstMessagesEN.Labels.ID,
-				ConstMessagesEN.Labels.Name,
-				ConstMessagesEN.Labels.State,
-				ConstMessagesEN.Labels.Type,
+				ConstMessagesEN.Labels.VisitName, ConstMessagesEN.Labels.Name,
+				ConstMessagesEN.Labels.State, ConstMessagesEN.Labels.Type,
 				ConstMessagesEN.Labels.CreateDate };
 	}
 }

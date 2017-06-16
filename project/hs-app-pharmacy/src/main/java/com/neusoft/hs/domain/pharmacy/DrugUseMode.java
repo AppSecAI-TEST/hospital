@@ -117,5 +117,10 @@ public abstract class DrugUseMode extends SuperEntity {
 			List<DrugUseModeAssistMaterial> orderUseModeChargeItems) {
 		this.orderUseModeAssistMaterials = orderUseModeChargeItems;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 
 }

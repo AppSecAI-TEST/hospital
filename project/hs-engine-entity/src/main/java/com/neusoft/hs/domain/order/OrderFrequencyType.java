@@ -99,4 +99,9 @@ public abstract class OrderFrequencyType extends SuperEntity {
 	public void setOrders(List<LongOrder> orders) {
 		this.orders = orders;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

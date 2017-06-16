@@ -19,6 +19,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.Admin;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.exception.HsException;
@@ -117,5 +118,9 @@ public class OrderAppService {
 		}
 		orderDomainService.stop((LongOrder) order, doctor);
 
+	}
+
+	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
+		return orderDomainService.findByBelongDept(dept, pageable);
 	}
 }

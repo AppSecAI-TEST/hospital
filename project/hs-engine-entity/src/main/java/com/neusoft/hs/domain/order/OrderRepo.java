@@ -21,6 +21,8 @@ interface OrderRepo extends PagingAndSortingRepository<Order, String> {
 			Pageable pageable);
 
 	List<Order> findByVisit(Visit visit, Pageable pageable);
+	
+	List<Order> findByBelongDept(Dept dept, Pageable pageable);
 
 	List<Order> findByVisitAndOrderTypeAndState(Visit visit,
 			OrderType orderType, String state);
@@ -35,5 +37,7 @@ interface OrderRepo extends PagingAndSortingRepository<Order, String> {
 	@Query("select o from TemporaryOrder o where o.visit = :visit")
 	List<TemporaryOrder> findTemporaryOrderByVisit(@Param("visit") Visit visit,
 			Pageable pageable);
+
+
 
 }

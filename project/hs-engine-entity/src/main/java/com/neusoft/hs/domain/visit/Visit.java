@@ -526,4 +526,9 @@ public class Visit extends IdEntity {
 	public void setChargeItems(List<VisitChargeItem> chargeItems) {
 		this.chargeItems = chargeItems;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

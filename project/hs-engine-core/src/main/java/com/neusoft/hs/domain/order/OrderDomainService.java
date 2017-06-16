@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.Admin;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.visit.Visit;
@@ -234,4 +235,7 @@ public class OrderDomainService {
 		return orderRepo.findByVisit(visit, pageable);
 	}
 
+	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
+		return orderRepo.findByBelongDept(dept, pageable);
+	}
 }

@@ -23,6 +23,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -43,6 +44,9 @@ public class OrderController extends AbstractFrameController {
 	private OrderAdminDomainService orderAdminDomainService;
 
 	@Autowired
+	private OrderTableModel orderTableModel;
+
+	@Autowired
 	private VisitComboBoxModel visitComboBoxModel;
 
 	@Autowired
@@ -55,9 +59,20 @@ public class OrderController extends AbstractFrameController {
 
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
+		loadOrders();
 		loadVisits();
 		loadOrderTypes();
 		orderFrame.setVisible(true);
+	}
+
+	private void loadOrders() throws HsException {
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+
+		List<Order> entities = orderAppService.findByBelongDept(UserUtil.getUser()
+				.getDept(), pageable);
+
+		orderTableModel.clear();
+		orderTableModel.addEntities(entities);
 	}
 
 	private void loadVisits() throws HsException {

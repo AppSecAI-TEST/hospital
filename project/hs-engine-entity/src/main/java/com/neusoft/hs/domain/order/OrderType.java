@@ -162,4 +162,9 @@ public abstract class OrderType extends SuperEntity {
 	public void setChildren(List<OrderType> children) {
 		this.children = children;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

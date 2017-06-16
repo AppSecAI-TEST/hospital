@@ -128,7 +128,7 @@ public class CreateOrderPanel extends JPanel {
 		formPanl.add(countLbl);
 		formPanl.add(countTF);
 
-		add(formPanl, BorderLayout.SOUTH);
+		add(formPanl, BorderLayout.CENTER);
 
 		JPanel buttonPanel = new JPanel();
 
