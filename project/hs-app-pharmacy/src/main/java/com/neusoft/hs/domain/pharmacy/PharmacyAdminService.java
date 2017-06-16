@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.pharmacy;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,9 +42,13 @@ public class PharmacyAdminService {
 
 	@Autowired
 	private DispensingDrugOrderRepo dispensingDrugOrderRepo;
-	
+
 	@Autowired
 	private DrugTypeConsumeRecordRepo drugTypeConsumeRecordRepo;
+
+	public List<DrugUseMode> findDrugUseMode(Pageable pageable) {
+		return orderUseModeRepo.findAll(pageable).getContent();
+	}
 
 	public void createDrugTypeSpecs(List<DrugTypeSpec> drugTypeSpecs) {
 		drugTypeSpecRepo.save(drugTypeSpecs);
