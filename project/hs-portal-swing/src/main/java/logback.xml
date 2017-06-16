@@ -60,13 +60,16 @@
 	<logger name="org.hibernate.engine.QueryParameters" level="INFO" />
 	<logger name="org.hibernate.engine.query.HQLQueryPlan" level="INFO" />
 
-	<root level="INFO">
-		<appender-ref ref="CONSOLE" /> 
-		<!-- <appender-ref ref="INFO_FILE" /> <appender-ref ref="ERROR_FILE" /> -->
-	</root>
+	<logger name="com.neusoft.hs" level="INFO"/>
 	<!-- 
 	<logger name="com.neusoft.hs">
 		<appender-ref ref="INFO_FILE" />
 	</logger>
  	-->
+	
+	<root level="ERROR">
+		<appender-ref ref="CONSOLE" /> 
+		<!-- <appender-ref ref="INFO_FILE" /> <appender-ref ref="ERROR_FILE" /> -->
+	</root>
+
 </configuration>

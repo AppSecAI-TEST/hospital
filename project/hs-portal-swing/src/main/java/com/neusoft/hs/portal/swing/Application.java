@@ -5,11 +5,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.neusoft.hs.data.init.InitDataService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.portal.swing.ui.main_menu.controller.MainMenuController;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
