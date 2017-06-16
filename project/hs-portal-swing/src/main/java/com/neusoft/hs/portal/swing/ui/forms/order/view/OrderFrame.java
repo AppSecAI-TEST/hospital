@@ -1,6 +1,7 @@
 package com.neusoft.hs.portal.swing.ui.forms.order.view;
 
 import java.awt.GridLayout;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,6 +10,8 @@ import javax.swing.WindowConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 
 @Component
@@ -42,12 +45,22 @@ public class OrderFrame extends JFrame {
 
 	private void initComponents() {
 		setLayout(new GridLayout(2, 1));
-		
+
 		add(orderListPanel);
 		add(createOrderPanel);
 	}
 
 	public JButton getConfirmBtn() {
-		return this.createOrderPanel.getConfirmBtn();
+		return this.createOrderPanel.confirmBtn;
 	}
+
+	public Date getPlanStartDate() throws HsException {
+		String planStartDate = this.createOrderPanel.planStartDateTF.getText();
+		if (planStartDate == null || planStartDate.length() == 0) {
+			return null;
+		} else {
+			return DateUtil.createDay(planStartDate);
+		}
+	}
+
 }

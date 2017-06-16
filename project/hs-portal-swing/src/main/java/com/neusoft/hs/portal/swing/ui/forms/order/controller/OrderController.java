@@ -1,6 +1,7 @@
 package com.neusoft.hs.portal.swing.ui.forms.order.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
@@ -23,6 +25,7 @@ import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
@@ -83,7 +86,7 @@ public class OrderController extends AbstractFrameController {
 		loadPlaceTypes();
 		loadFrequencyTypes();
 		loadOrderUseModes();
-		
+
 		orderFrame.setVisible(true);
 	}
 
@@ -137,6 +140,7 @@ public class OrderController extends AbstractFrameController {
 				.findFrequencyType(pageable);
 
 		frequencyTypeComboBoxModel.clear();
+		frequencyTypeComboBoxModel.addElement(null);
 		frequencyTypeComboBoxModel.addElements(entities);
 	}
 
@@ -147,6 +151,7 @@ public class OrderController extends AbstractFrameController {
 				.findDrugUseMode(pageable);
 
 		orderUseModeComboBoxModel.clear();
+		orderUseModeComboBoxModel.addElement(null);
 		orderUseModeComboBoxModel.addElements(entities);
 	}
 
@@ -156,17 +161,37 @@ public class OrderController extends AbstractFrameController {
 			// String bed = receiveVisitFrame.getBed();
 			// Nurse respNurse = receiveVisitFrame.getNurse();
 
-			Order order = new LongOrder();
-			// order.setVisit(visit004);
-			// order.setName("二级护理");
-			// order.setFrequencyType(orderFrequencyType_0H);
-			// order.setPlanStartDate(DateUtil.getSysDateStart());
-			// order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-			// order.setOrderType(secondNursingOrderType);
+			OrderFrequencyType frequencyType = frequencyTypeComboBoxModel
+					.getSelectedItem();
 
-			orderAppService.create(order, (Doctor) UserUtil.getUser());
+			Date planStartDate = this.orderFrame.getPlanStartDate();
+			if (planStartDate == null) {
+				planStartDate = DateUtil.getSysDateStart();
+			}
+			if (frequencyType == null) {
+				
+				TemporaryOrder order = new TemporaryOrder();
+				order.setVisit(visitComboBoxModel.getSelectedItem());
+				order.setName(orderTypeComboBoxModel.getSelectedItem().getName());
+				order.setOrderType(orderTypeComboBoxModel.getSelectedItem());
+				order.setPlanStartDate(planStartDate);
+				order.setPlaceType(placeTypeComboBoxModel.getSelectedItem());
+				
+				orderAppService.create(order, (Doctor) UserUtil.getUser());
+			} else {
+				
+				LongOrder order = new LongOrder();
+				order.setVisit(visitComboBoxModel.getSelectedItem());
+				order.setName(orderTypeComboBoxModel.getSelectedItem().getName());
+				order.setOrderType(orderTypeComboBoxModel.getSelectedItem());
+				order.setFrequencyType(frequencyType);
+				order.setPlanStartDate(planStartDate);
+				order.setPlaceType(placeTypeComboBoxModel.getSelectedItem());
+				
+				orderAppService.create(order, (Doctor) UserUtil.getUser());
+			}
 
-			// loadOrders();
+			loadOrders();
 
 			// orderFrame.clearBed();
 

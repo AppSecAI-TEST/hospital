@@ -27,32 +27,32 @@ import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 @Component
 public class CreateOrderPanel extends JPanel {
 
-	private JTextField planStartDateTF;
+	JTextField planStartDateTF;
 
-	private JTextField placeTypeTF;
+	JTextField placeTypeTF;
 
-	private JTextField frequencyTypeTF;
+	JTextField frequencyTypeTF;
 
-	private JTextField orderUseModeTF;
+	JTextField orderUseModeTF;
 
-	private JTextField countTF;
+	JTextField countTF;
 
-	private JComboBox<Visit> visitCB;
-	private VisitComboBoxModel visitComboBoxModel;
+	JComboBox<Visit> visitCB;
+	VisitComboBoxModel visitComboBoxModel;
 
-	private JComboBox<OrderType> orderTypeCB;
-	private OrderTypeComboBoxModel orderTypeComboBoxModel;
+	JComboBox<OrderType> orderTypeCB;
+	OrderTypeComboBoxModel orderTypeComboBoxModel;
 
-	private JComboBox<String> placeTypeCB;
-	private StringComboBoxModel placeTypeComboBoxModel;
+	JComboBox<String> placeTypeCB;
+	StringComboBoxModel placeTypeComboBoxModel;
 
-	private JComboBox<OrderFrequencyType> frequencyTypeCB;
-	private OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel;
+	JComboBox<OrderFrequencyType> frequencyTypeCB;
+	OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel;
 
-	private JComboBox<DrugUseMode> orderUseModeCB;
-	private DrugUseModeComboBoxModel orderUseModeComboBoxModel;
+	JComboBox<DrugUseMode> orderUseModeCB;
+	DrugUseModeComboBoxModel orderUseModeComboBoxModel;
 
-	private JButton confirmBtn;
+	JButton confirmBtn;
 
 	private static final int LAYOUT_ROWS = 4;
 	private static final int LAYOUT_COLS = 2;
@@ -137,9 +137,4 @@ public class CreateOrderPanel extends JPanel {
 
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
-
-	public JButton getConfirmBtn() {
-		return confirmBtn;
-	}
-
 }
