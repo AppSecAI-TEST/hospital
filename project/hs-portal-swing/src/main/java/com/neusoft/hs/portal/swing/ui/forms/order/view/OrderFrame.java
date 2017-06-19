@@ -63,4 +63,13 @@ public class OrderFrame extends JFrame {
 		}
 	}
 
+	public Integer getCount() {
+		String count = this.createOrderPanel.countTF.getText();
+		if (count == null || count.length() == 0) {
+			return null;
+		} else {
+			return Integer.valueOf(count);
+		}
+	}
+
 }

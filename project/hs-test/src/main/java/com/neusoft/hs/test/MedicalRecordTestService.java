@@ -131,7 +131,7 @@ public class MedicalRecordTestService {
 		assertTrue(itemValue.size() == temporaryOrderCount);
 		
 		assertTrue(((ListTreatmentItemValue) itemValue.get(0)).getData()
-				.get("name").equals("药品001"));
+				.get("name").equals("阿司匹林"));
 
 		medicalRecordAppService.create(temporaryOrderListRecord);
 

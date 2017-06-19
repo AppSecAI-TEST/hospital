@@ -138,11 +138,12 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	/**
 	 * 创建医嘱条目前的检查回调函数 该回调函数将职责委托给医嘱类型@OrderType完成
+	 * @throws OrderExecuteException 
+	 * @throws OrderException
 	 * 
-	 * @throws HsException
 	 * @roseuid 584E6696009D
 	 */
-	protected void check() throws OrderException {
+	protected void check() throws OrderException, OrderExecuteException {
 
 		if (visit == null) {
 			throw new OrderException(this, "visit不能为空");

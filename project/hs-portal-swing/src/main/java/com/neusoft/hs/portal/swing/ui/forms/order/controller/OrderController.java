@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.order.OrderAppService;
+import com.neusoft.hs.domain.order.DrugOrderType;
+import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
@@ -21,6 +23,7 @@ import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
+import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -157,10 +160,7 @@ public class OrderController extends AbstractFrameController {
 
 	private void create() {
 		try {
-			// Visit visit = receiveVisitFrame.getSelectedVisit();
-			// String bed = receiveVisitFrame.getBed();
-			// Nurse respNurse = receiveVisitFrame.getNurse();
-
+		
 			OrderFrequencyType frequencyType = frequencyTypeComboBoxModel
 					.getSelectedItem();
 
@@ -168,28 +168,34 @@ public class OrderController extends AbstractFrameController {
 			if (planStartDate == null) {
 				planStartDate = DateUtil.getSysDateStart();
 			}
+
+			Integer count = this.orderFrame.getCount();
+
+			OrderType orderType = orderTypeComboBoxModel.getSelectedItem();
+
+			Order order = null;
 			if (frequencyType == null) {
-				
-				TemporaryOrder order = new TemporaryOrder();
-				order.setVisit(visitComboBoxModel.getSelectedItem());
-				order.setName(orderTypeComboBoxModel.getSelectedItem().getName());
-				order.setOrderType(orderTypeComboBoxModel.getSelectedItem());
-				order.setPlanStartDate(planStartDate);
-				order.setPlaceType(placeTypeComboBoxModel.getSelectedItem());
-				
-				orderAppService.create(order, (Doctor) UserUtil.getUser());
+				order = new TemporaryOrder();
 			} else {
-				
-				LongOrder order = new LongOrder();
-				order.setVisit(visitComboBoxModel.getSelectedItem());
-				order.setName(orderTypeComboBoxModel.getSelectedItem().getName());
-				order.setOrderType(orderTypeComboBoxModel.getSelectedItem());
-				order.setFrequencyType(frequencyType);
-				order.setPlanStartDate(planStartDate);
-				order.setPlaceType(placeTypeComboBoxModel.getSelectedItem());
-				
-				orderAppService.create(order, (Doctor) UserUtil.getUser());
+				order = new LongOrder();
+				LongOrder longOrder = (LongOrder) order;
+				longOrder.setFrequencyType(frequencyType);
 			}
+			order.setVisit(visitComboBoxModel.getSelectedItem());
+			order.setName(orderType.getName());
+			order.setOrderType(orderType);
+			order.setPlanStartDate(planStartDate);
+			order.setCount(count);
+			order.setPlaceType(placeTypeComboBoxModel.getSelectedItem());
+
+			if (orderType instanceof DrugOrderType) {
+				Pharmacy pharmacy = null;
+				DrugUseMode drugUseMode = orderUseModeComboBoxModel
+						.getSelectedItem();
+				order.setTypeApp(new DrugOrderTypeApp(pharmacy, drugUseMode));
+			}
+
+			orderAppService.create(order, (Doctor) UserUtil.getUser());
 
 			loadOrders();
 

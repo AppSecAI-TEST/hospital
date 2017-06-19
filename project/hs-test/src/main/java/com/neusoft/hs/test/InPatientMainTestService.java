@@ -18,8 +18,10 @@ import com.neusoft.hs.domain.inspect.InspectApply;
 import com.neusoft.hs.domain.inspect.InspectApplyItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.CompsiteOrder;
+import com.neusoft.hs.domain.order.DrugOrderBuilder;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.LongOrder;
+import com.neusoft.hs.domain.order.NursingOrderBuilder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -52,34 +54,28 @@ public class InPatientMainTestService extends InPatientTestService {
 		Order drug001Order1;
 		Order drug001Order4;
 
-		LongOrder firstNursingOrder;
-		LongOrder secondNursingOrder;
+		NursingOrderBuilder nursingOrderBuilder;
+		DrugOrderBuilder drugOrderBuilder;
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40", dayCount));
 
 		// 为001开立一级护理长期医嘱
-		firstNursingOrder = new LongOrder();
-		firstNursingOrder.setVisit(visit001);
-		firstNursingOrder.setName("一级护理");
-		firstNursingOrder.setFrequencyType(orderFrequencyType_0H);
-		firstNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
-		firstNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		firstNursingOrder.setOrderType(firstNursingOrderType);
+		nursingOrderBuilder = new NursingOrderBuilder();
+		nursingOrderBuilder.setVisit(visit001);
+		nursingOrderBuilder.setFrequencyType(orderFrequencyType_0H);
+		nursingOrderBuilder.setOrderType(firstNursingOrderType);
 
-		orderAppService.create(firstNursingOrder, user002);
+		orderAppService.create(nursingOrderBuilder, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:42", dayCount));
 
 		// 为004开立二级护理长期医嘱
-		secondNursingOrder = new LongOrder();
-		secondNursingOrder.setVisit(visit004);
-		secondNursingOrder.setName("二级护理");
-		secondNursingOrder.setFrequencyType(orderFrequencyType_0H);
-		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
-		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		secondNursingOrder.setOrderType(secondNursingOrderType);
+		nursingOrderBuilder = new NursingOrderBuilder();
+		nursingOrderBuilder.setVisit(visit004);
+		nursingOrderBuilder.setFrequencyType(orderFrequencyType_0H);
+		nursingOrderBuilder.setOrderType(secondNursingOrderType);
 
-		orderAppService.create(secondNursingOrder, user002);
+		orderAppService.create(nursingOrderBuilder, user002);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
@@ -96,34 +92,36 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:55", dayCount));
 
 		// 为患者001开立药品临时医嘱
-		drug001Order1 = new TemporaryOrder();
-		drug001Order1.setVisit(visit001);
-		drug001Order1.setName("药品001");
-		drug001Order1.setPlanStartDate(DateUtil.getSysDate());
-		drug001Order1.setCount(2);
-		drug001Order1.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		drug001Order1.setOrderType(drugOrderType001);
+		drugOrderBuilder = new DrugOrderBuilder();
+		drugOrderBuilder.setVisit(visit001);
+		drugOrderBuilder.setCount(2);
+		drugOrderBuilder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+		drugOrderBuilder.setOrderType(drugOrderType001);
+		drugOrderBuilder.setPharmacy(deptccc);
+		drugOrderBuilder.setDrugUseMode(oralOrderUseMode);
 
-		drug001Order1
-				.setTypeApp(new DrugOrderTypeApp(deptccc, oralOrderUseMode));
+		orders = orderAppService.create(drugOrderBuilder, user002);
 
-		orderAppService.create(drug001Order1, user002);
-		
+		assertTrue(orders.size() == 1);
+
+		drug001Order1 = orders.get(0);
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:56", dayCount));
 
 		// 为患者004开立药品临时医嘱
-		drug001Order4 = new TemporaryOrder();
-		drug001Order4.setVisit(visit004);
-		drug001Order4.setName("药品001");
-		drug001Order4.setPlanStartDate(DateUtil.getSysDate());
-		drug001Order4.setCount(4);
-		drug001Order4.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		drug001Order4.setOrderType(drugOrderType001);
+		drugOrderBuilder = new DrugOrderBuilder();
+		drugOrderBuilder.setVisit(visit004);
+		drugOrderBuilder.setCount(4);
+		drugOrderBuilder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
+		drugOrderBuilder.setOrderType(drugOrderType001);
+		drugOrderBuilder.setPharmacy(deptccc);
+		drugOrderBuilder.setDrugUseMode(oralOrderUseMode);
 
-		drug001Order4
-				.setTypeApp(new DrugOrderTypeApp(deptccc, oralOrderUseMode));
+		orders = orderAppService.create(drugOrderBuilder, user002);
 
-		orderAppService.create(drug001Order4, user002);
+		assertTrue(orders.size() == 1);
+
+		drug001Order4 = orders.get(0);
 
 		pageable = new PageRequest(0, 15);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
@@ -695,20 +693,22 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 08:20", dayCount));
 
-		orderAppService.stop(firstNursingOrder.getId(), user002);
+		orders = this.orderDAO.findExecutingByVisitAndOrderType(visit001,
+				firstNursingOrderType);
+
+		assertTrue(orders.size() == 1);
+
+		orderAppService.stop(orders.get(0).getId(), user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 08:30", dayCount));
 
 		// 开立二级护理长期医嘱
-		secondNursingOrder = new LongOrder();
-		secondNursingOrder.setVisit(visit001);
-		secondNursingOrder.setName("二级护理");
-		secondNursingOrder.setFrequencyType(orderFrequencyType_0H);
-		secondNursingOrder.setPlanStartDate(DateUtil.getSysDateStart());
-		secondNursingOrder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		secondNursingOrder.setOrderType(secondNursingOrderType);
+		nursingOrderBuilder = new NursingOrderBuilder();
+		nursingOrderBuilder.setVisit(visit001);
+		nursingOrderBuilder.setFrequencyType(orderFrequencyType_0H);
+		nursingOrderBuilder.setOrderType(secondNursingOrderType);
 
-		orderAppService.create(secondNursingOrder, user002);
+		orderAppService.create(nursingOrderBuilder, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-05 08:40", dayCount));
 

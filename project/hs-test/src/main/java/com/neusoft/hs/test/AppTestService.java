@@ -20,6 +20,7 @@ import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.application.visit.VisitAppService;
 import com.neusoft.hs.data.init.ChoiceItem;
 import com.neusoft.hs.data.init.DataIniter;
+import com.neusoft.hs.domain.order.OrderDAO;
 import com.neusoft.hs.domain.order.OrderUtil;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
@@ -82,6 +83,9 @@ public abstract class AppTestService extends DataIniter {
 
 	@Autowired
 	protected ConfigureFluidAppService configureFluidAppService;
+	
+	@Autowired
+	protected OrderDAO orderDAO;
 
 	public void testInit() {
 		clear();

@@ -16,6 +16,7 @@ import com.neusoft.hs.application.pharmacy.OutPatientPharmacyAppService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.CompsiteOrder;
+import com.neusoft.hs.domain.order.DrugOrderBuilder;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.EnterHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
@@ -88,6 +89,8 @@ public class OutPatientMainTestService extends AppTestService {
 		TreatmentItem item;
 		Date sysDate;
 		Date startDate;
+		
+		DrugOrderBuilder drugOrderBuilder;
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
@@ -133,18 +136,15 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:25"));
 
 		// 开立药品临时医嘱
-		Order drug001Order = new TemporaryOrder();
-		drug001Order.setVisit(visit001);
-		drug001Order.setName("药品001");
-		drug001Order.setPlanStartDate(DateUtil.getSysDate());
-		drug001Order.setCount(1);
-		drug001Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
-		drug001Order.setOrderType(drugOrderType001);
+		drugOrderBuilder = new DrugOrderBuilder();
+		drugOrderBuilder.setVisit(visit001);
+		drugOrderBuilder.setCount(1);
+		drugOrderBuilder.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+		drugOrderBuilder.setOrderType(drugOrderType001);
+		drugOrderBuilder.setPharmacy(dept333);
+		drugOrderBuilder.setDrugUseMode(oralOrderUseMode);
 
-		drug001Order
-				.setTypeApp(new DrugOrderTypeApp(dept333, oralOrderUseMode));
-
-		orderAppService.create(drug001Order, user002);
+		orderAppService.create(drugOrderBuilder, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:27"));
 

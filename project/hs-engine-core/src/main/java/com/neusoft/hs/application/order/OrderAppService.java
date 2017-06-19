@@ -51,6 +51,12 @@ public class OrderAppService {
 		return orderDomainService.create(orderCommand, doctor);
 	}
 
+	public List<Order> create(OrderBuilder builder, Doctor doctor)
+			throws OrderException, OrderExecuteException {
+		OrderCreateCommand orderCreateCommand = builder.createCommand();
+		return create(orderCreateCommand, doctor);
+	}
+
 	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {
 		return orderDomainService.getNeedVerifyOrders(nurse, pageable);
 	}

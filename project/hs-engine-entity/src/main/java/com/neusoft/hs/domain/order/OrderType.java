@@ -70,9 +70,10 @@ public abstract class OrderType extends SuperEntity {
 	 * 
 	 * @param order
 	 * @throws OrderException
+	 * @throws OrderExecuteException 
 	 * @roseuid 584E66D50265
 	 */
-	protected void check(Order order) throws OrderException {
+	protected void check(Order order) throws OrderException, OrderExecuteException {
 
 	}
 
