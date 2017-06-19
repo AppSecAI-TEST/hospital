@@ -26,14 +26,14 @@ public class DrugOrderBuilder extends AbstractOrderBuilder {
 	}
 
 	@Override
-	public OrderCreateCommand createCommand() {
+	public OrderCreateCommand createCommand() throws OrderException{
 		
 		TemporaryOrder order = new TemporaryOrder();
 		
 		order.setVisit(visit);
 		order.setName(orderType.getName());
 		order.setOrderType(orderType);
-		order.setPlanStartDate(DateUtil.getSysDate());
+		order.setPlanStartDate(getPlanStartDate());
 		order.setPlaceType(placeType);
 
 		order.setCount(count);

@@ -12,13 +12,13 @@ public class NursingOrderBuilder extends AbstractOrderBuilder {
 	}
 
 	@Override
-	public OrderCreateCommand createCommand() {
+	public OrderCreateCommand createCommand() throws OrderException{
 		LongOrder order = new LongOrder();
 		
 		order.setVisit(visit);
 		order.setName(orderType.getName());
 		order.setOrderType(orderType);
-		order.setPlanStartDate(DateUtil.getSysDate());
+		order.setPlanStartDate(getPlanStartDate());
 		order.setFrequencyType(frequencyType);
 		order.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 		

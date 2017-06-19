@@ -1,6 +1,9 @@
 package com.neusoft.hs.application.order;
 
+import java.util.Date;
+
 import com.neusoft.hs.domain.order.OrderCreateCommand;
+import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.visit.Visit;
 
@@ -12,6 +15,8 @@ public interface OrderBuilder {
 
 	public String getPlaceType();
 
-	public OrderCreateCommand createCommand();
+	public Date getPlanStartDate();
+
+	public OrderCreateCommand createCommand() throws OrderException;
 
 }
