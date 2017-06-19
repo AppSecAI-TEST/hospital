@@ -16,12 +16,12 @@ import com.neusoft.hs.application.pharmacy.OutPatientPharmacyAppService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.order.DrugOrderBuilder;
-import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.EnterHospitalOrderType;
 import com.neusoft.hs.domain.order.LongDrugOrderBuilder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.PrescriptionBuilder;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.Prescription;
@@ -88,9 +88,10 @@ public class OutPatientMainTestService extends AppTestService {
 		TreatmentItem item;
 		Date sysDate;
 		Date startDate;
-		
+
 		DrugOrderBuilder drugOrderBuilder;
 		LongDrugOrderBuilder longDrugOrderBuilder;
+		PrescriptionBuilder prescriptionBuilder;
 
 		// 创建测试患者
 		createVisitVO = new CreateVisitVO();
@@ -205,58 +206,25 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:33"));
 
-		Prescription prescription = new Prescription();
-		prescription.setVisit(visit001);
-		prescription.setIllustrate("水煎服");
-
-		prescription
+		prescriptionBuilder = new PrescriptionBuilder();
+		prescriptionBuilder.setVisit(visit001);
+		prescriptionBuilder.setIllustrate("水煎服");
+		prescriptionBuilder.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+		prescriptionBuilder.setPharmacy(dept888);
+		prescriptionBuilder.setDrugUseMode(oralOrderUseMode);
+		
+		prescriptionBuilder
 				.addDiagnosisTreatmentItemValue(hyperthyroidismDiagnosisTreatmentItemValue);
-		prescription
+		prescriptionBuilder
 				.addDiagnosisTreatmentItemValue(hypoglycemiaDiagnosisTreatmentItemValue);
 
-		// 开立药品临时医嘱
-		Order drug004Order = new TemporaryOrder();
-		drug004Order.setVisit(visit001);
-		drug004Order.setName("药品004");
-		drug004Order.setPlanStartDate(DateUtil.getSysDate());
-		drug004Order.setCount(20);
-		drug004Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
-		drug004Order.setOrderType(drugOrderType004);
+		// 开立药品004\005\006临时医嘱
+		prescriptionBuilder.addCount(drugOrderType004, 20);
+		prescriptionBuilder.addCount(drugOrderType005, 15);
+		prescriptionBuilder.addCount(drugOrderType006, 100);
 
-		drug004Order
-				.setTypeApp(new DrugOrderTypeApp(dept888, oralOrderUseMode));
 
-		prescription.addOrder(drug004Order);
-
-		// 开立药品临时医嘱
-		Order drug005Order = new TemporaryOrder();
-		drug005Order.setVisit(visit001);
-		drug005Order.setName("药品005");
-		drug005Order.setPlanStartDate(DateUtil.getSysDate());
-		drug005Order.setCount(15);
-		drug005Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
-		drug005Order.setOrderType(drugOrderType005);
-
-		drug005Order
-				.setTypeApp(new DrugOrderTypeApp(dept888, oralOrderUseMode));
-
-		prescription.addOrder(drug005Order);
-
-		// 开立药品临时医嘱
-		Order drug006Order = new TemporaryOrder();
-		drug006Order.setVisit(visit001);
-		drug006Order.setName("药品006");
-		drug006Order.setPlanStartDate(DateUtil.getSysDate());
-		drug006Order.setCount(100);
-		drug006Order.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
-		drug006Order.setOrderType(drugOrderType006);
-
-		drug006Order
-				.setTypeApp(new DrugOrderTypeApp(dept888, oralOrderUseMode));
-
-		prescription.addOrder(drug006Order);
-
-		orderAppService.create(prescription, user002);
+		orderAppService.create(prescriptionBuilder, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:35"));
 
@@ -277,7 +245,7 @@ public class OutPatientMainTestService extends AppTestService {
 		// 创建药品002/003长期医嘱
 		sysDate = DateUtil.getSysDate();
 		startDate = DateUtil.getSysDateStart();
-		
+
 		longDrugOrderBuilder = new LongDrugOrderBuilder();
 		longDrugOrderBuilder.setVisit(visit002);
 		longDrugOrderBuilder
@@ -290,7 +258,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		longDrugOrderBuilder.addCount(drugOrderType002, 2);
 		longDrugOrderBuilder.addCount(drugOrderType003, 1);
-		
+
 		orderAppService.create(longDrugOrderBuilder, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:40"));
@@ -381,10 +349,6 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(prescriptions.size() == 1);
 		assertTrue(prescriptions.get(0).getIllustrate().equals("水煎服"));
-
-		prescription = pharmacyDomainService.findThePrescription(drug004Order);
-
-		assertTrue(prescription != null);
 
 		// 完成摆药医嘱执行条目
 		for (OrderExecute execute : executes) {

@@ -67,10 +67,6 @@ public class PharmacyDomainService {
 		return prescriptionRepo.findByVisit(visit);
 	}
 
-	public Prescription findThePrescription(Order order) {
-		return prescriptionRepo.findByOrdersIn(order);
-	}
-
 	public DrugType findTheDrugType(String id) {
 		return drugTypeRepo.findOne(id);
 	}

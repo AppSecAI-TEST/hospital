@@ -21,5 +21,4 @@ public interface OrderBuilder {
 	public Dept getExecuteDept();
 
 	public OrderCreateCommand createCommand() throws OrderException;
-
 }

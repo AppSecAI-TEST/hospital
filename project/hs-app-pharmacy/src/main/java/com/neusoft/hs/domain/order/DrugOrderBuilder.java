@@ -3,7 +3,6 @@ package com.neusoft.hs.domain.order;
 import com.neusoft.hs.application.order.AbstractOrderBuilder;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
-import com.neusoft.hs.platform.util.DateUtil;
 
 public class DrugOrderBuilder extends AbstractOrderBuilder {
 
