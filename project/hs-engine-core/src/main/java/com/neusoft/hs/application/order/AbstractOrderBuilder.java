@@ -3,6 +3,7 @@ package com.neusoft.hs.application.order;
 import java.util.Date;
 
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -15,6 +16,8 @@ public abstract class AbstractOrderBuilder implements OrderBuilder {
 	protected String placeType;
 
 	protected Date planStartDate;
+
+	protected Dept executeDept;
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
@@ -52,4 +55,11 @@ public abstract class AbstractOrderBuilder implements OrderBuilder {
 		return placeType;
 	}
 
+	public Dept getExecuteDept() {
+		return executeDept;
+	}
+
+	public void setExecuteDept(Dept executeDept) {
+		this.executeDept = executeDept;
+	}
 }
