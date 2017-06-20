@@ -1,7 +1,11 @@
-2017.06.--
+2017.06.20 OrderBuilder
 
 1、设计模型、文档：记录swing编程模式
-
+2、实现模型：修改患者入院场景缺欠（通过住院病区而不住院科室将患者接到病房）
+3、实现模型：建构医嘱开立页面
+4、设计模型：创建OrderBuilder接口，用于简化开立医嘱时的复杂度（原接口可继续使用）
+5、实现模型：创建多个OrderBuilder实现类（TemporaryDrugOrderBuilder、LongDrugOrderBuilder、NursingOrderBuilder、PrescriptionBuilder），改进药品医嘱创建方式
+6、文档：在可变性设计章节增加开立医嘱主题
 
 2017.06.14 丰富测试模型 启动Swing界面编写
 
