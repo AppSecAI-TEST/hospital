@@ -52,8 +52,6 @@ public class FormsController extends AbstractFrameController {
 				(e) -> openReceiveWindow());
 		registerAction(mainMenuFrame.getCreateOrderBtn(),
 				(e) -> openCreateOrderWindow());
-		registerAction(mainMenuFrame.getCreateOrderBtn(),
-				(e) -> openCreateOrderWindow());
 		registerAction(mainMenuFrame.getVerifyOrderBtn(),
 				(e) -> openVerifyOrderWindow());
 		registerAction(mainMenuFrame.getSendOrderExecuteBtn(),
@@ -115,7 +113,7 @@ public class FormsController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void openSendOrderExecuteWindow() {
 		try {
 			orderExecuteSendController.prepareAndOpenFrame();

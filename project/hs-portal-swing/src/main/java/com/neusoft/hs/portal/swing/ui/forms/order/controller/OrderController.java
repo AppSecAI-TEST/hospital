@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.domain.order.DrugOrderType;
@@ -22,7 +23,6 @@ import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
@@ -109,7 +109,7 @@ public class OrderController extends AbstractFrameController {
 
 		List<Order> entities = orderAppService.findByBelongDept(UserUtil
 				.getUser().getDept(), pageable);
-
+		
 		orderTableModel.clear();
 		orderTableModel.addEntities(entities);
 	}
