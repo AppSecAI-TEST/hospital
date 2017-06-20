@@ -111,6 +111,7 @@ public interface ConstMessagesEN {
         String Name = "名称";
         String State = "状态";
         String Type = "类型";
+        String ExecuteDept = "执行部门";
         String CreateDate = "创建时间";
         
         String CarNumber = "身份证号";

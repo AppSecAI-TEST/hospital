@@ -2,7 +2,6 @@
 
 package com.neusoft.hs.application.order;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +14,13 @@ import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderException;
-import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -35,10 +31,6 @@ public class OrderAppService {
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
-
-	public static final int NeedSendOrderExecuteDay = 1;// 今天
-
-	public static final int NeedSendOrderExecuteHour = 36;// 明天12：00之前的医嘱
 
 	/**
 	 * @param doctor
@@ -105,14 +97,6 @@ public class OrderAppService {
 	 */
 	public int resolve(Admin admin) {
 		return orderDomainService.resolve(admin);
-	}
-
-	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
-			Pageable pageable) {
-		Date date = DateUtil.addHour(DateUtil.getSysDateStart(),
-				NeedSendOrderExecuteHour);
-		return orderExecuteDomainService.getNeedSendOrderExecutes(nurse, date,
-				pageable);
 	}
 
 	public void stop(String orderId, Doctor doctor) throws OrderException {

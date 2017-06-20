@@ -13,5 +13,14 @@ public class DateFormatter {
 			return formatter.format(date);
 		}
 	}
+	
+	public static String formatDateTime(Date date) {
+		if (date == null) {
+			return null;
+		} else {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH");
+			return formatter.format(date);
+		}
+	}
 
 }

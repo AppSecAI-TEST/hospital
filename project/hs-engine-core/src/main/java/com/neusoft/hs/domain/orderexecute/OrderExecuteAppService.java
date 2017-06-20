@@ -27,8 +27,20 @@ public class OrderExecuteAppService {
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
+	
+	public static final int NeedSendOrderExecuteDay = 1;// 今天
 
-	public static int NeedExecuteOrderMinute = 30;// 医嘱执行可提前分钟数
+	public static final int NeedSendOrderExecuteHour = 36;// 明天12：00之前的医嘱
+
+	public static final int NeedExecuteOrderMinute = 30;// 医嘱执行可提前分钟数
+	
+	public List<OrderExecute> getNeedSendOrderExecutes(AbstractUser nurse,
+			Pageable pageable) {
+		Date date = DateUtil.addHour(DateUtil.getSysDateStart(),
+				NeedSendOrderExecuteHour);
+		return orderExecuteDomainService.getNeedSendOrderExecutes(nurse, date,
+				pageable);
+	}
 
 	/**
 	 * @param user003
@@ -36,7 +48,7 @@ public class OrderExecuteAppService {
 	 * @throws OrderExecuteException
 	 * @roseuid 584F6109005C
 	 */
-	public void send(String executeId, Nurse nurse)
+	public void send(String executeId, AbstractUser nurse)
 			throws OrderExecuteException {
 		OrderExecute execute = orderExecuteDomainService.find(executeId);
 		if (execute == null) {

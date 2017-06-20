@@ -32,7 +32,7 @@ public class OrderExecuteDomainService {
 	@Autowired
 	private ApplicationContext applicationContext;
 
-	public List<OrderExecute> getNeedSendOrderExecutes(Nurse nurse,
+	public List<OrderExecute> getNeedSendOrderExecutes(AbstractUser nurse,
 			Date planStartDate, Pageable pageable) {
 		return orderExecuteRepo
 				.findByStateAndBelongDeptInAndPlanStartDateLessThan(
@@ -66,15 +66,16 @@ public class OrderExecuteDomainService {
 	public OrderExecute find(String executeId) {
 		return orderExecuteRepo.findOne(executeId);
 	}
-	
+
 	public List<OrderExecute> findByState(String state, Pageable pageable) {
 		return orderExecuteRepo.findByState(state, pageable);
 	}
 
-	public List<OrderExecute> findByChargeState(String chargeState, Pageable pageable) {
+	public List<OrderExecute> findByChargeState(String chargeState,
+			Pageable pageable) {
 		return orderExecuteRepo.findByChargeState(chargeState, pageable);
 	}
-	
+
 	public List<OrderExecute> find(OrderExecuteFilter filter,
 			Map<String, Object> params, AbstractUser user, Pageable pageable) {
 		OrderExecuteFilterCondition condition = filter.createCondition(params,
@@ -122,7 +123,7 @@ public class OrderExecuteDomainService {
 	 * @throws OrderExecuteException
 	 * @roseuid 584F6150022C
 	 */
-	public void send(OrderExecute execute, Nurse nurse)
+	public void send(OrderExecute execute, AbstractUser nurse)
 			throws OrderExecuteException {
 
 		execute.send();
