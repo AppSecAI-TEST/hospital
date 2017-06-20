@@ -1,12 +1,16 @@
 package com.neusoft.hs.portal.swing.ui.forms.forms.view;
 
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import org.springframework.stereotype.Component;
+
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
-
-import javax.swing.*;
-import java.awt.*;
 
 @Component
 public class FormsFrame extends JFrame {
@@ -22,6 +26,8 @@ public class FormsFrame extends JFrame {
 	private JButton createOrderBtn;
 
 	private JButton verifyOrderBtn;
+
+	private JButton sendOrderExecuteBtn;
 
 	public FormsFrame() {
 		setFrameUp();
@@ -46,6 +52,8 @@ public class FormsFrame extends JFrame {
 		receiveBtn = new JButton(ConstMessagesEN.Labels.ReceiveVisit);
 		createOrderBtn = new JButton(ConstMessagesEN.Labels.CreateOrder);
 		verifyOrderBtn = new JButton(ConstMessagesEN.Labels.VerifyOrder);
+		sendOrderExecuteBtn = new JButton(
+				ConstMessagesEN.Labels.SendOrderExecute);
 
 		add(loginBtn);
 		add(registerBtn);
@@ -53,6 +61,7 @@ public class FormsFrame extends JFrame {
 		add(receiveBtn);
 		add(createOrderBtn);
 		add(verifyOrderBtn);
+		add(sendOrderExecuteBtn);
 	}
 
 	public JButton getLoginBtn() {
@@ -79,4 +88,7 @@ public class FormsFrame extends JFrame {
 		return verifyOrderBtn;
 	}
 
+	public JButton getSendOrderExecuteBtn() {
+		return sendOrderExecuteBtn;
+	}
 }
