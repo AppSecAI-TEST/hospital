@@ -10,7 +10,7 @@ import java.awt.*;
 @Component
 public class RegisterReportTableFrame extends JFrame {
 
-    private static final int DEFAULT_WIDTH = 500;
+    private static final int DEFAULT_WIDTH = 800;
     private static final int DEFAULT_HEIGHT = 300;
 
     private RegisterReportTablePanel tablePanel;

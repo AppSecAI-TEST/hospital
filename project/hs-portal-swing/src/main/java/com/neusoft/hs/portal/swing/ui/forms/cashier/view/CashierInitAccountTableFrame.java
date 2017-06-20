@@ -30,7 +30,7 @@ public class CashierInitAccountTableFrame extends JFrame {
 
 	private JButton confirmBtn;
 
-	private static final int DEFAULT_WIDTH = 500;
+	private static final int DEFAULT_WIDTH = 800;
 
 	private static final int DEFAULT_HEIGHT = 300;
 
