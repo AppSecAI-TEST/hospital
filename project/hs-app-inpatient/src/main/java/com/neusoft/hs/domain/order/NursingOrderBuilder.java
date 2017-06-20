@@ -1,7 +1,6 @@
 package com.neusoft.hs.domain.order;
 
 import com.neusoft.hs.application.order.AbstractOrderBuilder;
-import com.neusoft.hs.platform.util.DateUtil;
 
 public class NursingOrderBuilder extends AbstractOrderBuilder {
 	

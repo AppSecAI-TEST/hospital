@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.hs.application.pharmacy.OutPatientPharmacyAppService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.order.DrugOrderBuilder;
+import com.neusoft.hs.domain.order.TemporaryDrugOrderBuilder;
 import com.neusoft.hs.domain.order.EnterHospitalOrderType;
 import com.neusoft.hs.domain.order.LongDrugOrderBuilder;
 import com.neusoft.hs.domain.order.Order;
@@ -89,7 +89,7 @@ public class OutPatientMainTestService extends AppTestService {
 		Date sysDate;
 		Date startDate;
 
-		DrugOrderBuilder drugOrderBuilder;
+		TemporaryDrugOrderBuilder drugOrderBuilder;
 		LongDrugOrderBuilder longDrugOrderBuilder;
 		PrescriptionBuilder prescriptionBuilder;
 
@@ -137,7 +137,7 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:25"));
 
 		// 开立药品临时医嘱
-		drugOrderBuilder = new DrugOrderBuilder();
+		drugOrderBuilder = new TemporaryDrugOrderBuilder();
 		drugOrderBuilder.setVisit(visit001);
 		drugOrderBuilder.setCount(1);
 		drugOrderBuilder.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);

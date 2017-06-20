@@ -17,7 +17,7 @@ import com.neusoft.hs.data.init.ChoiceItem;
 import com.neusoft.hs.domain.inspect.InspectApply;
 import com.neusoft.hs.domain.inspect.InspectApplyItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.order.DrugOrderBuilder;
+import com.neusoft.hs.domain.order.TemporaryDrugOrderBuilder;
 import com.neusoft.hs.domain.order.LongDrugOrderBuilder;
 import com.neusoft.hs.domain.order.NursingOrderBuilder;
 import com.neusoft.hs.domain.order.Order;
@@ -53,7 +53,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		Order drug001Order4;
 
 		NursingOrderBuilder nursingOrderBuilder;
-		DrugOrderBuilder drugOrderBuilder;
+		TemporaryDrugOrderBuilder drugOrderBuilder;
 		LongDrugOrderBuilder longDrugOrderBuilder;
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:40", dayCount));
@@ -91,7 +91,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:55", dayCount));
 
 		// 为患者001开立药品临时医嘱
-		drugOrderBuilder = new DrugOrderBuilder();
+		drugOrderBuilder = new TemporaryDrugOrderBuilder();
 		drugOrderBuilder.setVisit(visit001);
 		drugOrderBuilder.setCount(2);
 		drugOrderBuilder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
@@ -108,7 +108,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:56", dayCount));
 
 		// 为患者004开立药品临时医嘱
-		drugOrderBuilder = new DrugOrderBuilder();
+		drugOrderBuilder = new TemporaryDrugOrderBuilder();
 		drugOrderBuilder.setVisit(visit004);
 		drugOrderBuilder.setCount(4);
 		drugOrderBuilder.setPlaceType(OrderCreateCommand.PlaceType_InPatient);

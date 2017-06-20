@@ -4,7 +4,7 @@ import com.neusoft.hs.application.order.AbstractOrderBuilder;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 
-public class DrugOrderBuilder extends AbstractOrderBuilder {
+public class TemporaryDrugOrderBuilder extends AbstractOrderBuilder {
 
 	private Pharmacy pharmacy;
 
