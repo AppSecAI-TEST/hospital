@@ -163,6 +163,7 @@ public class OrderController extends AbstractFrameController {
 		List<Pharmacy> pharmacys = pharmacyAdminService.findPharmacy(pageable);
 
 		pharmacyComboBoxModel.clear();
+		pharmacyComboBoxModel.addElement(null);
 		pharmacyComboBoxModel.addElements(pharmacys);
 	}
 
@@ -216,6 +217,9 @@ public class OrderController extends AbstractFrameController {
 						.getSelectedItem();
 				if (drugUseMode == null) {
 					throw new UIException("请选择药品用法");
+				}
+				if (order.getCount() == null) {
+					throw new UIException("请录入数量");
 				}
 
 				order.setTypeApp(new DrugOrderTypeApp(pharmacy, drugUseMode));
