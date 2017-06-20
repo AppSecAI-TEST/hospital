@@ -111,7 +111,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@Column(name = "create_date")
 	private Date createDate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 

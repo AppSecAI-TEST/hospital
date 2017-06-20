@@ -1,9 +1,12 @@
 package com.neusoft.hs.portal.swing.ui.forms.forms.view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import org.springframework.stereotype.Component;
@@ -28,6 +31,8 @@ public class FormsFrame extends JFrame {
 	private JButton verifyOrderBtn;
 
 	private JButton sendOrderExecuteBtn;
+	
+	private JLabel loginLbl;
 
 	public FormsFrame() {
 		setFrameUp();
@@ -41,11 +46,15 @@ public class FormsFrame extends JFrame {
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		LookAndFeelUtils.setWindowsLookAndFeel();
-		setLayout(new GridLayout(10, 2, 20, 20));
 	}
 
 	private void initComponents() {
+		
+		setLayout(new BorderLayout());
+		
+		JPanel menuPanel = new JPanel();
+		menuPanel.setLayout(new GridLayout(10, 2, 20, 20));
+		
 		loginBtn = new JButton(ConstMessagesEN.Labels.Login);
 		registerBtn = new JButton(ConstMessagesEN.Labels.Register);
 		cashierBtn = new JButton(ConstMessagesEN.Labels.InitAccount);
@@ -55,13 +64,22 @@ public class FormsFrame extends JFrame {
 		sendOrderExecuteBtn = new JButton(
 				ConstMessagesEN.Labels.SendOrderExecute);
 
-		add(loginBtn);
-		add(registerBtn);
-		add(cashierBtn);
-		add(receiveBtn);
-		add(createOrderBtn);
-		add(verifyOrderBtn);
-		add(sendOrderExecuteBtn);
+		menuPanel.add(loginBtn);
+		menuPanel.add(registerBtn);
+		menuPanel.add(cashierBtn);
+		menuPanel.add(receiveBtn);
+		menuPanel.add(createOrderBtn);
+		menuPanel.add(verifyOrderBtn);
+		menuPanel.add(sendOrderExecuteBtn);
+		
+		add(menuPanel, BorderLayout.CENTER);
+		
+		JPanel statePanel = new JPanel();
+		loginLbl = new JLabel();
+		statePanel.add(loginLbl);
+		
+		add(statePanel, BorderLayout.SOUTH);
+		
 	}
 
 	public JButton getLoginBtn() {

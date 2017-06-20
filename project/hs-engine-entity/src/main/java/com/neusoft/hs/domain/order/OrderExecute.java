@@ -117,7 +117,7 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "belong_dept_id")
 	private Dept belongDept;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "execute_dept_id")
 	private Dept executeDept;
 
@@ -125,7 +125,7 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "charge_dept_id")
 	private Dept chargeDept;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
