@@ -46,6 +46,10 @@ public class PharmacyAdminService {
 	@Autowired
 	private DrugTypeConsumeRecordRepo drugTypeConsumeRecordRepo;
 
+	public List<Pharmacy> findPharmacy(Pageable pageable) {
+		return pharmacyRepo.findAll(pageable).getContent();
+	}
+
 	public List<DrugUseMode> findDrugUseMode(Pageable pageable) {
 		return orderUseModeRepo.findAll(pageable).getContent();
 	}

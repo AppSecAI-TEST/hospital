@@ -22,6 +22,8 @@ import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.InPatientDept;
+import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
@@ -29,6 +31,7 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
+import com.neusoft.hs.portal.framework.exception.UIException;
 import com.neusoft.hs.portal.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
@@ -36,6 +39,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.DrugUseModeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderFrequencyTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTypeComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.PharmacyComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.StringComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -59,6 +63,9 @@ public class OrderController extends AbstractFrameController {
 	private PharmacyAdminService pharmacyAdminService;
 
 	@Autowired
+	private OrganizationAdminDomainService organizationDomainService;
+
+	@Autowired
 	private OrderTableModel orderTableModel;
 
 	@Autowired
@@ -76,6 +83,9 @@ public class OrderController extends AbstractFrameController {
 	@Autowired
 	private OrderTypeComboBoxModel orderTypeComboBoxModel;
 
+	@Autowired
+	private PharmacyComboBoxModel pharmacyComboBoxModel;
+
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(orderFrame.getConfirmBtn(), (e) -> create());
@@ -88,6 +98,7 @@ public class OrderController extends AbstractFrameController {
 		loadOrderTypes();
 		loadPlaceTypes();
 		loadFrequencyTypes();
+		loadPharmacys();
 		loadOrderUseModes();
 
 		orderFrame.setVisible(true);
@@ -147,6 +158,14 @@ public class OrderController extends AbstractFrameController {
 		frequencyTypeComboBoxModel.addElements(entities);
 	}
 
+	private void loadPharmacys() {
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		List<Pharmacy> pharmacys = pharmacyAdminService.findPharmacy(pageable);
+
+		pharmacyComboBoxModel.clear();
+		pharmacyComboBoxModel.addElements(pharmacys);
+	}
+
 	private void loadOrderUseModes() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
@@ -160,7 +179,7 @@ public class OrderController extends AbstractFrameController {
 
 	private void create() {
 		try {
-		
+
 			OrderFrequencyType frequencyType = frequencyTypeComboBoxModel
 					.getSelectedItem();
 
@@ -189,9 +208,16 @@ public class OrderController extends AbstractFrameController {
 			order.setPlaceType(placeTypeComboBoxModel.getSelectedItem());
 
 			if (orderType instanceof DrugOrderType) {
-				Pharmacy pharmacy = null;
+				Pharmacy pharmacy = pharmacyComboBoxModel.getSelectedItem();
+				if (pharmacy == null) {
+					throw new UIException("请选择药房");
+				}
 				DrugUseMode drugUseMode = orderUseModeComboBoxModel
 						.getSelectedItem();
+				if (drugUseMode == null) {
+					throw new UIException("请选择药品用法");
+				}
+
 				order.setTypeApp(new DrugOrderTypeApp(pharmacy, drugUseMode));
 			}
 
@@ -201,7 +227,7 @@ public class OrderController extends AbstractFrameController {
 
 			// orderFrame.clearBed();
 
-		} catch (HsException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}

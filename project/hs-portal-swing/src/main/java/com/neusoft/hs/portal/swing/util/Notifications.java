@@ -5,6 +5,9 @@ import javax.swing.*;
 public class Notifications {
 
     public static void showFormValidationAlert(String message) {
+    	if(message == null || message.length() == 0){
+    		message = ConstMessagesEN.Messages.RUNTIMEEXCEPTION;
+    	}
         JOptionPane.showMessageDialog(null,
                 message,
                 ConstMessagesEN.Messages.INFORMATION_TITLE,

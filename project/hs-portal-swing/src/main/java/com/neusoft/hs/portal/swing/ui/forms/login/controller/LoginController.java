@@ -55,18 +55,22 @@ public class LoginController extends AbstractFrameController {
 	}
 
 	@Override
-	public void prepareAndOpenFrame() throws HsException{
+	public void prepareAndOpenFrame() throws HsException {
 		this.loadUsers();
 		showLoginFrame();
 	}
 
-	private void loadUsers() {
+	private void loadUsers() throws HsException {
 		Sort sort = new Sort("name");
 		PageRequest pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
-		
+
 		List<AbstractUser> users = userAdminDomainService.find(pageable);
 		abstractUserComboBoxModel.clear();
+		abstractUserComboBoxModel.addElement(null);
 		abstractUserComboBoxModel.addElements(users);
+
+		AbstractUser user = UserUtil.getLoginUser();
+		abstractUserComboBoxModel.setSelectedItem(user);
 	}
 
 	private void showLoginFrame() {

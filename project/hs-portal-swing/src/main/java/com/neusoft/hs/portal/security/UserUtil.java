@@ -14,6 +14,10 @@ public class UserUtil {
 		return user;
 	}
 
+	public static AbstractUser getLoginUser() {
+		return user;
+	}
+
 	public static void setUser(AbstractUser u) {
 		user = u;
 	}

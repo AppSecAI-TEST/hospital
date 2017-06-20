@@ -25,6 +25,7 @@ public interface ConstMessagesEN {
         String NON_ROW_SELECTED = "Non row has been selected";
         String INFORMATION_TITLE = "Information";
         String DELETE_ROW_ERROR = "Could not delete a row. Check if there are any connections between tables.";
+        String RUNTIMEEXCEPTION = "内部异常";
     }
 
     interface Labels {
@@ -119,9 +120,12 @@ public interface ConstMessagesEN {
         String OrderType = "医嘱类型";
         String PlanStartDate = "计划开始时间";
         String PlaceType = "位置";
+        
         String FrequencyType = "频次";
+        
         String OrderUseMode = "用法";
         String Count = "数量";
+        String Pharmacy = "药房";
     }
 
     interface ValidationMessages {
