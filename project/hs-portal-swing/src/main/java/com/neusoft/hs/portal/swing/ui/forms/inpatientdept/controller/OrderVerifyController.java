@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.swing.ui.forms.order.controller;
+package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.security.UserUtil;
-import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderVerifyFrame;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.OrderVerifyFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;

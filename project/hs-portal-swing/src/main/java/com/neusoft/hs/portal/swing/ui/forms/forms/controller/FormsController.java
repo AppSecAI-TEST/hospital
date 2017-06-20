@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.cashier.controller.CashierController;
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.FormsFrame;
-import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveController;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderVerifyController;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveVisitController;
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderController;
-import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderVerifyController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -30,7 +30,7 @@ public class FormsController extends AbstractFrameController {
 	private CashierController cashierController;
 
 	@Autowired
-	private ReceiveController receiveController;
+	private ReceiveVisitController receiveController;
 
 	@Autowired
 	private OrderController orderController;

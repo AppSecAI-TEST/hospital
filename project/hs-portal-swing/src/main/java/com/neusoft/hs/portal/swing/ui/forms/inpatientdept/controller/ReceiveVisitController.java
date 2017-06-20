@@ -25,7 +25,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
-public class ReceiveController extends AbstractFrameController {
+public class ReceiveVisitController extends AbstractFrameController {
 
 	@Autowired
 	private InPatientAppService inPatientAppService;

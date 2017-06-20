@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.swing.ui.forms.order.view;
+package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view;
 
 import java.awt.BorderLayout;
 
