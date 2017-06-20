@@ -18,6 +18,7 @@ import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -57,7 +58,7 @@ public class OrderAppService {
 		return create(orderCreateCommand, doctor);
 	}
 
-	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {
+	public List<Order> getNeedVerifyOrders(AbstractUser nurse, Pageable pageable) {
 		return orderDomainService.getNeedVerifyOrders(nurse, pageable);
 	}
 
@@ -68,7 +69,7 @@ public class OrderAppService {
 	 * @throws HsException
 	 * @roseuid 584F48660279
 	 */
-	public Order verify(String orderId, Nurse nurse) throws OrderException,
+	public Order verify(String orderId, AbstractUser nurse) throws OrderException,
 			OrderExecuteException {
 		Order order = orderDomainService.find(orderId);
 		if (order == null) {

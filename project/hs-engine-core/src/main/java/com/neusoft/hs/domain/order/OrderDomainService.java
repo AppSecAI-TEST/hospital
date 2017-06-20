@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -104,9 +105,9 @@ public class OrderDomainService {
 		return orders;
 	}
 
-	public List<Order> getNeedVerifyOrders(Nurse nurse, Pageable pageable) {
+	public List<Order> getNeedVerifyOrders(AbstractUser user, Pageable pageable) {
 		return orderRepo.findByStateAndBelongDeptIn(Order.State_Created,
-				nurse.getOperationDepts(), pageable);
+				user.getOperationDepts(), pageable);
 	}
 
 	/**
@@ -118,7 +119,7 @@ public class OrderDomainService {
 	 * @throws HsException
 	 * @roseuid 584F489E03D2
 	 */
-	public Order verify(Order order, Nurse nurse) throws OrderException,
+	public Order verify(Order order, AbstractUser nurse) throws OrderException,
 			OrderExecuteException {
 
 		order.verify();

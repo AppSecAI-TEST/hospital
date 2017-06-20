@@ -1,5 +1,7 @@
 package com.neusoft.hs.portal.swing.util;
 
+import javax.swing.Icon;
+
 public interface ConstMessagesEN {
 
     interface DialogTitles {
@@ -101,6 +103,7 @@ public interface ConstMessagesEN {
         String Bed = "床位";
         String RespNurse = "责任护士";
         String CreateOrder = "开立医嘱";
+        String VerifyOrder = "核对医嘱";
         String Order = "医嘱";
   
         
@@ -126,6 +129,7 @@ public interface ConstMessagesEN {
         String OrderUseMode = "用法";
         String Count = "数量";
         String Pharmacy = "药房";
+
     }
 
     interface ValidationMessages {
