@@ -3,7 +3,7 @@
 1、实现模型：实现了swing下开药品临嘱，核对医嘱，放宽了医嘱核对相关的人员类型由Nurse变成AbstractUser
 2、实现模型：将getNeedSendOrderExecutes由OrderAppService移到OrderExecuteAppService中
 3、实现模型：向Order、OrderExecute、Prescription复存患者姓名、所属部门名称、执行部门名称、创建者名称等，用于提高查询性能
-
+4、实现模型：在创建医嘱时重新获取最新的患者一次就诊信息
 
 2017.06.20 OrderBuilder
 
