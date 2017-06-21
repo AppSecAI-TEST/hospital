@@ -47,9 +47,15 @@ public class Prescription extends IdEntity implements OrderCreateCommand {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	@Column(length = 16)
+	private String visitName;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id")
 	private Doctor creator;
+
+	@Column(length = 32)
+	private String creatorName;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -116,12 +122,29 @@ public class Prescription extends IdEntity implements OrderCreateCommand {
 		this.visit = visit;
 	}
 
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
+	}
+
 	public Doctor getCreator() {
 		return creator;
 	}
 
 	public void setCreator(Doctor creator) {
 		this.creator = creator;
+		this.creatorName = creator.getName();
+	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
 	}
 
 	public Date getCreateDate() {

@@ -13,6 +13,8 @@ public interface OrderCreateCommand {
 	public String getPlaceType();
 
 	public Visit getVisit();
+	
+	public void setVisit(Visit visit);
 
 	public void save();
 

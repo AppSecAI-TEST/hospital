@@ -54,6 +54,10 @@ public class OrderDomainService {
 	public List<Order> create(OrderCreateCommand orderCommand, Doctor doctor)
 			throws OrderException, OrderExecuteException {
 
+		// 更新为数据库最新的患者一次就诊信息
+		Visit visit = visitDomainService.find(orderCommand.getVisit().getId());
+		orderCommand.setVisit(visit);
+
 		List<Order> orders = new ArrayList<Order>();
 
 		for (Order order : orderCommand.getOrders()) {

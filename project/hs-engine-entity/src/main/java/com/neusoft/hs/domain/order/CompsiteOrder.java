@@ -94,6 +94,11 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 	}
 
 	@Override
+	public void setVisit(Visit visit) {
+		this.orders.get(0).setVisit(visit);
+	}
+
+	@Override
 	public void save() {
 
 		this.getService(CompsiteOrderRepo.class).save(this);
