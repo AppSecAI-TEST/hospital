@@ -1142,7 +1142,6 @@ public class DataIniter {
 		List<DrugType> drugTypes = new ArrayList<DrugType>();
 
 		drugType001 = new DrugType();
-		drugType001.setId("drugType001");
 		drugType001.setDrugTypeSpec(drugTypeSpec001);
 		drugType001.setPharmacy(dept333);
 		drugType001.setStock(100);
@@ -1150,7 +1149,6 @@ public class DataIniter {
 		drugTypes.add(drugType001);
 
 		drugType002 = new DrugType();
-		drugType002.setId("drugType002");
 		drugType002.setDrugTypeSpec(drugTypeSpec002);
 		drugType002.setPharmacy(dept333);
 		drugType002.setStock(1200);
@@ -1158,7 +1156,6 @@ public class DataIniter {
 		drugTypes.add(drugType002);
 
 		drugType003 = new DrugType();
-		drugType003.setId("drugType003");
 		drugType003.setDrugTypeSpec(drugTypeSpec003);
 		drugType003.setPharmacy(dept333);
 		drugType003.setStock(3000);
@@ -1166,7 +1163,6 @@ public class DataIniter {
 		drugTypes.add(drugType003);
 
 		drugType004 = new DrugType();
-		drugType004.setId("drugType004");
 		drugType004.setDrugTypeSpec(drugTypeSpec004);
 		drugType004.setPharmacy(dept888);
 		drugType004.setStock(2000);
@@ -1174,7 +1170,6 @@ public class DataIniter {
 		drugTypes.add(drugType004);
 
 		drugType005 = new DrugType();
-		drugType005.setId("drugType005");
 		drugType005.setDrugTypeSpec(drugTypeSpec005);
 		drugType005.setPharmacy(dept888);
 		drugType005.setStock(2000);
@@ -1182,7 +1177,6 @@ public class DataIniter {
 		drugTypes.add(drugType005);
 
 		drugType006 = new DrugType();
-		drugType006.setId("drugType006");
 		drugType006.setDrugTypeSpec(drugTypeSpec006);
 		drugType006.setPharmacy(dept888);
 		drugType006.setStock(2000);
@@ -1190,7 +1184,6 @@ public class DataIniter {
 		drugTypes.add(drugType006);
 
 		drugType002p = new DrugType();
-		drugType002p.setId("drugType002p");
 		drugType002p.setDrugTypeSpec(drugTypeSpec002);
 		drugType002p.setPharmacy(deptbbb);
 		drugType002p.setStock(1000);
@@ -1198,7 +1191,6 @@ public class DataIniter {
 		drugTypes.add(drugType002p);
 
 		drugType003p = new DrugType();
-		drugType003p.setId("drugType003p");
 		drugType003p.setDrugTypeSpec(drugTypeSpec003);
 		drugType003p.setPharmacy(deptbbb);
 		drugType003p.setStock(2000);
@@ -1206,7 +1198,6 @@ public class DataIniter {
 		drugTypes.add(drugType003p);
 
 		drugType001I = new DrugType();
-		drugType001I.setId("drugType001I");
 		drugType001I.setDrugTypeSpec(drugTypeSpec001);
 		drugType001I.setPharmacy(deptccc);
 		drugType001I.setStock(200);

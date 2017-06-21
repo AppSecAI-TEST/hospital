@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.neusoft.hs.platform.entity.SuperEntity;
+import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
 
 /**
@@ -21,11 +21,7 @@ import com.neusoft.hs.platform.exception.HsException;
  */
 @Entity
 @Table(name = "app_pharmacy_drug_type")
-public class DrugType extends SuperEntity {
-
-	@Id
-	@Column(name = "id", unique = true, nullable = false, length = 36)
-	private String id;
+public class DrugType extends IdEntity {
 
 	private int stock;
 
@@ -106,14 +102,6 @@ public class DrugType extends SuperEntity {
 	 */
 	public void unSend(int count) throws PharmacyException {
 		this.stock += count;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public int getStock() {
