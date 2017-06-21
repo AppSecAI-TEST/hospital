@@ -29,7 +29,6 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
-import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.log.LogUtil;
 
 /**
@@ -100,20 +99,32 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@JoinColumn(name = "creator_id")
 	private Doctor creator;
 
+	@Column(length = 32)
+	private String creatorName;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "belong_dept_id")
 	private Dept belongDept;
+
+	@Column(length = 32)
+	private String belongDeptName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "execute_dept_id")
 	private Dept executeDept;
 
+	@Column(length = 32)
+	private String executeDeptName;
+
 	@Column(name = "create_date")
 	private Date createDate;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
+
+	@Column(length = 16)
+	private String visitName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "compsite_order_id")
@@ -138,7 +149,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	/**
 	 * 创建医嘱条目前的检查回调函数 该回调函数将职责委托给医嘱类型@OrderType完成
-	 * @throws OrderExecuteException 
+	 * 
+	 * @throws OrderExecuteException
 	 * @throws OrderException
 	 * 
 	 * @roseuid 584E6696009D
@@ -372,6 +384,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setCreator(Doctor creator) {
 		this.creator = creator;
+		if (creator != null) {
+			this.creatorName = creator.getName();
+		}
 	}
 
 	public Dept getBelongDept() {
@@ -380,6 +395,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setBelongDept(Dept belongDept) {
 		this.belongDept = belongDept;
+		if (belongDept != null) {
+			this.belongDeptName = belongDept.getName();
+		}
 	}
 
 	public Date getCreateDate() {
@@ -396,6 +414,15 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+		this.visitName = visit.getName();
+	}
+
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
 	}
 
 	public Dept getExecuteDept() {
@@ -404,6 +431,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setExecuteDept(Dept executeDept) {
 		this.executeDept = executeDept;
+		if (executeDept != null) {
+			this.executeDeptName = executeDept.getName();
+		}
 	}
 
 	public CompsiteOrder getCompsiteOrder() {
@@ -420,6 +450,30 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	public void setPlaceType(String placeType) {
 		this.placeType = placeType;
+	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+
+	public String getBelongDeptName() {
+		return belongDeptName;
+	}
+
+	public void setBelongDeptName(String belongDeptName) {
+		this.belongDeptName = belongDeptName;
+	}
+
+	public String getExecuteDeptName() {
+		return executeDeptName;
+	}
+
+	public void setExecuteDeptName(String executeDeptName) {
+		this.executeDeptName = executeDeptName;
 	}
 
 	/**

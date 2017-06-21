@@ -102,6 +102,9 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "actual_executor_id")
 	private AbstractUser actualExecutor;
 
+	@Column(length = 32)
+	private String actualExecutorName;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id")
 	private Order order;
@@ -117,17 +120,29 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "belong_dept_id")
 	private Dept belongDept;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@Column(length = 32)
+	private String belongDeptName;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "execute_dept_id")
 	private Dept executeDept;
+
+	@Column(length = 32)
+	private String executeDeptName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_dept_id")
 	private Dept chargeDept;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@Column(length = 32)
+	private String chargeDeptName;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
+
+	@Column(length = 16)
+	private String visitName;
 
 	public static final String State_NeedSend = "待发送";
 
@@ -488,6 +503,9 @@ public class OrderExecute extends IdEntity {
 
 	public void setActualExecutor(AbstractUser actualExecutor) {
 		this.actualExecutor = actualExecutor;
+		if (actualExecutor != null) {
+			this.actualExecutorName = actualExecutor.getName();
+		}
 	}
 
 	public Order getOrder() {
@@ -540,6 +558,9 @@ public class OrderExecute extends IdEntity {
 
 	public void setBelongDept(Dept belongDept) {
 		this.belongDept = belongDept;
+		if (belongDept != null) {
+			this.belongDeptName = belongDept.getName();
+		}
 	}
 
 	public Dept getExecuteDept() {
@@ -548,6 +569,9 @@ public class OrderExecute extends IdEntity {
 
 	public void setExecuteDept(Dept executeDept) {
 		this.executeDept = executeDept;
+		if (executeDept != null) {
+			this.executeDeptName = executeDept.getName();
+		}
 	}
 
 	public Dept getChargeDept() {
@@ -556,6 +580,9 @@ public class OrderExecute extends IdEntity {
 
 	public void setChargeDept(Dept chargeDept) {
 		this.chargeDept = chargeDept;
+		if (chargeDept != null) {
+			this.chargeDeptName = chargeDept.getName();
+		}
 	}
 
 	public boolean isMain() {
@@ -572,6 +599,9 @@ public class OrderExecute extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+		if (visit != null) {
+			this.visitName = visit.getName();
+		}
 	}
 
 	public List<OrderExecute> getTeamOrderExecutes() {
@@ -592,6 +622,46 @@ public class OrderExecute extends IdEntity {
 
 	public void setNext(OrderExecute next) {
 		this.next = next;
+	}
+
+	public String getActualExecutorName() {
+		return actualExecutorName;
+	}
+
+	public void setActualExecutorName(String actualExecutorName) {
+		this.actualExecutorName = actualExecutorName;
+	}
+
+	public String getBelongDeptName() {
+		return belongDeptName;
+	}
+
+	public void setBelongDeptName(String belongDeptName) {
+		this.belongDeptName = belongDeptName;
+	}
+
+	public String getExecuteDeptName() {
+		return executeDeptName;
+	}
+
+	public void setExecuteDeptName(String executeDeptName) {
+		this.executeDeptName = executeDeptName;
+	}
+
+	public String getChargeDeptName() {
+		return chargeDeptName;
+	}
+
+	public void setChargeDeptName(String chargeDeptName) {
+		this.chargeDeptName = chargeDeptName;
+	}
+
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
 	}
 
 	/**

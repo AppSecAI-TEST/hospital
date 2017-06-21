@@ -16,7 +16,7 @@ public class OrderTableModel extends DefaultTableModel<Order> {
 		case 0:
 			return order.getId();
 		case 1:
-			return order.getVisit().getName();
+			return order.getVisitName();
 		case 2:
 			return order.getName();
 		case 3:

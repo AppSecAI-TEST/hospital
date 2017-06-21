@@ -16,13 +16,13 @@ public class OrderExecuteTableModel extends DefaultTableModel<OrderExecute> {
 		case 0:
 			return orderExecute.getId();
 		case 1:
-			return orderExecute.getVisit().getName();
+			return orderExecute.getVisitName();
 		case 2:
 			return orderExecute.getType();
 		case 3:
 			return orderExecute.getState();
 		case 4:
-			return orderExecute.getExecuteDept().getName();
+			return orderExecute.getExecuteDeptName();
 		case 5:
 			return DateFormatter
 					.formatDateTime(orderExecute.getPlanStartDate());
