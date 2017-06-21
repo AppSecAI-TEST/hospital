@@ -11,6 +11,7 @@ import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderVerify
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveVisitController;
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderController;
+import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -41,6 +42,9 @@ public class FormsController extends AbstractFrameController {
 
 	@Autowired
 	private OrderExecuteSendController orderExecuteSendController;
+	
+	@Autowired
+	private OrderExecuteFinishController orderExecuteFinishController;
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
@@ -56,6 +60,8 @@ public class FormsController extends AbstractFrameController {
 				(e) -> openVerifyOrderWindow());
 		registerAction(mainMenuFrame.getSendOrderExecuteBtn(),
 				(e) -> openSendOrderExecuteWindow());
+		registerAction(mainMenuFrame.getFinishOrderExecuteBtn(),
+				(e) -> openFinishOrderExecuteWindow());
 
 		mainMenuFrame.setVisible(true);
 	}
@@ -117,6 +123,15 @@ public class FormsController extends AbstractFrameController {
 	private void openSendOrderExecuteWindow() {
 		try {
 			orderExecuteSendController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+	
+	private void openFinishOrderExecuteWindow() {
+		try {
+			orderExecuteFinishController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

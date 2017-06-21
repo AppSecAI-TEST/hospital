@@ -22,8 +22,10 @@ public class OrderExecuteTableModel extends DefaultTableModel<OrderExecute> {
 		case 3:
 			return orderExecute.getState();
 		case 4:
-			return orderExecute.getExecuteDeptName();
+			return orderExecute.getBelongDeptName();
 		case 5:
+			return orderExecute.getExecuteDeptName();
+		case 6:
 			return DateFormatter
 					.formatDateTime(orderExecute.getPlanStartDate());
 		default:
@@ -40,6 +42,7 @@ public class OrderExecuteTableModel extends DefaultTableModel<OrderExecute> {
 		return new String[] { ConstMessagesEN.Labels.ID,
 				ConstMessagesEN.Labels.VisitName, ConstMessagesEN.Labels.Type,
 				ConstMessagesEN.Labels.State,
+				ConstMessagesEN.Labels.BelongDept,
 				ConstMessagesEN.Labels.ExecuteDept,
 				ConstMessagesEN.Labels.PlanStartDate };
 	}

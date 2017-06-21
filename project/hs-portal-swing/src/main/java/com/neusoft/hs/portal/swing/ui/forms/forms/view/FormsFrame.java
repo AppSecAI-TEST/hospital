@@ -35,6 +35,8 @@ public class FormsFrame extends JFrame implements
 
 	private JButton sendOrderExecuteBtn;
 
+	private JButton finishOrderExecuteBtn;
+
 	private JLabel loginLbl;
 
 	public FormsFrame() {
@@ -56,7 +58,7 @@ public class FormsFrame extends JFrame implements
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(7, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(8, 2, 20, 20));
 
 		loginBtn = new JButton(ConstMessagesEN.Labels.Login);
 		registerBtn = new JButton(ConstMessagesEN.Labels.Register);
@@ -66,6 +68,8 @@ public class FormsFrame extends JFrame implements
 		verifyOrderBtn = new JButton(ConstMessagesEN.Labels.VerifyOrder);
 		sendOrderExecuteBtn = new JButton(
 				ConstMessagesEN.Labels.SendOrderExecute);
+		finishOrderExecuteBtn = new JButton(
+				ConstMessagesEN.Labels.FinishOrderExecute);
 
 		menuPanel.add(loginBtn);
 		menuPanel.add(registerBtn);
@@ -74,6 +78,7 @@ public class FormsFrame extends JFrame implements
 		menuPanel.add(createOrderBtn);
 		menuPanel.add(verifyOrderBtn);
 		menuPanel.add(sendOrderExecuteBtn);
+		menuPanel.add(finishOrderExecuteBtn);
 
 		add(menuPanel, BorderLayout.CENTER);
 
@@ -111,6 +116,10 @@ public class FormsFrame extends JFrame implements
 
 	public JButton getSendOrderExecuteBtn() {
 		return sendOrderExecuteBtn;
+	}
+
+	public JButton getFinishOrderExecuteBtn() {
+		return finishOrderExecuteBtn;
 	}
 
 	@Override
