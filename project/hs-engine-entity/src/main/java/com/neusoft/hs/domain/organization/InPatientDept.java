@@ -11,7 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.neusoft.hs.domain.order.OrderExecute;
 
 @Entity
 @DiscriminatorValue("InPatientDept")
