@@ -27,7 +27,6 @@ public class Application {
 
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(
 				Application.class).headless(false).run(args);
-		ApplicationContextUtil.setApplicationContext(context);
 		// 初始化基础数据
 		// context.getBean(InitDataService.class).init();
 		// 启动主窗口
