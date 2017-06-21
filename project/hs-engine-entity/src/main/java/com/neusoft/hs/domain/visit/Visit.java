@@ -86,28 +86,28 @@ public class Visit extends IdEntity {
 	@JoinColumn(name = "nurse_id")
 	private Nurse respNurse;
 
-	@Column(length = 32)
+	@Column(name = "nurse_name", length = 32)
 	private String respNurseName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id")
 	private Doctor respDoctor;
 
-	@Column(length = 32)
+	@Column(name = "doctor_name", length = 32)
 	private String respDoctorName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
 
-	@Column(length = 32)
+	@Column(name = "dept_name", length = 32)
 	private String deptName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "area_id")
 	private Dept area;
 
-	@Column(length = 32)
+	@Column(name = "area_name", length = 32)
 	private String areaName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -251,8 +251,9 @@ public class Visit extends IdEntity {
 
 		Date sysDate = DateUtil.getSysDate();
 
-		this.respNurse = receiveVisitVO.getNurse();
-		this.area = receiveVisitVO.getNurse().getDept();
+		this.setRespNurse(receiveVisitVO.getNurse());
+		this.setArea(receiveVisitVO.getNurse().getDept());
+		
 		this.bed = receiveVisitVO.getBed();
 
 		this.setState(State_IntoWard);
@@ -495,7 +496,7 @@ public class Visit extends IdEntity {
 
 	public void setRespNurse(Nurse respNurse) {
 		this.respNurse = respNurse;
-		if(respNurse != null){
+		if (respNurse != null) {
 			this.respNurseName = respNurse.getName();
 		}
 	}
@@ -514,7 +515,7 @@ public class Visit extends IdEntity {
 
 	public void setRespDoctor(Doctor respDoctor) {
 		this.respDoctor = respDoctor;
-		if(respDoctor != null){
+		if (respDoctor != null) {
 			this.respDoctorName = respDoctor.getName();
 		}
 	}
@@ -525,7 +526,7 @@ public class Visit extends IdEntity {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
-		if(dept != null){
+		if (dept != null) {
 			this.deptName = dept.getName();
 		}
 	}
