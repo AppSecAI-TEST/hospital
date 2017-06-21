@@ -13,7 +13,7 @@ import com.neusoft.hs.test.AppTestService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestServer.class)
-public class PatientMainWithListenerTest extends SuperTest {
+public class PatientMainWithListenerTest {
 
 	@Autowired
 	@Qualifier(value = "patientMainTestService")
@@ -21,7 +21,6 @@ public class PatientMainWithListenerTest extends SuperTest {
 
 	@Before
 	public void testInit() {
-		this.init();
 		appTestService.testInit();
 	}
 
