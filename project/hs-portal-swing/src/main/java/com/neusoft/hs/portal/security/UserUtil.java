@@ -1,6 +1,5 @@
 package com.neusoft.hs.portal.security;
 
-import com.neusoft.hs.domain.order.OrderDeletedEvent;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
@@ -21,14 +20,18 @@ public class UserUtil {
 	}
 
 	public static void setUser(AbstractUser u) {
+
+		AbstractUser loginUser = user;
 		user = u;
 
-		if (user == null) {
-			ApplicationContextUtil.getApplicationContext().publishEvent(
-					new LogoutEvent(user));
-		} else {
+		if (user != null) {
 			ApplicationContextUtil.getApplicationContext().publishEvent(
 					new LoginEvent(user));
+		} else {
+			if (loginUser != null) {
+				ApplicationContextUtil.getApplicationContext().publishEvent(
+						new LogoutEvent(loginUser));
+			}
 		}
 	}
 

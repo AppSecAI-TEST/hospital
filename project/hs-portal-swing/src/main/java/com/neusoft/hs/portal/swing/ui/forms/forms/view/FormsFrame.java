@@ -9,14 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.portal.security.LoginEvent;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
-import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 
 @Component
-public class FormsFrame extends JFrame {
+public class FormsFrame extends JFrame implements
+		ApplicationListener<LoginEvent> {
 
 	private JButton loginBtn;
 
@@ -31,7 +34,7 @@ public class FormsFrame extends JFrame {
 	private JButton verifyOrderBtn;
 
 	private JButton sendOrderExecuteBtn;
-	
+
 	private JLabel loginLbl;
 
 	public FormsFrame() {
@@ -49,12 +52,12 @@ public class FormsFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		
+
 		setLayout(new BorderLayout());
-		
+
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(10, 2, 20, 20));
-		
+		menuPanel.setLayout(new GridLayout(7, 2, 20, 20));
+
 		loginBtn = new JButton(ConstMessagesEN.Labels.Login);
 		registerBtn = new JButton(ConstMessagesEN.Labels.Register);
 		cashierBtn = new JButton(ConstMessagesEN.Labels.InitAccount);
@@ -71,15 +74,15 @@ public class FormsFrame extends JFrame {
 		menuPanel.add(createOrderBtn);
 		menuPanel.add(verifyOrderBtn);
 		menuPanel.add(sendOrderExecuteBtn);
-		
+
 		add(menuPanel, BorderLayout.CENTER);
-		
+
 		JPanel statePanel = new JPanel();
-		loginLbl = new JLabel();
+		loginLbl = new JLabel(ConstMessagesEN.Labels.LogoutState);
 		statePanel.add(loginLbl);
-		
+
 		add(statePanel, BorderLayout.SOUTH);
-		
+
 	}
 
 	public JButton getLoginBtn() {
@@ -108,5 +111,15 @@ public class FormsFrame extends JFrame {
 
 	public JButton getSendOrderExecuteBtn() {
 		return sendOrderExecuteBtn;
+	}
+
+	@Override
+	public void onApplicationEvent(LoginEvent event) {
+		AbstractUser user = (AbstractUser) event.getSource();
+		if (user != null) {
+			loginLbl.setText(user.getName());
+		} else {
+			loginLbl.setText(ConstMessagesEN.Labels.LogoutState);
+		}
 	}
 }

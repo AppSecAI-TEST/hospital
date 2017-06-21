@@ -89,6 +89,7 @@ public interface ConstMessagesEN {
         
         String Login_Btn = "登陆";
         String CANCEL_BTN = "取消";
+        String LogoutState = "未登录";
         
         String Login = "登陆";
         String Register = "送诊";
