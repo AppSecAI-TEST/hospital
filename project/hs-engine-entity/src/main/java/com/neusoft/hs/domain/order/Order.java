@@ -28,7 +28,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitDAO;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.log.LogUtil;
 

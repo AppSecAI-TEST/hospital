@@ -25,9 +25,7 @@ import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
-import com.neusoft.hs.domain.order.OrderDAO;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -88,17 +86,29 @@ public class Visit extends IdEntity {
 	@JoinColumn(name = "nurse_id")
 	private Nurse respNurse;
 
+	@Column(length = 32)
+	private String respNurseName;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id")
 	private Doctor respDoctor;
+
+	@Column(length = 32)
+	private String respDoctorName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
 
+	@Column(length = 32)
+	private String deptName;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "area_id")
 	private Dept area;
+
+	@Column(length = 32)
+	private String areaName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_id")
@@ -485,6 +495,9 @@ public class Visit extends IdEntity {
 
 	public void setRespNurse(Nurse respNurse) {
 		this.respNurse = respNurse;
+		if(respNurse != null){
+			this.respNurseName = respNurse.getName();
+		}
 	}
 
 	public List<VisitChargeItem> getVisitChargeItems() {
@@ -501,6 +514,9 @@ public class Visit extends IdEntity {
 
 	public void setRespDoctor(Doctor respDoctor) {
 		this.respDoctor = respDoctor;
+		if(respDoctor != null){
+			this.respDoctorName = respDoctor.getName();
+		}
 	}
 
 	public Dept getDept() {
@@ -509,6 +525,9 @@ public class Visit extends IdEntity {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
+		if(dept != null){
+			this.deptName = dept.getName();
+		}
 	}
 
 	public Dept getArea() {
@@ -517,6 +536,9 @@ public class Visit extends IdEntity {
 
 	public void setArea(Dept area) {
 		this.area = area;
+		if (area != null) {
+			this.areaName = area.getName();
+		}
 	}
 
 	public List<VisitChargeItem> getChargeItems() {
@@ -526,7 +548,39 @@ public class Visit extends IdEntity {
 	public void setChargeItems(List<VisitChargeItem> chargeItems) {
 		this.chargeItems = chargeItems;
 	}
-	
+
+	public String getRespNurseName() {
+		return respNurseName;
+	}
+
+	public void setRespNurseName(String respNurseName) {
+		this.respNurseName = respNurseName;
+	}
+
+	public String getRespDoctorName() {
+		return respDoctorName;
+	}
+
+	public void setRespDoctorName(String respDoctorName) {
+		this.respDoctorName = respDoctorName;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
 	@Override
 	public String toString() {
 		return name;
