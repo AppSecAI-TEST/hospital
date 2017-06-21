@@ -31,6 +31,13 @@ public class DrugType extends SuperEntity {
 
 	private int withhold;
 
+	@Column(length = 64)
+	private String productionBatch;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "drug_purchase_id")
+	private DrugPurchase drugPurchase;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pharmacy_id")
 	private Pharmacy pharmacy;
@@ -69,7 +76,8 @@ public class DrugType extends SuperEntity {
 
 			this.save();
 		} else {
-			throw new PharmacyException("drugTypeId[" + this.getId() + "]已预扣数量不足");
+			throw new PharmacyException("drugTypeId[" + this.getId()
+					+ "]已预扣数量不足");
 		}
 	}
 
@@ -139,6 +147,22 @@ public class DrugType extends SuperEntity {
 	public void setDrugTypeSpec(DrugTypeSpec drugTypeSpec) {
 		this.drugTypeSpec = drugTypeSpec;
 		drugTypeSpec.addDrugType(this);
+	}
+
+	public String getProductionBatch() {
+		return productionBatch;
+	}
+
+	public void setProductionBatch(String productionBatch) {
+		this.productionBatch = productionBatch;
+	}
+
+	public DrugPurchase getDrugPurchase() {
+		return drugPurchase;
+	}
+
+	public void setDrugPurchase(DrugPurchase drugPurchase) {
+		this.drugPurchase = drugPurchase;
 	}
 
 	public void save() {
