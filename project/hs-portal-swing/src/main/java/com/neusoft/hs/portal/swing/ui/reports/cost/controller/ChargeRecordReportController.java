@@ -71,7 +71,7 @@ public class ChargeRecordReportController extends AbstractFrameController {
 		if (visit != null) {
 			List<ChargeRecord> entities = costDomainService
 					.getChargeRecords(visit);
-
+			
 			chargeRecordTableModel.addEntities(entities);
 		}
 	}
