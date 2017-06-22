@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 
 @Component
@@ -55,12 +54,8 @@ public class OrderFrame extends JFrame {
 	}
 
 	public Date getPlanStartDate() throws HsException {
-		String planStartDate = this.createOrderPanel.planStartDateTF.getText();
-		if (planStartDate == null || planStartDate.length() == 0) {
-			return null;
-		} else {
-			return DateUtil.createDay(planStartDate);
-		}
+		return (Date)this.createOrderPanel.planStartDateSD.getValue();
+		
 	}
 
 	public Integer getCount() {

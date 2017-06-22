@@ -173,9 +173,6 @@ public class OrderController extends AbstractFrameController {
 					.getSelectedItem();
 
 			Date planStartDate = this.orderFrame.getPlanStartDate();
-			if (planStartDate == null) {
-				planStartDate = DateUtil.getSysDateStart();
-			}
 
 			Integer count = this.orderFrame.getCount();
 
