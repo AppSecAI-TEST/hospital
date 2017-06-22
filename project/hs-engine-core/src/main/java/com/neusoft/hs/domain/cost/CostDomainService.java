@@ -250,12 +250,4 @@ public class CostDomainService {
 
 		return count;
 	}
-
-	/**
-	 * @roseuid 58533C8201B8
-	 */
-	private void balance() {
-
-	}
-
 }

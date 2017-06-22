@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.ChargeRecord;
+import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -27,6 +29,9 @@ public class ChargeRecordReportController extends AbstractFrameController {
 
 	@Autowired
 	private VisitAdminDomainService visitAdminDomainService;
+
+	@Autowired
+	private CostDomainService costDomainService;
 
 	@Autowired
 	private VisitComboBoxModel visitComboBoxModel;
@@ -57,14 +62,18 @@ public class ChargeRecordReportController extends AbstractFrameController {
 		visitComboBoxModel.addElements(entities);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public void refreshChargeRecord(ItemEvent e) {
 		Visit visit = (Visit) e.getItem();
 
-		List<ChargeRecord> entities = visitAdminDomainService
-				.find(visit.getId()).getChargeBill().getChargeRecords();
-
 		chargeRecordTableModel.clear();
-		chargeRecordTableModel.addEntities(entities);
+
+		if (visit != null) {
+			List<ChargeRecord> entities = visitAdminDomainService
+					.find(visit.getId()).getChargeBill().getChargeRecords();
+			
+			chargeRecordTableModel.addEntities(entities);
+		}
 	}
 
 }
