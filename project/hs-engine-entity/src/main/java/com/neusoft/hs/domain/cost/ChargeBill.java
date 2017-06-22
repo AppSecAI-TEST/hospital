@@ -54,6 +54,9 @@ public class ChargeBill extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	@Column(name = "visit_name", length = 16)
+	private String visitName;
+
 	public static final String State_Normal = "正常";
 
 	public static final String ChargeMode_PreCharge = "预交金模式";
@@ -204,6 +207,15 @@ public class ChargeBill extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+		this.visitName = visit.getName();
+	}
+
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
 	}
 
 	public float getConsume() {

@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -68,6 +69,13 @@ public class ChargeRecord extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_bill_id")
 	private ChargeBill chargeBill;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "visit_id")
+	private Visit visit;
+
+	@Column(length = 16)
+	private String visitName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_dept_id")
@@ -137,6 +145,7 @@ public class ChargeRecord extends IdEntity {
 		chargeRecord.setChargeDept(chargeDept);
 		chargeRecord.setBelongDept(belongDept);
 		chargeRecord.setCreateDate(DateUtil.getSysDate());
+		chargeRecord.setVisit(visit);
 
 		this.setNewChargeRecord(chargeRecord);
 
@@ -160,6 +169,7 @@ public class ChargeRecord extends IdEntity {
 		chargeRecord.setBelongDept(belongDept);
 		chargeRecord.setType(Type_Charged);
 		chargeRecord.setCreateDate(createDate);
+		chargeRecord.setVisit(visit);
 
 		return chargeRecord;
 	}
@@ -210,7 +220,7 @@ public class ChargeRecord extends IdEntity {
 
 	public void setChargeItem(ChargeItem chargeItem) {
 		this.chargeItem = chargeItem;
-		if(chargeItem != null){
+		if (chargeItem != null) {
 			this.chargeItemName = chargeItem.getName();
 		}
 	}
@@ -237,6 +247,7 @@ public class ChargeRecord extends IdEntity {
 
 	public void setChargeBill(ChargeBill chargeBill) {
 		this.chargeBill = chargeBill;
+		this.setVisit(chargeBill.getVisit());
 	}
 
 	public Dept getChargeDept() {
@@ -285,6 +296,23 @@ public class ChargeRecord extends IdEntity {
 
 	public void setChargeItemName(String chargeItemName) {
 		this.chargeItemName = chargeItemName;
+	}
+
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
+		this.visitName = visit.getName();
+	}
+
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
 	}
 
 	public void save() {
