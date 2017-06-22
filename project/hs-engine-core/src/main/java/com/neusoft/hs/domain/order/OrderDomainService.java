@@ -109,6 +109,26 @@ public class OrderDomainService {
 		return orders;
 	}
 
+	public void comsite(CompsiteOrder compsiteOrder, Doctor doctor) {
+
+		if (compsiteOrder.getCreateDate() == null) {
+			compsiteOrder.setCreateDate(DateUtil.getSysDate());
+		}
+		if (compsiteOrder.getCreator() == null) {
+			compsiteOrder.setCreator(doctor);
+		}
+		compsiteOrder.save();
+
+		List<String> orderIds = new ArrayList<String>();
+		for (Order order : compsiteOrder.getOrders()) {
+			orderIds.add(order.getId());
+		}
+
+		LogUtil.log(this.getClass(), "医生[{}]将患者一次就诊[{}]的医嘱条目合并为一条组合医嘱[{}]",
+				doctor.getId(), compsiteOrder.getVisit().getName(), orderIds,
+				compsiteOrder.getId());
+	}
+
 	public List<Order> getNeedVerifyOrders(AbstractUser user, Pageable pageable) {
 		return orderRepo.findByStateAndBelongDeptIn(Order.State_Created,
 				user.getOperationDepts(), pageable);
@@ -243,4 +263,5 @@ public class OrderDomainService {
 	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
 		return orderRepo.findByBelongDept(dept, pageable);
 	}
+
 }

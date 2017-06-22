@@ -56,11 +56,11 @@ public abstract class InPatientTestService extends AppTestService {
 			dayCount = count * 20;
 
 			this.createVisit001();
+			
+			this.createVisit004();
 
 			this.doExecute();
-
 		}
-
 	}
 
 	public void doExecute() throws HsException {

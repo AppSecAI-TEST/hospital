@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
@@ -48,6 +49,10 @@ public class OrderAppService {
 			throws OrderException, OrderExecuteException {
 		OrderCreateCommand orderCreateCommand = builder.createCommand();
 		return create(orderCreateCommand, doctor);
+	}
+	
+	public void compsite(CompsiteOrder compsiteOrder, Doctor doctor) {
+		orderDomainService.comsite(compsiteOrder, doctor);
 	}
 
 	public List<Order> getNeedVerifyOrders(AbstractUser nurse, Pageable pageable) {
@@ -114,4 +119,6 @@ public class OrderAppService {
 	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
 		return orderDomainService.findByBelongDept(dept, pageable);
 	}
+
+
 }
