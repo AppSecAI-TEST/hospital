@@ -112,8 +112,10 @@ public class DrugOrderType extends OrderType {
 				// 没有分解出执行条目，设置之前分解的最后一条为last
 				if (order.getResolveOrderExecutes().size() == 0) {
 					OrderExecute lastOrderExecute = order.getLastOrderExecute();
-					lastOrderExecute.setLast(true);
-					lastOrderExecute.save();
+					if (lastOrderExecute != null) {
+						lastOrderExecute.setLast(true);
+						lastOrderExecute.save();
+					}
 				}
 			} else {
 				// 门诊长嘱，分解的最后一条就是last

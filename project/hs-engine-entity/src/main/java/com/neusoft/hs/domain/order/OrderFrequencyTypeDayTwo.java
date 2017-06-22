@@ -37,14 +37,16 @@ public class OrderFrequencyTypeDayTwo extends OrderFrequencyType {
 
 		date = DateUtil.addHour(currentDate, one);
 
-		if (date.before(order.getPlanEndDate())
+		if ((order.getPlanEndDate() == null || order.getPlanEndDate() != null
+				&& date.before(order.getPlanEndDate()))
 				&& date.after(order.getPlanStartDate())) {
 			dates.add(date);
 		}
 
 		date = DateUtil.addHour(currentDate, two);
 
-		if (date.before(order.getPlanEndDate())
+		if ((order.getPlanEndDate() == null || order.getPlanEndDate() != null
+				&& date.before(order.getPlanEndDate()))
 				&& date.after(order.getPlanStartDate())) {
 			dates.add(date);
 		}
