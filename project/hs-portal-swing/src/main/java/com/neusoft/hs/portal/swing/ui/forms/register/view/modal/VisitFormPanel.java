@@ -20,6 +20,7 @@ import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.shared.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientDeptComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.SexComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 import com.neusoft.hs.portal.swing.widget.SpinnerDate;
@@ -39,7 +40,8 @@ public class VisitFormPanel extends JPanel {
 
 	private SpinnerDate birthdaySD;
 
-	private JTextField sexTF;
+	private JComboBox<String> sexCB;
+	private SexComboBoxModel sexComboBoxModel;
 
 	private JComboBox<InPatientDept> respDeptCB;
 	private InPatientDeptComboBoxModel respDeptComboBoxModel;
@@ -53,10 +55,12 @@ public class VisitFormPanel extends JPanel {
 	@Autowired
 	public VisitFormPanel(InPatientDeptComboBoxModel respDeptComboBoxModel,
 			DoctorComboBoxModel respDoctorComboBoxModel,
-			InPatientAreaComboBoxModel respAreaComboBoxModel) {
+			InPatientAreaComboBoxModel respAreaComboBoxModel,
+			SexComboBoxModel sexComboBoxModel) {
 		this.respDeptComboBoxModel = respDeptComboBoxModel;
 		this.respDoctorComboBoxModel = respDoctorComboBoxModel;
 		this.respAreaComboBoxModel = respAreaComboBoxModel;
+		this.sexComboBoxModel = sexComboBoxModel;
 
 		setPanelUp();
 		initComponents();
@@ -79,9 +83,9 @@ public class VisitFormPanel extends JPanel {
 
 		carNumberTF = new JTextField(TEXT_FIELD_COLUMNS);
 		nameTF = new JTextField(TEXT_FIELD_COLUMNS);
-		birthdaySD = new SpinnerDate("yyyy-MM-dd");                           
-       	sexTF = new JTextField(TEXT_FIELD_COLUMNS);
-
+		birthdaySD = new SpinnerDate("yyyy-MM-dd");
+		
+		sexCB = new JComboBox<>(sexComboBoxModel);
 		respDeptCB = new JComboBox<>(respDeptComboBoxModel);
 		respAreaCB = new JComboBox<>(respAreaComboBoxModel);
 		respDoctorCB = new JComboBox<>(respDoctorComboBoxModel);
@@ -93,7 +97,7 @@ public class VisitFormPanel extends JPanel {
 		add(birthdayLbl);
 		add(birthdaySD);
 		add(sexLbl);
-		add(sexTF);
+		add(sexCB);
 
 		add(respDeptLbl);
 		add(respDeptCB);
@@ -109,7 +113,8 @@ public class VisitFormPanel extends JPanel {
 
 		CreateVisitVO createVisitVO = new CreateVisitVO();
 		createVisitVO.setName(nameTF.getText());
-		createVisitVO.setBirthday((Date)birthdaySD.getValue());
+		createVisitVO.setBirthday((Date) birthdaySD.getValue());
+		createVisitVO.setSex(sexComboBoxModel.getSelectedItem());
 		createVisitVO.setDept(respDeptComboBoxModel.getSelectedItem());
 		createVisitVO.setArea(respAreaComboBoxModel.getSelectedItem());
 		createVisitVO.setRespDoctor(respDoctorComboBoxModel.getSelectedItem());

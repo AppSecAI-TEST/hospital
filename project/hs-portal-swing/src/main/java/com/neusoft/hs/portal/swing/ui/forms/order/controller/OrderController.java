@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.domain.order.DrugOrderType;
@@ -40,7 +39,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.OrderFrequencyTypeComboBoxMod
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.PharmacyComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.StringComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.PlaceTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -72,7 +71,7 @@ public class OrderController extends AbstractFrameController {
 	private VisitComboBoxModel visitComboBoxModel;
 
 	@Autowired
-	private StringComboBoxModel placeTypeComboBoxModel;
+	private PlaceTypeComboBoxModel placeTypeComboBoxModel;
 
 	@Autowired
 	private OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel;
@@ -96,7 +95,6 @@ public class OrderController extends AbstractFrameController {
 		loadOrders();
 		loadVisits();
 		loadOrderTypes();
-		loadPlaceTypes();
 		loadFrequencyTypes();
 		loadPharmacys();
 		loadOrderUseModes();
@@ -135,16 +133,6 @@ public class OrderController extends AbstractFrameController {
 				.findOrderType(pageable);
 		orderTypeComboBoxModel.clear();
 		orderTypeComboBoxModel.addElements(orderTypes);
-	}
-
-	private void loadPlaceTypes() {
-
-		List<String> placeTypes = new ArrayList<String>();
-		placeTypes.add(Order.PlaceType_InPatient);
-		placeTypes.add(Order.PlaceType_OutPatient);
-
-		placeTypeComboBoxModel.clear();
-		placeTypeComboBoxModel.addElements(placeTypes);
 	}
 
 	private void loadFrequencyTypes() throws HsException {

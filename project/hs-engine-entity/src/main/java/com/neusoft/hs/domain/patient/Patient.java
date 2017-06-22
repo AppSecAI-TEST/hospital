@@ -45,6 +45,9 @@ public class Patient extends IdEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "patient", cascade = { CascadeType.ALL })
 	private List<Visit> visits;
+	
+	public static final String Sex_Male = "男";
+	public static final String Sex_FeMale = "女";
 
 	/**
 	 * @roseuid 58AF8C400286

@@ -21,7 +21,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.DrugUseModeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderFrequencyTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.PharmacyComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.StringComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.PlaceTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
@@ -46,7 +46,7 @@ public class CreateOrderPanel extends JPanel {
 	OrderTypeComboBoxModel orderTypeComboBoxModel;
 
 	JComboBox<String> placeTypeCB;
-	StringComboBoxModel placeTypeComboBoxModel;
+	PlaceTypeComboBoxModel placeTypeComboBoxModel;
 
 	JComboBox<OrderFrequencyType> frequencyTypeCB;
 	OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel;
@@ -68,7 +68,7 @@ public class CreateOrderPanel extends JPanel {
 	@Autowired
 	public CreateOrderPanel(VisitComboBoxModel visitComboBoxModel,
 			OrderTypeComboBoxModel orderTypeComboBoxModel,
-			StringComboBoxModel placeTypeComboBoxModel,
+			PlaceTypeComboBoxModel placeTypeComboBoxModel,
 			OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel,
 			DrugUseModeComboBoxModel orderUseModeComboBoxModel,
 			PharmacyComboBoxModel pharmacyComboBoxModel) {
