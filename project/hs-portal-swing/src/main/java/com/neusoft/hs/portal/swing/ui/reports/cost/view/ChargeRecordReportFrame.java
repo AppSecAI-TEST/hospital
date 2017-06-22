@@ -1,6 +1,9 @@
 package com.neusoft.hs.portal.swing.ui.reports.cost.view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -33,8 +36,10 @@ public class ChargeRecordReportFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public ChargeRecordReportFrame(VisitComboBoxModel visitComboBoxModel) {
+	public ChargeRecordReportFrame(VisitComboBoxModel visitComboBoxModel,
+			ChargeRecordTableModel chargeRecordTableModel) {
 		this.visitComboBoxModel = visitComboBoxModel;
+		this.chargeRecordTableModel = chargeRecordTableModel;
 
 		setFrameUp();
 		initComponents();
@@ -58,11 +63,11 @@ public class ChargeRecordReportFrame extends JFrame {
 
 		add(paneWithTable, BorderLayout.CENTER);
 
-		JPanel operationPanel = new JPanel();
+		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		JLabel visitLbl = new JLabel(ConstMessagesEN.Labels.Visit);
 		visitCB = new JComboBox<>(visitComboBoxModel);
-
+		
 		operationPanel.add(visitLbl);
 		operationPanel.add(visitCB);
 

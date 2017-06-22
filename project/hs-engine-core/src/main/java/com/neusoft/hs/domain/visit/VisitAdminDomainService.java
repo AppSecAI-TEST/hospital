@@ -17,6 +17,14 @@ public class VisitAdminDomainService {
 	public void clear() {
 		visitRepo.deleteAll();
 	}
+	
+	/**
+	 * @param visitId
+	 * @roseuid 584E03140020
+	 */
+	public Visit find(String visitId) {
+		return visitRepo.findOne(visitId);
+	}
 
 	public List<Visit> find(Pageable pageable) {
 		return visitRepo.findAll(pageable).getContent();
