@@ -11,7 +11,7 @@ import java.awt.*;
 @Component
 public class ReportsFrame extends JFrame {
 
-	private JButton registerReportBtn;
+	private JButton chargeRecordReportBtn;
 
 	public ReportsFrame() {
 		setFrameUp();
@@ -30,13 +30,13 @@ public class ReportsFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		registerReportBtn = new JButton(ConstMessagesEN.Labels.Register);
+		chargeRecordReportBtn = new JButton(ConstMessagesEN.Labels.ChargeRecord);
 
-		add(registerReportBtn);
+		add(chargeRecordReportBtn);
 	}
 
-	public JButton getRegisterReportBtn() {
-		return registerReportBtn;
+	public JButton getChargeRecordReportBtn() {
+		return chargeRecordReportBtn;
 	}
 
 }

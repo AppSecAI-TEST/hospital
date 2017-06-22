@@ -185,13 +185,6 @@ public class VisitDomainService {
 	}
 
 	/**
-	 * @roseuid 5852564401AC
-	 */
-	private void leaveWard() {
-
-	}
-
-	/**
 	 * @param visitId
 	 * @roseuid 584E03140020
 	 */
@@ -206,12 +199,12 @@ public class VisitDomainService {
 	public List<Visit> findByState(String state, Pageable pageable) {
 		return visitRepo.findByState(state, pageable);
 	}
-	
+
 	public List<Visit> findByStateAndDept(String state, Dept dept,
 			Pageable pageable) {
 		return visitRepo.findByStateAndDept(state, dept, pageable);
 	}
-	
+
 	public List<Visit> findByStateAndArea(String state, Dept area,
 			Pageable pageable) {
 		return visitRepo.findByStateAndArea(state, area, pageable);

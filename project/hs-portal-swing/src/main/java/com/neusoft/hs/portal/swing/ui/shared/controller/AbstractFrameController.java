@@ -1,10 +1,12 @@
 package com.neusoft.hs.portal.swing.ui.shared.controller;
 
-import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 import com.neusoft.hs.platform.exception.HsException;
-
-import java.awt.event.ActionListener;
 
 public abstract class AbstractFrameController {
 
@@ -12,6 +14,10 @@ public abstract class AbstractFrameController {
 
     protected void registerAction(JButton button, ActionListener listener) {
         button.addActionListener(listener);
+    }
+    
+    protected void registerAction(JComboBox comboBox, ItemListener listener) {
+    	comboBox.addItemListener(listener);
     }
 
 }

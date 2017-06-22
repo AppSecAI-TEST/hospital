@@ -51,6 +51,9 @@ public class ChargeRecord extends IdEntity {
 	@JoinColumn(name = "charge_item_id")
 	private ChargeItem chargeItem;
 
+	@Column(name = "charge_item_name", length = 64)
+	private String chargeItemName;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "original_id")
 	private ChargeRecord original;
@@ -84,7 +87,7 @@ public class ChargeRecord extends IdEntity {
 	public static final String Type_Charged = "已扣";
 
 	public static final String Type_BackCharge = "退费";
-	
+
 	public static final String Type_Balance = "结账";
 
 	/**
@@ -207,6 +210,9 @@ public class ChargeRecord extends IdEntity {
 
 	public void setChargeItem(ChargeItem chargeItem) {
 		this.chargeItem = chargeItem;
+		if(chargeItem != null){
+			this.chargeItemName = chargeItem.getName();
+		}
 	}
 
 	public ChargeRecord getOriginal() {
@@ -271,6 +277,14 @@ public class ChargeRecord extends IdEntity {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getChargeItemName() {
+		return chargeItemName;
+	}
+
+	public void setChargeItemName(String chargeItemName) {
+		this.chargeItemName = chargeItemName;
 	}
 
 	public void save() {

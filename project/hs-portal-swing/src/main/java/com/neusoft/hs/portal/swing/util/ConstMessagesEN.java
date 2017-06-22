@@ -134,6 +134,11 @@ public interface ConstMessagesEN {
 		String OrderUseMode = "用法";
 		String Count = "数量";
 		String Pharmacy = "药房";
+		String ChargeItemName = "收费项目";
+		String Amount = "单价";
+		String Price = "价格";
+		
+		String ChargeRecord = "收费单";
 
 	}
 
