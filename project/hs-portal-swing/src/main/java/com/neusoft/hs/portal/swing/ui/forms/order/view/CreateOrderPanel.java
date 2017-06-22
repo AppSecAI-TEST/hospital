@@ -26,6 +26,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 import com.neusoft.hs.portal.swing.widget.SpinnerDate;
+import com.neusoft.hs.portal.swing.widget.SpinnerNumber;
 
 @Component
 public class CreateOrderPanel extends JPanel {
@@ -38,7 +39,7 @@ public class CreateOrderPanel extends JPanel {
 
 	JTextField orderUseModeTF;
 
-	JTextField countTF;
+	SpinnerNumber countSN;
 
 	JComboBox<Visit> visitCB;
 	VisitComboBoxModel visitComboBoxModel;
@@ -107,7 +108,7 @@ public class CreateOrderPanel extends JPanel {
 		JLabel pharmacyLbl = new JLabel(ConstMessagesEN.Labels.Pharmacy);
 
 		planStartDateSD = new SpinnerDate("yyyy-MM-dd");;
-		countTF = new JTextField(TEXT_FIELD_COLUMNS);
+		countSN = new SpinnerNumber();
 
 		visitCB = new JComboBox<>(visitComboBoxModel);
 		orderTypeCB = new JComboBox<>(orderTypeComboBoxModel);
@@ -141,7 +142,7 @@ public class CreateOrderPanel extends JPanel {
 		formPanl.add(pharmacyCB);
 
 		formPanl.add(countLbl);
-		formPanl.add(countTF);
+		formPanl.add(countSN);
 
 		add(formPanl, BorderLayout.CENTER);
 

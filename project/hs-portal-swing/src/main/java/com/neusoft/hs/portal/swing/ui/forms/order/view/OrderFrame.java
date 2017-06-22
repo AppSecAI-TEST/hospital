@@ -54,16 +54,16 @@ public class OrderFrame extends JFrame {
 	}
 
 	public Date getPlanStartDate() throws HsException {
-		return (Date)this.createOrderPanel.planStartDateSD.getValue();
-		
+		return (Date) this.createOrderPanel.planStartDateSD.getValue();
+
 	}
 
 	public Integer getCount() {
-		String count = this.createOrderPanel.countTF.getText();
-		if (count == null || count.length() == 0) {
+		Integer count = (Integer) this.createOrderPanel.countSN.getValue();
+		if (count == null || count == 0) {
 			return null;
 		} else {
-			return Integer.valueOf(count);
+			return count;
 		}
 	}
 
