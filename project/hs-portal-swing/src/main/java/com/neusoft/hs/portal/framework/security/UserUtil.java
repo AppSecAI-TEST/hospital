@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.security;
+package com.neusoft.hs.portal.framework.security;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;

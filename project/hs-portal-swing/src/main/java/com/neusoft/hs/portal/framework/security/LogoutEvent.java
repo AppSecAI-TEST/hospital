@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.security;
+package com.neusoft.hs.portal.framework.security;
 
 import org.springframework.context.ApplicationEvent;
 

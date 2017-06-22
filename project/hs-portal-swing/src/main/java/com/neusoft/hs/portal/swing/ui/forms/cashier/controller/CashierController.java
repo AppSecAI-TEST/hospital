@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.application.cashier.CashierAppService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.portal.security.UserUtil;
+import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.cashier.view.CashierInitAccountTableFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;

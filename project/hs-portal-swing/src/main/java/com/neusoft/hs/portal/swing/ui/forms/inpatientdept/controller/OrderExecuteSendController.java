@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.portal.security.UserUtil;
+import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.OrderExecuteSendFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;

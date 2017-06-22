@@ -1,6 +1,7 @@
 package com.neusoft.hs.portal.swing.ui.forms.register.view.modal;
 
 import java.awt.GridLayout;
+import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,12 +16,13 @@ import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.portal.security.UserUtil;
+import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.shared.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.widget.SpinnerDate;
 
 @Component
 public class VisitFormPanel extends JPanel {
@@ -35,7 +37,7 @@ public class VisitFormPanel extends JPanel {
 
 	private JTextField carNumberTF;
 
-	private JTextField birthdayTF;
+	private SpinnerDate birthdaySD;
 
 	private JTextField sexTF;
 
@@ -77,8 +79,8 @@ public class VisitFormPanel extends JPanel {
 
 		carNumberTF = new JTextField(TEXT_FIELD_COLUMNS);
 		nameTF = new JTextField(TEXT_FIELD_COLUMNS);
-		birthdayTF = new JTextField(TEXT_FIELD_COLUMNS);
-		sexTF = new JTextField(TEXT_FIELD_COLUMNS);
+		birthdaySD = new SpinnerDate("yyyy-MM-dd");                           
+       	sexTF = new JTextField(TEXT_FIELD_COLUMNS);
 
 		respDeptCB = new JComboBox<>(respDeptComboBoxModel);
 		respAreaCB = new JComboBox<>(respAreaComboBoxModel);
@@ -89,7 +91,7 @@ public class VisitFormPanel extends JPanel {
 		add(nameLbl);
 		add(nameTF);
 		add(birthdayLbl);
-		add(birthdayTF);
+		add(birthdaySD);
 		add(sexLbl);
 		add(sexTF);
 
@@ -107,6 +109,7 @@ public class VisitFormPanel extends JPanel {
 
 		CreateVisitVO createVisitVO = new CreateVisitVO();
 		createVisitVO.setName(nameTF.getText());
+		createVisitVO.setBirthday((Date)birthdaySD.getValue());
 		createVisitVO.setDept(respDeptComboBoxModel.getSelectedItem());
 		createVisitVO.setArea(respAreaComboBoxModel.getSelectedItem());
 		createVisitVO.setRespDoctor(respDoctorComboBoxModel.getSelectedItem());
