@@ -14,7 +14,6 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.SampleOrderTypeApp;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
@@ -216,7 +215,6 @@ public abstract class InPatientTestService extends AppTestService {
 		leaveHospitalOrder001.setName("出院医嘱");
 		leaveHospitalOrder001.setPlanStartDate(DateUtil.createDay("2017-01-09",
 				dayCount));
-		leaveHospitalOrder001.setExecuteDept(dept222);
 		leaveHospitalOrder001
 				.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
 		

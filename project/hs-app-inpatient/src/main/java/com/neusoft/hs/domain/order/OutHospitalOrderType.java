@@ -3,12 +3,6 @@ package com.neusoft.hs.domain.order;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.neusoft.hs.domain.order.Order;
-import com.neusoft.hs.domain.order.OrderException;
-import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteTeam;
-import com.neusoft.hs.domain.order.OrderType;
-import com.neusoft.hs.domain.order.OrderTypeApp;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
@@ -54,7 +48,7 @@ public class OutHospitalOrderType extends OrderType {
 		balance.setPlanStartDate(order.getPlanStartDate());
 		balance.setPlanEndDate(order.getPlanStartDate());
 
-		balance.setExecuteDept(order.getExecuteDept());
+		balance.setExecuteDept(order.getBelongDept().getOrg().getInChargeDept());
 		balance.setState(OrderExecute.State_NeedExecute);
 
 		team.addOrderExecute(balance);
