@@ -50,8 +50,9 @@ public class OrderAppService {
 		OrderCreateCommand orderCreateCommand = builder.createCommand();
 		return create(orderCreateCommand, doctor);
 	}
-	
-	public void compsite(CompsiteOrder compsiteOrder, Doctor doctor) {
+
+	public void compsite(CompsiteOrder compsiteOrder, Doctor doctor)
+			throws OrderException {
 		orderDomainService.comsite(compsiteOrder, doctor);
 	}
 
@@ -66,8 +67,8 @@ public class OrderAppService {
 	 * @throws HsException
 	 * @roseuid 584F48660279
 	 */
-	public Order verify(String orderId, AbstractUser nurse) throws OrderException,
-			OrderExecuteException {
+	public Order verify(String orderId, AbstractUser nurse)
+			throws OrderException, OrderExecuteException {
 		Order order = orderDomainService.find(orderId);
 		if (order == null) {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
@@ -119,6 +120,5 @@ public class OrderAppService {
 	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
 		return orderDomainService.findByBelongDept(dept, pageable);
 	}
-
 
 }

@@ -13,8 +13,10 @@ public interface OrderCreateCommand {
 	public String getPlaceType();
 
 	public Visit getVisit();
-	
+
 	public void setVisit(Visit visit);
+
+	public void check() throws OrderException, OrderExecuteException;
 
 	public void save();
 
@@ -29,5 +31,4 @@ public interface OrderCreateCommand {
 	public static final String PlaceType_OutPatient = "门诊";
 
 	public static final String PlaceType_InPatient = "住院";
-
 }

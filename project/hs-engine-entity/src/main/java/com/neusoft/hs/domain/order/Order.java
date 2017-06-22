@@ -155,7 +155,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * 
 	 * @roseuid 584E6696009D
 	 */
-	protected void check() throws OrderException, OrderExecuteException {
+	public void check() throws OrderException, OrderExecuteException {
 
 		if (visit == null) {
 			throw new OrderException(this, "visit不能为空");

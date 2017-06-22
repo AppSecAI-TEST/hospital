@@ -2,7 +2,9 @@ package com.neusoft.hs.domain.order;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -96,6 +99,49 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 	@Override
 	public void setVisit(Visit visit) {
 		this.orders.get(0).setVisit(visit);
+	}
+
+	@Override
+	public void check() throws OrderException, OrderExecuteException {
+		for (Order order : this.orders) {
+			order.check();
+		}
+		this.checkSelf();
+	}
+
+	public void checkSelf() throws OrderException {
+
+		Set<Class<?>> types = new HashSet<Class<?>>();
+		Set<Class<?>> orderTypes = new HashSet<Class<?>>();
+		Set<OrderFrequencyType> frequencyTypes = new HashSet<OrderFrequencyType>();
+		Set<Dept> executeDepts = new HashSet<Dept>();
+
+		for (Order order : this.orders) {
+
+			if (types.size() == 0) {
+				types.add(order.getClass());
+			} else if (!types.contains(order.getClass())) {
+				throw new OrderException(null, "组合医嘱类型(临嘱长嘱)必须相同");
+			}
+			if (orderTypes.size() == 0) {
+				orderTypes.add(order.getOrderType().getClass());
+			} else if (!orderTypes.contains(order.getOrderType().getClass())) {
+				throw new OrderException(null, "组合医嘱类型必须相同");
+			}
+			if (executeDepts.size() == 0) {
+				executeDepts.add(order.getExecuteDept());
+			} else if (!executeDepts.contains(order.getExecuteDept())) {
+				throw new OrderException(null, "组合医嘱执行部门必须相同");
+			}
+			if (order instanceof LongOrder) {
+				if (frequencyTypes.size() == 0) {
+					frequencyTypes.add(((LongOrder) order).getFrequencyType());
+				} else if (!frequencyTypes.contains(((LongOrder) order)
+						.getFrequencyType())) {
+					throw new OrderException(null, "组合医嘱频次必须相同");
+				}
+			}
+		}
 	}
 
 	@Override

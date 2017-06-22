@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
+import com.neusoft.hs.domain.order.OrderException;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -164,6 +166,17 @@ public class Prescription extends IdEntity implements OrderCreateCommand {
 	}
 
 	@Override
+	public void check() throws OrderException, OrderExecuteException {
+		if (diagnosisTreatmentItemValues == null
+				|| diagnosisTreatmentItemValues.size() == 0) {
+			throw new OrderException(null, "诊断不能为空");
+		}
+		for (Order order : this.orders) {
+			order.check();
+		}
+	}
+
+	@Override
 	public void save() {
 
 		for (Order order : this.orders) {
@@ -172,4 +185,5 @@ public class Prescription extends IdEntity implements OrderCreateCommand {
 
 		this.getService(PrescriptionRepo.class).save(this);
 	}
+
 }

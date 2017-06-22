@@ -58,8 +58,6 @@ public class OrderDomainService {
 		Visit visit = visitDomainService.find(orderCommand.getVisit().getId());
 		orderCommand.setVisit(visit);
 
-		List<Order> orders = new ArrayList<Order>();
-
 		for (Order order : orderCommand.getOrders()) {
 			if (order.getCreateDate() == null) {
 				order.setCreateDate(DateUtil.getSysDate());
@@ -71,10 +69,6 @@ public class OrderDomainService {
 			} else {
 				order.setState(Order.State_Executing);
 			}
-
-			order.check();
-
-			orders.add(order);
 		}
 		if (orderCommand.getCreateDate() == null) {
 			orderCommand.setCreateDate(DateUtil.getSysDate());
@@ -82,6 +76,7 @@ public class OrderDomainService {
 		if (orderCommand.getCreator() == null) {
 			orderCommand.setCreator(doctor);
 		}
+		orderCommand.check();
 		// 保存医嘱
 		orderCommand.save();
 
@@ -106,10 +101,11 @@ public class OrderDomainService {
 				doctor.getId(), orderCommand.getVisit().getName(), orderIds,
 				orderTypes);
 
-		return orders;
+		return orderCommand.getOrders();
 	}
 
-	public void comsite(CompsiteOrder compsiteOrder, Doctor doctor) {
+	public void comsite(CompsiteOrder compsiteOrder, Doctor doctor)
+			throws OrderException {
 
 		if (compsiteOrder.getCreateDate() == null) {
 			compsiteOrder.setCreateDate(DateUtil.getSysDate());
@@ -117,6 +113,9 @@ public class OrderDomainService {
 		if (compsiteOrder.getCreator() == null) {
 			compsiteOrder.setCreator(doctor);
 		}
+
+		compsiteOrder.checkSelf();
+
 		compsiteOrder.save();
 
 		List<String> orderIds = new ArrayList<String>();
