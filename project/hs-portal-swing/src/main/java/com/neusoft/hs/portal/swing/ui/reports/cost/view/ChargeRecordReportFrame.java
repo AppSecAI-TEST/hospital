@@ -31,6 +31,8 @@ public class ChargeRecordReportFrame extends JFrame {
 	ChargeRecordTableModel chargeRecordTableModel;
 	JTable table;
 
+	private JLabel chargeBillLbl;
+
 	private static final int DEFAULT_WIDTH = 800;
 
 	private static final int DEFAULT_HEIGHT = 300;
@@ -67,9 +69,12 @@ public class ChargeRecordReportFrame extends JFrame {
 
 		JLabel visitLbl = new JLabel(ConstMessagesEN.Labels.Visit);
 		visitCB = new JComboBox<>(visitComboBoxModel);
-		
+
 		operationPanel.add(visitLbl);
 		operationPanel.add(visitCB);
+
+		chargeBillLbl = new JLabel();
+		operationPanel.add(chargeBillLbl);
 
 		add(operationPanel, BorderLayout.NORTH);
 
@@ -78,4 +83,9 @@ public class ChargeRecordReportFrame extends JFrame {
 	public JComboBox<Visit> getVisitCB() {
 		return visitCB;
 	}
+
+	public JLabel getChargeBillLbl() {
+		return chargeBillLbl;
+	}
+
 }

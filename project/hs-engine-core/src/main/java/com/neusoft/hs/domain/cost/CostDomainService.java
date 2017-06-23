@@ -27,7 +27,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CostDomainService {
-	
+
 	@Autowired
 	private ChargeRecordRepo chargeRecordRepo;
 
@@ -256,6 +256,10 @@ public class CostDomainService {
 
 	public List<ChargeRecord> getChargeRecords(Visit visit) {
 		return chargeRecordRepo.findByVisit(visit);
+	}
+
+	public ChargeBill getChargeBill(Visit visit) {
+		return visitDomainService.find(visit.getId()).getChargeBill();
 	}
 
 }

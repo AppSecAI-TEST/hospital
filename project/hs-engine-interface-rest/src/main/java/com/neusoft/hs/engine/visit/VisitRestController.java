@@ -1,5 +1,6 @@
 package com.neusoft.hs.engine.visit;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,11 @@ public class VisitRestController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/visit/{visitId}/find")
 	public Visit find(@PathVariable("visitId") String visitId) {
-		return visitFacade.find(visitId);
+		Visit visit = visitFacade.find(visitId);
+		
+		Hibernate.initialize(visit.getDept());
+		
+		return visit;
 	}
 
 }

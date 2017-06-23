@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.visit.Visit;
@@ -71,9 +72,14 @@ public class ChargeRecordReportController extends AbstractFrameController {
 		if (visit != null) {
 			List<ChargeRecord> entities = costDomainService
 					.getChargeRecords(visit);
-			
+
 			chargeRecordTableModel.addEntities(entities);
+
+			ChargeBill chargeBill = costDomainService.getChargeBill(visit);
+
+			String chargeBillInfo = "收费单：余额[" + chargeBill.getBalance()
+					+ "],消费[" + chargeBill.getConsume() + "]";
+			chargeRecordReportFrame.getChargeBillLbl().setText(chargeBillInfo);
 		}
 	}
-
 }

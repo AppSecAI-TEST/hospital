@@ -138,7 +138,8 @@ public interface ConstMessagesEN {
 		String Amount = "单价";
 		String Price = "价格";
 		
-		String ChargeRecord = "收费单";
+		String ChargeBill = "收费单";
+		String ChargeRecord = "收费记录";
 
 	}
 
