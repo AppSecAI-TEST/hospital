@@ -34,7 +34,7 @@ public class OrderExecuteSendFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.Order);
+		setTitle(ConstMessagesEN.Labels.SendOrderExecute);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);

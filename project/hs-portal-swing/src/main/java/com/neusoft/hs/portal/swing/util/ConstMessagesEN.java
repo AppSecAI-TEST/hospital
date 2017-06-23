@@ -17,7 +17,7 @@ public interface ConstMessagesEN {
 		String ROOM_X_RESERVATION_MODAL = "Adding room reservations";
 
 		String Login_MODAL = "登陆";
-		String Register_MODAL = "接诊";
+		String Register_MODAL = "创建患者";
 
 	}
 

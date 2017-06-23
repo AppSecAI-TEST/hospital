@@ -34,7 +34,7 @@ public class OrderVerifyFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.Order);
+		setTitle(ConstMessagesEN.Labels.VerifyOrder);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
