@@ -14,7 +14,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 
 @Component
-public class OrderFrame extends JFrame {
+public class CreateOrderFrame extends JFrame {
 
 	private OrderListPanel orderListPanel;
 
@@ -25,7 +25,7 @@ public class OrderFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 600;
 
 	@Autowired
-	public OrderFrame(OrderListPanel orderListPanel,
+	public CreateOrderFrame(OrderListPanel orderListPanel,
 			CreateOrderPanel createOrderPanel) {
 		this.orderListPanel = orderListPanel;
 		this.createOrderPanel = createOrderPanel;
@@ -35,7 +35,7 @@ public class OrderFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.Order);
+		setTitle(ConstMessagesEN.Labels.CreateOrder);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);

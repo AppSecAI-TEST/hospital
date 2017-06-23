@@ -31,7 +31,7 @@ import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.exception.UIException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
-import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderFrame;
+import com.neusoft.hs.portal.swing.ui.forms.order.view.CreateOrderFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.DrugUseModeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderFrequencyTypeComboBoxModel;
@@ -46,7 +46,7 @@ import com.neusoft.hs.portal.swing.util.Notifications;
 public class OrderController extends AbstractFrameController {
 
 	@Autowired
-	private OrderFrame orderFrame;
+	private CreateOrderFrame orderFrame;
 
 	@Autowired
 	private OrderAppService orderAppService;
