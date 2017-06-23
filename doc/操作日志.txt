@@ -1,3 +1,9 @@
+2017.06.--
+
+1、实现模型：创建hs-data-init-test，将hs-data-init中的test相关代码移入，解除hs-data-init对具体数据库类型的依赖
+2、部署模型：采用工具exe4j创建Hospital64.exe，依赖内存数据库H2
+3、文档：增加对部署模型中演示模式的描述
+
 2017.06.23 丰富swing功能
 
 1、实现模型：实现了swing下开药品临嘱，核对医嘱，放宽了医嘱核对相关的人员类型由Nurse变成AbstractUser
