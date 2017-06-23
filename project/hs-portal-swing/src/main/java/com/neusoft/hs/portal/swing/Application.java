@@ -7,10 +7,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.portal.swing.ui.main_menu.controller.MainMenuController;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
-
 
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = { "com.neusoft.hs.*" })
