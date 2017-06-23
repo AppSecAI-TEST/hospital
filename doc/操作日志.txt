@@ -1,4 +1,4 @@
-2017.06.--
+2017.06.23 丰富swing功能
 
 1、实现模型：实现了swing下开药品临嘱，核对医嘱，放宽了医嘱核对相关的人员类型由Nurse变成AbstractUser
 2、实现模型：将getNeedSendOrderExecutes由OrderAppService移到OrderExecuteAppService中
@@ -10,6 +10,7 @@
 8、实现模型：向swing统计业务增加查看患者收费单功能
 9、实现模型：实现了swing下执行医嘱场景，目前swing可以开立的医嘱有护理医嘱、药品临嘱、药品长嘱、出院医嘱
 10、实现模型：向swing新增了日期、数字录入的控件，并改进性别、医嘱开立位置等常量列表控件数据获取方式
+11、实现模型：升级核心底层jar的版本到最新spring4.3.7->4.3.9，hibernate5.1.0->5.2.10, springboot1.5.2->1.5.4, springcloud1.2.0->1.2.2，发现启动时间从26秒降低到20秒了
 
 
 2017.06.20 OrderBuilder
