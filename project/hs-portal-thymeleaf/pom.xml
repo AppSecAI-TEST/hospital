@@ -31,8 +31,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-redis</artifactId>
-			<version>${spring.boot.redis.version}</version>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>${spring.boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
