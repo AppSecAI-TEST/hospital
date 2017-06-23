@@ -74,6 +74,7 @@
 
 		<module>hs-platform</module>
     <module>hs-data-init</module>
+    <module>hs-data-init-test</module>
   </modules>
 
 	<build>
