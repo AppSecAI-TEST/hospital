@@ -1,7 +1,7 @@
 <!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
 <configuration scan="true" scanPeriod="10 seconds">
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
-
+	
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}
@@ -12,9 +12,9 @@
 
 	<appender name="INFO_FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${LOG_PATH}/info.log</File>
+		<File>info.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_PATH}/info-%d{yyyyMMdd}.log.%i
+			<fileNamePattern>info-%d{yyyyMMdd}.log.%i
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -33,9 +33,9 @@
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>ERROR</level>
 		</filter>
-		<File>${LOG_PATH}/error.log</File>
+		<File>error.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_PATH}/error-%d{yyyyMMdd}.log.%i
+			<fileNamePattern>error-%d{yyyyMMdd}.log.%i
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
