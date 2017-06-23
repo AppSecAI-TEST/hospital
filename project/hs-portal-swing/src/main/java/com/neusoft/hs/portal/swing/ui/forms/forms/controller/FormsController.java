@@ -10,7 +10,7 @@ import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderExecut
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderVerifyController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveVisitController;
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
-import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderController;
+import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
@@ -35,7 +35,7 @@ public class FormsController extends AbstractFrameController {
 	private ReceiveVisitController receiveController;
 
 	@Autowired
-	private OrderController orderController;
+	private CreateOrderController orderController;
 
 	@Autowired
 	private OrderVerifyController orderVerifyController;

@@ -43,10 +43,10 @@ import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
-public class OrderController extends AbstractFrameController {
+public class CreateOrderController extends AbstractFrameController {
 
 	@Autowired
-	private CreateOrderFrame orderFrame;
+	private CreateOrderFrame createOrderFrame;
 
 	@Autowired
 	private OrderAppService orderAppService;
@@ -86,7 +86,7 @@ public class OrderController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
-		registerAction(orderFrame.getConfirmBtn(), (e) -> create());
+		registerAction(createOrderFrame.getConfirmBtn(), (e) -> create());
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class OrderController extends AbstractFrameController {
 		loadPharmacys();
 		loadOrderUseModes();
 
-		orderFrame.setVisible(true);
+		createOrderFrame.setVisible(true);
 	}
 
 	private void loadOrders() throws HsException {
@@ -171,9 +171,9 @@ public class OrderController extends AbstractFrameController {
 			OrderFrequencyType frequencyType = frequencyTypeComboBoxModel
 					.getSelectedItem();
 
-			Date planStartDate = this.orderFrame.getPlanStartDate();
+			Date planStartDate = this.createOrderFrame.getPlanStartDate();
 
-			Integer count = this.orderFrame.getCount();
+			Integer count = this.createOrderFrame.getCount();
 
 			OrderType orderType = orderTypeComboBoxModel.getSelectedItem();
 
