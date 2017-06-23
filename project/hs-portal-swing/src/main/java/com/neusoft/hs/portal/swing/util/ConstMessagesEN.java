@@ -32,6 +32,8 @@ public interface ConstMessagesEN {
 
 	interface Labels {
 		String MAIN_MENU = "医院业务";
+		String Version = "版本";
+		String BuildDate = "构建日期";
 		String CLIENTS = "Clients";
 		String RESERVATIONS = "Reservations";
 		String ADDRESSES = "Addresses";
@@ -137,7 +139,7 @@ public interface ConstMessagesEN {
 		String ChargeItemName = "收费项目";
 		String Amount = "单价";
 		String Price = "价格";
-		
+
 		String ChargeBill = "收费单";
 		String ChargeRecord = "收费记录";
 

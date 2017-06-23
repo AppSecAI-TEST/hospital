@@ -1,48 +1,70 @@
 package com.neusoft.hs.portal.swing.ui.main_menu.view;
 
 import org.springframework.stereotype.Component;
+
+import com.neusoft.hs.platform.util.VersionUtil;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 @Component
 public class MainMenuFrame extends JFrame {
 
-    private JButton formsBtn;
-    private JButton reportsBtn;
+	private JButton formsBtn;
+	private JButton reportsBtn;
 
-    public MainMenuFrame() {
-        setFrameUp();
-        initComponents();
-        pack();
-    }
+	public MainMenuFrame() {
+		setFrameUp();
+		initComponents();
+		pack();
+	}
 
-    private void setFrameUp() {
-        getRootPane().setBorder(Borders.createEmptyBorder());
-        setTitle(ConstMessagesEN.Labels.MAIN_MENU);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        LookAndFeelUtils.setWindowsLookAndFeel();
-        setLayout(new GridLayout(1, 2, 20, 20));
-    }
+	private void setFrameUp() {
+		getRootPane().setBorder(Borders.createEmptyBorder());
+		setTitle(ConstMessagesEN.Labels.MAIN_MENU);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		LookAndFeelUtils.setWindowsLookAndFeel();
+		setLayout(new GridLayout(2, 1, 20, 20));
+	}
 
-    private void initComponents() {
-        formsBtn = new JButton(ConstMessagesEN.Labels.FORMS);
-        reportsBtn = new JButton(ConstMessagesEN.Labels.REPORTS);
+	private void initComponents() {
 
-        add(formsBtn);
-        add(reportsBtn);
-    }
+		JPanel operationPanel = new JPanel();
+		operationPanel.setLayout(new GridLayout(1, 2, 20, 20));
 
-    public JButton getFormsBtn() {
-        return formsBtn;
-    }
+		formsBtn = new JButton(ConstMessagesEN.Labels.FORMS);
+		reportsBtn = new JButton(ConstMessagesEN.Labels.REPORTS);
 
-    public JButton getReportsBtn() {
-        return reportsBtn;
-    }
+		operationPanel.add(formsBtn);
+		operationPanel.add(reportsBtn);
+
+		add(operationPanel);
+
+		JPanel versionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		JLabel versionLbl = new JLabel();
+		versionLbl.setText(ConstMessagesEN.Labels.Version + ":"
+				+ VersionUtil.getVersion() + " "
+				+ ConstMessagesEN.Labels.Version + ":"
+				+ VersionUtil.getBuildDate());
+
+		versionPanel.add(versionLbl);
+
+		add(versionPanel);
+
+	}
+
+	public JButton getFormsBtn() {
+		return formsBtn;
+	}
+
+	public JButton getReportsBtn() {
+		return reportsBtn;
+	}
 }
