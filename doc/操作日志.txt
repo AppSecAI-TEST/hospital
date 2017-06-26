@@ -1,3 +1,11 @@
+2017.06.--
+
+1、实现模型：统计业务里增加查看医嘱单、医嘱执行单功能
+2、文档：增加服务职责编写规范章节
+3、实现模型：向TreatmentAppService增加create方法，简化直接采用TreatmentDomainService.create的复杂度
+
+
+
 2017.06.23 0.9.4_01 创建版本号生成exe
 
 1、实现模型：创建hs-data-init-test，将hs-data-init中的test相关代码移入，解除hs-data-init对具体数据库类型的依赖
