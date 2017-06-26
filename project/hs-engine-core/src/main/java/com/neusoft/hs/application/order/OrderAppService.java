@@ -85,7 +85,7 @@ public class OrderAppService {
 	public void cancel(String orderId, Doctor doctor) throws OrderException {
 		Order order = orderDomainService.find(orderId);
 		if (order == null) {
-			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+			throw new OrderException(null, "orderId=[%s]不存在", orderId);
 		}
 		orderDomainService.cancel(order, doctor);
 	}
@@ -93,7 +93,7 @@ public class OrderAppService {
 	public void delete(String orderId, Doctor doctor) throws OrderException {
 		Order order = orderDomainService.find(orderId);
 		if (order == null) {
-			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+			throw new OrderException(null, "orderId=[%s]不存在", orderId);
 		}
 		orderDomainService.delete(order, doctor);
 	}
@@ -108,10 +108,9 @@ public class OrderAppService {
 	public void stop(String orderId, Doctor doctor) throws OrderException {
 		Order order = orderDomainService.find(orderId);
 		if (order == null) {
-			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
+			throw new OrderException(null, "orderId=[%s]不存在", orderId);
 		} else if (!(order instanceof LongOrder)) {
-			throw new OrderException(order, "orderId=[" + orderId
-					+ "]不是长嘱，不能停止");
+			throw new OrderException(order, "orderId=[%s]不是长嘱，不能停止", orderId);
 		}
 		orderDomainService.stop((LongOrder) order, doctor);
 

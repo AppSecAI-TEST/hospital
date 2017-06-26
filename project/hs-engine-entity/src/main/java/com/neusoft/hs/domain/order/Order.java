@@ -200,8 +200,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 */
 	public int resolve() throws OrderException, OrderExecuteException {
 		if (!this.state.equals(State_Executing)) {
-			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
-					+ this.state + "],不能分解");
+			throw new OrderException(this, "医嘱[%s]的状态为[%s],不能分解", this.getId(),
+					this.state);
 		}
 
 		resolveFrequencyOrderExecutes = new ArrayList<OrderExecute>();
@@ -258,8 +258,8 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 */
 	public void delete() throws OrderException {
 		if (!this.state.equals(State_Created)) {
-			throw new OrderException(this, "医嘱[" + this.getId() + "]的状态为["
-					+ this.state + "],不能删除");
+			throw new OrderException(this, "医嘱[%s]的状态为[%s],不能删除", this.getId(),
+					this.state);
 		}
 
 		if (this.apply != null) {

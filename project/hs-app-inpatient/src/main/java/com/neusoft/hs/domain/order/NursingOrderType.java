@@ -30,8 +30,8 @@ public class NursingOrderType extends OrderType {
 				.findExecutingByVisitAndOrderType(order.getVisit(), this);
 
 		if (orders.size() > 0) {
-			throw new OrderException(order, "患者[" + order.getVisit().getName()
-					+ "]有在执行的护理医嘱[" + orders.get(0).getId() + "]");
+			throw new OrderException(order, "患者[%s]有在执行的护理医嘱[%s]", order
+					.getVisit().getName(), orders.get(0).getId());
 		}
 	}
 
