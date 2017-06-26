@@ -24,7 +24,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.PharmacyComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.PlaceTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.widget.SpinnerDate;
 import com.neusoft.hs.portal.swing.widget.SpinnerNumber;
 
@@ -96,16 +96,16 @@ public class CreateOrderPanel extends JPanel {
 		formPanl.setLayout(new GridLayout(LAYOUT_ROWS, LAYOUT_COLS,
 				HORIZONTAL_GAP, VERTICAL_GAP));
 
-		JLabel visitLbl = new JLabel(ConstMessagesEN.Labels.Visit);
-		JLabel orderTypeLbl = new JLabel(ConstMessagesEN.Labels.OrderType);
+		JLabel visitLbl = new JLabel(ConstMessagesCN.Labels.Visit);
+		JLabel orderTypeLbl = new JLabel(ConstMessagesCN.Labels.OrderType);
 		JLabel planStartDateLbl = new JLabel(
-				ConstMessagesEN.Labels.PlanStartDate);
-		JLabel placeTypeLbl = new JLabel(ConstMessagesEN.Labels.PlaceType);
+				ConstMessagesCN.Labels.PlanStartDate);
+		JLabel placeTypeLbl = new JLabel(ConstMessagesCN.Labels.PlaceType);
 		JLabel frequencyTypeLbl = new JLabel(
-				ConstMessagesEN.Labels.FrequencyType);
-		JLabel orderUseModeLbl = new JLabel(ConstMessagesEN.Labels.OrderUseMode);
-		JLabel countLbl = new JLabel(ConstMessagesEN.Labels.Count);
-		JLabel pharmacyLbl = new JLabel(ConstMessagesEN.Labels.Pharmacy);
+				ConstMessagesCN.Labels.FrequencyType);
+		JLabel orderUseModeLbl = new JLabel(ConstMessagesCN.Labels.OrderUseMode);
+		JLabel countLbl = new JLabel(ConstMessagesCN.Labels.Count);
+		JLabel pharmacyLbl = new JLabel(ConstMessagesCN.Labels.Pharmacy);
 
 		planStartDateSD = new SpinnerDate("yyyy-MM-dd");;
 		countSN = new SpinnerNumber();
@@ -148,7 +148,7 @@ public class CreateOrderPanel extends JPanel {
 
 		JPanel buttonPanel = new JPanel();
 
-		confirmBtn = new JButton(ConstMessagesEN.Labels.CONFIRM_BTN);
+		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);

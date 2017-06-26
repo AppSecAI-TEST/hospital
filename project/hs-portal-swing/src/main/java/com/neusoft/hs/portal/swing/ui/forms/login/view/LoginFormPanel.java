@@ -15,7 +15,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.AbstractUserComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.LoginInfo;
 import com.neusoft.hs.portal.swing.util.Borders;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
 public class LoginFormPanel extends JPanel {
@@ -44,7 +44,7 @@ public class LoginFormPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		JLabel nameLbl = new JLabel(ConstMessagesEN.Labels.Account);
+		JLabel nameLbl = new JLabel(ConstMessagesCN.Labels.Account);
 
 		accountCB = new JComboBox<AbstractUser>(abstractUserComboBoxModel);
 		accountCB.setPreferredSize(new Dimension(200, 30));

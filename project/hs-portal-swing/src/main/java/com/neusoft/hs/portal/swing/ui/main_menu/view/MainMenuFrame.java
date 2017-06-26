@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.platform.util.VersionUtil;
 import com.neusoft.hs.portal.swing.util.Borders;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 
 import javax.swing.*;
@@ -25,7 +25,7 @@ public class MainMenuFrame extends JFrame {
 
 	private void setFrameUp() {
 		getRootPane().setBorder(Borders.createEmptyBorder());
-		setTitle(ConstMessagesEN.Labels.MAIN_MENU);
+		setTitle(ConstMessagesCN.Labels.MAIN_MENU);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -38,8 +38,8 @@ public class MainMenuFrame extends JFrame {
 		JPanel operationPanel = new JPanel();
 		operationPanel.setLayout(new GridLayout(1, 2, 20, 20));
 
-		formsBtn = new JButton(ConstMessagesEN.Labels.FORMS);
-		reportsBtn = new JButton(ConstMessagesEN.Labels.REPORTS);
+		formsBtn = new JButton(ConstMessagesCN.Labels.FORMS);
+		reportsBtn = new JButton(ConstMessagesCN.Labels.REPORTS);
 
 		operationPanel.add(formsBtn);
 		operationPanel.add(reportsBtn);
@@ -49,9 +49,9 @@ public class MainMenuFrame extends JFrame {
 		JPanel versionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		JLabel versionLbl = new JLabel();
-		versionLbl.setText(ConstMessagesEN.Labels.Version + ":"
+		versionLbl.setText(ConstMessagesCN.Labels.Version + ":"
 				+ VersionUtil.getVersion() + " "
-				+ ConstMessagesEN.Labels.Version + ":"
+				+ ConstMessagesCN.Labels.Version + ":"
 				+ VersionUtil.getBuildDate());
 
 		versionPanel.add(versionLbl);

@@ -21,7 +21,7 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.framework.exception.UIException;
 import com.neusoft.hs.portal.swing.ui.shared.model.NurseComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
 public class ReceiveVisitFrame extends JFrame {
@@ -56,7 +56,7 @@ public class ReceiveVisitFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.ReceiveVisit);
+		setTitle(ConstMessagesCN.Labels.ReceiveVisit);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
@@ -74,19 +74,19 @@ public class ReceiveVisitFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
-		JLabel bedLbl = new JLabel(ConstMessagesEN.Labels.Bed);
+		JLabel bedLbl = new JLabel(ConstMessagesCN.Labels.Bed);
 		buttonPanel.add(bedLbl);
 
 		bedTF = new JTextField(TEXT_FIELD_COLUMNS);
 		buttonPanel.add(bedTF);
 
-		JLabel nurseLbl = new JLabel(ConstMessagesEN.Labels.RespNurse);
+		JLabel nurseLbl = new JLabel(ConstMessagesCN.Labels.RespNurse);
 		buttonPanel.add(nurseLbl);
 
 		resNurseCB = new JComboBox<>(this.respNurseComboBoxModel);
 		buttonPanel.add(resNurseCB);
 
-		confirmBtn = new JButton(ConstMessagesEN.Labels.CONFIRM_BTN);
+		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);

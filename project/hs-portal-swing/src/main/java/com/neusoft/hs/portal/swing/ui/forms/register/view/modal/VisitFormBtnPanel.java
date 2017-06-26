@@ -1,7 +1,7 @@
 package com.neusoft.hs.portal.swing.ui.forms.register.view.modal;
 
 import org.springframework.stereotype.Component;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 import javax.swing.*;
 
@@ -16,10 +16,10 @@ public class VisitFormBtnPanel extends JPanel {
     }
 
     private void initComponents() {
-        saveBtn = new JButton(ConstMessagesEN.Labels.ADD_BTN);
+        saveBtn = new JButton(ConstMessagesCN.Labels.ADD_BTN);
         add(saveBtn);
 
-        cancelBtn = new JButton(ConstMessagesEN.Labels.CANCEL_BTN);
+        cancelBtn = new JButton(ConstMessagesCN.Labels.CANCEL_BTN);
         add(cancelBtn);
     }
 

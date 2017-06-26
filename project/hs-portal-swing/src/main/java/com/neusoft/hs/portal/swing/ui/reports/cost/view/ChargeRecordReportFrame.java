@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.swing.ui.shared.model.ChargeRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
 public class ChargeRecordReportFrame extends JFrame {
@@ -48,7 +48,7 @@ public class ChargeRecordReportFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.ChargeRecord);
+		setTitle(ConstMessagesCN.Labels.ChargeRecord);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
@@ -67,7 +67,7 @@ public class ChargeRecordReportFrame extends JFrame {
 
 		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		JLabel visitLbl = new JLabel(ConstMessagesEN.Labels.Visit);
+		JLabel visitLbl = new JLabel(ConstMessagesCN.Labels.Visit);
 		visitCB = new JComboBox<>(visitComboBoxModel);
 
 		operationPanel.add(visitLbl);

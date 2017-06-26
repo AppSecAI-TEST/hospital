@@ -2,7 +2,7 @@ package com.neusoft.hs.portal.swing.ui.reports.reports.view;
 
 import org.springframework.stereotype.Component;
 import com.neusoft.hs.portal.swing.util.Borders;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 
 import javax.swing.*;
@@ -25,7 +25,7 @@ public class ReportsFrame extends JFrame {
 
 	private void setFrameUp() {
 		getRootPane().setBorder(Borders.createEmptyBorder());
-		setTitle(ConstMessagesEN.Labels.REPORTS);
+		setTitle(ConstMessagesCN.Labels.REPORTS);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -34,9 +34,9 @@ public class ReportsFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		chargeRecordReportBtn = new JButton(ConstMessagesEN.Labels.ChargeRecord);
-		orderBtn = new JButton(ConstMessagesEN.Labels.OrderList);
-		orderExecuteBtn = new JButton(ConstMessagesEN.Labels.OrderExecuteList);
+		chargeRecordReportBtn = new JButton(ConstMessagesCN.Labels.ChargeRecord);
+		orderBtn = new JButton(ConstMessagesCN.Labels.OrderList);
+		orderExecuteBtn = new JButton(ConstMessagesCN.Labels.OrderExecuteList);
 
 		add(chargeRecordReportBtn);
 		add(orderBtn);

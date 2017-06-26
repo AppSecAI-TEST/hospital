@@ -1,7 +1,7 @@
 package com.neusoft.hs.portal.swing.ui.forms.login.view;
 
 import org.springframework.stereotype.Component;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 import javax.swing.*;
 
@@ -16,10 +16,10 @@ public class LoginFormBtnPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		loginBtn = new JButton(ConstMessagesEN.Labels.Login_Btn);
+		loginBtn = new JButton(ConstMessagesCN.Labels.Login_Btn);
 		add(loginBtn);
 
-		cancelBtn = new JButton(ConstMessagesEN.Labels.CANCEL_BTN);
+		cancelBtn = new JButton(ConstMessagesCN.Labels.CANCEL_BTN);
 		add(cancelBtn);
 	}
 

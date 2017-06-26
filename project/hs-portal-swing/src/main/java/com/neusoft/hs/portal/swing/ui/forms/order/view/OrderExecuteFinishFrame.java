@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.portal.framework.exception.UIException;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
 public class OrderExecuteFinishFrame extends JFrame {
@@ -34,7 +34,7 @@ public class OrderExecuteFinishFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesEN.Labels.FinishOrderExecute);
+		setTitle(ConstMessagesCN.Labels.FinishOrderExecute);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
@@ -48,7 +48,7 @@ public class OrderExecuteFinishFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
-		confirmBtn = new JButton(ConstMessagesEN.Labels.CONFIRM_BTN);
+		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);

@@ -3,7 +3,7 @@ package com.neusoft.hs.portal.swing.ui.shared.model;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.DateFormatter;
 
 @Component
@@ -39,11 +39,11 @@ public class OrderExecuteTableModel extends DefaultTableModel<OrderExecute> {
 
 	@Override
 	public String[] getColumnLabels() {
-		return new String[] { ConstMessagesEN.Labels.ID,
-				ConstMessagesEN.Labels.VisitName, ConstMessagesEN.Labels.Type,
-				ConstMessagesEN.Labels.State,
-				ConstMessagesEN.Labels.BelongDept,
-				ConstMessagesEN.Labels.ExecuteDept,
-				ConstMessagesEN.Labels.PlanStartDate };
+		return new String[] { ConstMessagesCN.Labels.ID,
+				ConstMessagesCN.Labels.VisitName, ConstMessagesCN.Labels.Type,
+				ConstMessagesCN.Labels.State,
+				ConstMessagesCN.Labels.BelongDept,
+				ConstMessagesCN.Labels.ExecuteDept,
+				ConstMessagesCN.Labels.PlanStartDate };
 	}
 }

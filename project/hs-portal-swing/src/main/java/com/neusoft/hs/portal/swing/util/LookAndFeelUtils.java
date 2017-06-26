@@ -10,8 +10,8 @@ public class LookAndFeelUtils {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     null,
-                    ConstMessagesEN.Messages.WINDOWS_STYLE_LOADING_ERROR_MESSAGE + e,
-                    ConstMessagesEN.Messages.ALERT_TILE,
+                    ConstMessagesCN.Messages.WINDOWS_STYLE_LOADING_ERROR_MESSAGE + e,
+                    ConstMessagesCN.Messages.ALERT_TILE,
                     JOptionPane.ERROR_MESSAGE);
         }
     }

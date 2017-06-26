@@ -3,7 +3,7 @@ package com.neusoft.hs.portal.swing.ui.shared.model;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.order.Order;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.DateFormatter;
 
 @Component
@@ -36,9 +36,9 @@ public class OrderTableModel extends DefaultTableModel<Order> {
 
 	@Override
 	public String[] getColumnLabels() {
-		return new String[] { ConstMessagesEN.Labels.ID,
-				ConstMessagesEN.Labels.VisitName, ConstMessagesEN.Labels.Name,
-				ConstMessagesEN.Labels.State, ConstMessagesEN.Labels.Type,
-				ConstMessagesEN.Labels.CreateDate };
+		return new String[] { ConstMessagesCN.Labels.ID,
+				ConstMessagesCN.Labels.VisitName, ConstMessagesCN.Labels.Name,
+				ConstMessagesCN.Labels.State, ConstMessagesCN.Labels.Type,
+				ConstMessagesCN.Labels.CreateDate };
 	}
 }

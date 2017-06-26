@@ -22,7 +22,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.SexComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.widget.SpinnerDate;
 
 @Component
@@ -73,13 +73,13 @@ public class VisitFormPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		JLabel carNumberLbl = new JLabel(ConstMessagesEN.Labels.CarNumber);
-		JLabel nameLbl = new JLabel(ConstMessagesEN.Labels.NAME);
-		JLabel birthdayLbl = new JLabel(ConstMessagesEN.Labels.Birthday);
-		JLabel sexLbl = new JLabel(ConstMessagesEN.Labels.Sex);
-		JLabel respDeptLbl = new JLabel(ConstMessagesEN.Labels.InPatientDept);
-		JLabel respAreaLbl = new JLabel(ConstMessagesEN.Labels.InPatientArea);
-		JLabel respDoctorLbl = new JLabel(ConstMessagesEN.Labels.RespDoctor);
+		JLabel carNumberLbl = new JLabel(ConstMessagesCN.Labels.CarNumber);
+		JLabel nameLbl = new JLabel(ConstMessagesCN.Labels.NAME);
+		JLabel birthdayLbl = new JLabel(ConstMessagesCN.Labels.Birthday);
+		JLabel sexLbl = new JLabel(ConstMessagesCN.Labels.Sex);
+		JLabel respDeptLbl = new JLabel(ConstMessagesCN.Labels.InPatientDept);
+		JLabel respAreaLbl = new JLabel(ConstMessagesCN.Labels.InPatientArea);
+		JLabel respDoctorLbl = new JLabel(ConstMessagesCN.Labels.RespDoctor);
 
 		carNumberTF = new JTextField(TEXT_FIELD_COLUMNS);
 		nameTF = new JTextField(TEXT_FIELD_COLUMNS);

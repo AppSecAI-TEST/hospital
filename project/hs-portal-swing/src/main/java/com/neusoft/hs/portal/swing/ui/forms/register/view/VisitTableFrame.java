@@ -2,7 +2,7 @@ package com.neusoft.hs.portal.swing.ui.forms.register.view;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class VisitTableFrame extends JFrame {
     }
 
     private void setFrameUp() {
-        setTitle(ConstMessagesEN.Labels.Register);
+        setTitle(ConstMessagesCN.Labels.Register);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         setLocationRelativeTo(null);

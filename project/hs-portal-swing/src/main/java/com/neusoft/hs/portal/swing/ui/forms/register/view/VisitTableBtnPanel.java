@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import org.springframework.stereotype.Component;
 
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
 public class VisitTableBtnPanel extends JPanel {
@@ -17,7 +17,7 @@ public class VisitTableBtnPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		addBtn = new JButton(ConstMessagesEN.Labels.ADD_BTN);
+		addBtn = new JButton(ConstMessagesCN.Labels.ADD_BTN);
 		add(addBtn);
 
 	}

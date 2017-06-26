@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.portal.framework.security.LoginEvent;
 import com.neusoft.hs.portal.swing.util.Borders;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
 public class FormsFrame extends JFrame implements
@@ -47,7 +47,7 @@ public class FormsFrame extends JFrame implements
 
 	private void setFrameUp() {
 		getRootPane().setBorder(Borders.createEmptyBorder());
-		setTitle(ConstMessagesEN.Labels.FORMS);
+		setTitle(ConstMessagesCN.Labels.FORMS);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -60,16 +60,16 @@ public class FormsFrame extends JFrame implements
 		JPanel menuPanel = new JPanel();
 		menuPanel.setLayout(new GridLayout(8, 2, 20, 20));
 
-		loginBtn = new JButton(ConstMessagesEN.Labels.Login);
-		registerBtn = new JButton(ConstMessagesEN.Labels.Register);
-		cashierBtn = new JButton(ConstMessagesEN.Labels.InitAccount);
-		receiveBtn = new JButton(ConstMessagesEN.Labels.ReceiveVisit);
-		createOrderBtn = new JButton(ConstMessagesEN.Labels.CreateOrder);
-		verifyOrderBtn = new JButton(ConstMessagesEN.Labels.VerifyOrder);
+		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
+		registerBtn = new JButton(ConstMessagesCN.Labels.Register);
+		cashierBtn = new JButton(ConstMessagesCN.Labels.InitAccount);
+		receiveBtn = new JButton(ConstMessagesCN.Labels.ReceiveVisit);
+		createOrderBtn = new JButton(ConstMessagesCN.Labels.CreateOrder);
+		verifyOrderBtn = new JButton(ConstMessagesCN.Labels.VerifyOrder);
 		sendOrderExecuteBtn = new JButton(
-				ConstMessagesEN.Labels.SendOrderExecute);
+				ConstMessagesCN.Labels.SendOrderExecute);
 		finishOrderExecuteBtn = new JButton(
-				ConstMessagesEN.Labels.FinishOrderExecute);
+				ConstMessagesCN.Labels.FinishOrderExecute);
 
 		menuPanel.add(loginBtn);
 		menuPanel.add(registerBtn);
@@ -83,7 +83,7 @@ public class FormsFrame extends JFrame implements
 		add(menuPanel, BorderLayout.CENTER);
 
 		JPanel statePanel = new JPanel();
-		loginLbl = new JLabel(ConstMessagesEN.Labels.LogoutState);
+		loginLbl = new JLabel(ConstMessagesCN.Labels.LogoutState);
 		statePanel.add(loginLbl);
 
 		add(statePanel, BorderLayout.SOUTH);
@@ -128,7 +128,7 @@ public class FormsFrame extends JFrame implements
 		if (user != null) {
 			loginLbl.setText(user.getName());
 		} else {
-			loginLbl.setText(ConstMessagesEN.Labels.LogoutState);
+			loginLbl.setText(ConstMessagesCN.Labels.LogoutState);
 		}
 	}
 }

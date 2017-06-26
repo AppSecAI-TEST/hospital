@@ -2,7 +2,7 @@ package com.neusoft.hs.portal.swing.ui.forms.register.view.modal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +23,7 @@ public class AddVisitFrame extends JDialog {
     }
 
     private void setFrameUp() {
-        setTitle(ConstMessagesEN.DialogTitles.Register_MODAL);
+        setTitle(ConstMessagesCN.DialogTitles.Register_MODAL);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);

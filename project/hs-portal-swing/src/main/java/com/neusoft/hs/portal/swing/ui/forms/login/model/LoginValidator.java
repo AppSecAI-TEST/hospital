@@ -1,6 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.login.model;
 
-import static com.neusoft.hs.portal.swing.util.ConstMessagesEN.ValidationMessages.REQUIRED_DATA_NOT_FILLED_OR_BAD_DATA;
+import static com.neusoft.hs.portal.swing.util.ConstMessagesCN.ValidationMessages.REQUIRED_DATA_NOT_FILLED_OR_BAD_DATA;
 
 import java.util.Optional;
 

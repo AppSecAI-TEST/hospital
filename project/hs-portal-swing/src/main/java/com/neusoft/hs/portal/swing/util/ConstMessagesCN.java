@@ -2,7 +2,7 @@ package com.neusoft.hs.portal.swing.util;
 
 import javax.swing.Icon;
 
-public interface ConstMessagesEN {
+public interface ConstMessagesCN {
 
 	interface DialogTitles {
 		String CLIENT_MODAL = "Adding client";

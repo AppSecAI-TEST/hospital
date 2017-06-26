@@ -3,7 +3,7 @@ package com.neusoft.hs.portal.swing.ui.shared.model;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.cost.ChargeRecord;
-import com.neusoft.hs.portal.swing.util.ConstMessagesEN;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.DateFormatter;
 
 @Component
@@ -38,10 +38,10 @@ public class ChargeRecordTableModel extends DefaultTableModel<ChargeRecord> {
 
 	@Override
 	public String[] getColumnLabels() {
-		return new String[] { ConstMessagesEN.Labels.ID,
-				ConstMessagesEN.Labels.ChargeItemName,
-				ConstMessagesEN.Labels.Amount, ConstMessagesEN.Labels.Count,
-				ConstMessagesEN.Labels.Price, ConstMessagesEN.Labels.Type,
-				ConstMessagesEN.Labels.CreateDate };
+		return new String[] { ConstMessagesCN.Labels.ID,
+				ConstMessagesCN.Labels.ChargeItemName,
+				ConstMessagesCN.Labels.Amount, ConstMessagesCN.Labels.Count,
+				ConstMessagesCN.Labels.Price, ConstMessagesCN.Labels.Type,
+				ConstMessagesCN.Labels.CreateDate };
 	}
 }
