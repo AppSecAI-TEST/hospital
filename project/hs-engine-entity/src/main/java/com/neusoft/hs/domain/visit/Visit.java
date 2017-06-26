@@ -245,15 +245,15 @@ public class Visit extends IdEntity {
 	public void intoWard(ReceiveVisitVO receiveVisitVO, AbstractUser user)
 			throws VisitException {
 		if (!State_NeedIntoWard.equals(this.getState())) {
-			throw new VisitException(this, "visit=[" + this.getName()
-					+ "]的状态应为[" + State_NeedIntoWard + "]");
+			throw new VisitException(this, "visit=[%s]的状态应为[%s]",
+					this.getName(), State_NeedIntoWard);
 		}
 
 		Date sysDate = DateUtil.getSysDate();
 
 		this.setRespNurse(receiveVisitVO.getNurse());
 		this.setArea(receiveVisitVO.getNurse().getDept());
-		
+
 		this.bed = receiveVisitVO.getBed();
 
 		this.setState(State_IntoWard);
@@ -276,8 +276,8 @@ public class Visit extends IdEntity {
 	 */
 	public void leaveWard(AbstractUser user) throws VisitException {
 		if (!State_IntoWard.equals(this.getState())) {
-			throw new VisitException(this, "visit=[" + this.getName()
-					+ "]的状态应为[" + State_IntoWard + "]");
+			throw new VisitException(this, "visit=[%s]的状态应为[%s]",
+					this.getName(), State_IntoWard);
 		}
 
 		this.setState(State_NeedLeaveHospitalBalance);
@@ -302,8 +302,8 @@ public class Visit extends IdEntity {
 	 */
 	public void balance(AbstractUser user) throws VisitException {
 		if (!State_NeedLeaveHospitalBalance.equals(this.getState())) {
-			throw new VisitException(this, "visit=[" + this.getName()
-					+ "]的状态应为[" + State_NeedLeaveHospitalBalance + "]");
+			throw new VisitException(this, "visit=[%s]的状态应为[%s]",
+					this.getName(), State_NeedLeaveHospitalBalance);
 		}
 
 		this.setState(State_OutHospital);
@@ -323,8 +323,8 @@ public class Visit extends IdEntity {
 	public void leaveHospital(AbstractUser user) throws VisitException {
 
 		if (this.chargeBill.getBalance() != 0L) {
-			throw new VisitException(this, "visit=[" + this.getName()
-					+ "]的收费单余额[" + this.chargeBill.getBalance() + "]不为零");
+			throw new VisitException(this, "visit=[%s]的收费单余额[%s]不为零",
+					this.getName(), this.chargeBill.getBalance());
 		}
 		this.setState(State_LeaveHospital);
 

@@ -124,8 +124,8 @@ public class VisitDomainService {
 
 		Visit visit = this.findLastVisit(createVisitVO.getCardNumber());
 		if (visit == null) {
-			throw new VisitException(null, "未发现号码为["
-					+ createVisitVO.getCardNumber() + "]的就诊记录");
+			throw new VisitException(null, "未发现号码为[%s]的就诊记录",
+					createVisitVO.getCardNumber());
 		}
 
 		VisitLog visitLog = new VisitLog();
