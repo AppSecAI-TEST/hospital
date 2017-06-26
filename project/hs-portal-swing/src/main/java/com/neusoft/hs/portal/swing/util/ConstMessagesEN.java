@@ -142,6 +142,8 @@ public interface ConstMessagesEN {
 
 		String ChargeBill = "收费单";
 		String ChargeRecord = "收费记录";
+		String OrderList = "医嘱单";
+		String OrderExecuteList = "医嘱执行单";
 
 	}
 

@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.visit.Visit;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class OrderAdminDomainService {
@@ -28,6 +30,10 @@ public class OrderAdminDomainService {
 
 	public List<Order> findAll(Pageable pageable) {
 		return orderRepo.findAll(pageable).getContent();
+	}
+	
+	public List<Order> find(Visit visit, Pageable pageable) {
+		return orderRepo.findByVisit(visit, pageable);
 	}
 	
 	public List<OrderType> findOrderType(Pageable pageable){

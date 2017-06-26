@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.swing.ui.reports.cost.controller;
+package com.neusoft.hs.portal.swing.ui.reports.order.controller;
 
 import java.awt.event.ItemEvent;
 import java.util.List;
@@ -9,48 +9,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.domain.cost.ChargeBill;
-import com.neusoft.hs.domain.cost.ChargeRecord;
-import com.neusoft.hs.domain.cost.CostDomainService;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteAdminService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.portal.swing.ui.reports.cost.view.ChargeRecordReportFrame;
+import com.neusoft.hs.portal.swing.ui.reports.order.view.OrderExecuteFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
-import com.neusoft.hs.portal.swing.ui.shared.model.ChargeRecordTableModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 
 @Controller
-public class ChargeRecordReportController extends AbstractFrameController {
+public class OrderExecuteController extends AbstractFrameController {
 
 	@Autowired
-	private ChargeRecordReportFrame chargeRecordReportFrame;
+	private OrderExecuteFrame orderExecuteFrame;
 
+	@Autowired
+	private OrderExecuteAdminService orderExecuteAdminService;
+	
 	@Autowired
 	private VisitAdminDomainService visitAdminDomainService;
 
 	@Autowired
-	private CostDomainService costDomainService;
-
+	private OrderExecuteTableModel orderExecuteTableModel;
+	
 	@Autowired
 	private VisitComboBoxModel visitComboBoxModel;
 
-	@Autowired
-	private ChargeRecordTableModel chargeRecordTableModel;
-
 	@PostConstruct
 	private void prepareListeners() {
-		registerAction(chargeRecordReportFrame.getVisitCB(),
-				(e) -> refreshChargeRecord(e));
+		registerAction(orderExecuteFrame.getVisitCB(), (e) -> refreshOrderExecute(e));
 	}
 
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
 		loadVisits();
-
-		chargeRecordReportFrame.setVisible(true);
+		
+		orderExecuteFrame.setVisible(true);
 	}
 
 	private void loadVisits() throws HsException {
@@ -63,22 +60,17 @@ public class ChargeRecordReportController extends AbstractFrameController {
 		visitComboBoxModel.addElements(entities);
 	}
 
-	public void refreshChargeRecord(ItemEvent e) {
+	public void refreshOrderExecute(ItemEvent e) {
 		Visit visit = (Visit) e.getItem();
 
-		chargeRecordTableModel.clear();
+		orderExecuteTableModel.clear();
 
 		if (visit != null) {
-			List<ChargeRecord> entities = costDomainService
-					.getChargeRecords(visit);
+			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+			List<OrderExecute> entities = orderExecuteAdminService
+					.find(visit, pageable);
 
-			chargeRecordTableModel.addEntities(entities);
-
-			ChargeBill chargeBill = costDomainService.getChargeBill(visit);
-
-			String chargeBillInfo = "收费单：余额[" + chargeBill.getBalance()
-					+ "],消费[" + chargeBill.getConsume() + "]";
-			chargeRecordReportFrame.getChargeBillLbl().setText(chargeBillInfo);
+			orderExecuteTableModel.addEntities(entities);
 		}
 	}
 }

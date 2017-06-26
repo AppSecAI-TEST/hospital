@@ -62,6 +62,5 @@ interface OrderExecuteRepo extends
 			@Param("chargeBillState") String chargeBillState,
 			@Param("sysDate") Date sysDate, @Param("startDate") Date startDate);
 
-
-
+	List<OrderExecute> findByVisit(Visit visit, Pageable pageable);
 }
