@@ -29,7 +29,7 @@ public class VisitAppService {
 
 		Visit visit = visitDomainService.find(visitId);
 		if (visit == null) {
-			throw new HsException("visitId=[" + visitId + "]不存在");
+			throw new HsException("visitId=[%s]不存在", visitId);
 		}
 
 		visitDomainService.leaveHospital(visit, user);

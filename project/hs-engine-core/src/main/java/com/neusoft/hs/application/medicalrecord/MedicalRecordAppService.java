@@ -26,8 +26,8 @@ public class MedicalRecordAppService {
 		return medicalRecordDomainService.create(builder, visit, type, doctor);
 	}
 
-	public void create(MedicalRecord record) {
-		medicalRecordDomainService.create(record);
+	public void save(MedicalRecord record) {
+		medicalRecordDomainService.save(record);
 	}
 
 	public MedicalRecord find(String id) {

@@ -17,7 +17,7 @@ public class VisitFacadeImpl implements VisitFacade {
 
 	@Autowired
 	private VisitAppService visitAppService;
-	
+
 	@Autowired
 	private VisitDomainService visitDomainService;
 
@@ -30,8 +30,8 @@ public class VisitFacadeImpl implements VisitFacade {
 		AbstractUser user = userAdminDomainService.find(leaveHospitalDTO
 				.getOperatorId());
 		if (user == null) {
-			throw new HsException("operatorId=["
-					+ leaveHospitalDTO.getOperatorId() + "]不存在");
+			throw new HsException("operatorId=[%s]不存在",
+					leaveHospitalDTO.getOperatorId());
 		}
 		String visitId = leaveHospitalDTO.getVisitId();
 
@@ -42,6 +42,5 @@ public class VisitFacadeImpl implements VisitFacade {
 	public Visit find(String visitId) {
 		return visitDomainService.find(visitId);
 	}
-	
-	
+
 }

@@ -8,16 +8,15 @@ public class CostException extends HsException {
 		super();
 	}
 
-	public CostException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
+	public CostException(String arg0, Throwable arg1, Object... params) {
+		super(String.format(arg0, params), arg1);
 	}
 
-	public CostException(String arg0) {
-		super(arg0);
+	public CostException(String arg0, Object... params) {
+		super(String.format(arg0, params));
 	}
 
 	public CostException(Throwable arg0) {
 		super(arg0);
 	}
-
 }

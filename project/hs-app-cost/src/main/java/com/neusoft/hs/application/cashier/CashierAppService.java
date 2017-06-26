@@ -50,7 +50,7 @@ public class CashierAppService {
 			AbstractUser user) throws HsException {
 		Visit visit = visitDomainService.find(visitId);
 		if (visit == null) {
-			throw new HsException("visitId=[" + visitId + "]不存在");
+			throw new HsException("visitId=[%s]不存在", visitId);
 		}
 		ChargeBill chargeBill = costDomainService.createChargeBill(visit,
 				balance, user);
@@ -62,7 +62,7 @@ public class CashierAppService {
 			throws HsException {
 		Visit visit = visitDomainService.find(visitId);
 		if (visit == null) {
-			throw new HsException("visitId=[" + visitId + "]不存在");
+			throw new HsException("visitId=[%s]不存在", visitId);
 		}
 		ChargeRecord chargeRecord = costDomainService.addCost(visit, balance,
 				user);

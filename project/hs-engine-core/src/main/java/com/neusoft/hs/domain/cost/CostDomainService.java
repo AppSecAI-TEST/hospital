@@ -73,7 +73,7 @@ public class CostDomainService {
 			throws HsException {
 
 		if (!visit.isInitedAccount()) {
-			throw new HsException("visitName=[" + visit.getName() + "]未初始化账户");
+			throw new HsException("visitName=[%s]未初始化账户", visit.getName());
 		}
 
 		ChargeRecord chargeRecord = new ChargeRecord();

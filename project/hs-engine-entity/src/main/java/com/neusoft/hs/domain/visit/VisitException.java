@@ -11,13 +11,14 @@ public class VisitException extends HsException {
 		this.visit = visit;
 	}
 
-	public VisitException(Visit visit, String arg0, Throwable arg1) {
-		super(arg0, arg1);
+	public VisitException(Visit visit, String arg0, Throwable arg1,
+			Object... params) {
+		super(String.format(arg0, params), arg1);
 		this.visit = visit;
 	}
 
-	public VisitException(Visit visit, String arg0) {
-		super(arg0);
+	public VisitException(Visit visit, String arg0, Object... params) {
+		super(String.format(arg0, params));
 		this.visit = visit;
 	}
 

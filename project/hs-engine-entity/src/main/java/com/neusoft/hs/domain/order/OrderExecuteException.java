@@ -12,13 +12,13 @@ public class OrderExecuteException extends HsException {
 	}
 
 	public OrderExecuteException(OrderExecute execute, String arg0,
-			Throwable arg1) {
-		super(arg0, arg1);
+			Throwable arg1, Object... params) {
+		super(String.format(arg0, params), arg1);
 		this.execute = execute;
 	}
 
-	public OrderExecuteException(OrderExecute execute, String arg0) {
-		super(arg0);
+	public OrderExecuteException(OrderExecute execute, String arg0, Object... params) {
+		super(String.format(arg0, params));
 		this.execute = execute;
 	}
 

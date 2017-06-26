@@ -8,12 +8,12 @@ public class PharmacyException extends HsException {
 		super();
 	}
 
-	public PharmacyException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
+	public PharmacyException(String arg0, Throwable arg1, Object... params) {
+		super(String.format(arg0, params), arg1);
 	}
 
-	public PharmacyException(String arg0) {
-		super(arg0);
+	public PharmacyException(String arg0, Object... params) {
+		super(String.format(arg0, params));
 	}
 
 	public PharmacyException(Throwable arg0) {

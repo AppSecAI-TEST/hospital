@@ -52,7 +52,7 @@ public class MedicalRecordDomainService {
 	 * 
 	 * @param record
 	 */
-	public void create(MedicalRecord record) {
+	public void save(MedicalRecord record) {
 		if (record.getCreateDate() == null) {
 			record.setCreateDate(DateUtil.getSysDate());
 		}

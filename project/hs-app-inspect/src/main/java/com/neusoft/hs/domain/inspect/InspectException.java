@@ -8,12 +8,12 @@ public class InspectException extends HsException {
 		super();
 	}
 
-	public InspectException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
+	public InspectException(String arg0, Throwable arg1, Object... params) {
+		super(String.format(arg0, params), arg1);
 	}
 
-	public InspectException(String arg0) {
-		super(arg0);
+	public InspectException(String arg0, Object... params) {
+		super(String.format(arg0, params));
 	}
 
 	public InspectException(Throwable arg0) {

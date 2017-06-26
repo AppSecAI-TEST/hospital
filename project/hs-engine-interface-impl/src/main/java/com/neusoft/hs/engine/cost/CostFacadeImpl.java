@@ -75,8 +75,8 @@ public class CostFacadeImpl implements CostFacade {
 
 		Visit visit = visitDomainService.find(chargeBillAddCostVO.getVisitId());
 		if (visit == null) {
-			throw new HsException("visitId=["
-					+ chargeBillAddCostVO.getVisitId() + "]不存在");
+			throw new HsException("visitId=[%s]不存在",
+					chargeBillAddCostVO.getVisitId());
 		}
 
 		AbstractUser user = userAdminDomainService.find(chargeBillAddCostVO
@@ -95,7 +95,7 @@ public class CostFacadeImpl implements CostFacade {
 			int pageNumber, int pageSize) throws HsException {
 		Staff user = (Staff) userAdminDomainService.find(userId);
 		if (user == null) {
-			throw new HsException("userId=[" + userId + "]不存在");
+			throw new HsException("userId=[%s]不存在", userId);
 		}
 		Pageable pageable = new PageRequest(pageNumber, pageSize);
 
@@ -109,15 +109,15 @@ public class CostFacadeImpl implements CostFacade {
 		OrderExecute orderExecute = orderExecuteDomainService.find(unChargingVO
 				.getExecuteId());
 		if (orderExecute == null) {
-			throw new OrderExecuteException(null, "orderExecuteId=["
-					+ unChargingVO.getExecuteId() + "]不存在");
+			throw new OrderExecuteException(null, "orderExecuteId=[%s]不存在",
+					unChargingVO.getExecuteId());
 		}
 
 		Nurse user = (Nurse) userAdminDomainService.find(unChargingVO
 				.getUserId());
 		if (user == null) {
-			throw new OrderExecuteException(orderExecute, "userId=["
-					+ unChargingVO.getUserId() + "]不存在");
+			throw new OrderExecuteException(orderExecute, "userId=[%s]不存在",
+					unChargingVO.getUserId());
 		}
 
 		costDomainService.unCharging(orderExecute, unChargingVO.isBackCost(),

@@ -6,22 +6,18 @@ public class TreatmentException extends HsException {
 
 	public TreatmentException() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public TreatmentException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
+	public TreatmentException(String arg0, Throwable arg1, Object... params) {
+		super(String.format(arg0, params), arg1);
 	}
 
-	public TreatmentException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public TreatmentException(String arg0, Object... params) {
+		super(String.format(arg0, params));
 	}
 
 	public TreatmentException(Throwable arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 
 }

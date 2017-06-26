@@ -11,13 +11,13 @@ public class OrderException extends HsException {
 		this.order = order;
 	}
 
-	public OrderException(Order order, String arg0, Throwable arg1) {
-		super(arg0, arg1);
+	public OrderException(Order order, String arg0, Throwable arg1, Object... params) {
+		super(String.format(arg0, params), arg1);
 		this.order = order;
 	}
 
-	public OrderException(Order order, String arg0) {
-		super(arg0);
+	public OrderException(Order order, String arg0, Object... params) {
+		super(String.format(arg0, params));
 		this.order = order;
 	}
 

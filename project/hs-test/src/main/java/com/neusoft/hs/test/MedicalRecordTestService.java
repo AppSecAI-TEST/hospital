@@ -71,7 +71,7 @@ public class MedicalRecordTestService {
 		((SimpleTreatmentItemValue) datas.get("主诉").getValues().get(0))
 				.setInfo("患者咳嗽发烧两天，体温37.5");
 
-		medicalRecordAppService.create(outPatientRecord);
+		medicalRecordAppService.save(outPatientRecord);
 
 		return outPatientRecord;
 
@@ -99,7 +99,7 @@ public class MedicalRecordTestService {
 		((SimpleTreatmentItemValue) datas.get("主诉").getValues().get(0))
 				.setInfo("患者咳嗽发烧三天，体温38.5");
 
-		medicalRecordAppService.create(intoWardRecord);
+		medicalRecordAppService.save(intoWardRecord);
 
 		return intoWardRecord;
 
@@ -129,7 +129,7 @@ public class MedicalRecordTestService {
 		assertTrue(((ListTreatmentItemValue) itemValue.get(0)).getData()
 				.get("name").equals("阿司匹林"));
 
-		medicalRecordAppService.create(temporaryOrderListRecord);
+		medicalRecordAppService.save(temporaryOrderListRecord);
 
 		return temporaryOrderListRecord;
 
@@ -171,7 +171,7 @@ public class MedicalRecordTestService {
 			itemValue = datas.get("检查科室").getValues();
 			assertTrue(itemValue.get(0).toString().equals("CT室"));
 
-			medicalRecordAppService.create(inspectResultRecord);
+			medicalRecordAppService.save(inspectResultRecord);
 
 			records.add(inspectResultRecord);
 		}
