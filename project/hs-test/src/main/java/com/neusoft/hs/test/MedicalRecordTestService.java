@@ -24,7 +24,6 @@ import com.neusoft.hs.domain.treatment.ItemValue;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
-import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -42,9 +41,6 @@ public class MedicalRecordTestService {
 
 	@Autowired
 	protected VisitDomainService visitDomainService;
-
-	@Autowired
-	protected TreatmentDomainService treatmentDomainService;
 
 	@Autowired
 	protected TreatmentAppService treatmentAppService;
