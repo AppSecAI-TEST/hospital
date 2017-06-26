@@ -46,6 +46,7 @@ public class OrderController extends AbstractFrameController {
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
 		loadVisits();
+		orderTableModel.clear();
 
 		orderFrame.setVisible(true);
 	}

@@ -49,6 +49,8 @@ public class ChargeRecordReportController extends AbstractFrameController {
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
 		loadVisits();
+		
+		chargeRecordTableModel.clear();
 
 		chargeRecordReportFrame.setVisible(true);
 	}
