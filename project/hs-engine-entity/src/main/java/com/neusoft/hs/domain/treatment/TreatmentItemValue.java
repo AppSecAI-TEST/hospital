@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.treatment;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
@@ -34,9 +35,15 @@ public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 	@JoinColumn(name = "treatment_spec_id")
 	private TreatmentItemSpec treatmentItemSpec;
 
+	@Column(name = "treatment_spec_name", length = 128)
+	private String treatmentItemSpecName;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
+
+	@Column(name = "visit_name", length = 16)
+	private String visitName;
 
 	public TreatmentItem getItem() {
 		return item;
@@ -52,6 +59,15 @@ public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 
 	public void setTreatmentItemSpec(TreatmentItemSpec treatmentItemSpec) {
 		this.treatmentItemSpec = treatmentItemSpec;
+		this.treatmentItemSpecName = treatmentItemSpec.getName();
+	}
+
+	public String getTreatmentItemSpecName() {
+		return treatmentItemSpecName;
+	}
+
+	public void setTreatmentItemSpecName(String treatmentItemSpecName) {
+		this.treatmentItemSpecName = treatmentItemSpecName;
 	}
 
 	public Visit getVisit() {
@@ -60,6 +76,15 @@ public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+		this.visitName = visit.getName();
+	}
+
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
 	}
 
 	public MedicalRecordItemValue toMedicalRecordItemValue()

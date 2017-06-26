@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 import com.neusoft.hs.application.pharmacy.OutPatientPharmacyAppService;
 import com.neusoft.hs.domain.diagnosis.DiagnosisTreatmentItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.order.TemporaryDrugOrderBuilder;
 import com.neusoft.hs.domain.order.EnterHospitalOrderType;
 import com.neusoft.hs.domain.order.LongDrugOrderBuilder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.PrescriptionBuilder;
+import com.neusoft.hs.domain.order.TemporaryDrugOrderBuilder;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.pharmacy.Prescription;
@@ -29,6 +29,7 @@ import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
+import com.neusoft.hs.domain.treatment.TreatmentItemValue;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.engine.visit.LeaveHospitalDTO;
@@ -47,9 +48,9 @@ public class OutPatientMainTestService extends AppTestService {
 
 	protected Visit visit003;
 
-	protected DiagnosisTreatmentItemValue hyperthyroidismDiagnosisTreatmentItemValue;
+	protected DiagnosisTreatmentItemValue hyperthyroidismDTV;
 
-	protected DiagnosisTreatmentItemValue hypoglycemiaDiagnosisTreatmentItemValue;
+	protected DiagnosisTreatmentItemValue hypoglycemiaDTV;
 
 	@Override
 	public void execute() throws HsException {
@@ -150,38 +151,30 @@ public class OutPatientMainTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:27"));
 
 		// 创建主诉
-		item = new TreatmentItem();
-		item.setVisit(visit001);
-		item.setTreatmentItemSpec(mainDescribeTreatmentItemSpec);
-		item.setCreator(user002);
-
 		SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
 		value.setInfo("患者咳嗽发烧两天");
-		item.addValue(value);
 
-		treatmentDomainService.create(item);
+		treatmentAppService.create(visit001, mainDescribeTreatmentItemSpec,
+				value, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:28"));
 
 		// 创建诊断
-		item = new TreatmentItem();
-		item.setVisit(visit001);
-		item.setTreatmentItemSpec(diagnosisTreatmentItemSpec);
-		item.setCreator(user002);
+		List<TreatmentItemValue> values = new ArrayList<TreatmentItemValue>();
 
-		hyperthyroidismDiagnosisTreatmentItemValue = new DiagnosisTreatmentItemValue();
-		hyperthyroidismDiagnosisTreatmentItemValue
-				.setDisease(hyperthyroidismDisease);
+		hyperthyroidismDTV = new DiagnosisTreatmentItemValue();
+		hyperthyroidismDTV.setDisease(hyperthyroidismDisease);
 
-		item.addValue(hyperthyroidismDiagnosisTreatmentItemValue);
+		values.add(hyperthyroidismDTV);
 
-		hypoglycemiaDiagnosisTreatmentItemValue = new DiagnosisTreatmentItemValue();
-		hypoglycemiaDiagnosisTreatmentItemValue.setDisease(hypoglycemiaDisease);
-		hypoglycemiaDiagnosisTreatmentItemValue.setRemark("2.5mmol/L");
+		hypoglycemiaDTV = new DiagnosisTreatmentItemValue();
+		hypoglycemiaDTV.setDisease(hypoglycemiaDisease);
+		hypoglycemiaDTV.setRemark("2.5mmol/L");
 
-		item.addValue(hypoglycemiaDiagnosisTreatmentItemValue);
+		values.add(hypoglycemiaDTV);
 
-		treatmentDomainService.create(item);
+		treatmentAppService.create(visit001, diagnosisTreatmentItemSpec,
+				values, user002);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:30"));
 
@@ -209,20 +202,18 @@ public class OutPatientMainTestService extends AppTestService {
 		prescriptionBuilder = new PrescriptionBuilder();
 		prescriptionBuilder.setVisit(visit001);
 		prescriptionBuilder.setIllustrate("水煎服");
-		prescriptionBuilder.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
+		prescriptionBuilder
+				.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
 		prescriptionBuilder.setPharmacy(dept888);
 		prescriptionBuilder.setDrugUseMode(oralOrderUseMode);
-		
-		prescriptionBuilder
-				.addDiagnosisTreatmentItemValue(hyperthyroidismDiagnosisTreatmentItemValue);
-		prescriptionBuilder
-				.addDiagnosisTreatmentItemValue(hypoglycemiaDiagnosisTreatmentItemValue);
+
+		prescriptionBuilder.addDiagnosisTreatmentItemValue(hyperthyroidismDTV);
+		prescriptionBuilder.addDiagnosisTreatmentItemValue(hypoglycemiaDTV);
 
 		// 开立药品004\005\006临时医嘱
 		prescriptionBuilder.addCount(drugOrderType004, 20);
 		prescriptionBuilder.addCount(drugOrderType005, 15);
 		prescriptionBuilder.addCount(drugOrderType006, 100);
-
 
 		orderAppService.create(prescriptionBuilder, user002);
 
@@ -449,7 +440,7 @@ public class OutPatientMainTestService extends AppTestService {
 		leaveHospitalDTO.setOperatorId(user002.getId());
 		visitFacade.leaveHospital(leaveHospitalDTO);
 
-		//theVisit = visitDomainService.find(visit002.getId());
+		// theVisit = visitDomainService.find(visit002.getId());
 		theVisit = visitFacade.find(visit002.getId());
 
 		assertTrue(theVisit.getState().equals(Visit.State_LeaveHospital));
