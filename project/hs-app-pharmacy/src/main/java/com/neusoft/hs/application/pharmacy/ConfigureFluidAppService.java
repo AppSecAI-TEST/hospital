@@ -90,8 +90,7 @@ public class ConfigureFluidAppService {
 		ConfigureFluidOrder fluidOrder = configureFluidDomainService
 				.getConfigureFluidOrder(fluidOrderId);
 		if (fluidOrder == null) {
-			throw new PharmacyException("fluidOrderId=[" + fluidOrderId
-					+ "]不存在");
+			throw new PharmacyException("fluidOrderId=[%s]不存在", fluidOrderId);
 		}
 		configureFluidDomainService.finishOrder(fluidOrder, user);
 

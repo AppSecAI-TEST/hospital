@@ -37,8 +37,8 @@ public class Pharmacy extends Dept {
 
 		List<DrugType> theDrugTypes = this.getTheDrugTypes(drugTypeSpec);
 		if (theDrugTypes == null || theDrugTypes.size() == 0) {
-			throw new PharmacyException("药房[" + this.getName() + "]没有["
-					+ drugTypeSpec.getName() + "]药品");
+			throw new PharmacyException("药房[%s]没有[%s]药品", this.getName(),
+					drugTypeSpec.getName());
 		}
 		DrugType theDrugType = theDrugTypes.get(0);
 
@@ -66,13 +66,13 @@ public class Pharmacy extends Dept {
 
 	}
 
-	public List<DrugTypeConsumeRecord> send(DrugTypeSpec drugTypeSpec, Integer count)
-			throws PharmacyException {
-		
+	public List<DrugTypeConsumeRecord> send(DrugTypeSpec drugTypeSpec,
+			Integer count) throws PharmacyException {
+
 		List<DrugType> theDrugTypes = this.getTheDrugTypes(drugTypeSpec);
 		if (theDrugTypes == null || theDrugTypes.size() == 0) {
-			throw new PharmacyException("药房[" + this.getName() + "]没有["
-					+ drugTypeSpec.getName() + "]药品");
+			throw new PharmacyException("药房[%s]没有[%s]药品", this.getName(),
+					drugTypeSpec.getName());
 		}
 		DrugType theDrugType = theDrugTypes.get(0);
 

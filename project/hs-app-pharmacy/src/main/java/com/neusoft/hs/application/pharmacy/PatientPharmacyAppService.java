@@ -91,8 +91,8 @@ public class PatientPharmacyAppService {
 		DispensingDrugOrder dispensingDrugOrder = pharmacyDomainService
 				.getDispensingDrugOrder(dispensingDrugOrderId);
 		if (dispensingDrugOrder == null) {
-			throw new PharmacyException("dispensingDrugOrderId=["
-					+ dispensingDrugOrder + "]不存在");
+			throw new PharmacyException("dispensingDrugOrderId=[%s]不存在",
+					dispensingDrugOrderId);
 		}
 		pharmacyDomainService.dispenseOrder(dispensingDrugOrder, user);
 
@@ -105,8 +105,8 @@ public class PatientPharmacyAppService {
 		DispensingDrugOrder dispensingDrugOrder = pharmacyDomainService
 				.getDispensingDrugOrder(dispensingDrugOrderId);
 		if (dispensingDrugOrder == null) {
-			throw new PharmacyException("dispensingDrugOrderId=["
-					+ dispensingDrugOrder + "]不存在");
+			throw new PharmacyException("dispensingDrugOrderId=[%s]不存在",
+					dispensingDrugOrderId);
 		}
 		pharmacyDomainService.distributeOrder(dispensingDrugOrder, user);
 
