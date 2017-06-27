@@ -4,7 +4,8 @@
 2、文档：增加服务职责编写规范章节
 3、实现模型：向TreatmentAppService增加create方法，简化直接采用TreatmentDomainService.create的复杂度
 4、实现模型：改进创建有变量业务异常时异常信息的创建方式
-5、实现模型：定制启动日志图形[SpringBoot->EVE（伊娃）]
+5、实现模型：定制启动日志图形[SpringBoot->EVE（伊娃）]，以及Swing主画面
+6、实现模型：取消TableModel和ComboBoxModel的Spring托管
 
 
 2017.06.23 0.9.4_01 创建版本号生成exe
