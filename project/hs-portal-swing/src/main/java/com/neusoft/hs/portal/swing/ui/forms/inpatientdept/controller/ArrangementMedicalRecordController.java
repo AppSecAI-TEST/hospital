@@ -88,10 +88,8 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 			Notifications.showFormValidationAlert("请选择患者");
 		}
 
-		MedicalRecordType type = medicalRecordAdminDomainService
-				.getMedicalRecordType("临时医嘱单");
 		try {
-			this.createMedicalRecord(type, visit);
+			this.createMedicalRecord("临时医嘱单", visit);
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
@@ -99,8 +97,12 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 
 	}
 
-	private MedicalRecord createMedicalRecord(MedicalRecordType type,
-			Visit visit) throws HsException {
+	
+	private MedicalRecord createMedicalRecord(String typeId, Visit visit)
+			throws HsException {
+
+		MedicalRecordType type = medicalRecordAdminDomainService
+				.getMedicalRecordType(typeId);
 
 		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
 
