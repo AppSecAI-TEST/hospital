@@ -27,6 +27,9 @@ public class MainMenuFrame extends JFrame {
 
 	private JButton formsBtn;
 	private JButton reportsBtn;
+	
+	private final static int Width = 370;
+	private final static int Height = 230;
 
 	public MainMenuFrame() {
 		setFrameUp();
@@ -40,6 +43,7 @@ public class MainMenuFrame extends JFrame {
 		setIconImage(iconImage); 
 		setTitle(ConstMessagesCN.Labels.MAIN_MENU);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setSize(Width, Height);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		LookAndFeelUtils.setWindowsLookAndFeel();

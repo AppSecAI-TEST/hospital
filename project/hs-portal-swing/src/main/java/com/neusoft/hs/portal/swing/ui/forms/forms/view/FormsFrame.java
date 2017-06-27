@@ -37,7 +37,18 @@ public class FormsFrame extends JFrame implements
 
 	private JButton finishOrderExecuteBtn;
 
+	private JButton arrangementMedicalRecordBtn;
+
+	private JButton transferMedicalRecordBtn;
+
+	private JButton qualityControlBtn;
+
+	private JButton archiveMedicalRecordBtn;
+
 	private JLabel loginLbl;
+	
+	private final static int Width = 225;
+	private final static int Height = 600;
 
 	public FormsFrame() {
 		setFrameUp();
@@ -49,6 +60,7 @@ public class FormsFrame extends JFrame implements
 		getRootPane().setBorder(Borders.createEmptyBorder());
 		setTitle(ConstMessagesCN.Labels.FORMS);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setSize(Width, Height);
 		setLocationRelativeTo(null);
 		setResizable(false);
 	}
@@ -58,7 +70,7 @@ public class FormsFrame extends JFrame implements
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(8, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(12, 2, 20, 20));
 
 		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
 		registerBtn = new JButton(ConstMessagesCN.Labels.Register);
@@ -70,6 +82,13 @@ public class FormsFrame extends JFrame implements
 				ConstMessagesCN.Labels.SendOrderExecute);
 		finishOrderExecuteBtn = new JButton(
 				ConstMessagesCN.Labels.FinishOrderExecute);
+		arrangementMedicalRecordBtn = new JButton(
+				ConstMessagesCN.Labels.ArrangementMedicalRecord);
+		transferMedicalRecordBtn = new JButton(
+				ConstMessagesCN.Labels.TransferMedicalRecord);
+		qualityControlBtn = new JButton(ConstMessagesCN.Labels.QualityControl);
+		archiveMedicalRecordBtn = new JButton(
+				ConstMessagesCN.Labels.ArchiveMedicalRecord);
 
 		menuPanel.add(loginBtn);
 		menuPanel.add(registerBtn);
@@ -79,6 +98,10 @@ public class FormsFrame extends JFrame implements
 		menuPanel.add(verifyOrderBtn);
 		menuPanel.add(sendOrderExecuteBtn);
 		menuPanel.add(finishOrderExecuteBtn);
+		menuPanel.add(arrangementMedicalRecordBtn);
+		menuPanel.add(transferMedicalRecordBtn);
+		menuPanel.add(qualityControlBtn);
+		menuPanel.add(archiveMedicalRecordBtn);
 
 		add(menuPanel, BorderLayout.CENTER);
 

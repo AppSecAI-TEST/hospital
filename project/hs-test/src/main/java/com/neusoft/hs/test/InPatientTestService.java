@@ -366,6 +366,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00", dayCount));
 
+		//病历移交档案室
 		medicalRecordAppService.transfer(visit001, dept666, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30", dayCount));
@@ -375,10 +376,12 @@ public abstract class InPatientTestService extends AppTestService {
 
 		assertTrue(clips.size() == 1);
 
+		//审查病历
 		qualityControlAppService.pass(clips.get(0).getId(), user601);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-11 10:30", dayCount));
 
+		//归档病历
 		String position = "Num001";
 		recordRoomDomainService
 				.archive(clips.get(0).getId(), position, user602);

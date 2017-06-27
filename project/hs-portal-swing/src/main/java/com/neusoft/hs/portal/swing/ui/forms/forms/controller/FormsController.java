@@ -6,12 +6,16 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.cashier.controller.CashierController;
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.FormsFrame;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ArrangementMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderExecuteSendController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderVerifyController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveVisitController;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.TransferMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
+import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.ArchiveMedicalRecordController;
+import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.QualityControlController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -45,6 +49,18 @@ public class FormsController extends AbstractFrameController {
 	
 	@Autowired
 	private OrderExecuteFinishController orderExecuteFinishController;
+	
+	@Autowired
+	private ArrangementMedicalRecordController arrangementMedicalRecordController;
+	
+	@Autowired
+	private TransferMedicalRecordController transferMedicalRecordController;
+	
+	@Autowired
+	private QualityControlController qualityControlController;
+	
+	@Autowired
+	private ArchiveMedicalRecordController archiveMedicalRecordController;
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
