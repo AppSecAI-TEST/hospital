@@ -31,7 +31,7 @@ public interface ConstMessagesCN {
 	}
 
 	interface Labels {
-		String MAIN_MENU = "医院业务";
+		String MAIN_MENU = "医院业务（RealOne Suite）";
 		String Version = "版本";
 		String BuildDate = "构建日期";
 		String CLIENTS = "Clients";
@@ -88,18 +88,18 @@ public interface ConstMessagesCN {
 		String NUMBER_OF_RESERVATIONS = "Number of reservations";
 		String CLIENT_RESERVATIONS = "Client's reservations";
 
-		String Login_Btn = "登陆";
+		String Login_Btn = "登录";
 		String CANCEL_BTN = "取消";
 		String LogoutState = "未登录";
 
-		String Login = "登陆";
+		String Login = "登录";
 		String Register = "送诊";
 		String InPatientDept = "住院科室";
 		String InPatientArea = "住院病区";
 		String RespDoctor = "责任医生";
 		String NAME = "名称";
 		String Account = "账号";
-		String InitAccount = "初始化账户";
+		String InitAccount = "预存住院费";
 		String ReceiveVisit = "接诊";
 		String InitBlanace = "预存金额";
 		String Bed = "床位";
