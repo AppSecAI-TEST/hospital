@@ -88,7 +88,7 @@ public class OutPatientPlanRecord extends IdEntity {
 	 */
 	public void occupy(Voucher voucher) throws VoucherException, CostException {
 		if (this.currentAllotNumber > maxAllotNumber) {
-			throw new VoucherException("诊室[" + room.getName() + "]号源已满");
+			throw new VoucherException("诊室[%s]号源已满", room.getName());
 		}
 		voucher.setNumber(++currentAllotNumber);
 		voucher.setPlanRecord(this);

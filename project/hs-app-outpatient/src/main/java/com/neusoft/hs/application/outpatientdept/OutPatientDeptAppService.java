@@ -37,8 +37,7 @@ public class OutPatientDeptAppService {
 		OutPatientPlanRecord record = outPatientPlanDomainService
 				.findPlanRecord(planRecordId);
 		if (record == null) {
-			throw new OutPatientDeptException("门诊医生排班记录[" + planRecordId
-					+ "]不存在");
+			throw new OutPatientDeptException("门诊医生排班记录[%s]不存在", planRecordId);
 		}
 		return outPatientDeptDomainService.nextVoucher(record);
 	}

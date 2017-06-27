@@ -55,7 +55,7 @@ public class RegistrationDomainService {
 		OutPatientPlanRecord planRecord = outPatientPlanDomainService
 				.findPlanRecord(planRecordId);
 		if (planRecord == null) {
-			throw new VoucherException("门诊医生排班记录[" + planRecordId + "]不存在");
+			throw new VoucherException("门诊医生排班记录[%s]不存在", planRecordId);
 		}
 
 		Voucher voucher = new Voucher();
@@ -108,7 +108,7 @@ public class RegistrationDomainService {
 		OutPatientPlanRecord planRecord = outPatientPlanDomainService
 				.findPlanRecord(planRecordId);
 		if (planRecord == null) {
-			throw new VoucherException("门诊医生排班记录[" + planRecordId + "]不存在");
+			throw new VoucherException("门诊医生排班记录[%s]不存在", planRecordId);
 		}
 
 		planRecord.repeatOccupy(voucher);
