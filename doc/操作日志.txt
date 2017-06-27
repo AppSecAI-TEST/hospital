@@ -3,7 +3,8 @@
 1、实现模型：统计业务里增加查看医嘱单、医嘱执行单功能
 2、文档：增加服务职责编写规范章节
 3、实现模型：向TreatmentAppService增加create方法，简化直接采用TreatmentDomainService.create的复杂度
-
+4、实现模型：改进创建有变量业务异常时异常信息的创建方式
+5、实现模型：定制启动日志图形[SpringBoot->EVE（伊娃）]
 
 
 2017.06.23 0.9.4_01 创建版本号生成exe
