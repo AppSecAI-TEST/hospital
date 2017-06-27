@@ -70,8 +70,8 @@ public class InspectAppService {
 		InspectApplyItem inspectApplyItem = inspectDomainService
 				.findInspectApplyItem(inspectApplyItemId);
 		if (inspectApplyItem == null) {
-			throw new InspectException("检查项目inspectApplyItemId=["
-					+ inspectApplyItemId + "]不存在");
+			throw new InspectException("检查项目inspectApplyItemId=[%s]不存在",
+					inspectApplyItemId);
 		}
 		inspectDomainService.cancel(inspectApplyItem, user);
 	}

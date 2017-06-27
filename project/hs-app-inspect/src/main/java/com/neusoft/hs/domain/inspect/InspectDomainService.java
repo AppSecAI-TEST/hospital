@@ -59,7 +59,7 @@ public class InspectDomainService {
 		Order order = orderExecute.getOrder();
 		Apply apply = order.getApply();
 		if (apply == null) {
-			throw new InspectException("医嘱条目[" + order + "]不存在申请单");
+			throw new InspectException("医嘱条目[%s]不存在申请单", order.getId());
 		}
 
 		InspectApply inspectApply = (InspectApply) apply;
@@ -101,8 +101,8 @@ public class InspectDomainService {
 			throws InspectException {
 
 		if (inspectApplyItem.getState().equals(InspectApplyItem.State_Finished)) {
-			throw new InspectException("检查项目["
-					+ inspectApplyItem.getInspectItem().getCode() + "]已完成");
+			throw new InspectException("检查项目[%s]已完成", inspectApplyItem
+					.getInspectItem().getCode());
 		}
 
 		inspectApplyItem.setState(InspectApplyItem.State_Canceled);
