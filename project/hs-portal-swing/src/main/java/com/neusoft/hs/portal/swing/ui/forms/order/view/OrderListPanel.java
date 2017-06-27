@@ -21,9 +21,7 @@ public class OrderListPanel extends JPanel {
 	protected JTable table;
 
 	@Autowired
-	public OrderListPanel(OrderTableModel orderTableModel) {
-		this.orderTableModel = orderTableModel;
-
+	public OrderListPanel() {
 		setPanelUp();
 		initComponents();
 	}
@@ -35,11 +33,16 @@ public class OrderListPanel extends JPanel {
 
 	private void initComponents() {
 
+		this.orderTableModel = new OrderTableModel();
 		table = new JTable(this.orderTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane paneWithTable = new JScrollPane(table);
 
 		add(paneWithTable, BorderLayout.CENTER);
+	}
+
+	public OrderTableModel getOrderTableModel() {
+		return orderTableModel;
 	}
 }

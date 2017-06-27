@@ -1,11 +1,11 @@
-package com.neusoft.hs.portal.swing.ui.reports.order.view;
+package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -13,32 +13,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class OrderExecuteFrame extends JFrame {
+public class ArrangementMedicalRecordFrame extends JFrame {
 
 	JComboBox<Visit> visitCB;
 	VisitComboBoxModel visitComboBoxModel;
 
-	private OrderExecuteAdminListPanel orderExecuteAdminListPanel;
+	private JButton createTemporaryOrderListBtn;
+
+	private JButton createInspectResultBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
 
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public OrderExecuteFrame(
-			OrderExecuteAdminListPanel orderExecuteFinishListPanel) {
-		this.orderExecuteAdminListPanel = orderExecuteFinishListPanel;
+	public ArrangementMedicalRecordFrame() {
 		setFrameUp();
 		initComponents();
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesCN.Labels.OrderExecuteList);
+		setTitle(ConstMessagesCN.Labels.ChargeRecord);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
@@ -48,19 +47,27 @@ public class OrderExecuteFrame extends JFrame {
 	private void initComponents() {
 		setLayout(new BorderLayout());
 
-		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel visitPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		JLabel visitLbl = new JLabel(ConstMessagesCN.Labels.Visit);
-
-		this.visitComboBoxModel = new VisitComboBoxModel();
+		visitComboBoxModel = new VisitComboBoxModel();
 		visitCB = new JComboBox<>(visitComboBoxModel);
 
-		operationPanel.add(visitLbl);
-		operationPanel.add(visitCB);
+		visitPanel.add(visitCB);
 
-		add(operationPanel, BorderLayout.NORTH);
+		add(visitPanel, BorderLayout.NORTH);
 
-		add(orderExecuteAdminListPanel, BorderLayout.CENTER);
+		JPanel operationPanel = new JPanel();
+
+		createTemporaryOrderListBtn = new JButton(
+				ConstMessagesCN.Labels.createTemporaryOrderListMR);
+		createInspectResultBtn = new JButton(
+				ConstMessagesCN.Labels.createInspectResultMR);
+
+		operationPanel.add(createTemporaryOrderListBtn);
+		operationPanel.add(createInspectResultBtn);
+
+		add(operationPanel, BorderLayout.CENTER);
+
 	}
 
 	public JComboBox<Visit> getVisitCB() {
@@ -70,9 +77,13 @@ public class OrderExecuteFrame extends JFrame {
 	public VisitComboBoxModel getVisitComboBoxModel() {
 		return visitComboBoxModel;
 	}
-	
-	public OrderExecuteTableModel getOrderExecuteTableModel() {
-		return this.orderExecuteAdminListPanel.getOrderExecuteTableModel();
+
+	public JButton getCreateTemporaryOrderListBtn() {
+		return createTemporaryOrderListBtn;
+	}
+
+	public JButton getCreateInspectResultBtn() {
+		return createInspectResultBtn;
 	}
 
 }

@@ -36,12 +36,6 @@ public class ReceiveVisitController extends AbstractFrameController {
 	@Autowired
 	private ReceiveVisitFrame receiveVisitFrame;
 
-	@Autowired
-	private VisitTableModel tableModel;
-
-	@Autowired
-	private NurseComboBoxModel respNurseComboBoxModel;
-
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(receiveVisitFrame.getConfirmBtn(), (e) -> receive());
@@ -60,6 +54,7 @@ public class ReceiveVisitController extends AbstractFrameController {
 		List<Visit> entities = inPatientAppService.getNeedReceiveVisits(
 				UserUtil.getUser(), pageable);
 
+		VisitTableModel tableModel = receiveVisitFrame.getVisitTableModel();
 		tableModel.clear();
 		tableModel.addEntities(entities);
 	}
@@ -72,6 +67,8 @@ public class ReceiveVisitController extends AbstractFrameController {
 		depts.add(dept);
 		
 		List<Nurse> nurses = this.userAdminDomainService.findNurse(depts, pageable);
+		
+		NurseComboBoxModel respNurseComboBoxModel = receiveVisitFrame.getRespNurseComboBoxModel();
 		respNurseComboBoxModel.clear();
 		respNurseComboBoxModel.addElements(nurses);
 	}

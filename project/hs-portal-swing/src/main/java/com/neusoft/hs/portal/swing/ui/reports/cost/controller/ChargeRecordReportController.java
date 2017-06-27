@@ -34,10 +34,6 @@ public class ChargeRecordReportController extends AbstractFrameController {
 	@Autowired
 	private CostDomainService costDomainService;
 
-	@Autowired
-	private VisitComboBoxModel visitComboBoxModel;
-
-	@Autowired
 	private ChargeRecordTableModel chargeRecordTableModel;
 
 	@PostConstruct
@@ -48,8 +44,11 @@ public class ChargeRecordReportController extends AbstractFrameController {
 
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
+
 		loadVisits();
-		
+
+		chargeRecordTableModel = this.chargeRecordReportFrame
+				.getChargeRecordTableModel();
 		chargeRecordTableModel.clear();
 
 		chargeRecordReportFrame.setVisible(true);
@@ -59,6 +58,9 @@ public class ChargeRecordReportController extends AbstractFrameController {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
 		List<Visit> entities = visitAdminDomainService.find(pageable);
+
+		VisitComboBoxModel visitComboBoxModel = chargeRecordReportFrame
+				.getVisitComboBoxModel();
 
 		visitComboBoxModel.clear();
 		visitComboBoxModel.addElement(null);

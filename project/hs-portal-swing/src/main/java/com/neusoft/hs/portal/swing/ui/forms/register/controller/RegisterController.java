@@ -36,37 +36,25 @@ import com.neusoft.hs.portal.swing.validation.VisitValidator;
 @Controller
 public class RegisterController extends AbstractFrameController {
 
+	@Autowired
 	private VisitTableFrame tableFrame;
-	private AddVisitFrame addFrame;
-	private VisitTableModel tableModel;
-	private InPatientDeptComboBoxModel inPatientDeptComboBoxModel;
-	private InPatientAreaComboBoxModel inPatientAreaComboBoxModel;
-	private DoctorComboBoxModel doctorComboBoxModel;
-	private RegisterAppService registerAppService;
-	private OrganizationAdminDomainService organizationDomainService;
-	private UserAdminDomainService userDomainService;
-	private VisitValidator validator;
 
 	@Autowired
-	public RegisterController(VisitTableFrame tableFrame,
-			AddVisitFrame addFrame, VisitTableModel tableModel,
-			RegisterAppService registerAppService,
-			OrganizationAdminDomainService organizationDomainService,
-			InPatientDeptComboBoxModel inPatientDeptComboBoxModel,
-			InPatientAreaComboBoxModel inPatientAreaComboBoxModel,
-			DoctorComboBoxModel doctorComboBoxModel,
-			UserAdminDomainService userDomainService, VisitValidator validator) {
-		this.tableFrame = tableFrame;
-		this.addFrame = addFrame;
-		this.tableModel = tableModel;
-		this.registerAppService = registerAppService;
-		this.organizationDomainService = organizationDomainService;
-		this.userDomainService = userDomainService;
-		this.inPatientDeptComboBoxModel = inPatientDeptComboBoxModel;
-		this.inPatientAreaComboBoxModel = inPatientAreaComboBoxModel;
-		this.doctorComboBoxModel = doctorComboBoxModel;
-		this.validator = validator;
-	}
+	private AddVisitFrame addFrame;
+
+	@Autowired
+	private RegisterAppService registerAppService;
+
+	@Autowired
+	private OrganizationAdminDomainService organizationDomainService;
+
+	@Autowired
+	private UserAdminDomainService userDomainService;
+
+	@Autowired
+	private VisitValidator validator;
+	
+	private VisitTableModel tableModel;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -90,6 +78,8 @@ public class RegisterController extends AbstractFrameController {
 	private void loadEntities() {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<Visit> entities = registerAppService.listVisit(pageable);
+
+		tableModel = this.tableFrame.getTablePanel().getTableModel();
 		tableModel.clear();
 		tableModel.addEntities(entities);
 	}
@@ -98,6 +88,9 @@ public class RegisterController extends AbstractFrameController {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<InPatientDept> depts = organizationDomainService
 				.findInPatientDept(pageable);
+
+		InPatientDeptComboBoxModel inPatientDeptComboBoxModel = this.addFrame
+				.getFormPanel().getRespDeptComboBoxModel();
 		inPatientDeptComboBoxModel.clear();
 		inPatientDeptComboBoxModel.addElements(depts);
 	}
@@ -106,6 +99,9 @@ public class RegisterController extends AbstractFrameController {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<InPatientAreaDept> areas = organizationDomainService
 				.findInPatientArea(pageable);
+
+		InPatientAreaComboBoxModel inPatientAreaComboBoxModel = this.addFrame
+				.getFormPanel().getRespAreaComboBoxModel();
 		inPatientAreaComboBoxModel.clear();
 		inPatientAreaComboBoxModel.addElements(areas);
 	}
@@ -113,6 +109,9 @@ public class RegisterController extends AbstractFrameController {
 	private void loadDoctors() {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<Doctor> doctors = this.userDomainService.findDoctor(pageable);
+
+		DoctorComboBoxModel doctorComboBoxModel = this.addFrame.getFormPanel()
+				.getRespDoctorComboBoxModel();
 		doctorComboBoxModel.clear();
 		doctorComboBoxModel.addElements(doctors);
 	}

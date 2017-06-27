@@ -3,11 +3,9 @@ package com.neusoft.hs.portal.swing.ui.shared.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.neusoft.hs.domain.patient.Patient;
 
-@Component
+
 public class SexComboBoxModel extends DefaultComboBoxModel<String> {
 
 	public SexComboBoxModel() {

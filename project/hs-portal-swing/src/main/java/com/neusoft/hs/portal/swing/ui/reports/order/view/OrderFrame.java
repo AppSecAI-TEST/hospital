@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
@@ -29,9 +30,7 @@ public class OrderFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 600;
 
 	@Autowired
-	public OrderFrame(VisitComboBoxModel visitComboBoxModel,
-			OrderListAdminPanel orderListAdminPanel) {
-		this.visitComboBoxModel = visitComboBoxModel;
+	public OrderFrame(OrderListAdminPanel orderListAdminPanel) {
 		this.orderListAdminPanel = orderListAdminPanel;
 
 		setFrameUp();
@@ -52,6 +51,7 @@ public class OrderFrame extends JFrame {
 		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		JLabel visitLbl = new JLabel(ConstMessagesCN.Labels.Visit);
+		this.visitComboBoxModel = new VisitComboBoxModel();
 		visitCB = new JComboBox<>(visitComboBoxModel);
 
 		operationPanel.add(visitLbl);
@@ -64,5 +64,13 @@ public class OrderFrame extends JFrame {
 
 	public JComboBox<Visit> getVisitCB() {
 		return visitCB;
+	}
+
+	public VisitComboBoxModel getVisitComboBoxModel() {
+		return visitComboBoxModel;
+	}
+
+	public OrderTableModel getOrderTableModel() {
+		return this.orderListAdminPanel.getOrderTableModel();
 	}
 }

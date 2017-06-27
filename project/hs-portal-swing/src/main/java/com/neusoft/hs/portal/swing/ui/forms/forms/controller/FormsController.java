@@ -46,19 +46,19 @@ public class FormsController extends AbstractFrameController {
 
 	@Autowired
 	private OrderExecuteSendController orderExecuteSendController;
-	
+
 	@Autowired
 	private OrderExecuteFinishController orderExecuteFinishController;
-	
+
 	@Autowired
 	private ArrangementMedicalRecordController arrangementMedicalRecordController;
-	
+
 	@Autowired
 	private TransferMedicalRecordController transferMedicalRecordController;
-	
+
 	@Autowired
 	private QualityControlController qualityControlController;
-	
+
 	@Autowired
 	private ArchiveMedicalRecordController archiveMedicalRecordController;
 
@@ -78,6 +78,14 @@ public class FormsController extends AbstractFrameController {
 				(e) -> openSendOrderExecuteWindow());
 		registerAction(mainMenuFrame.getFinishOrderExecuteBtn(),
 				(e) -> openFinishOrderExecuteWindow());
+		registerAction(mainMenuFrame.getArrangementMedicalRecordBtn(),
+				(e) -> openArrangementMedicalRecordWindow());
+		registerAction(mainMenuFrame.getTransferMedicalRecordBtn(),
+				(e) -> openTransferMedicalRecordWindow());
+		registerAction(mainMenuFrame.getQualityControlBtn(),
+				(e) -> openQualityControlWindow());
+		registerAction(mainMenuFrame.getArchiveMedicalRecordBtn(),
+				(e) -> openArchiveMedicalRecordWindow());
 
 		mainMenuFrame.setVisible(true);
 	}
@@ -144,10 +152,46 @@ public class FormsController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void openFinishOrderExecuteWindow() {
 		try {
 			orderExecuteFinishController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openArrangementMedicalRecordWindow() {
+		try {
+			arrangementMedicalRecordController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openTransferMedicalRecordWindow() {
+		try {
+			transferMedicalRecordController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openQualityControlWindow() {
+		try {
+			qualityControlController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openArchiveMedicalRecordWindow() {
+		try {
+			archiveMedicalRecordController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

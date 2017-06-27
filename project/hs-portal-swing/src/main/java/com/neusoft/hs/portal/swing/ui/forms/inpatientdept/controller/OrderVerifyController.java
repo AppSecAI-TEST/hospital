@@ -27,9 +27,6 @@ public class OrderVerifyController extends AbstractFrameController {
 	@Autowired
 	private OrderAppService orderAppService;
 
-	@Autowired
-	private OrderTableModel orderTableModel;
-
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(orderVerifyFrame.getConfirmBtn(), (e) -> verify());
@@ -47,6 +44,7 @@ public class OrderVerifyController extends AbstractFrameController {
 		List<Order> entities = orderAppService.getNeedVerifyOrders(
 				UserUtil.getUser(), pageable);
 
+		OrderTableModel orderTableModel = orderVerifyFrame.getOrderTableModel();
 		orderTableModel.clear();
 		orderTableModel.addEntities(entities);
 	}

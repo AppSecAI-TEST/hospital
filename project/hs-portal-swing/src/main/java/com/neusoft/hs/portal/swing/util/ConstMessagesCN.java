@@ -150,6 +150,9 @@ public interface ConstMessagesCN {
 		String OrderList = "医嘱单";
 		String OrderExecuteList = "医嘱执行单";
 
+		String createTemporaryOrderListMR = "创建临时医嘱单";
+		String createInspectResultMR = "生成检查单病历";
+
 	}
 
 	interface ValidationMessages {

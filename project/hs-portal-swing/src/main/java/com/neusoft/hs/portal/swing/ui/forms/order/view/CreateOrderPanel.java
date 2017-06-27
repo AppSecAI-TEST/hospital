@@ -55,7 +55,7 @@ public class CreateOrderPanel extends JPanel {
 
 	JComboBox<DrugUseMode> orderUseModeCB;
 	DrugUseModeComboBoxModel orderUseModeComboBoxModel;
-	
+
 	JComboBox<Pharmacy> pharmacyCB;
 	PharmacyComboBoxModel pharmacyComboBoxModel;
 
@@ -68,19 +68,7 @@ public class CreateOrderPanel extends JPanel {
 	private static final int TEXT_FIELD_COLUMNS = 20;
 
 	@Autowired
-	public CreateOrderPanel(VisitComboBoxModel visitComboBoxModel,
-			OrderTypeComboBoxModel orderTypeComboBoxModel,
-			PlaceTypeComboBoxModel placeTypeComboBoxModel,
-			OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel,
-			DrugUseModeComboBoxModel orderUseModeComboBoxModel,
-			PharmacyComboBoxModel pharmacyComboBoxModel) {
-		this.visitComboBoxModel = visitComboBoxModel;
-		this.orderTypeComboBoxModel = orderTypeComboBoxModel;
-		this.placeTypeComboBoxModel = placeTypeComboBoxModel;
-		this.frequencyTypeComboBoxModel = frequencyTypeComboBoxModel;
-		this.orderUseModeComboBoxModel = orderUseModeComboBoxModel;
-		this.pharmacyComboBoxModel = pharmacyComboBoxModel;
-
+	public CreateOrderPanel() {
 		setPanelUp();
 		initComponents();
 	}
@@ -91,6 +79,13 @@ public class CreateOrderPanel extends JPanel {
 	}
 
 	private void initComponents() {
+
+		this.visitComboBoxModel = new VisitComboBoxModel();
+		this.orderTypeComboBoxModel = new OrderTypeComboBoxModel();
+		this.placeTypeComboBoxModel = new PlaceTypeComboBoxModel();
+		this.frequencyTypeComboBoxModel = new OrderFrequencyTypeComboBoxModel();
+		this.orderUseModeComboBoxModel = new DrugUseModeComboBoxModel();
+		this.pharmacyComboBoxModel = new PharmacyComboBoxModel();
 
 		JPanel formPanl = new JPanel();
 		formPanl.setLayout(new GridLayout(LAYOUT_ROWS, LAYOUT_COLS,
@@ -107,7 +102,8 @@ public class CreateOrderPanel extends JPanel {
 		JLabel countLbl = new JLabel(ConstMessagesCN.Labels.Count);
 		JLabel pharmacyLbl = new JLabel(ConstMessagesCN.Labels.Pharmacy);
 
-		planStartDateSD = new SpinnerDate("yyyy-MM-dd");;
+		planStartDateSD = new SpinnerDate("yyyy-MM-dd");
+		;
 		countSN = new SpinnerNumber();
 
 		visitCB = new JComboBox<>(visitComboBoxModel);
@@ -115,10 +111,9 @@ public class CreateOrderPanel extends JPanel {
 		placeTypeCB = new JComboBox<>(placeTypeComboBoxModel);
 
 		frequencyTypeCB = new JComboBox<>(frequencyTypeComboBoxModel);
-		
+
 		orderUseModeCB = new JComboBox<>(orderUseModeComboBoxModel);
 		pharmacyCB = new JComboBox<>(pharmacyComboBoxModel);
-		
 
 		formPanl.add(visitLbl);
 		formPanl.add(visitCB);
@@ -137,7 +132,7 @@ public class CreateOrderPanel extends JPanel {
 
 		formPanl.add(orderUseModeLbl);
 		formPanl.add(orderUseModeCB);
-		
+
 		formPanl.add(pharmacyLbl);
 		formPanl.add(pharmacyCB);
 
@@ -153,4 +148,29 @@ public class CreateOrderPanel extends JPanel {
 
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
+
+	public VisitComboBoxModel getVisitComboBoxModel() {
+		return visitComboBoxModel;
+	}
+
+	public OrderTypeComboBoxModel getOrderTypeComboBoxModel() {
+		return orderTypeComboBoxModel;
+	}
+
+	public PlaceTypeComboBoxModel getPlaceTypeComboBoxModel() {
+		return placeTypeComboBoxModel;
+	}
+
+	public OrderFrequencyTypeComboBoxModel getFrequencyTypeComboBoxModel() {
+		return frequencyTypeComboBoxModel;
+	}
+
+	public DrugUseModeComboBoxModel getOrderUseModeComboBoxModel() {
+		return orderUseModeComboBoxModel;
+	}
+
+	public PharmacyComboBoxModel getPharmacyComboBoxModel() {
+		return pharmacyComboBoxModel;
+	}
+
 }

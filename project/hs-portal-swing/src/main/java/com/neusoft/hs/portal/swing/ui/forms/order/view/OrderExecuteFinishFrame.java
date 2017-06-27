@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.portal.framework.exception.UIException;
+import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
@@ -26,7 +27,8 @@ public class OrderExecuteFinishFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public OrderExecuteFinishFrame(OrderExecuteFinishListPanel orderExecuteFinishListPanel) {
+	public OrderExecuteFinishFrame(
+			OrderExecuteFinishListPanel orderExecuteFinishListPanel) {
 		this.orderExecuteFinishListPanel = orderExecuteFinishListPanel;
 
 		setFrameUp();
@@ -57,9 +59,13 @@ public class OrderExecuteFinishFrame extends JFrame {
 	public JButton getConfirmBtn() {
 		return this.confirmBtn;
 	}
-	
+
 	public OrderExecute getSelectedOrderExecute() throws UIException {
 		return orderExecuteFinishListPanel.getSelectedOrderExecute();
+	}
+
+	public OrderExecuteTableModel getOrderExecuteTableModel() {
+		return this.orderExecuteFinishListPanel.getOrderExecuteTableModel();
 	}
 
 }

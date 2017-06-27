@@ -27,16 +27,13 @@ public class CashierController extends AbstractFrameController {
 	@Autowired
 	private CashierInitAccountTableFrame cashierTableFrame;
 
-	@Autowired
-	private VisitTableModel tableModel;
-
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(cashierTableFrame.getConfirmBtn(), (e) -> initAccount());
 	}
 
 	@Override
-	public void prepareAndOpenFrame() throws HsException{
+	public void prepareAndOpenFrame() throws HsException {
 		loadNeedInitAccountVisits();
 		cashierTableFrame.setVisible(true);
 	}
@@ -46,6 +43,8 @@ public class CashierController extends AbstractFrameController {
 
 		List<Visit> entities = cashierAppService
 				.getNeedInitAccountVisits(pageable);
+
+		VisitTableModel tableModel = cashierTableFrame.getVisitTableModel();
 		tableModel.clear();
 		tableModel.addEntities(entities);
 	}
@@ -54,7 +53,7 @@ public class CashierController extends AbstractFrameController {
 		try {
 			String visitId = cashierTableFrame.getSelectedVisitId();
 			Float balance = cashierTableFrame.getBalance();
-			
+
 			cashierAppService.initAccount(visitId, balance, UserUtil.getUser());
 
 			loadNeedInitAccountVisits();

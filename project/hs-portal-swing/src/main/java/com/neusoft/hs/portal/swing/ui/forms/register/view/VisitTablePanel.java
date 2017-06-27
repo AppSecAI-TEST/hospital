@@ -15,31 +15,34 @@ import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 @Component
 public class VisitTablePanel extends JPanel {
 
-    private VisitTableModel tableModel;
+	private VisitTableModel tableModel;
 
-    private JTable table;
+	private JTable table;
 
-    @Autowired
-    VisitTablePanel(VisitTableModel tableModel) {
-        this.tableModel = tableModel;
-        setPanelUp();
-        initComponents();
-    }
+	@Autowired
+	VisitTablePanel() {
+		setPanelUp();
+		initComponents();
+	}
 
-    private void setPanelUp() {
-        setLayout(new BorderLayout());
-    }
+	private void setPanelUp() {
+		setLayout(new BorderLayout());
+	}
 
-    private void initComponents() {
-        table = new JTable(tableModel);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	private void initComponents() {
+		this.tableModel = new VisitTableModel();
+		table = new JTable(tableModel);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        JScrollPane paneWithTable = new JScrollPane(table);
-        add(paneWithTable, BorderLayout.CENTER);
-    }
+		JScrollPane paneWithTable = new JScrollPane(table);
+		add(paneWithTable, BorderLayout.CENTER);
+	}
 
-    public JTable getTable() {
-        return table;
-    }
+	public JTable getTable() {
+		return table;
+	}
 
+	public VisitTableModel getTableModel() {
+		return tableModel;
+	}
 }

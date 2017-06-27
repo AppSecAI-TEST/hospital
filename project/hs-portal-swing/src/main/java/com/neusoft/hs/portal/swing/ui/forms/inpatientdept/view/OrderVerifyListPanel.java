@@ -23,9 +23,7 @@ public class OrderVerifyListPanel extends JPanel {
 	protected JTable table;
 
 	@Autowired
-	public OrderVerifyListPanel(OrderTableModel orderTableModel) {
-		this.orderTableModel = orderTableModel;
-
+	public OrderVerifyListPanel() {
 		setPanelUp();
 		initComponents();
 	}
@@ -37,6 +35,7 @@ public class OrderVerifyListPanel extends JPanel {
 
 	private void initComponents() {
 
+		this.orderTableModel = new OrderTableModel();
 		table = new JTable(this.orderTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -50,6 +49,10 @@ public class OrderVerifyListPanel extends JPanel {
 			throw new UIException("请选择要核对的医嘱");
 		}
 		return orderTableModel.getOrder(this.table.getSelectedRow());
+	}
+
+	public OrderTableModel getOrderTableModel() {
+		return orderTableModel;
 	}
 
 }

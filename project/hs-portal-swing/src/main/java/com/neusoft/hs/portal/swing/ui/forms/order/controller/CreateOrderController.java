@@ -63,25 +63,16 @@ public class CreateOrderController extends AbstractFrameController {
 	@Autowired
 	private OrganizationAdminDomainService organizationDomainService;
 
-	@Autowired
-	private OrderTableModel orderTableModel;
-
-	@Autowired
 	private VisitComboBoxModel visitComboBoxModel;
 
-	@Autowired
 	private PlaceTypeComboBoxModel placeTypeComboBoxModel;
 
-	@Autowired
 	private OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel;
 
-	@Autowired
 	private DrugUseModeComboBoxModel orderUseModeComboBoxModel;
 
-	@Autowired
 	private OrderTypeComboBoxModel orderTypeComboBoxModel;
 
-	@Autowired
 	private PharmacyComboBoxModel pharmacyComboBoxModel;
 
 	@PostConstruct
@@ -95,6 +86,7 @@ public class CreateOrderController extends AbstractFrameController {
 		loadVisits();
 		loadOrderTypes();
 		loadFrequencyTypes();
+		loadPlaceTypes();
 		loadPharmacys();
 		loadOrderUseModes();
 
@@ -106,7 +98,9 @@ public class CreateOrderController extends AbstractFrameController {
 
 		List<Order> entities = orderAppService.findByBelongDept(UserUtil
 				.getUser().getDept(), pageable);
-		
+
+		OrderTableModel orderTableModel = createOrderFrame.getOrderListPanel()
+				.getOrderTableModel();
 		orderTableModel.clear();
 		orderTableModel.addEntities(entities);
 	}
@@ -117,6 +111,8 @@ public class CreateOrderController extends AbstractFrameController {
 		List<Visit> entities = visitDomainService.findByStateAndDept(
 				Visit.State_IntoWard, UserUtil.getUser().getDept(), pageable);
 
+		visitComboBoxModel = this.createOrderFrame.getCreateOrderPanel()
+				.getVisitComboBoxModel();
 		visitComboBoxModel.clear();
 		visitComboBoxModel.addElements(entities);
 	}
@@ -130,8 +126,16 @@ public class CreateOrderController extends AbstractFrameController {
 
 		List<OrderType> orderTypes = this.orderAdminDomainService
 				.findOrderType(pageable);
+
+		orderTypeComboBoxModel = this.createOrderFrame.getCreateOrderPanel()
+				.getOrderTypeComboBoxModel();
+
 		orderTypeComboBoxModel.clear();
 		orderTypeComboBoxModel.addElements(orderTypes);
+	}
+	
+	private void loadPlaceTypes() {
+		placeTypeComboBoxModel = new PlaceTypeComboBoxModel();
 	}
 
 	private void loadFrequencyTypes() throws HsException {
@@ -140,6 +144,8 @@ public class CreateOrderController extends AbstractFrameController {
 		List<OrderFrequencyType> entities = orderAdminDomainService
 				.findFrequencyType(pageable);
 
+		frequencyTypeComboBoxModel = this.createOrderFrame
+				.getCreateOrderPanel().getFrequencyTypeComboBoxModel();
 		frequencyTypeComboBoxModel.clear();
 		frequencyTypeComboBoxModel.addElement(null);
 		frequencyTypeComboBoxModel.addElements(entities);
@@ -149,6 +155,8 @@ public class CreateOrderController extends AbstractFrameController {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 		List<Pharmacy> pharmacys = pharmacyAdminService.findPharmacy(pageable);
 
+		pharmacyComboBoxModel = this.createOrderFrame.getCreateOrderPanel()
+				.getPharmacyComboBoxModel();
 		pharmacyComboBoxModel.clear();
 		pharmacyComboBoxModel.addElement(null);
 		pharmacyComboBoxModel.addElements(pharmacys);
@@ -160,6 +168,8 @@ public class CreateOrderController extends AbstractFrameController {
 		List<DrugUseMode> entities = pharmacyAdminService
 				.findDrugUseMode(pageable);
 
+		orderUseModeComboBoxModel = this.createOrderFrame.getCreateOrderPanel()
+				.getOrderUseModeComboBoxModel();
 		orderUseModeComboBoxModel.clear();
 		orderUseModeComboBoxModel.addElement(null);
 		orderUseModeComboBoxModel.addElements(entities);

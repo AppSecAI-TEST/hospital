@@ -27,9 +27,6 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
 
-	@Autowired
-	private OrderExecuteTableModel orderExecuteTableModel;
-
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(orderExecuteFinishFrame.getConfirmBtn(), (e) -> finish());
@@ -47,6 +44,8 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 		List<OrderExecute> entities = orderExecuteAppService
 				.getNeedExecuteOrderExecutes(UserUtil.getUser(), pageable);
 
+		OrderExecuteTableModel orderExecuteTableModel = this.orderExecuteFinishFrame
+				.getOrderExecuteTableModel();
 		orderExecuteTableModel.clear();
 		orderExecuteTableModel.addEntities(entities);
 	}

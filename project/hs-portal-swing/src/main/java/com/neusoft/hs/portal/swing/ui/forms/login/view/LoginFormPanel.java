@@ -6,14 +6,12 @@ import java.awt.GridLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.portal.swing.ui.forms.login.model.AbstractUserComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.forms.login.model.LoginInfo;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
@@ -31,8 +29,7 @@ public class LoginFormPanel extends JPanel {
 	private AbstractUserComboBoxModel abstractUserComboBoxModel;
 
 	@Autowired
-	public LoginFormPanel(AbstractUserComboBoxModel abstractUserComboBoxModel) {
-		this.abstractUserComboBoxModel = abstractUserComboBoxModel;
+	public LoginFormPanel() {
 		setPanelUp();
 		initComponents();
 	}
@@ -46,6 +43,7 @@ public class LoginFormPanel extends JPanel {
 	private void initComponents() {
 		JLabel nameLbl = new JLabel(ConstMessagesCN.Labels.Account);
 
+		this.abstractUserComboBoxModel = new AbstractUserComboBoxModel();
 		accountCB = new JComboBox<AbstractUser>(abstractUserComboBoxModel);
 		accountCB.setPreferredSize(new Dimension(200, 30));
 
@@ -61,4 +59,9 @@ public class LoginFormPanel extends JPanel {
 		//accountTF.setText("");
 	}
 
+	public AbstractUserComboBoxModel getAbstractUserComboBoxModel() {
+		return abstractUserComboBoxModel;
+	}
+	
+	
 }

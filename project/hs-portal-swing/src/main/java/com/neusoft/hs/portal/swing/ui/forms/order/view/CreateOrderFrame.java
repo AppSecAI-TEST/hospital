@@ -67,4 +67,12 @@ public class CreateOrderFrame extends JFrame {
 		}
 	}
 
+	public OrderListPanel getOrderListPanel() {
+		return orderListPanel;
+	}
+
+	public CreateOrderPanel getCreateOrderPanel() {
+		return createOrderPanel;
+	}
+
 }

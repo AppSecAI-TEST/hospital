@@ -21,9 +21,7 @@ public class OrderListAdminPanel extends JPanel {
 	protected JTable table;
 
 	@Autowired
-	public OrderListAdminPanel(OrderTableModel orderTableModel) {
-		this.orderTableModel = orderTableModel;
-
+	public OrderListAdminPanel() {
 		setPanelUp();
 		initComponents();
 	}
@@ -34,7 +32,7 @@ public class OrderListAdminPanel extends JPanel {
 	}
 
 	private void initComponents() {
-
+		this.orderTableModel = new OrderTableModel();
 		table = new JTable(this.orderTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -42,4 +40,9 @@ public class OrderListAdminPanel extends JPanel {
 
 		add(paneWithTable, BorderLayout.CENTER);
 	}
+
+	public OrderTableModel getOrderTableModel() {
+		return orderTableModel;
+	}
+
 }

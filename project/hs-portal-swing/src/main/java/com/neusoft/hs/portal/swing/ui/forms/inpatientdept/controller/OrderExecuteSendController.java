@@ -27,9 +27,6 @@ public class OrderExecuteSendController extends AbstractFrameController {
 	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
 
-	@Autowired
-	private OrderExecuteTableModel orderExecuteTableModel;
-
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(orderExecuteSendFrame.getConfirmBtn(), (e) -> send());
@@ -46,7 +43,8 @@ public class OrderExecuteSendController extends AbstractFrameController {
 
 		List<OrderExecute> entities = orderExecuteAppService
 				.getNeedSendOrderExecutes(UserUtil.getUser(), pageable);
-
+		OrderExecuteTableModel orderExecuteTableModel = orderExecuteSendFrame
+				.getOrderExecuteTableModel();
 		orderExecuteTableModel.clear();
 		orderExecuteTableModel.addEntities(entities);
 	}

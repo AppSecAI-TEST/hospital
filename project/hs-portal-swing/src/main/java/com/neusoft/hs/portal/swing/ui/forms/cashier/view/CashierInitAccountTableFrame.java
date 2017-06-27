@@ -37,12 +37,9 @@ public class CashierInitAccountTableFrame extends JFrame {
 	private static final int TEXT_FIELD_COLUMNS = 20;
 
 	@Autowired
-	public CashierInitAccountTableFrame(VisitTableModel visitTableModel) {
-
-		this.visitTableModel = visitTableModel;
-
-		initComponents();
+	public CashierInitAccountTableFrame() {
 		setFrameUp();
+		initComponents();
 	}
 
 	private void setFrameUp() {
@@ -55,6 +52,7 @@ public class CashierInitAccountTableFrame extends JFrame {
 
 	private void initComponents() {
 
+		this.visitTableModel = new VisitTableModel();
 		table = new JTable(this.visitTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -76,10 +74,6 @@ public class CashierInitAccountTableFrame extends JFrame {
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public JButton getConfirmBtn() {
-		return confirmBtn;
-	}
-
 	public Float getBalance() throws UIException {
 		if (balanceTF.getText() == null || balanceTF.getText().length() == 0) {
 			throw new UIException("请录入初始化金额");
@@ -97,5 +91,13 @@ public class CashierInitAccountTableFrame extends JFrame {
 
 	public void clearBalance() {
 		balanceTF.setText(null);
+	}
+
+	public VisitTableModel getVisitTableModel() {
+		return visitTableModel;
+	}
+
+	public JButton getConfirmBtn() {
+		return confirmBtn;
 	}
 }

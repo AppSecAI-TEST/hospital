@@ -46,7 +46,7 @@ public class FormsFrame extends JFrame implements
 	private JButton archiveMedicalRecordBtn;
 
 	private JLabel loginLbl;
-	
+
 	private final static int Width = 225;
 	private final static int Height = 600;
 
@@ -143,6 +143,22 @@ public class FormsFrame extends JFrame implements
 
 	public JButton getFinishOrderExecuteBtn() {
 		return finishOrderExecuteBtn;
+	}
+
+	public JButton getArrangementMedicalRecordBtn() {
+		return arrangementMedicalRecordBtn;
+	}
+
+	public JButton getTransferMedicalRecordBtn() {
+		return transferMedicalRecordBtn;
+	}
+
+	public JButton getQualityControlBtn() {
+		return qualityControlBtn;
+	}
+
+	public JButton getArchiveMedicalRecordBtn() {
+		return archiveMedicalRecordBtn;
 	}
 
 	@Override

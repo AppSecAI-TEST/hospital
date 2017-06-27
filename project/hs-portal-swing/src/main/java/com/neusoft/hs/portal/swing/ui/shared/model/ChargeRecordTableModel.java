@@ -1,12 +1,9 @@
 package com.neusoft.hs.portal.swing.ui.shared.model;
 
-import org.springframework.stereotype.Component;
-
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.DateFormatter;
 
-@Component
 public class ChargeRecordTableModel extends DefaultTableModel<ChargeRecord> {
 
 	@Override

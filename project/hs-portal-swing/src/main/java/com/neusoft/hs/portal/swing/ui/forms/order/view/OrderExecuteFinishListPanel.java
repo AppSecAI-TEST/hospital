@@ -23,10 +23,7 @@ public class OrderExecuteFinishListPanel extends JPanel {
 	protected JTable table;
 
 	@Autowired
-	public OrderExecuteFinishListPanel(
-			OrderExecuteTableModel orderExecuteTableModel) {
-		this.orderExecuteTableModel = orderExecuteTableModel;
-
+	public OrderExecuteFinishListPanel() {
 		setPanelUp();
 		initComponents();
 	}
@@ -38,6 +35,7 @@ public class OrderExecuteFinishListPanel extends JPanel {
 
 	private void initComponents() {
 
+		this.orderExecuteTableModel = new OrderExecuteTableModel();
 		table = new JTable(this.orderExecuteTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -52,6 +50,10 @@ public class OrderExecuteFinishListPanel extends JPanel {
 		}
 		return orderExecuteTableModel.getOrderExecute(this.table
 				.getSelectedRow());
+	}
+
+	public OrderExecuteTableModel getOrderExecuteTableModel() {
+		return orderExecuteTableModel;
 	}
 
 }

@@ -32,11 +32,7 @@ public class OrderController extends AbstractFrameController {
 	@Autowired
 	private OrderAdminDomainService orderAdminDomainService;
 
-	@Autowired
 	private OrderTableModel orderTableModel;
-
-	@Autowired
-	private VisitComboBoxModel visitComboBoxModel;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -46,6 +42,8 @@ public class OrderController extends AbstractFrameController {
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
 		loadVisits();
+		
+		orderTableModel = this.orderFrame.getOrderTableModel();
 		orderTableModel.clear();
 
 		orderFrame.setVisible(true);
@@ -56,6 +54,8 @@ public class OrderController extends AbstractFrameController {
 
 		List<Visit> entities = visitAdminDomainService.find(pageable);
 
+		VisitComboBoxModel visitComboBoxModel = this.orderFrame
+				.getVisitComboBoxModel();
 		visitComboBoxModel.clear();
 		visitComboBoxModel.addElement(null);
 		visitComboBoxModel.addElements(entities);

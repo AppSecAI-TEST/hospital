@@ -53,15 +53,7 @@ public class VisitFormPanel extends JPanel {
 	private DoctorComboBoxModel respDoctorComboBoxModel;
 
 	@Autowired
-	public VisitFormPanel(InPatientDeptComboBoxModel respDeptComboBoxModel,
-			DoctorComboBoxModel respDoctorComboBoxModel,
-			InPatientAreaComboBoxModel respAreaComboBoxModel,
-			SexComboBoxModel sexComboBoxModel) {
-		this.respDeptComboBoxModel = respDeptComboBoxModel;
-		this.respDoctorComboBoxModel = respDoctorComboBoxModel;
-		this.respAreaComboBoxModel = respAreaComboBoxModel;
-		this.sexComboBoxModel = sexComboBoxModel;
-
+	public VisitFormPanel() {
 		setPanelUp();
 		initComponents();
 	}
@@ -84,7 +76,12 @@ public class VisitFormPanel extends JPanel {
 		carNumberTF = new JTextField(TEXT_FIELD_COLUMNS);
 		nameTF = new JTextField(TEXT_FIELD_COLUMNS);
 		birthdaySD = new SpinnerDate("yyyy-MM-dd");
-		
+
+		this.respDeptComboBoxModel = new InPatientDeptComboBoxModel();
+		this.respDoctorComboBoxModel = new DoctorComboBoxModel();
+		this.respAreaComboBoxModel = new InPatientAreaComboBoxModel();
+		this.sexComboBoxModel = new SexComboBoxModel();
+
 		sexCB = new JComboBox<>(sexComboBoxModel);
 		respDeptCB = new JComboBox<>(respDeptComboBoxModel);
 		respAreaCB = new JComboBox<>(respAreaComboBoxModel);
@@ -128,6 +125,22 @@ public class VisitFormPanel extends JPanel {
 		respDeptCB.setSelectedIndex(0);
 		respAreaCB.setSelectedIndex(0);
 		respDoctorCB.setSelectedIndex(0);
+	}
+
+	public SexComboBoxModel getSexComboBoxModel() {
+		return sexComboBoxModel;
+	}
+
+	public InPatientDeptComboBoxModel getRespDeptComboBoxModel() {
+		return respDeptComboBoxModel;
+	}
+
+	public InPatientAreaComboBoxModel getRespAreaComboBoxModel() {
+		return respAreaComboBoxModel;
+	}
+
+	public DoctorComboBoxModel getRespDoctorComboBoxModel() {
+		return respDoctorComboBoxModel;
 	}
 
 }

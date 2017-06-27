@@ -23,10 +23,7 @@ public class OrderExecuteSendListPanel extends JPanel {
 	protected JTable table;
 
 	@Autowired
-	public OrderExecuteSendListPanel(
-			OrderExecuteTableModel orderExecuteTableModel) {
-		this.orderExecuteTableModel = orderExecuteTableModel;
-
+	public OrderExecuteSendListPanel() {
 		setPanelUp();
 		initComponents();
 	}
@@ -38,6 +35,7 @@ public class OrderExecuteSendListPanel extends JPanel {
 
 	private void initComponents() {
 
+		this.orderExecuteTableModel = new OrderExecuteTableModel();
 		table = new JTable(this.orderExecuteTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -54,4 +52,7 @@ public class OrderExecuteSendListPanel extends JPanel {
 				.getSelectedRow());
 	}
 
+	public OrderExecuteTableModel getOrderExecuteTableModel() {
+		return orderExecuteTableModel;
+	}
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.portal.framework.exception.UIException;
+import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
@@ -60,6 +61,10 @@ public class OrderVerifyFrame extends JFrame {
 	
 	public Order getSelectedOrder() throws UIException {
 		return orderVerifyListPanel.getSelectedOrder();
+	}
+
+	public OrderTableModel getOrderTableModel() {
+		return this.orderVerifyListPanel.getOrderTableModel();
 	}
 
 }

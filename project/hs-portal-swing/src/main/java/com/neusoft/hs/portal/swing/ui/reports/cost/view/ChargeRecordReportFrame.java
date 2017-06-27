@@ -2,8 +2,6 @@ package com.neusoft.hs.portal.swing.ui.reports.cost.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -38,11 +36,7 @@ public class ChargeRecordReportFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public ChargeRecordReportFrame(VisitComboBoxModel visitComboBoxModel,
-			ChargeRecordTableModel chargeRecordTableModel) {
-		this.visitComboBoxModel = visitComboBoxModel;
-		this.chargeRecordTableModel = chargeRecordTableModel;
-
+	public ChargeRecordReportFrame() {
 		setFrameUp();
 		initComponents();
 	}
@@ -58,6 +52,7 @@ public class ChargeRecordReportFrame extends JFrame {
 	private void initComponents() {
 		setLayout(new BorderLayout());
 
+		this.chargeRecordTableModel = new ChargeRecordTableModel();
 		table = new JTable(this.chargeRecordTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -68,6 +63,8 @@ public class ChargeRecordReportFrame extends JFrame {
 		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		JLabel visitLbl = new JLabel(ConstMessagesCN.Labels.Visit);
+
+		this.visitComboBoxModel = new VisitComboBoxModel();
 		visitCB = new JComboBox<>(visitComboBoxModel);
 
 		operationPanel.add(visitLbl);
@@ -80,8 +77,16 @@ public class ChargeRecordReportFrame extends JFrame {
 
 	}
 
+	public VisitComboBoxModel getVisitComboBoxModel() {
+		return visitComboBoxModel;
+	}
+
 	public JComboBox<Visit> getVisitCB() {
 		return visitCB;
+	}
+
+	public ChargeRecordTableModel getChargeRecordTableModel() {
+		return chargeRecordTableModel;
 	}
 
 	public JLabel getChargeBillLbl() {

@@ -45,12 +45,7 @@ public class ReceiveVisitFrame extends JFrame {
 	private static final int TEXT_FIELD_COLUMNS = 20;
 
 	@Autowired
-	public ReceiveVisitFrame(VisitTableModel visitTableModel,
-			NurseComboBoxModel respNurseComboBoxModel) {
-
-		this.visitTableModel = visitTableModel;
-		this.respNurseComboBoxModel = respNurseComboBoxModel;
-
+	public ReceiveVisitFrame() {
 		initComponents();
 		setFrameUp();
 	}
@@ -65,6 +60,7 @@ public class ReceiveVisitFrame extends JFrame {
 
 	private void initComponents() {
 
+		this.visitTableModel = new VisitTableModel();
 		table = new JTable(this.visitTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -83,6 +79,7 @@ public class ReceiveVisitFrame extends JFrame {
 		JLabel nurseLbl = new JLabel(ConstMessagesCN.Labels.RespNurse);
 		buttonPanel.add(nurseLbl);
 
+		this.respNurseComboBoxModel = new NurseComboBoxModel();
 		resNurseCB = new JComboBox<>(this.respNurseComboBoxModel);
 		buttonPanel.add(resNurseCB);
 
@@ -117,4 +114,13 @@ public class ReceiveVisitFrame extends JFrame {
 	public void clearBed() {
 		bedTF.setText(null);
 	}
+
+	public VisitTableModel getVisitTableModel() {
+		return visitTableModel;
+	}
+
+	public NurseComboBoxModel getRespNurseComboBoxModel() {
+		return respNurseComboBoxModel;
+	}
+
 }
