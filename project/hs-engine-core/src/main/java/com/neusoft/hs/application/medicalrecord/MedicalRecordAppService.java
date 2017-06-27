@@ -37,7 +37,7 @@ public class MedicalRecordAppService {
 	public void sign(String id, Doctor doctor) throws MedicalRecordException {
 		MedicalRecord record = medicalRecordDomainService.find(id);
 		if (record == null) {
-			throw new MedicalRecordException(null, "id=[" + id + "]病历不存在");
+			throw new MedicalRecordException(null, "id=[%s]病历不存在", id);
 		}
 		medicalRecordDomainService.sign(record, doctor);
 	}
@@ -45,7 +45,7 @@ public class MedicalRecordAppService {
 	public void fix(String id, AbstractUser user) throws MedicalRecordException {
 		MedicalRecord record = medicalRecordDomainService.find(id);
 		if (record == null) {
-			throw new MedicalRecordException(null, "id=[" + id + "]病历不存在");
+			throw new MedicalRecordException(null, "id=[%s]病历不存在", id);
 		}
 		medicalRecordDomainService.fix(record, user);
 	}

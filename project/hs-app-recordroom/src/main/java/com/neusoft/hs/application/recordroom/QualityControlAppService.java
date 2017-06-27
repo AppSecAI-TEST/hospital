@@ -27,7 +27,7 @@ public class QualityControlAppService {
 			throws MedicalRecordException {
 		MedicalRecordClip clip = medicalRecordDomainService.findClip(clipId);
 		if (clip == null) {
-			throw new MedicalRecordException(null, "id=[" + clipId + "]病历夹不存在");
+			throw new MedicalRecordException(null, "id=[%s]病历夹不存在",clipId);
 		}
 		medicalRecordDomainService.toArchive(clip, user);
 

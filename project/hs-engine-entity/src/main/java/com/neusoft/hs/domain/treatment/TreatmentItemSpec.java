@@ -67,7 +67,7 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	 */
 	public Date getShouldDate(Visit visit) throws TreatmentException {
 		if (visit.getIntoWardDate() == null) {
-			throw new TreatmentException("患者[" + visit.getName() + "]还没有入院");
+			throw new TreatmentException("患者[%s]还没有入院", visit.getName());
 		}
 		if (this.shouldIntervalHour == null) {
 			return null;

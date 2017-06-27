@@ -133,11 +133,11 @@ public class MedicalRecord extends IdEntity {
 	 */
 	public void sign(Doctor doctor) throws MedicalRecordException {
 		if (!this.type.isNeedSign()) {
-			throw new MedicalRecordException(this, "类型为[" + this.type.getName()
-					+ "]的病历不需要签名");
+			throw new MedicalRecordException(this, "类型为[%s]的病历不需要签名",
+					this.type.getName());
 		}
 		if (this.state.equals(State_Signed)) {
-			throw new MedicalRecordException(this, "id=[" + getId() + "]病历已签名");
+			throw new MedicalRecordException(this, "id=[%s]病历已签名", getId());
 		}
 
 		this.state = State_Signed;
@@ -181,8 +181,7 @@ public class MedicalRecord extends IdEntity {
 	 */
 	public void checkTransfer() throws MedicalRecordException {
 		if (this.type.isNeedSign() && !this.state.equals(State_Signed)) {
-			throw new MedicalRecordException(this, "id=[" + getId()
-					+ "]病历还没有签名");
+			throw new MedicalRecordException(this, "id=[%S]病历还没有签名", getId());
 		}
 	}
 

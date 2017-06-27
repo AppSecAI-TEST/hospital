@@ -53,7 +53,7 @@ public class MedicalRecordClip extends IdEntity {
 	private List<MedicalRecord> records;
 
 	public static final String State_Writing = "编写中";
-	
+
 	public static final String State_Ended = "已结束";
 
 	public static final String State_Checking = "检查中";
@@ -83,8 +83,8 @@ public class MedicalRecordClip extends IdEntity {
 				MedicalRecordTypeRepo.class).findByNeedCreate(true);
 		for (MedicalRecordType needCreateRecordType : needCreateRecordTypes) {
 			if (!createdRecordTypes.contains(needCreateRecordType)) {
-				throw new MedicalRecordException(null, "类型为["
-						+ needCreateRecordType.getName() + "]病历还没有创建");
+				throw new MedicalRecordException(null, "类型为[%s]病历还没有创建",
+						needCreateRecordType.getName());
 			}
 		}
 
@@ -92,7 +92,7 @@ public class MedicalRecordClip extends IdEntity {
 		this.state = State_Checking;
 
 	}
-	
+
 	public void leaveHospital(AbstractUser user) {
 		this.state = State_Ended;
 	}
@@ -141,7 +141,5 @@ public class MedicalRecordClip extends IdEntity {
 	public void save() {
 		this.getService(MedicalRecordClipRepo.class).save(this);
 	}
-
-
 
 }
