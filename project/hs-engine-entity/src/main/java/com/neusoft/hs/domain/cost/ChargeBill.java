@@ -75,8 +75,8 @@ public class ChargeBill extends IdEntity {
 
 		if (this.visit.getState().equals(Visit.State_OutHospital)
 				|| this.visit.getState().equals(Visit.State_LeaveHospital)) {
-			throw new CostException("患者一次就诊[" + this.visit.getName() + "]状态为["
-					+ this.visit.getState() + "],不能增加费用条目");
+			throw new CostException("患者一次就诊[%s]状态为[%s],不能增加费用条目",
+					this.visit.getName(), this.visit.getState());
 		}
 
 		float theConsume = 0F;
