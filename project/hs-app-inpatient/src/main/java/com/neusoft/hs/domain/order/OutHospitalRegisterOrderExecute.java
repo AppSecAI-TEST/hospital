@@ -32,11 +32,11 @@ public class OutHospitalRegisterOrderExecute extends OrderExecute {
 					if (order instanceof LongOrder) {
 						((LongOrder) order).stop();
 						// 发出停止长嘱事件
-						ApplicationContextUtil.getApplicationContext().publishEvent(
-								new OrderStopedEvent(visit));
+						ApplicationContextUtil.getApplicationContext()
+								.publishEvent(new OrderStopedEvent(visit));
 					} else {
-						throw new OrderExecuteException(this, "医嘱["
-								+ order.getName() + "]状态处于执行中，不能办理出院登记");
+						throw new OrderExecuteException(this,
+								"医嘱[%s]状态处于执行中，不能办理出院登记", order.getName());
 					}
 				}
 			}

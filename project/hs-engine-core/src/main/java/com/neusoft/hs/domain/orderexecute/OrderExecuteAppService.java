@@ -27,13 +27,13 @@ public class OrderExecuteAppService {
 
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
-	
+
 	public static final int NeedSendOrderExecuteDay = 1;// 今天
 
 	public static final int NeedSendOrderExecuteHour = 36;// 明天12：00之前的医嘱
 
 	public static final int NeedExecuteOrderMinute = 30;// 医嘱执行可提前分钟数
-	
+
 	public List<OrderExecute> getNeedSendOrderExecutes(AbstractUser nurse,
 			Pageable pageable) {
 		Date date = DateUtil.addHour(DateUtil.getSysDateStart(),
@@ -52,8 +52,8 @@ public class OrderExecuteAppService {
 			throws OrderExecuteException {
 		OrderExecute execute = orderExecuteDomainService.find(executeId);
 		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
+			throw new OrderExecuteException(null, "executeId=[%s]不存在",
+					executeId);
 		}
 		orderExecuteDomainService.send(execute, nurse);
 	}
@@ -74,8 +74,8 @@ public class OrderExecuteAppService {
 			AbstractUser user) throws OrderExecuteException {
 		OrderExecute execute = orderExecuteDomainService.find(executeId);
 		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
+			throw new OrderExecuteException(null, "executeId=[%s]不存在",
+					executeId);
 		}
 		orderExecuteDomainService.finish(execute, params, user);
 	}

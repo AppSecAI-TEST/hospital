@@ -30,8 +30,8 @@ public class InspectArrangeOrderExecute extends OrderExecute {
 		if (params == null
 				|| !params
 						.containsKey(InspectArrangeOrderExecute.PlanExecuteDate)) {
-			throw new OrderExecuteException(this, "params没有设置Key为["
-					+ PlanExecuteDate + "]计划检查时间");
+			throw new OrderExecuteException(this, "params没有设置Key为[%s]计划检查时间",
+					PlanExecuteDate);
 
 		}
 		Date planExecuteDate = (Date) params

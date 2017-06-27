@@ -205,8 +205,8 @@ public class OrderExecute extends IdEntity {
 	 */
 	public void send() throws OrderExecuteException {
 		if (!this.state.equals(State_NeedSend)) {
-			throw new OrderExecuteException(this, "state=[" + this.state
-					+ "]不是" + State_NeedSend);
+			throw new OrderExecuteException(this, "state=[%s]不是[%s]",
+					this.state, State_NeedSend);
 		}
 
 		this.updateState();

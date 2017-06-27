@@ -41,8 +41,8 @@ public class InspectAppService {
 
 		OrderExecute execute = orderExecuteDomainService.find(executeId);
 		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
+			throw new OrderExecuteException(null, "executeId=[%s]不存在",
+					executeId);
 		}
 
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -57,8 +57,8 @@ public class InspectAppService {
 
 		OrderExecute execute = orderExecuteDomainService.find(executeId);
 		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
+			throw new OrderExecuteException(null, "executeId=[%s]不存在",
+					executeId);
 		}
 
 		inspectDomainService.confirm(execute, results, user);

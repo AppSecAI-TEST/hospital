@@ -33,8 +33,8 @@ public class CostAppService {
 
 		OrderExecute execute = orderExecuteDomainService.find(executeId);
 		if (execute == null) {
-			throw new OrderExecuteException(null, "executeId=[" + executeId
-					+ "]不存在");
+			throw new OrderExecuteException(null, "executeId=[%s]不存在",
+					executeId);
 		}
 		costDomainService.unCharging(execute, isBackCost, nurse);
 	}
