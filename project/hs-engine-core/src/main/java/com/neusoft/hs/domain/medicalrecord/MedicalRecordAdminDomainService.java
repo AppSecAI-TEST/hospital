@@ -31,6 +31,10 @@ public class MedicalRecordAdminDomainService {
 		medicalRecordTypeRepo.save(medicalRecordTypes);
 	}
 
+	public MedicalRecordType getMedicalRecordType(String id) {
+		return medicalRecordTypeRepo.findOne(id);
+	}
+
 	/**
 	 * @roseuid 584E167A0000
 	 */

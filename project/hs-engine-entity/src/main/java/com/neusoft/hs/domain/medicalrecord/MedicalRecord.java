@@ -53,11 +53,11 @@ public class MedicalRecord extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id")
-	private Doctor doctor;
+	private AbstractUser doctor;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sign_doctor_id")
-	private Doctor signDoctor;
+	private AbstractUser signDoctor;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
@@ -87,7 +87,7 @@ public class MedicalRecord extends IdEntity {
 	}
 
 	public MedicalRecord(MedicalRecordBuilder builder, MedicalRecordType type,
-			Visit visit, Doctor doctor) {
+			Visit visit, AbstractUser doctor) {
 		this.type = type;
 		this.visit = visit;
 		this.doctor = doctor;
@@ -214,11 +214,11 @@ public class MedicalRecord extends IdEntity {
 		this.type = type;
 	}
 
-	public Doctor getDoctor() {
+	public AbstractUser getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Doctor doctor) {
+	public void setDoctor(AbstractUser doctor) {
 		this.doctor = doctor;
 	}
 
@@ -271,11 +271,11 @@ public class MedicalRecord extends IdEntity {
 		this.createDate = createDate;
 	}
 
-	public Doctor getSignDoctor() {
+	public AbstractUser getSignDoctor() {
 		return signDoctor;
 	}
 
-	public void setSignDoctor(Doctor signDoctor) {
+	public void setSignDoctor(AbstractUser signDoctor) {
 		this.signDoctor = signDoctor;
 	}
 

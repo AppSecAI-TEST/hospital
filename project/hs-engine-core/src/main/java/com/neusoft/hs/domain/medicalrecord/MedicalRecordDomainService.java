@@ -40,7 +40,7 @@ public class MedicalRecordDomainService {
 	 * @return
 	 */
 	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
-			MedicalRecordType type, Doctor doctor) {
+			MedicalRecordType type, AbstractUser doctor) {
 		MedicalRecord record = new MedicalRecord(builder, type, visit, doctor);
 
 		return record;

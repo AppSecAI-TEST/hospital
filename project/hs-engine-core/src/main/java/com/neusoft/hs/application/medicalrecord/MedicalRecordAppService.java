@@ -22,7 +22,7 @@ public class MedicalRecordAppService {
 	private MedicalRecordDomainService medicalRecordDomainService;
 
 	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
-			MedicalRecordType type, Doctor doctor) {
+			MedicalRecordType type, AbstractUser doctor) {
 		return medicalRecordDomainService.create(builder, visit, type, doctor);
 	}
 
