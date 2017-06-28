@@ -53,6 +53,14 @@ public class MedicalRecordType extends SuperEntity {
 	@JoinTable(name = "domain_medical_type_item", joinColumns = { @JoinColumn(name = "type_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "item_id", referencedColumnName = "id") })
 	private List<TreatmentItemSpec> items;
 
+	public final static String IntoWardRecord = "入院记录";
+
+	public final static String InspectResult = "检查单";
+
+	public final static String TemporaryOrderList = "临时医嘱单";
+
+	public final static String OutPatientRecord = "门诊记录";
+
 	public String getId() {
 		return id;
 	}

@@ -1,6 +1,5 @@
 package com.neusoft.hs.domain.order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -27,8 +26,6 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 		item.setTreatmentItemSpec(this);
 		item.setVisit(visit);
 
-		List<ListTreatmentItemValue> values = new ArrayList<ListTreatmentItemValue>();
-
 		ListTreatmentItemValue value;
 
 		Sort sort = new Sort(Direction.ASC, "planStartDate");
@@ -47,8 +44,6 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 			//value.putData("executeDate", order.gete);
 
 			item.addValue(value);
-
-			values.add(value);
 		}
 
 		return item;

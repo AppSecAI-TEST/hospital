@@ -11,11 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -39,9 +35,6 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 
 	@Autowired
 	private MedicalRecordAppService medicalRecordAppService;
-
-	@Autowired
-	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -89,29 +82,14 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		}
 
 		try {
-			this.createMedicalRecord("临时医嘱单", visit);
+			medicalRecordAppService.createMedicalRecord(
+					MedicalRecordType.TemporaryOrderList, visit,
+					UserUtil.getUser());
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 
-	}
-
-	
-	private MedicalRecord createMedicalRecord(String typeId, Visit visit)
-			throws HsException {
-
-		MedicalRecordType type = medicalRecordAdminDomainService
-				.getMedicalRecordType(typeId);
-
-		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
-
-		MedicalRecord medicalRecord = medicalRecordAppService.create(builder,
-				visit, type, UserUtil.getUser());
-
-		medicalRecordAppService.save(medicalRecord);
-
-		return medicalRecord;
 	}
 
 	private Visit getVisit() {

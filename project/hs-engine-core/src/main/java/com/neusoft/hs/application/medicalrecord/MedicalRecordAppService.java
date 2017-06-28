@@ -5,14 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.exception.HsException;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -21,6 +24,9 @@ public class MedicalRecordAppService {
 	@Autowired
 	private MedicalRecordDomainService medicalRecordDomainService;
 
+	@Autowired
+	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
+
 	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
 			MedicalRecordType type, AbstractUser doctor) {
 		return medicalRecordDomainService.create(builder, visit, type, doctor);
@@ -28,6 +34,21 @@ public class MedicalRecordAppService {
 
 	public void save(MedicalRecord record) {
 		medicalRecordDomainService.save(record);
+	}
+
+	public MedicalRecord createMedicalRecord(String typeId, Visit visit,
+			AbstractUser user) throws HsException {
+
+		MedicalRecordType type = medicalRecordAdminDomainService
+				.getMedicalRecordType(typeId);
+
+		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
+
+		MedicalRecord medicalRecord = this.create(builder, visit, type, user);
+
+		this.save(medicalRecord);
+
+		return medicalRecord;
 	}
 
 	public MedicalRecord find(String id) {

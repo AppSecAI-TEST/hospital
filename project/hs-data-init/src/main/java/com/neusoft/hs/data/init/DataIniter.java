@@ -1488,8 +1488,9 @@ public class DataIniter {
 		List<MedicalRecordType> medicalRecordTypes = new ArrayList<MedicalRecordType>();
 
 		intoWardRecordMedicalRecordType = new MedicalRecordType();
-		intoWardRecordMedicalRecordType.setId("入院记录");
-		intoWardRecordMedicalRecordType.setName("入院记录");
+		intoWardRecordMedicalRecordType.setId(MedicalRecordType.IntoWardRecord);
+		intoWardRecordMedicalRecordType
+				.setName(MedicalRecordType.IntoWardRecord);
 		intoWardRecordMedicalRecordType.setNeedSign(true);
 		intoWardRecordMedicalRecordType.setNeedCreate(true);
 
@@ -1502,8 +1503,10 @@ public class DataIniter {
 		medicalRecordTypes.add(intoWardRecordMedicalRecordType);
 
 		temporaryOrderListMedicalRecordType = new MedicalRecordType();
-		temporaryOrderListMedicalRecordType.setId("临时医嘱单");
-		temporaryOrderListMedicalRecordType.setName("临时医嘱单");
+		temporaryOrderListMedicalRecordType
+				.setId(MedicalRecordType.TemporaryOrderList);
+		temporaryOrderListMedicalRecordType
+				.setName(MedicalRecordType.TemporaryOrderList);
 		temporaryOrderListMedicalRecordType.setNeedSign(false);
 		temporaryOrderListMedicalRecordType.setNeedCreate(false);
 
@@ -1516,8 +1519,8 @@ public class DataIniter {
 		medicalRecordTypes.add(temporaryOrderListMedicalRecordType);
 
 		inspectResultMedicalRecordType = new MedicalRecordType();
-		inspectResultMedicalRecordType.setId("检查单");
-		inspectResultMedicalRecordType.setName("检查单");
+		inspectResultMedicalRecordType.setId(MedicalRecordType.InspectResult);
+		inspectResultMedicalRecordType.setName(MedicalRecordType.InspectResult);
 		inspectResultMedicalRecordType.setNeedSign(false);
 		inspectResultMedicalRecordType.setNeedCreate(false);
 
@@ -1529,8 +1532,10 @@ public class DataIniter {
 		medicalRecordTypes.add(inspectResultMedicalRecordType);
 
 		outPatientRecordMedicalRecordType = new MedicalRecordType();
-		outPatientRecordMedicalRecordType.setId("门诊记录");
-		outPatientRecordMedicalRecordType.setName("门诊记录");
+		outPatientRecordMedicalRecordType
+				.setId(MedicalRecordType.OutPatientRecord);
+		outPatientRecordMedicalRecordType
+				.setName(MedicalRecordType.OutPatientRecord);
 		outPatientRecordMedicalRecordType.setNeedSign(false);
 		outPatientRecordMedicalRecordType.setNeedCreate(false);
 
