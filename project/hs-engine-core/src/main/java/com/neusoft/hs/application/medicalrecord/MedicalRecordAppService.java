@@ -17,6 +17,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -31,7 +32,8 @@ public class MedicalRecordAppService {
 	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
 
 	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
-			MedicalRecordType type, AbstractUser doctor) {
+			MedicalRecordType type, AbstractUser doctor)
+			throws TreatmentException {
 		return medicalRecordDomainService.create(builder, visit, type, doctor);
 	}
 
@@ -62,11 +64,12 @@ public class MedicalRecordAppService {
 		return medicalRecord;
 	}
 
-	public MedicalRecord find(String id) {
+	public MedicalRecord find(String id) throws TreatmentException {
 		return medicalRecordDomainService.find(id);
 	}
 
-	public void sign(String id, Doctor doctor) throws MedicalRecordException {
+	public void sign(String id, Doctor doctor) throws MedicalRecordException,
+			TreatmentException {
 		MedicalRecord record = medicalRecordDomainService.find(id);
 		if (record == null) {
 			throw new MedicalRecordException(null, "id=[%s]病历不存在", id);
@@ -74,7 +77,8 @@ public class MedicalRecordAppService {
 		medicalRecordDomainService.sign(record, doctor);
 	}
 
-	public void fix(String id, AbstractUser user) throws MedicalRecordException {
+	public void fix(String id, AbstractUser user)
+			throws MedicalRecordException, TreatmentException {
 		MedicalRecord record = medicalRecordDomainService.find(id);
 		if (record == null) {
 			throw new MedicalRecordException(null, "id=[%s]病历不存在", id);

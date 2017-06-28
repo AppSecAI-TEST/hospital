@@ -14,6 +14,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.Itemable;
+import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -39,9 +40,10 @@ public class MedicalRecordDomainService {
 	 * @param type
 	 * @param doctor
 	 * @return
+	 * @throws TreatmentException 
 	 */
 	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
-			MedicalRecordType type, AbstractUser doctor) {
+			MedicalRecordType type, AbstractUser doctor) throws TreatmentException {
 		MedicalRecord record = new MedicalRecord(builder, type, visit, doctor);
 
 		return record;
@@ -93,7 +95,7 @@ public class MedicalRecordDomainService {
 		return medicalRecordClipRepo.findOne(id);
 	}
 
-	public MedicalRecord find(String id) {
+	public MedicalRecord find(String id) throws TreatmentException {
 		MedicalRecord record = medicalRecordRepo.findOne(id);
 		if (record != null) {
 			record.load();
@@ -108,9 +110,10 @@ public class MedicalRecordDomainService {
 	 * @param record
 	 * @param doctor
 	 * @throws MedicalRecordException
+	 * @throws TreatmentException 
 	 */
 	public void sign(MedicalRecord record, Doctor doctor)
-			throws MedicalRecordException {
+			throws MedicalRecordException, TreatmentException {
 
 		record.sign(doctor);
 
@@ -127,9 +130,10 @@ public class MedicalRecordDomainService {
 	 * @param record
 	 * @param user
 	 * @throws MedicalRecordException
+	 * @throws TreatmentException 
 	 */
 	public void fix(MedicalRecord record, AbstractUser user)
-			throws MedicalRecordException {
+			throws MedicalRecordException, TreatmentException {
 
 		record.fix(user);
 

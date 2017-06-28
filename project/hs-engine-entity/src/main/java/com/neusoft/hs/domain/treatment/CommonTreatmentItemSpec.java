@@ -10,7 +10,7 @@ import com.neusoft.hs.domain.visit.Visit;
 public class CommonTreatmentItemSpec extends TreatmentItemSpec {
 	
 	@Override
-	public TreatmentItem getTheItem(Visit visit) {
+	public TreatmentItem getTheItem(Visit visit) throws TreatmentException{
 		return this.getService(TreatmentItemRepo.class)
 				.findByVisitAndTreatmentItemSpec(visit, this);
 	}

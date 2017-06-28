@@ -24,6 +24,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.Itemable;
+import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -99,7 +100,7 @@ public class MedicalRecord extends IdEntity {
 	}
 
 	public MedicalRecord(MedicalRecordBuilder builder, MedicalRecordType type,
-			Visit visit, AbstractUser doctor) {
+			Visit visit, AbstractUser doctor) throws TreatmentException {
 		this.setType(type);
 		this.setVisit(visit);
 		this.setDoctor(doctor);
@@ -111,8 +112,10 @@ public class MedicalRecord extends IdEntity {
 
 	/**
 	 * 根据诊疗信息创建病历数据
+	 * @throws TreatmentException 
 	 */
-	public void init() {
+	public void init() throws TreatmentException {
+		
 		datas = this.builder.create();
 
 		MedicalRecordItem medicalRecordItem;
@@ -128,8 +131,9 @@ public class MedicalRecord extends IdEntity {
 
 	/**
 	 * 加载病历数据
+	 * @throws TreatmentException 
 	 */
-	public void load() {
+	public void load() throws TreatmentException {
 		if (this.state.equals(State_Signed) || this.state.equals(State_Fixed)) {
 			this.loadData();
 		} else {
@@ -142,8 +146,9 @@ public class MedicalRecord extends IdEntity {
 	 * 
 	 * @param doctor
 	 * @throws MedicalRecordException
+	 * @throws TreatmentException 
 	 */
-	public void sign(Doctor doctor) throws MedicalRecordException {
+	public void sign(Doctor doctor) throws MedicalRecordException, TreatmentException {
 		if (!this.type.isNeedSign()) {
 			throw new MedicalRecordException(this, "类型为[%s]的病历不需要签名",
 					this.type.getName());
@@ -172,8 +177,9 @@ public class MedicalRecord extends IdEntity {
 	 * 
 	 * @param user
 	 * @throws MedicalRecordException
+	 * @throws TreatmentException 
 	 */
-	public void fix(AbstractUser user) throws MedicalRecordException {
+	public void fix(AbstractUser user) throws MedicalRecordException, TreatmentException {
 		this.doFix();
 		this.state = State_Fixed;
 
@@ -197,7 +203,7 @@ public class MedicalRecord extends IdEntity {
 		}
 	}
 
-	protected void doFix() throws MedicalRecordException {
+	protected void doFix() throws MedicalRecordException, TreatmentException {
 		this.init();
 		this.fixedItems();
 	}

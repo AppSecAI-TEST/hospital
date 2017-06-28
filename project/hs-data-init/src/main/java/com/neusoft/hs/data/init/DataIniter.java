@@ -27,6 +27,7 @@ import com.neusoft.hs.domain.order.InfusionOrderUseModeToOutPatient;
 import com.neusoft.hs.domain.order.InspectOrderType;
 import com.neusoft.hs.domain.order.NursingOrderType;
 import com.neusoft.hs.domain.order.OralOrderUseMode;
+import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -243,7 +244,7 @@ public class DataIniter {
 
 	protected TreatmentItemSpec visitNameTreatmentItemSpec;// 患者姓名
 
-	protected TreatmentItemSpec temporaryOrderListTreatmentItemSpec;// 临时医嘱列表
+	protected TemporaryOrderListTreatmentItemSpec temporaryOrderListTreatmentItemSpec;// 临时医嘱列表
 
 	protected TreatmentItemSpec diagnosisTreatmentItemSpec;// 诊断
 
@@ -1470,6 +1471,8 @@ public class DataIniter {
 		temporaryOrderListTreatmentItemSpec = new TemporaryOrderListTreatmentItemSpec();
 		temporaryOrderListTreatmentItemSpec.setId("临时医嘱列表");
 		temporaryOrderListTreatmentItemSpec.setName("临时医嘱列表");
+		temporaryOrderListTreatmentItemSpec.addState(Order.State_Canceled);
+		temporaryOrderListTreatmentItemSpec.addState(Order.State_Finished);
 
 		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
 

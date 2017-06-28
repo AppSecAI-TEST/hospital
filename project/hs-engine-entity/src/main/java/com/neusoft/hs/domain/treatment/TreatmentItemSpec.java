@@ -82,8 +82,9 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	 * 
 	 * @param visit
 	 * @return
+	 * @throws TreatmentException 
 	 */
-	public abstract TreatmentItem getTheItem(Visit visit);
+	public abstract TreatmentItem getTheItem(Visit visit) throws TreatmentException;
 
 	public String getId() {
 		return id;

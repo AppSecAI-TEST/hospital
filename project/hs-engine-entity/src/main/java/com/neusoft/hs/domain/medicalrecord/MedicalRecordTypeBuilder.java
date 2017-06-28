@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.treatment.Itemable;
+import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
 
@@ -31,7 +32,7 @@ public class MedicalRecordTypeBuilder extends MedicalRecordBuilder {
 	}
 
 	@Override
-	public Map<String, Itemable> create() {
+	public Map<String, Itemable> create() throws TreatmentException {
 
 		Map<String, Itemable> datas = new HashMap<String, Itemable>();
 

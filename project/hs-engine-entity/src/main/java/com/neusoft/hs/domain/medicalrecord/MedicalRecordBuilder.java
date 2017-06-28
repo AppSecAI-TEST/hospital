@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.neusoft.hs.domain.treatment.Itemable;
+import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -39,8 +40,9 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 	 * 创建病历数据
 	 * 
 	 * @return
+	 * @throws TreatmentException 
 	 */
-	public abstract Map<String, Itemable> create();
+	public abstract Map<String, Itemable> create() throws TreatmentException;
 
 	public void save() {
 		this.getService(MedicalRecordBuilderRepo.class).save(this);
