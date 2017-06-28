@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.organization;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,11 +13,13 @@ import javax.persistence.OneToOne;
 @DiscriminatorValue("Org")
 public class Org extends Unit {
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "out_charge_dept_id")
 	private Dept outChargeDept;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "in_charge_dept_id")
 	private Dept inChargeDept;
 
