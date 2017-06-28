@@ -16,8 +16,15 @@ public class OrderExecuteAdminService {
 	@Autowired
 	private OrderExecuteRepo orderExecuteRepo;
 	
+	@Autowired
+	private OrderExecuteTeamRepo orderExecuteTeamRepo;
+	
 	public List<OrderExecute> find(Visit visit, Pageable pageable) {
 		return orderExecuteRepo.findByVisit(visit, pageable);
+	}
+
+	public void clearExecuteTeams() {
+		orderExecuteTeamRepo.deleteAll();
 	}
 
 }

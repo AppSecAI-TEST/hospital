@@ -16,4 +16,7 @@ interface UnitRepo extends PagingAndSortingRepository<Unit, String> {
 	@Query("select d from InPatientAreaDept d")
 	List<InPatientAreaDept> findInPatientArea(Pageable pageable);
 
+	@Query("select o from Org o")
+	List<Org> findOrgs();
+
 }

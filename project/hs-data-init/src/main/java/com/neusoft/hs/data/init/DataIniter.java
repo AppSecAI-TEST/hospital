@@ -31,6 +31,7 @@ import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteAdminService;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderFrequencyTypeDayOne;
@@ -272,6 +273,9 @@ public class DataIniter {
 
 	@Autowired
 	protected OrderExecuteDomainService orderExecuteDomainService;
+	
+	@Autowired
+	protected OrderExecuteAdminService orderExecuteAdminService;
 
 	@Autowired
 	protected InspectDomainService inspectDomainService;
@@ -492,6 +496,8 @@ public class DataIniter {
 		orderAdminDomainService.clearOrderTypeApps();
 		// 清空组合医嘱
 		orderAdminDomainService.clearCompsiteOrdes();
+		//清空医嘱执行条目Team
+		orderExecuteAdminService.clearExecuteTeams();
 		// 清空医嘱类型
 		orderAdminDomainService.clearOrderTypes();
 		// 清空医嘱用法

@@ -19,7 +19,12 @@ public class OrganizationAdminDomainService {
 	}
 
 	public void clear() {
-		unitRepo.deleteAll();
+		List<Org> orgs = unitRepo.findOrgs();
+		if (orgs != null) {
+			for (Org org : orgs) {
+				unitRepo.delete(org);
+			}
+		}
 	}
 
 	public List<InPatientDept> findInPatientDept(Pageable pageable) {
