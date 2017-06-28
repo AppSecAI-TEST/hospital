@@ -254,8 +254,8 @@ public class CostDomainService {
 		return count;
 	}
 
-	public List<ChargeRecord> getChargeRecords(Visit visit) {
-		return chargeRecordRepo.findByVisit(visit);
+	public List<ChargeRecord> getChargeRecords(Visit visit, Pageable pageable) {
+		return chargeRecordRepo.findByVisit(visit, pageable);
 	}
 
 	public ChargeBill getChargeBill(Visit visit) {

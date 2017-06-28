@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -127,7 +128,8 @@ public class MedicalRecordDomainService {
 	 * @param user
 	 * @throws MedicalRecordException
 	 */
-	public void fix(MedicalRecord record, AbstractUser user) throws MedicalRecordException {
+	public void fix(MedicalRecord record, AbstractUser user)
+			throws MedicalRecordException {
 
 		record.fix(user);
 
@@ -168,5 +170,9 @@ public class MedicalRecordDomainService {
 
 	public List<MedicalRecordClip> findClips(String state, Dept dept) {
 		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept);
+	}
+
+	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {
+		return medicalRecordRepo.findByVisit(visit, pageable);
 	}
 }

@@ -4,6 +4,7 @@ package com.neusoft.hs.domain.cost;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.neusoft.hs.domain.visit.Visit;
@@ -11,6 +12,6 @@ import com.neusoft.hs.domain.visit.Visit;
 interface ChargeRecordRepo extends
 		PagingAndSortingRepository<ChargeRecord, String> {
 
-	List<ChargeRecord> findByVisit(Visit visit);
+	List<ChargeRecord> findByVisit(Visit visit, Pageable pageable);
 
 }

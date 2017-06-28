@@ -45,21 +45,7 @@ public class InPatientAppService {
 	}
 
 	public List<Visit> listVisit(AbstractUser user, Pageable pageable) {
-		return visitDomainService.listVisit(user.getDept(), pageable);
+		return visitDomainService.findByStateAndDepts(Visit.State_IntoWard,
+				user.getOperationDepts(), pageable);
 	}
-
-	/**
-	 * @roseuid 58524F350096
-	 */
-	private void leave() {
-
-	}
-
-	/**
-	 * @roseuid 58524FAE0056
-	 */
-	private void checkLeave() {
-
-	}
-
 }

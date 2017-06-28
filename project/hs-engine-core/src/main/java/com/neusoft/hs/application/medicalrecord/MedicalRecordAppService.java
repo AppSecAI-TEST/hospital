@@ -1,6 +1,9 @@
 package com.neusoft.hs.application.medicalrecord;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,5 +77,9 @@ public class MedicalRecordAppService {
 	public void transfer(Visit visit, Dept dept, AbstractUser user)
 			throws MedicalRecordException {
 		medicalRecordDomainService.transfer(visit, dept, user);
+	}
+
+	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {
+		return medicalRecordDomainService.getMedicalRecords(visit, pageable);
 	}
 }

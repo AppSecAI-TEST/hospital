@@ -210,6 +210,11 @@ public class VisitDomainService {
 		return visitRepo.findByStateAndArea(state, area, pageable);
 	}
 
+	public List<Visit> findByStateAndDepts(String state, List<Dept> depts,
+			Pageable pageable) {
+		return visitRepo.findByStateAndDeptIn(state, depts, pageable);
+	}
+
 	public List<Visit> listVisit(Dept respDept, Pageable pageable) {
 		return visitRepo.findByDept(respDept, pageable);
 	}

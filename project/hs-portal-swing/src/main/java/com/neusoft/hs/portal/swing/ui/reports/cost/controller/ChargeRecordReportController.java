@@ -73,8 +73,11 @@ public class ChargeRecordReportController extends AbstractFrameController {
 		chargeRecordTableModel.clear();
 
 		if (visit != null) {
+			
+			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+			
 			List<ChargeRecord> entities = costDomainService
-					.getChargeRecords(visit);
+					.getChargeRecords(visit, pageable);
 
 			chargeRecordTableModel.addEntities(entities);
 

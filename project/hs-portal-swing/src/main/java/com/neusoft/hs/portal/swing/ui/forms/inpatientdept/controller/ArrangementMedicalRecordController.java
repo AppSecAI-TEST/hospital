@@ -1,5 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
 
+import java.awt.event.ItemEvent;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,15 +10,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
+import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.ArrangementMedicalRecordFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -28,7 +31,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 	private ArrangementMedicalRecordFrame arrangementMedicalRecordFrame;
 
 	@Autowired
-	private VisitAdminDomainService visitAdminDomainService;
+	private InPatientAppService inPatientAppService;
 
 	@Autowired
 	private InspectDomainService inspectDomainService;
@@ -38,6 +41,8 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(arrangementMedicalRecordFrame.getVisitCB(),
+				(e) -> refreshMedicalRecord(e));
 		registerAction(
 				arrangementMedicalRecordFrame.getCreateTemporaryOrderListBtn(),
 				(e) -> createTemporaryOrderListMR());
@@ -57,7 +62,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 	private void loadVisits() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<Visit> entities = visitAdminDomainService.find(pageable);
+		List<Visit> entities = inPatientAppService.listVisit(UserUtil.getUser(), pageable);
 
 		VisitComboBoxModel visitComboBoxModel = arrangementMedicalRecordFrame
 				.getVisitComboBoxModel();
@@ -97,4 +102,18 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 				.getSelectedItem();
 	}
 
+	private void refreshMedicalRecord(ItemEvent e) {
+		Visit visit = (Visit) e.getItem();
+
+		MedicalRecordTableModel medicalRecordTableModel = arrangementMedicalRecordFrame
+				.getMedicalRecordTableModel();
+		medicalRecordTableModel.clear();
+
+		if (visit != null) {
+			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+			List<MedicalRecord> entities = medicalRecordAppService
+					.getMedicalRecords(visit, pageable);
+			medicalRecordTableModel.addEntities(entities);
+		}
+	}
 }
