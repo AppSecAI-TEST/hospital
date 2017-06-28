@@ -175,4 +175,16 @@ public class MedicalRecordDomainService {
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {
 		return medicalRecordRepo.findByVisit(visit, pageable);
 	}
+
+	public List<MedicalRecord> getMedicalRecords(Visit visit,
+			MedicalRecordType type) {
+		return medicalRecordRepo.findByVisitAndType(visit, type);
+	}
+
+	public void delete(String recordId) {
+		MedicalRecord record = medicalRecordRepo.findOne(recordId);
+		if (record != null) {
+			record.delete();
+		}
+	}
 }

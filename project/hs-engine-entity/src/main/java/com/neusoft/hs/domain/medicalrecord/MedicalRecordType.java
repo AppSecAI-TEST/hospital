@@ -46,6 +46,9 @@ public class MedicalRecordType extends SuperEntity {
 	@Column(name = "need_create")
 	private boolean needCreate;
 
+	@Column(name = "is_unique")
+	private boolean unique;
+
 	@OneToMany(mappedBy = "type", cascade = { CascadeType.ALL })
 	private List<MedicalRecord> records;
 
@@ -99,6 +102,14 @@ public class MedicalRecordType extends SuperEntity {
 
 	public void setNeedCreate(boolean needCreate) {
 		this.needCreate = needCreate;
+	}
+
+	public boolean isUnique() {
+		return unique;
+	}
+
+	public void setUnique(boolean unique) {
+		this.unique = unique;
 	}
 
 	public List<MedicalRecord> getRecords() {

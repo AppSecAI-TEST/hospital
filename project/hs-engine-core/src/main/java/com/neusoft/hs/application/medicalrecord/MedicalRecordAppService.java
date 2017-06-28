@@ -45,6 +45,14 @@ public class MedicalRecordAppService {
 		MedicalRecordType type = medicalRecordAdminDomainService
 				.getMedicalRecordType(typeId);
 
+		if (type.isUnique()) {
+			List<MedicalRecord> records = medicalRecordDomainService
+					.getMedicalRecords(visit, type);
+			for (MedicalRecord record : records) {
+				medicalRecordDomainService.delete(record.getId());
+			}
+		}
+
 		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
 
 		MedicalRecord medicalRecord = this.create(builder, visit, type, user);

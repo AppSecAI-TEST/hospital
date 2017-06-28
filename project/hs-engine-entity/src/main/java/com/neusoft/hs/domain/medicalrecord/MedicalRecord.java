@@ -361,4 +361,8 @@ public class MedicalRecord extends IdEntity {
 		}
 	}
 
+	public void delete() {
+		this.getService(MedicalRecordRepo.class).delete(this);
+	}
+
 }

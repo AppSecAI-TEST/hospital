@@ -1493,6 +1493,7 @@ public class DataIniter {
 				.setName(MedicalRecordType.IntoWardRecord);
 		intoWardRecordMedicalRecordType.setNeedSign(true);
 		intoWardRecordMedicalRecordType.setNeedCreate(true);
+		intoWardRecordMedicalRecordType.setUnique(true);
 
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
@@ -1509,6 +1510,7 @@ public class DataIniter {
 				.setName(MedicalRecordType.TemporaryOrderList);
 		temporaryOrderListMedicalRecordType.setNeedSign(false);
 		temporaryOrderListMedicalRecordType.setNeedCreate(false);
+		temporaryOrderListMedicalRecordType.setUnique(true);
 
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
@@ -1523,6 +1525,7 @@ public class DataIniter {
 		inspectResultMedicalRecordType.setName(MedicalRecordType.InspectResult);
 		inspectResultMedicalRecordType.setNeedSign(false);
 		inspectResultMedicalRecordType.setNeedCreate(false);
+		inspectResultMedicalRecordType.setUnique(true);
 
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
@@ -1538,6 +1541,7 @@ public class DataIniter {
 				.setName(MedicalRecordType.OutPatientRecord);
 		outPatientRecordMedicalRecordType.setNeedSign(false);
 		outPatientRecordMedicalRecordType.setNeedCreate(false);
+		outPatientRecordMedicalRecordType.setUnique(false);
 
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
