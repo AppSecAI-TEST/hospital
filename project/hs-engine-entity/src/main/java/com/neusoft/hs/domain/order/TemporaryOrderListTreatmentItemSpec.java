@@ -1,5 +1,6 @@
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -30,18 +31,22 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 
 		Sort sort = new Sort(Direction.ASC, "planStartDate");
 		PageRequest pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
-		
+
+		List<String> states = new ArrayList<String>();
+		states.add(Order.State_Canceled);
+		states.add(Order.State_Finished);
+
 		List<TemporaryOrder> orders = ApplicationContextUtil
 				.getApplicationContext().getBean(OrderRepo.class)
-				.findTemporaryOrderByVisit(visit, pageable);
+				.findTemporaryOrder(visit, states, pageable);
 
 		for (TemporaryOrder order : orders) {
 			value = new ListTreatmentItemValue();
-			
+
 			value.putData("createDate", order.getCreateDate());
 			value.putData("creator", order.getCreator().getName());
 			value.putData("name", order.getName());
-			//value.putData("executeDate", order.gete);
+			value.putData("executeDate", order.getExecuteDate());
 
 			item.addValue(value);
 		}

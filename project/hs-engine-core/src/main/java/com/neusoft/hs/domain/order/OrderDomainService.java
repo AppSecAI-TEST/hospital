@@ -164,7 +164,7 @@ public class OrderDomainService {
 	public int resolve(Admin admin) {
 		// 获得执行中的住院长嘱
 		List<LongOrder> longOrders = orderRepo
-				.findLongOrderByStateAndPlaceType(Order.State_Executing,
+				.findLongOrder(Order.State_Executing,
 						Order.PlaceType_InPatient);
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
