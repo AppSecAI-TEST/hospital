@@ -121,6 +121,7 @@ public interface ConstMessagesCN {
 		String Name = "名称";
 		String State = "状态";
 		String Type = "类型";
+		String Doctor = "医生";
 		String BelongDept = "所属部门";
 		String ExecuteDept = "执行部门";
 		String CreateDate = "创建时间";

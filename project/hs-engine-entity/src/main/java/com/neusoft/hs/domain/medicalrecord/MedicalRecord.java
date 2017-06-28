@@ -51,17 +51,29 @@ public class MedicalRecord extends IdEntity {
 	@JoinColumn(name = "type_id")
 	private MedicalRecordType type;
 
+	@Column(name = "type_name", length = 128)
+	private String typeName;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id")
 	private AbstractUser doctor;
+
+	@Column(name = "doctor_name", length = 16)
+	private String doctorName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "sign_doctor_id")
 	private AbstractUser signDoctor;
 
+	@Column(name = "sign_doctor_name", length = 16)
+	private String signDoctorName;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
+
+	@Column(name = "visit_name", length = 16)
+	private String visitName;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -212,6 +224,15 @@ public class MedicalRecord extends IdEntity {
 
 	public void setType(MedicalRecordType type) {
 		this.type = type;
+		this.typeName = type.getName();
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 
 	public AbstractUser getDoctor() {
@@ -220,6 +241,15 @@ public class MedicalRecord extends IdEntity {
 
 	public void setDoctor(AbstractUser doctor) {
 		this.doctor = doctor;
+		this.doctorName = doctor.getName();
+	}
+
+	public String getDoctorName() {
+		return doctorName;
+	}
+
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
 	}
 
 	public List<MedicalRecordItem> getOtherItems() {
@@ -253,6 +283,15 @@ public class MedicalRecord extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+		this.visitName = visit.getName();
+	}
+
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
 	}
 
 	public Map<String, Itemable> getDatas() {
@@ -277,6 +316,15 @@ public class MedicalRecord extends IdEntity {
 
 	public void setSignDoctor(AbstractUser signDoctor) {
 		this.signDoctor = signDoctor;
+		this.signDoctorName = signDoctor.getName();
+	}
+
+	public String getSignDoctorName() {
+		return signDoctorName;
+	}
+
+	public void setSignDoctorName(String signDoctorName) {
+		this.signDoctorName = signDoctorName;
 	}
 
 	public MedicalRecordBuilder getBuilder() {

@@ -13,25 +13,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
 public class ArrangementMedicalRecordFrame extends JFrame {
 
-	JComboBox<Visit> visitCB;
-	VisitComboBoxModel visitComboBoxModel;
+	private JComboBox<Visit> visitCB;
+	private VisitComboBoxModel visitComboBoxModel;
 
 	private JButton createTemporaryOrderListBtn;
 
 	private JButton createInspectResultBtn;
+
+	private MedicalRecordListPanel medicalRecordListPanel;
 
 	private static final int DEFAULT_WIDTH = 800;
 
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public ArrangementMedicalRecordFrame() {
+	public ArrangementMedicalRecordFrame(
+			MedicalRecordListPanel medicalRecordListPanel) {
+		this.medicalRecordListPanel = medicalRecordListPanel;
+
 		setFrameUp();
 		initComponents();
 	}
@@ -47,26 +53,24 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 	private void initComponents() {
 		setLayout(new BorderLayout());
 
-		JPanel visitPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel interactivePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		visitComboBoxModel = new VisitComboBoxModel();
 		visitCB = new JComboBox<>(visitComboBoxModel);
 
-		visitPanel.add(visitCB);
-
-		add(visitPanel, BorderLayout.NORTH);
-
-		JPanel operationPanel = new JPanel();
+		interactivePanel.add(visitCB);
 
 		createTemporaryOrderListBtn = new JButton(
 				ConstMessagesCN.Labels.createTemporaryOrderListMR);
 		createInspectResultBtn = new JButton(
 				ConstMessagesCN.Labels.createInspectResultMR);
 
-		operationPanel.add(createTemporaryOrderListBtn);
-		operationPanel.add(createInspectResultBtn);
+		interactivePanel.add(createTemporaryOrderListBtn);
+		interactivePanel.add(createInspectResultBtn);
 
-		add(operationPanel, BorderLayout.CENTER);
+		add(interactivePanel, BorderLayout.NORTH);
+
+		add(medicalRecordListPanel, BorderLayout.CENTER);
 
 	}
 
@@ -84,6 +88,10 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 
 	public JButton getCreateInspectResultBtn() {
 		return createInspectResultBtn;
+	}
+
+	public MedicalRecordTableModel getMedicalRecordTableModel() {
+		return medicalRecordListPanel.getMedicalRecordTableModel();
 	}
 
 }

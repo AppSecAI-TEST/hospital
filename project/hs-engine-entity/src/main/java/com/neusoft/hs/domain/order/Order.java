@@ -123,7 +123,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
-	@Column(length = 16)
+	@Column(name="visit_name", length = 16)
 	private String visitName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
