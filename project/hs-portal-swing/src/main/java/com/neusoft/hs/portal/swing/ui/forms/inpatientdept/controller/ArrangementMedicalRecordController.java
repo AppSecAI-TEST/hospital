@@ -42,7 +42,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(arrangementMedicalRecordFrame.getVisitCB(),
-				(e) -> refreshMedicalRecord(e));
+				(e) -> refreshMedicalRecord());
 		registerAction(
 				arrangementMedicalRecordFrame.getCreateTemporaryOrderListBtn(),
 				(e) -> createTemporaryOrderListMR());
@@ -62,7 +62,8 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 	private void loadVisits() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<Visit> entities = inPatientAppService.listVisit(UserUtil.getUser(), pageable);
+		List<Visit> entities = inPatientAppService.listVisit(
+				UserUtil.getUser(), pageable);
 
 		VisitComboBoxModel visitComboBoxModel = arrangementMedicalRecordFrame
 				.getVisitComboBoxModel();
@@ -90,6 +91,8 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 			medicalRecordAppService.createMedicalRecord(
 					MedicalRecordType.TemporaryOrderList, visit,
 					UserUtil.getUser());
+
+			refreshMedicalRecord();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
@@ -102,12 +105,14 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 				.getSelectedItem();
 	}
 
-	private void refreshMedicalRecord(ItemEvent e) {
-		Visit visit = (Visit) e.getItem();
+	private void refreshMedicalRecord() {
 
 		MedicalRecordTableModel medicalRecordTableModel = arrangementMedicalRecordFrame
 				.getMedicalRecordTableModel();
 		medicalRecordTableModel.clear();
+
+		Visit visit = arrangementMedicalRecordFrame.getVisitComboBoxModel()
+				.getSelectedItem();
 
 		if (visit != null) {
 			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);

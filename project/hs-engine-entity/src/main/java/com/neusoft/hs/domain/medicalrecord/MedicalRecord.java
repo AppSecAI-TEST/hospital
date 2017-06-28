@@ -100,9 +100,9 @@ public class MedicalRecord extends IdEntity {
 
 	public MedicalRecord(MedicalRecordBuilder builder, MedicalRecordType type,
 			Visit visit, AbstractUser doctor) {
-		this.type = type;
-		this.visit = visit;
-		this.doctor = doctor;
+		this.setType(type);
+		this.setVisit(visit);
+		this.setDoctor(doctor);
 
 		this.builder = builder;
 
@@ -153,7 +153,7 @@ public class MedicalRecord extends IdEntity {
 		}
 
 		this.state = State_Signed;
-		this.signDoctor = doctor;
+		this.setSignDoctor(doctor);
 
 		this.doFix();
 
