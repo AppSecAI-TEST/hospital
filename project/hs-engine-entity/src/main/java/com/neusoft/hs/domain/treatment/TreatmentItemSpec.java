@@ -58,6 +58,14 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	@JoinColumn(name = "resp_role_id")
 	public Role respRole;
 
+	public final static String TemporaryOrderList = "临时医嘱列表";
+
+	public final static String Diagnosis = "诊断";
+
+	public final static String VisitName = "患者姓名";
+
+	public final static String MainDescribe = "主诉";
+
 	/**
 	 * 对于某一患者一次就诊该诊疗项目需要创建的时间
 	 * 
@@ -82,9 +90,10 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	 * 
 	 * @param visit
 	 * @return
-	 * @throws TreatmentException 
+	 * @throws TreatmentException
 	 */
-	public abstract TreatmentItem getTheItem(Visit visit) throws TreatmentException;
+	public abstract TreatmentItem getTheItem(Visit visit)
+			throws TreatmentException;
 
 	public String getId() {
 		return id;

@@ -1456,29 +1456,31 @@ public class DataIniter {
 		List<TreatmentItemSpec> treatmentItemSpecs = new ArrayList<TreatmentItemSpec>();
 
 		mainDescribeTreatmentItemSpec = new CommonTreatmentItemSpec();
-		mainDescribeTreatmentItemSpec.setId("主诉");
-		mainDescribeTreatmentItemSpec.setName("主诉");
+		mainDescribeTreatmentItemSpec.setId(TreatmentItemSpec.MainDescribe);
+		mainDescribeTreatmentItemSpec.setName(TreatmentItemSpec.MainDescribe);
 		mainDescribeTreatmentItemSpec.setShouldIntervalHour(24);
 
 		treatmentItemSpecs.add(mainDescribeTreatmentItemSpec);
 
 		visitNameTreatmentItemSpec = new VisitNameTreatmentItemSpec();
-		visitNameTreatmentItemSpec.setId("患者姓名");
-		visitNameTreatmentItemSpec.setName("患者姓名");
+		visitNameTreatmentItemSpec.setId(TreatmentItemSpec.VisitName);
+		visitNameTreatmentItemSpec.setName(TreatmentItemSpec.VisitName);
 
 		treatmentItemSpecs.add(visitNameTreatmentItemSpec);
 
 		temporaryOrderListTreatmentItemSpec = new TemporaryOrderListTreatmentItemSpec();
-		temporaryOrderListTreatmentItemSpec.setId("临时医嘱列表");
-		temporaryOrderListTreatmentItemSpec.setName("临时医嘱列表");
+		temporaryOrderListTreatmentItemSpec
+				.setId(TreatmentItemSpec.TemporaryOrderList);
+		temporaryOrderListTreatmentItemSpec
+				.setName(TreatmentItemSpec.TemporaryOrderList);
 		temporaryOrderListTreatmentItemSpec.addState(Order.State_Canceled);
 		temporaryOrderListTreatmentItemSpec.addState(Order.State_Finished);
 
 		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
 
 		diagnosisTreatmentItemSpec = new DiagnosisTreatmentItemSpec();
-		diagnosisTreatmentItemSpec.setId("诊断");
-		diagnosisTreatmentItemSpec.setName("诊断");
+		diagnosisTreatmentItemSpec.setId(TreatmentItemSpec.Diagnosis);
+		diagnosisTreatmentItemSpec.setName(TreatmentItemSpec.Diagnosis);
 
 		treatmentItemSpecs.add(diagnosisTreatmentItemSpec);
 
