@@ -244,7 +244,7 @@ public class OrderExecute extends IdEntity {
 		Date sysDate = DateUtil.getSysDate();
 		this.endDate = sysDate;
 		this.state = State_Finished;
-		this.actualExecutor = user;
+		this.setActualExecutor(user);
 
 		if (!this.isAlone) {
 			if (order instanceof TemporaryOrder) {
