@@ -78,6 +78,8 @@ public class CreateOrderController extends AbstractFrameController {
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(createOrderFrame.getConfirmBtn(), (e) -> create());
+		registerAction(createOrderFrame.getCloseBtn(), (e) -> closeWindow());
+		
 	}
 
 	@Override
@@ -229,5 +231,9 @@ public class CreateOrderController extends AbstractFrameController {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
+	}
+	
+	private void closeWindow() {
+		createOrderFrame.dispose();
 	}
 }

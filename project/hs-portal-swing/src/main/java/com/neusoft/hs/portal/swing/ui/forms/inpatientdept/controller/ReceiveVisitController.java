@@ -39,6 +39,8 @@ public class ReceiveVisitController extends AbstractFrameController {
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(receiveVisitFrame.getConfirmBtn(), (e) -> receive());
+		registerAction(receiveVisitFrame.getCloseBtn(), (e) -> closeWindow());
+		
 	}
 
 	@Override
@@ -93,6 +95,10 @@ public class ReceiveVisitController extends AbstractFrameController {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
+	}
+	
+	private void closeWindow() {
+		receiveVisitFrame.dispose();
 	}
 
 }

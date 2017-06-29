@@ -28,6 +28,8 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 	private JButton createInspectResultBtn;
 
 	private MedicalRecordListPanel medicalRecordListPanel;
+	
+	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
 
@@ -52,6 +54,8 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 
 	private void initComponents() {
 		setLayout(new BorderLayout());
+		
+		JPanel workspacePanel = new JPanel(new BorderLayout());
 
 		JPanel interactivePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -68,9 +72,18 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 		interactivePanel.add(createTemporaryOrderListBtn);
 		interactivePanel.add(createInspectResultBtn);
 
-		add(interactivePanel, BorderLayout.NORTH);
+		workspacePanel.add(interactivePanel, BorderLayout.NORTH);
 
-		add(medicalRecordListPanel, BorderLayout.CENTER);
+		workspacePanel.add(medicalRecordListPanel, BorderLayout.CENTER);
+		
+		add(workspacePanel, BorderLayout.CENTER);
+		
+		JPanel buttonPanel = new JPanel();
+		
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
+		
+		workspacePanel.add(buttonPanel);
 
 	}
 
@@ -92,6 +105,10 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 
 	public MedicalRecordTableModel getMedicalRecordTableModel() {
 		return medicalRecordListPanel.getMedicalRecordTableModel();
+	}
+	
+	public JButton getCloseBtn() {
+		return closeBtn;
 	}
 
 }

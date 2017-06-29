@@ -30,6 +30,7 @@ public class CashierController extends AbstractFrameController {
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(cashierTableFrame.getConfirmBtn(), (e) -> initAccount());
+		registerAction(cashierTableFrame.getCloseBtn(), (e) -> closeWindow());
 	}
 
 	@Override
@@ -62,6 +63,10 @@ public class CashierController extends AbstractFrameController {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
+	}
+	
+	private void closeWindow() {
+		cashierTableFrame.dispose();
 	}
 
 }

@@ -3,6 +3,7 @@ package com.neusoft.hs.portal.swing.ui.reports.order.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +25,8 @@ public class OrderFrame extends JFrame {
 	VisitComboBoxModel visitComboBoxModel;
 
 	private OrderListAdminPanel orderListAdminPanel;
+
+	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 1000;
 
@@ -48,6 +51,8 @@ public class OrderFrame extends JFrame {
 	private void initComponents() {
 		setLayout(new BorderLayout());
 
+		JPanel workspacePanel = new JPanel(new BorderLayout());
+
 		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		JLabel visitLbl = new JLabel(ConstMessagesCN.Labels.Visit);
@@ -57,9 +62,18 @@ public class OrderFrame extends JFrame {
 		operationPanel.add(visitLbl);
 		operationPanel.add(visitCB);
 
-		add(operationPanel, BorderLayout.NORTH);
+		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
-		add(orderListAdminPanel, BorderLayout.CENTER);
+		workspacePanel.add(orderListAdminPanel, BorderLayout.CENTER);
+
+		add(workspacePanel, BorderLayout.CENTER);
+
+		JPanel buttonPanel = new JPanel();
+
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
+
+		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
 	public JComboBox<Visit> getVisitCB() {
@@ -72,5 +86,9 @@ public class OrderFrame extends JFrame {
 
 	public OrderTableModel getOrderTableModel() {
 		return this.orderListAdminPanel.getOrderTableModel();
+	}
+	
+	public JButton getCloseBtn() {
+		return closeBtn;
 	}
 }

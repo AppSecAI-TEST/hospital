@@ -21,6 +21,8 @@ public class OrderExecuteSendFrame extends JFrame {
 	private OrderExecuteSendListPanel orderExecuteSendListPanel;
 
 	JButton confirmBtn;
+	
+	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
 
@@ -52,6 +54,9 @@ public class OrderExecuteSendFrame extends JFrame {
 
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
+		
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
@@ -66,6 +71,10 @@ public class OrderExecuteSendFrame extends JFrame {
 
 	public OrderExecuteTableModel getOrderExecuteTableModel() {
 		return orderExecuteSendListPanel.getOrderExecuteTableModel();
+	}
+	
+	public JButton getCloseBtn() {
+		return closeBtn;
 	}
 
 }

@@ -40,6 +40,8 @@ public class ChargeRecordReportController extends AbstractFrameController {
 	private void prepareListeners() {
 		registerAction(chargeRecordReportFrame.getVisitCB(),
 				(e) -> refreshChargeRecord(e));
+		registerAction(chargeRecordReportFrame.getCloseBtn(), (e) -> closeWindow());
+		
 	}
 
 	@Override
@@ -87,5 +89,9 @@ public class ChargeRecordReportController extends AbstractFrameController {
 					+ "],消费[" + chargeBill.getConsume() + "]";
 			chargeRecordReportFrame.getChargeBillLbl().setText(chargeBillInfo);
 		}
+	}
+	
+	private void closeWindow() {
+		chargeRecordReportFrame.dispose();
 	}
 }

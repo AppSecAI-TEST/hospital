@@ -30,6 +30,8 @@ public class CashierInitAccountTableFrame extends JFrame {
 
 	private JButton confirmBtn;
 
+	private JButton closeBtn;
+
 	private static final int DEFAULT_WIDTH = 800;
 
 	private static final int DEFAULT_HEIGHT = 300;
@@ -71,6 +73,9 @@ public class CashierInitAccountTableFrame extends JFrame {
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
+
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
@@ -100,4 +105,9 @@ public class CashierInitAccountTableFrame extends JFrame {
 	public JButton getConfirmBtn() {
 		return confirmBtn;
 	}
+
+	public JButton getCloseBtn() {
+		return closeBtn;
+	}
+
 }

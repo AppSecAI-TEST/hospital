@@ -3,12 +3,14 @@ package com.neusoft.hs.portal.swing.ui.reports.cost.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
@@ -31,6 +33,8 @@ public class ChargeRecordReportFrame extends JFrame {
 
 	private JLabel chargeBillLbl;
 
+	private JButton closeBtn;
+
 	private static final int DEFAULT_WIDTH = 800;
 
 	private static final int DEFAULT_HEIGHT = 300;
@@ -52,13 +56,15 @@ public class ChargeRecordReportFrame extends JFrame {
 	private void initComponents() {
 		setLayout(new BorderLayout());
 
+		JPanel workspacePanel = new JPanel(new BorderLayout());
+
 		this.chargeRecordTableModel = new ChargeRecordTableModel();
 		table = new JTable(this.chargeRecordTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane paneWithTable = new JScrollPane(table);
 
-		add(paneWithTable, BorderLayout.CENTER);
+		workspacePanel.add(paneWithTable, BorderLayout.CENTER);
 
 		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -73,7 +79,16 @@ public class ChargeRecordReportFrame extends JFrame {
 		chargeBillLbl = new JLabel();
 		operationPanel.add(chargeBillLbl);
 
-		add(operationPanel, BorderLayout.NORTH);
+		workspacePanel.add(operationPanel, BorderLayout.NORTH);
+
+		add(workspacePanel, BorderLayout.CENTER);
+
+		JPanel buttonPanel = new JPanel();
+
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
+
+		add(buttonPanel, BorderLayout.SOUTH);
 
 	}
 
@@ -91,6 +106,10 @@ public class ChargeRecordReportFrame extends JFrame {
 
 	public JLabel getChargeBillLbl() {
 		return chargeBillLbl;
+	}
+
+	public JButton getCloseBtn() {
+		return closeBtn;
 	}
 
 }

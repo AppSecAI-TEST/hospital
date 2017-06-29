@@ -37,6 +37,8 @@ public class OrderController extends AbstractFrameController {
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(orderFrame.getVisitCB(), (e) -> refreshOrder(e));
+		registerAction(orderFrame.getCloseBtn(), (e) -> closeWindow());
+		
 	}
 
 	@Override
@@ -73,6 +75,10 @@ public class OrderController extends AbstractFrameController {
 
 			orderTableModel.addEntities(entities);
 		}
+	}
+	
+	private void closeWindow() {
+		orderFrame.dispose();
 	}
 
 }

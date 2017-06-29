@@ -74,5 +74,9 @@ public class CreateOrderFrame extends JFrame {
 	public CreateOrderPanel getCreateOrderPanel() {
 		return createOrderPanel;
 	}
+	
+	public JButton getCloseBtn() {
+		return createOrderPanel.getCloseBtn();
+	}
 
 }

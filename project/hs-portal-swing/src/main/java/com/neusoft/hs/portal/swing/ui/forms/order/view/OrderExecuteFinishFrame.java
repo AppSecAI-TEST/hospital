@@ -22,6 +22,8 @@ public class OrderExecuteFinishFrame extends JFrame {
 
 	JButton confirmBtn;
 
+	JButton closeBtn;
+
 	private static final int DEFAULT_WIDTH = 800;
 
 	private static final int DEFAULT_HEIGHT = 300;
@@ -53,6 +55,9 @@ public class OrderExecuteFinishFrame extends JFrame {
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
+
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
@@ -68,4 +73,7 @@ public class OrderExecuteFinishFrame extends JFrame {
 		return this.orderExecuteFinishListPanel.getOrderExecuteTableModel();
 	}
 
+	public JButton getCloseBtn() {
+		return closeBtn;
+	}
 }

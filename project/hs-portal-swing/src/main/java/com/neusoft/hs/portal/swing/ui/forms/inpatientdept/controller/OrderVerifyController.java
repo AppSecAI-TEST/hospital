@@ -30,6 +30,8 @@ public class OrderVerifyController extends AbstractFrameController {
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(orderVerifyFrame.getConfirmBtn(), (e) -> verify());
+		registerAction(orderVerifyFrame.getCloseBtn(), (e) -> closeWindow());
+		
 	}
 
 	@Override
@@ -61,5 +63,9 @@ public class OrderVerifyController extends AbstractFrameController {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
+	}
+	
+	private void closeWindow() {
+		orderVerifyFrame.dispose();
 	}
 }

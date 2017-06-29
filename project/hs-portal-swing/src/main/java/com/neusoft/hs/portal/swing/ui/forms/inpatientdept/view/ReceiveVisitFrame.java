@@ -37,6 +37,8 @@ public class ReceiveVisitFrame extends JFrame {
 	private NurseComboBoxModel respNurseComboBoxModel;
 
 	private JButton confirmBtn;
+	
+	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
 
@@ -85,6 +87,9 @@ public class ReceiveVisitFrame extends JFrame {
 
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
+		
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
@@ -122,5 +127,8 @@ public class ReceiveVisitFrame extends JFrame {
 	public NurseComboBoxModel getRespNurseComboBoxModel() {
 		return respNurseComboBoxModel;
 	}
-
+	
+	public JButton getCloseBtn() {
+		return closeBtn;
+	}
 }

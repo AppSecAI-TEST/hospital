@@ -30,6 +30,8 @@ public class OrderExecuteSendController extends AbstractFrameController {
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(orderExecuteSendFrame.getConfirmBtn(), (e) -> send());
+		registerAction(orderExecuteSendFrame.getCloseBtn(), (e) -> closeWindow());
+		
 	}
 
 	@Override
@@ -63,5 +65,9 @@ public class OrderExecuteSendController extends AbstractFrameController {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
+	}
+	
+	private void closeWindow() {
+		orderExecuteSendFrame.dispose();
 	}
 }

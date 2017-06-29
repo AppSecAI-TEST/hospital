@@ -60,6 +60,8 @@ public class CreateOrderPanel extends JPanel {
 	PharmacyComboBoxModel pharmacyComboBoxModel;
 
 	JButton confirmBtn;
+	
+	JButton closeBtn;
 
 	private static final int LAYOUT_ROWS = 4;
 	private static final int LAYOUT_COLS = 2;
@@ -103,7 +105,7 @@ public class CreateOrderPanel extends JPanel {
 		JLabel pharmacyLbl = new JLabel(ConstMessagesCN.Labels.Pharmacy);
 
 		planStartDateSD = new SpinnerDate("yyyy-MM-dd");
-		;
+		
 		countSN = new SpinnerNumber();
 
 		visitCB = new JComboBox<>(visitComboBoxModel);
@@ -145,6 +147,9 @@ public class CreateOrderPanel extends JPanel {
 
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
+		
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
@@ -171,6 +176,10 @@ public class CreateOrderPanel extends JPanel {
 
 	public PharmacyComboBoxModel getPharmacyComboBoxModel() {
 		return pharmacyComboBoxModel;
+	}
+	
+	public JButton getCloseBtn() {
+		return closeBtn;
 	}
 
 }

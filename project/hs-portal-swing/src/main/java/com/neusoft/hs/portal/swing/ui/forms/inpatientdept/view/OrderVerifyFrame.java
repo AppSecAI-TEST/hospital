@@ -21,6 +21,8 @@ public class OrderVerifyFrame extends JFrame {
 	private OrderVerifyListPanel orderVerifyListPanel;
 
 	JButton confirmBtn;
+	
+	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
 
@@ -51,6 +53,9 @@ public class OrderVerifyFrame extends JFrame {
 
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
+		
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
@@ -65,6 +70,10 @@ public class OrderVerifyFrame extends JFrame {
 
 	public OrderTableModel getOrderTableModel() {
 		return this.orderVerifyListPanel.getOrderTableModel();
+	}
+	
+	public JButton getCloseBtn() {
+		return closeBtn;
 	}
 
 }

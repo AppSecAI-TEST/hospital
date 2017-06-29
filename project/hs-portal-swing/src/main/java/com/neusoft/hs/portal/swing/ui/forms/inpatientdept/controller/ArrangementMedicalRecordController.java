@@ -49,6 +49,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		registerAction(
 				arrangementMedicalRecordFrame.getCreateInspectResultBtn(),
 				(e) -> createInspectResultMR());
+		registerAction(arrangementMedicalRecordFrame.getCloseBtn(), (e) -> closeWindow());
 	}
 
 	@Override
@@ -120,5 +121,9 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 					.getMedicalRecords(visit, pageable);
 			medicalRecordTableModel.addEntities(entities);
 		}
+	}
+	
+	private void closeWindow() {
+		arrangementMedicalRecordFrame.dispose();
 	}
 }
