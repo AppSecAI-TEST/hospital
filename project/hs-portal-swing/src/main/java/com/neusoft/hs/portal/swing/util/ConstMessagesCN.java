@@ -105,6 +105,7 @@ public interface ConstMessagesCN {
 		String InitBlanace = "预存金额";
 		String Bed = "床位";
 		String RespNurse = "责任护士";
+		String Logo = "主题介绍";
 
 		String CreateOrder = "开立医嘱";
 		String VerifyOrder = "核对医嘱";

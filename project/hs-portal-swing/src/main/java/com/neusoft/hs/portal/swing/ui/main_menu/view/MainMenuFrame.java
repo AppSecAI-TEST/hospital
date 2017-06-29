@@ -27,7 +27,9 @@ public class MainMenuFrame extends JFrame {
 
 	private JButton formsBtn;
 	private JButton reportsBtn;
-	
+
+	private JLabel logoLabel;
+
 	private final static int Width = 370;
 	private final static int Height = 230;
 
@@ -40,7 +42,7 @@ public class MainMenuFrame extends JFrame {
 	private void setFrameUp() {
 		getRootPane().setBorder(Borders.createEmptyBorder());
 		Image iconImage = UIUtil.getImage("eve.jpg");
-		setIconImage(iconImage); 
+		setIconImage(iconImage);
 		setTitle(ConstMessagesCN.Labels.MAIN_MENU);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(Width, Height);
@@ -73,12 +75,13 @@ public class MainMenuFrame extends JFrame {
 
 		Image iconImage = UIUtil.getImage("hope.jpg");
 		ImageIcon background = new ImageIcon(iconImage);// 背景图片
-		JLabel label = new JLabel(background);// 把背景图片显示在一个标签里面
+
+		logoLabel = new JLabel(background);// 把背景图片显示在一个标签里面
 		// 把标签的大小位置设置为图片刚好填充整个面板
-		label.setBounds(230, 0, background.getIconWidth(),
+		logoLabel.setBounds(230, 0, background.getIconWidth(),
 				background.getIconHeight());
-		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		label.addMouseListener(new MouseAdapter() {
+		logoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		logoLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// VersionDialog d = new VersionDialog();
@@ -87,7 +90,7 @@ public class MainMenuFrame extends JFrame {
 			}
 		});
 
-		versionPanel.add(label);
+		versionPanel.add(logoLabel);
 		versionPanel.add(versionLbl);
 
 		add(versionPanel);
@@ -101,4 +104,9 @@ public class MainMenuFrame extends JFrame {
 	public JButton getReportsBtn() {
 		return reportsBtn;
 	}
+
+	public JLabel getLogoLabel() {
+		return logoLabel;
+	}
+
 }

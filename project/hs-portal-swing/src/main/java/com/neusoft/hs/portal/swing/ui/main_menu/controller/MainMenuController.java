@@ -1,7 +1,11 @@
 package com.neusoft.hs.portal.swing.ui.main_menu.controller;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import com.neusoft.hs.portal.swing.ui.forms.forms.controller.FormsController;
 import com.neusoft.hs.portal.swing.ui.main_menu.view.MainMenuFrame;
 import com.neusoft.hs.portal.swing.ui.reports.reports.controller.ReportsController;
@@ -10,29 +14,42 @@ import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 @Controller
 public class MainMenuController extends AbstractFrameController {
 
-    private MainMenuFrame mainMenuFrame;
-    private FormsController formsController;
-    private ReportsController reportsController;
+	@Autowired
+	private MainMenuFrame mainMenuFrame;
 
-    @Autowired
-    public MainMenuController(MainMenuFrame mainMenuFrame, FormsController formsController, ReportsController reportsController) {
-        this.mainMenuFrame = mainMenuFrame;
-        this.formsController = formsController;
-        this.reportsController = reportsController;
-    }
+	@Autowired
+	private FormsController formsController;
 
-    public void prepareAndOpenFrame() {
-        registerAction(mainMenuFrame.getFormsBtn(), (e) -> openFormsWindow());
-        registerAction(mainMenuFrame.getReportsBtn(), (e) -> openReportsWindow());
-        mainMenuFrame.setVisible(true);
-    }
+	@Autowired
+	private ReportsController reportsController;
 
-    private void openFormsWindow() {
-        formsController.prepareAndOpenFrame();
-    }
+	@Autowired
+	private LogoController logoController;
 
-    private void openReportsWindow() {
-        reportsController.prepareAndOpenFrame();
-    }
+	public void prepareAndOpenFrame() {
+		registerAction(mainMenuFrame.getFormsBtn(), (e) -> openFormsWindow());
+		registerAction(mainMenuFrame.getReportsBtn(),
+				(e) -> openReportsWindow());
+		registerAction(mainMenuFrame.getLogoLabel(), new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				openLogoWindow(e);
+			}
+		});
+
+		mainMenuFrame.setVisible(true);
+	}
+
+	private void openFormsWindow() {
+		formsController.prepareAndOpenFrame();
+	}
+
+	private void openReportsWindow() {
+		reportsController.prepareAndOpenFrame();
+	}
+
+	private void openLogoWindow(MouseEvent e) {
+		logoController.prepareAndOpenFrame();
+	}
 
 }
