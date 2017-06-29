@@ -1,0 +1,1 @@
+copy target\hs-portal-swing-h2-0.0.1-SNAPSHOT.jar ..\build\lib
