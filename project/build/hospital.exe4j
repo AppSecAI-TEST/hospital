@@ -59,6 +59,7 @@
       <archive location="/lib/hs-engine-listener-0.0.1-SNAPSHOT.jar" failOnError="false" />
       <archive location="/lib/hs-platform-0.0.1-SNAPSHOT.jar" failOnError="false" />
       <archive location="/lib/hs-portal-swing-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-portal-swing-h2-0.0.1-SNAPSHOT.jar" failOnError="false" />
       <archive location="/lib/jackson-annotations-2.8.0.jar" failOnError="false" />
       <archive location="/lib/jackson-core-2.8.7.jar" failOnError="false" />
       <archive location="/lib/jackson-databind-2.8.7.jar" failOnError="false" />
