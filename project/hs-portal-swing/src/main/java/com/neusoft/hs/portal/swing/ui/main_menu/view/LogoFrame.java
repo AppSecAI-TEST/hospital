@@ -20,7 +20,7 @@ public class LogoFrame extends JFrame {
 
 	private static final int DEFAULT_WIDTH = 800;
 
-	private static final int DEFAULT_HEIGHT = 600;
+	private static final int DEFAULT_HEIGHT = 620;
 
 	@Autowired
 	public LogoFrame() {
