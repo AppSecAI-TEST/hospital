@@ -31,16 +31,31 @@ public class OrderExecuteTeam extends IdEntity {
 		if (executes == null || executes.size() == 0) {
 			executes = new ArrayList<OrderExecute>();
 		}
-		OrderExecute previous = null;
-		if (executes.size() > 0) {
-			previous = executes.get(executes.size() - 1);
-			previous.setNext(execute);
+		if (!execute.isAlone()) {
+			OrderExecute previous = findPrevious();
+			if (previous != null) {
+				previous.setNext(execute);
+			}
+			execute.setPrevious(previous);
 		}
-		execute.setPrevious(previous);
 		execute.setTeam(this);
 
 		executes.add(execute);
+	}
 
+	private OrderExecute findPrevious() {
+		if (executes.size() > 0) {
+			OrderExecute previous = null;
+			for (int i = executes.size() - 1; i >= 0; i--) {
+				if (!executes.get(i).isAlone()) {
+					previous = executes.get(i);
+					break;
+				}
+			}
+			return previous;
+		} else {
+			return null;
+		}
 	}
 
 	public List<OrderExecute> getExecutes() {

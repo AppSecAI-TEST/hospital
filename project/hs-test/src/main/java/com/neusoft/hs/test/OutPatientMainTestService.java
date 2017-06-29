@@ -288,6 +288,11 @@ public class OutPatientMainTestService extends AppTestService {
 			orderExecuteAppService.finish(execute.getId(), null, user701);
 		}
 
+		for (OrderExecute execute : executes) {
+			OrderExecute execute1 = orderExecuteDomainService.find(execute.getId());
+			assertTrue(execute1.getState().equals(OrderExecute.State_Finished));
+		}
+		
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:46"));
 
 		pageable = new PageRequest(0, 15);

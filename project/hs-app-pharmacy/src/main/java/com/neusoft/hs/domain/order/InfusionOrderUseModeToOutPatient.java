@@ -77,6 +77,9 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 				// 统一缴费
 				assistMaterialChargeOrderExecute.setPlanStartDate(sysDate);
 				assistMaterialChargeOrderExecute.setPlanEndDate(sysDate);
+				
+				//不隶属于执行链中
+				assistMaterialChargeOrderExecute.setAlone(true);
 
 				team.addOrderExecute(assistMaterialChargeOrderExecute);
 			}

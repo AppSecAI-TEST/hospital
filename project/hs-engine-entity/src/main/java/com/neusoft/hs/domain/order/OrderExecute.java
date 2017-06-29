@@ -73,6 +73,9 @@ public class OrderExecute extends IdEntity {
 	@Column(name = "is_last")
 	private boolean isLast = false;
 
+	@Column(name = "is_alone")
+	private boolean isAlone = false;
+
 	@Column(name = "charge_state", length = 32)
 	private String chargeState;
 
@@ -243,26 +246,27 @@ public class OrderExecute extends IdEntity {
 		this.state = State_Finished;
 		this.actualExecutor = user;
 
-		Order order = this.getOrder();
-		if (order instanceof TemporaryOrder) {
-			if (this.isMain) {
-				TemporaryOrder temporaryOrder = (TemporaryOrder) order;
-				temporaryOrder.setExecuteDate(DateUtil.getSysDate());
-				temporaryOrder.setExecuteUser(user);
+		if (!this.isAlone) {
+			if (order instanceof TemporaryOrder) {
+				if (this.isMain) {
+					TemporaryOrder temporaryOrder = (TemporaryOrder) order;
+					temporaryOrder.setExecuteDate(DateUtil.getSysDate());
+					temporaryOrder.setExecuteUser(user);
+				}
 			}
-		}
 
-		OrderExecute next = this.getNext();
-		if (next != null) {
-			next.doExecuteBefore();
-			next.setState(OrderExecute.State_Executing);
-			next.setStartDate(sysDate);
+			OrderExecute next = this.getNext();
+			if (next != null) {
+				next.doExecuteBefore();
+				next.setState(OrderExecute.State_Executing);
+				next.setStartDate(sysDate);
 
-			next.save();
+				next.save();
 
-			this.order.setStateDesc(this.type + "执行条目已完成");
-		} else {
-			this.order.updateState(this);
+				this.order.setStateDesc(this.type + "执行条目已完成");
+			} else {
+				this.order.updateState(this);
+			}
 		}
 	}
 
@@ -425,6 +429,22 @@ public class OrderExecute extends IdEntity {
 		this.isLast = isLast;
 	}
 
+	public boolean isMain() {
+		return isMain;
+	}
+
+	public void setMain(boolean isMain) {
+		this.isMain = isMain;
+	}
+
+	public boolean isAlone() {
+		return isAlone;
+	}
+
+	public void setAlone(boolean isAlone) {
+		this.isAlone = isAlone;
+	}
+
 	public String getState() {
 		return state;
 	}
@@ -583,14 +603,6 @@ public class OrderExecute extends IdEntity {
 		if (chargeDept != null) {
 			this.chargeDeptName = chargeDept.getName();
 		}
-	}
-
-	public boolean isMain() {
-		return isMain;
-	}
-
-	public void setMain(boolean isMain) {
-		this.isMain = isMain;
 	}
 
 	public Visit getVisit() {
