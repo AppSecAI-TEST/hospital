@@ -64,6 +64,7 @@ public class RegisterController extends AbstractFrameController {
 		registerAction(tableBtnPanel.getAddBtn(), (e) -> showAddModal());
 		registerAction(formBtnPanel.getSaveBtn(), (e) -> saveEntity());
 		registerAction(formBtnPanel.getCancelBtn(), (e) -> closeModalWindow());
+		registerAction(tableBtnPanel.getCloseBtn(), (e) -> closeWindow());
 	}
 
 	@Override
@@ -146,5 +147,9 @@ public class RegisterController extends AbstractFrameController {
 	private void closeModalWindow() {
 		addFrame.getFormPanel().clearForm();
 		addFrame.dispose();
+	}
+	
+	private void closeWindow() {
+		tableFrame.dispose();
 	}
 }

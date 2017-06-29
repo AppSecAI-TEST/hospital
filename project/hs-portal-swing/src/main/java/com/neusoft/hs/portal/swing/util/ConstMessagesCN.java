@@ -39,6 +39,7 @@ public interface ConstMessagesCN {
 		String ADDRESSES = "Addresses";
 		String ADD_BTN = "增加";
 		String CONFIRM_BTN = "确定";
+		String CLOSE_BTN = "关闭";
 
 		String REMOVE_BTN = "删除";
 

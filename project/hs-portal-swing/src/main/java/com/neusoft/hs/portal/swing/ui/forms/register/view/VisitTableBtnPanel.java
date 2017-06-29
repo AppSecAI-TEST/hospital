@@ -11,6 +11,7 @@ import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 public class VisitTableBtnPanel extends JPanel {
 
 	private JButton addBtn;
+	private JButton closeBtn;
 
 	public VisitTableBtnPanel() {
 		initComponents();
@@ -20,10 +21,16 @@ public class VisitTableBtnPanel extends JPanel {
 		addBtn = new JButton(ConstMessagesCN.Labels.ADD_BTN);
 		add(addBtn);
 
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		add(closeBtn);
+
 	}
 
 	public JButton getAddBtn() {
 		return addBtn;
 	}
 
+	public JButton getCloseBtn() {
+		return closeBtn;
+	}
 }
