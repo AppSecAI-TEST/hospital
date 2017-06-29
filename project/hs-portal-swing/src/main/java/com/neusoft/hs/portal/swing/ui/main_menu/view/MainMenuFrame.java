@@ -81,15 +81,7 @@ public class MainMenuFrame extends JFrame {
 		logoLabel.setBounds(230, 0, background.getIconWidth(),
 				background.getIconHeight());
 		logoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		logoLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// VersionDialog d = new VersionDialog();
-				// d.setModal(true);
-				// d.setVisible(true);
-			}
-		});
-
+		
 		versionPanel.add(logoLabel);
 		versionPanel.add(versionLbl);
 
