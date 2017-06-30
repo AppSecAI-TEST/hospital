@@ -80,7 +80,7 @@ public class MedicalRecord extends IdEntity {
 	private Date createDate;
 
 	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
-	private List<MedicalRecordItem> otherItems;
+	private List<MedicalRecordItem> items;
 
 	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
 	private List<MedicalRecordLog> logs;
@@ -258,19 +258,19 @@ public class MedicalRecord extends IdEntity {
 		this.doctorName = doctorName;
 	}
 
-	public List<MedicalRecordItem> getOtherItems() {
-		return otherItems;
+	public List<MedicalRecordItem> getItems() {
+		return items;
 	}
 
-	public void setOtherItems(List<MedicalRecordItem> otherItems) {
-		this.otherItems = otherItems;
+	public void setItems(List<MedicalRecordItem> items) {
+		this.items = items;
 	}
 
 	public void addItem(MedicalRecordItem item) {
-		if (this.otherItems == null) {
-			this.otherItems = new ArrayList<MedicalRecordItem>();
+		if (this.items == null) {
+			this.items = new ArrayList<MedicalRecordItem>();
 		}
-		this.otherItems.add(item);
+		this.items.add(item);
 
 		item.setRecord(this);
 	}
@@ -353,7 +353,7 @@ public class MedicalRecord extends IdEntity {
 	}
 
 	private void loadData() {
-		for (MedicalRecordItem item : this.otherItems) {
+		for (MedicalRecordItem item : this.items) {
 			datas.put(item.getName(), item);
 		}
 	}
