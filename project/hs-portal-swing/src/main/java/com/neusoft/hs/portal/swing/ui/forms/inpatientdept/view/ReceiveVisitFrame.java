@@ -113,7 +113,7 @@ public class ReceiveVisitFrame extends JFrame {
 		if (this.table.getSelectedRow() == -1) {
 			throw new UIException("请选择要初始化的患者");
 		}
-		return visitTableModel.getVisit(this.table.getSelectedRow());
+		return visitTableModel.getEntityByRow(this.table.getSelectedRow());
 	}
 
 	public void clearBed() {

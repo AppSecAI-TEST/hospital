@@ -30,10 +30,6 @@ public class OrderExecuteTableModel extends DefaultTableModel<OrderExecute> {
 		}
 	}
 
-	public OrderExecute getOrderExecute(int rowIndex) {
-		return entities.get(rowIndex);
-	}
-
 	@Override
 	public String[] getColumnLabels() {
 		return new String[] { ConstMessagesCN.Labels.ID,

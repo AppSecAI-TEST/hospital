@@ -48,7 +48,7 @@ public class OrderVerifyListPanel extends JPanel {
 		if (this.table.getSelectedRow() == -1) {
 			throw new UIException("请选择要核对的医嘱");
 		}
-		return orderTableModel.getOrder(this.table.getSelectedRow());
+		return orderTableModel.getEntityByRow(this.table.getSelectedRow());
 	}
 
 	public OrderTableModel getOrderTableModel() {

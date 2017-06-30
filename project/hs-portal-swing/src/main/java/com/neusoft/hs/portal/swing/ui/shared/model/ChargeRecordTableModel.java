@@ -29,10 +29,6 @@ public class ChargeRecordTableModel extends DefaultTableModel<ChargeRecord> {
 		}
 	}
 
-	public ChargeRecord getVisit(int rowIndex) {
-		return entities.get(rowIndex);
-	}
-
 	@Override
 	public String[] getColumnLabels() {
 		return new String[] { ConstMessagesCN.Labels.ID,

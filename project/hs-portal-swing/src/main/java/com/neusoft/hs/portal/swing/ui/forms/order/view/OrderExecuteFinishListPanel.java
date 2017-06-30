@@ -48,7 +48,7 @@ public class OrderExecuteFinishListPanel extends JPanel {
 		if (this.table.getSelectedRow() == -1) {
 			throw new UIException("请选择要完成的医嘱执行条目");
 		}
-		return orderExecuteTableModel.getOrderExecute(this.table
+		return orderExecuteTableModel.getEntityByRow(this.table
 				.getSelectedRow());
 	}
 

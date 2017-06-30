@@ -27,10 +27,6 @@ public class OrderTableModel extends DefaultTableModel<Order> {
 		}
 	}
 
-	public Order getOrder(int rowIndex) {
-		return entities.get(rowIndex);
-	}
-
 	@Override
 	public String[] getColumnLabels() {
 		return new String[] { ConstMessagesCN.Labels.ID,

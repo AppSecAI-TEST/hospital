@@ -27,10 +27,6 @@ public class MedicalRecordTableModel extends DefaultTableModel<MedicalRecord> {
 		}
 	}
 
-	public MedicalRecord getMedicalRecord(int rowIndex) {
-		return entities.get(rowIndex);
-	}
-
 	@Override
 	public String[] getColumnLabels() {
 		return new String[] { ConstMessagesCN.Labels.ID,

@@ -1,6 +1,8 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,6 +38,18 @@ public class MedicalRecordListPanel extends JPanel {
 		this.medicalRecordTableModel = new MedicalRecordTableModel();
 		table = new JTable(this.medicalRecordTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				final JTable table = (JTable) e.getSource();
+				int currentRow = table.rowAtPoint(e.getPoint());
+				if(e.getClickCount() == 2){
+					medicalRecordTableModel.getEntityByRow(currentRow);
+				}
+			}
+			
+		});
 
 		JScrollPane paneWithTable = new JScrollPane(table);
 
