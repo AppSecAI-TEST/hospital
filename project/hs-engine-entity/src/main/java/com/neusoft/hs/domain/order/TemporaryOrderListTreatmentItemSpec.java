@@ -32,8 +32,8 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 
 	@Override
 	public TreatmentItem getTheItem(Visit visit) throws TreatmentException {
-		
-		if(this.states == null || this.states.size() == 0){
+
+		if (this.states == null || this.states.size() == 0) {
 			throw new TreatmentException("临时医嘱列表没有配置过滤状态");
 		}
 
@@ -53,10 +53,11 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 		for (TemporaryOrder order : orders) {
 			value = new ListTreatmentItemValue();
 
-			value.putData("createDate", order.getCreateDate());
-			value.putData("creator", order.getCreator().getName());
 			value.putData("name", order.getName());
+			value.putData("count", order.getCount());
 			value.putData("executeDate", order.getExecuteDate());
+			value.putData("creator", order.getCreator().getName());
+			value.putData("createDate", order.getCreateDate());
 
 			item.addValue(value);
 		}

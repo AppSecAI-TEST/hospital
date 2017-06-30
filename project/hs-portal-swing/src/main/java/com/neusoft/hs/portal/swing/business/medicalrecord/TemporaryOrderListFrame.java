@@ -34,7 +34,7 @@ public class TemporaryOrderListFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesCN.Labels.InitBlanace);
+		setTitle(ConstMessagesCN.Labels.MedicalRecord);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);

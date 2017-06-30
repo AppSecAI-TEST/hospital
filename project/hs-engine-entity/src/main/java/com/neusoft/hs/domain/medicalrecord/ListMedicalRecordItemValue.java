@@ -42,7 +42,15 @@ public class ListMedicalRecordItemValue extends MedicalRecordItemValue {
 
 	@Override
 	public String toString() {
-		return null;
-		// return DateUtil.toString(date);
+
+		StringBuffer info = new StringBuffer();
+
+		for (String key : data.keySet()) {
+			info.append(key);
+			info.append(":");
+			info.append(data.get(key));
+			info.append("\n");
+		}
+		return info.toString();
 	}
 }
