@@ -31,7 +31,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
  *
  */
 @Entity
-@Table(name = "domain_medical_type")
+@Table(name = "domain_medical_record_type")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "medicalRecordTypeCache")
 public class MedicalRecordType extends SuperEntity {
@@ -59,7 +59,7 @@ public class MedicalRecordType extends SuperEntity {
 	private List<MedicalRecord> records;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "domain_medical_type_item", joinColumns = { @JoinColumn(name = "type_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "item_id", referencedColumnName = "id") })
+	@JoinTable(name = "domain_medical_record_type_item", joinColumns = { @JoinColumn(name = "type_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "item_id", referencedColumnName = "id") })
 	private List<TreatmentItemSpec> items;
 
 	@OneToOne(mappedBy = "type", cascade = { CascadeType.ALL })

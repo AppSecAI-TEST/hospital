@@ -90,7 +90,7 @@ public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 	public MedicalRecordItemValue toMedicalRecordItemValue()
 			throws MedicalRecordException {
 		throw new MedicalRecordException(null,
-				"TreatmentItemValue类型[%s]为编写转化逻辑", this.getClass());
+				"TreatmentItemValue类型[%s]未编写转化逻辑", this.getClass());
 	}
 
 	public void save() {

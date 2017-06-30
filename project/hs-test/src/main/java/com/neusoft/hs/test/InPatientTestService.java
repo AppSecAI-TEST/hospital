@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
@@ -56,7 +57,7 @@ public abstract class InPatientTestService extends AppTestService {
 			dayCount = count * 20;
 
 			this.createVisit001();
-			
+
 			this.createVisit004();
 
 			this.doExecute();
@@ -217,7 +218,7 @@ public abstract class InPatientTestService extends AppTestService {
 				dayCount));
 		leaveHospitalOrder001
 				.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		
+
 		leaveHospitalOrder001.setOrderType(leaveHospitalOrderType);
 
 		orderAppService.create(leaveHospitalOrder001, user002);
@@ -236,7 +237,7 @@ public abstract class InPatientTestService extends AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
-		
+
 		assertTrue(executes.size() == 2);
 
 		// 完成医嘱执行条目
@@ -253,7 +254,7 @@ public abstract class InPatientTestService extends AppTestService {
 		pageable = new PageRequest(0, 15);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
-		
+
 		assertTrue(executes.size() == 2);
 
 		// 完成医嘱执行条目
@@ -309,7 +310,7 @@ public abstract class InPatientTestService extends AppTestService {
 		leaveHospitalOrder002.setExecuteDept(dept222);
 		leaveHospitalOrder002
 				.setPlaceType(OrderCreateCommand.PlaceType_InPatient);
-		
+
 		leaveHospitalOrder002.setOrderType(leaveHospitalOrderType);
 
 		orderAppService.create(leaveHospitalOrder002, user002);
@@ -366,7 +367,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00", dayCount));
 
-		//病历移交档案室
+		// 病历移交档案室
 		medicalRecordAppService.transfer(visit001, dept666, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30", dayCount));
@@ -376,12 +377,12 @@ public abstract class InPatientTestService extends AppTestService {
 
 		assertTrue(clips.size() == 1);
 
-		//审查病历
+		// 审查病历
 		qualityControlAppService.pass(clips.get(0).getId(), user601);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-11 10:30", dayCount));
 
-		//归档病历
+		// 归档病历
 		String position = "Num001";
 		recordRoomDomainService
 				.archive(clips.get(0).getId(), position, user602);
@@ -394,13 +395,23 @@ public abstract class InPatientTestService extends AppTestService {
 
 		medicalRecordTestService.setDayCount(dayCount);
 
+		MedicalRecord medicalRecord;
+		List<MedicalRecord> medicalRecords;
 		// 创建临时医嘱单
-		medicalRecordTestService.createTemporaryOrderListMedicalRecord(
-				visit001, temporaryOrderListMedicalRecordType, user002);
+		medicalRecord = medicalRecordTestService
+				.createTemporaryOrderListMedicalRecord(visit001,
+						temporaryOrderListMedicalRecordType, user002);
+
+		medicalRecordAppService.fix(medicalRecord.getId(), user002);
 
 		// 生成检查单病历
-		medicalRecordTestService.createInspectResultMedicalRecord(visit001,
-				inspectResultMedicalRecordType, user002);
+		medicalRecords = medicalRecordTestService
+				.createInspectResultMedicalRecord(visit001,
+						inspectResultMedicalRecordType, user002);
+
+		for (MedicalRecord mr : medicalRecords) {
+			medicalRecordAppService.fix(mr.getId(), user002);
+		}
 	}
 
 	public Visit getVisit001() {

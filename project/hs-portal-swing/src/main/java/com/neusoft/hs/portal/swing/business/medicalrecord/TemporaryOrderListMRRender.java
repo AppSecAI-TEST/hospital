@@ -22,6 +22,6 @@ public class TemporaryOrderListMRRender extends MedicalRecordRender {
 
 	@Override
 	public JFrame play(MedicalRecord medicalRecord) {
-		return new TemporaryOrderListFrame();
+		return new TemporaryOrderListFrame(medicalRecord);
 	}
 }

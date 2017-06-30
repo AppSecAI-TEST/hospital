@@ -21,6 +21,9 @@ public class MedicalRecordAdminDomainService {
 
 	@Autowired
 	private MedicalRecordTypeBuilderRepo medicalRecordTypeBuilderRepo;
+	
+	@Autowired
+	private MedicalRecordRenderRepo medicalRecordRenderRepo;
 
 	public void createMedicalRecordType(MedicalRecordType type) {
 		medicalRecordTypeRepo.save(type);
@@ -39,6 +42,7 @@ public class MedicalRecordAdminDomainService {
 	 * @roseuid 584E167A0000
 	 */
 	public void clear() {
+		medicalRecordRenderRepo.clear();
 		medicalRecordTypeBuilderRepo.deleteAll();
 		medicalRecordClipRepo.deleteAll();
 		medicalRecordTypeRepo.deleteAll();

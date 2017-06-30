@@ -112,10 +112,11 @@ public class MedicalRecord extends IdEntity {
 
 	/**
 	 * 根据诊疗信息创建病历数据
-	 * @throws TreatmentException 
+	 * 
+	 * @throws TreatmentException
 	 */
 	public void init() throws TreatmentException {
-		
+
 		datas = this.builder.create();
 
 		MedicalRecordItem medicalRecordItem;
@@ -131,7 +132,8 @@ public class MedicalRecord extends IdEntity {
 
 	/**
 	 * 加载病历数据
-	 * @throws TreatmentException 
+	 * 
+	 * @throws TreatmentException
 	 */
 	public void load() throws TreatmentException {
 		if (this.state.equals(State_Signed) || this.state.equals(State_Fixed)) {
@@ -146,9 +148,10 @@ public class MedicalRecord extends IdEntity {
 	 * 
 	 * @param doctor
 	 * @throws MedicalRecordException
-	 * @throws TreatmentException 
+	 * @throws TreatmentException
 	 */
-	public void sign(Doctor doctor) throws MedicalRecordException, TreatmentException {
+	public void sign(Doctor doctor) throws MedicalRecordException,
+			TreatmentException {
 		if (!this.type.isNeedSign()) {
 			throw new MedicalRecordException(this, "类型为[%s]的病历不需要签名",
 					this.type.getName());
@@ -177,9 +180,10 @@ public class MedicalRecord extends IdEntity {
 	 * 
 	 * @param user
 	 * @throws MedicalRecordException
-	 * @throws TreatmentException 
+	 * @throws TreatmentException
 	 */
-	public void fix(AbstractUser user) throws MedicalRecordException, TreatmentException {
+	public void fix(AbstractUser user) throws MedicalRecordException,
+			TreatmentException {
 		this.doFix();
 		this.state = State_Fixed;
 
@@ -361,9 +365,10 @@ public class MedicalRecord extends IdEntity {
 	private void fixedItems() throws MedicalRecordException {
 		MedicalRecordItem fixedItem;
 		for (Itemable item : datas.values()) {
-			fixedItem = new MedicalRecordItem((TreatmentItem) item);
-
-			this.addItem(fixedItem);
+			if (item instanceof TreatmentItem) {
+				fixedItem = new MedicalRecordItem((TreatmentItem) item);
+				this.addItem(fixedItem);
+			}
 		}
 	}
 

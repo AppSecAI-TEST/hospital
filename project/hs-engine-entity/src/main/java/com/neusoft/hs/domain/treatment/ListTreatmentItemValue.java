@@ -9,6 +9,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import com.neusoft.hs.domain.medicalrecord.ListMedicalRecordItemValue;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordItemValue;
+
 @Entity
 @DiscriminatorValue("List")
 public class ListTreatmentItemValue extends TreatmentItemValue {
@@ -33,6 +37,12 @@ public class ListTreatmentItemValue extends TreatmentItemValue {
 
 	public void putData(String key, Object value) {
 		this.data.put(key, value);
+	}
+
+	@Override
+	public MedicalRecordItemValue toMedicalRecordItemValue()
+			throws MedicalRecordException {
+		return new ListMedicalRecordItemValue(this);
 	}
 
 	@Override

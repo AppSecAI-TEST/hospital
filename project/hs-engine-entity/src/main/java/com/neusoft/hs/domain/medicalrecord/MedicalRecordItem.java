@@ -46,6 +46,9 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	@Column(name = "visit_name", length = 16)
+	private String visitName;
+
 	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private List<MedicalRecordItemValue> values;
 
@@ -60,7 +63,7 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 
 	public MedicalRecordItem(TreatmentItem item) throws MedicalRecordException {
 		this.name = item.getName();
-		this.visit = item.getVisit();
+		this.setVisit(item.getVisit());
 
 		MedicalRecordItemValue theValue;
 		for (TreatmentItemValue value : item.getValues()) {
@@ -109,6 +112,15 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+		this.visitName = visit.getName();
+	}
+
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
 	}
 
 	public void save() {
