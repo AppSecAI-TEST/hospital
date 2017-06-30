@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.medicalrecord;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,11 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
 @Table(name = "domain_medical_record_render")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "medicalRecordRenderCache")
 public abstract class MedicalRecordRender extends SuperEntity {
 
 	@Id

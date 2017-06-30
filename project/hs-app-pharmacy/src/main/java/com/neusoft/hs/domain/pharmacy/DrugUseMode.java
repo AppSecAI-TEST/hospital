@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.pharmacy;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.order.Order;
@@ -30,6 +33,8 @@ import com.neusoft.hs.platform.entity.SuperEntity;
 @Entity
 @Table(name = "app_pharmacy_drug_use_mode")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "drugUseModeCache")
 public abstract class DrugUseMode extends SuperEntity {
 
 	@Id

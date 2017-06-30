@@ -5,6 +5,7 @@ package com.neusoft.hs.domain.order;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.platform.entity.SuperEntity;
@@ -29,6 +32,8 @@ import com.neusoft.hs.platform.entity.SuperEntity;
 @Entity
 @Table(name = "domain_order_frequency_type")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "orderFrequencyTypeCache")
 public abstract class OrderFrequencyType extends SuperEntity {
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 36)

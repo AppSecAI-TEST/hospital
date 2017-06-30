@@ -2,6 +2,7 @@ package com.neusoft.hs.domain.inspect;
 
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.cost.ChargeItem;
@@ -25,6 +28,8 @@ import com.neusoft.hs.platform.entity.SuperEntity;
  */
 @Entity
 @Table(name = "app_inspect_item")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "inspectItemCache")
 public class InspectItem extends SuperEntity {
 
 	@Id

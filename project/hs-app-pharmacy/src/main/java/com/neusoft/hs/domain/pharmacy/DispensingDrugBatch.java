@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,12 +11,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.platform.entity.SuperEntity;
 
 @Entity
 @Table(name = "app_pharmacy_dispensing_drug_batch")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "dispensingDrugBatchCache")
 public class DispensingDrugBatch extends SuperEntity {
 
 	@Id
