@@ -1,9 +1,12 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
 
-import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.swing.JFrame;
+import javax.swing.JTable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -49,7 +52,17 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		registerAction(
 				arrangementMedicalRecordFrame.getCreateInspectResultBtn(),
 				(e) -> createInspectResultMR());
-		registerAction(arrangementMedicalRecordFrame.getCloseBtn(), (e) -> closeWindow());
+
+		registerAction(arrangementMedicalRecordFrame.getCloseBtn(),
+				(e) -> closeWindow());
+
+		registerAction(arrangementMedicalRecordFrame.getTable(),
+				new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						viewMedicalRecord(e);
+					}
+				});
 	}
 
 	@Override
@@ -78,7 +91,6 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		if (visit == null) {
 			Notifications.showFormValidationAlert("请选择患者");
 		}
-
 	}
 
 	private void createTemporaryOrderListMR() {
@@ -122,7 +134,27 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 			medicalRecordTableModel.addEntities(entities);
 		}
 	}
-	
+
+	private void viewMedicalRecord(MouseEvent e) {
+
+		if (e.getClickCount() == 2) {
+			final JTable table = (JTable) e.getSource();
+			int currentRow = table.rowAtPoint(e.getPoint());
+
+			MedicalRecordTableModel medicalRecordTableModel = arrangementMedicalRecordFrame
+					.getMedicalRecordTableModel();
+
+			MedicalRecord medicalRecord = medicalRecordTableModel
+					.getEntityByRow(currentRow);
+
+			JFrame viewJFrame = (JFrame) medicalRecord.getType().getRender()
+					.play(medicalRecord);
+
+			viewJFrame.setVisible(true);
+		}
+
+	}
+
 	private void closeWindow() {
 		arrangementMedicalRecordFrame.dispose();
 	}

@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.WindowConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +106,10 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 
 	public MedicalRecordTableModel getMedicalRecordTableModel() {
 		return medicalRecordListPanel.getMedicalRecordTableModel();
+	}
+
+	public JTable getTable() {
+		return medicalRecordListPanel.getTable();
 	}
 
 	public JButton getCloseBtn() {
