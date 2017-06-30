@@ -101,7 +101,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		}
 
 		try {
-			medicalRecordAppService.createMedicalRecord(
+			inPatientAppService.arrangementMedicalRecord(
 					MedicalRecordType.TemporaryOrderList, visit,
 					UserUtil.getUser());
 

@@ -9,6 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
@@ -22,6 +25,12 @@ public class InPatientAppService {
 
 	@Autowired
 	private VisitDomainService visitDomainService;
+
+	@Autowired
+	private MedicalRecordAppService medicalRecordAppService;
+
+	@Autowired
+	private MedicalRecordDomainService medicalRecordDomainService;
 
 	public List<Visit> getNeedReceiveVisits(AbstractUser user, Pageable pageable) {
 		return visitDomainService.findByStateAndArea(Visit.State_NeedIntoWard,
@@ -47,5 +56,13 @@ public class InPatientAppService {
 	public List<Visit> listVisit(AbstractUser user, Pageable pageable) {
 		return visitDomainService.findByStateAndDepts(Visit.State_IntoWard,
 				user.getOperationDepts(), pageable);
+	}
+
+	public void arrangementMedicalRecord(String typeId, Visit visit,
+			AbstractUser user) throws HsException {
+		MedicalRecord medicalRecord = medicalRecordAppService
+				.createMedicalRecord(typeId, visit, user);
+
+		medicalRecordDomainService.fix(medicalRecord, user);
 	}
 }
