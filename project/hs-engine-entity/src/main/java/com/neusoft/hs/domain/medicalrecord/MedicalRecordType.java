@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -55,6 +56,9 @@ public class MedicalRecordType extends SuperEntity {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "domain_medical_type_item", joinColumns = { @JoinColumn(name = "type_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "item_id", referencedColumnName = "id") })
 	private List<TreatmentItemSpec> items;
+
+	@OneToOne(mappedBy = "type", cascade = { CascadeType.ALL })
+	private MedicalRecordRender render;
 
 	public final static String IntoWardRecord = "入院记录";
 
@@ -128,4 +132,16 @@ public class MedicalRecordType extends SuperEntity {
 		this.items = items;
 	}
 
+	public MedicalRecordRender getRender() {
+		return render;
+	}
+
+	public void setRender(MedicalRecordRender render) {
+		this.render = render;
+		this.render.setType(this);
+	}
+
+	public void save() {
+		this.getService(MedicalRecordTypeRepo.class).save(this);
+	}
 }

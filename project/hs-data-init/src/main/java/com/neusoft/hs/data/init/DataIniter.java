@@ -1522,7 +1522,7 @@ public class DataIniter {
 		temporaryOrderListMedicalRecordType.setNeedSign(false);
 		temporaryOrderListMedicalRecordType.setNeedCreate(false);
 		temporaryOrderListMedicalRecordType.setUnique(true);
-
+		
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
 		items.add(temporaryOrderListTreatmentItemSpec);
