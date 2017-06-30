@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.framework.util;
+package com.neusoft.hs.portal.swing.util;
 
 import java.awt.Component;
 import java.awt.Image;

@@ -17,10 +17,10 @@ import javax.swing.WindowConstants;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.platform.util.VersionUtil;
-import com.neusoft.hs.portal.framework.util.UIUtil;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
+import com.neusoft.hs.portal.swing.util.UIUtil;
 
 @Component
 public class MainMenuFrame extends JFrame {
