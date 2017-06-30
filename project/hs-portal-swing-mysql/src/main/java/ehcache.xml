@@ -2,9 +2,9 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
 	updateCheck="false">
-	
+
 	<diskStore path="java.io.tmpdir/Tmp_EhCache" />
-	
+
 	<defaultCache eternal="false" maxElementsInMemory="1000"
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU" />
@@ -28,7 +28,7 @@
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="configureFluidBatch" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
@@ -37,32 +37,32 @@
 		timeToLiveSeconds="300" memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="diseaseTypeCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="dispenseDrugWinCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="dispensingDrugBatchCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="drugTypeSpecCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="5000" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="drugUseModeCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="drugUseModeAssistMaterialCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="2000" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
@@ -72,21 +72,21 @@
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="medicalRecordRenderCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="medicalRecordTypeCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="orderFrequencyTypeCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
-	<cache name="orderTypeCache" eternal="false" maxElementsInMemory="1000"
+	<cache name="orderTypeCache" eternal="false" maxElementsInMemory="100"
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="300" memoryStoreEvictionPolicy="LRU" />
 
@@ -96,7 +96,7 @@
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="voucherTypeCache" eternal="false"
-		maxElementsInMemory="1000" overflowToDisk="false" diskPersistent="false"
+		maxElementsInMemory="100" overflowToDisk="false" diskPersistent="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="300"
 		memoryStoreEvictionPolicy="LRU" />
 
