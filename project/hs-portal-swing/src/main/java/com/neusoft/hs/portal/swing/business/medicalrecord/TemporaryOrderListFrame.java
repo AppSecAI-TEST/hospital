@@ -24,7 +24,7 @@ import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 public class TemporaryOrderListFrame extends JFrame {
 
-	private static final int DEFAULT_WIDTH = 400;
+	private static final int DEFAULT_WIDTH = 700;
 
 	private static final int DEFAULT_HEIGHT = 600;
 
@@ -84,10 +84,12 @@ public class TemporaryOrderListFrame extends JFrame {
 			list = (ListMedicalRecordItemValue) value;
 
 			Object[] rowData = new Object[5];
-			int i = 0;
-			for (String listValue : list.getData().values()) {
-				rowData[i++] = listValue;
-			}
+			rowData[0] = list.getData().get("name");
+			rowData[1] = list.getData().get("count");
+			rowData[2] = list.getData().get("createDate");
+			rowData[3] = list.getData().get("executeDate");
+			rowData[4] = list.getData().get("creator");
+			
 			tableModel.addRow(rowData);
 		}
 		JTable table = new JTable(tableModel);
