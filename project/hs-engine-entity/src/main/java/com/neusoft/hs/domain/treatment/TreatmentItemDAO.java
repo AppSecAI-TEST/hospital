@@ -17,4 +17,8 @@ public class TreatmentItemDAO {
 				treatmentItemSpec);
 	}
 
+	public void save(TreatmentItem treatmentItem) {
+		treatmentItemRepo.save(treatmentItem);
+	}
+
 }

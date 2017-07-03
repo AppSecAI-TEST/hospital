@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort.Direction;
 import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
+import com.neusoft.hs.domain.treatment.TreatmentItemDAO;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
@@ -35,13 +36,26 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 	@Override
 	public TreatmentItem getTheItem(Visit visit) throws TreatmentException {
 
+		TreatmentItem treatmentItem = this.getService(TreatmentItemDAO.class)
+				.findTheTreatmentItem(visit, this);
+		if (treatmentItem == null) {
+			treatmentItem = this.createTreatmentItem(visit);
+			this.getService(TreatmentItemDAO.class).save(treatmentItem);
+		}
+
+		return treatmentItem;
+	}
+
+	public TreatmentItem createTreatmentItem(Visit visit)
+			throws TreatmentException {
+
 		if (this.states == null || this.states.size() == 0) {
 			throw new TreatmentException("临时医嘱列表没有配置过滤状态");
 		}
 
-		TreatmentItem item = new TreatmentItem();
-		item.setTreatmentItemSpec(this);
-		item.setVisit(visit);
+		TreatmentItem treatmentItem = new TreatmentItem();
+		treatmentItem.setTreatmentItemSpec(this);
+		treatmentItem.setVisit(visit);
 
 		ListTreatmentItemValue value;
 
@@ -65,13 +79,13 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 				value.putData("createDate",
 						DateUtil.toString(order.getCreateDate()));
 
-				item.addValue(value);
+				treatmentItem.addValue(value);
 			}
 		} catch (HsException e) {
 			throw new TreatmentException(e);
 		}
 
-		return item;
+		return treatmentItem;
 	}
 
 	public List<String> getStates() {

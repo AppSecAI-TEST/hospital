@@ -14,5 +14,4 @@ public class CommonTreatmentItemSpec extends TreatmentItemSpec {
 		return this.getService(TreatmentItemRepo.class)
 				.findByVisitAndTreatmentItemSpec(visit, this);
 	}
-
 }

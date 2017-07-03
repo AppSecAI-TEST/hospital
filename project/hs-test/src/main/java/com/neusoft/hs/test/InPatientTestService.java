@@ -16,6 +16,7 @@ import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
@@ -397,12 +398,23 @@ public abstract class InPatientTestService extends AppTestService {
 
 		MedicalRecord medicalRecord;
 		List<MedicalRecord> medicalRecords;
+		TreatmentItem item;
 		// 创建临时医嘱单
 		medicalRecord = medicalRecordTestService
 				.createTemporaryOrderListMedicalRecord(visit001,
 						temporaryOrderListMedicalRecordType, user002);
 
+		item = treatmentDomainService.getTheTreatmentItem(visit001,
+				temporaryOrderListTreatmentItemSpec);
+
+		assertTrue(item.getValues().size() == MedicalRecordTestService.temporaryOrderCount);
+
 		medicalRecordAppService.fix(medicalRecord.getId(), user002);
+
+		item = treatmentDomainService.getTheTreatmentItem(visit001,
+				temporaryOrderListTreatmentItemSpec);
+
+		assertTrue(item.getValues().size() == MedicalRecordTestService.temporaryOrderCount);
 
 		// 生成检查单病历
 		medicalRecords = medicalRecordTestService
