@@ -48,11 +48,7 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 
 	public abstract Map<String, Itemable> doCreate() throws TreatmentException;
 
-	public void delete() {
-	}
-
 	public void save() {
-		this.delete();
 		this.getService(MedicalRecordBuilderRepo.class).save(this);
 	}
 

@@ -12,7 +12,6 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.AbstractUser;

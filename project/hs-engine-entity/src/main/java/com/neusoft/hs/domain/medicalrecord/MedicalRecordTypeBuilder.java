@@ -45,30 +45,6 @@ public class MedicalRecordTypeBuilder extends MedicalRecordBuilder {
 		return datas;
 	}
 
-	@Override
-	public void delete() {
-		if (type.isUnique()) {
-			List<MedicalRecord> records = this.getService(
-					MedicalRecordRepo.class).findByVisitAndType(
-					this.getVisit(), type);
-
-			TreatmentItem treatmentItem;
-			for (MedicalRecord record : records) {
-				// 删除对应的诊疗信息
-				for (MedicalRecordItem item : record.getItems()) {
-					treatmentItem = item.getTreatmentItem();
-					if (treatmentItem != null
-							&& treatmentItem.getTreatmentItemSpec()
-									.isRepeatCreate()) {
-						treatmentItem.delete();
-					}
-				}
-				// 删除病历
-				record.delete();
-			}
-		}
-	}
-
 	public MedicalRecordType getType() {
 		return type;
 	}

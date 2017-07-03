@@ -40,10 +40,11 @@ public class MedicalRecordDomainService {
 	 * @param type
 	 * @param doctor
 	 * @return
-	 * @throws TreatmentException 
+	 * @throws TreatmentException
 	 */
 	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
-			MedicalRecordType type, AbstractUser doctor) throws TreatmentException {
+			MedicalRecordType type, AbstractUser doctor)
+			throws TreatmentException {
 		MedicalRecord record = new MedicalRecord(builder, type, visit, doctor);
 
 		return record;
@@ -56,6 +57,16 @@ public class MedicalRecordDomainService {
 	 * @param record
 	 */
 	public void save(MedicalRecord record) {
+
+		if (record.getType().isUnique()) {
+			List<MedicalRecord> records = this.getMedicalRecords(
+					record.getVisit(), record.getType());
+			for (MedicalRecord record1 : records) {
+				// 删除原有病历
+				record1.delete();
+			}
+		}
+
 		if (record.getCreateDate() == null) {
 			record.setCreateDate(DateUtil.getSysDate());
 		}
@@ -110,7 +121,7 @@ public class MedicalRecordDomainService {
 	 * @param record
 	 * @param doctor
 	 * @throws MedicalRecordException
-	 * @throws TreatmentException 
+	 * @throws TreatmentException
 	 */
 	public void sign(MedicalRecord record, Doctor doctor)
 			throws MedicalRecordException, TreatmentException {
@@ -130,7 +141,7 @@ public class MedicalRecordDomainService {
 	 * @param record
 	 * @param user
 	 * @throws MedicalRecordException
-	 * @throws TreatmentException 
+	 * @throws TreatmentException
 	 */
 	public void fix(MedicalRecord record, AbstractUser user)
 			throws MedicalRecordException, TreatmentException {
