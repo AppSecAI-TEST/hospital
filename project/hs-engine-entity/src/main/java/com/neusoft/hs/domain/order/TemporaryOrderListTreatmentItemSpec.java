@@ -20,6 +20,8 @@ import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
+import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 
 @Entity
 @DiscriminatorValue("TemporaryOrderList")
@@ -50,16 +52,23 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 				.getApplicationContext().getBean(OrderRepo.class)
 				.findTemporaryOrder(visit, states, pageable);
 
-		for (TemporaryOrder order : orders) {
-			value = new ListTreatmentItemValue();
+		try {
+			for (TemporaryOrder order : orders) {
+				value = new ListTreatmentItemValue();
 
-			value.putData("name", order.getName());
-			value.putData("count", order.getCount());
-			value.putData("executeDate", order.getExecuteDate());
-			value.putData("creator", order.getCreator().getName());
-			value.putData("createDate", order.getCreateDate());
+				value.putData("name", order.getName());
+				value.putData("count", order.getCount() == null ? null : order
+						.getCount().toString());
+				value.putData("executeDate",
+						DateUtil.toString(order.getExecuteDate()));
+				value.putData("creator", order.getCreator().getName());
+				value.putData("createDate",
+						DateUtil.toString(order.getCreateDate()));
 
-			item.addValue(value);
+				item.addValue(value);
+			}
+		} catch (HsException e) {
+			throw new TreatmentException(e);
 		}
 
 		return item;

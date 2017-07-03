@@ -19,7 +19,7 @@ import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 @DiscriminatorValue("List")
 public class ListMedicalRecordItemValue extends MedicalRecordItemValue {
 
-	@ElementCollection(fetch=FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "domain_medical_record_item_value_list", joinColumns = @JoinColumn(name = "value_id"))
 	@Column(name = "data")
 	private Map<String, String> data;
@@ -35,11 +35,11 @@ public class ListMedicalRecordItemValue extends MedicalRecordItemValue {
 
 		this.data = new LinkedHashMap<String, String>();
 
-		Map<String, Object> originalData = value.getData();
+		Map<String, String> originalData = value.getData();
 
 		for (String key : originalData.keySet()) {
 			if (originalData.get(key) != null) {
-				this.data.put(key, originalData.get(key).toString());
+				this.data.put(key, originalData.get(key));
 			} else {
 				this.data.put(key, null);
 			}

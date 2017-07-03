@@ -5,9 +5,13 @@ package com.neusoft.hs.domain.treatment;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 
 import com.neusoft.hs.domain.medicalrecord.ListMedicalRecordItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
@@ -17,8 +21,10 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordItemValue;
 @DiscriminatorValue("List")
 public class ListTreatmentItemValue extends TreatmentItemValue {
 
-	@Transient
-	private Map<String, Object> data = new LinkedHashMap<String, Object>();
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "domain_treatment_item_value_list", joinColumns = @JoinColumn(name = "value_id"))
+	@Column(name = "data")
+	private Map<String, String> data = new LinkedHashMap<String, String>();
 
 	/**
 	 * @roseuid 58A108960144
@@ -27,15 +33,15 @@ public class ListTreatmentItemValue extends TreatmentItemValue {
 
 	}
 
-	public Map<String, Object> getData() {
+	public Map<String, String> getData() {
 		return data;
 	}
 
-	public void setData(Map<String, Object> data) {
+	public void setData(Map<String, String> data) {
 		this.data = data;
 	}
 
-	public void putData(String key, Object value) {
+	public void putData(String key, String value) {
 		this.data.put(key, value);
 	}
 
