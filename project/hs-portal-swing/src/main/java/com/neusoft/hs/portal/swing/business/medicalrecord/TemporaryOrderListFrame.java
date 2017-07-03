@@ -11,8 +11,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
+import com.neusoft.hs.domain.medicalrecord.ListMedicalRecordItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordItem;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordItemValue;
+import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
@@ -64,10 +69,28 @@ public class TemporaryOrderListFrame extends JFrame {
 
 		contentPanel.add(titlePanel, BorderLayout.NORTH);
 
-		medicalRecord.getItems();
+		MedicalRecordItem item = medicalRecord
+				.getTheItem(TreatmentItemSpec.TemporaryOrderList);
 
-		JTable table = new JTable(null);
+		DefaultTableModel tableModel = new DefaultTableModel();
+		tableModel.addColumn(ConstMessagesCN.Labels.Name);
+		tableModel.addColumn(ConstMessagesCN.Labels.Count);
+		tableModel.addColumn(ConstMessagesCN.Labels.CreateDate);
+		tableModel.addColumn(ConstMessagesCN.Labels.ExecuteDate);
+		tableModel.addColumn(ConstMessagesCN.Labels.Doctor);
 
+		ListMedicalRecordItemValue list;
+		for (MedicalRecordItemValue value : item.getValues()) {
+			list = (ListMedicalRecordItemValue) value;
+
+			Object[] rowData = new Object[5];
+			int i = 0;
+			for (String listValue : list.getData().values()) {
+				rowData[i++] = listValue;
+			}
+			tableModel.addRow(rowData);
+		}
+		JTable table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane paneWithTable = new JScrollPane(table);
@@ -83,5 +106,4 @@ public class TemporaryOrderListFrame extends JFrame {
 
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
-
 }

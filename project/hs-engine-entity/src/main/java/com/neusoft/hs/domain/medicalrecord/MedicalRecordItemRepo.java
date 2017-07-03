@@ -7,4 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 interface MedicalRecordItemRepo extends
 		PagingAndSortingRepository<MedicalRecordItem, String> {
 
+	MedicalRecordItem findByRecordAndName(MedicalRecord medicalRecord,
+			String name);
+
 }
