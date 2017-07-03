@@ -1,5 +1,8 @@
 package com.neusoft.hs.portal.swing.business.medicalrecord;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.swing.JFrame;
@@ -22,6 +25,12 @@ public class TemporaryOrderListMRRender extends MedicalRecordRender {
 
 	@Override
 	public JFrame play(MedicalRecord medicalRecord) {
-		return new TemporaryOrderListFrame(medicalRecord);
+		TemporaryOrderListFrame frame = new TemporaryOrderListFrame(
+				medicalRecord);
+		frame.getCloseBtn().addActionListener((e) -> {
+			frame.dispose();
+		});
+
+		return frame;
 	}
 }

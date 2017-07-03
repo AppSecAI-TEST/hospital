@@ -30,6 +30,8 @@ public class TemporaryOrderListFrame extends JFrame {
 
 	private MedicalRecord medicalRecord;
 
+	private JButton closeBtn;
+
 	public TemporaryOrderListFrame(MedicalRecord medicalRecord) {
 
 		this.medicalRecord = medicalRecord;
@@ -89,7 +91,7 @@ public class TemporaryOrderListFrame extends JFrame {
 			rowData[2] = list.getData().get("createDate");
 			rowData[3] = list.getData().get("executeDate");
 			rowData[4] = list.getData().get("creator");
-			
+
 			tableModel.addRow(rowData);
 		}
 		JTable table = new JTable(tableModel);
@@ -103,9 +105,13 @@ public class TemporaryOrderListFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
-		JButton closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
 		buttonPanel.add(closeBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
+	}
+
+	public JButton getCloseBtn() {
+		return closeBtn;
 	}
 }
