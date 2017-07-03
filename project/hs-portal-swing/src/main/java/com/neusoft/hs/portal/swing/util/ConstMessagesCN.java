@@ -153,10 +153,12 @@ public interface ConstMessagesCN {
 		String ChargeRecord = "收费记录";
 		String OrderList = "医嘱单";
 		String OrderExecuteList = "医嘱执行单";
+		String Treatment = "诊疗信息";
 		String MedicalRecord = "病历";
 
 		String createTemporaryOrderListMR = "创建临时医嘱单";
 		String createInspectResultMR = "生成检查单病历";
+
 
 	}
 

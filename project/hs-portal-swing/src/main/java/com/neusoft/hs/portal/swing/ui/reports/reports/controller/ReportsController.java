@@ -7,6 +7,7 @@ import com.neusoft.hs.portal.swing.ui.reports.cost.controller.ChargeRecordReport
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderExecuteController;
 import com.neusoft.hs.portal.swing.ui.reports.reports.view.ReportsFrame;
+import com.neusoft.hs.portal.swing.ui.reports.treatment.controller.TreatmentController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -24,6 +25,9 @@ public class ReportsController extends AbstractFrameController {
 
 	@Autowired
 	private OrderExecuteController orderExecuteController;
+	
+	@Autowired
+	private TreatmentController treatmentController;
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getChargeRecordReportBtn(),
@@ -31,7 +35,9 @@ public class ReportsController extends AbstractFrameController {
 		registerAction(mainMenuFrame.getOrderBtn(), (e) -> openOrderWindow());
 		registerAction(mainMenuFrame.getOrderExecuteBtn(),
 				(e) -> openOrderExecuteWindow());
-
+		registerAction(mainMenuFrame.getTreatmentBtn(),
+				(e) -> openTreatmentWindow());
+		
 		mainMenuFrame.setVisible(true);
 	}
 
@@ -56,6 +62,15 @@ public class ReportsController extends AbstractFrameController {
 	private void openOrderExecuteWindow() {
 		try {
 			orderExecuteController.prepareAndOpenFrame();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+	
+	private void openTreatmentWindow() {
+		try {
+			treatmentController.prepareAndOpenFrame();
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

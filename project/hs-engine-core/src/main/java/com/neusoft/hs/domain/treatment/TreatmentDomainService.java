@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,13 +89,12 @@ public class TreatmentDomainService {
 
 		List<TreatmentItemSpec> shouldTreatmentItemSpecs = new ArrayList<TreatmentItemSpec>();
 
-		Iterator<TreatmentItemSpec> it = getAllTreatmentItemSpecs().iterator();
-		TreatmentItemSpec treatmentItemSpec;
-		while (it.hasNext()) {
-			treatmentItemSpec = it.next();
-			Date theShouldDate = treatmentItemSpec.getShouldDate(visit);
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		List<TreatmentItemSpec> specs = getAllTreatmentItemSpecs(pageable);
+		for (TreatmentItemSpec spec : specs) {
+			Date theShouldDate = spec.getShouldDate(visit);
 			if (theShouldDate != null && theShouldDate.before(shouldDate)) {
-				shouldTreatmentItemSpecs.add(treatmentItemSpec);
+				shouldTreatmentItemSpecs.add(spec);
 			}
 		}
 		return shouldTreatmentItemSpecs;
@@ -112,10 +113,9 @@ public class TreatmentDomainService {
 		treatmentItemRepo.save(item);
 		applicationContext.publishEvent(new TreatmentItemUpdatedEvent(item));
 	}
-	
-	public Iterable<TreatmentItemSpec> getAllTreatmentItemSpecs() {
-		return treatmentItemSpecRepo.findAll();
-	}
 
+	public List<TreatmentItemSpec> getAllTreatmentItemSpecs(Pageable pageable) {
+		return treatmentItemSpecRepo.findAll(pageable).getContent();
+	}
 
 }
