@@ -57,7 +57,9 @@ public class MedicalRecordTypeBuilder extends MedicalRecordBuilder {
 				// 删除对应的诊疗信息
 				for (MedicalRecordItem item : record.getItems()) {
 					treatmentItem = item.getTreatmentItem();
-					if (treatmentItem != null) {
+					if (treatmentItem != null
+							&& treatmentItem.getTreatmentItemSpec()
+									.isRepeatCreate()) {
 						treatmentItem.delete();
 					}
 				}

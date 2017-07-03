@@ -43,7 +43,6 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 	 * @throws TreatmentException
 	 */
 	public final Map<String, Itemable> create() throws TreatmentException {
-		this.delete();
 		return this.doCreate();
 	}
 
@@ -53,6 +52,7 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 	}
 
 	public void save() {
+		this.delete();
 		this.getService(MedicalRecordBuilderRepo.class).save(this);
 	}
 

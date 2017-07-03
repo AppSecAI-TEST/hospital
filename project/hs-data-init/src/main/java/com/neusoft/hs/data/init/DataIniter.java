@@ -273,7 +273,7 @@ public class DataIniter {
 
 	@Autowired
 	protected OrderExecuteDomainService orderExecuteDomainService;
-	
+
 	@Autowired
 	protected OrderExecuteAdminService orderExecuteAdminService;
 
@@ -496,7 +496,7 @@ public class DataIniter {
 		orderAdminDomainService.clearOrderTypeApps();
 		// 清空组合医嘱
 		orderAdminDomainService.clearCompsiteOrdes();
-		//清空医嘱执行条目Team
+		// 清空医嘱执行条目Team
 		orderExecuteAdminService.clearExecuteTeams();
 		// 清空医嘱类型
 		orderAdminDomainService.clearOrderTypes();
@@ -1481,6 +1481,7 @@ public class DataIniter {
 				.setName(TreatmentItemSpec.TemporaryOrderList);
 		temporaryOrderListTreatmentItemSpec.addState(Order.State_Canceled);
 		temporaryOrderListTreatmentItemSpec.addState(Order.State_Finished);
+		temporaryOrderListTreatmentItemSpec.setRepeatCreate(true);
 
 		treatmentItemSpecs.add(temporaryOrderListTreatmentItemSpec);
 
@@ -1522,7 +1523,7 @@ public class DataIniter {
 		temporaryOrderListMedicalRecordType.setNeedSign(false);
 		temporaryOrderListMedicalRecordType.setNeedCreate(false);
 		temporaryOrderListMedicalRecordType.setUnique(true);
-		
+
 		items = new ArrayList<TreatmentItemSpec>();
 		items.add(visitNameTreatmentItemSpec);
 		items.add(temporaryOrderListTreatmentItemSpec);

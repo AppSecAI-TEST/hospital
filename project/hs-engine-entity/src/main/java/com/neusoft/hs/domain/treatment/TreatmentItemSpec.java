@@ -51,6 +51,9 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	@Column(name = "should_create_interval_hour")
 	private Integer shouldIntervalHour;
 
+	@Column(name = "repeat_create")
+	private boolean repeatCreate = false;
+
 	@OneToMany(mappedBy = "treatmentItemSpec", cascade = { CascadeType.ALL })
 	private List<TreatmentItem> treatmentItems;
 
@@ -117,6 +120,14 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 
 	public void setShouldIntervalHour(Integer shouldIntervalHour) {
 		this.shouldIntervalHour = shouldIntervalHour;
+	}
+
+	public boolean isRepeatCreate() {
+		return repeatCreate;
+	}
+
+	public void setRepeatCreate(boolean repeatCreate) {
+		this.repeatCreate = repeatCreate;
 	}
 
 	public List<TreatmentItem> getTreatmentItems() {
