@@ -3,7 +3,9 @@ package com.neusoft.hs.portal.swing.ui.reports.treatment.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,6 +18,7 @@ import javax.swing.WindowConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
@@ -28,6 +31,8 @@ public class TreamentFrame extends JFrame {
 	VisitComboBoxModel visitComboBoxModel;
 
 	private JPanel workspacePanel;
+
+	private Map<TreatmentItemSpec, JTextField> treatments;
 
 	private JButton closeBtn;
 
@@ -78,13 +83,26 @@ public class TreamentFrame extends JFrame {
 
 	public void showTreatment(List<TreatmentItemSpec> specs) {
 
+		treatments = new HashMap<TreatmentItemSpec, JTextField>();
 		JPanel specPanel = new JPanel(new GridLayout(specs.size(), 2));
 		for (TreatmentItemSpec spec : specs) {
 			specPanel.add(new JLabel(spec.getName()));
-			specPanel.add(new JTextField());
+
+			JTextField valueTF = new JTextField();
+			specPanel.add(valueTF);
+
+			treatments.put(spec, valueTF);
 		}
 
 		workspacePanel.add(specPanel, BorderLayout.CENTER);
+	}
+
+	public void showTheTreatment(TreatmentItemSpec spec, TreatmentItem item) {
+		if (item != null) {
+			treatments.get(spec).setText(item.getValueInfo());
+		} else {
+			treatments.get(spec).setText(null);
+		}
 	}
 
 	public JComboBox<Visit> getVisitCB() {
@@ -98,5 +116,4 @@ public class TreamentFrame extends JFrame {
 	public JButton getCloseBtn() {
 		return closeBtn;
 	}
-
 }
