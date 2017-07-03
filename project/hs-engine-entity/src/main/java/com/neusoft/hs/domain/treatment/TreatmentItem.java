@@ -42,7 +42,7 @@ public class TreatmentItem extends IdEntity implements Itemable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "treatment_spec_id")
 	private TreatmentItemSpec treatmentItemSpec;
-	
+
 	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private List<TreatmentItemValue> values;
 
@@ -50,7 +50,7 @@ public class TreatmentItem extends IdEntity implements Itemable {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
-	@Column(name="visit_name", length = 16)
+	@Column(name = "visit_name", length = 16)
 	private String visitName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -106,10 +106,10 @@ public class TreatmentItem extends IdEntity implements Itemable {
 	public List<TreatmentItemValue> getValues() {
 		return values;
 	}
-	
-	public String getValueInfo(){
+
+	public String getValueInfo() {
 		StringBuffer info = new StringBuffer();
-		for(TreatmentItemValue value : values){
+		for (TreatmentItemValue value : values) {
 			info.append(value);
 			info.append("\n");
 		}
@@ -149,5 +149,9 @@ public class TreatmentItem extends IdEntity implements Itemable {
 
 	public void save() {
 		this.getService(TreatmentItemRepo.class).save(this);
+	}
+
+	public void delete() {
+		this.getService(TreatmentItemRepo.class).delete(this);
 	}
 }

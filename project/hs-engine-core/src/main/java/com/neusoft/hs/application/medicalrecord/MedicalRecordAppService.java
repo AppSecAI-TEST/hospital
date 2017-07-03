@@ -12,12 +12,14 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.TreatmentException;
+import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -46,14 +48,6 @@ public class MedicalRecordAppService {
 
 		MedicalRecordType type = medicalRecordAdminDomainService
 				.getMedicalRecordType(typeId);
-
-		if (type.isUnique()) {
-			List<MedicalRecord> records = medicalRecordDomainService
-					.getMedicalRecords(visit, type);
-			for (MedicalRecord record : records) {
-				medicalRecordDomainService.delete(record.getId());
-			}
-		}
 
 		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
 

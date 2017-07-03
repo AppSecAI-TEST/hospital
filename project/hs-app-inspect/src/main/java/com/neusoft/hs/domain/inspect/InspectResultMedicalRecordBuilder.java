@@ -35,7 +35,7 @@ public class InspectResultMedicalRecordBuilder extends MedicalRecordBuilder {
 	}
 
 	@Override
-	public Map<String, Itemable> create() throws TreatmentException{
+	public Map<String, Itemable> doCreate() throws TreatmentException{
 		Map<String, Itemable> datas = new HashMap<String, Itemable>();
 
 		MedicalRecordItem item;

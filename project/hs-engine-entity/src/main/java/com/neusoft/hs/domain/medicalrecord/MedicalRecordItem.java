@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -52,6 +53,10 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	private List<MedicalRecordItemValue> values;
 
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "treatment_item_id")
+	private TreatmentItem treatmentItem;
+
 	public MedicalRecordItem() {
 
 	}
@@ -63,8 +68,10 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 
 	public MedicalRecordItem(TreatmentItem item) throws MedicalRecordException {
 		this.name = item.getName();
+		this.treatmentItem = item;
+		
 		this.setVisit(item.getVisit());
-
+		
 		MedicalRecordItemValue theValue;
 		for (TreatmentItemValue value : item.getValues()) {
 			theValue = value.toMedicalRecordItemValue();
@@ -121,6 +128,14 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 
 	public void setVisitName(String visitName) {
 		this.visitName = visitName;
+	}
+
+	public TreatmentItem getTreatmentItem() {
+		return treatmentItem;
+	}
+
+	public void setTreatmentItem(TreatmentItem treatmentItem) {
+		this.treatmentItem = treatmentItem;
 	}
 
 	public void save() {
