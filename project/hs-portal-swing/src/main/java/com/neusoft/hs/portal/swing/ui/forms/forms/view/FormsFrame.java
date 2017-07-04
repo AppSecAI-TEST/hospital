@@ -37,6 +37,8 @@ public class FormsFrame extends JFrame implements
 
 	private JButton finishOrderExecuteBtn;
 
+	private JButton maintainTreatmentBtn;
+
 	private JButton arrangementMedicalRecordBtn;
 
 	private JButton transferMedicalRecordBtn;
@@ -70,7 +72,7 @@ public class FormsFrame extends JFrame implements
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(12, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(13, 2, 20, 20));
 
 		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
 		registerBtn = new JButton(ConstMessagesCN.Labels.Register);
@@ -82,6 +84,8 @@ public class FormsFrame extends JFrame implements
 				ConstMessagesCN.Labels.SendOrderExecute);
 		finishOrderExecuteBtn = new JButton(
 				ConstMessagesCN.Labels.FinishOrderExecute);
+		maintainTreatmentBtn = new JButton(
+				ConstMessagesCN.Labels.MaintainTreatment);
 		arrangementMedicalRecordBtn = new JButton(
 				ConstMessagesCN.Labels.ArrangementMedicalRecord);
 		transferMedicalRecordBtn = new JButton(
@@ -98,6 +102,7 @@ public class FormsFrame extends JFrame implements
 		menuPanel.add(verifyOrderBtn);
 		menuPanel.add(sendOrderExecuteBtn);
 		menuPanel.add(finishOrderExecuteBtn);
+		menuPanel.add(maintainTreatmentBtn);
 		menuPanel.add(arrangementMedicalRecordBtn);
 		menuPanel.add(transferMedicalRecordBtn);
 		menuPanel.add(qualityControlBtn);
@@ -143,6 +148,10 @@ public class FormsFrame extends JFrame implements
 
 	public JButton getFinishOrderExecuteBtn() {
 		return finishOrderExecuteBtn;
+	}
+
+	public JButton getMaintainTreatmentBtn() {
+		return maintainTreatmentBtn;
 	}
 
 	public JButton getArrangementMedicalRecordBtn() {

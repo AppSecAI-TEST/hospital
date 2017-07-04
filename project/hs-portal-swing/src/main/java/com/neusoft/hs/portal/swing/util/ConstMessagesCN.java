@@ -111,6 +111,7 @@ public interface ConstMessagesCN {
 		String VerifyOrder = "核对医嘱";
 		String SendOrderExecute = "发送医嘱执行条目";
 		String FinishOrderExecute = "完成医嘱执行条目";
+		String MaintainTreatment = "维护诊疗信息";
 		String ArrangementMedicalRecord = "整理病历";
 		String TransferMedicalRecord = "移交档案室";
 		String QualityControl = "确认诊疗过程合格";

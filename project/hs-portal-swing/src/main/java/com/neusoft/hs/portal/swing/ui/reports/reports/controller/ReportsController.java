@@ -27,7 +27,7 @@ public class ReportsController extends AbstractFrameController {
 	private OrderExecuteController orderExecuteController;
 	
 	@Autowired
-	private TreatmentReportController treatmentController;
+	private TreatmentReportController treatmentReportController;
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getChargeRecordReportBtn(),
@@ -70,7 +70,7 @@ public class ReportsController extends AbstractFrameController {
 	
 	private void openTreatmentWindow() {
 		try {
-			treatmentController.prepareAndOpenFrame();
+			treatmentReportController.prepareAndOpenFrame();
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

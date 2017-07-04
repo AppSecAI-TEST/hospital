@@ -7,6 +7,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.cashier.controller.CashierController;
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.FormsFrame;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ArrangementMedicalRecordController;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.MaintainTreatmentController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderExecuteSendController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderVerifyController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveVisitController;
@@ -48,6 +49,9 @@ public class FormsController extends AbstractFrameController {
 	private OrderExecuteSendController orderExecuteSendController;
 
 	@Autowired
+	private MaintainTreatmentController maintainTreatmentController;
+
+	@Autowired
 	private OrderExecuteFinishController orderExecuteFinishController;
 
 	@Autowired
@@ -78,6 +82,8 @@ public class FormsController extends AbstractFrameController {
 				(e) -> openSendOrderExecuteWindow());
 		registerAction(mainMenuFrame.getFinishOrderExecuteBtn(),
 				(e) -> openFinishOrderExecuteWindow());
+		registerAction(mainMenuFrame.getMaintainTreatmentBtn(),
+				(e) -> openMaintainTreatmentWindow());
 		registerAction(mainMenuFrame.getArrangementMedicalRecordBtn(),
 				(e) -> openArrangementMedicalRecordWindow());
 		registerAction(mainMenuFrame.getTransferMedicalRecordBtn(),
@@ -156,6 +162,15 @@ public class FormsController extends AbstractFrameController {
 	private void openFinishOrderExecuteWindow() {
 		try {
 			orderExecuteFinishController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openMaintainTreatmentWindow() {
+		try {
+			maintainTreatmentController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
