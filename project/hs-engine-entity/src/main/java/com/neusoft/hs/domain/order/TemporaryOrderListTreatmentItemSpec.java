@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -30,6 +32,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 
 	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	@CollectionTable(name = "domain_treatment_spec_state", joinColumns = @JoinColumn(name = "spec_id"))
 	@Column(name = "state")
 	private List<String> states;
@@ -76,7 +79,7 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 						.getCount().toString());
 				value.putData("executeDate",
 						DateUtil.toString(order.getExecuteDate()));
-				value.putData("creator", order.getCreator().getName());
+				value.putData("creator", order.getCreatorName());
 				value.putData("createDate",
 						DateUtil.toString(order.getCreateDate()));
 
