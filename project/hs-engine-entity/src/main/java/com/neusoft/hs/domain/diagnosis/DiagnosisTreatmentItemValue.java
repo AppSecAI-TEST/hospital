@@ -21,7 +21,7 @@ public class DiagnosisTreatmentItemValue extends TreatmentItemValue {
 	@Column(length = 128)
 	private String remark;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "disease_id")
 	private Disease disease;
 
@@ -53,4 +53,17 @@ public class DiagnosisTreatmentItemValue extends TreatmentItemValue {
 			throws MedicalRecordException {
 		return new DiagnosisMedicalRecordItemValue(this);
 	}
+
+	@Override
+	public String toString() {
+		
+		StringBuffer info = new StringBuffer();
+		info.append("remark:");
+		info.append(remark);
+		info.append(" disease:");
+		info.append(disease.getName());
+
+		return info.toString();
+	}
+
 }

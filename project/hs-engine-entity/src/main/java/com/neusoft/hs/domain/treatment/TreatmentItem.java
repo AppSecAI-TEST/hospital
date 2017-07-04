@@ -110,7 +110,7 @@ public class TreatmentItem extends IdEntity implements Itemable {
 	public String getValueInfo() {
 		StringBuffer info = new StringBuffer();
 		for (TreatmentItemValue value : values) {
-			info.append(value);
+			info.append(value.toString());
 			info.append("\n");
 		}
 		return info.toString();
