@@ -1,8 +1,8 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
 
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
@@ -12,13 +12,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitAdminDomainService;
+import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.MaintainTreatmentFrame;
@@ -33,7 +32,7 @@ public class MaintainTreatmentController extends AbstractFrameController {
 	private MaintainTreatmentFrame maintainTreatmentFrame;
 
 	@Autowired
-	private InPatientAppService inPatientAppService;
+	private VisitDomainService visitDomainService;
 
 	@Autowired
 	private TreatmentDomainService treatmentDomainService;
@@ -58,8 +57,12 @@ public class MaintainTreatmentController extends AbstractFrameController {
 	private void loadVisits() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<Visit> entities = inPatientAppService.listVisit(
-				UserUtil.getUser(), pageable);
+		List<String> states = new ArrayList<String>();
+		states.add(Visit.State_OutHospital);
+		states.add(Visit.State_IntoWard);
+
+		List<Visit> entities = visitDomainService.findByStatesAndDepts(states,
+				UserUtil.getUser().getOperationDepts(), pageable);
 
 		VisitComboBoxModel visitComboBoxModel = maintainTreatmentFrame
 				.getVisitComboBoxModel();
