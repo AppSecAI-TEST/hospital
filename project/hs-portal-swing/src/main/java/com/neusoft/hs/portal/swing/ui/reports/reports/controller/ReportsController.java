@@ -7,7 +7,7 @@ import com.neusoft.hs.portal.swing.ui.reports.cost.controller.ChargeRecordReport
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderExecuteController;
 import com.neusoft.hs.portal.swing.ui.reports.reports.view.ReportsFrame;
-import com.neusoft.hs.portal.swing.ui.reports.treatment.controller.TreatmentController;
+import com.neusoft.hs.portal.swing.ui.reports.treatment.controller.TreatmentReportController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -27,7 +27,7 @@ public class ReportsController extends AbstractFrameController {
 	private OrderExecuteController orderExecuteController;
 	
 	@Autowired
-	private TreatmentController treatmentController;
+	private TreatmentReportController treatmentController;
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getChargeRecordReportBtn(),

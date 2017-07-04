@@ -25,7 +25,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class TreamentFrame extends JFrame {
+public class TreamentReportFrame extends JFrame {
 
 	JComboBox<Visit> visitCB;
 	VisitComboBoxModel visitComboBoxModel;
@@ -41,7 +41,7 @@ public class TreamentFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public TreamentFrame() {
+	public TreamentReportFrame() {
 		setFrameUp();
 		initComponents();
 	}
@@ -101,7 +101,7 @@ public class TreamentFrame extends JFrame {
 		if (item != null) {
 			treatments.get(spec).setText(item.getValueInfo());
 		} else {
-			treatments.get(spec).setText(null);
+			treatments.get(spec).setText("");
 		}
 	}
 

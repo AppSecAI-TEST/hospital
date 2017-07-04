@@ -16,15 +16,15 @@ import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.portal.swing.ui.reports.treatment.view.TreamentFrame;
+import com.neusoft.hs.portal.swing.ui.reports.treatment.view.TreamentReportFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 
 @Controller
-public class TreatmentController extends AbstractFrameController {
+public class TreatmentReportController extends AbstractFrameController {
 
 	@Autowired
-	private TreamentFrame treamentFrame;
+	private TreamentReportFrame treamentFrame;
 
 	@Autowired
 	private VisitAdminDomainService visitAdminDomainService;
