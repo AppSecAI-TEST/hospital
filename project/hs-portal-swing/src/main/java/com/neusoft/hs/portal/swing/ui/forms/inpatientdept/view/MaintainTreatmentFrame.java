@@ -34,6 +34,8 @@ public class MaintainTreatmentFrame extends JFrame {
 
 	private Map<TreatmentItemSpec, JTextField> treatments;
 
+	private Map<JButton, TreatmentItemSpec> buttons;
+
 	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
@@ -84,14 +86,21 @@ public class MaintainTreatmentFrame extends JFrame {
 	public void showTreatment(List<TreatmentItemSpec> specs) {
 
 		treatments = new HashMap<TreatmentItemSpec, JTextField>();
-		JPanel specPanel = new JPanel(new GridLayout(specs.size(), 2));
+		buttons = new HashMap<JButton, TreatmentItemSpec>();
+
+		JPanel specPanel = new JPanel(new GridLayout(specs.size(), 3));
 		for (TreatmentItemSpec spec : specs) {
 			specPanel.add(new JLabel(spec.getName()));
 
 			JTextField valueTF = new JTextField();
 			specPanel.add(valueTF);
 
+			JButton reCreateJB = new JButton(
+					ConstMessagesCN.Labels.ReCreate_BTN);
+			specPanel.add(reCreateJB);
+
 			treatments.put(spec, valueTF);
+			buttons.put(reCreateJB, spec);
 		}
 
 		workspacePanel.add(specPanel, BorderLayout.CENTER);
@@ -111,6 +120,10 @@ public class MaintainTreatmentFrame extends JFrame {
 
 	public VisitComboBoxModel getVisitComboBoxModel() {
 		return visitComboBoxModel;
+	}
+
+	public Map<JButton, TreatmentItemSpec> getButtons() {
+		return buttons;
 	}
 
 	public JButton getCloseBtn() {

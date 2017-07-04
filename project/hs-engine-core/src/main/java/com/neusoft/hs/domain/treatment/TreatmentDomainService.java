@@ -4,7 +4,6 @@ package com.neusoft.hs.domain.treatment;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +65,11 @@ public class TreatmentDomainService {
 				oldItem.addValue(value);
 			}
 
-			applicationContext
-					.publishEvent(new TreatmentItemUpdatedEvent(item));
+			applicationContext.publishEvent(new TreatmentItemUpdatedEvent(
+					oldItem));
 
 			LogUtil.log(this.getClass(), "用户[{}]更新患者一次就诊[{}]的诊疗信息[{}],类型为[{}]",
-					item.getCreator().getId(), item.getVisit().getName(),
+					item.getCreatorName(), item.getVisitName(),
 					oldItem.getId(), item.getTreatmentItemSpec().getId());
 		}
 	}

@@ -39,7 +39,7 @@ public class TreatmentItem extends IdEntity implements Itemable {
 	@Column(length = 32)
 	private String type;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "treatment_spec_id")
 	private TreatmentItemSpec treatmentItemSpec;
 
@@ -56,6 +56,9 @@ public class TreatmentItem extends IdEntity implements Itemable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id")
 	private AbstractUser creator;
+
+	@Column(name = "creator_name", length = 32)
+	private String creatorName;
 
 	@Column(name = "create_date")
 	private Date createDate;
@@ -137,6 +140,15 @@ public class TreatmentItem extends IdEntity implements Itemable {
 
 	public void setCreator(AbstractUser creator) {
 		this.creator = creator;
+		this.creatorName = creator.getName();
+	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
 	}
 
 	public Date getCreateDate() {

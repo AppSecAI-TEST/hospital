@@ -2,8 +2,10 @@ package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
 
 import java.awt.event.ItemEvent;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.swing.JButton;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
+import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
@@ -21,6 +24,7 @@ import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.MaintainTreatmentFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
+import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class MaintainTreatmentController extends AbstractFrameController {
@@ -42,7 +46,6 @@ public class MaintainTreatmentController extends AbstractFrameController {
 				(e) -> refreshTreatment(e));
 		registerAction(maintainTreatmentFrame.getCloseBtn(),
 				(e) -> closeWindow());
-
 	}
 
 	@Override
@@ -70,18 +73,45 @@ public class MaintainTreatmentController extends AbstractFrameController {
 		specs = this.treatmentDomainService.getAllTreatmentItemSpecs(pageable);
 
 		maintainTreatmentFrame.showTreatment(specs);
+
+		for (JButton button : maintainTreatmentFrame.getButtons().keySet()) {
+			TreatmentItemSpec spec = maintainTreatmentFrame.getButtons().get(
+					button);
+			registerAction(button, (e) -> createTreatment(spec));
+		}
 	}
 
 	public void refreshTreatment(ItemEvent e) {
 		Visit visit = (Visit) e.getItem();
 
 		if (visit != null) {
-			for (TreatmentItemSpec spec : specs) {
-				TreatmentItem item = this.treatmentDomainService
-						.getTheTreatmentItem(visit, spec);
-				maintainTreatmentFrame.showTheTreatment(spec, item);
-			}
+			refreshTreatment(visit);
 		}
+	}
+
+	private void refreshTreatment(Visit visit) {
+		for (TreatmentItemSpec spec : specs) {
+			TreatmentItem item = this.treatmentDomainService
+					.getTheTreatmentItem(visit, spec);
+			maintainTreatmentFrame.showTheTreatment(spec, item);
+		}
+	}
+
+	private void createTreatment(TreatmentItemSpec spec) {
+		VisitComboBoxModel visitComboBoxModel = maintainTreatmentFrame
+				.getVisitComboBoxModel();
+		Visit visit = visitComboBoxModel.getSelectedItem();
+		if (visit == null) {
+			Notifications.showFormValidationAlert("请选择患者");
+		}
+		try {
+			treatmentDomainService.create(spec.createTreatmentItem(visit));
+			refreshTreatment(visit);
+		} catch (TreatmentException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+
 	}
 
 	private void closeWindow() {

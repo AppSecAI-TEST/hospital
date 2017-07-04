@@ -15,16 +15,15 @@ import com.neusoft.hs.domain.visit.Visit;
 @DiscriminatorValue("Diagnosis")
 public class DiagnosisTreatmentItemSpec extends TreatmentItemSpec {
 
-	/**
-	 * @roseuid 58CA29580380
-	 */
-	public DiagnosisTreatmentItemSpec() {
-
-	}
-
 	@Override
 	public TreatmentItem getTheItem(Visit visit) throws TreatmentException {
 		return this.getService(TreatmentItemDAO.class).findTheTreatmentItem(
 				visit, this);
+	}
+
+	@Override
+	public TreatmentItem createTreatmentItem(Visit visit)
+			throws TreatmentException {
+		throw new TreatmentException("该类型诊疗信息不能自动生成");
 	}
 }

@@ -98,6 +98,9 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	public abstract TreatmentItem getTheItem(Visit visit)
 			throws TreatmentException;
 
+	public abstract TreatmentItem createTreatmentItem(Visit visit)
+			throws TreatmentException;
+
 	public String getId() {
 		return id;
 	}

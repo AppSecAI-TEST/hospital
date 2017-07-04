@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +29,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 @DiscriminatorValue("TemporaryOrderList")
 public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "domain_treatment_spec_state", joinColumns = @JoinColumn(name = "spec_id"))
 	@Column(name = "state")
 	private List<String> states;
