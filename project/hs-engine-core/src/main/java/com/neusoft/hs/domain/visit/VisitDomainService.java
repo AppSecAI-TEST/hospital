@@ -12,11 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
+import com.neusoft.hs.domain.order.LongOrder;
+import com.neusoft.hs.domain.order.Order;
+import com.neusoft.hs.domain.order.OrderExecuteException;
+import com.neusoft.hs.domain.order.OrderStopedEvent;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.domain.patient.PatientDomainService;
+import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -184,6 +189,41 @@ public class VisitDomainService {
 
 	}
 
+	public void outHospitalRegister(Visit visit, Order currentOrder,
+			AbstractUser user) throws VisitException, OrderExecuteException {
+		for (Order order : visit.getOrders()) {
+			if (currentOrder == null
+					|| !currentOrder.getId().equals(order.getId())) {
+				if (order.getState().equals(Order.State_Executing)) {
+					if (order instanceof LongOrder) {
+						((LongOrder) order).stop();
+						// 发出停止长嘱事件
+						ApplicationContextUtil.getApplicationContext()
+								.publishEvent(new OrderStopedEvent(visit));
+					} else {
+						throw new VisitException(visit,
+								"医嘱[%s]状态处于执行中，不能办理出院登记", order.getName());
+					}
+				}
+			}
+		}
+		visit.leaveWard(user);
+
+		// 发出患者离开病房事件
+		ApplicationContextUtil.getApplicationContext().publishEvent(
+				new VisitOutWardedEvent(visit));
+	}
+
+	public void outHospitalBalance(Visit visit, AbstractUser user)
+			throws VisitException {
+
+		visit.balance(user);
+
+		// 发出患者出院事件
+		ApplicationContextUtil.getApplicationContext().publishEvent(
+				new VisitOutHospitalEvent(visit));
+	}
+
 	/**
 	 * @param visitId
 	 * @roseuid 584E03140020
@@ -214,9 +254,9 @@ public class VisitDomainService {
 			Pageable pageable) {
 		return visitRepo.findByStateAndDeptIn(state, depts, pageable);
 	}
-	
-	public List<Visit> findByStatesAndDepts(List<String> states, List<Dept> depts,
-			Pageable pageable) {
+
+	public List<Visit> findByStatesAndDepts(List<String> states,
+			List<Dept> depts, Pageable pageable) {
 		return visitRepo.findByStateInAndDeptIn(states, depts, pageable);
 	}
 

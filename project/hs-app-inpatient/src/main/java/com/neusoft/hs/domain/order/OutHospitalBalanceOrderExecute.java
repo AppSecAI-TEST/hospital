@@ -5,13 +5,10 @@ import java.util.Map;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitOutHospitalEvent;
-import com.neusoft.hs.platform.bean.ApplicationContextUtil;
-import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.domain.visit.VisitDomainService;
+import com.neusoft.hs.domain.visit.VisitException;
 
 @Entity
 @DiscriminatorValue("OutHospitalBalance")
@@ -24,13 +21,11 @@ public class OutHospitalBalanceOrderExecute extends OrderExecute {
 
 		Visit visit = this.getVisit();
 		try {
-			visit.balance(user);
-		} catch (HsException e) {
+			this.getService(VisitDomainService.class).outHospitalBalance(
+					visit, user);
+		} catch (VisitException e) {
+			e.printStackTrace();
 			throw new OrderExecuteException(this, e);
 		}
-
-		// 发出患者出院事件
-		ApplicationContextUtil.getApplicationContext().publishEvent(
-				new VisitOutHospitalEvent(visit));
 	}
 }
