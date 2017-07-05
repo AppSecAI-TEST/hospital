@@ -203,13 +203,13 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 			throw new OrderException(this, "医嘱[%s]的状态为[%s],不能分解", this.getId(),
 					this.state);
 		}
-
+		//初始化
 		resolveFrequencyOrderExecutes = new ArrayList<OrderExecute>();
 		resolveOrderExecutes = new ArrayList<OrderExecute>();
 		resolveTeams = new ArrayList<OrderExecuteTeam>();
-
+		//委托给type进行分解
 		this.orderType.resolveOrder(this.typeApp);
-
+		//对分解结果进行后处理
 		if (resolveOrderExecutes.size() > 0) {
 			for (OrderExecute orderExecute : resolveOrderExecutes) {
 				// 更新一组执行条目的首条目的状态
@@ -226,11 +226,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 				}
 			}
 			this.getService(OrderExecuteTeamRepo.class).save(resolveTeams);
-
+			//记录本次分解的最后一条执行条目
 			this.lastOrderExecute = resolveOrderExecutes
 					.get(resolveOrderExecutes.size() - 1);
 		}
-
+		
 		LogUtil.log(this.getClass(), "系统分解了医嘱条目[{}],得到{}条执行条目", this.getId(),
 				resolveOrderExecutes.size());
 
