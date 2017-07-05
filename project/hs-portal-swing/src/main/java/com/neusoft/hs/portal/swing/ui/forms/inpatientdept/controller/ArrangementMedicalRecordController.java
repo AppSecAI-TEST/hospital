@@ -17,6 +17,8 @@ import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -36,7 +38,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 
 	@Autowired
 	private InPatientAppService inPatientAppService;
-	
+
 	@Autowired
 	private VisitDomainService visitDomainService;
 
@@ -81,8 +83,8 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
 		List<Visit> entities = visitDomainService.findByStateAndDepts(
-				Visit.State_OutHospital, UserUtil.getUser().getOperationDepts(),
-				pageable);
+				Visit.State_OutHospital,
+				UserUtil.getUser().getOperationDepts(), pageable);
 
 		VisitComboBoxModel visitComboBoxModel = arrangementMedicalRecordFrame
 				.getVisitComboBoxModel();
@@ -152,12 +154,15 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 			MedicalRecord medicalRecord = medicalRecordTableModel
 					.getEntityByRow(currentRow);
 
-			JFrame viewJFrame = (JFrame) medicalRecord.getType().getRender()
-					.play(medicalRecord);
-
-			viewJFrame.setVisible(true);
+			try {
+				JFrame viewJFrame = (JFrame) medicalRecord.getRender().play(
+						medicalRecord);
+				viewJFrame.setVisible(true);
+			} catch (MedicalRecordException e1) {
+				e1.printStackTrace();
+				Notifications.showFormValidationAlert(e1.getMessage());
+			}
 		}
-
 	}
 
 	private void closeWindow() {

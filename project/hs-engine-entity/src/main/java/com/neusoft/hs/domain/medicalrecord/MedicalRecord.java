@@ -350,6 +350,17 @@ public class MedicalRecord extends IdEntity {
 		this.builder = builder;
 	}
 
+	public MedicalRecordRender getRender() throws MedicalRecordException {
+		MedicalRecordRender render = this.type.getRender();
+
+		if (render == null) {
+			throw new MedicalRecordException(this, "病历类型[%s]没有配置渲染器",
+					this.type.getName());
+		}
+
+		return render;
+	}
+
 	public void save() {
 
 		this.builder.save();

@@ -175,9 +175,6 @@ public class Visit extends IdEntity {
 
 	public static final String State_OutHospital = "已出院";
 
-	public Visit() {
-	}
-
 	/**
 	 * 是否初始化过收费单
 	 * 
