@@ -1,6 +1,7 @@
 package com.neusoft.hs.portal.swing.business.medicalrecord;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -54,8 +55,12 @@ public class TemporaryOrderListFrame extends JFrame {
 
 		JPanel titlePanel = new JPanel(new GridLayout(2, 1));
 
+		JPanel namePanel = new JPanel();
 		JLabel name = new JLabel(medicalRecord.getType().getName());
-		titlePanel.add(name);
+		name.setFont(new Font("宋体", Font.BOLD, 20));
+		namePanel.add(name);
+
+		titlePanel.add(namePanel);
 
 		JPanel subtitlePanel = new JPanel(new GridLayout(1, 2));
 
