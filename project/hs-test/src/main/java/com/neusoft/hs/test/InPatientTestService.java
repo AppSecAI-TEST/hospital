@@ -369,7 +369,7 @@ public abstract class InPatientTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00", dayCount));
 
 		// 病历移交档案室
-		medicalRecordAppService.transfer(visit001, dept666, user003);
+		inPatientAppService.transfer(visit001, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30", dayCount));
 

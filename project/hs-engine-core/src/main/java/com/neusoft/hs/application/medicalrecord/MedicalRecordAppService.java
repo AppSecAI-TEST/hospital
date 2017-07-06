@@ -79,11 +79,6 @@ public class MedicalRecordAppService {
 		medicalRecordDomainService.fix(record, user);
 	}
 
-	public void transfer(Visit visit, Dept dept, AbstractUser user)
-			throws MedicalRecordException {
-		medicalRecordDomainService.transfer(visit, dept, user);
-	}
-
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {
 		return medicalRecordDomainService.getMedicalRecords(visit, pageable);
 	}

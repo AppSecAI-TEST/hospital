@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
@@ -64,5 +65,12 @@ public class InPatientAppService {
 				.createMedicalRecord(typeId, visit, user);
 
 		medicalRecordDomainService.fix(medicalRecord, user);
+	}
+
+	public void transfer(Visit visit, AbstractUser user)
+			throws MedicalRecordException {
+
+		Dept dept = user.getDept().getOrg().getRecordRoomDept();
+		medicalRecordDomainService.transfer(visit, dept, user);
 	}
 }

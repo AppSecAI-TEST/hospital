@@ -717,6 +717,7 @@ public class DataIniter {
 
 		org.setInChargeDept(dept222);
 		org.setOutChargeDept(dept777);
+		org.setRecordRoomDept(dept666);
 
 		organizationAdminDomainService.save(org);
 	}
