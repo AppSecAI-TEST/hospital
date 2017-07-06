@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
+import com.neusoft.hs.application.treatment.TreatmentAppService;
+import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentDomainService;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
@@ -36,6 +38,9 @@ public class MaintainTreatmentController extends AbstractFrameController {
 
 	@Autowired
 	private TreatmentDomainService treatmentDomainService;
+
+	@Autowired
+	private TreatmentAppService treatmentAppService;
 
 	private List<TreatmentItemSpec> specs;
 
@@ -77,10 +82,18 @@ public class MaintainTreatmentController extends AbstractFrameController {
 
 		maintainTreatmentFrame.showTreatment(specs);
 
-		for (JButton button : maintainTreatmentFrame.getButtons().keySet()) {
-			TreatmentItemSpec spec = maintainTreatmentFrame.getButtons().get(
-					button);
-			registerAction(button, (e) -> createTreatment(spec));
+		for (JButton button : maintainTreatmentFrame.getAutoCreateButtons()
+				.keySet()) {
+			TreatmentItemSpec spec = maintainTreatmentFrame
+					.getAutoCreateButtons().get(button);
+			registerAction(button, (e) -> autoCreateTreatment(spec));
+		}
+
+		for (JButton button : maintainTreatmentFrame.getInputCreateButtons()
+				.keySet()) {
+			TreatmentItemSpec spec = maintainTreatmentFrame
+					.getInputCreateButtons().get(button);
+			registerAction(button, (e) -> inputCreateTreatment(spec));
 		}
 	}
 
@@ -100,7 +113,7 @@ public class MaintainTreatmentController extends AbstractFrameController {
 		}
 	}
 
-	private void createTreatment(TreatmentItemSpec spec) {
+	private void autoCreateTreatment(TreatmentItemSpec spec) {
 		VisitComboBoxModel visitComboBoxModel = maintainTreatmentFrame
 				.getVisitComboBoxModel();
 		Visit visit = visitComboBoxModel.getSelectedItem();
@@ -114,7 +127,35 @@ public class MaintainTreatmentController extends AbstractFrameController {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
+	}
 
+	private void inputCreateTreatment(TreatmentItemSpec spec) {
+
+		VisitComboBoxModel visitComboBoxModel = maintainTreatmentFrame
+				.getVisitComboBoxModel();
+		Visit visit = visitComboBoxModel.getSelectedItem();
+		if (visit == null) {
+			Notifications.showFormValidationAlert("请选择患者");
+		}
+
+		String valueInfo = maintainTreatmentFrame.getTreatments().get(spec)
+				.getText();
+		if (valueInfo == null || valueInfo.length() == 0) {
+			Notifications.showFormValidationAlert("请录入诊疗信息");
+		}
+		try {
+			SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
+			value.setInfo(valueInfo);
+
+			treatmentAppService.create(visit, spec, value, UserUtil.getUser());
+			refreshTreatment(visit);
+		} catch (TreatmentException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
 	}
 
 	private void closeWindow() {

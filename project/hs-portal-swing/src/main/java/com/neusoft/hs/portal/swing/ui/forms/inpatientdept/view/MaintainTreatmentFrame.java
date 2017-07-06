@@ -34,7 +34,9 @@ public class MaintainTreatmentFrame extends JFrame {
 
 	private Map<TreatmentItemSpec, JTextField> treatments;
 
-	private Map<JButton, TreatmentItemSpec> buttons;
+	private Map<JButton, TreatmentItemSpec> autoCreateButtons;
+
+	private Map<JButton, TreatmentItemSpec> inputCreateButtons;
 
 	private JButton closeBtn;
 
@@ -86,9 +88,10 @@ public class MaintainTreatmentFrame extends JFrame {
 	public void showTreatment(List<TreatmentItemSpec> specs) {
 
 		treatments = new HashMap<TreatmentItemSpec, JTextField>();
-		buttons = new HashMap<JButton, TreatmentItemSpec>();
+		autoCreateButtons = new HashMap<JButton, TreatmentItemSpec>();
+		inputCreateButtons = new HashMap<JButton, TreatmentItemSpec>();
 
-		JPanel specPanel = new JPanel(new GridLayout(specs.size(), 3));
+		JPanel specPanel = new JPanel(new GridLayout(specs.size(), 4));
 		for (TreatmentItemSpec spec : specs) {
 			specPanel.add(new JLabel(spec.getName()));
 
@@ -99,8 +102,12 @@ public class MaintainTreatmentFrame extends JFrame {
 					ConstMessagesCN.Labels.ReCreate_BTN);
 			specPanel.add(reCreateJB);
 
+			JButton createJB = new JButton(ConstMessagesCN.Labels.Create_BTN);
+			specPanel.add(createJB);
+
 			treatments.put(spec, valueTF);
-			buttons.put(reCreateJB, spec);
+			autoCreateButtons.put(reCreateJB, spec);
+			inputCreateButtons.put(createJB, spec);
 		}
 
 		workspacePanel.add(specPanel, BorderLayout.CENTER);
@@ -122,8 +129,16 @@ public class MaintainTreatmentFrame extends JFrame {
 		return visitComboBoxModel;
 	}
 
-	public Map<JButton, TreatmentItemSpec> getButtons() {
-		return buttons;
+	public Map<TreatmentItemSpec, JTextField> getTreatments() {
+		return treatments;
+	}
+
+	public Map<JButton, TreatmentItemSpec> getAutoCreateButtons() {
+		return autoCreateButtons;
+	}
+
+	public Map<JButton, TreatmentItemSpec> getInputCreateButtons() {
+		return inputCreateButtons;
 	}
 
 	public JButton getCloseBtn() {
