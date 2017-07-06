@@ -109,6 +109,7 @@ public interface ConstMessagesCN {
 		String Logo = "主题介绍";
 
 		String CreateOrder = "开立医嘱";
+		String CreateMedicalRecord = "编写病历";
 		String VerifyOrder = "核对医嘱";
 		String SendOrderExecute = "发送医嘱执行条目";
 		String FinishOrderExecute = "完成医嘱执行条目";
@@ -158,6 +159,7 @@ public interface ConstMessagesCN {
 		String Treatment = "诊疗信息";
 		String MedicalRecord = "病历";
 
+		String createInWardRecord = "创建入院记录";
 		String createTemporaryOrderListMR = "创建临时医嘱单";
 		String createInspectResultMR = "生成检查单病历";
 		String transferMedicalRecord = "移交档案室";

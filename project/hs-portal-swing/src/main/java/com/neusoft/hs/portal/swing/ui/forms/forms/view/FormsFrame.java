@@ -31,6 +31,8 @@ public class FormsFrame extends JFrame implements
 
 	private JButton createOrderBtn;
 
+	private JButton createMedicalRecordBtn;
+
 	private JButton verifyOrderBtn;
 
 	private JButton sendOrderExecuteBtn;
@@ -50,7 +52,7 @@ public class FormsFrame extends JFrame implements
 	private JLabel loginLbl;
 
 	private final static int Width = 225;
-	private final static int Height = 600;
+	private final static int Height = 650;
 
 	public FormsFrame() {
 		setFrameUp();
@@ -72,13 +74,15 @@ public class FormsFrame extends JFrame implements
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(13, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(14, 2, 20, 20));
 
 		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
 		registerBtn = new JButton(ConstMessagesCN.Labels.Register);
 		cashierBtn = new JButton(ConstMessagesCN.Labels.InitAccount);
 		receiveBtn = new JButton(ConstMessagesCN.Labels.ReceiveVisit);
 		createOrderBtn = new JButton(ConstMessagesCN.Labels.CreateOrder);
+		createMedicalRecordBtn = new JButton(
+				ConstMessagesCN.Labels.CreateMedicalRecord);
 		verifyOrderBtn = new JButton(ConstMessagesCN.Labels.VerifyOrder);
 		sendOrderExecuteBtn = new JButton(
 				ConstMessagesCN.Labels.SendOrderExecute);
@@ -99,10 +103,11 @@ public class FormsFrame extends JFrame implements
 		menuPanel.add(cashierBtn);
 		menuPanel.add(receiveBtn);
 		menuPanel.add(createOrderBtn);
+		menuPanel.add(maintainTreatmentBtn);
+		menuPanel.add(createMedicalRecordBtn);
 		menuPanel.add(verifyOrderBtn);
 		menuPanel.add(sendOrderExecuteBtn);
 		menuPanel.add(finishOrderExecuteBtn);
-		menuPanel.add(maintainTreatmentBtn);
 		menuPanel.add(arrangementMedicalRecordBtn);
 		menuPanel.add(transferMedicalRecordBtn);
 		menuPanel.add(qualityControlBtn);
@@ -136,6 +141,10 @@ public class FormsFrame extends JFrame implements
 
 	public JButton getCreateOrderBtn() {
 		return createOrderBtn;
+	}
+
+	public JButton getCreateMedicalRecordBtn() {
+		return createMedicalRecordBtn;
 	}
 
 	public JButton getVerifyOrderBtn() {

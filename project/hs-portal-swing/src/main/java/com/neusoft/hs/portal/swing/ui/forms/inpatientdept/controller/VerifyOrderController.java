@@ -19,7 +19,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
-public class OrderVerifyController extends AbstractFrameController {
+public class VerifyOrderController extends AbstractFrameController {
 
 	@Autowired
 	private OrderVerifyFrame orderVerifyFrame;

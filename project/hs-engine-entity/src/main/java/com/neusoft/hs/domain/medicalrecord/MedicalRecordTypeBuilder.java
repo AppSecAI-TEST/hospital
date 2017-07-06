@@ -38,8 +38,14 @@ public class MedicalRecordTypeBuilder extends MedicalRecordBuilder {
 
 		Map<String, Itemable> datas = new HashMap<String, Itemable>();
 
+		TreatmentItem item;
 		for (TreatmentItemSpec itemSpec : this.type.getItems()) {
-			datas.put(itemSpec.getName(), itemSpec.getTheItem(this.getVisit()));
+			item = itemSpec.getTheItem(this.getVisit());
+			if (item == null) {
+				throw new TreatmentException("患者[%s]的诊疗信息[%s]还没有生成", this
+						.getVisit().getName(), itemSpec.getName());
+			}
+			datas.put(itemSpec.getName(), item);
 		}
 
 		return datas;

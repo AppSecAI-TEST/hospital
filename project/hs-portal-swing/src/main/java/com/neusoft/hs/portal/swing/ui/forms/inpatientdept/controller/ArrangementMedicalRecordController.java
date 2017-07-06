@@ -53,6 +53,9 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		registerAction(arrangementMedicalRecordFrame.getVisitCB(),
 				(e) -> refreshMedicalRecord());
 		registerAction(
+				arrangementMedicalRecordFrame.getCreateInWardRecordBtn(),
+				(e) -> createInWardRecordMR());
+		registerAction(
 				arrangementMedicalRecordFrame.getCreateTemporaryOrderListBtn(),
 				(e) -> createTemporaryOrderListMR());
 		registerAction(
@@ -98,6 +101,26 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		if (visit == null) {
 			Notifications.showFormValidationAlert("请选择患者");
 		}
+	}
+
+	private void createInWardRecordMR() {
+
+		Visit visit = this.getVisit();
+		if (visit == null) {
+			Notifications.showFormValidationAlert("请选择患者");
+		}
+
+		try {
+			inPatientAppService
+					.arrangementMedicalRecord(MedicalRecordType.IntoWardRecord,
+							visit, UserUtil.getUser());
+
+			refreshMedicalRecord();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+
 	}
 
 	private void createTemporaryOrderListMR() {

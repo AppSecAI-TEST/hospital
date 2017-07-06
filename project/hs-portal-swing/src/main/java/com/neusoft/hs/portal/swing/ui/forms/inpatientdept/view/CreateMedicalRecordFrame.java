@@ -19,16 +19,10 @@ import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class ArrangementMedicalRecordFrame extends JFrame {
+public class CreateMedicalRecordFrame extends JFrame {
 
 	private JComboBox<Visit> visitCB;
 	private VisitComboBoxModel visitComboBoxModel;
-
-	private JButton createTemporaryOrderListBtn;
-
-	private JButton createInWardRecordBtn;
-
-	private JButton createInspectResultBtn;
 
 	private MedicalRecordListPanel medicalRecordListPanel;
 
@@ -39,7 +33,7 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public ArrangementMedicalRecordFrame() {
+	public CreateMedicalRecordFrame() {
 		this.medicalRecordListPanel = new MedicalRecordListPanel();
 
 		setFrameUp();
@@ -66,17 +60,6 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 
 		interactivePanel.add(visitCB);
 
-		createInWardRecordBtn = new JButton(
-				ConstMessagesCN.Labels.createInWardRecord);
-		createTemporaryOrderListBtn = new JButton(
-				ConstMessagesCN.Labels.createTemporaryOrderListMR);
-		createInspectResultBtn = new JButton(
-				ConstMessagesCN.Labels.createInspectResultMR);
-
-		interactivePanel.add(createInWardRecordBtn);
-		interactivePanel.add(createTemporaryOrderListBtn);
-		interactivePanel.add(createInspectResultBtn);
-
 		workspacePanel.add(interactivePanel, BorderLayout.NORTH);
 
 		workspacePanel.add(medicalRecordListPanel, BorderLayout.CENTER);
@@ -98,18 +81,6 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 
 	public VisitComboBoxModel getVisitComboBoxModel() {
 		return visitComboBoxModel;
-	}
-
-	public JButton getCreateInWardRecordBtn() {
-		return createInWardRecordBtn;
-	}
-
-	public JButton getCreateTemporaryOrderListBtn() {
-		return createTemporaryOrderListBtn;
-	}
-
-	public JButton getCreateInspectResultBtn() {
-		return createInspectResultBtn;
 	}
 
 	public MedicalRecordTableModel getMedicalRecordTableModel() {

@@ -7,11 +7,12 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.cashier.controller.CashierController;
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.FormsFrame;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ArrangementMedicalRecordController;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.CreateMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.MaintainTreatmentController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderExecuteSendController;
-import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderVerifyController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveVisitController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.TransferMedicalRecordController;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.VerifyOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
@@ -40,16 +41,19 @@ public class FormsController extends AbstractFrameController {
 	private ReceiveVisitController receiveController;
 
 	@Autowired
-	private CreateOrderController orderController;
+	private CreateOrderController createOrderController;
+	
+	@Autowired
+	private MaintainTreatmentController maintainTreatmentController;
+	
+	@Autowired
+	private CreateMedicalRecordController createMedicalRecordController;
 
 	@Autowired
-	private OrderVerifyController orderVerifyController;
+	private VerifyOrderController verifyOrderController;
 
 	@Autowired
 	private OrderExecuteSendController orderExecuteSendController;
-
-	@Autowired
-	private MaintainTreatmentController maintainTreatmentController;
 
 	@Autowired
 	private OrderExecuteFinishController orderExecuteFinishController;
@@ -134,7 +138,7 @@ public class FormsController extends AbstractFrameController {
 
 	private void openCreateOrderWindow() {
 		try {
-			orderController.prepareAndOpenFrame();
+			createOrderController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
@@ -143,7 +147,7 @@ public class FormsController extends AbstractFrameController {
 
 	private void openVerifyOrderWindow() {
 		try {
-			orderVerifyController.prepareAndOpenFrame();
+			verifyOrderController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

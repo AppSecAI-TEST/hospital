@@ -23,16 +23,17 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
-import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.TransferMedicalRecordFrame;
+import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.CreateMedicalRecordFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
-public class TransferMedicalRecordController extends AbstractFrameController {
+public class CreateMedicalRecordController extends AbstractFrameController {
+
 	@Autowired
-	private TransferMedicalRecordFrame transferMedicalRecordFrame;
+	private CreateMedicalRecordFrame createMedicalRecordFrame;
 
 	@Autowired
 	private InPatientAppService inPatientAppService;
@@ -48,21 +49,18 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
-		registerAction(transferMedicalRecordFrame.getVisitCB(),
+		registerAction(createMedicalRecordFrame.getVisitCB(),
 				(e) -> refreshMedicalRecord());
-		registerAction(transferMedicalRecordFrame.getTransferBtn(),
-				(e) -> transferMedicalRecordClip());
 
-		registerAction(transferMedicalRecordFrame.getCloseBtn(),
+		registerAction(createMedicalRecordFrame.getCloseBtn(),
 				(e) -> closeWindow());
 
-		registerAction(transferMedicalRecordFrame.getTable(),
-				new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						viewMedicalRecord(e);
-					}
-				});
+		registerAction(createMedicalRecordFrame.getTable(), new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				viewMedicalRecord(e);
+			}
+		});
 	}
 
 	@Override
@@ -70,7 +68,7 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 
 		loadVisits();
 
-		transferMedicalRecordFrame.setVisible(true);
+		createMedicalRecordFrame.setVisible(true);
 	}
 
 	private void loadVisits() throws HsException {
@@ -80,14 +78,21 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 				Visit.State_OutHospital,
 				UserUtil.getUser().getOperationDepts(), pageable);
 
-		VisitComboBoxModel visitComboBoxModel = transferMedicalRecordFrame
+		VisitComboBoxModel visitComboBoxModel = createMedicalRecordFrame
 				.getVisitComboBoxModel();
 		visitComboBoxModel.clear();
 		visitComboBoxModel.addElement(null);
 		visitComboBoxModel.addElements(entities);
 	}
 
-	private void transferMedicalRecordClip() {
+	private void createInspectResultMR() {
+		Visit visit = this.getVisit();
+		if (visit == null) {
+			Notifications.showFormValidationAlert("请选择患者");
+		}
+	}
+
+	private void createTemporaryOrderListMR() {
 
 		Visit visit = this.getVisit();
 		if (visit == null) {
@@ -95,8 +100,10 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 		}
 
 		try {
-			inPatientAppService.transfer(visit, UserUtil.getUser());
-			loadVisits();
+			inPatientAppService.arrangementMedicalRecord(
+					MedicalRecordType.TemporaryOrderList, visit,
+					UserUtil.getUser());
+
 			refreshMedicalRecord();
 		} catch (HsException e) {
 			e.printStackTrace();
@@ -106,17 +113,17 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 	}
 
 	private Visit getVisit() {
-		return transferMedicalRecordFrame.getVisitComboBoxModel()
+		return createMedicalRecordFrame.getVisitComboBoxModel()
 				.getSelectedItem();
 	}
 
 	private void refreshMedicalRecord() {
 
-		MedicalRecordTableModel medicalRecordTableModel = transferMedicalRecordFrame
+		MedicalRecordTableModel medicalRecordTableModel = createMedicalRecordFrame
 				.getMedicalRecordTableModel();
 		medicalRecordTableModel.clear();
 
-		Visit visit = transferMedicalRecordFrame.getVisitComboBoxModel()
+		Visit visit = createMedicalRecordFrame.getVisitComboBoxModel()
 				.getSelectedItem();
 
 		if (visit != null) {
@@ -133,7 +140,7 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 			final JTable table = (JTable) e.getSource();
 			int currentRow = table.rowAtPoint(e.getPoint());
 
-			MedicalRecordTableModel medicalRecordTableModel = transferMedicalRecordFrame
+			MedicalRecordTableModel medicalRecordTableModel = createMedicalRecordFrame
 					.getMedicalRecordTableModel();
 
 			MedicalRecord medicalRecord = medicalRecordTableModel
@@ -151,6 +158,6 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 	}
 
 	private void closeWindow() {
-		transferMedicalRecordFrame.dispose();
+		createMedicalRecordFrame.dispose();
 	}
 }
