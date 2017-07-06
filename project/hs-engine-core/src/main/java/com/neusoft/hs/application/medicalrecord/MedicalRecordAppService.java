@@ -61,7 +61,7 @@ public class MedicalRecordAppService {
 		return medicalRecordDomainService.find(id);
 	}
 
-	public void sign(String id, Doctor doctor) throws MedicalRecordException,
+	public void sign(String id, AbstractUser doctor) throws MedicalRecordException,
 			TreatmentException {
 		MedicalRecord record = medicalRecordDomainService.find(id);
 		if (record == null) {

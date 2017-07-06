@@ -123,7 +123,7 @@ public class MedicalRecordDomainService {
 	 * @throws MedicalRecordException
 	 * @throws TreatmentException
 	 */
-	public void sign(MedicalRecord record, Doctor doctor)
+	public void sign(MedicalRecord record, AbstractUser doctor)
 			throws MedicalRecordException, TreatmentException {
 
 		record.sign(doctor);

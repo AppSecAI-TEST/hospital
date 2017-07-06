@@ -150,7 +150,7 @@ public class MedicalRecord extends IdEntity {
 	 * @throws MedicalRecordException
 	 * @throws TreatmentException
 	 */
-	public void sign(Doctor doctor) throws MedicalRecordException,
+	public void sign(AbstractUser doctor) throws MedicalRecordException,
 			TreatmentException {
 		if (!this.type.isNeedSign()) {
 			throw new MedicalRecordException(this, "类型为[%s]的病历不需要签名",

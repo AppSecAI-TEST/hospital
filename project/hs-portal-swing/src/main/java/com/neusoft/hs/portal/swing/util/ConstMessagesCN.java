@@ -42,6 +42,7 @@ public interface ConstMessagesCN {
 		String CLOSE_BTN = "关闭";
 		String ReCreate_BTN = "重新生成";
 		String Create_BTN = "生成";
+		String Sign_BTN = "签名";
 
 		String REMOVE_BTN = "删除";
 

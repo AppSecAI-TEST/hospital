@@ -26,6 +26,8 @@ public class InWardRecordFrame extends JFrame {
 
 	private MedicalRecord medicalRecord;
 
+	private JButton signBtn;
+
 	private JButton closeBtn;
 
 	public InWardRecordFrame(MedicalRecord medicalRecord) {
@@ -84,10 +86,20 @@ public class InWardRecordFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
+		if (medicalRecord.getType().isNeedSign()
+				&& !medicalRecord.getState().equals(MedicalRecord.State_Signed)) {
+			signBtn = new JButton(ConstMessagesCN.Labels.Sign_BTN);
+			buttonPanel.add(signBtn);
+		}
+
 		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
 		buttonPanel.add(closeBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
+	}
+
+	public JButton getSignBtn() {
+		return signBtn;
 	}
 
 	public JButton getCloseBtn() {
