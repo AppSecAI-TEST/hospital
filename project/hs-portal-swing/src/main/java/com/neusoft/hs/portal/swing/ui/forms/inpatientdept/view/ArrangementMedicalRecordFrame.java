@@ -37,9 +37,8 @@ public class ArrangementMedicalRecordFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public ArrangementMedicalRecordFrame(
-			MedicalRecordListPanel medicalRecordListPanel) {
-		this.medicalRecordListPanel = medicalRecordListPanel;
+	public ArrangementMedicalRecordFrame() {
+		this.medicalRecordListPanel = new MedicalRecordListPanel();
 
 		setFrameUp();
 		initComponents();

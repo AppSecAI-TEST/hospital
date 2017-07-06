@@ -35,9 +35,8 @@ public class TransferMedicalRecordFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public TransferMedicalRecordFrame(
-			MedicalRecordListPanel medicalRecordListPanel) {
-		this.medicalRecordListPanel = medicalRecordListPanel;
+	public TransferMedicalRecordFrame() {
+		this.medicalRecordListPanel = new MedicalRecordListPanel();
 
 		setFrameUp();
 		initComponents();

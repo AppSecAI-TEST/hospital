@@ -1,8 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view;
 
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,12 +8,10 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.util.Borders;
 
-@Component
 public class MedicalRecordListPanel extends JPanel {
 
 	private MedicalRecordTableModel medicalRecordTableModel;
