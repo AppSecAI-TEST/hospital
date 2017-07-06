@@ -203,7 +203,8 @@ public class MedicalRecord extends IdEntity {
 	 */
 	public void checkTransfer() throws MedicalRecordException {
 		if (this.type.isNeedSign() && !this.state.equals(State_Signed)) {
-			throw new MedicalRecordException(this, "id=[%S]病历还没有签名", getId());
+			throw new MedicalRecordException(this, "患者[%s]的id=[%s][%s]病历还没有签名",
+					this.getVisitName(), getId(), this.type.getName());
 		}
 	}
 
