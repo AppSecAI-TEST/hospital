@@ -8,22 +8,21 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
 
 @Entity
-@DiscriminatorValue("TemporaryOrderList")
-public class TemporaryOrderListMRRender extends MedicalRecordRender {
+@DiscriminatorValue("InWardRecord")
+public class InWardRecordMRRender extends MedicalRecordRender {
 
-	public TemporaryOrderListMRRender() {
+	public InWardRecordMRRender() {
 		super();
 	}
 
-	public TemporaryOrderListMRRender(String id) {
+	public InWardRecordMRRender(String id) {
 		super(id);
 		this.setId(id);
 	}
 
 	@Override
 	public JFrame play(MedicalRecord medicalRecord) {
-		TemporaryOrderListFrame frame = new TemporaryOrderListFrame(
-				medicalRecord);
+		InWardRecordFrame frame = new InWardRecordFrame(medicalRecord);
 		frame.getCloseBtn().addActionListener((e) -> {
 			frame.dispose();
 		});

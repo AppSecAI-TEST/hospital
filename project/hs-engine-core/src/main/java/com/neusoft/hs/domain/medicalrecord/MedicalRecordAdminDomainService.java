@@ -37,6 +37,10 @@ public class MedicalRecordAdminDomainService {
 	public MedicalRecordType getMedicalRecordType(String id) {
 		return medicalRecordTypeRepo.findOne(id);
 	}
+	
+	public void clearRender() {
+		medicalRecordRenderRepo.clear();
+	}
 
 	/**
 	 * @roseuid 584E167A0000

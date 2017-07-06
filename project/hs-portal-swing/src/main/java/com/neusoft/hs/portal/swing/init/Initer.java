@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
+import com.neusoft.hs.portal.swing.business.medicalrecord.InWardRecordMRRender;
 import com.neusoft.hs.portal.swing.business.medicalrecord.TemporaryOrderListMRRender;
 
 @Service
@@ -18,12 +19,21 @@ public class Initer {
 
 	public void init() {
 
+		medicalRecordAdminDomainService.clearRender();
+
 		MedicalRecordType type;
 
 		type = medicalRecordAdminDomainService
 				.getMedicalRecordType(MedicalRecordType.TemporaryOrderList);
 		type.setRender(new TemporaryOrderListMRRender(
 				MedicalRecordRender.TemporaryOrderList));
+
+		type.save();
+
+		type = medicalRecordAdminDomainService
+				.getMedicalRecordType(MedicalRecordType.IntoWardRecord);
+		type.setRender(new InWardRecordMRRender(
+				MedicalRecordRender.IntoWardRecord));
 
 		type.save();
 	}
