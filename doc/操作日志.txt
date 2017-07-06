@@ -9,7 +9,7 @@
 7、实现模型：完善列表诊疗信息值（ListTreatmentItemValue）的存储
 8、实现模型：调整临时医嘱列表（TemporaryOrderListTreatmentItemSpec）和患者姓名（VisitNameTreatmentItemSpec）中getTheItem方法的内含：由每次都创建改为先获取，得不到时再创建
 9、业务模型、分析模型：更新患者出院相关模型-向患者一次就诊业务实体状态图增加状态【在病案室、已归档】，修改患者出院登记用例实现
-
+10、文档：编写介绍PPT《EVE新一代HIS核心系统.pptx》
 
 
 2017.06.29 0.9.4_02 有了名字-EVE（伊娃）
