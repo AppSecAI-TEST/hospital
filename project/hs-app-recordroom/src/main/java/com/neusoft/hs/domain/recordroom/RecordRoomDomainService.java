@@ -36,7 +36,8 @@ public class RecordRoomDomainService {
 		if (clip == null) {
 			throw new MedicalRecordException(null, "id=[%s]病历夹不存在", clipId);
 		}
-		clip.setState(MedicalRecordClip.State_Archived);
+
+		clip.archive();
 
 		MedicalCase medicalCase = new MedicalCase(clip);
 		medicalCase.setPosition(position);

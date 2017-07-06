@@ -174,6 +174,10 @@ public class Visit extends IdEntity {
 	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
 
 	public static final String State_OutHospital = "已出院";
+	
+	public static final String State_IntoRecordRoom = "在病案室";
+	
+	public static final String State_Archived = "已归档";
 
 	/**
 	 * 是否初始化过收费单

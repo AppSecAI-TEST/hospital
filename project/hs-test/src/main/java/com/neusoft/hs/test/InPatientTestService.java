@@ -20,6 +20,7 @@ import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -360,6 +361,8 @@ public abstract class InPatientTestService extends AppTestService {
 	}
 
 	public void followUp() throws HsException {
+		
+		Visit visit;
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30", dayCount));
 
@@ -370,6 +373,9 @@ public abstract class InPatientTestService extends AppTestService {
 
 		// 病历移交档案室
 		inPatientAppService.transfer(visit001, user003);
+		
+		visit = visitDomainService.find(visit001.getId());
+		assertTrue(visit.getState().equals(Visit.State_IntoRecordRoom));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30", dayCount));
 
@@ -387,6 +393,9 @@ public abstract class InPatientTestService extends AppTestService {
 		String position = "Num001";
 		recordRoomDomainService
 				.archive(clips.get(0).getId(), position, user602);
+		
+		visit = visitDomainService.find(visit001.getId());
+		assertTrue(visit.getState().equals(Visit.State_Archived));
 
 	}
 

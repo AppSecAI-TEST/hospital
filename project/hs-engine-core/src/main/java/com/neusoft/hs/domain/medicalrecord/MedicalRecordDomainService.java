@@ -171,9 +171,7 @@ public class MedicalRecordDomainService {
 	public void toArchive(MedicalRecordClip clip, AbstractUser user)
 			throws MedicalRecordException {
 
-		clip.setState(MedicalRecordClip.State_Archiving);
-		clip.setChecker(user);
-		clip.save();
+		clip.toArchive(user);
 
 		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]发送给归档岗位",
 				user.getId(), clip.getVisit().getName(), clip.getId());

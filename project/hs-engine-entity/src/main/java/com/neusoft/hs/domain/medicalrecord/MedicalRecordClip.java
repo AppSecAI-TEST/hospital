@@ -22,6 +22,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.util.DateUtil;
 
 /**
  * 病历夹 包含多份病历 在患者一次就诊创建时创建
@@ -91,6 +92,18 @@ public class MedicalRecordClip extends IdEntity {
 		this.checkDept = dept;
 		this.state = State_Checking;
 
+		this.visit.setState(Visit.State_IntoRecordRoom);
+	}
+
+	public void toArchive(AbstractUser checker) {
+		this.setState(MedicalRecordClip.State_Archiving);
+		this.setChecker(checker);
+	}
+	
+
+	public void archive() {
+		this.setState(MedicalRecordClip.State_Archived);
+		this.visit.setState(Visit.State_Archived);
 	}
 
 	public void leaveHospital(AbstractUser user) {
@@ -141,5 +154,6 @@ public class MedicalRecordClip extends IdEntity {
 	public void save() {
 		this.getService(MedicalRecordClipRepo.class).save(this);
 	}
+
 
 }
