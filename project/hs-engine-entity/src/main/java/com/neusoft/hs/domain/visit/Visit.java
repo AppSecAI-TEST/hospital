@@ -104,6 +104,13 @@ public class Visit extends IdEntity {
 	private String deptName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "previous_dept_id")
+	private Dept previousDept;
+
+	@Column(name = "previous_dept_name", length = 32)
+	private String previousDeptName;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "area_id")
 	private Dept area;
 
@@ -174,9 +181,9 @@ public class Visit extends IdEntity {
 	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
 
 	public static final String State_OutHospital = "已出院";
-	
+
 	public static final String State_IntoRecordRoom = "在病案室";
-	
+
 	public static final String State_Archived = "已归档";
 
 	/**
@@ -526,10 +533,24 @@ public class Visit extends IdEntity {
 	}
 
 	public void setDept(Dept dept) {
+		// 保留原部门
+		if (this.dept != null) {
+			this.previousDept = this.dept;
+			this.previousDeptName = this.dept.getName();
+		}
+		// 设置部门
 		this.dept = dept;
 		if (dept != null) {
 			this.deptName = dept.getName();
 		}
+	}
+
+	public Dept getPreviousDept() {
+		return previousDept;
+	}
+
+	public String getPreviousDeptName() {
+		return previousDeptName;
 	}
 
 	public Dept getArea() {

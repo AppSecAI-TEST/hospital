@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.view.MedicalRecordListPanel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component

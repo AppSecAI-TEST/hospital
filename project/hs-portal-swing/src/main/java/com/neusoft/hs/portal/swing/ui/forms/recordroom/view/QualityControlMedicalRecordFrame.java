@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view;
+package com.neusoft.hs.portal.swing.ui.forms.recordroom.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -20,10 +20,12 @@ import com.neusoft.hs.portal.swing.ui.shared.view.MedicalRecordListPanel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class CreateMedicalRecordFrame extends JFrame {
+public class QualityControlMedicalRecordFrame extends JFrame {
 
 	private JComboBox<Visit> visitCB;
 	private VisitComboBoxModel visitComboBoxModel;
+
+	private JButton passBtn;
 
 	private MedicalRecordListPanel medicalRecordListPanel;
 
@@ -34,7 +36,7 @@ public class CreateMedicalRecordFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public CreateMedicalRecordFrame() {
+	public QualityControlMedicalRecordFrame() {
 		this.medicalRecordListPanel = new MedicalRecordListPanel();
 
 		setFrameUp();
@@ -61,6 +63,10 @@ public class CreateMedicalRecordFrame extends JFrame {
 
 		interactivePanel.add(visitCB);
 
+		passBtn = new JButton(ConstMessagesCN.Labels.pass);
+
+		interactivePanel.add(passBtn);
+
 		workspacePanel.add(interactivePanel, BorderLayout.NORTH);
 
 		workspacePanel.add(medicalRecordListPanel, BorderLayout.CENTER);
@@ -82,6 +88,10 @@ public class CreateMedicalRecordFrame extends JFrame {
 
 	public VisitComboBoxModel getVisitComboBoxModel() {
 		return visitComboBoxModel;
+	}
+
+	public JButton getPassBtn() {
+		return passBtn;
 	}
 
 	public MedicalRecordTableModel getMedicalRecordTableModel() {

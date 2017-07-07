@@ -165,6 +165,7 @@ public interface ConstMessagesCN {
 		String createTemporaryOrderListMR = "创建临时医嘱单";
 		String createInspectResultMR = "生成检查单病历";
 		String transferMedicalRecord = "移交档案室";
+		String pass = "通过";
 
 	}
 

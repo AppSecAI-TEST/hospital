@@ -96,8 +96,14 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 
 		try {
 			inPatientAppService.transfer(visit, UserUtil.getUser());
+			
 			loadVisits();
-			refreshMedicalRecord();
+
+			MedicalRecordTableModel medicalRecordTableModel = transferMedicalRecordFrame
+					.getMedicalRecordTableModel();
+			medicalRecordTableModel.clear();
+			medicalRecordTableModel.fireTableDataChanged();
+
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
