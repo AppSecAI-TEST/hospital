@@ -43,12 +43,13 @@ public class PositionFrame extends JFrame {
 	private void initComponents() {
 		setLayout(new BorderLayout());
 
-		JPanel workspacePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel workspacePanel = new JPanel(new BorderLayout());
 
-		workspacePanel.add(new JLabel(ConstMessagesCN.Labels.position));
+		JLabel positionJL = new JLabel(ConstMessagesCN.Labels.position);
+		workspacePanel.add(positionJL, BorderLayout.WEST);
 
 		positionTF = new JTextField();
-		workspacePanel.add(positionTF);
+		workspacePanel.add(positionTF, BorderLayout.CENTER);
 
 		add(workspacePanel, BorderLayout.CENTER);
 
