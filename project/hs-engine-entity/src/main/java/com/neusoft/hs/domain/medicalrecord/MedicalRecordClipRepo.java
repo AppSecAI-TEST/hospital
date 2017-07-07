@@ -16,7 +16,7 @@ interface MedicalRecordClipRepo extends
 	public MedicalRecordClip findByVisit(Visit visit);
 
 	public List<MedicalRecordClip> findByStateAndCheckDept(String state,
-			Dept checkDept);
+			Dept checkDept, Pageable pageable);
 
 	public List<MedicalRecordClip> findByState(String state, Pageable pageable);
 

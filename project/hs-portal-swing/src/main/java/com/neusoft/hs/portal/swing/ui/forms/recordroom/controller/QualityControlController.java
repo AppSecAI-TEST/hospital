@@ -69,9 +69,8 @@ public class QualityControlController extends AbstractFrameController {
 	private void loadMedicalRecordClips() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<MedicalRecordClip> entities = medicalRecordAppService
-				.getMedicalRecordClips(MedicalRecordClip.State_Checking,
-						pageable);
+		List<MedicalRecordClip> entities = qualityControlAppService
+				.findNeedCheckRecordClips(UserUtil.getUser(), pageable);
 
 		MedicalRecordClipComboBoxModel clipComboBoxModel = qualityControlMedicalRecordFrame
 				.getMedicalRecordClipComboBoxModel();

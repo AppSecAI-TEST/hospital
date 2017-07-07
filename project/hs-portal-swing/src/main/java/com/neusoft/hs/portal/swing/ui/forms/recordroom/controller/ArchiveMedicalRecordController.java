@@ -21,6 +21,7 @@ import com.neusoft.hs.domain.recordroom.RecordRoomDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.view.ArchiveMedicalRecordFrame;
+import com.neusoft.hs.portal.swing.ui.forms.recordroom.view.PositionFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordClipComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
@@ -30,6 +31,9 @@ import com.neusoft.hs.portal.swing.util.Notifications;
 public class ArchiveMedicalRecordController extends AbstractFrameController {
 	@Autowired
 	private ArchiveMedicalRecordFrame archiveMedicalRecordFrame;
+
+	@Autowired
+	private PositionFrame positionFrame;
 
 	@Autowired
 	private MedicalRecordAppService medicalRecordAppService;
@@ -42,7 +46,7 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 		registerAction(archiveMedicalRecordFrame.getMedicalRecordClipCB(),
 				(e) -> refreshMedicalRecord());
 		registerAction(archiveMedicalRecordFrame.getArchiveBtn(),
-				(e) -> archive());
+				(e) -> openArchive());
 
 		registerAction(archiveMedicalRecordFrame.getCloseBtn(),
 				(e) -> closeWindow());
@@ -54,6 +58,8 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 						viewMedicalRecord(e);
 					}
 				});
+
+		registerAction(positionFrame.getConfirmBtn(), (e) -> archive());
 	}
 
 	@Override
@@ -83,6 +89,17 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 				.getSelectedItem();
 	}
 
+	private void openArchive() {
+
+		MedicalRecordClip clip = this.getMedicalRecordClip();
+		if (clip == null) {
+			Notifications.showFormValidationAlert("请选择病历夹");
+			return;
+		}
+
+		positionFrame.setVisible(true);
+	}
+
 	private void archive() {
 
 		MedicalRecordClip clip = this.getMedicalRecordClip();
@@ -92,8 +109,7 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 		}
 
 		try {
-
-			String position = null;
+			String position = positionFrame.getPositionTF().getText();
 			recordRoomDomainService.archive(clip.getId(), position,
 					UserUtil.getUser());
 
@@ -103,6 +119,8 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 					.getMedicalRecordTableModel();
 			medicalRecordTableModel.clear();
 			medicalRecordTableModel.fireTableDataChanged();
+			
+			positionFrame.dispose();
 		} catch (MedicalRecordException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

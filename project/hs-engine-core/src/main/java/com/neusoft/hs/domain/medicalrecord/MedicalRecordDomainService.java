@@ -185,8 +185,8 @@ public class MedicalRecordDomainService {
 		return medicalRecordClipRepo.findByVisit(visit);
 	}
 
-	public List<MedicalRecordClip> findClips(String state, Dept dept) {
-		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept);
+	public List<MedicalRecordClip> findClips(String state, Dept dept, Pageable pageable) {
+		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept, pageable);
 	}
 
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {

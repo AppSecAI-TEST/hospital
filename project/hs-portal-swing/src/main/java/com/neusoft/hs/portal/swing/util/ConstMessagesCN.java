@@ -168,6 +168,7 @@ public interface ConstMessagesCN {
 		String pass = "通过";
 		String archive = "归档";
 
+		String position = "位置";
 	}
 
 	interface ValidationMessages {

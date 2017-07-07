@@ -363,6 +363,7 @@ public abstract class InPatientTestService extends AppTestService {
 	public void followUp() throws HsException {
 
 		Visit visit;
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30", dayCount));
 
@@ -384,7 +385,7 @@ public abstract class InPatientTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30", dayCount));
 
 		List<MedicalRecordClip> clips = qualityControlAppService
-				.findNeedCheckRecordClips(user601);
+				.findNeedCheckRecordClips(user601, pageable);
 
 		assertTrue(clips.size() == 1);
 
