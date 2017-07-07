@@ -18,6 +18,7 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
+import com.neusoft.hs.domain.visit.VisitException;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Service
@@ -68,7 +69,7 @@ public class InPatientAppService {
 	}
 
 	public void transfer(Visit visit, AbstractUser user)
-			throws MedicalRecordException {
+			throws MedicalRecordException, VisitException {
 
 		Dept dept = user.getDept().getOrg().getRecordRoomDept();
 		medicalRecordDomainService.transfer(visit, dept, user);

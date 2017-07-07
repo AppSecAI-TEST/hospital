@@ -36,7 +36,7 @@ public class QualityControlController extends AbstractFrameController {
 
 	@Autowired
 	private VisitDomainService visitDomainService;
-	
+
 	@Autowired
 	private MedicalRecordAppService medicalRecordAppService;
 
@@ -74,8 +74,8 @@ public class QualityControlController extends AbstractFrameController {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
 		List<Visit> entities = visitDomainService.findByStateAndDepts(
-				Visit.State_OutHospital,
-				UserUtil.getUser().getOperationDepts(), pageable);
+				Visit.State_IntoRecordRoom, UserUtil.getUser()
+						.getOperationDepts(), pageable);
 
 		VisitComboBoxModel visitComboBoxModel = qualityControlMedicalRecordFrame
 				.getVisitComboBoxModel();
@@ -88,9 +88,9 @@ public class QualityControlController extends AbstractFrameController {
 		return qualityControlMedicalRecordFrame.getVisitComboBoxModel()
 				.getSelectedItem();
 	}
-	
-	private void pass(){
-		
+
+	private void pass() {
+
 	}
 
 	private void refreshMedicalRecord() {

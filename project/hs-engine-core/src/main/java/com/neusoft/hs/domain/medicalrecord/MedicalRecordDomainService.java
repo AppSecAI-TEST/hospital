@@ -12,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
-import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.VisitException;
 import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -156,7 +156,11 @@ public class MedicalRecordDomainService {
 	}
 
 	public void transfer(Visit visit, Dept dept, AbstractUser user)
-			throws MedicalRecordException {
+			throws MedicalRecordException, VisitException {
+		if (!visit.getState().equals(Visit.State_OutHospital)) {
+			throw new VisitException(visit, "患者[%s]的状态不是[%s]不能移交档案室",
+					visit.getName(), Visit.State_OutHospital);
+		}
 		MedicalRecordClip clip = this.getMedicalRecordClip(visit);
 
 		clip.transfer(dept);
