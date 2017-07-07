@@ -158,8 +158,8 @@ public class MedicalRecordDomainService {
 	public void transfer(Visit visit, Dept dept, AbstractUser user)
 			throws MedicalRecordException, VisitException {
 		if (!visit.getState().equals(Visit.State_OutHospital)) {
-			throw new VisitException(visit, "患者[%s]的状态不是[%s]不能移交档案室",
-					visit.getName(), Visit.State_OutHospital);
+			throw new VisitException(visit, "患者[%s]的状态[%s]不是[%s]不能移交档案室",
+					visit.getName(), visit.getState(), Visit.State_OutHospital);
 		}
 		MedicalRecordClip clip = this.getMedicalRecordClip(visit);
 

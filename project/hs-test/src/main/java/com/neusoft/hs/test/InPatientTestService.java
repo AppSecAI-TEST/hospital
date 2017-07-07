@@ -371,8 +371,10 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00", dayCount));
 
+		
+		visit = visitDomainService.find(visit001.getId());
 		// 病历移交档案室
-		inPatientAppService.transfer(visit001, user003);
+		inPatientAppService.transfer(visit, user003);
 		
 		visit = visitDomainService.find(visit001.getId());
 		assertTrue(visit.getState().equals(Visit.State_IntoRecordRoom));
