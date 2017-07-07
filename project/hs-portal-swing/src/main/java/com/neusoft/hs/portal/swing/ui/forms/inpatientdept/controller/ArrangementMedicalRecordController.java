@@ -100,6 +100,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		Visit visit = this.getVisit();
 		if (visit == null) {
 			Notifications.showFormValidationAlert("请选择患者");
+			return;
 		}
 	}
 
@@ -108,6 +109,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		Visit visit = this.getVisit();
 		if (visit == null) {
 			Notifications.showFormValidationAlert("请选择患者");
+			return;
 		}
 
 		try {
@@ -128,6 +130,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 		Visit visit = this.getVisit();
 		if (visit == null) {
 			Notifications.showFormValidationAlert("请选择患者");
+			return;
 		}
 
 		try {

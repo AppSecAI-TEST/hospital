@@ -91,6 +91,29 @@ public class QualityControlController extends AbstractFrameController {
 
 	private void pass() {
 
+		Visit visit = this.getVisit();
+		if (visit == null) {
+			Notifications.showFormValidationAlert("请选择患者");
+			return;
+		}
+
+		try {
+			qualityControlAppService.pass(visit.getMedicalRecordClip().getId(),
+					UserUtil.getUser());
+
+			loadVisits();
+
+			MedicalRecordTableModel medicalRecordTableModel = qualityControlMedicalRecordFrame
+					.getMedicalRecordTableModel();
+			medicalRecordTableModel.clear();
+			medicalRecordTableModel.fireTableDataChanged();
+		} catch (MedicalRecordException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
 	}
 
 	private void refreshMedicalRecord() {
