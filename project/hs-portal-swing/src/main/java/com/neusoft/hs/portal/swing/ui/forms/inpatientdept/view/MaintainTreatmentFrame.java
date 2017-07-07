@@ -51,7 +51,7 @@ public class MaintainTreatmentFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesCN.Labels.OrderExecuteList);
+		setTitle(ConstMessagesCN.Labels.MaintainTreatment);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
