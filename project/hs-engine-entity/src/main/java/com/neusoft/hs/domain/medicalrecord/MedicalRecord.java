@@ -160,10 +160,12 @@ public class MedicalRecord extends IdEntity {
 			throw new MedicalRecordException(this, "id=[%s]病历已签名", getId());
 		}
 
+		if (!this.state.equals(State_Fixed)) {
+			this.doFix();
+		}
+
 		this.state = State_Signed;
 		this.setSignDoctor(doctor);
-
-		this.doFix();
 
 		MedicalRecordLog recordLog = new MedicalRecordLog();
 		recordLog.setRecord(this);
