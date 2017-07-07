@@ -14,10 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
-import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
+import com.neusoft.hs.domain.recordroom.RecordRoomDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.view.ArchiveMedicalRecordFrame;
@@ -35,12 +35,11 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 	private MedicalRecordAppService medicalRecordAppService;
 
 	@Autowired
-	private QualityControlAppService qualityControlAppService;
+	private RecordRoomDomainService recordRoomDomainService;
 
 	@PostConstruct
 	private void prepareListeners() {
-		registerAction(
-				archiveMedicalRecordFrame.getMedicalRecordClipCB(),
+		registerAction(archiveMedicalRecordFrame.getMedicalRecordClipCB(),
 				(e) -> refreshMedicalRecord());
 		registerAction(archiveMedicalRecordFrame.getArchiveBtn(),
 				(e) -> archive());
@@ -69,7 +68,7 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
 		List<MedicalRecordClip> entities = medicalRecordAppService
-				.getMedicalRecordClips(MedicalRecordClip.State_Archived,
+				.getMedicalRecordClips(MedicalRecordClip.State_Archiving,
 						pageable);
 
 		MedicalRecordClipComboBoxModel clipComboBoxModel = archiveMedicalRecordFrame
@@ -80,8 +79,8 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 	}
 
 	private MedicalRecordClip getMedicalRecordClip() {
-		return archiveMedicalRecordFrame
-				.getMedicalRecordClipComboBoxModel().getSelectedItem();
+		return archiveMedicalRecordFrame.getMedicalRecordClipComboBoxModel()
+				.getSelectedItem();
 	}
 
 	private void archive() {
@@ -93,7 +92,10 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 		}
 
 		try {
-			qualityControlAppService.pass(clip.getId(), UserUtil.getUser());
+
+			String position = null;
+			recordRoomDomainService.archive(clip.getId(), position,
+					UserUtil.getUser());
 
 			loadMedicalRecordClips();
 
