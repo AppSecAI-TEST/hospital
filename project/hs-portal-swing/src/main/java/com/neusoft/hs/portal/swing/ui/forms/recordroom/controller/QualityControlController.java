@@ -18,7 +18,6 @@ import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
-import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.view.QualityControlMedicalRecordFrame;
@@ -32,9 +31,6 @@ public class QualityControlController extends AbstractFrameController {
 
 	@Autowired
 	private QualityControlMedicalRecordFrame qualityControlMedicalRecordFrame;
-
-	@Autowired
-	private VisitDomainService visitDomainService;
 
 	@Autowired
 	private MedicalRecordAppService medicalRecordAppService;
@@ -74,7 +70,7 @@ public class QualityControlController extends AbstractFrameController {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
 		List<MedicalRecordClip> entities = medicalRecordAppService
-				.getMedicalRecordClips(MedicalRecordClip.State_Archived,
+				.getMedicalRecordClips(MedicalRecordClip.State_Checking,
 						pageable);
 
 		MedicalRecordClipComboBoxModel clipComboBoxModel = qualityControlMedicalRecordFrame
@@ -93,7 +89,7 @@ public class QualityControlController extends AbstractFrameController {
 
 		MedicalRecordClip clip = this.getMedicalRecordClip();
 		if (clip == null) {
-			Notifications.showFormValidationAlert("请选择患者");
+			Notifications.showFormValidationAlert("请选择病历夹");
 			return;
 		}
 

@@ -38,7 +38,7 @@ public class MedicalRecordClip extends IdEntity {
 	@Column(length = 32)
 	private String state = State_Writing;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 

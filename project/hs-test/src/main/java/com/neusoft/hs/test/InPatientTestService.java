@@ -361,7 +361,7 @@ public abstract class InPatientTestService extends AppTestService {
 	}
 
 	public void followUp() throws HsException {
-		
+
 		Visit visit;
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 14:30", dayCount));
@@ -371,13 +371,15 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 15:00", dayCount));
 
-		
 		visit = visitDomainService.find(visit001.getId());
 		// 病历移交档案室
 		inPatientAppService.transfer(visit, user003);
-		
+
 		visit = visitDomainService.find(visit001.getId());
+
 		assertTrue(visit.getState().equals(Visit.State_IntoRecordRoom));
+		assertTrue(visit.getMedicalRecordClip().getState()
+				.equals(MedicalRecordClip.State_Checking));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-10 09:30", dayCount));
 
@@ -389,15 +391,23 @@ public abstract class InPatientTestService extends AppTestService {
 		// 审查病历
 		qualityControlAppService.pass(clips.get(0).getId(), user601);
 
+		visit = visitDomainService.find(visit001.getId());
+
+		assertTrue(visit.getState().equals(Visit.State_IntoRecordRoom));
+		assertTrue(visit.getMedicalRecordClip().getState()
+				.equals(MedicalRecordClip.State_Archiving));
+
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-11 10:30", dayCount));
 
 		// 归档病历
 		String position = "Num001";
 		recordRoomDomainService
 				.archive(clips.get(0).getId(), position, user602);
-		
+
 		visit = visitDomainService.find(visit001.getId());
 		assertTrue(visit.getState().equals(Visit.State_Archived));
+		assertTrue(visit.getMedicalRecordClip().getState()
+				.equals(MedicalRecordClip.State_Archived));
 
 	}
 

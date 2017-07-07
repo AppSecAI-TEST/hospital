@@ -16,24 +16,20 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.application.recordroom.QualityControlAppService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
-import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.view.ArchiveMedicalRecordFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordClipComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class ArchiveMedicalRecordController extends AbstractFrameController {
 	@Autowired
 	private ArchiveMedicalRecordFrame archiveMedicalRecordFrame;
-
-	@Autowired
-	private VisitDomainService visitDomainService;
 
 	@Autowired
 	private MedicalRecordAppService medicalRecordAppService;
@@ -43,10 +39,11 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
-		registerAction(archiveMedicalRecordFrame.getVisitCB(),
+		registerAction(
+				archiveMedicalRecordFrame.getMedicalRecordClipCB(),
 				(e) -> refreshMedicalRecord());
 		registerAction(archiveMedicalRecordFrame.getArchiveBtn(),
-				(e) -> pass());
+				(e) -> archive());
 
 		registerAction(archiveMedicalRecordFrame.getCloseBtn(),
 				(e) -> closeWindow());
@@ -63,44 +60,42 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
 
-		loadVisits();
+		loadMedicalRecordClips();
 
 		archiveMedicalRecordFrame.setVisible(true);
 	}
 
-	private void loadVisits() throws HsException {
+	private void loadMedicalRecordClips() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<Visit> entities = visitDomainService.findByStateAndDepts(
-				Visit.State_IntoRecordRoom, UserUtil.getUser()
-						.getOperationDepts(), pageable);
+		List<MedicalRecordClip> entities = medicalRecordAppService
+				.getMedicalRecordClips(MedicalRecordClip.State_Archived,
+						pageable);
 
-		VisitComboBoxModel visitComboBoxModel = archiveMedicalRecordFrame
-				.getVisitComboBoxModel();
-		visitComboBoxModel.clear();
-		visitComboBoxModel.addElement(null);
-		visitComboBoxModel.addElements(entities);
+		MedicalRecordClipComboBoxModel clipComboBoxModel = archiveMedicalRecordFrame
+				.getMedicalRecordClipComboBoxModel();
+		clipComboBoxModel.clear();
+		clipComboBoxModel.addElement(null);
+		clipComboBoxModel.addElements(entities);
 	}
 
-	private Visit getVisit() {
-		return archiveMedicalRecordFrame.getVisitComboBoxModel()
-				.getSelectedItem();
+	private MedicalRecordClip getMedicalRecordClip() {
+		return archiveMedicalRecordFrame
+				.getMedicalRecordClipComboBoxModel().getSelectedItem();
 	}
 
-	private void pass() {
+	private void archive() {
 
-		Visit visit = this.getVisit();
-		if (visit == null) {
-			Notifications.showFormValidationAlert("请选择患者");
+		MedicalRecordClip clip = this.getMedicalRecordClip();
+		if (clip == null) {
+			Notifications.showFormValidationAlert("请选择病历夹");
 			return;
 		}
 
 		try {
-			qualityControlAppService.pass(visit.getMedicalRecordClip().getId(),
-					UserUtil.getUser());
-			
+			qualityControlAppService.pass(clip.getId(), UserUtil.getUser());
 
-			loadVisits();
+			loadMedicalRecordClips();
 
 			MedicalRecordTableModel medicalRecordTableModel = archiveMedicalRecordFrame
 					.getMedicalRecordTableModel();
@@ -121,13 +116,12 @@ public class ArchiveMedicalRecordController extends AbstractFrameController {
 				.getMedicalRecordTableModel();
 		medicalRecordTableModel.clear();
 
-		Visit visit = archiveMedicalRecordFrame.getVisitComboBoxModel()
-				.getSelectedItem();
+		MedicalRecordClip clip = getMedicalRecordClip();
 
-		if (visit != null) {
+		if (clip != null) {
 			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 			List<MedicalRecord> entities = medicalRecordAppService
-					.getMedicalRecords(visit, pageable);
+					.getMedicalRecords(clip, pageable);
 			medicalRecordTableModel.addEntities(entities);
 		}
 	}

@@ -21,7 +21,7 @@ public class MedicalRecordAdminDomainService {
 
 	@Autowired
 	private MedicalRecordTypeBuilderRepo medicalRecordTypeBuilderRepo;
-	
+
 	@Autowired
 	private MedicalRecordRenderRepo medicalRecordRenderRepo;
 
@@ -37,19 +37,25 @@ public class MedicalRecordAdminDomainService {
 	public MedicalRecordType getMedicalRecordType(String id) {
 		return medicalRecordTypeRepo.findOne(id);
 	}
-	
+
+	public void clear() {
+		// 清空病历数据
+		this.clearClip();
+		// 清空病历渲染器
+		this.clearRender();
+		// 清空病历类型
+		this.cleartype();
+	}
+
 	public void clearRender() {
 		medicalRecordRenderRepo.clear();
 	}
 
-	/**
-	 * @roseuid 584E167A0000
-	 */
-	public void clear() {
-		medicalRecordRenderRepo.clear();
-		medicalRecordTypeBuilderRepo.deleteAll();
+	public void clearClip() {
 		medicalRecordClipRepo.deleteAll();
-		medicalRecordTypeRepo.deleteAll();
 	}
 
+	public void cleartype() {
+		medicalRecordTypeRepo.deleteAll();
+	}
 }

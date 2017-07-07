@@ -13,7 +13,9 @@ import javax.swing.WindowConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordClipComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.view.MedicalRecordListPanel;
@@ -22,8 +24,8 @@ import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 @Component
 public class ArchiveMedicalRecordFrame extends JFrame {
 
-	private JComboBox<Visit> visitCB;
-	private VisitComboBoxModel visitComboBoxModel;
+	private JComboBox<MedicalRecordClip> medicalRecordClipCB;
+	private MedicalRecordClipComboBoxModel medicalRecordClipComboBoxModel;
 
 	private JButton archiveBtn;
 
@@ -58,10 +60,10 @@ public class ArchiveMedicalRecordFrame extends JFrame {
 
 		JPanel interactivePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		visitComboBoxModel = new VisitComboBoxModel();
-		visitCB = new JComboBox<>(visitComboBoxModel);
+		medicalRecordClipComboBoxModel = new MedicalRecordClipComboBoxModel();
+		medicalRecordClipCB = new JComboBox<>(medicalRecordClipComboBoxModel);
 
-		interactivePanel.add(visitCB);
+		interactivePanel.add(medicalRecordClipCB);
 
 		archiveBtn = new JButton(ConstMessagesCN.Labels.archive);
 
@@ -82,12 +84,12 @@ public class ArchiveMedicalRecordFrame extends JFrame {
 
 	}
 
-	public JComboBox<Visit> getVisitCB() {
-		return visitCB;
+	public JComboBox<MedicalRecordClip> getMedicalRecordClipCB() {
+		return medicalRecordClipCB;
 	}
 
-	public VisitComboBoxModel getVisitComboBoxModel() {
-		return visitComboBoxModel;
+	public MedicalRecordClipComboBoxModel getMedicalRecordClipComboBoxModel() {
+		return medicalRecordClipComboBoxModel;
 	}
 
 	public JButton getArchiveBtn() {
@@ -105,5 +107,4 @@ public class ArchiveMedicalRecordFrame extends JFrame {
 	public JButton getCloseBtn() {
 		return closeBtn;
 	}
-
 }

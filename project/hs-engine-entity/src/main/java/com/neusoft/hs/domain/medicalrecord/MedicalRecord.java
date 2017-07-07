@@ -85,7 +85,7 @@ public class MedicalRecord extends IdEntity {
 	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
 	private List<MedicalRecordLog> logs;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@JoinColumn(name = "builder_id")
 	private MedicalRecordBuilder builder;
 

@@ -486,7 +486,7 @@ public class DataIniter {
 		outPatientPlanDomainService.clearPlanRecord();
 		// 清空病案
 		recordRoomDomainService.clear();
-		// 清空病历
+		// 清空病历数据
 		medicalRecordAdminDomainService.clear();
 		// 清空处方
 		pharmacyAdminService.clearPrescriptions();
