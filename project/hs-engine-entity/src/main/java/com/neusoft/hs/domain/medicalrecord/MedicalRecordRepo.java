@@ -16,4 +16,8 @@ interface MedicalRecordRepo extends
 
 	List<MedicalRecord> findByVisitAndType(Visit visit, MedicalRecordType type);
 
+	List<MedicalRecord> findByState(String state, Pageable pageable);
+
+	List<MedicalRecord> findByClip(MedicalRecordClip clip, Pageable pageable);
+
 }

@@ -192,7 +192,15 @@ public class MedicalRecordDomainService {
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {
 		return medicalRecordRepo.findByVisit(visit, pageable);
 	}
+	
+	public List<MedicalRecord> getMedicalRecords(MedicalRecordClip clip, Pageable pageable) {
+		return medicalRecordRepo.findByClip(clip, pageable);
+	}
 
+	public List<MedicalRecordClip> getMedicalRecordClips(String state, Pageable pageable) {
+		return medicalRecordClipRepo.findByState(state, pageable);
+	}
+	
 	public List<MedicalRecord> getMedicalRecords(Visit visit,
 			MedicalRecordType type) {
 		return medicalRecordRepo.findByVisitAndType(visit, type);

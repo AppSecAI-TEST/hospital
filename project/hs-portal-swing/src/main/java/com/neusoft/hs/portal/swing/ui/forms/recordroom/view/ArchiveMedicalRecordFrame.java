@@ -13,21 +13,19 @@ import javax.swing.WindowConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordClipComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.view.MedicalRecordListPanel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class QualityControlMedicalRecordFrame extends JFrame {
+public class ArchiveMedicalRecordFrame extends JFrame {
 
-	private JComboBox<MedicalRecordClip> medicalRecordClipCB;
-	private MedicalRecordClipComboBoxModel medicalRecordClipComboBoxModel;
+	private JComboBox<Visit> visitCB;
+	private VisitComboBoxModel visitComboBoxModel;
 
-	private JButton passBtn;
+	private JButton archiveBtn;
 
 	private MedicalRecordListPanel medicalRecordListPanel;
 
@@ -38,7 +36,7 @@ public class QualityControlMedicalRecordFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public QualityControlMedicalRecordFrame() {
+	public ArchiveMedicalRecordFrame() {
 		this.medicalRecordListPanel = new MedicalRecordListPanel();
 
 		setFrameUp();
@@ -60,14 +58,14 @@ public class QualityControlMedicalRecordFrame extends JFrame {
 
 		JPanel interactivePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		medicalRecordClipComboBoxModel = new MedicalRecordClipComboBoxModel();
-		medicalRecordClipCB = new JComboBox<>(medicalRecordClipComboBoxModel);
+		visitComboBoxModel = new VisitComboBoxModel();
+		visitCB = new JComboBox<>(visitComboBoxModel);
 
-		interactivePanel.add(medicalRecordClipCB);
+		interactivePanel.add(visitCB);
 
-		passBtn = new JButton(ConstMessagesCN.Labels.pass);
+		archiveBtn = new JButton(ConstMessagesCN.Labels.archive);
 
-		interactivePanel.add(passBtn);
+		interactivePanel.add(archiveBtn);
 
 		workspacePanel.add(interactivePanel, BorderLayout.NORTH);
 
@@ -84,16 +82,16 @@ public class QualityControlMedicalRecordFrame extends JFrame {
 
 	}
 
-	public JComboBox<MedicalRecordClip> getMedicalRecordClipCB() {
-		return medicalRecordClipCB;
+	public JComboBox<Visit> getVisitCB() {
+		return visitCB;
 	}
 
-	public MedicalRecordClipComboBoxModel getMedicalRecordClipComboBoxModel() {
-		return medicalRecordClipComboBoxModel;
+	public VisitComboBoxModel getVisitComboBoxModel() {
+		return visitComboBoxModel;
 	}
 
-	public JButton getPassBtn() {
-		return passBtn;
+	public JButton getArchiveBtn() {
+		return archiveBtn;
 	}
 
 	public MedicalRecordTableModel getMedicalRecordTableModel() {

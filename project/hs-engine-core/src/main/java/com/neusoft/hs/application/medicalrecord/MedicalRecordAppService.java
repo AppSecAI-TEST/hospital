@@ -10,15 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.organization.Dept;
-import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.treatment.TreatmentException;
-import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -81,5 +79,13 @@ public class MedicalRecordAppService {
 
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {
 		return medicalRecordDomainService.getMedicalRecords(visit, pageable);
+	}
+	
+	public List<MedicalRecord> getMedicalRecords(MedicalRecordClip clip, Pageable pageable) {
+		return medicalRecordDomainService.getMedicalRecords(clip, pageable);
+	}
+	
+	public List<MedicalRecordClip> getMedicalRecordClips(String state, Pageable pageable) {
+		return medicalRecordDomainService.getMedicalRecordClips(state, pageable);
 	}
 }

@@ -100,7 +100,6 @@ public class MedicalRecordClip extends IdEntity {
 		this.setState(MedicalRecordClip.State_Archiving);
 		this.setChecker(checker);
 	}
-	
 
 	public void archive() {
 		this.setState(MedicalRecordClip.State_Archived);
@@ -156,5 +155,9 @@ public class MedicalRecordClip extends IdEntity {
 		this.getService(MedicalRecordClipRepo.class).save(this);
 	}
 
+	@Override
+	public String toString() {
+		return this.visit.getName();
+	}
 
 }

@@ -4,6 +4,7 @@ package com.neusoft.hs.domain.medicalrecord;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.neusoft.hs.domain.organization.Dept;
@@ -16,5 +17,7 @@ interface MedicalRecordClipRepo extends
 
 	public List<MedicalRecordClip> findByStateAndCheckDept(String state,
 			Dept checkDept);
+
+	public List<MedicalRecordClip> findByState(String state, Pageable pageable);
 
 }

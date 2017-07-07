@@ -166,6 +166,7 @@ public interface ConstMessagesCN {
 		String createInspectResultMR = "生成检查单病历";
 		String transferMedicalRecord = "移交档案室";
 		String pass = "通过";
+		String archive = "归档";
 
 	}
 
