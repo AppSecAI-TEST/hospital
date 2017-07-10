@@ -69,7 +69,7 @@ public class OrderExecuteController extends AbstractFrameController {
 		orderExecuteTableModel.clear();
 
 		if (visit != null) {
-			Sort sort = new Sort("createDate");
+			Sort sort = new Sort("planStartDate");
 			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
 			List<OrderExecute> entities = orderExecuteAdminService
 					.find(visit, pageable);
