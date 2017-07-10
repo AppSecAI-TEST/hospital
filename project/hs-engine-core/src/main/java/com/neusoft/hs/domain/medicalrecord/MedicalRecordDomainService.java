@@ -158,14 +158,14 @@ public class MedicalRecordDomainService {
 	public void transfer(Visit visit, Dept dept, AbstractUser user)
 			throws MedicalRecordException, VisitException {
 
-		visit.transfer(dept);
+		MedicalRecordClip clip = visit.getMedicalRecordClip();
+		clip.transfer(dept, user);
 
 		applicationContext.publishEvent(new MedicalRecordClipTransferedEvent(
-				visit.getMedicalRecordClip()));
+				clip));
 
 		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]移交到病案室[{}]",
-				user.getId(), visit.getName(), visit.getMedicalRecordClip()
-						.getId(), dept.getId());
+				user.getId(), visit.getName(), clip.getId(), dept.getId());
 	}
 
 	public void toArchive(MedicalRecordClip clip, AbstractUser user)

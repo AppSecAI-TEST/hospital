@@ -37,7 +37,7 @@ public class RecordRoomDomainService {
 			throw new MedicalRecordException(null, "id=[%s]病历夹不存在", clipId);
 		}
 
-		clip.archive();
+		clip.archive(user);
 
 		MedicalCase medicalCase = new MedicalCase(clip);
 		medicalCase.setPosition(position);

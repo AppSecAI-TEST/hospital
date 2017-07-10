@@ -21,6 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.domain.visit.VisitException;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -74,8 +75,10 @@ public class MedicalRecordClip extends IdEntity {
 	 * 
 	 * @param dept
 	 * @throws MedicalRecordException
+	 * @throws VisitException
 	 */
-	public void transfer(Dept dept) throws MedicalRecordException {
+	public void transfer(Dept dept, AbstractUser user)
+			throws MedicalRecordException, VisitException {
 
 		Set<MedicalRecordType> createdRecordTypes = new HashSet<MedicalRecordType>();
 		for (MedicalRecord record : records) {
@@ -95,8 +98,7 @@ public class MedicalRecordClip extends IdEntity {
 		this.checkDept = dept;
 		this.state = State_Checking;
 
-		this.visit.setDept(dept);
-		this.visit.setState(Visit.State_IntoRecordRoom);
+		this.visit.transfer(dept, user);
 	}
 
 	public void toArchive(AbstractUser checker) {
@@ -104,9 +106,10 @@ public class MedicalRecordClip extends IdEntity {
 		this.setChecker(checker);
 	}
 
-	public void archive() {
+	public void archive(AbstractUser user) {
 		this.setState(MedicalRecordClip.State_Archived);
-		this.visit.setState(Visit.State_Archived);
+		this.visit.archive(user);
+		;
 	}
 
 	public void leaveHospital(AbstractUser user) {

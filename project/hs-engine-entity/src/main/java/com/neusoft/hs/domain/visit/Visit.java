@@ -348,14 +348,33 @@ public class Visit extends IdEntity {
 		visitLog.save();
 	}
 
-	public void transfer(Dept dept) throws VisitException,
-			MedicalRecordException {
+	public void transfer(Dept dept, AbstractUser user) throws VisitException {
 		if (!this.getState().equals(State_OutHospital)) {
 			throw new VisitException(this, "患者[%s]的状态[%s]不是[%s]不能移交档案室", name,
 					state, State_OutHospital);
 		}
+		this.setDept(dept);
+		this.setState(Visit.State_IntoRecordRoom);
 
-		this.medicalRecordClip.transfer(dept);
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_Transfer);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(DateUtil.getSysDate());
+
+		visitLog.save();
+	}
+
+	public void archive(AbstractUser user) {
+		this.setState(Visit.State_Archived);
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_Archived);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(DateUtil.getSysDate());
+
+		visitLog.save();
 	}
 
 	/**
