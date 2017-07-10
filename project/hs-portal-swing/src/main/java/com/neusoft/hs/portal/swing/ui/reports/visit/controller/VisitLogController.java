@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.domain.cost.ChargeBill;
@@ -69,7 +70,8 @@ public class VisitLogController extends AbstractFrameController {
 
 		if (visit != null) {
 
-			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+			Sort sort = new Sort("createDate");
+			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
 
 			List<VisitLog> entities = visitAdminDomainService.getVisitLogs(
 					visit, pageable);

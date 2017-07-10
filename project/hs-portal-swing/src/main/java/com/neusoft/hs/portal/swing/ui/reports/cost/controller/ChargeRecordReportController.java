@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,8 +41,9 @@ public class ChargeRecordReportController extends AbstractFrameController {
 	private void prepareListeners() {
 		registerAction(chargeRecordReportFrame.getVisitCB(),
 				(e) -> refreshChargeRecord(e));
-		registerAction(chargeRecordReportFrame.getCloseBtn(), (e) -> closeWindow());
-		
+		registerAction(chargeRecordReportFrame.getCloseBtn(),
+				(e) -> closeWindow());
+
 	}
 
 	@Override
@@ -75,11 +77,11 @@ public class ChargeRecordReportController extends AbstractFrameController {
 		chargeRecordTableModel.clear();
 
 		if (visit != null) {
-			
-			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
-			
-			List<ChargeRecord> entities = costDomainService
-					.getChargeRecords(visit, pageable);
+			Sort sort = new Sort("createDate");
+			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
+
+			List<ChargeRecord> entities = costDomainService.getChargeRecords(
+					visit, pageable);
 
 			chargeRecordTableModel.addEntities(entities);
 
@@ -90,7 +92,7 @@ public class ChargeRecordReportController extends AbstractFrameController {
 			chargeRecordReportFrame.getChargeBillLbl().setText(chargeBillInfo);
 		}
 	}
-	
+
 	private void closeWindow() {
 		chargeRecordReportFrame.dispose();
 	}
