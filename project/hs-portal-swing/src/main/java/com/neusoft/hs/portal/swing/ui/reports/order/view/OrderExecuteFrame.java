@@ -28,9 +28,9 @@ public class OrderExecuteFrame extends JFrame {
 	
 	private JButton closeBtn;
 
-	private static final int DEFAULT_WIDTH = 800;
+	private static final int DEFAULT_WIDTH = 1000;
 
-	private static final int DEFAULT_HEIGHT = 300;
+	private static final int DEFAULT_HEIGHT = 600;
 
 	@Autowired
 	public OrderExecuteFrame(
