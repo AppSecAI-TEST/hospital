@@ -17,6 +17,9 @@ public class EhCacheCacheTest {
 
 	@Test
 	public void testEhcache() {
+		
+		cacheTestService.testEhcache("test");
+		
 		cacheTestService.testEhcache("test");
 	}
 

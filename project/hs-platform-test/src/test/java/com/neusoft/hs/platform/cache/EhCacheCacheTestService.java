@@ -4,6 +4,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.platform.log.LogUtil;
+
 @Service
 public class EhCacheCacheTestService {
 
@@ -14,6 +16,8 @@ public class EhCacheCacheTestService {
 
 		cacheVO.setId("test");
 		cacheVO.setName("测试");
+		
+		LogUtil.log(EhCacheCacheTestService.class, "testId=[{}]", testId);
 
 		return cacheVO;
 	}
