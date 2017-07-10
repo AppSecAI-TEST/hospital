@@ -24,7 +24,7 @@ public class EhCacheCacheTestService {
 
 	@CacheEvict(value = "testCache", key = "#testId")
 	public void testDeleteEhcache(String testId) {
-
+		LogUtil.log(EhCacheCacheTestService.class, "testId=[{}]delete", testId);
 	}
 
 }

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.hs.platform.log.LogUtil;
+
 @Service
 public class RedisCacheTestService {
 
@@ -15,5 +17,7 @@ public class RedisCacheTestService {
 		redisTemplate.delete("test");
 		
 		redisTemplate.opsForValue().append("test", "test");
+		
+		LogUtil.log(EhCacheCacheTestService.class, "add test to redis cache");
 	}
 }
