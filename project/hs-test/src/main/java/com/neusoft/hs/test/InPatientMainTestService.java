@@ -24,6 +24,7 @@ import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.order.TransferDeptOrderBuilder;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
 import com.neusoft.hs.domain.pharmacy.DispensingDrugOrder;
 import com.neusoft.hs.domain.treatment.Itemable;
@@ -728,6 +729,53 @@ public class InPatientMainTestService extends InPatientTestService {
 		for (OrderExecute execute : executes) {
 			orderExecuteAppService.finish(execute.getId(), null, user003);
 		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:30", dayCount));
 
+		// 将004转科到眼科一
+		TransferDeptOrderBuilder transferDeptOrderBuilder = new TransferDeptOrderBuilder();
+		transferDeptOrderBuilder.setVisit(visit004);
+		transferDeptOrderBuilder.setOrderType(transferDeptOrderType);
+		transferDeptOrderBuilder.setExecuteDept(deptddd);
+
+		orderAppService.create(transferDeptOrderBuilder, user002);
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:32", dayCount));
+		
+		pageable = new PageRequest(0, 15);
+		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
+
+		assertTrue(orders.size() == 1);
+
+		// 核对医嘱
+		for (Order order : orders) {
+			orderAppService.verify(order.getId(), user003);
+		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:35", dayCount));
+		
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成转科申请
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
+		
+		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:40", dayCount));
+		
+		pageable = new PageRequest(0, 15);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		// 完成转科确认
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, user003);
+		}
 	}
 }

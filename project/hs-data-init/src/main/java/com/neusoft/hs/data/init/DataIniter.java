@@ -39,6 +39,7 @@ import com.neusoft.hs.domain.order.OrderFrequencyTypeDayTwo;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.OutHospitalOrderType;
 import com.neusoft.hs.domain.order.TemporaryOrderListTreatmentItemSpec;
+import com.neusoft.hs.domain.order.TransferDeptOrderType;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.CommonDept;
@@ -222,6 +223,8 @@ public class DataIniter {
 	protected OutHospitalOrderType leaveHospitalOrderType;// 出院医嘱类型
 
 	protected InspectOrderType inspectOrderType;// 检查医嘱类型
+
+	protected TransferDeptOrderType transferDeptOrderType;// 转科医嘱类型
 
 	protected OralOrderUseMode oralOrderUseMode;// 口服用法
 
@@ -448,6 +451,7 @@ public class DataIniter {
 		secondNursingOrderType = dataIniter.secondNursingOrderType;
 		leaveHospitalOrderType = dataIniter.leaveHospitalOrderType;
 		inspectOrderType = dataIniter.inspectOrderType;
+		transferDeptOrderType = dataIniter.transferDeptOrderType;
 
 		oralOrderUseMode = dataIniter.oralOrderUseMode;
 		infusionOrderUseModeToInPatient = dataIniter.infusionOrderUseModeToInPatient;
@@ -1352,6 +1356,13 @@ public class DataIniter {
 		inspectOrderType.setName("脑CT");
 
 		orderTypes.add(inspectOrderType);
+
+		transferDeptOrderType = new TransferDeptOrderType();
+		transferDeptOrderType.setId("transferDeptOrderType");
+		transferDeptOrderType.setCode("transferDeptOrderType");
+		transferDeptOrderType.setName("转科");
+
+		orderTypes.add(transferDeptOrderType);
 
 		orderAdminDomainService.createOrderTypes(orderTypes);
 	}
