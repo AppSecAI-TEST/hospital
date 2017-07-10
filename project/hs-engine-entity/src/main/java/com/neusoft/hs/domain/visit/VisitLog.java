@@ -32,6 +32,9 @@ public class VisitLog extends IdEntity {
 	@JoinColumn(name = "operator_id")
 	private AbstractUser operator;
 
+	@Column(name = "operator_name", length = 32)
+	private String operatorName;
+
 	@Column(name = "create_date")
 	private Date createDate;
 
@@ -75,6 +78,15 @@ public class VisitLog extends IdEntity {
 
 	public void setOperator(AbstractUser operator) {
 		this.operator = operator;
+		this.operatorName = operator.getName();
+	}
+
+	public String getOperatorName() {
+		return operatorName;
+	}
+
+	public void setOperatorName(String operatorName) {
+		this.operatorName = operatorName;
 	}
 
 	public Date getCreateDate() {

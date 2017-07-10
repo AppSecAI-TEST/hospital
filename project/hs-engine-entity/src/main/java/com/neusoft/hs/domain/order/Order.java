@@ -99,7 +99,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@JoinColumn(name = "creator_id")
 	private Doctor creator;
 
-	@Column(length = 32)
+	@Column(name = "creator_name", length = 32)
 	private String creatorName;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -14,10 +14,13 @@ public class VisitAdminDomainService {
 	@Autowired
 	private VisitRepo visitRepo;
 
+	@Autowired
+	private VisitLogRepo visitLogRepo;
+
 	public void clear() {
 		visitRepo.deleteAll();
 	}
-	
+
 	/**
 	 * @param visitId
 	 * @roseuid 584E03140020
@@ -28,6 +31,10 @@ public class VisitAdminDomainService {
 
 	public List<Visit> find(Pageable pageable) {
 		return visitRepo.findAll(pageable).getContent();
+	}
+
+	public List<VisitLog> getVisitLogs(Visit visit, Pageable pageable) {
+		return visitLogRepo.findByVisit(visit, pageable);
 	}
 
 }

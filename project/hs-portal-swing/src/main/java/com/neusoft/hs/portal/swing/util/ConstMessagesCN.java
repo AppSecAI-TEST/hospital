@@ -128,9 +128,11 @@ public interface ConstMessagesCN {
 		String Name = "名称";
 		String State = "状态";
 		String Type = "类型";
+		String Info = "信息";
 		String Doctor = "医生";
 		String BelongDept = "所属部门";
 		String ExecuteDept = "执行部门";
+		String Operator = "操作人";
 		String CreateDate = "创建时间";
 		String ExecuteDate = "执行时间";
 
@@ -154,6 +156,7 @@ public interface ConstMessagesCN {
 		String Amount = "单价";
 		String Price = "价格";
 
+		String VisitLog = "患者就诊日志";
 		String ChargeBill = "收费单";
 		String ChargeRecord = "收费记录";
 		String OrderList = "医嘱单";

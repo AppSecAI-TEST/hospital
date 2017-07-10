@@ -19,6 +19,8 @@ public class ReportsFrame extends JFrame {
 
 	private JButton treatmentBtn;
 
+	private JButton visitLogBtn;
+
 	public ReportsFrame() {
 		setFrameUp();
 		initComponents();
@@ -32,19 +34,25 @@ public class ReportsFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		LookAndFeelUtils.setWindowsLookAndFeel();
-		setLayout(new GridLayout(4, 1, 20, 20));
+		setLayout(new GridLayout(5, 1, 20, 20));
 	}
 
 	private void initComponents() {
+		visitLogBtn = new JButton(ConstMessagesCN.Labels.VisitLog);
 		chargeRecordReportBtn = new JButton(ConstMessagesCN.Labels.ChargeRecord);
 		orderBtn = new JButton(ConstMessagesCN.Labels.OrderList);
 		orderExecuteBtn = new JButton(ConstMessagesCN.Labels.OrderExecuteList);
 		treatmentBtn = new JButton(ConstMessagesCN.Labels.Treatment);
 
+		add(visitLogBtn);
 		add(chargeRecordReportBtn);
 		add(orderBtn);
 		add(orderExecuteBtn);
 		add(treatmentBtn);
+	}
+
+	public JButton getVisitLogBtn() {
+		return visitLogBtn;
 	}
 
 	public JButton getChargeRecordReportBtn() {

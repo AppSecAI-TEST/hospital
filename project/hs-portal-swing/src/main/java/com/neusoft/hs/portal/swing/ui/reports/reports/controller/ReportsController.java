@@ -8,6 +8,7 @@ import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderExecuteController;
 import com.neusoft.hs.portal.swing.ui.reports.reports.view.ReportsFrame;
 import com.neusoft.hs.portal.swing.ui.reports.treatment.controller.TreatmentReportController;
+import com.neusoft.hs.portal.swing.ui.reports.visit.controller.VisitLogController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -18,6 +19,9 @@ public class ReportsController extends AbstractFrameController {
 	private ReportsFrame mainMenuFrame;
 
 	@Autowired
+	private VisitLogController visitLogController;
+
+	@Autowired
 	private ChargeRecordReportController chargeRecordReportController;
 
 	@Autowired
@@ -25,11 +29,13 @@ public class ReportsController extends AbstractFrameController {
 
 	@Autowired
 	private OrderExecuteController orderExecuteController;
-	
+
 	@Autowired
 	private TreatmentReportController treatmentReportController;
 
 	public void prepareAndOpenFrame() {
+		registerAction(mainMenuFrame.getVisitLogBtn(),
+				(e) -> openVisitLogWindow());
 		registerAction(mainMenuFrame.getChargeRecordReportBtn(),
 				(e) -> openChargeRecordReportWindow());
 		registerAction(mainMenuFrame.getOrderBtn(), (e) -> openOrderWindow());
@@ -37,8 +43,17 @@ public class ReportsController extends AbstractFrameController {
 				(e) -> openOrderExecuteWindow());
 		registerAction(mainMenuFrame.getTreatmentBtn(),
 				(e) -> openTreatmentWindow());
-		
+
 		mainMenuFrame.setVisible(true);
+	}
+
+	private void openVisitLogWindow() {
+		try {
+			visitLogController.prepareAndOpenFrame();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
 	}
 
 	private void openChargeRecordReportWindow() {
@@ -67,7 +82,7 @@ public class ReportsController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void openTreatmentWindow() {
 		try {
 			treatmentReportController.prepareAndOpenFrame();
