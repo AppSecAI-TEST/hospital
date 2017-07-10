@@ -15,6 +15,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.UnitException;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -68,10 +69,15 @@ public class InPatientAppService {
 		medicalRecordDomainService.fix(medicalRecord, user);
 	}
 
-	public void transfer(Visit visit, AbstractUser user)
-			throws MedicalRecordException, VisitException {
+	public void transfer(String visitId, AbstractUser user)
+			throws MedicalRecordException, VisitException, UnitException {
 
 		Dept dept = user.getDept().getOrg().getRecordRoomDept();
+		if (dept == null) {
+			throw new UnitException(user.getDept().getOrg(), "组织[%s]没有配置病案室",
+					user.getDept().getOrg().getName());
+		}
+		Visit visit = visitDomainService.find(visitId);
 		medicalRecordDomainService.transfer(visit, dept, user);
 	}
 }

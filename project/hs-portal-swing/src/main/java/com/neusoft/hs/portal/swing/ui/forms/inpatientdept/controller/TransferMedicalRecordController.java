@@ -95,8 +95,8 @@ public class TransferMedicalRecordController extends AbstractFrameController {
 		}
 
 		try {
-			inPatientAppService.transfer(visit, UserUtil.getUser());
-			
+			inPatientAppService.transfer(visit.getId(), UserUtil.getUser());
+
 			loadVisits();
 
 			MedicalRecordTableModel medicalRecordTableModel = transferMedicalRecordFrame

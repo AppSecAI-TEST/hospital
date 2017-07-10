@@ -99,7 +99,9 @@ public class DataIniter {
 	protected Pharmacy deptccc;// 住院西药房
 
 	protected InPatientDept dept000;// 内泌五
-	protected InPatientAreaDept dept000n;// 内泌五护士站
+	protected InPatientAreaDept dept000n;// 内泌五和眼科一护士站
+
+	protected InPatientDept deptddd;// 眼科一
 
 	protected OutPatientDept dept999;// 内分泌门诊
 
@@ -131,9 +133,11 @@ public class DataIniter {
 	protected Staff userc01;// 住院西药房摆药岗位-姜维
 	protected Staff userc03;// 住院西药房发药岗位-庞统
 
-	protected Staff user001;// 内泌五接诊护士-大乔
 	protected Doctor user002;// 内泌五医生-貂蝉
-	protected Nurse user003;// 内泌五护士-小乔
+	protected Doctor userd02;// 眼科一医生-司马懿
+
+	protected Staff user001;// 内泌五和眼科一接诊护士-大乔
+	protected Nurse user003;// 内泌五和眼科一护士-小乔
 
 	protected Admin admin001;// 超级管理员-孙尚香
 
@@ -362,6 +366,7 @@ public class DataIniter {
 		deptaaa = dataIniter.deptaaa;
 		deptbbb = dataIniter.deptbbb;
 		deptccc = dataIniter.deptccc;
+		deptddd = dataIniter.deptddd;
 
 		dept000n = dataIniter.dept000n;
 
@@ -392,6 +397,8 @@ public class DataIniter {
 		user001 = dataIniter.user001;
 		user002 = dataIniter.user002;
 		user003 = dataIniter.user003;
+
+		userd02 = dataIniter.userd02;
 
 		admin001 = dataIniter.admin001;
 
@@ -696,12 +703,21 @@ public class DataIniter {
 
 		units.add(dept000);
 
+		deptddd = new InPatientDept();
+		deptddd.setId("deptddd");
+		deptddd.setName("眼科一");
+		deptddd.setParent(org);
+		deptddd.setOrg(org);
+
+		units.add(deptddd);
+
 		dept000n = new InPatientAreaDept();
 		dept000n.setId("dept000n");
 		dept000n.setName("内泌五护士站");
 		dept000n.setParent(org);
 		dept000n.setOrg(org);
 		dept000n.addDept(dept000);
+		dept000n.addDept(deptddd);
 
 		units.add(dept000n);
 
@@ -917,14 +933,6 @@ public class DataIniter {
 
 		users.add(userc03);
 
-		user001 = new Staff();
-
-		user001.setId("staff001");
-		user001.setName("内泌五接诊护士-大乔");
-		user001.setDept(dept000n);
-
-		users.add(user001);
-
 		user002 = new Doctor();
 
 		user002.setId("doctor002");
@@ -933,10 +941,26 @@ public class DataIniter {
 
 		users.add(user002);
 
+		userd02 = new Doctor();
+
+		userd02.setId("doctord02");
+		userd02.setName("眼科一医生-司马懿");
+		userd02.setDept(deptddd);
+
+		users.add(userd02);
+
+		user001 = new Staff();
+
+		user001.setId("staff001");
+		user001.setName("内泌五和眼科一接诊护士-大乔");
+		user001.setDept(dept000n);
+
+		users.add(user001);
+
 		user003 = new Nurse();
 
 		user003.setId("nurse003");
-		user003.setName("内泌五护士-小乔");
+		user003.setName("内泌五和眼科一护士-小乔");
 		user003.setDept(dept000n);
 
 		users.add(user003);

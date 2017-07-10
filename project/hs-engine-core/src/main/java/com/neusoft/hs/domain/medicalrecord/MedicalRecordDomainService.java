@@ -157,19 +157,15 @@ public class MedicalRecordDomainService {
 
 	public void transfer(Visit visit, Dept dept, AbstractUser user)
 			throws MedicalRecordException, VisitException {
-		if (!visit.getState().equals(Visit.State_OutHospital)) {
-			throw new VisitException(visit, "患者[%s]的状态[%s]不是[%s]不能移交档案室",
-					visit.getName(), visit.getState(), Visit.State_OutHospital);
-		}
-		MedicalRecordClip clip = this.getMedicalRecordClip(visit);
 
-		clip.transfer(dept);
+		visit.transfer(dept);
 
 		applicationContext.publishEvent(new MedicalRecordClipTransferedEvent(
-				clip));
+				visit.getMedicalRecordClip()));
 
 		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]移交到病案室[{}]",
-				user.getId(), visit.getName(), clip.getId(), dept.getId());
+				user.getId(), visit.getName(), visit.getMedicalRecordClip()
+						.getId(), dept.getId());
 	}
 
 	public void toArchive(MedicalRecordClip clip, AbstractUser user)
@@ -185,22 +181,26 @@ public class MedicalRecordDomainService {
 		return medicalRecordClipRepo.findByVisit(visit);
 	}
 
-	public List<MedicalRecordClip> findClips(String state, Dept dept, Pageable pageable) {
-		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept, pageable);
+	public List<MedicalRecordClip> findClips(String state, Dept dept,
+			Pageable pageable) {
+		return medicalRecordClipRepo.findByStateAndCheckDept(state, dept,
+				pageable);
 	}
 
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {
 		return medicalRecordRepo.findByVisit(visit, pageable);
 	}
-	
-	public List<MedicalRecord> getMedicalRecords(MedicalRecordClip clip, Pageable pageable) {
+
+	public List<MedicalRecord> getMedicalRecords(MedicalRecordClip clip,
+			Pageable pageable) {
 		return medicalRecordRepo.findByClip(clip, pageable);
 	}
 
-	public List<MedicalRecordClip> getMedicalRecordClips(String state, Pageable pageable) {
+	public List<MedicalRecordClip> getMedicalRecordClips(String state,
+			Pageable pageable) {
 		return medicalRecordClipRepo.findByState(state, pageable);
 	}
-	
+
 	public List<MedicalRecord> getMedicalRecords(Visit visit,
 			MedicalRecordType type) {
 		return medicalRecordRepo.findByVisitAndType(visit, type);
