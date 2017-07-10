@@ -21,11 +21,12 @@ public class EhCacheCacheTest {
 		cacheTestService.testEhcache("test");
 		
 		cacheTestService.testEhcache("test");
-	}
-
-	@Test
-	public void testEhcacheDelete() {
+		
 		cacheTestService.testDeleteEhcache("test");
+		
+		cacheTestService.testEhcache("test");
+		
+		cacheTestService.testEhcache("test");
+		
 	}
-
 }
