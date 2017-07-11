@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -757,12 +758,19 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:33", dayCount));
 
-		List<ChargeRecord> records = costTestService.getChargeRecords(visit004,
-				"二级护理", user003);
+		List<ChargeRecord> records = costDomainService.getChargeRecords(
+				visit004, user003.getOperationDepts(), pageable);
 
-		assertTrue(records.size() == 1);
+		List<ChargeRecord> theRecords = records
+				.stream()
+				.filter(record -> DateUtil.isDayIn(record.getCreateDate(),
+						DateUtil.getDateStart(DateUtil.getSysDate()))
+						&& record.getChargeItemName().equals("二级护理"))
+				.collect(Collectors.toList());
 
-		inPatientAppService.retreat(records.get(0).getId(), false, user003);
+		assertTrue(theRecords.size() == 1);
+
+		inPatientAppService.retreat(theRecords.get(0).getId(), false, user003);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:35", dayCount));
 

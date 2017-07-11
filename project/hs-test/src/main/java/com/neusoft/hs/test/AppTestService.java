@@ -87,9 +87,6 @@ public abstract class AppTestService extends DataIniter {
 	@Autowired
 	protected OrderDAO orderDAO;
 
-	@Autowired
-	protected CostTestService costTestService;
-
 	public void testInit() {
 		clear();
 
