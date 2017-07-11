@@ -43,13 +43,15 @@ public class VisitLog extends IdEntity {
 	public static final String Type_Referral = "送诊";
 	public static final String Type_InitAccount = "初始账户";
 	public static final String Type_IntoWard = "进入病房";
+	public static final String Type_TransferDeptSend = "发起转科";
+	public static final String Type_TransferDeptConfirm = "确认转科";
 	public static final String Type_OutWard = "出院登记";
 	public static final String Type_OutHospital = "出院结算";
 	public static final String Type_Transfer = "移交病案室";
 	public static final String Type_Archived = "已归档";
 
 	public static final String Type_LeaveHospital = "门诊离院";
-	
+
 	public Visit getVisit() {
 		return visit;
 	}

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
+import com.neusoft.hs.domain.cost.ChargeRecord;
+import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
@@ -34,6 +36,9 @@ public class InPatientAppService {
 
 	@Autowired
 	private MedicalRecordDomainService medicalRecordDomainService;
+
+	@Autowired
+	private CostDomainService costDomainService;
 
 	public List<Visit> getNeedReceiveVisits(AbstractUser user, Pageable pageable) {
 		return visitDomainService.findByStateAndArea(Visit.State_NeedIntoWard,
@@ -79,5 +84,27 @@ public class InPatientAppService {
 		}
 		Visit visit = visitDomainService.find(visitId);
 		medicalRecordDomainService.transfer(visit, dept, user);
+	}
+
+	/**
+	 * 住院科室退费
+	 * 
+	 * @param recordId
+	 * @param user
+	 * @throws HsException
+	 */
+	public void retreat(String recordId, boolean isBackCost, AbstractUser user)
+			throws HsException {
+		ChargeRecord record = costDomainService.findChargeRecord(recordId);
+		if (record == null) {
+			throw new HsException("id=[%s]的收费记录不存在", recordId);
+		}
+		if (!user.getOperationDepts().contains(record.getBelongDept())) {
+			throw new HsException("收费记录id=[%s]的所属部门[%s]不在操作者可以操作的部门里",
+					recordId, record.getBelongDept().getName(),
+					Dept.getNames(user.getOperationDepts()));
+		}
+
+		costDomainService.retreat(record, isBackCost, user);
 	}
 }

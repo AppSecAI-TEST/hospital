@@ -352,7 +352,7 @@ public class DataIniter {
 
 	@Autowired
 	private ConfigureFluidDomainService configureFluidDomainService;
-
+	
 	public void clone(DataIniter dataIniter) {
 		org = dataIniter.org;
 

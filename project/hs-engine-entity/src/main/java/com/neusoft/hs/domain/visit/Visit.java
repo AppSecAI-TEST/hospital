@@ -23,7 +23,6 @@ import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.VisitChargeItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -179,6 +178,8 @@ public class Visit extends IdEntity {
 
 	public static final String State_IntoWard = "在病房";
 
+	public static final String State_TransferDepting = "转科中";
+
 	public static final String State_NeedLeaveHospitalBalance = "待出院结算";
 
 	public static final String State_OutHospital = "已出院";
@@ -327,6 +328,52 @@ public class Visit extends IdEntity {
 
 		visitLog.save();
 
+	}
+
+	public void transferDeptSend(AbstractUser user) throws VisitException {
+
+		if (!State_IntoWard.equals(this.getState())) {
+			throw new VisitException(this, "visit=[%s]的状态应为[%s]",
+					this.getName(), State_IntoWard);
+		}
+
+		this.setState(State_TransferDepting);
+
+		Date sysDate = DateUtil.getSysDate();
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_TransferDeptSend);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(sysDate);
+
+		visitLog.save();
+	}
+
+	public void transferDeptConfirm(TransferDeptVO transferDeptVO,
+			AbstractUser user) throws VisitException {
+
+		if (!State_TransferDepting.equals(this.getState())) {
+			throw new VisitException(this, "visit=[%s]的状态应为[%s]",
+					this.getName(), State_TransferDepting);
+		}
+
+		this.setState(State_IntoWard);
+		this.setDept(transferDeptVO.getDept());
+		this.setArea(transferDeptVO.getArea());
+		this.setRespDoctor(transferDeptVO.getRespDoctor());
+		this.setRespNurse(transferDeptVO.getNurse());
+		this.setBed(transferDeptVO.getBed());
+
+		Date sysDate = DateUtil.getSysDate();
+
+		VisitLog visitLog = new VisitLog();
+		visitLog.setVisit(this);
+		visitLog.setType(VisitLog.Type_TransferDeptConfirm);
+		visitLog.setOperator(user);
+		visitLog.setCreateDate(sysDate);
+
+		visitLog.save();
 	}
 
 	public void leaveHospital(AbstractUser user) throws VisitException {
@@ -638,4 +685,5 @@ public class Visit extends IdEntity {
 	public String toString() {
 		return name;
 	}
+
 }

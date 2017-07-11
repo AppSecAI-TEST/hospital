@@ -16,6 +16,7 @@ import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
@@ -254,6 +255,12 @@ public class CostDomainService {
 		return count;
 	}
 
+	public List<ChargeRecord> getChargeRecords(Visit visit, List<Dept> depts,
+			Pageable pageable) {
+		return chargeRecordRepo.findByVisitAndBelongDeptIn(visit, depts,
+				pageable);
+	}
+
 	public List<ChargeRecord> getChargeRecords(Visit visit, Pageable pageable) {
 		return chargeRecordRepo.findByVisit(visit, pageable);
 	}
@@ -262,4 +269,33 @@ public class CostDomainService {
 		return visitDomainService.find(visit.getId()).getChargeBill();
 	}
 
+	public ChargeRecord findChargeRecord(String recordId) {
+		return chargeRecordRepo.findOne(recordId);
+	}
+
+	public void retreat(ChargeRecord record, boolean isBackCost,
+			AbstractUser user) {
+		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
+		chargeRecords.add(record);
+
+		Float amount = record.getChargeBill().unCharging(chargeRecords);
+
+		OrderExecute orderExecute = record.getOrderExecute();
+		orderExecute.setChargeState(OrderExecute.ChargeState_BackCharge);
+
+		if (isBackCost) {
+			CostRecord costRecord;
+			orderExecute.setCostState(OrderExecute.CostState_NoCost);
+			for (ChargeRecord chargeRecord : chargeRecords) {
+				costRecord = chargeRecord.getCostRecord();
+				if (costRecord != null) {
+					costRecord.setState(CostRecord.State_Back);
+				}
+			}
+		}
+
+		LogUtil.log(this.getClass(),
+				"护士[{}]将收费条目[{}]撤回，金额为[%s]，并修改对应的执行条目[%s]为已退费", user.getId(),
+				record.getId(), amount, orderExecute.getId());
+	}
 }

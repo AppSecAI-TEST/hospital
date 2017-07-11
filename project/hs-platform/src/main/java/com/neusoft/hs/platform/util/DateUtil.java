@@ -139,12 +139,24 @@ public class DateUtil {
 			return new Long(dayTime / 86400000).intValue();
 		}
 	}
-	
+
+	/**
+	 * 判断指定时间否是在startDate的24小时内
+	 * 
+	 * @param date
+	 * @param startDate
+	 * @return
+	 */
+	public static boolean isDayIn(Date date, Date startDate) {
+		long time = date.getTime() - startDate.getTime();
+		return time >= 0 && time < 24 * 3600 * 1000;
+	}
+
 	public static void main(String[] args) throws HsException {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05"));
-		
-		System.out.println(DateUtil.toString(DateUtil.getDateStart(DateUtil.getSysDate())));
+
+		System.out.println(DateUtil.toString(DateUtil.getDateStart(DateUtil
+				.getSysDate())));
 	}
-	
-	
+
 }

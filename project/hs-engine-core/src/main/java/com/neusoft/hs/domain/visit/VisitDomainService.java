@@ -19,6 +19,8 @@ import com.neusoft.hs.domain.order.OrderStopedEvent;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
@@ -225,6 +227,53 @@ public class VisitDomainService {
 	}
 
 	/**
+	 * 转科发起
+	 * 
+	 * @param visit
+	 * @param order
+	 * @param user
+	 * @throws OrderExecuteException
+	 * @throws VisitException
+	 */
+	public void transferDeptSend(Visit visit, Order currentOrder,
+			AbstractUser user) throws OrderExecuteException, VisitException {
+		for (Order order : visit.getOrders()) {
+			if (currentOrder == null
+					|| !currentOrder.getId().equals(order.getId())) {
+				if (order.getState().equals(Order.State_Executing)) {
+					if (order instanceof LongOrder) {
+						((LongOrder) order).stop();
+						// 发出停止长嘱事件
+						ApplicationContextUtil.getApplicationContext()
+								.publishEvent(new OrderStopedEvent(visit));
+					} else {
+						throw new VisitException(visit,
+								"医嘱[%s]状态处于执行中，不能办理转科发起", order.getName());
+					}
+				}
+			}
+		}
+		visit.transferDeptSend(user);
+	}
+
+	/**
+	 * 转科确认
+	 * 
+	 * @param visit
+	 * @param params
+	 * @param user
+	 * @throws VisitException
+	 */
+	public void transferDeptConfirm(TransferDeptVO transferDeptVO,
+			AbstractUser user) throws VisitException {
+		Visit visit = transferDeptVO.getVisit();
+		visit.transferDeptConfirm(transferDeptVO, user);
+		// 发出患者转科事件
+		ApplicationContextUtil.getApplicationContext().publishEvent(
+				new VisitTransferDeptEvent(visit));
+	}
+
+	/**
 	 * @param visitId
 	 * @roseuid 584E03140020
 	 */
@@ -297,5 +346,4 @@ public class VisitDomainService {
 
 		return visits.size();
 	}
-
 }

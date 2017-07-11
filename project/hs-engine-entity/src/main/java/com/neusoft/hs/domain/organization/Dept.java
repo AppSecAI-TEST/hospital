@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.organization;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -110,5 +111,15 @@ public abstract class Dept extends Unit {
 
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
+	}
+
+	public static List<String> getNames(List<Dept> depts) {
+		List<String> names = new ArrayList<String>();
+
+		for (Dept dept : depts) {
+			names.add(dept.getName());
+		}
+
+		return names;
 	}
 }
