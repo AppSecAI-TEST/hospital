@@ -147,23 +147,26 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10", dayCount));
 
-		pageable = new PageRequest(0, Integer.MAX_VALUE);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
-				pageable);
-
-		assertTrue(executes.size() == 1);
-
-		params = new HashMap<String, Object>();
-		params.put(EnterHospitalSupplyCostOrderExecute.Balance, 2000F);
-		// 完成住院预存住院费执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), params, user201);
-
+		boolean onlyInpatient = false;// 是否仅为住院场景启动
 		// 预存费用
-		// if (!visit001.isInitedAccount()) {
-		// cashierAppService.initAccount(visit001.getId(), 2000F, user201);
-		// } else {
-		// cashierAppService.addCost(visit001.getId(), 2000F, user201);
-		// }
+		if (!visit001.isInitedAccount()) {
+			cashierAppService.initAccount(visit001.getId(), 2000F, user201);
+			onlyInpatient = true;
+		} else {
+			pageable = new PageRequest(0, Integer.MAX_VALUE);
+			executes = orderExecuteAppService.getNeedExecuteOrderExecutes(
+					user201, pageable);
+
+			assertTrue(executes.size() == 1);
+
+			params = new HashMap<String, Object>();
+			params.put(EnterHospitalSupplyCostOrderExecute.Balance, 2000F);
+			// 完成住院预存住院费执行条目
+			orderExecuteAppService.finish(executes.get(0).getId(), params,
+					user201);
+			// 采用API预存费用
+			// cashierAppService.addCost(visit001.getId(), 2000F, user201);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:12", dayCount));
 
@@ -185,24 +188,27 @@ public abstract class InPatientTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30", dayCount));
 
 		// 接诊
-//		receiveVisitVO = new ReceiveVisitVO();
-//		receiveVisitVO.setVisit(visit001);
-//		receiveVisitVO.setBed("bed001");
-//		receiveVisitVO.setNurse(user003);
-//
-//		inPatientAppService.receive(receiveVisitVO, user001);
+		if (onlyInpatient) {
+			receiveVisitVO = new ReceiveVisitVO();
+			receiveVisitVO.setVisit(visit001);
+			receiveVisitVO.setBed("bed001");
+			receiveVisitVO.setNurse(user003);
 
-		pageable = new PageRequest(0, Integer.MAX_VALUE);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user001,
-				pageable);
+			inPatientAppService.receive(receiveVisitVO, user001);
+		} else {
+			pageable = new PageRequest(0, Integer.MAX_VALUE);
+			executes = orderExecuteAppService.getNeedExecuteOrderExecutes(
+					user001, pageable);
 
-		assertTrue(executes.size() == 1);
-		
-		params = new HashMap<String, Object>();
-		params.put(EnterHospitalIntoWardOrderExecute.Bed, "bed001");
-		params.put(EnterHospitalIntoWardOrderExecute.RespNurse, user003);
-		// 完成住院接诊执行条目
-		orderExecuteAppService.finish(executes.get(0).getId(), params, user001);
+			assertTrue(executes.size() == 1);
+
+			params = new HashMap<String, Object>();
+			params.put(EnterHospitalIntoWardOrderExecute.Bed, "bed001");
+			params.put(EnterHospitalIntoWardOrderExecute.RespNurse, user003);
+			// 完成住院接诊执行条目
+			orderExecuteAppService.finish(executes.get(0).getId(), params,
+					user001);
+		}
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:32", dayCount));
 
