@@ -55,7 +55,9 @@ public class DrugType extends IdEntity {
 
 			this.save();
 		} else {
-			throw new PharmacyException("drugTypeId[%s]库存不足", this.getId());
+			throw new PharmacyException("药房[%s]药品[%s]库存不足，当前库存量[%s]，需要量[%s]",
+					this.pharmacy.getName(), this.drugTypeSpec.getName(),
+					this.stock, count);
 		}
 	}
 
@@ -72,7 +74,10 @@ public class DrugType extends IdEntity {
 
 			this.save();
 		} else {
-			throw new PharmacyException("drugTypeId[%s]已预扣数量不足", this.getId());
+			throw new PharmacyException(
+					"药房[%s]药品[%s]已预扣数量不足，已预扣数量[%s]，取消预扣量[%s]",
+					this.pharmacy.getName(), this.drugTypeSpec.getName(),
+					this.withhold, count);
 		}
 	}
 
@@ -89,7 +94,9 @@ public class DrugType extends IdEntity {
 			this.stock -= (count - this.withhold);
 			this.withhold = 0;
 		} else {
-			throw new PharmacyException("drugTypeId[%s]库存不足", this.getId());
+			throw new PharmacyException("药房[%s]药品[%s]库存不足，已预扣数量[%s]，需要量[%s]",
+					this.pharmacy.getName(), this.drugTypeSpec.getName(),
+					this.withhold, count);
 		}
 	}
 

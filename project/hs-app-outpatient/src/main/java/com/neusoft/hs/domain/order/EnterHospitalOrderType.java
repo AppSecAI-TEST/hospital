@@ -12,7 +12,7 @@ import com.neusoft.hs.domain.visit.Visit;
 public class EnterHospitalOrderType extends OrderType {
 
 	public static final String WardDept = "wardDept";
-	
+
 	public static final String WardArea = "wardArea";
 
 	public static final String RespDoctor = "respDoctor";
@@ -24,7 +24,7 @@ public class EnterHospitalOrderType extends OrderType {
 		if (wardDept == null) {
 			throw new OrderException(null, "创建住院医嘱未指定住院科室");
 		}
-		
+
 		Dept wardArea = (Dept) order.getParam(WardArea);
 		if (wardArea == null) {
 			throw new OrderException(null, "创建住院医嘱未指定住院病区");
@@ -51,20 +51,50 @@ public class EnterHospitalOrderType extends OrderType {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
 		// 入院登记执行条目
-		EnterHospitalOrderExecute enter = new EnterHospitalOrderExecute();
-		enter.setOrder(order);
-		enter.setVisit(order.getVisit());
-		enter.setBelongDept(order.getBelongDept());
-		enter.setType(OrderExecute.Type_Enter_Hospital_Register);
-		enter.setMain(true);
+		EnterHospitalRegisterOrderExecute register = new EnterHospitalRegisterOrderExecute();
+		register.setOrder(order);
+		register.setVisit(order.getVisit());
+		register.setBelongDept(order.getBelongDept());
+		register.setType(OrderExecute.Type_Enter_Hospital_Register);
 
-		enter.setPlanStartDate(order.getPlanStartDate());
-		enter.setPlanEndDate(order.getPlanStartDate());
+		register.setPlanStartDate(order.getPlanStartDate());
+		register.setPlanEndDate(order.getPlanStartDate());
 
-		enter.setExecuteDept(order.getExecuteDept());
-		enter.setState(OrderExecute.State_Executing);
+		register.setExecuteDept(order.getExecuteDept().getOrg().getInPatientOfficeDept());
+		register.setState(OrderExecute.State_Executing);
 
-		team.addOrderExecute(enter);
+		team.addOrderExecute(register);
+
+		// 预存住院费执行条目
+		EnterHospitalSupplyCostOrderExecute supply = new EnterHospitalSupplyCostOrderExecute();
+		supply.setOrder(order);
+		supply.setVisit(order.getVisit());
+		supply.setBelongDept(order.getBelongDept());
+		supply.setType(OrderExecute.Type_Enter_Hospital_SupplyCost);
+
+		supply.setPlanStartDate(order.getPlanStartDate());
+		supply.setPlanEndDate(order.getPlanStartDate());
+
+		supply.setExecuteDept(order.getExecuteDept().getOrg().getInChargeDept());
+		supply.setState(OrderExecute.State_NeedExecute);
+
+		team.addOrderExecute(supply);
+
+		// 接诊执行条目
+		EnterHospitalIntoWardOrderExecute intoWard = new EnterHospitalIntoWardOrderExecute();
+		intoWard.setOrder(order);
+		intoWard.setVisit(order.getVisit());
+		intoWard.setBelongDept(order.getBelongDept());
+		intoWard.setType(OrderExecute.Type_Enter_Hospital_InWard);
+		intoWard.setMain(true);
+
+		intoWard.setPlanStartDate(order.getPlanStartDate());
+		intoWard.setPlanEndDate(order.getPlanStartDate());
+
+		intoWard.setExecuteDept(order.getExecuteDept());
+		intoWard.setState(OrderExecute.State_NeedExecute);
+
+		team.addOrderExecute(intoWard);
 
 		order.addExecuteTeam(team);
 	}

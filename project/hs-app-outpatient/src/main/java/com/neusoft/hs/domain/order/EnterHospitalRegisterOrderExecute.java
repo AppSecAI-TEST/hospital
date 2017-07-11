@@ -11,8 +11,8 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
-@DiscriminatorValue("EnterHospital")
-public class EnterHospitalOrderExecute extends OrderExecute {
+@DiscriminatorValue("EnterHospitalRegister")
+public class EnterHospitalRegisterOrderExecute extends OrderExecute {
 
 	@Override
 	protected void doFinish(Map<String, Object> params, AbstractUser user)

@@ -264,7 +264,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:42"));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = cashierAppService.getNeedChageExecutes(visit001, user701,
 				pageable);
 
@@ -277,7 +277,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:43"));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = cashierAppService.getNeedChageExecutes(visit002, user701,
 				pageable);
 
@@ -289,13 +289,14 @@ public class OutPatientMainTestService extends AppTestService {
 		}
 
 		for (OrderExecute execute : executes) {
-			OrderExecute execute1 = orderExecuteDomainService.find(execute.getId());
+			OrderExecute execute1 = orderExecuteDomainService.find(execute
+					.getId());
 			assertTrue(execute1.getState().equals(OrderExecute.State_Finished));
 		}
-		
+
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:46"));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user301,
 				pageable);
 
@@ -308,7 +309,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:48"));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		// 通过患者一次就诊得到待取药的任务列表
 		executes = outPatientPharmacyAppService.taskDrug(visit001, user303,
 				pageable);
@@ -320,7 +321,7 @@ public class OutPatientMainTestService extends AppTestService {
 			orderExecuteAppService.finish(execute.getId(), null, user303);
 		}
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		// 通过患者一次就诊得到待取药的任务列表
 		executes = outPatientPharmacyAppService.taskDrug(visit002, user303,
 				pageable);
@@ -334,7 +335,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:49"));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user801,
 				pageable);
 
@@ -353,7 +354,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:50"));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		// 通过患者一次就诊得到待取药的任务列表
 		executes = outPatientPharmacyAppService.taskDrug(visit001, user801,
 				pageable);
@@ -424,7 +425,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 11:00"));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		// 通过患者一次就诊得到输液的任务列表
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(visit002,
 				OrderExecute.Type_Transport_Fluid, usera01, pageable);
@@ -489,7 +490,7 @@ public class OutPatientMainTestService extends AppTestService {
 		Order enterHospitalOrder = new TemporaryOrder();
 		enterHospitalOrder.setVisit(visit001);
 		enterHospitalOrder.setName("入院医嘱");
-		enterHospitalOrder.setExecuteDept(dept111);
+		enterHospitalOrder.setExecuteDept(dept000);
 		enterHospitalOrder.setPlanStartDate(DateUtil.getSysDate());
 		enterHospitalOrder
 				.setPlaceType(OrderCreateCommand.PlaceType_OutPatient);
@@ -511,7 +512,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		assertTrue(theVisit.getState().equals(Visit.State_WaitingEnterHospital));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user101,
 				pageable);
 
@@ -526,7 +527,7 @@ public class OutPatientMainTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:00"));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		// 通过患者一次就诊得到输液的任务列表
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(visit002,
 				OrderExecute.Type_Transport_Fluid, usera01, pageable);

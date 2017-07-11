@@ -3,7 +3,9 @@ package com.neusoft.hs.test;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
+import com.neusoft.hs.domain.order.EnterHospitalIntoWardOrderExecute;
+import com.neusoft.hs.domain.order.EnterHospitalSupplyCostOrderExecute;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -20,7 +24,6 @@ import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -123,8 +126,10 @@ public abstract class InPatientTestService extends AppTestService {
 		List<Visit> visits;
 		Visit visit;
 		ReceiveVisitVO receiveVisitVO;
+		List<OrderExecute> executes;
+		Map<String, Object> params;
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		visits = cashierAppService.getNeedInitAccountVisits(pageable);
 
 		assertTrue(visits.size() == 2);
@@ -142,18 +147,29 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:10", dayCount));
 
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+
+		params = new HashMap<String, Object>();
+		params.put(EnterHospitalSupplyCostOrderExecute.Balance, 2000F);
+		// 完成住院预存住院费执行条目
+		orderExecuteAppService.finish(executes.get(0).getId(), params, user201);
+
 		// 预存费用
-		if (!visit001.isInitedAccount()) {
-			cashierAppService.initAccount(visit001.getId(), 2000F, user201);
-		} else {
-			cashierAppService.addCost(visit001.getId(), 2000F, user201);
-		}
+		// if (!visit001.isInitedAccount()) {
+		// cashierAppService.initAccount(visit001.getId(), 2000F, user201);
+		// } else {
+		// cashierAppService.addCost(visit001.getId(), 2000F, user201);
+		// }
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:12", dayCount));
 
 		cashierAppService.initAccount(visit004.getId(), 3000F, user201);
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		visits = inPatientAppService.getNeedReceiveVisits(user001, pageable);
 
 		assertTrue(visits.size() == 2);
@@ -169,12 +185,24 @@ public abstract class InPatientTestService extends AppTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:30", dayCount));
 
 		// 接诊
-		receiveVisitVO = new ReceiveVisitVO();
-		receiveVisitVO.setVisit(visit001);
-		receiveVisitVO.setBed("bed001");
-		receiveVisitVO.setNurse(user003);
+//		receiveVisitVO = new ReceiveVisitVO();
+//		receiveVisitVO.setVisit(visit001);
+//		receiveVisitVO.setBed("bed001");
+//		receiveVisitVO.setNurse(user003);
+//
+//		inPatientAppService.receive(receiveVisitVO, user001);
 
-		inPatientAppService.receive(receiveVisitVO, user001);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user001,
+				pageable);
+
+		assertTrue(executes.size() == 1);
+		
+		params = new HashMap<String, Object>();
+		params.put(EnterHospitalIntoWardOrderExecute.Bed, "bed001");
+		params.put(EnterHospitalIntoWardOrderExecute.RespNurse, user003);
+		// 完成住院接诊执行条目
+		orderExecuteAppService.finish(executes.get(0).getId(), params, user001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 10:32", dayCount));
 
@@ -185,7 +213,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		inPatientAppService.receive(receiveVisitVO, user001);
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		visits = inPatientAppService.InWardVisits(dept000, pageable);
 
 		assertTrue(visits.size() == 2);
@@ -225,7 +253,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		orderAppService.create(leaveHospitalOrder001, user002);
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
 		assertTrue(orders.size() == 1);
@@ -236,7 +264,7 @@ public abstract class InPatientTestService extends AppTestService {
 		// 核对医嘱
 		orderAppService.verify(leaveHospitalOrder001.getId(), user003);
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
@@ -253,7 +281,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-08 09:10", dayCount));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
@@ -270,7 +298,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 09:30", dayCount));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
@@ -286,7 +314,7 @@ public abstract class InPatientTestService extends AppTestService {
 		assertTrue(visit.getState()
 				.equals(Visit.State_NeedLeaveHospitalBalance));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
 				pageable);
 
@@ -317,7 +345,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		orderAppService.create(leaveHospitalOrder002, user002);
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
 
 		assertTrue(orders.size() == 1);
@@ -328,7 +356,7 @@ public abstract class InPatientTestService extends AppTestService {
 		// 核对医嘱
 		orderAppService.verify(leaveHospitalOrder002.getId(), user003);
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
 				pageable);
 
@@ -346,7 +374,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-09 11:30", dayCount));
 
-		pageable = new PageRequest(0, 15);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user201,
 				pageable);
 

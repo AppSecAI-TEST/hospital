@@ -186,12 +186,16 @@ public class OrderExecute extends IdEntity {
 	public static final String Type_FirstNursing = "一级护理";
 
 	public static final String Type_SecondNursing = "二级护理";
-	
+
 	public static final String Type_Transfer_Dept_Send = "发起转科";
-	
+
 	public static final String Type_Transfer_Dept_Confirm = "确认转科";
 
 	public static final String Type_Enter_Hospital_Register = "入院登记";
+
+	public static final String Type_Enter_Hospital_SupplyCost = "预存住院费";
+
+	public static final String Type_Enter_Hospital_InWard = "接诊";
 
 	public static final String Type_Leave_Hospital_Register = "出院登记";
 

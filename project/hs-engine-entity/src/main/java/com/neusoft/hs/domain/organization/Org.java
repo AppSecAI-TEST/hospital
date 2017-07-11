@@ -28,6 +28,11 @@ public class Org extends Unit {
 	@JoinColumn(name = "record_room_dept_id")
 	private Dept recordRoomDept;
 
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE,
+			CascadeType.REFRESH })
+	@JoinColumn(name = "in_patient_office_dept_id")
+	private Dept inPatientOfficeDept;
+
 	public Dept getOutChargeDept() {
 		return outChargeDept;
 	}
@@ -50,6 +55,14 @@ public class Org extends Unit {
 
 	public void setRecordRoomDept(Dept recordRoomDept) {
 		this.recordRoomDept = recordRoomDept;
+	}
+
+	public Dept getInPatientOfficeDept() {
+		return inPatientOfficeDept;
+	}
+
+	public void setInPatientOfficeDept(Dept inPatientOfficeDept) {
+		this.inPatientOfficeDept = inPatientOfficeDept;
 	}
 
 }

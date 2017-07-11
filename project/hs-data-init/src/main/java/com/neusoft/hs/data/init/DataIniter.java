@@ -137,7 +137,7 @@ public class DataIniter {
 	protected Doctor user002;// 内泌五医生-貂蝉
 	protected Doctor userd02;// 眼科一医生-司马懿
 
-	protected Staff user001;// 内泌五和眼科一接诊护士-大乔
+	protected Nurse user001;// 内泌五和眼科一接诊护士-大乔
 	protected Nurse user003;// 内泌五和眼科一护士-小乔
 
 	protected Admin admin001;// 超级管理员-孙尚香
@@ -738,6 +738,7 @@ public class DataIniter {
 		org.setInChargeDept(dept222);
 		org.setOutChargeDept(dept777);
 		org.setRecordRoomDept(dept666);
+		org.setInPatientOfficeDept(dept111);
 
 		organizationAdminDomainService.save(org);
 	}
@@ -953,9 +954,9 @@ public class DataIniter {
 
 		users.add(userd02);
 
-		user001 = new Staff();
+		user001 = new Nurse();
 
-		user001.setId("staff001");
+		user001.setId("nurse001");
 		user001.setName("内泌五和眼科一接诊护士-大乔");
 		user001.setDept(dept000n);
 
