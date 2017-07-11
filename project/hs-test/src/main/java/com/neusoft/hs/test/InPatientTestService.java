@@ -349,7 +349,7 @@ public abstract class InPatientTestService extends AppTestService {
 
 		leaveHospitalOrder002.setOrderType(leaveHospitalOrderType);
 
-		orderAppService.create(leaveHospitalOrder002, user002);
+		orderAppService.create(leaveHospitalOrder002, userd02);
 
 		pageable = new PageRequest(0, Integer.MAX_VALUE);
 		orders = orderAppService.getNeedVerifyOrders(user003, pageable);
