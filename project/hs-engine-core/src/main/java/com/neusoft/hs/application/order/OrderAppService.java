@@ -34,10 +34,12 @@ public class OrderAppService {
 	private OrderExecuteDomainService orderExecuteDomainService;
 
 	/**
+	 * 创建医嘱
+	 * 
 	 * @param doctor
 	 * @param order
 	 * @throws OrderExecuteException
-	 * @throws HsException
+	 * @throws OrderException
 	 * @roseuid 584E5239011A
 	 */
 	public List<Order> create(OrderCreateCommand orderCommand, Doctor doctor)
@@ -45,26 +47,40 @@ public class OrderAppService {
 		return orderDomainService.create(orderCommand, doctor);
 	}
 
+	/**
+	 * 创建医嘱
+	 * 
+	 * @param builder
+	 * @param doctor
+	 * @return
+	 * @throws OrderException
+	 * @throws OrderExecuteException
+	 */
 	public List<Order> create(OrderBuilder builder, Doctor doctor)
 			throws OrderException, OrderExecuteException {
 		OrderCreateCommand orderCreateCommand = builder.createCommand();
 		return create(orderCreateCommand, doctor);
 	}
 
+	/**
+	 * 合并医嘱
+	 * 
+	 * @param compsiteOrder
+	 * @param doctor
+	 * @throws OrderException
+	 */
 	public void compsite(CompsiteOrder compsiteOrder, Doctor doctor)
 			throws OrderException {
 		orderDomainService.comsite(compsiteOrder, doctor);
 	}
 
-	public List<Order> getNeedVerifyOrders(AbstractUser nurse, Pageable pageable) {
-		return orderDomainService.getNeedVerifyOrders(nurse, pageable);
-	}
-
 	/**
+	 * 核对医嘱
+	 * 
 	 * @param nurse
 	 * @param orderId
 	 * @throws OrderExecuteException
-	 * @throws HsException
+	 * @throws OrderException
 	 * @roseuid 584F48660279
 	 */
 	public Order verify(String orderId, AbstractUser nurse)
@@ -77,6 +93,8 @@ public class OrderAppService {
 	}
 
 	/**
+	 * 取消医嘱
+	 * 
 	 * @param doctor
 	 * @param orderId
 	 * @throws OrderException
@@ -90,6 +108,13 @@ public class OrderAppService {
 		orderDomainService.cancel(order, doctor);
 	}
 
+	/**
+	 * 删除医嘱
+	 * 
+	 * @param orderId
+	 * @param doctor
+	 * @throws OrderException
+	 */
 	public void delete(String orderId, Doctor doctor) throws OrderException {
 		Order order = orderDomainService.find(orderId);
 		if (order == null) {
@@ -99,12 +124,21 @@ public class OrderAppService {
 	}
 
 	/**
+	 * 分解需要分解的医嘱集合
+	 * 
 	 * @roseuid 5850EE16024D
 	 */
 	public int resolve(Admin admin) {
 		return orderDomainService.resolve(admin);
 	}
 
+	/**
+	 * 停止医嘱
+	 * 
+	 * @param orderId
+	 * @param doctor
+	 * @throws OrderException
+	 */
 	public void stop(String orderId, Doctor doctor) throws OrderException {
 		Order order = orderDomainService.find(orderId);
 		if (order == null) {
@@ -116,6 +150,24 @@ public class OrderAppService {
 
 	}
 
+	/**
+	 * 得到需核对的医嘱列表
+	 * 
+	 * @param nurse
+	 * @param pageable
+	 * @return
+	 */
+	public List<Order> getNeedVerifyOrders(AbstractUser nurse, Pageable pageable) {
+		return orderDomainService.getNeedVerifyOrders(nurse, pageable);
+	}
+
+	/**
+	 * 得到指定科室创建的医嘱列表
+	 * 
+	 * @param dept
+	 * @param pageable
+	 * @return
+	 */
 	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
 		return orderDomainService.findByBelongDept(dept, pageable);
 	}

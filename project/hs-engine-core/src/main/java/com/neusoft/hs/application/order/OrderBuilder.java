@@ -8,6 +8,12 @@ import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.visit.Visit;
 
+/**
+ * 医嘱创建器
+ * 
+ * @author kingbox
+ *
+ */
 public interface OrderBuilder {
 
 	public Visit getVisit();
@@ -20,5 +26,11 @@ public interface OrderBuilder {
 
 	public Dept getExecuteDept();
 
+	/**
+	 * 创建医嘱
+	 * 
+	 * @return
+	 * @throws OrderException
+	 */
 	public OrderCreateCommand createCommand() throws OrderException;
 }

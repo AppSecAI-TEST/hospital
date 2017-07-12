@@ -14,11 +14,9 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.platform.exception.HsException;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -55,10 +53,31 @@ public class MedicalRecordAppService {
 		medicalRecordDomainService.save(record);
 	}
 
-	public MedicalRecord find(String id) throws TreatmentException {
-		return medicalRecordDomainService.find(id);
+	/**
+	 * 病历锁定
+	 * 
+	 * @param id
+	 * @param user
+	 * @throws MedicalRecordException
+	 * @throws TreatmentException
+	 */
+	public void fix(String id, AbstractUser user)
+			throws MedicalRecordException, TreatmentException {
+		MedicalRecord record = medicalRecordDomainService.find(id);
+		if (record == null) {
+			throw new MedicalRecordException(null, "id=[%s]病历不存在", id);
+		}
+		medicalRecordDomainService.fix(record, user);
 	}
 
+	/**
+	 * 病历签名
+	 * 
+	 * @param id
+	 * @param doctor
+	 * @throws MedicalRecordException
+	 * @throws TreatmentException
+	 */
 	public void sign(String id, AbstractUser doctor)
 			throws MedicalRecordException, TreatmentException {
 		MedicalRecord record = medicalRecordDomainService.find(id);
@@ -68,13 +87,8 @@ public class MedicalRecordAppService {
 		medicalRecordDomainService.sign(record, doctor);
 	}
 
-	public void fix(String id, AbstractUser user)
-			throws MedicalRecordException, TreatmentException {
-		MedicalRecord record = medicalRecordDomainService.find(id);
-		if (record == null) {
-			throw new MedicalRecordException(null, "id=[%s]病历不存在", id);
-		}
-		medicalRecordDomainService.fix(record, user);
+	public MedicalRecord find(String id) throws TreatmentException {
+		return medicalRecordDomainService.find(id);
 	}
 
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {

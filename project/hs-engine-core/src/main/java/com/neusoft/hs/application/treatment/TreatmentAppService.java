@@ -26,6 +26,14 @@ public class TreatmentAppService {
 	@Autowired
 	private TreatmentDomainService treatmentDomainService;
 
+	/**
+	 * 创建诊疗信息
+	 * 
+	 * @param visit
+	 * @param treatmentItemSpec
+	 * @param value
+	 * @param user
+	 */
 	public void create(Visit visit, TreatmentItemSpec treatmentItemSpec,
 			TreatmentItemValue value, AbstractUser user) {
 
@@ -35,6 +43,14 @@ public class TreatmentAppService {
 		create(visit, treatmentItemSpec, values, user);
 	}
 
+	/**
+	 * 创建诊疗信息
+	 * 
+	 * @param visit
+	 * @param treatmentItemSpec
+	 * @param values
+	 * @param user
+	 */
 	public void create(Visit visit, TreatmentItemSpec treatmentItemSpec,
 			List<TreatmentItemValue> values, AbstractUser user) {
 
@@ -50,6 +66,14 @@ public class TreatmentAppService {
 		treatmentDomainService.create(item);
 	}
 
+	/**
+	 * 得到需要生成的诊疗信息项列表
+	 * 
+	 * @param visit
+	 * @param user
+	 * @return
+	 * @throws TreatmentException
+	 */
 	public List<TreatmentItemSpec> getShouldTreatmentItemSpecs(Visit visit,
 			AbstractUser user) throws TreatmentException {
 		Date shouldDate = DateUtil.addHour(DateUtil.getSysDate(), shouldHour);
