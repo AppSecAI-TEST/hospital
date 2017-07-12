@@ -98,7 +98,8 @@ public class InPatientAppService {
 					user.getDept().getOrg().getName());
 		}
 		Visit visit = visitDomainService.find(visitId);
-		medicalRecordDomainService.transfer(visit, dept, user);
+		medicalRecordDomainService.transfer(visit.getMedicalRecordClip(), dept,
+				user);
 	}
 
 	/**

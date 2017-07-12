@@ -102,21 +102,8 @@ public class MedicalRecordDomainService {
 				record.getId(), record.getType().getId());
 	}
 
-	public MedicalRecordClip findClip(String id) {
-		return medicalRecordClipRepo.findOne(id);
-	}
-
-	public MedicalRecord find(String id) throws TreatmentException {
-		MedicalRecord record = medicalRecordRepo.findOne(id);
-		if (record != null) {
-			record.load();
-		}
-
-		return record;
-	}
-
 	/**
-	 * 签名
+	 * 签名病历
 	 * 
 	 * @param record
 	 * @param doctor
@@ -136,7 +123,7 @@ public class MedicalRecordDomainService {
 	}
 
 	/**
-	 * 锁定
+	 * 锁定病历
 	 * 
 	 * @param record
 	 * @param user
@@ -155,19 +142,34 @@ public class MedicalRecordDomainService {
 				record.getType().getId());
 	}
 
-	public void transfer(Visit visit, Dept dept, AbstractUser user)
+	/**
+	 * 将病历夹移交到档案室
+	 * 
+	 * @param visit
+	 * @param dept
+	 * @param user
+	 * @throws MedicalRecordException
+	 * @throws VisitException
+	 */
+	public void transfer(MedicalRecordClip clip, Dept dept, AbstractUser user)
 			throws MedicalRecordException, VisitException {
 
-		MedicalRecordClip clip = visit.getMedicalRecordClip();
 		clip.transfer(dept, user);
 
 		applicationContext.publishEvent(new MedicalRecordClipTransferedEvent(
 				clip));
 
 		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]移交到病案室[{}]",
-				user.getId(), visit.getName(), clip.getId(), dept.getId());
+				user.getId(), clip.getVisitName(), clip.getId(), dept.getId());
 	}
 
+	/**
+	 * 将病历夹移交给归档环节
+	 * 
+	 * @param clip
+	 * @param user
+	 * @throws MedicalRecordException
+	 */
 	public void toArchive(MedicalRecordClip clip, AbstractUser user)
 			throws MedicalRecordException {
 
@@ -175,6 +177,31 @@ public class MedicalRecordDomainService {
 
 		LogUtil.log(this.getClass(), "用户[{}]将患者一次就诊[{}]的病历夹[{}]发送给归档岗位",
 				user.getId(), clip.getVisit().getName(), clip.getId());
+	}
+
+	/**
+	 * 删除病历
+	 * 
+	 * @param recordId
+	 */
+	public void delete(String recordId) {
+		MedicalRecord record = medicalRecordRepo.findOne(recordId);
+		if (record != null) {
+			record.delete();
+		}
+	}
+
+	public MedicalRecordClip findClip(String id) {
+		return medicalRecordClipRepo.findOne(id);
+	}
+
+	public MedicalRecord find(String id) throws TreatmentException {
+		MedicalRecord record = medicalRecordRepo.findOne(id);
+		if (record != null) {
+			record.load();
+		}
+
+		return record;
 	}
 
 	public MedicalRecordClip getMedicalRecordClip(Visit visit) {
@@ -204,12 +231,5 @@ public class MedicalRecordDomainService {
 	public List<MedicalRecord> getMedicalRecords(Visit visit,
 			MedicalRecordType type) {
 		return medicalRecordRepo.findByVisitAndType(visit, type);
-	}
-
-	public void delete(String recordId) {
-		MedicalRecord record = medicalRecordRepo.findOne(recordId);
-		if (record != null) {
-			record.delete();
-		}
 	}
 }
