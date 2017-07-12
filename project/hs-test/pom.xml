@@ -12,10 +12,6 @@
 	<name>hs-test</name>
 	<url>http://maven.apache.org</url>
 
-	<properties>
-		<start-class>com.neusoft.hs.application.Application</start-class>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
@@ -31,13 +27,6 @@
 			<groupId>com.neusoft.hospital</groupId>
 			<artifactId>hs-engine-interface</artifactId>
 			<version>${project.parent.version}</version>
-		</dependency>
-		<!-- <dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
-			<version>${h2.version}</version> </dependency> -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
