@@ -439,6 +439,11 @@ public class Visit extends IdEntity {
 		visitLog.save();
 	}
 
+	/**
+	 * 归档患者一次就诊
+	 * 
+	 * @param user
+	 */
 	public void archive(AbstractUser user) {
 		this.setState(Visit.State_Archived);
 
