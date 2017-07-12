@@ -30,37 +30,37 @@ public class MedicalRecordAppService {
 	@Autowired
 	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
 
+	/**
+	 * 创建病历
+	 * 
+	 * @param builder
+	 * @param visit
+	 * @param type
+	 * @param doctor
+	 * @return
+	 * @throws TreatmentException
+	 */
 	public MedicalRecord create(MedicalRecordBuilder builder, Visit visit,
 			MedicalRecordType type, AbstractUser doctor)
 			throws TreatmentException {
 		return medicalRecordDomainService.create(builder, visit, type, doctor);
 	}
 
+	/**
+	 * 保存病历
+	 * 
+	 * @param record
+	 */
 	public void save(MedicalRecord record) {
 		medicalRecordDomainService.save(record);
-	}
-
-	public MedicalRecord createMedicalRecord(String typeId, Visit visit,
-			AbstractUser user) throws HsException {
-
-		MedicalRecordType type = medicalRecordAdminDomainService
-				.getMedicalRecordType(typeId);
-
-		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
-
-		MedicalRecord medicalRecord = this.create(builder, visit, type, user);
-
-		this.save(medicalRecord);
-
-		return medicalRecord;
 	}
 
 	public MedicalRecord find(String id) throws TreatmentException {
 		return medicalRecordDomainService.find(id);
 	}
 
-	public void sign(String id, AbstractUser doctor) throws MedicalRecordException,
-			TreatmentException {
+	public void sign(String id, AbstractUser doctor)
+			throws MedicalRecordException, TreatmentException {
 		MedicalRecord record = medicalRecordDomainService.find(id);
 		if (record == null) {
 			throw new MedicalRecordException(null, "id=[%s]病历不存在", id);
@@ -80,12 +80,15 @@ public class MedicalRecordAppService {
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {
 		return medicalRecordDomainService.getMedicalRecords(visit, pageable);
 	}
-	
-	public List<MedicalRecord> getMedicalRecords(MedicalRecordClip clip, Pageable pageable) {
+
+	public List<MedicalRecord> getMedicalRecords(MedicalRecordClip clip,
+			Pageable pageable) {
 		return medicalRecordDomainService.getMedicalRecords(clip, pageable);
 	}
-	
-	public List<MedicalRecordClip> getMedicalRecordClips(String state, Pageable pageable) {
-		return medicalRecordDomainService.getMedicalRecordClips(state, pageable);
+
+	public List<MedicalRecordClip> getMedicalRecordClips(String state,
+			Pageable pageable) {
+		return medicalRecordDomainService
+				.getMedicalRecordClips(state, pageable);
 	}
 }

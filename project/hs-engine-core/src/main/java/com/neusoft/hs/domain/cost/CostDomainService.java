@@ -272,7 +272,14 @@ public class CostDomainService {
 	public ChargeRecord findChargeRecord(String recordId) {
 		return chargeRecordRepo.findOne(recordId);
 	}
-
+	
+	/**
+	 * 退一条收费条目
+	 * 
+	 * @param record
+	 * @param isBackCost
+	 * @param user
+	 */
 	public void retreat(ChargeRecord record, boolean isBackCost,
 			AbstractUser user) {
 		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
