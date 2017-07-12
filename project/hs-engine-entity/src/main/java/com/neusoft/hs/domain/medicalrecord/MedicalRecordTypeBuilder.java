@@ -1,7 +1,6 @@
 package com.neusoft.hs.domain.medicalrecord;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.DiscriminatorValue;
@@ -16,6 +15,12 @@ import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
 
+/**
+ * 根据病历类型创建病历器
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("MedicalRecordType")
 public class MedicalRecordTypeBuilder extends MedicalRecordBuilder {

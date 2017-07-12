@@ -384,6 +384,12 @@ public class OrderExecute extends IdEntity {
 		}
 	}
 
+	/**
+	 * 填充计划执行时间
+	 * 
+	 * @param planStartDate
+	 * @param planEndDate
+	 */
 	public void fillPlanDate(Date planStartDate, Date planEndDate) {
 		if (this.planStartDate == null) {
 			this.planStartDate = planStartDate;

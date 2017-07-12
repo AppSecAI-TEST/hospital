@@ -33,6 +33,11 @@ public class Org extends Unit {
 	@JoinColumn(name = "in_patient_office_dept_id")
 	private Dept inPatientOfficeDept;
 
+	/**
+	 * 门诊收费处
+	 * 
+	 * @return
+	 */
 	public Dept getOutChargeDept() {
 		return outChargeDept;
 	}
@@ -41,6 +46,11 @@ public class Org extends Unit {
 		this.outChargeDept = outChargeDept;
 	}
 
+	/**
+	 * 住院收费处
+	 * 
+	 * @return
+	 */
 	public Dept getInChargeDept() {
 		return inChargeDept;
 	}
@@ -49,6 +59,11 @@ public class Org extends Unit {
 		this.inChargeDept = inChargeDept;
 	}
 
+	/**
+	 * 病案室
+	 * 
+	 * @return
+	 */
 	public Dept getRecordRoomDept() {
 		return recordRoomDept;
 	}
@@ -57,6 +72,11 @@ public class Org extends Unit {
 		this.recordRoomDept = recordRoomDept;
 	}
 
+	/**
+	 * 住院处
+	 * 
+	 * @return
+	 */
 	public Dept getInPatientOfficeDept() {
 		return inPatientOfficeDept;
 	}

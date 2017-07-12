@@ -26,6 +26,11 @@ public class OrderExecuteTeam extends IdEntity {
 	public OrderExecuteTeam() {
 	}
 
+	/**
+	 * 增加执行条目
+	 * 
+	 * @param execute
+	 */
 	public void addOrderExecute(OrderExecute execute) {
 
 		if (executes == null || executes.size() == 0) {

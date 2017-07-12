@@ -43,6 +43,12 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 	@Column(name = "create_date")
 	private Date createDate;
 
+	/**
+	 * 增加医嘱
+	 * 
+	 * @param order
+	 * @throws OrderException
+	 */
 	public void addOrder(Order order) throws OrderException {
 		if (this.orders == null) {
 			this.orders = new ArrayList<Order>();
@@ -109,6 +115,11 @@ public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 		this.checkSelf();
 	}
 
+	/**
+	 * 检查组合医嘱是否合乎业务规则
+	 * 
+	 * @throws OrderException
+	 */
 	public void checkSelf() throws OrderException {
 
 		Set<Class<?>> types = new HashSet<Class<?>>();

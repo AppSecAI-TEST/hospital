@@ -50,6 +50,11 @@ public abstract class AbstractUser extends SuperEntity implements User {
 
 	public abstract void setDept(Dept dept);
 
+	/**
+	 * 用户可操作的部门集合
+	 * 
+	 * @return
+	 */
 	public abstract List<Dept> getOperationDepts();
 
 	@Override

@@ -76,6 +76,11 @@ public class LongOrder extends Order {
 		}
 	}
 
+	/**
+	 * 停止长嘱
+	 * 
+	 * @throws OrderExecuteException
+	 */
 	public void stop() throws OrderExecuteException {
 		for (OrderExecute execute : this.getOrderExecutes()) {
 			execute.stop();

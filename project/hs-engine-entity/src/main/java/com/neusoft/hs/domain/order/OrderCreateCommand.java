@@ -6,6 +6,12 @@ import java.util.List;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
 
+/**
+ * 创建病历命令
+ * 
+ * @author kingbox
+ *
+ */
 public interface OrderCreateCommand {
 
 	public List<Order> getOrders();

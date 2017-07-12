@@ -6,13 +6,20 @@ import java.util.Map;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 
+/**
+ * 执行条目过滤器
+ * 
+ * @author kingbox
+ *
+ */
+public interface OrderExecuteFilter {
 
-public interface OrderExecuteFilter 
-{
-   
-   /**
-    * @return DesignModel.DesignElement.domain.order.OrderExecute
-    * @roseuid 592E649801E1
-    */
-   public OrderExecuteFilterCondition createCondition(Map<String, Object> params, AbstractUser user);
+	/**
+	 * 创建过滤条目
+	 * 
+	 * @return
+	 * @roseuid 592E649801E1
+	 */
+	public OrderExecuteFilterCondition createCondition(
+			Map<String, Object> params, AbstractUser user);
 }

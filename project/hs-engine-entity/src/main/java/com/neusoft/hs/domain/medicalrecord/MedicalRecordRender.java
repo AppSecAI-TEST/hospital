@@ -51,6 +51,9 @@ public abstract class MedicalRecordRender extends SuperEntity {
 	}
 
 	/**
+	 * 渲染病历
+	 * 
+	 * @param medicalRecord
 	 * @roseuid 5955A3F90025
 	 */
 	public abstract Object play(MedicalRecord medicalRecord);

@@ -8,6 +8,12 @@ import java.util.List;
 
 import com.neusoft.hs.domain.organization.Dept;
 
+/**
+ * 执行条目顾虑条件
+ * 
+ * @author kingbox
+ *
+ */
 public class OrderExecuteFilterCondition {
 
 	private Date begin;
@@ -17,7 +23,7 @@ public class OrderExecuteFilterCondition {
 	private Dept executeDept;
 
 	private List<? extends Dept> belongDepts;
-	
+
 	private List<String> types;
 
 	public Date getBegin() {
@@ -59,9 +65,9 @@ public class OrderExecuteFilterCondition {
 	public void setTypes(List<String> types) {
 		this.types = types;
 	}
-	
-	public void addType(String type){
-		if(this.types == null){
+
+	public void addType(String type) {
+		if (this.types == null) {
 			this.types = new ArrayList<String>();
 		}
 		this.types.add(type);

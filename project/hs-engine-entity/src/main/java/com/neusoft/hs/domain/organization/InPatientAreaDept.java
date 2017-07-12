@@ -16,6 +16,14 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * 住院病区
+ * 
+ * 与住院科室是多对多关系
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("InPatientAreaDept")
 public class InPatientAreaDept extends Dept {

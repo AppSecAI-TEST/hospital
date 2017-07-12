@@ -12,6 +12,12 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * 住院科室
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("InPatientDept")
 public class InPatientDept extends Dept {

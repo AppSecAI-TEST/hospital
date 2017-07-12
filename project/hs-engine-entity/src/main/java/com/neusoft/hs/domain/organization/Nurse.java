@@ -87,12 +87,15 @@ public class Nurse extends AbstractUser {
 		this.dept = dept;
 	}
 
+	/**
+	 * 护士通过所属病区来获得可操作的科室
+	 */
 	public List<Dept> getOperationDepts() {
 
 		List<Dept> depts = new ArrayList<Dept>();
 
 		if (dept instanceof InPatientAreaDept) {
-			depts.addAll(((InPatientAreaDept)dept).getDepts());
+			depts.addAll(((InPatientAreaDept) dept).getDepts());
 		} else {
 			depts.add(dept);
 		}
