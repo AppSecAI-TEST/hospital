@@ -1,11 +1,13 @@
 package com.neusoft.hs.portal.swing.ui.reports.reports.view;
 
 import org.springframework.stereotype.Component;
+
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 @Component
@@ -23,6 +25,8 @@ public class ReportsFrame extends JFrame {
 
 	private JButton runTestBtn;
 
+	private JLabel tipLbl;
+
 	public ReportsFrame() {
 		setFrameUp();
 		initComponents();
@@ -36,10 +40,15 @@ public class ReportsFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		LookAndFeelUtils.setWindowsLookAndFeel();
-		setLayout(new GridLayout(6, 1, 20, 20));
 	}
 
 	private void initComponents() {
+
+		setLayout(new BorderLayout());
+
+		JPanel menuPanel = new JPanel();
+		menuPanel.setLayout(new GridLayout(6, 2, 20, 20));
+
 		visitLogBtn = new JButton(ConstMessagesCN.Labels.VisitLog);
 		chargeRecordReportBtn = new JButton(ConstMessagesCN.Labels.ChargeRecord);
 		orderBtn = new JButton(ConstMessagesCN.Labels.OrderList);
@@ -47,13 +56,25 @@ public class ReportsFrame extends JFrame {
 		treatmentBtn = new JButton(ConstMessagesCN.Labels.Treatment);
 		runTestBtn = new JButton(ConstMessagesCN.Labels.RunTest);
 
-		add(visitLogBtn);
-		add(chargeRecordReportBtn);
-		add(orderBtn);
-		add(orderExecuteBtn);
-		add(treatmentBtn);
+		menuPanel.add(visitLogBtn);
+		menuPanel.add(chargeRecordReportBtn);
+		menuPanel.add(orderBtn);
+		menuPanel.add(orderExecuteBtn);
+		menuPanel.add(treatmentBtn);
 
-		add(runTestBtn);
+		menuPanel.add(runTestBtn);
+
+		add(menuPanel, BorderLayout.CENTER);
+
+		JPanel statePanel = new JPanel();
+		tipLbl = new JLabel();
+		statePanel.add(tipLbl);
+
+		add(statePanel, BorderLayout.SOUTH);
+	}
+
+	public JLabel getTipLbl() {
+		return tipLbl;
 	}
 
 	public JButton getVisitLogBtn() {

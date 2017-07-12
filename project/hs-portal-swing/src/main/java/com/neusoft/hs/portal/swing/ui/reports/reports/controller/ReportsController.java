@@ -1,8 +1,11 @@
 package com.neusoft.hs.portal.swing.ui.reports.reports.controller;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.swing.ui.reports.cost.controller.ChargeRecordReportController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderExecuteController;
@@ -99,12 +102,25 @@ public class ReportsController extends AbstractFrameController {
 	}
 
 	private void runTest() {
-		try {
-			patientMainTestService.testInit();
-			patientMainTestService.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Notifications.showFormValidationAlert(e.getMessage());
+		int result = JOptionPane.showConfirmDialog(null,
+				"该操作将清空已有数据，按着测试场景生成一份新数据", "标题",
+				JOptionPane.YES_NO_CANCEL_OPTION);
+
+		if (result == JOptionPane.YES_OPTION) {
+			try {
+				mainMenuFrame.getTipLbl().setText("初始化基础数据");
+				patientMainTestService.testInit();
+
+				mainMenuFrame.getTipLbl().setText("执行测试场景");
+				patientMainTestService.execute();
+
+				DateUtil.clearSysDate();
+				mainMenuFrame.getTipLbl().setText(null);
+			} catch (Exception e) {
+				mainMenuFrame.getTipLbl().setText(null);
+				e.printStackTrace();
+				Notifications.showFormValidationAlert(e.getMessage());
+			}
 		}
 	}
 }
