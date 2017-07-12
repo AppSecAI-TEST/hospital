@@ -23,6 +23,8 @@ public class FormsFrame extends JFrame implements
 
 	private JButton loginBtn;
 
+	private JButton createOutPatientPlanRecordBtn;
+
 	private JButton registerBtn;
 
 	private JButton cashierBtn;
@@ -74,9 +76,11 @@ public class FormsFrame extends JFrame implements
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(14, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(15, 2, 20, 20));
 
 		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
+		createOutPatientPlanRecordBtn = new JButton(
+				ConstMessagesCN.Labels.CreateOutPatientPlanRecord);
 		registerBtn = new JButton(ConstMessagesCN.Labels.Register);
 		cashierBtn = new JButton(ConstMessagesCN.Labels.InitAccount);
 		receiveBtn = new JButton(ConstMessagesCN.Labels.ReceiveVisit);
@@ -99,6 +103,7 @@ public class FormsFrame extends JFrame implements
 				ConstMessagesCN.Labels.ArchiveMedicalRecord);
 
 		menuPanel.add(loginBtn);
+		menuPanel.add(createOutPatientPlanRecordBtn);
 		menuPanel.add(registerBtn);
 		menuPanel.add(cashierBtn);
 		menuPanel.add(receiveBtn);
@@ -125,6 +130,10 @@ public class FormsFrame extends JFrame implements
 
 	public JButton getLoginBtn() {
 		return loginBtn;
+	}
+
+	public JButton getCreateOutPatientPlanRecordBtn() {
+		return createOutPatientPlanRecordBtn;
 	}
 
 	public JButton getRegisterBtn() {

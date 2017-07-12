@@ -44,12 +44,21 @@ public class OutPatientPlanRecord extends IdEntity {
 
 	private Boolean free;
 
+	/**
+	 * 当前挂号值
+	 */
 	@Column(name = "current_allot_number")
 	private Integer currentAllotNumber;
 
+	/**
+	 * 当前就诊值
+	 */
 	@Column(name = "current_encounter_number")
 	private Integer currentEncounterNumber;
 
+	/**
+	 * 最大挂号值
+	 */
 	@Column(name = "max_allot_number")
 	private Integer maxAllotNumber;
 
@@ -57,9 +66,15 @@ public class OutPatientPlanRecord extends IdEntity {
 	@JoinColumn(name = "room_id")
 	private OutPatientRoom room;
 
+	@Column(name = "room_name", length = 32)
+	private String roomName;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id")
 	private Doctor doctor;
+
+	@Column(name = "doctor_name", length = 32)
+	private String doctorName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "voucher_type_id")
@@ -215,6 +230,15 @@ public class OutPatientPlanRecord extends IdEntity {
 
 	public void setRoom(OutPatientRoom room) {
 		this.room = room;
+		this.roomName = room.getName();
+	}
+
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
 
 	public Doctor getDoctor() {
@@ -223,6 +247,15 @@ public class OutPatientPlanRecord extends IdEntity {
 
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
+		this.doctorName = doctor.getName();
+	}
+
+	public String getDoctorName() {
+		return doctorName;
+	}
+
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
 	}
 
 	public VoucherType getVoucherType() {

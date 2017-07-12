@@ -54,6 +54,7 @@ import com.neusoft.hs.domain.organization.OutPatientDept;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.organization.Unit;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanAdminDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.outpatientoffice.VoucherType;
@@ -322,6 +323,9 @@ public class DataIniter {
 
 	@Autowired
 	protected OutPatientPlanDomainService outPatientPlanDomainService;
+	
+	@Autowired
+	protected OutPatientPlanAdminDomainService outPatientPlanAdminDomainService;
 
 	@Autowired
 	protected RegistrationDomainService registrationDomainService;
@@ -494,7 +498,7 @@ public class DataIniter {
 		// 清空挂号信息
 		registrationDomainService.clearVoucher();
 		// 清空门诊医生排班信息
-		outPatientPlanDomainService.clearPlanRecord();
+		outPatientPlanAdminDomainService.clearPlanRecord();
 		// 清空病案
 		recordRoomDomainService.clear();
 		// 清空病历数据
@@ -524,7 +528,7 @@ public class DataIniter {
 		// 清空检查项目
 		inspectDomainService.clearInspectItems();
 		// 清空挂号类型
-		outPatientPlanDomainService.clearVoucherType();
+		outPatientPlanAdminDomainService.clearVoucherType();
 		// 清空计费项目
 		costAdminDomainService.clearChargeItems();
 		// 清空诊疗项目信息
@@ -554,7 +558,7 @@ public class DataIniter {
 		// 清空摆药窗口
 		pharmacyAdminService.clearDispenseDrugWins();
 		// 清空门诊诊室
-		outPatientPlanDomainService.clearRoom();
+		outPatientPlanAdminDomainService.clearRoom();
 		// 清空组织机构信息
 		organizationAdminDomainService.clear();
 	}
@@ -754,7 +758,7 @@ public class DataIniter {
 
 		rooms.add(room901);
 
-		outPatientPlanDomainService.createRooms(rooms);
+		outPatientPlanAdminDomainService.createRooms(rooms);
 	}
 
 	private void initDispenseDrugWins() {
@@ -1616,7 +1620,7 @@ public class DataIniter {
 
 		voucherTypes.add(ordinaryVoucherType);
 
-		outPatientPlanDomainService.createVoucherTypes(voucherTypes);
+		outPatientPlanAdminDomainService.createVoucherTypes(voucherTypes);
 	}
 
 	private void initDiseases() {

@@ -16,6 +16,7 @@ import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.VerifyOrder
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
+import com.neusoft.hs.portal.swing.ui.forms.outpatientoffice.controller.OutPatientPlanRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.ArchiveMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.QualityControlController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
@@ -30,6 +31,9 @@ public class FormsController extends AbstractFrameController {
 
 	@Autowired
 	private LoginController loginController;
+	
+	@Autowired
+	private OutPatientPlanRecordController outPatientPlanRecordController;
 
 	@Autowired
 	private RegisterController registerController;
@@ -42,10 +46,10 @@ public class FormsController extends AbstractFrameController {
 
 	@Autowired
 	private CreateOrderController createOrderController;
-	
+
 	@Autowired
 	private MaintainTreatmentController maintainTreatmentController;
-	
+
 	@Autowired
 	private CreateMedicalRecordController createMedicalRecordController;
 
@@ -72,6 +76,8 @@ public class FormsController extends AbstractFrameController {
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
+		registerAction(mainMenuFrame.getCreateOutPatientPlanRecordBtn(),
+				(e) -> openOutPatientPlanRecordWindow());
 		registerAction(mainMenuFrame.getRegisterBtn(),
 				(e) -> openRegisterWindow());
 		registerAction(mainMenuFrame.getCashierBtn(),
@@ -103,6 +109,15 @@ public class FormsController extends AbstractFrameController {
 	private void openLoginWindow() {
 		try {
 			loginController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openOutPatientPlanRecordWindow() {
+		try {
+			registerController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

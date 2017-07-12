@@ -97,6 +97,7 @@ public interface ConstMessagesCN {
 		String LogoutState = "未登录";
 
 		String Login = "登录";
+		String CreateOutPatientPlanRecord = "创建出诊计划";
 		String Register = "送诊";
 		String InPatientDept = "住院科室";
 		String InPatientArea = "住院病区";
@@ -121,7 +122,6 @@ public interface ConstMessagesCN {
 		String QualityControl = "确认诊疗过程合格";
 		String ArchiveMedicalRecord = "归档病历";
 
-
 		String Order = "医嘱";
 
 		String ID = "ID";
@@ -130,6 +130,7 @@ public interface ConstMessagesCN {
 		String Type = "类型";
 		String Info = "信息";
 		String Doctor = "医生";
+		String Room = "诊室";
 		String BelongDept = "所属部门";
 		String ExecuteDept = "执行部门";
 		String Operator = "操作人";
@@ -145,6 +146,7 @@ public interface ConstMessagesCN {
 		String Visit = "患者";
 		String OrderType = "医嘱类型";
 		String PlanStartDate = "计划开始时间";
+		String PlanEndDate = "计划结束时间";
 		String PlaceType = "位置";
 
 		String FrequencyType = "频次";
@@ -164,6 +166,10 @@ public interface ConstMessagesCN {
 		String Treatment = "诊疗信息";
 		String MedicalRecord = "病历";
 		String RunTest = "生成测试场景数据";
+
+		String CurrentAllotNumber = "当前挂号值";
+		String CurrentEncounterNumber = "当前就诊值";
+		String MaxAllotNumber = "最大挂号值";
 
 		String createInWardRecord = "创建入院记录";
 		String createTemporaryOrderListMR = "创建临时医嘱单";
