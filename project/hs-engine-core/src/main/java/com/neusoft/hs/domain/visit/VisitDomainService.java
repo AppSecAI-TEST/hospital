@@ -191,6 +191,15 @@ public class VisitDomainService {
 
 	}
 
+	/**
+	 * 出院登记
+	 * 
+	 * @param visit
+	 * @param currentOrder
+	 * @param user
+	 * @throws VisitException
+	 * @throws OrderExecuteException
+	 */
 	public void outHospitalRegister(Visit visit, Order currentOrder,
 			AbstractUser user) throws VisitException, OrderExecuteException {
 		for (Order order : visit.getOrders()) {
@@ -216,6 +225,13 @@ public class VisitDomainService {
 				new VisitOutWardedEvent(visit));
 	}
 
+	/**
+	 * 出院结算
+	 * 
+	 * @param visit
+	 * @param user
+	 * @throws VisitException
+	 */
 	public void outHospitalBalance(Visit visit, AbstractUser user)
 			throws VisitException {
 
