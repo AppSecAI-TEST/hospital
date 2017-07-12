@@ -11,6 +11,7 @@ import com.neusoft.hs.portal.swing.ui.reports.treatment.controller.TreatmentRepo
 import com.neusoft.hs.portal.swing.ui.reports.visit.controller.VisitLogController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
+import com.neusoft.hs.test.PatientMainTestService;
 
 @Controller
 public class ReportsController extends AbstractFrameController {
@@ -33,6 +34,9 @@ public class ReportsController extends AbstractFrameController {
 	@Autowired
 	private TreatmentReportController treatmentReportController;
 
+	@Autowired
+	private PatientMainTestService patientMainTestService;
+
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getVisitLogBtn(),
 				(e) -> openVisitLogWindow());
@@ -43,6 +47,8 @@ public class ReportsController extends AbstractFrameController {
 				(e) -> openOrderExecuteWindow());
 		registerAction(mainMenuFrame.getTreatmentBtn(),
 				(e) -> openTreatmentWindow());
+
+		registerAction(mainMenuFrame.getRunTestBtn(), (e) -> runTest());
 
 		mainMenuFrame.setVisible(true);
 	}
@@ -86,6 +92,16 @@ public class ReportsController extends AbstractFrameController {
 	private void openTreatmentWindow() {
 		try {
 			treatmentReportController.prepareAndOpenFrame();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void runTest() {
+		try {
+			patientMainTestService.testInit();
+			patientMainTestService.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

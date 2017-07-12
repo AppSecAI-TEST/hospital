@@ -163,6 +163,7 @@ public interface ConstMessagesCN {
 		String OrderExecuteList = "医嘱执行单";
 		String Treatment = "诊疗信息";
 		String MedicalRecord = "病历";
+		String RunTest = "生成测试场景数据";
 
 		String createInWardRecord = "创建入院记录";
 		String createTemporaryOrderListMR = "创建临时医嘱单";
