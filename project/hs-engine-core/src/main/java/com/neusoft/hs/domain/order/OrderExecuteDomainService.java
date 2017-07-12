@@ -32,6 +32,14 @@ public class OrderExecuteDomainService {
 	@Autowired
 	private ApplicationContext applicationContext;
 
+	/**
+	 * 得到需要发送的执行条目列表
+	 *
+	 * @param nurse
+	 * @param planStartDate
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> getNeedSendOrderExecutes(AbstractUser nurse,
 			Date planStartDate, Pageable pageable) {
 		return orderExecuteRepo
@@ -40,6 +48,14 @@ public class OrderExecuteDomainService {
 						planStartDate, pageable);
 	}
 
+	/**
+	 * 得到需要执行的执行条目列表
+	 * 
+	 * @param user
+	 * @param planStartDate
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
 			Date planStartDate, Pageable pageable) {
 		return orderExecuteRepo
@@ -48,6 +64,16 @@ public class OrderExecuteDomainService {
 						planStartDate, pageable);
 	}
 
+	/**
+	 * 得到需要执行的执行条目列表
+	 * 
+	 * @param visit
+	 * @param type
+	 * @param user
+	 * @param planStartDate
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> getNeedExecuteOrderExecutes(Visit visit,
 			String type, AbstractUser user, Date planStartDate,
 			Pageable pageable) {
@@ -57,6 +83,13 @@ public class OrderExecuteDomainService {
 						user.getDept(), planStartDate, pageable);
 	}
 
+	/**
+	 * 得到需要退费的执行条目列表
+	 * 
+	 * @param user
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> getNeedBackChargeOrderExecutes(Staff user,
 			Pageable pageable) {
 		return orderExecuteRepo.findByChargeState(
@@ -76,6 +109,15 @@ public class OrderExecuteDomainService {
 		return orderExecuteRepo.findByChargeState(chargeState, pageable);
 	}
 
+	/**
+	 * 根据自定义条件查询执行条目列表
+	 * 
+	 * @param filter
+	 * @param params
+	 * @param user
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> find(OrderExecuteFilter filter,
 			Map<String, Object> params, AbstractUser user, Pageable pageable) {
 		OrderExecuteFilterCondition condition = filter.createCondition(params,

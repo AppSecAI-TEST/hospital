@@ -34,6 +34,13 @@ public class OrderExecuteAppService {
 
 	public static final int NeedExecuteOrderMinute = 30;// 医嘱执行可提前分钟数
 
+	/**
+	 * 得到需要发送的执行条目集合
+	 * 
+	 * @param nurse
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> getNeedSendOrderExecutes(AbstractUser nurse,
 			Pageable pageable) {
 		Date date = DateUtil.addHour(DateUtil.getSysDateStart(),
@@ -43,8 +50,10 @@ public class OrderExecuteAppService {
 	}
 
 	/**
-	 * @param user003
-	 * @param string
+	 * 发送执行条目
+	 * 
+	 * @param executeId
+	 * @param nurse
 	 * @throws OrderExecuteException
 	 * @roseuid 584F6109005C
 	 */
@@ -59,6 +68,8 @@ public class OrderExecuteAppService {
 	}
 
 	/**
+	 * 启动需要启动的执行条目
+	 * 
 	 * @roseuid 584F67A6034B
 	 */
 	public int start(Admin admin) throws OrderExecuteException {
@@ -66,6 +77,8 @@ public class OrderExecuteAppService {
 	}
 
 	/**
+	 * 完成执行条目
+	 * 
 	 * @param user
 	 * @param executeId
 	 * @roseuid 584FB68C010C
@@ -85,6 +98,13 @@ public class OrderExecuteAppService {
 		return orderExecuteDomainService.find(filter, params, user, pageable);
 	}
 
+	/**
+	 * 得到需要执行的执行条目
+	 * 
+	 * @param user
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> getNeedExecuteOrderExecutes(AbstractUser user,
 			Pageable pageable) {
 		Date planStartDate = DateUtil.addMinute(DateUtil.getSysDate(),
@@ -93,6 +113,15 @@ public class OrderExecuteAppService {
 				planStartDate, pageable);
 	}
 
+	/**
+	 * 得到需要执行的执行条目
+	 * 
+	 * @param visit
+	 * @param type
+	 * @param user
+	 * @param pageable
+	 * @return
+	 */
 	public List<OrderExecute> getNeedExecuteOrderExecutes(Visit visit,
 			String type, AbstractUser user, Pageable pageable) {
 		Date planStartDate = DateUtil.addMinute(DateUtil.getSysDate(),

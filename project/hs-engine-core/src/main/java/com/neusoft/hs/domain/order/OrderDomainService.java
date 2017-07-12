@@ -104,6 +104,13 @@ public class OrderDomainService {
 		return orderCommand.getOrders();
 	}
 
+	/**
+	 * 合并医嘱
+	 * 
+	 * @param compsiteOrder
+	 * @param doctor
+	 * @throws OrderException
+	 */
 	public void comsite(CompsiteOrder compsiteOrder, Doctor doctor)
 			throws OrderException {
 
@@ -126,11 +133,6 @@ public class OrderDomainService {
 		LogUtil.log(this.getClass(), "医生[{}]将患者一次就诊[{}]的医嘱条目合并为一条组合医嘱[{}]",
 				doctor.getId(), compsiteOrder.getVisit().getName(), orderIds,
 				compsiteOrder.getId());
-	}
-
-	public List<Order> getNeedVerifyOrders(AbstractUser user, Pageable pageable) {
-		return orderRepo.findByStateAndBelongDeptIn(Order.State_Created,
-				user.getOperationDepts(), pageable);
 	}
 
 	/**
@@ -163,9 +165,8 @@ public class OrderDomainService {
 	 */
 	public int resolve(Admin admin) {
 		// 获得执行中的住院长嘱
-		List<LongOrder> longOrders = orderRepo
-				.findLongOrder(Order.State_Executing,
-						Order.PlaceType_InPatient);
+		List<LongOrder> longOrders = orderRepo.findLongOrder(
+				Order.State_Executing, Order.PlaceType_InPatient);
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
 			try {
@@ -261,6 +262,18 @@ public class OrderDomainService {
 
 	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
 		return orderRepo.findByBelongDept(dept, pageable);
+	}
+
+	/**
+	 * 得到指定用户可核对的医嘱列表
+	 * 
+	 * @param user
+	 * @param pageable
+	 * @return
+	 */
+	public List<Order> getNeedVerifyOrders(AbstractUser user, Pageable pageable) {
+		return orderRepo.findByStateAndBelongDeptIn(Order.State_Created,
+				user.getOperationDepts(), pageable);
 	}
 
 }

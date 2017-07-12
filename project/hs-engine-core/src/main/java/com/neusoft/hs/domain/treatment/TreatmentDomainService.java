@@ -106,6 +106,8 @@ public class TreatmentDomainService {
 	}
 
 	/**
+	 * 更新诊疗信息
+	 * 
 	 * @roseuid 58A148900388
 	 */
 	public void update(TreatmentItem item) {

@@ -18,7 +18,7 @@ public class OrderUtil {
 	@Autowired
 	private OrderDomainService orderDomainService;
 
-	public Set<String> integration(List<Order> orders) {
+	private Set<String> integration(List<Order> orders) {
 		Set<String> ids = new HashSet<String>();
 
 		Iterator<Order> iterator = orderDomainService.find(EntityUtil
