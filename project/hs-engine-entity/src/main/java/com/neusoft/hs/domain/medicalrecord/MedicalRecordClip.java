@@ -98,7 +98,7 @@ public class MedicalRecordClip extends IdEntity {
 		this.checkDept = dept;
 		this.state = State_Checking;
 
-		this.visit.transfer(dept, user);
+		this.visit.transferRecordRoom(dept, user);
 	}
 
 	/**

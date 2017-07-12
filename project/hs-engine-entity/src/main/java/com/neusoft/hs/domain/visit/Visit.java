@@ -330,6 +330,12 @@ public class Visit extends IdEntity {
 
 	}
 
+	/**
+	 * 转科申请
+	 * 
+	 * @param user
+	 * @throws VisitException
+	 */
 	public void transferDeptSend(AbstractUser user) throws VisitException {
 
 		if (!State_IntoWard.equals(this.getState())) {
@@ -350,6 +356,13 @@ public class Visit extends IdEntity {
 		visitLog.save();
 	}
 
+	/**
+	 * 转科确认
+	 * 
+	 * @param transferDeptVO
+	 * @param user
+	 * @throws VisitException
+	 */
 	public void transferDeptConfirm(TransferDeptVO transferDeptVO,
 			AbstractUser user) throws VisitException {
 
@@ -376,6 +389,12 @@ public class Visit extends IdEntity {
 		visitLog.save();
 	}
 
+	/**
+	 * 门诊离院
+	 * 
+	 * @param user
+	 * @throws VisitException
+	 */
 	public void leaveHospital(AbstractUser user) throws VisitException {
 
 		if (this.chargeBill.getBalance() != 0L) {
@@ -395,7 +414,15 @@ public class Visit extends IdEntity {
 		visitLog.save();
 	}
 
-	public void transfer(Dept dept, AbstractUser user) throws VisitException {
+	/**
+	 * 移交到病案室
+	 * 
+	 * @param dept
+	 * @param user
+	 * @throws VisitException
+	 */
+	public void transferRecordRoom(Dept dept, AbstractUser user)
+			throws VisitException {
 		if (!this.getState().equals(State_OutHospital)) {
 			throw new VisitException(this, "患者[%s]的状态[%s]不是[%s]不能移交档案室", name,
 					state, State_OutHospital);
