@@ -44,11 +44,6 @@ public class CostDomainService {
 	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
 
-	public List<Visit> getNeedInitAccount(Pageable pageable) {
-		return visitDomainService.findByState(Visit.State_NeedInitAccount,
-				pageable);
-	}
-
 	/**
 	 * 创建财务账户
 	 * 
@@ -127,9 +122,9 @@ public class CostDomainService {
 	 * @throws CostException
 	 * @roseuid 584FBC02036D
 	 */
-	public ExecuteResult charging(OrderExecute execute) throws CostException {
+	public ExecuteResultVO charging(OrderExecute execute) throws CostException {
 
-		ExecuteResult result = new ExecuteResult();
+		ExecuteResultVO result = new ExecuteResultVO();
 		result.setExecuteId(execute.getId());
 		// 生成收费项目
 		List<ChargeRecord> chargeRecords = execute.createChargeRecords();
@@ -255,24 +250,6 @@ public class CostDomainService {
 		return count;
 	}
 
-	public List<ChargeRecord> getChargeRecords(Visit visit, List<Dept> depts,
-			Pageable pageable) {
-		return chargeRecordRepo.findByVisitAndBelongDeptIn(visit, depts,
-				pageable);
-	}
-
-	public List<ChargeRecord> getChargeRecords(Visit visit, Pageable pageable) {
-		return chargeRecordRepo.findByVisit(visit, pageable);
-	}
-
-	public ChargeBill getChargeBill(Visit visit) {
-		return visitDomainService.find(visit.getId()).getChargeBill();
-	}
-
-	public ChargeRecord findChargeRecord(String recordId) {
-		return chargeRecordRepo.findOne(recordId);
-	}
-	
 	/**
 	 * 退一条收费条目
 	 * 
@@ -304,5 +281,34 @@ public class CostDomainService {
 		LogUtil.log(this.getClass(),
 				"护士[{}]将收费条目[{}]撤回，金额为[%s]，并修改对应的执行条目[%s]为已退费", user.getId(),
 				record.getId(), amount, orderExecute.getId());
+	}
+
+	/**
+	 * 得到需初始化账户的患者一次就诊集合
+	 * 
+	 * @param pageable
+	 * @return
+	 */
+	public List<Visit> getNeedInitAccount(Pageable pageable) {
+		return visitDomainService.findByState(Visit.State_NeedInitAccount,
+				pageable);
+	}
+
+	public List<ChargeRecord> getChargeRecords(Visit visit, List<Dept> depts,
+			Pageable pageable) {
+		return chargeRecordRepo.findByVisitAndBelongDeptIn(visit, depts,
+				pageable);
+	}
+
+	public List<ChargeRecord> getChargeRecords(Visit visit, Pageable pageable) {
+		return chargeRecordRepo.findByVisit(visit, pageable);
+	}
+
+	public ChargeBill getChargeBill(Visit visit) {
+		return visitDomainService.find(visit.getId()).getChargeBill();
+	}
+
+	public ChargeRecord findChargeRecord(String recordId) {
+		return chargeRecordRepo.findOne(recordId);
 	}
 }
