@@ -11,6 +11,12 @@ public interface VisitFacade {
 //
 //	public void intoWard(ReceiveVisitDTO receiveVisitDto);
 
+	/**
+	 * 患者离院
+	 * 
+	 * @param leaveHospitalDTO
+	 * @throws HsException
+	 */
 	public void leaveHospital(LeaveHospitalDTO leaveHospitalDTO)
 			throws HsException;
 
