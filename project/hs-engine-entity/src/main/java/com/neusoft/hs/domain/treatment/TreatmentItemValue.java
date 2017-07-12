@@ -87,6 +87,12 @@ public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 		this.visitName = visitName;
 	}
 
+	/**
+	 * 将诊疗项目值转化成病历项目值
+	 * 
+	 * @return
+	 * @throws MedicalRecordException
+	 */
 	public MedicalRecordItemValue toMedicalRecordItemValue()
 			throws MedicalRecordException {
 		throw new MedicalRecordException(null,

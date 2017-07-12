@@ -9,6 +9,12 @@ import javax.validation.constraints.NotNull;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 
+/**
+ * 收费执行条目
+ * 
+ * @author kingbox
+ *
+ */
 @Entity
 @DiscriminatorValue("Charge")
 public class ChargeOrderExecute extends OrderExecute {
@@ -26,5 +32,4 @@ public class ChargeOrderExecute extends OrderExecute {
 		this.charge = charge;
 	}
 
-	
 }

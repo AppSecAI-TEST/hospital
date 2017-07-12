@@ -98,6 +98,13 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	public abstract TreatmentItem getTheItem(Visit visit)
 			throws TreatmentException;
 
+	/**
+	 * 为指定患者一次就诊创建该诊疗规格下的诊疗项目
+	 * 
+	 * @param visit
+	 * @return
+	 * @throws TreatmentException
+	 */
 	public abstract TreatmentItem createTreatmentItem(Visit visit)
 			throws TreatmentException;
 

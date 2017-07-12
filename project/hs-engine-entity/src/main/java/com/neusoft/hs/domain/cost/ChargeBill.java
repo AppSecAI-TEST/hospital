@@ -17,7 +17,6 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -66,7 +65,7 @@ public class ChargeBill extends IdEntity {
 	/**
 	 * 向收费单增加费用条目（当收费模式为【非预交金模式】时，将创建成对出现的费用条目）
 	 * 
-	 * @param chargeRecords2
+	 * @param chargeRecords
 	 * @throws CostException
 	 * @roseuid 5850A3D500DE
 	 */
@@ -130,6 +129,9 @@ public class ChargeBill extends IdEntity {
 		return balance;
 	}
 
+	/**
+	 * 结算
+	 */
 	public void balance() {
 		if (this.balance == 0) {
 			return;

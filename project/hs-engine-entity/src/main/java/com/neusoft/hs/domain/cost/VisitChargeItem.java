@@ -50,6 +50,11 @@ public class VisitChargeItem extends IdEntity {
 
 	public static final String State_Stop = "已停止";
 
+	/**
+	 * 生成收费条目
+	 * 
+	 * @throws CostException
+	 */
 	public void charge() throws CostException {
 
 		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();

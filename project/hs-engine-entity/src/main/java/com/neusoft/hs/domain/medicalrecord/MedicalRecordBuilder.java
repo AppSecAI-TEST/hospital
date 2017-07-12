@@ -46,6 +46,12 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 		return this.doCreate();
 	}
 
+	/**
+	 * 创建病历数据方法
+	 * 
+	 * @return
+	 * @throws TreatmentException
+	 */
 	public abstract Map<String, Itemable> doCreate() throws TreatmentException;
 
 	public void save() {

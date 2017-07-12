@@ -101,17 +101,31 @@ public class MedicalRecordClip extends IdEntity {
 		this.visit.transfer(dept, user);
 	}
 
+	/**
+	 * 移交归档
+	 * 
+	 * @param checker
+	 */
 	public void toArchive(AbstractUser checker) {
 		this.setState(MedicalRecordClip.State_Archiving);
 		this.setChecker(checker);
 	}
 
+	/**
+	 * 归档
+	 * 
+	 * @param user
+	 */
 	public void archive(AbstractUser user) {
 		this.setState(MedicalRecordClip.State_Archived);
 		this.visit.archive(user);
-		;
 	}
 
+	/**
+	 * 门诊离院
+	 * 
+	 * @param user
+	 */
 	public void leaveHospital(AbstractUser user) {
 		this.state = State_Ended;
 	}

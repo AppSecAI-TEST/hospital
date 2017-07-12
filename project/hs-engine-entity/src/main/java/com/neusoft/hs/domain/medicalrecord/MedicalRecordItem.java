@@ -66,12 +66,18 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 		this.name = name;
 	}
 
+	/**
+	 * 根据诊疗信息项创建病历信息项
+	 * 
+	 * @param item
+	 * @throws MedicalRecordException
+	 */
 	public MedicalRecordItem(TreatmentItem item) throws MedicalRecordException {
 		this.name = item.getName();
 		this.treatmentItem = item;
-		
+
 		this.setVisit(item.getVisit());
-		
+
 		MedicalRecordItemValue theValue;
 		for (TreatmentItemValue value : item.getValues()) {
 			theValue = value.toMedicalRecordItemValue();

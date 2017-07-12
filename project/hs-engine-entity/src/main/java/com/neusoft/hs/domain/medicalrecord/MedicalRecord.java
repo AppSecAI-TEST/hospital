@@ -99,6 +99,15 @@ public class MedicalRecord extends IdEntity {
 	public MedicalRecord() {
 	}
 
+	/**
+	 * 创建一份初始化后的病历
+	 * 
+	 * @param builder
+	 * @param type
+	 * @param visit
+	 * @param doctor
+	 * @throws TreatmentException
+	 */
 	public MedicalRecord(MedicalRecordBuilder builder, MedicalRecordType type,
 			Visit visit, AbstractUser doctor) throws TreatmentException {
 		this.setType(type);
@@ -210,6 +219,12 @@ public class MedicalRecord extends IdEntity {
 		}
 	}
 
+	/**
+	 * 锁定病历数据
+	 * 
+	 * @throws MedicalRecordException
+	 * @throws TreatmentException
+	 */
 	protected void doFix() throws MedicalRecordException, TreatmentException {
 		this.init();
 		this.fixedItems();

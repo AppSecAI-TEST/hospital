@@ -16,7 +16,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.order.OrderExecuteChargeItemRecord;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.platform.entity.SuperEntity;
