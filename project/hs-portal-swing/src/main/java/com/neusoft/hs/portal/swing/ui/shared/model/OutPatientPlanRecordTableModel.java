@@ -22,10 +22,12 @@ public class OutPatientPlanRecordTableModel extends
 		case 4:
 			return DateFormatter.formatDate(record.getPlanEndDate());
 		case 5:
-			return record.getCurrentAllotNumber();
+			return record.getFree();
 		case 6:
-			return record.getCurrentEncounterNumber();
+			return record.getCurrentAllotNumber();
 		case 7:
+			return record.getCurrentEncounterNumber();
+		case 8:
 			return record.getMaxAllotNumber();
 		default:
 			return "";
@@ -38,6 +40,7 @@ public class OutPatientPlanRecordTableModel extends
 				ConstMessagesCN.Labels.Doctor, ConstMessagesCN.Labels.Room,
 				ConstMessagesCN.Labels.PlanStartDate,
 				ConstMessagesCN.Labels.PlanEndDate,
+				ConstMessagesCN.Labels.Free,
 				ConstMessagesCN.Labels.CurrentAllotNumber,
 				ConstMessagesCN.Labels.CurrentEncounterNumber,
 				ConstMessagesCN.Labels.MaxAllotNumber };

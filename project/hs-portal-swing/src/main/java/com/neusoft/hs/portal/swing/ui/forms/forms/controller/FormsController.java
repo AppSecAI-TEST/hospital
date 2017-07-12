@@ -117,7 +117,7 @@ public class FormsController extends AbstractFrameController {
 
 	private void openOutPatientPlanRecordWindow() {
 		try {
-			registerController.prepareAndOpenFrame();
+			outPatientPlanRecordController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

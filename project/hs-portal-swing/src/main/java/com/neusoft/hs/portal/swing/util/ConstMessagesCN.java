@@ -167,6 +167,7 @@ public interface ConstMessagesCN {
 		String MedicalRecord = "病历";
 		String RunTest = "生成测试场景数据";
 
+		String Free = "是否空闲";
 		String CurrentAllotNumber = "当前挂号值";
 		String CurrentEncounterNumber = "当前就诊值";
 		String MaxAllotNumber = "最大挂号值";
