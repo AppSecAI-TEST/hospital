@@ -67,7 +67,7 @@ public class ReportsFrame extends JFrame {
 		add(menuPanel, BorderLayout.CENTER);
 
 		JPanel statePanel = new JPanel();
-		tipLbl = new JLabel();
+		tipLbl = new JLabel("");
 		statePanel.add(tipLbl);
 
 		add(statePanel, BorderLayout.SOUTH);

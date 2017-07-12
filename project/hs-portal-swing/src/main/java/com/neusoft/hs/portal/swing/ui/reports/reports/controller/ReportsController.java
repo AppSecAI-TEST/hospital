@@ -103,8 +103,7 @@ public class ReportsController extends AbstractFrameController {
 
 	private void runTest() {
 		int result = JOptionPane.showConfirmDialog(null,
-				"该操作将清空已有数据，按着测试场景生成一份新数据", "标题",
-				JOptionPane.YES_NO_CANCEL_OPTION);
+				"该操作将清空已有数据，按着测试场景生成一份新数据", "标题", JOptionPane.YES_NO_OPTION);
 
 		if (result == JOptionPane.YES_OPTION) {
 			try {
@@ -115,9 +114,9 @@ public class ReportsController extends AbstractFrameController {
 				patientMainTestService.execute();
 
 				DateUtil.clearSysDate();
-				mainMenuFrame.getTipLbl().setText(null);
+				mainMenuFrame.getTipLbl().setText("");
 			} catch (Exception e) {
-				mainMenuFrame.getTipLbl().setText(null);
+				mainMenuFrame.getTipLbl().setText("");
 				e.printStackTrace();
 				Notifications.showFormValidationAlert(e.getMessage());
 			}
