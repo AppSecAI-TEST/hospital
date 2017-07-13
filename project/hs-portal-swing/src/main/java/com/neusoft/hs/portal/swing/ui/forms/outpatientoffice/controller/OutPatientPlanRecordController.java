@@ -119,7 +119,10 @@ public class OutPatientPlanRecordController extends AbstractFrameController {
 	}
 
 	private void createOutPatientPlanRecord() {
-
+		OutPatientPlanRecord planRecord = createOutPatientPlanRecordFrame
+				.getOutPatientPlanRecord();
+		outPatientPlanDomainService.createPlanRecord(planRecord);
+		loadOutPatientPlanRecords();
 		createOutPatientPlanRecordFrame.dispose();
 	}
 
