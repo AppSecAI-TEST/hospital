@@ -83,7 +83,7 @@ public class OutPatientPlanRecord extends IdEntity {
 	@OneToMany(mappedBy = "planRecord", cascade = { CascadeType.REFRESH })
 	private List<Voucher> vouchers;
 
-	private static final int MaxAllotNumber = 50;
+	public static final int MaxAllotNumber = 50;
 
 	/**
 	 * @roseuid 58B7C8C602F7

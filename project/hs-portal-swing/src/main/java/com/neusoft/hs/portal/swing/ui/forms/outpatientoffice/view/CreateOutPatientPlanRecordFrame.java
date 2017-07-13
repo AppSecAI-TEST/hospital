@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.outpatientoffice.VoucherType;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -23,6 +24,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.OutPatientRoomComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VoucherTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.widget.SpinnerDate;
+import com.neusoft.hs.portal.swing.widget.SpinnerNumber;
 
 @Component
 public class CreateOutPatientPlanRecordFrame extends JFrame {
@@ -46,7 +48,7 @@ public class CreateOutPatientPlanRecordFrame extends JFrame {
 	private JComboBox<OutPatientRoom> outPatientRoomCB;
 	private OutPatientRoomComboBoxModel outPatientRoomComboBoxModel;
 
-	private JTextField maxAllotNumberTF;
+	private SpinnerNumber maxAllotNumberSN;
 
 	private JButton confirmBtn;
 
@@ -98,7 +100,8 @@ public class CreateOutPatientPlanRecordFrame extends JFrame {
 		planEndDateSD = new SpinnerDate("yyyy-MM-dd HH", DateUtil.addDay(
 				DateUtil.getSysDateStart(), 1));
 
-		maxAllotNumberTF = new JTextField();
+		maxAllotNumberSN = new SpinnerNumber(
+				OutPatientPlanRecord.MaxAllotNumber);
 
 		contentPanel.add(doctorLbl);
 		contentPanel.add(doctorCB);
@@ -113,7 +116,7 @@ public class CreateOutPatientPlanRecordFrame extends JFrame {
 		contentPanel.add(outPatientRoomCB);
 
 		contentPanel.add(maxAllotNumberLbl);
-		contentPanel.add(maxAllotNumberTF);
+		contentPanel.add(maxAllotNumberSN);
 
 		workspacePanel.add(contentPanel, BorderLayout.CENTER);
 
@@ -147,12 +150,22 @@ public class CreateOutPatientPlanRecordFrame extends JFrame {
 		return outPatientRoomComboBoxModel;
 	}
 
-	public JTextField getMaxAllotNumberTF() {
-		return maxAllotNumberTF;
-	}
-
 	public JButton getConfirmBtn() {
 		return confirmBtn;
+	}
+
+	public OutPatientPlanRecord getOutPatientPlanRecord() {
+
+		OutPatientPlanRecord planRecord = new OutPatientPlanRecord();
+
+		planRecord.setDoctor(doctorComboBoxModel.getSelectedItem());
+		planRecord.setVoucherType(voucherTypeComboBoxModel.getSelectedItem());
+		planRecord.setPlanStartDate(planStartDateSD.getDate());
+		planRecord.setPlanEndDate(planEndDateSD.getDate());
+		planRecord.setRoom(outPatientRoomComboBoxModel.getSelectedItem());
+		planRecord.setMaxAllotNumber(maxAllotNumberSN.getInteger());
+
+		return planRecord;
 	}
 
 }

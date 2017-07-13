@@ -54,12 +54,12 @@ public class CreateOrderFrame extends JFrame {
 	}
 
 	public Date getPlanStartDate() throws HsException {
-		return (Date) this.createOrderPanel.planStartDateSD.getValue();
+		return this.createOrderPanel.planStartDateSD.getDate();
 
 	}
 
 	public Integer getCount() {
-		Integer count = (Integer) this.createOrderPanel.countSN.getValue();
+		Integer count = this.createOrderPanel.countSN.getInteger();
 		if (count == null || count == 0) {
 			return null;
 		} else {
@@ -74,7 +74,7 @@ public class CreateOrderFrame extends JFrame {
 	public CreateOrderPanel getCreateOrderPanel() {
 		return createOrderPanel;
 	}
-	
+
 	public JButton getCloseBtn() {
 		return createOrderPanel.getCloseBtn();
 	}

@@ -25,4 +25,8 @@ public class SpinnerDate extends JSpinner {
 		this.setEditor(editor);
 		this.setBounds(34, 67, 219, 22);
 	}
+
+	public Date getDate() {
+		return (Date) this.getValue();
+	}
 }
