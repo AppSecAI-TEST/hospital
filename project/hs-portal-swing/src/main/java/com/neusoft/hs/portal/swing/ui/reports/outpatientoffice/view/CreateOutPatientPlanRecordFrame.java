@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.swing.ui.forms.outpatientoffice.view;
+package com.neusoft.hs.portal.swing.ui.reports.outpatientoffice.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -8,7 +8,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;

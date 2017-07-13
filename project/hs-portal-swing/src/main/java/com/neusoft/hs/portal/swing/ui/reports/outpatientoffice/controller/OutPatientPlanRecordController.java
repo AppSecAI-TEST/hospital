@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.swing.ui.forms.outpatientoffice.controller;
+package com.neusoft.hs.portal.swing.ui.reports.outpatientoffice.controller;
 
 import java.util.List;
 
@@ -17,8 +17,8 @@ import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.outpatientoffice.VoucherType;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.portal.swing.ui.forms.outpatientoffice.view.CreateOutPatientPlanRecordFrame;
-import com.neusoft.hs.portal.swing.ui.forms.outpatientoffice.view.OutPatientPlanRecordFrame;
+import com.neusoft.hs.portal.swing.ui.reports.outpatientoffice.view.CreateOutPatientPlanRecordFrame;
+import com.neusoft.hs.portal.swing.ui.reports.outpatientoffice.view.OutPatientPlanRecordFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OutPatientPlanRecordTableModel;

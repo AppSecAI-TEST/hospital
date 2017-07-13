@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.swing.ui.forms.outpatientoffice.view;
+package com.neusoft.hs.portal.swing.ui.reports.outpatientoffice.view;
 
 import java.awt.BorderLayout;
 

@@ -5,10 +5,12 @@ import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.swing.ui.reports.cost.controller.ChargeRecordReportController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderExecuteController;
+import com.neusoft.hs.portal.swing.ui.reports.outpatientoffice.controller.OutPatientPlanRecordController;
 import com.neusoft.hs.portal.swing.ui.reports.reports.view.ReportsFrame;
 import com.neusoft.hs.portal.swing.ui.reports.treatment.controller.TreatmentReportController;
 import com.neusoft.hs.portal.swing.ui.reports.visit.controller.VisitLogController;
@@ -36,6 +38,9 @@ public class ReportsController extends AbstractFrameController {
 
 	@Autowired
 	private TreatmentReportController treatmentReportController;
+	
+	@Autowired
+	private OutPatientPlanRecordController outPatientPlanRecordController;
 
 	@Autowired
 	private PatientMainTestService patientMainTestService;
@@ -50,7 +55,8 @@ public class ReportsController extends AbstractFrameController {
 				(e) -> openOrderExecuteWindow());
 		registerAction(mainMenuFrame.getTreatmentBtn(),
 				(e) -> openTreatmentWindow());
-
+		registerAction(mainMenuFrame.getCreateOutPatientPlanRecordBtn(),
+				(e) -> openOutPatientPlanRecordWindow());
 		registerAction(mainMenuFrame.getRunTestBtn(), (e) -> runTest());
 
 		mainMenuFrame.setVisible(true);
@@ -96,6 +102,15 @@ public class ReportsController extends AbstractFrameController {
 		try {
 			treatmentReportController.prepareAndOpenFrame();
 		} catch (Exception e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openOutPatientPlanRecordWindow() {
+		try {
+			outPatientPlanRecordController.prepareAndOpenFrame();
+		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
