@@ -37,7 +37,7 @@ public class OutPatientPlanRecordTableModel extends
 	@Override
 	public String[] getColumnLabels() {
 		return new String[] { ConstMessagesCN.Labels.ID,
-				ConstMessagesCN.Labels.Doctor, ConstMessagesCN.Labels.Room,
+				ConstMessagesCN.Labels.Doctor, ConstMessagesCN.Labels.OutPatientRoom,
 				ConstMessagesCN.Labels.PlanStartDate,
 				ConstMessagesCN.Labels.PlanEndDate,
 				ConstMessagesCN.Labels.Free,

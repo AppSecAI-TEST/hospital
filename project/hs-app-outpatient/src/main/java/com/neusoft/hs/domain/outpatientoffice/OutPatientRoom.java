@@ -80,4 +80,9 @@ public class OutPatientRoom extends SuperEntity {
 	public void setDept(OutPatientDept dept) {
 		this.dept = dept;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

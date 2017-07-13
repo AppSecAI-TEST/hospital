@@ -3,6 +3,7 @@ package com.neusoft.hs.domain.outpatientoffice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,5 +38,13 @@ public class OutPatientPlanAdminDomainService {
 
 	public void clearVoucherType() {
 		voucherTypeRepo.deleteAll();
+	}
+
+	public List<VoucherType> findVoucherTypes(Pageable pageable) {
+		return voucherTypeRepo.findAll(pageable).getContent();
+	}
+
+	public List<OutPatientRoom> findOutPatientRooms(Pageable pageable) {
+		return outPatientRoomRepo.findAll(pageable).getContent();
 	}
 }

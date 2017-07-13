@@ -38,7 +38,7 @@ public class OutPatientPlanRecordFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesCN.Labels.InitBlanace);
+		setTitle(ConstMessagesCN.Labels.OutPatientPlanRecord);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
@@ -57,7 +57,7 @@ public class OutPatientPlanRecordFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
-		addBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
+		addBtn = new JButton(ConstMessagesCN.Labels.ADD_BTN);
 		buttonPanel.add(addBtn);
 
 		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);

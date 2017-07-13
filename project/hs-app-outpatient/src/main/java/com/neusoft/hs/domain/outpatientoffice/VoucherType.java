@@ -87,4 +87,9 @@ public class VoucherType extends SuperEntity {
 		this.chargeItem = chargeItem;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

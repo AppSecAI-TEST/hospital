@@ -104,6 +104,7 @@ public interface ConstMessagesCN {
 		String RespDoctor = "责任医生";
 		String NAME = "名称";
 		String Account = "账号";
+		String OutPatientPlanRecord = "初诊计划";
 		String InitAccount = "预存住院费";
 		String ReceiveVisit = "接诊";
 		String InitBlanace = "预存金额";
@@ -121,6 +122,7 @@ public interface ConstMessagesCN {
 		String TransferMedicalRecord = "移交档案室";
 		String QualityControl = "确认诊疗过程合格";
 		String ArchiveMedicalRecord = "归档病历";
+		String CreateOutPatientRecord = "创建出诊记录";
 
 		String Order = "医嘱";
 
@@ -130,7 +132,8 @@ public interface ConstMessagesCN {
 		String Type = "类型";
 		String Info = "信息";
 		String Doctor = "医生";
-		String Room = "诊室";
+		String VoucherType = "挂号类型";
+		String OutPatientRoom = "诊室";
 		String BelongDept = "所属部门";
 		String ExecuteDept = "执行部门";
 		String Operator = "操作人";
