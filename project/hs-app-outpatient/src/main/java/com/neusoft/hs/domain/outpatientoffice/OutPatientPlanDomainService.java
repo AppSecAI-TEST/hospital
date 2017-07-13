@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class OutPatientPlanDomainService {
@@ -37,6 +39,10 @@ public class OutPatientPlanDomainService {
 
 	public OutPatientPlanRecord findPlanRecord(String planRecordId) {
 		return outpatientPlanRecordRepo.findOne(planRecordId);
+	}
+	
+	public OutPatientPlanRecord findPlanRecord(AbstractUser doctor, Date date) {
+		return outpatientPlanRecordRepo.findByDoctorAndPlanStartDateLessThanAndPlanEndDateGreaterThan(doctor, date, date);
 	}
 
 	/**

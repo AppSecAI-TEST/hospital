@@ -9,10 +9,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
+
 interface OutPatientPlanRecordRepo extends
 		PagingAndSortingRepository<OutPatientPlanRecord, String> {
 
 	@Query("select r from OutPatientPlanRecord r where r.planStartDate <= :date and r.planEndDate >= :date and r.maxAllotNumber >= r.currentAllotNumber")
 	List<OutPatientPlanRecord> findNotFullPlanRecord(@Param("date") Date date);
+
+	OutPatientPlanRecord findByDoctorAndPlanStartDateLessThanAndPlanEndDateGreaterThan(
+			AbstractUser doctor, Date date, Date date2);
 
 }

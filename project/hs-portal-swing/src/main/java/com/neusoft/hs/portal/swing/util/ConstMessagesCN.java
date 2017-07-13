@@ -38,6 +38,7 @@ public interface ConstMessagesCN {
 		String RESERVATIONS = "Reservations";
 		String ADDRESSES = "Addresses";
 		String ADD_BTN = "增加";
+		String NEXT_BTN = "下一个";
 		String CONFIRM_BTN = "确定";
 		String CLOSE_BTN = "关闭";
 		String ReCreate_BTN = "重新生成";
@@ -98,6 +99,7 @@ public interface ConstMessagesCN {
 
 		String Login = "登录";
 		String CreateVoucher = "挂号";
+		String NextVoucher = "叫号";
 		String Register = "送诊";
 		String InPatientDept = "住院科室";
 		String InPatientArea = "住院病区";
@@ -147,6 +149,7 @@ public interface ConstMessagesCN {
 		String IntoWardDate = "进入病房时间";
 
 		String Visit = "患者";
+		String VoucherNumber = "诊号";
 		String OrderType = "医嘱类型";
 		String PlanStartDate = "计划开始时间";
 		String PlanEndDate = "计划结束时间";

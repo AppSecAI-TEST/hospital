@@ -127,7 +127,7 @@ public class DataIniter {
 	protected Staff user602;// 病案室岗位-孙权
 	protected Staff user701;// 门诊收费部门收费员-魏延
 	protected Staff user801;// 门诊中药房摆发药岗位-郭嘉
-	protected Staff user901;// 儿科门诊挂号岗位-黄忠
+	protected Staff user901;// 内分泌门诊挂号岗位-黄忠
 	protected Nurse usera01;// 门诊输液中心护士-甘夫人
 
 	protected Staff userb01;// 配液中心-摆药岗位-刘禅

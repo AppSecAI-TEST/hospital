@@ -2,10 +2,14 @@
 
 package com.neusoft.hs.application.outpatientdept;
 
+import java.util.Date;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.outpatientdept.OutPatientDeptDomainService;
 import com.neusoft.hs.domain.outpatientdept.OutPatientDeptException;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
@@ -40,5 +44,11 @@ public class OutPatientDeptAppService {
 			throw new OutPatientDeptException("门诊医生排班记录[%s]不存在", planRecordId);
 		}
 		return outPatientDeptDomainService.nextVoucher(record);
+	}
+	
+	public OutPatientPlanRecord findPlanRecord(AbstractUser doctor, Date date) {
+		OutPatientPlanRecord record = outPatientPlanDomainService.findPlanRecord(doctor, date);
+		Hibernate.initialize(record.getVouchers());
+		return record;
 	}
 }

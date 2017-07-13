@@ -32,6 +32,9 @@ public class Voucher extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
+	@Column(name = "visit_name", length = 32)
+	private String visitName;
+
 	@Column(name = "create_date")
 	private Date createDate;
 
@@ -62,6 +65,15 @@ public class Voucher extends IdEntity {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
+		this.visitName = visit.getName();
+	}
+
+	public String getVisitName() {
+		return visitName;
+	}
+
+	public void setVisitName(String visitName) {
+		this.visitName = visitName;
 	}
 
 	public OutPatientPlanRecord getPlanRecord() {
@@ -95,9 +107,9 @@ public class Voucher extends IdEntity {
 		if (this.visit.getState().equals(Visit.State_Diagnosing)) {
 			this.visit.setState(Visit.State_Diagnosed_Executing);
 		}
-		
-		LogUtil.log(this.getClass(), "患者一次就诊[{}]离开诊室[{}]", this.visit.getName(),
-				planRecord.getRoom().getId());
+
+		LogUtil.log(this.getClass(), "患者一次就诊[{}]离开诊室[{}]",
+				this.visit.getName(), planRecord.getRoom().getId());
 	}
 
 	/**
@@ -105,9 +117,9 @@ public class Voucher extends IdEntity {
 	 */
 	public void enter() {
 		this.visit.setState(Visit.State_Diagnosing);
-		
-		LogUtil.log(this.getClass(), "患者一次就诊[{}]进入诊室[{}]", this.visit.getName(),
-				planRecord.getRoom().getId());
+
+		LogUtil.log(this.getClass(), "患者一次就诊[{}]进入诊室[{}]",
+				this.visit.getName(), planRecord.getRoom().getId());
 	}
 
 }
