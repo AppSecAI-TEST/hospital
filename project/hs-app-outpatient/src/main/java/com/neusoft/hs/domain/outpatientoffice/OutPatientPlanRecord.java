@@ -117,8 +117,6 @@ public class OutPatientPlanRecord extends IdEntity {
 		List<ChargeRecord> chargeRecords = this.createChargeRecords(visit);
 		// 生成费用记录
 		visit.getChargeBill().charging(chargeRecords);
-
-		this.save();
 	}
 
 	private List<ChargeRecord> createChargeRecords(Visit visit) {
@@ -149,7 +147,6 @@ public class OutPatientPlanRecord extends IdEntity {
 	 */
 	public void repeatOccupy(Voucher voucher) throws VoucherException {
 		voucher.setNumber(++currentAllotNumber);
-		this.save();
 	}
 
 	public boolean nextVoucher() {
@@ -282,11 +279,14 @@ public class OutPatientPlanRecord extends IdEntity {
 		this.currentEncounterNumber = currentEncounterNumber;
 	}
 
-	/**
-	 * @roseuid 58B7DA30038A
-	 */
-	private void save() {
+	@Override
+	public String toString() {
+		StringBuffer info = new StringBuffer();
+		info.append(this.getRoomName());
+		info.append(" ");
+		info.append(this.getDoctorName());
 
+		return info.toString();
 	}
 
 	private Voucher getTheVoucher(Integer number) {

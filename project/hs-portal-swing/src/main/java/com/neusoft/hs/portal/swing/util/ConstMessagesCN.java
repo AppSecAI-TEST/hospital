@@ -97,14 +97,14 @@ public interface ConstMessagesCN {
 		String LogoutState = "未登录";
 
 		String Login = "登录";
-		String CreateOutPatientPlanRecord = "创建出诊计划";
+		String CreateVoucher = "挂号";
 		String Register = "送诊";
 		String InPatientDept = "住院科室";
 		String InPatientArea = "住院病区";
 		String RespDoctor = "责任医生";
 		String NAME = "名称";
 		String Account = "账号";
-		String OutPatientPlanRecord = "初诊计划";
+		String OutPatientPlanRecord = "出诊计划";
 		String InitAccount = "预存住院费";
 		String ReceiveVisit = "接诊";
 		String InitBlanace = "预存金额";
@@ -168,6 +168,7 @@ public interface ConstMessagesCN {
 		String OrderExecuteList = "医嘱执行单";
 		String Treatment = "诊疗信息";
 		String MedicalRecord = "病历";
+		String CreateOutPatientPlanRecord = "创建出诊计划";
 		String RunTest = "生成测试场景数据";
 
 		String Free = "是否空闲";

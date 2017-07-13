@@ -2,8 +2,17 @@
 
 package com.neusoft.hs.domain.outpatientoffice;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import java.util.Date;
+import java.util.List;
 
-interface OutPatientPlanRecordRepo extends PagingAndSortingRepository<OutPatientPlanRecord, String> {
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
+
+interface OutPatientPlanRecordRepo extends
+		PagingAndSortingRepository<OutPatientPlanRecord, String> {
+
+	@Query("select r from OutPatientPlanRecord r where r.planStartDate <= :date and r.planEndDate >= :date and r.maxAllotNumber >= r.currentAllotNumber")
+	List<OutPatientPlanRecord> findNotFullPlanRecord(@Param("date") Date date);
 
 }

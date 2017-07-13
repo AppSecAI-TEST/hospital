@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.outpatientoffice;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,13 @@ public class OutPatientPlanDomainService {
 
 	public OutPatientPlanRecord findPlanRecord(String planRecordId) {
 		return outpatientPlanRecordRepo.findOne(planRecordId);
+	}
+
+	/**
+	 * @roseuid 58B7C82C00AD
+	 */
+	public List<OutPatientPlanRecord> findNotFullPlanRecord(Date date) {
+		return outpatientPlanRecordRepo.findNotFullPlanRecord(date);
 	}
 
 }

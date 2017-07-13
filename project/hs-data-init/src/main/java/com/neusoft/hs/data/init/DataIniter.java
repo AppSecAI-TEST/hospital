@@ -56,6 +56,7 @@ import com.neusoft.hs.domain.organization.Unit;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanAdminDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.outpatientoffice.VoucherType;
 import com.neusoft.hs.domain.patient.PatientAdminDomainService;
@@ -81,6 +82,7 @@ import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.domain.visit.VisitNameTreatmentItemSpec;
+import com.neusoft.hs.platform.util.DateUtil;
 
 public class DataIniter {
 
@@ -277,6 +279,10 @@ public class DataIniter {
 
 	protected DispensingDrugBatch dayDispensingDrugBatch;// 一天一次住院摆药批次
 
+	protected OutPatientPlanRecord planRecord1;// 门诊初诊记录 系统时间当前
+
+	protected OutPatientPlanRecord planRecord2;// 门诊初诊记录 系统时间第二天
+
 	protected Map<ChoiceItem, Object> choices;
 
 	@Autowired
@@ -323,7 +329,7 @@ public class DataIniter {
 
 	@Autowired
 	protected OutPatientPlanDomainService outPatientPlanDomainService;
-	
+
 	@Autowired
 	protected OutPatientPlanAdminDomainService outPatientPlanAdminDomainService;
 
@@ -356,7 +362,7 @@ public class DataIniter {
 
 	@Autowired
 	private ConfigureFluidDomainService configureFluidDomainService;
-	
+
 	public void clone(DataIniter dataIniter) {
 		org = dataIniter.org;
 
@@ -491,6 +497,9 @@ public class DataIniter {
 
 		dayDispensingDrugBatch = dataIniter.dayDispensingDrugBatch;
 
+		planRecord1 = dataIniter.planRecord1;
+		planRecord2 = dataIniter.planRecord2;
+
 		choices = dataIniter.choices;
 	}
 
@@ -603,6 +612,8 @@ public class DataIniter {
 		initConfigureFluidBatchs();
 
 		initDispensingDrugBatchs();
+
+		initOutPatientPlanRecords();
 	}
 
 	private void initOrgs() {
@@ -1687,6 +1698,36 @@ public class DataIniter {
 		batchs.add(dayDispensingDrugBatch);
 
 		pharmacyAdminService.createDispensingDrugBatchs(batchs);
+	}
+
+	private void initOutPatientPlanRecords() {
+
+		List<OutPatientPlanRecord> planRecords = new ArrayList<OutPatientPlanRecord>();
+
+		planRecord1 = new OutPatientPlanRecord();
+
+		planRecord1.setDoctor(user002);
+		planRecord1.setVoucherType(ordinaryVoucherType);
+		planRecord1.setPlanStartDate(DateUtil.getSysDateStart());
+		planRecord1.setPlanEndDate(DateUtil.addDay(DateUtil.getSysDateStart(),
+				1));
+		planRecord1.setRoom(room901);
+
+		planRecords.add(planRecord1);
+
+		planRecord2 = new OutPatientPlanRecord();
+
+		planRecord2.setDoctor(user002);
+		planRecord2.setVoucherType(ordinaryVoucherType);
+		planRecord2.setPlanStartDate(DateUtil.addDay(
+				DateUtil.getSysDateStart(), 1));
+		planRecord2.setPlanEndDate(DateUtil.addDay(DateUtil.getSysDateStart(),
+				2));
+		planRecord2.setRoom(room901);
+
+		planRecords.add(planRecord2);
+
+		outPatientPlanDomainService.createPlanRecords(planRecords);
 	}
 
 }

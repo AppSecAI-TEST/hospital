@@ -55,30 +55,6 @@ public class OutPatientMainTestService extends AppTestService {
 	@Override
 	public void execute() throws HsException {
 
-		List<OutPatientPlanRecord> planRecords = new ArrayList<OutPatientPlanRecord>();
-
-		OutPatientPlanRecord planRecord1 = new OutPatientPlanRecord();
-
-		planRecord1.setDoctor(user002);
-		planRecord1.setVoucherType(ordinaryVoucherType);
-		planRecord1.setPlanStartDate(DateUtil.createMinute("2016-12-27 08:30"));
-		planRecord1.setPlanEndDate(DateUtil.createMinute("2016-12-27 17:00"));
-		planRecord1.setRoom(room901);
-
-		planRecords.add(planRecord1);
-
-		OutPatientPlanRecord planRecord2 = new OutPatientPlanRecord();
-
-		planRecord2.setDoctor(user002);
-		planRecord2.setVoucherType(ordinaryVoucherType);
-		planRecord2.setPlanStartDate(DateUtil.createMinute("2016-12-28 08:30"));
-		planRecord2.setPlanEndDate(DateUtil.createMinute("2016-12-28 17:00"));
-		planRecord2.setRoom(room901);
-
-		planRecords.add(planRecord2);
-
-		outPatientPlanDomainService.createPlanRecords(planRecords);
-
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-27 09:00"));
 
 		CreateVisitVO createVisitVO;

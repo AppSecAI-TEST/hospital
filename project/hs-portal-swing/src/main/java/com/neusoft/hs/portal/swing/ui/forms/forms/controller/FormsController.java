@@ -19,6 +19,7 @@ import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishC
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.ArchiveMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.QualityControlController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
+import com.neusoft.hs.portal.swing.ui.forms.registration.controller.RegistrationController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -30,7 +31,10 @@ public class FormsController extends AbstractFrameController {
 
 	@Autowired
 	private LoginController loginController;
-	
+
+	@Autowired
+	private RegistrationController registrationController;
+
 	@Autowired
 	private RegisterController registerController;
 
@@ -72,6 +76,8 @@ public class FormsController extends AbstractFrameController {
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
+		registerAction(mainMenuFrame.getCreateVoucherBtn(),
+				(e) -> openCreateVoucherWindow());
 		registerAction(mainMenuFrame.getRegisterBtn(),
 				(e) -> openRegisterWindow());
 		registerAction(mainMenuFrame.getCashierBtn(),
@@ -103,6 +109,15 @@ public class FormsController extends AbstractFrameController {
 	private void openLoginWindow() {
 		try {
 			loginController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openCreateVoucherWindow() {
+		try {
+			registrationController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
