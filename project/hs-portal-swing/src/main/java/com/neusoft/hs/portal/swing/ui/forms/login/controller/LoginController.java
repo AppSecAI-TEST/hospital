@@ -92,7 +92,7 @@ public class LoginController extends AbstractFrameController {
 	// }
 
 	private void closeModalWindow() {
-		loginFrame.getFormPanel().clearForm();
+		//loginFrame.getFormPanel().clearForm();
 		loginFrame.dispose();
 	}
 }

@@ -47,9 +47,6 @@ public class CreateOrderPanel extends JPanel {
 	JComboBox<OrderType> orderTypeCB;
 	OrderTypeComboBoxModel orderTypeComboBoxModel;
 
-	JComboBox<String> placeTypeCB;
-	PlaceTypeComboBoxModel placeTypeComboBoxModel;
-
 	JComboBox<OrderFrequencyType> frequencyTypeCB;
 	OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel;
 
@@ -84,7 +81,6 @@ public class CreateOrderPanel extends JPanel {
 
 		this.visitComboBoxModel = new VisitComboBoxModel();
 		this.orderTypeComboBoxModel = new OrderTypeComboBoxModel();
-		this.placeTypeComboBoxModel = new PlaceTypeComboBoxModel();
 		this.frequencyTypeComboBoxModel = new OrderFrequencyTypeComboBoxModel();
 		this.orderUseModeComboBoxModel = new DrugUseModeComboBoxModel();
 		this.pharmacyComboBoxModel = new PharmacyComboBoxModel();
@@ -110,8 +106,7 @@ public class CreateOrderPanel extends JPanel {
 
 		visitCB = new JComboBox<>(visitComboBoxModel);
 		orderTypeCB = new JComboBox<>(orderTypeComboBoxModel);
-		placeTypeCB = new JComboBox<>(placeTypeComboBoxModel);
-
+	
 		frequencyTypeCB = new JComboBox<>(frequencyTypeComboBoxModel);
 
 		orderUseModeCB = new JComboBox<>(orderUseModeComboBoxModel);
@@ -125,9 +120,6 @@ public class CreateOrderPanel extends JPanel {
 
 		formPanl.add(planStartDateLbl);
 		formPanl.add(planStartDateSD);
-
-		formPanl.add(placeTypeLbl);
-		formPanl.add(placeTypeCB);
 
 		formPanl.add(frequencyTypeLbl);
 		formPanl.add(frequencyTypeCB);
@@ -160,10 +152,6 @@ public class CreateOrderPanel extends JPanel {
 
 	public OrderTypeComboBoxModel getOrderTypeComboBoxModel() {
 		return orderTypeComboBoxModel;
-	}
-
-	public PlaceTypeComboBoxModel getPlaceTypeComboBoxModel() {
-		return placeTypeComboBoxModel;
 	}
 
 	public OrderFrequencyTypeComboBoxModel getFrequencyTypeComboBoxModel() {

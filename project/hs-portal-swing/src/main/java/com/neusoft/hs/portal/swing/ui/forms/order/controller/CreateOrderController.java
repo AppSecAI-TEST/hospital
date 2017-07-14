@@ -42,7 +42,6 @@ import com.neusoft.hs.portal.swing.ui.shared.model.OrderFrequencyTypeComboBoxMod
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.PharmacyComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.PlaceTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -72,8 +71,6 @@ public class CreateOrderController extends AbstractFrameController {
 
 	private VisitComboBoxModel visitComboBoxModel;
 
-	private PlaceTypeComboBoxModel placeTypeComboBoxModel;
-
 	private OrderFrequencyTypeComboBoxModel frequencyTypeComboBoxModel;
 
 	private DrugUseModeComboBoxModel orderUseModeComboBoxModel;
@@ -95,7 +92,6 @@ public class CreateOrderController extends AbstractFrameController {
 		loadVisits();
 		loadOrderTypes();
 		loadFrequencyTypes();
-		loadPlaceTypes();
 		loadPharmacys();
 		loadOrderUseModes();
 
@@ -170,11 +166,6 @@ public class CreateOrderController extends AbstractFrameController {
 		orderTypeComboBoxModel.addElements(orderTypes);
 	}
 
-	private void loadPlaceTypes() {
-		placeTypeComboBoxModel = this.createOrderFrame
-				.getCreateOrderPanel().getPlaceTypeComboBoxModel();
-	}
-
 	private void loadFrequencyTypes() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
@@ -237,7 +228,6 @@ public class CreateOrderController extends AbstractFrameController {
 			order.setOrderType(orderType);
 			order.setPlanStartDate(planStartDate);
 			order.setCount(count);
-			order.setPlaceType(placeTypeComboBoxModel.getSelectedItem());
 
 			if (orderType instanceof DrugOrderType) {
 				Pharmacy pharmacy = pharmacyComboBoxModel.getSelectedItem();

@@ -21,6 +21,8 @@ public class OrderTableModel extends DefaultTableModel<Order> {
 		case 4:
 			return order.getOrderType();
 		case 5:
+			return order.getPlaceType();
+		case 6:
 			return DateFormatter.formatDate(order.getCreateDate());
 		default:
 			return "";
@@ -32,6 +34,7 @@ public class OrderTableModel extends DefaultTableModel<Order> {
 		return new String[] { ConstMessagesCN.Labels.ID,
 				ConstMessagesCN.Labels.VisitName, ConstMessagesCN.Labels.Name,
 				ConstMessagesCN.Labels.State, ConstMessagesCN.Labels.Type,
+				ConstMessagesCN.Labels.PlaceType,
 				ConstMessagesCN.Labels.CreateDate };
 	}
 }

@@ -64,6 +64,16 @@ public class OrderDomainService {
 			}
 			order.setCreator(doctor);
 			order.setBelongDept(orderCommand.getVisit().getDept());
+
+			if (order.getPlaceType() == null) {
+				// 根据患者状态计算医嘱开立位置
+				if (order.getVisit().getState().equals(Visit.State_Diagnosing)) {
+					order.setPlaceType(Order.PlaceType_OutPatient);
+				} else {
+					order.setPlaceType(Order.PlaceType_InPatient);
+				}
+			}
+
 			if (order.isInPatient()) {
 				order.setState(Order.State_Created);
 			} else {
@@ -263,7 +273,7 @@ public class OrderDomainService {
 	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
 		return orderRepo.findByBelongDept(dept, pageable);
 	}
-	
+
 	public List<Order> findByBelongDepts(List<Dept> depts, Pageable pageable) {
 		return orderRepo.findByBelongDeptIn(depts, pageable);
 	}

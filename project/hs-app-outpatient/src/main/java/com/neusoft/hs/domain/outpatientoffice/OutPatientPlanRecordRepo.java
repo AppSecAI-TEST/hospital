@@ -20,4 +20,9 @@ interface OutPatientPlanRecordRepo extends
 	OutPatientPlanRecord findByDoctorAndPlanStartDateLessThanAndPlanEndDateGreaterThan(
 			AbstractUser doctor, Date date, Date date2);
 
+	@Query("select r from OutPatientPlanRecord r where r.doctor = :doctor and (r.planStartDate < :planEndDate and r.planEndDate > :planStartDate)")
+	List<OutPatientPlanRecord> find(@Param("doctor") AbstractUser doctor,
+			@Param("planStartDate") Date planStartDate,
+			@Param("planEndDate") Date planEndDate);
+
 }

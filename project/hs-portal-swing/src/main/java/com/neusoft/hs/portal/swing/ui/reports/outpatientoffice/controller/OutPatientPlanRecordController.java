@@ -24,6 +24,7 @@ import com.neusoft.hs.portal.swing.ui.shared.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OutPatientPlanRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OutPatientRoomComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VoucherTypeComboBoxModel;
+import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class OutPatientPlanRecordController extends AbstractFrameController {
@@ -121,9 +122,15 @@ public class OutPatientPlanRecordController extends AbstractFrameController {
 	private void createOutPatientPlanRecord() {
 		OutPatientPlanRecord planRecord = createOutPatientPlanRecordFrame
 				.getOutPatientPlanRecord();
-		outPatientPlanDomainService.createPlanRecord(planRecord);
-		loadOutPatientPlanRecords();
-		createOutPatientPlanRecordFrame.dispose();
+		try {
+			outPatientPlanDomainService.createPlanRecord(planRecord);
+			loadOutPatientPlanRecords();
+			createOutPatientPlanRecordFrame.dispose();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+		
 	}
 
 	private void closeWindow() {
