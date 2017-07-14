@@ -26,12 +26,12 @@ public class EnterHospitalIntoWardOrderExecute extends OrderExecute {
 
 		String bed = (String) params.get(Bed);
 		if (bed == null) {
-			throw new OrderExecuteException(this, "没有向params.[%s]设置床位号" + Bed);
+			throw new OrderExecuteException(this, "没有向params.[%s]设置床位号", Bed);
 		}
 		Nurse nurse = (Nurse) params.get(RespNurse);
 		if (nurse == null) {
-			throw new OrderExecuteException(this, "没有向params.[%s]设置责任护士"
-					+ RespNurse);
+			throw new OrderExecuteException(this, "没有向params.[%s]设置责任护士",
+					RespNurse);
 		}
 
 		Visit visit = this.getVisit();

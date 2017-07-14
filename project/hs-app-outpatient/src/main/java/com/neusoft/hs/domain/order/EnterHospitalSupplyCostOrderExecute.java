@@ -19,11 +19,13 @@ public class EnterHospitalSupplyCostOrderExecute extends OrderExecute {
 	@Override
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
-
+		if (params == null) {
+			throw new OrderExecuteException(this, "params没有设置参数");
+		}
 		Float balance = (Float) params.get(Balance);
 		if (balance == null) {
-			throw new OrderExecuteException(this, "没有向params.[%s]设置预存金额"
-					+ Balance);
+			throw new OrderExecuteException(this, "没有向params.[%s]设置预存金额",
+					Balance);
 		}
 		Visit visit = this.getVisit();
 		try {
