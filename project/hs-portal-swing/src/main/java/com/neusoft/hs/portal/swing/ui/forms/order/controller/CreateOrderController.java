@@ -15,6 +15,7 @@ import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
+import com.neusoft.hs.domain.order.EnterHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
@@ -24,6 +25,7 @@ import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.InPatientDept;
 import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
@@ -32,6 +34,7 @@ import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.user.User;
 import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.framework.exception.UIException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
@@ -64,7 +67,7 @@ public class CreateOrderController extends AbstractFrameController {
 	private PharmacyAdminService pharmacyAdminService;
 
 	@Autowired
-	private OrganizationAdminDomainService organizationDomainService;
+	private OrganizationAdminDomainService organizationAdminDomainService;
 
 	@Autowired
 	private OutPatientDeptAppService outPatientDeptAppService;
@@ -206,6 +209,8 @@ public class CreateOrderController extends AbstractFrameController {
 	private void create() {
 		try {
 
+			AbstractUser user = UserUtil.getUser();
+
 			OrderFrequencyType frequencyType = frequencyTypeComboBoxModel
 					.getSelectedItem();
 
@@ -244,6 +249,14 @@ public class CreateOrderController extends AbstractFrameController {
 				}
 
 				order.setTypeApp(new DrugOrderTypeApp(pharmacy, drugUseMode));
+			} else if (orderType instanceof EnterHospitalOrderType) {
+				InPatientDept dept = (InPatientDept) user.getDept();
+				order.addParam(EnterHospitalOrderType.WardDept, dept);
+				order.addParam(EnterHospitalOrderType.RespDoctor, user);
+				order.addParam(EnterHospitalOrderType.WardArea,
+						organizationAdminDomainService.findInPatientArea(dept)
+								.get(0));
+				order.setExecuteDept(dept);
 			}
 
 			orderAppService.create(order, (Doctor) UserUtil.getUser());

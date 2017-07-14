@@ -102,7 +102,7 @@ public class OrderDomainService {
 		List<String> orderIds = new ArrayList<String>();
 		List<String> orderTypes = new ArrayList<String>();
 		for (Order order : orderCommand.getOrders()) {
-			order.create();
+			order.doCreate();
 			orderIds.add(order.getId());
 			orderTypes.add(order.getOrderType().getId());
 		}

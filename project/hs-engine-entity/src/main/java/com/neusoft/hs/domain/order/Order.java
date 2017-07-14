@@ -173,7 +173,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * 
 	 * @throws OrderException
 	 */
-	protected void create() throws OrderException {
+	protected void doCreate() throws OrderException {
 		this.orderType.create(this);
 	}
 

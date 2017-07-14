@@ -40,6 +40,7 @@ public class EnterHospitalOrderType extends OrderType {
 		visit.setArea(wardArea);
 		visit.setRespDoctor(respDoctor);
 		visit.setState(Visit.State_WaitingEnterHospital);
+		
 		visit.save();
 	}
 
