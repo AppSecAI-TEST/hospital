@@ -14,6 +14,7 @@ import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecuteFinishFrame;
+import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecuteOpenFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -25,13 +26,18 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 	private OrderExecuteFinishFrame orderExecuteFinishFrame;
 
 	@Autowired
+	private OrderExecuteOpenFrame orderExecuteOpenFrame;
+
+	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(orderExecuteFinishFrame.getOpenBtn(), (e) -> open());
 		registerAction(orderExecuteFinishFrame.getConfirmBtn(), (e) -> finish());
-		registerAction(orderExecuteFinishFrame.getCloseBtn(), (e) -> closeWindow());
-		
+		registerAction(orderExecuteFinishFrame.getCloseBtn(),
+				(e) -> closeWindow());
+
 	}
 
 	@Override
@@ -52,6 +58,19 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 		orderExecuteTableModel.addEntities(entities);
 	}
 
+	private void open() {
+		try {
+			OrderExecute orderExecute = this.orderExecuteFinishFrame
+					.getSelectedOrderExecute();
+
+			orderExecuteOpenFrame.init(orderExecute);
+			orderExecuteOpenFrame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
 	private void finish() {
 		try {
 			OrderExecute orderExecute = this.orderExecuteFinishFrame
@@ -67,7 +86,7 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void closeWindow() {
 		orderExecuteFinishFrame.dispose();
 	}

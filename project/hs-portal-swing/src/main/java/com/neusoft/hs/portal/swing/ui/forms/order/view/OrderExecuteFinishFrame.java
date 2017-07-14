@@ -20,6 +20,8 @@ public class OrderExecuteFinishFrame extends JFrame {
 
 	private OrderExecuteFinishListPanel orderExecuteFinishListPanel;
 
+	JButton openBtn;
+
 	JButton confirmBtn;
 
 	JButton closeBtn;
@@ -52,6 +54,9 @@ public class OrderExecuteFinishFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
+		openBtn = new JButton(ConstMessagesCN.Labels.OPEN_BTN);
+		buttonPanel.add(openBtn);
+
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
@@ -61,16 +66,20 @@ public class OrderExecuteFinishFrame extends JFrame {
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public JButton getConfirmBtn() {
-		return this.confirmBtn;
-	}
-
 	public OrderExecute getSelectedOrderExecute() throws UIException {
 		return orderExecuteFinishListPanel.getSelectedOrderExecute();
 	}
 
 	public OrderExecuteTableModel getOrderExecuteTableModel() {
 		return this.orderExecuteFinishListPanel.getOrderExecuteTableModel();
+	}
+
+	public JButton getOpenBtn() {
+		return openBtn;
+	}
+
+	public JButton getConfirmBtn() {
+		return this.confirmBtn;
 	}
 
 	public JButton getCloseBtn() {
