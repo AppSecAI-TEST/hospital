@@ -41,6 +41,7 @@ public interface ConstMessagesCN {
 		String NEXT_BTN = "下一个";
 		String OPEN_BTN = "打开";
 		String CONFIRM_BTN = "确定";
+		String FINISH_BTN = "完成";
 		String CLOSE_BTN = "关闭";
 		String ReCreate_BTN = "重新生成";
 		String Create_BTN = "生成";

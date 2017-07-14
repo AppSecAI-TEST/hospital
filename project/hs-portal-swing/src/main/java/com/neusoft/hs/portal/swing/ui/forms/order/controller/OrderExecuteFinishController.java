@@ -15,6 +15,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecuteFinishFrame;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecuteOpenFrame;
+import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecutePanel;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -37,6 +38,11 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 		registerAction(orderExecuteFinishFrame.getConfirmBtn(), (e) -> finish());
 		registerAction(orderExecuteFinishFrame.getCloseBtn(),
 				(e) -> closeWindow());
+
+		registerAction(orderExecuteOpenFrame.getFinishBtn(),
+				(e) -> openFinish());
+		registerAction(orderExecuteOpenFrame.getCloseBtn(),
+				(e) -> closeOpenWindow());
 
 	}
 
@@ -87,7 +93,27 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 		}
 	}
 
+	private void openFinish() {
+		try {
+			OrderExecutePanel panel = orderExecuteOpenFrame.getPanel();
+			OrderExecute orderExecute = panel.getOrderExecute();
+
+			orderExecuteAppService.finish(orderExecute.getId(),
+					panel.getParams(), UserUtil.getUser());
+
+			loadOrderExecutes();
+			closeOpenWindow();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
 	private void closeWindow() {
 		orderExecuteFinishFrame.dispose();
+	}
+
+	private void closeOpenWindow() {
+		orderExecuteOpenFrame.dispose();
 	}
 }
