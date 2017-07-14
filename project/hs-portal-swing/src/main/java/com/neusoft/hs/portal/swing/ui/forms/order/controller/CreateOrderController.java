@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.order.OrderAppService;
+import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.LongOrder;
@@ -20,15 +21,18 @@ import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.framework.exception.UIException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.CreateOrderFrame;
@@ -63,6 +67,9 @@ public class CreateOrderController extends AbstractFrameController {
 	@Autowired
 	private OrganizationAdminDomainService organizationDomainService;
 
+	@Autowired
+	private OutPatientDeptAppService outPatientDeptAppService;
+
 	private VisitComboBoxModel visitComboBoxModel;
 
 	private PlaceTypeComboBoxModel placeTypeComboBoxModel;
@@ -79,7 +86,7 @@ public class CreateOrderController extends AbstractFrameController {
 	private void prepareListeners() {
 		registerAction(createOrderFrame.getConfirmBtn(), (e) -> create());
 		registerAction(createOrderFrame.getCloseBtn(), (e) -> closeWindow());
-		
+
 	}
 
 	@Override
@@ -108,10 +115,26 @@ public class CreateOrderController extends AbstractFrameController {
 	}
 
 	private void loadVisits() throws HsException {
+
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<Visit> entities = visitDomainService.findByStateAndDept(
+		AbstractUser user = UserUtil.getUser();
+
+		List<Visit> entities = new ArrayList<Visit>();
+		// 获取医生住院患者列表
+		List<Visit> patientVisits = visitDomainService.findByStateAndDept(
 				Visit.State_IntoWard, UserUtil.getUser().getDept(), pageable);
+		entities.addAll(patientVisits);
+
+		// 获取医生门诊患者列表
+		OutPatientRoom outPatientRoom = outPatientDeptAppService
+				.findOutPatientRoom(user, DateUtil.getSysDate());
+		if (outPatientRoom != null) {
+			List<Visit> outPatientVisits = visitDomainService
+					.findByStateAndDept(Visit.State_Diagnosing, outPatientRoom,
+							pageable);
+			entities.addAll(outPatientVisits);
+		}
 
 		visitComboBoxModel = this.createOrderFrame.getCreateOrderPanel()
 				.getVisitComboBoxModel();
@@ -135,7 +158,7 @@ public class CreateOrderController extends AbstractFrameController {
 		orderTypeComboBoxModel.clear();
 		orderTypeComboBoxModel.addElements(orderTypes);
 	}
-	
+
 	private void loadPlaceTypes() {
 		placeTypeComboBoxModel = new PlaceTypeComboBoxModel();
 	}
@@ -232,7 +255,7 @@ public class CreateOrderController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void closeWindow() {
 		createOrderFrame.dispose();
 	}

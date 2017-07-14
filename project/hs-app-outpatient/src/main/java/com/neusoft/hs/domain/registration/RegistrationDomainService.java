@@ -64,7 +64,7 @@ public class RegistrationDomainService {
 
 		createVisitVO.setInPatient(false);
 		createVisitVO.setState(Visit.State_WaitingDiagnose);
-		createVisitVO.setDept(planRecord.getRoom().getDept());
+		createVisitVO.setDept(planRecord.getRoom());
 
 		Visit visit = null;
 		if (!voucher.getRepeatVisit()) {

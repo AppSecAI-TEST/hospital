@@ -51,6 +51,9 @@ public class OutPatientDeptController extends AbstractFrameController {
 	private void loadVouchers() throws HsException {
 		record = outPatientDeptAppService.findPlanRecord(UserUtil.getUser(),
 				DateUtil.getSysDate());
+		if (record == null) {
+			throw new HsException("您今天没有出诊记录（到统计业务中的门诊出诊计划中创建）");
+		}
 		List<Voucher> entities = record.getVouchers();
 
 		VoucherTableModel tableModel = outPatientDeptFrame

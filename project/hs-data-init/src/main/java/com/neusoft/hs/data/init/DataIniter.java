@@ -765,7 +765,8 @@ public class DataIniter {
 		room901 = new OutPatientRoom();
 		room901.setId("room901");
 		room901.setName("内分泌门诊一诊室");
-		room901.setDept(dept999);
+		room901.setParent(dept999);
+		room901.setOrg(org);
 
 		rooms.add(room901);
 

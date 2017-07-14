@@ -14,6 +14,7 @@ import com.neusoft.hs.domain.outpatientdept.OutPatientDeptDomainService;
 import com.neusoft.hs.domain.outpatientdept.OutPatientDeptException;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
+import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -24,13 +25,6 @@ public class OutPatientDeptAppService {
 
 	@Autowired
 	private OutPatientPlanDomainService outPatientPlanDomainService;
-
-	/**
-	 * @roseuid 58BE1877017D
-	 */
-	public OutPatientDeptAppService() {
-
-	}
 
 	/**
 	 * @throws OutPatientDeptException
@@ -45,10 +39,22 @@ public class OutPatientDeptAppService {
 		}
 		return outPatientDeptDomainService.nextVoucher(record);
 	}
-	
+
 	public OutPatientPlanRecord findPlanRecord(AbstractUser doctor, Date date) {
-		OutPatientPlanRecord record = outPatientPlanDomainService.findPlanRecord(doctor, date);
-		Hibernate.initialize(record.getVouchers());
+		OutPatientPlanRecord record = outPatientPlanDomainService
+				.findPlanRecord(doctor, date);
+		if (record != null) {
+			Hibernate.initialize(record.getVouchers());
+		}
 		return record;
+	}
+
+	public OutPatientRoom findOutPatientRoom(AbstractUser doctor, Date date) {
+		OutPatientPlanRecord record = outPatientPlanDomainService
+				.findPlanRecord(doctor, date);
+		if (record != null) {
+			return record.getRoom();
+		}
+		return null;
 	}
 }

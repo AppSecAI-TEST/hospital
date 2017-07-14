@@ -11,7 +11,6 @@ import com.neusoft.hs.platform.log.LogUtil;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class OutPatientDeptDomainService {
-
 	/**
 	 * 叫号
 	 * 
