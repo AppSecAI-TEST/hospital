@@ -1,5 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.order.view;
 
+import java.awt.BorderLayout;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +19,13 @@ public class EnterHospitalSupplyCostOrderExecutePanel extends OrderExecutePanel 
 	public EnterHospitalSupplyCostOrderExecutePanel(OrderExecute orderExecute) {
 		super(orderExecute);
 
+		this.setLayout(new BorderLayout());
+
 		JLabel balanceLbl = new JLabel(ConstMessagesCN.Labels.Balance);
-		add(balanceLbl);
+		add(balanceLbl, BorderLayout.WEST);
 
 		balanceSN = new SpinnerNumber();
-		add(balanceSN);
+		add(balanceSN, BorderLayout.CENTER);
 	}
 
 	@Override

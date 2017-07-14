@@ -37,7 +37,7 @@ public class OrderExecuteOpenFrame extends JFrame {
 			throw new HsException("该执行条目可以直接完成");
 		}
 		this.workspacePanel.removeAll();
-		this.workspacePanel.add(panel);
+		this.workspacePanel.add(panel, BorderLayout.CENTER);
 	}
 
 	@Autowired
@@ -58,7 +58,7 @@ public class OrderExecuteOpenFrame extends JFrame {
 
 		this.setLayout(new BorderLayout());
 
-		workspacePanel = new JPanel();
+		workspacePanel = new JPanel(new BorderLayout());
 
 		add(workspacePanel, BorderLayout.CENTER);
 
