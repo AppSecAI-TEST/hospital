@@ -115,6 +115,7 @@ public interface ConstMessagesCN {
 		String Bed = "床位";
 		String RespNurse = "责任护士";
 		String Logo = "主题介绍";
+		String Balance = "余额";
 
 		String CreateOrder = "开立医嘱";
 		String CreateMedicalRecord = "编写病历";

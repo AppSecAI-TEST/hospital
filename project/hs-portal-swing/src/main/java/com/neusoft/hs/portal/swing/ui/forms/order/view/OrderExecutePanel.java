@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.portal.framework.exception.UIException;
 
 public abstract class OrderExecutePanel extends JPanel {
 
@@ -18,6 +19,6 @@ public abstract class OrderExecutePanel extends JPanel {
 		return orderExecute;
 	}
 
-	public abstract Map<String, Object> getParams();
+	public abstract Map<String, Object> getParams() throws UIException;
 
 }

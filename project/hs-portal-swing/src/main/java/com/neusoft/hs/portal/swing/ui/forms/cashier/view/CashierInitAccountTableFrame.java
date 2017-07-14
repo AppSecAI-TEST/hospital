@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.neusoft.hs.portal.framework.exception.UIException;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
+import com.neusoft.hs.portal.swing.widget.SpinnerNumber;
 
 @Component
 public class CashierInitAccountTableFrame extends JFrame {
@@ -26,7 +26,7 @@ public class CashierInitAccountTableFrame extends JFrame {
 
 	private JTable table;
 
-	private JTextField balanceTF;
+	private SpinnerNumber balanceSN;
 
 	private JButton confirmBtn;
 
@@ -67,8 +67,8 @@ public class CashierInitAccountTableFrame extends JFrame {
 		JLabel nameLbl = new JLabel(ConstMessagesCN.Labels.InitBlanace);
 		buttonPanel.add(nameLbl);
 
-		balanceTF = new JTextField(TEXT_FIELD_COLUMNS);
-		buttonPanel.add(balanceTF);
+		balanceSN = new SpinnerNumber();
+		buttonPanel.add(balanceSN);
 
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
@@ -80,10 +80,10 @@ public class CashierInitAccountTableFrame extends JFrame {
 	}
 
 	public Float getBalance() throws UIException {
-		if (balanceTF.getText() == null || balanceTF.getText().length() == 0) {
+		if (balanceSN.getInteger() == null || balanceSN.getInteger() <= 0) {
 			throw new UIException("请录入初始化金额");
 		}
-		return Float.valueOf(balanceTF.getText());
+		return Float.valueOf(balanceSN.getInteger());
 	}
 
 	public String getSelectedVisitId() throws UIException {
@@ -95,7 +95,7 @@ public class CashierInitAccountTableFrame extends JFrame {
 	}
 
 	public void clearBalance() {
-		balanceTF.setText(null);
+		balanceSN.setValue(null);
 	}
 
 	public VisitTableModel getVisitTableModel() {
