@@ -172,4 +172,15 @@ public class OrderAppService {
 		return orderDomainService.findByBelongDept(dept, pageable);
 	}
 
+	/**
+	 * 得到指定科室创建的医嘱列表
+	 * 
+	 * @param dept
+	 * @param pageable
+	 * @return
+	 */
+	public List<Order> findByBelongDepts(List<Dept> depts, Pageable pageable) {
+		return orderDomainService.findByBelongDepts(depts, pageable);
+	}
+
 }

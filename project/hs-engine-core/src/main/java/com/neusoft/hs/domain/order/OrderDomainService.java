@@ -263,6 +263,10 @@ public class OrderDomainService {
 	public List<Order> findByBelongDept(Dept dept, Pageable pageable) {
 		return orderRepo.findByBelongDept(dept, pageable);
 	}
+	
+	public List<Order> findByBelongDepts(List<Dept> depts, Pageable pageable) {
+		return orderRepo.findByBelongDeptIn(depts, pageable);
+	}
 
 	/**
 	 * 得到指定用户可核对的医嘱列表

@@ -105,8 +105,19 @@ public class CreateOrderController extends AbstractFrameController {
 	private void loadOrders() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<Order> entities = orderAppService.findByBelongDept(UserUtil
-				.getUser().getDept(), pageable);
+		AbstractUser user = UserUtil.getUser();
+
+		List<Dept> depts = new ArrayList<Dept>();
+		depts.add(user.getDept());
+
+		OutPatientRoom outPatientRoom = outPatientDeptAppService
+				.findOutPatientRoom(user, DateUtil.getSysDate());
+		if (outPatientRoom != null) {
+			depts.add(outPatientRoom);
+		}
+
+		List<Order> entities = orderAppService.findByBelongDepts(depts,
+				pageable);
 
 		OrderTableModel orderTableModel = createOrderFrame.getOrderListPanel()
 				.getOrderTableModel();
@@ -160,7 +171,8 @@ public class CreateOrderController extends AbstractFrameController {
 	}
 
 	private void loadPlaceTypes() {
-		placeTypeComboBoxModel = new PlaceTypeComboBoxModel();
+		placeTypeComboBoxModel = this.createOrderFrame
+				.getCreateOrderPanel().getPlaceTypeComboBoxModel();
 	}
 
 	private void loadFrequencyTypes() throws HsException {
@@ -247,9 +259,6 @@ public class CreateOrderController extends AbstractFrameController {
 			orderAppService.create(order, (Doctor) UserUtil.getUser());
 
 			loadOrders();
-
-			// orderFrame.clearBed();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

@@ -24,6 +24,8 @@ interface OrderRepo extends PagingAndSortingRepository<Order, String> {
 
 	List<Order> findByBelongDept(Dept dept, Pageable pageable);
 
+	List<Order> findByBelongDeptIn(List<Dept> depts, Pageable pageable);
+
 	List<Order> findByVisitAndOrderTypeAndState(Visit visit,
 			OrderType orderType, String state);
 

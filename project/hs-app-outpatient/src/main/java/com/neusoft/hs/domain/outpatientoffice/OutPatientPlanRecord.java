@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.CostException;
-import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.registration.RegistrationDomainService;
 import com.neusoft.hs.domain.registration.Voucher;
 import com.neusoft.hs.domain.visit.Visit;
@@ -71,7 +71,7 @@ public class OutPatientPlanRecord extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id")
-	private Doctor doctor;
+	private AbstractUser doctor;
 
 	@Column(name = "doctor_name", length = 32)
 	private String doctorName;
@@ -238,11 +238,11 @@ public class OutPatientPlanRecord extends IdEntity {
 		this.roomName = roomName;
 	}
 
-	public Doctor getDoctor() {
+	public AbstractUser getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Doctor doctor) {
+	public void setDoctor(AbstractUser doctor) {
 		this.doctor = doctor;
 		this.doctorName = doctor.getName();
 	}
