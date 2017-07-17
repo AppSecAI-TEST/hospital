@@ -66,6 +66,7 @@ public class UpdateSysDateController extends AbstractFrameController {
 					DateUtil.setSysDate(dayStart);
 					patientNightTestService.calculate(admin);
 				}
+				DateUtil.setSysDate(newDate);
 
 			} catch (Exception e) {
 				e.printStackTrace();
