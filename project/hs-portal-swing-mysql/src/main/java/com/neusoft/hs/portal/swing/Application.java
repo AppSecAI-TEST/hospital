@@ -7,6 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import com.neusoft.hs.portal.swing.init.SwingDataInitService;
 import com.neusoft.hs.portal.swing.ui.main_menu.controller.MainMenuController;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 

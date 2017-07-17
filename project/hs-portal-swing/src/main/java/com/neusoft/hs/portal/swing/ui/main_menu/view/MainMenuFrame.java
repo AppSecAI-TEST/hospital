@@ -1,11 +1,10 @@
 package com.neusoft.hs.portal.swing.ui.main_menu.view;
 
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +15,8 @@ import javax.swing.WindowConstants;
 
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.platform.util.VersionUtil;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
@@ -29,6 +30,9 @@ public class MainMenuFrame extends JFrame {
 	private JButton reportsBtn;
 
 	private JLabel logoLabel;
+
+	private JLabel sysDateLbl;
+	private JButton updateSysDateBtn;
 
 	private final static int Width = 370;
 	private final static int Height = 230;
@@ -49,10 +53,12 @@ public class MainMenuFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		LookAndFeelUtils.setWindowsLookAndFeel();
-		setLayout(new GridLayout(2, 1, 20, 20));
+		setLayout(new BorderLayout());
 	}
 
 	private void initComponents() {
+
+		JPanel workspacePanel = new JPanel(new GridLayout(2, 1, 20, 20));
 
 		JPanel operationPanel = new JPanel();
 		operationPanel.setLayout(new GridLayout(1, 2, 20, 20));
@@ -63,7 +69,7 @@ public class MainMenuFrame extends JFrame {
 		operationPanel.add(formsBtn);
 		operationPanel.add(reportsBtn);
 
-		add(operationPanel);
+		workspacePanel.add(operationPanel);
 
 		JPanel versionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -81,12 +87,33 @@ public class MainMenuFrame extends JFrame {
 		logoLabel.setBounds(230, 0, background.getIconWidth(),
 				background.getIconHeight());
 		logoLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+
 		versionPanel.add(logoLabel);
 		versionPanel.add(versionLbl);
 
-		add(versionPanel);
+		workspacePanel.add(versionPanel);
 
+		add(workspacePanel, BorderLayout.CENTER);
+
+		JPanel sysDatePanel = new JPanel(new GridLayout(1, 2, 2, 2));
+		sysDateLbl = new JLabel();
+		sysDatePanel.add(sysDateLbl);
+
+		updateSysDateBtn = new JButton(ConstMessagesCN.Labels.UpdateSysDate);
+		sysDatePanel.add(updateSysDateBtn);
+
+		add(sysDatePanel, BorderLayout.SOUTH);
+
+		refreshDate();
+	}
+
+	private void refreshDate() {
+		try {
+			sysDateLbl.setText(ConstMessagesCN.Labels.SimulationSysDate + ":"
+					+ DateUtil.toString(DateUtil.getSysDate()));
+		} catch (HsException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public JButton getFormsBtn() {

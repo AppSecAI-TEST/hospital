@@ -29,5 +29,4 @@ public class DataService {
 		patientMainTestService.execute();
 		swingDataInitService.init();
 	}
-
 }

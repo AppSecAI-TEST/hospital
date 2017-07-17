@@ -34,6 +34,11 @@ public interface ConstMessagesCN {
 		String MAIN_MENU = "医院业务（RealOne Suite）";
 		String Version = "版本";
 		String BuildDate = "构建日期";
+		
+		String SimulationSysDate = "模拟的系统时间";
+		String SysDate = "系统时间";
+		String UpdateSysDate = "修改系统时间";
+		
 		String CLIENTS = "Clients";
 		String RESERVATIONS = "Reservations";
 		String ADDRESSES = "Addresses";
@@ -46,7 +51,7 @@ public interface ConstMessagesCN {
 		String ReCreate_BTN = "重新生成";
 		String Create_BTN = "生成";
 		String Sign_BTN = "签名";
-
+		
 		String REMOVE_BTN = "删除";
 
 		String SURNAME = "Surname";

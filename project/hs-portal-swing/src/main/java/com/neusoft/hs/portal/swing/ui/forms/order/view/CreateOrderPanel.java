@@ -93,7 +93,6 @@ public class CreateOrderPanel extends JPanel {
 		JLabel orderTypeLbl = new JLabel(ConstMessagesCN.Labels.OrderType);
 		JLabel planStartDateLbl = new JLabel(
 				ConstMessagesCN.Labels.PlanStartDate);
-		JLabel placeTypeLbl = new JLabel(ConstMessagesCN.Labels.PlaceType);
 		JLabel frequencyTypeLbl = new JLabel(
 				ConstMessagesCN.Labels.FrequencyType);
 		JLabel orderUseModeLbl = new JLabel(ConstMessagesCN.Labels.OrderUseMode);
