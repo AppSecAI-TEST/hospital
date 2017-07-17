@@ -1,5 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.order.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,12 +12,17 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
+import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
+import com.neusoft.hs.portal.swing.ui.forms.order.view.EnterHospitalIntoWardOrderExecutePanel;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecuteFinishFrame;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecuteOpenFrame;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecutePanel;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.ui.shared.model.NurseComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -31,6 +37,9 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 
 	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
+
+	@Autowired
+	private UserAdminDomainService userAdminDomainService;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -69,12 +78,43 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 			OrderExecute orderExecute = this.orderExecuteFinishFrame
 					.getSelectedOrderExecute();
 
-			orderExecuteOpenFrame.init(orderExecute);
-			orderExecuteOpenFrame.setVisible(true);
+			this.prepareAndOpenPanel(orderExecute);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
+	}
+
+	private void prepareAndOpenPanel(OrderExecute orderExecute)
+			throws HsException {
+
+		orderExecuteOpenFrame.init(orderExecute);
+		
+		OrderExecutePanel orderExecutePanel = orderExecuteOpenFrame.getPanel();
+		if (orderExecutePanel instanceof EnterHospitalIntoWardOrderExecutePanel) {
+			loadNurses((EnterHospitalIntoWardOrderExecutePanel) orderExecutePanel);
+		}
+
+		orderExecuteOpenFrame.setVisible(true);
+	}
+
+	private void loadNurses(EnterHospitalIntoWardOrderExecutePanel intoWardPanel)
+			throws HsException {
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+
+		List<Dept> depts = new ArrayList<Dept>();
+		Dept dept = UserUtil.getUser().getDept();
+		depts.add(dept);
+
+		List<Nurse> nurses = this.userAdminDomainService.findNurse(depts,
+				pageable);
+
+		NurseComboBoxModel nurseComboBoxModel = intoWardPanel
+				.getRespNurseComboBoxModel();
+
+		nurseComboBoxModel.clear();
+		nurseComboBoxModel.addElements(nurses);
 	}
 
 	private void finish() {
