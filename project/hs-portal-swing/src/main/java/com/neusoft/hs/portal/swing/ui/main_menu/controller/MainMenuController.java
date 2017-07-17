@@ -22,6 +22,9 @@ public class MainMenuController extends AbstractFrameController {
 
 	@Autowired
 	private ReportsController reportsController;
+	
+	@Autowired
+	private UpdateSysDateController updateSysDateController;
 
 	@Autowired
 	private LogoController logoController;
@@ -30,6 +33,8 @@ public class MainMenuController extends AbstractFrameController {
 		registerAction(mainMenuFrame.getFormsBtn(), (e) -> openFormsWindow());
 		registerAction(mainMenuFrame.getReportsBtn(),
 				(e) -> openReportsWindow());
+		registerAction(mainMenuFrame.getUpdateSysDateBtn(),
+				(e) -> openUpdateSysDateWindow());
 		registerAction(mainMenuFrame.getLogoLabel(), new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -46,6 +51,10 @@ public class MainMenuController extends AbstractFrameController {
 
 	private void openReportsWindow() {
 		reportsController.prepareAndOpenFrame();
+	}
+	
+	private void openUpdateSysDateWindow(){
+		updateSysDateController.prepareAndOpenFrame();
 	}
 
 	private void openLogoWindow(MouseEvent e) {

@@ -124,6 +124,10 @@ public class MainMenuFrame extends JFrame {
 		return reportsBtn;
 	}
 
+	public JButton getUpdateSysDateBtn() {
+		return updateSysDateBtn;
+	}
+
 	public JLabel getLogoLabel() {
 		return logoLabel;
 	}
