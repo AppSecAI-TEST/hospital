@@ -28,6 +28,7 @@ public class DataService {
 	public void initTestData() throws HsException {
 		patientMainTestService.init();
 		patientMainTestService.execute();
+		swingDataInitService.init();
 	}
 
 }
