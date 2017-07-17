@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
@@ -31,6 +32,8 @@ public class VisitLogFrame extends JFrame {
 	VisitLogTableModel visitLogTableModel;
 	JTable table;
 
+	JTextField stateTF;
+
 	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
@@ -44,7 +47,7 @@ public class VisitLogFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		setTitle(ConstMessagesCN.Labels.ChargeRecord);
+		setTitle(ConstMessagesCN.Labels.VisitLog);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
@@ -74,6 +77,11 @@ public class VisitLogFrame extends JFrame {
 		operationPanel.add(visitLbl);
 		operationPanel.add(visitCB);
 
+		JLabel stateLbl = new JLabel(ConstMessagesCN.Labels.State);
+		stateTF = new JTextField();
+		operationPanel.add(stateLbl);
+		operationPanel.add(stateTF);
+
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
 		add(workspacePanel, BorderLayout.CENTER);
@@ -97,6 +105,10 @@ public class VisitLogFrame extends JFrame {
 
 	public VisitLogTableModel getVisitLogTableModel() {
 		return visitLogTableModel;
+	}
+
+	public JTextField getStateTF() {
+		return stateTF;
 	}
 
 	public JButton getCloseBtn() {
