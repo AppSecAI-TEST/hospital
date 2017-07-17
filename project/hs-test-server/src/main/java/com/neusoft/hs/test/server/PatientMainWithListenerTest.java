@@ -21,7 +21,7 @@ public class PatientMainWithListenerTest {
 
 	@Before
 	public void testInit() {
-		appTestService.testInit();
+		appTestService.init();
 	}
 
 	@Test

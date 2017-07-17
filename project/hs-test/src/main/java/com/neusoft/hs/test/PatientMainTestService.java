@@ -18,8 +18,8 @@ public class PatientMainTestService extends AppTestService {
 	private CheckTestService checkTestService;
 
 	@Override
-	public void testInit() {
-		super.testInit();
+	public void init() {
+		super.init();
 
 		outPatientMainTestService.clone(this);
 

@@ -8,7 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.neusoft.hs.portal.swing.init.Initer;
+import com.neusoft.hs.portal.swing.init.SwingDataInitService;
 import com.neusoft.hs.portal.swing.ui.main_menu.controller.MainMenuController;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 
@@ -29,7 +29,7 @@ public class Application {
 				Application.class).headless(false).run(args);
 		// 初始化基础数据
 		//context.getBean(InitDataService.class).init();
-		context.getBean(Initer.class).init();
+		context.getBean(SwingDataInitService.class).init();
 		// 启动主窗口
 		MainMenuController mainMenuController = context
 				.getBean(MainMenuController.class);

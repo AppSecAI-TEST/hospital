@@ -12,7 +12,7 @@ import com.neusoft.hs.portal.swing.business.medicalrecord.TemporaryOrderListMRRe
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class Initer {
+public class SwingDataInitService {
 
 	@Autowired
 	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;

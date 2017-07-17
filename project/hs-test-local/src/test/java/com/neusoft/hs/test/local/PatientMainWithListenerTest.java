@@ -25,7 +25,7 @@ public class PatientMainWithListenerTest {
 
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-27"));
 
-		appTestService.testInit();
+		appTestService.init();
 	}
 
 	@Test

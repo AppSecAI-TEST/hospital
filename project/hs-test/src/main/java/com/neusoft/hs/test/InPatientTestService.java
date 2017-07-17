@@ -44,8 +44,8 @@ public abstract class InPatientTestService extends AppTestService {
 	private static final int runCount = 1;// 入院次数
 
 	@Override
-	public void testInit() {
-		super.testInit();
+	public void init() {
+		super.init();
 
 		MedicalRecordTestService.temporaryOrderCount = 3;
 	}

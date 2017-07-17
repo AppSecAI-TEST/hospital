@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.swing.ui.reports.cost.controller.ChargeRecordReportController;
+import com.neusoft.hs.portal.swing.ui.reports.data.DataService;
 import com.neusoft.hs.portal.swing.ui.reports.medicalrecord.controller.MedicalRecordReportController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderExecuteController;
@@ -39,15 +40,15 @@ public class ReportsController extends AbstractFrameController {
 
 	@Autowired
 	private TreatmentReportController treatmentReportController;
-	
+
 	@Autowired
 	private MedicalRecordReportController medicalrecordReportController;
-	
+
 	@Autowired
 	private OutPatientPlanRecordController outPatientPlanRecordController;
 
 	@Autowired
-	private PatientMainTestService patientMainTestService;
+	private DataService dataService;
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getVisitLogBtn(),
@@ -112,7 +113,7 @@ public class ReportsController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void openMedicalrecordWindow() {
 		try {
 			medicalrecordReportController.prepareAndOpenFrame();
@@ -137,14 +138,9 @@ public class ReportsController extends AbstractFrameController {
 
 		if (result == JOptionPane.YES_OPTION) {
 			try {
-				mainMenuFrame.getTipLbl().setText("初始化基础数据");
-				patientMainTestService.testInit();
-
-				mainMenuFrame.getTipLbl().setText("执行测试场景");
-				patientMainTestService.execute();
+				dataService.initTestData();
 
 				DateUtil.clearSysDate();
-				mainMenuFrame.getTipLbl().setText("");
 			} catch (Exception e) {
 				mainMenuFrame.getTipLbl().setText("");
 				e.printStackTrace();
