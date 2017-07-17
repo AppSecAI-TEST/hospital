@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
+import com.neusoft.hs.portal.swing.init.DataService;
 import com.neusoft.hs.portal.swing.ui.reports.cost.controller.ChargeRecordReportController;
-import com.neusoft.hs.portal.swing.ui.reports.data.DataService;
 import com.neusoft.hs.portal.swing.ui.reports.medicalrecord.controller.MedicalRecordReportController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderExecuteController;
