@@ -13,10 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
+import com.neusoft.hs.platform.util.SysDateUpdateEvent;
 import com.neusoft.hs.platform.util.VersionUtil;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
@@ -24,7 +26,8 @@ import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 import com.neusoft.hs.portal.swing.util.UIUtil;
 
 @Component
-public class MainMenuFrame extends JFrame {
+public class MainMenuFrame extends JFrame implements
+		ApplicationListener<SysDateUpdateEvent> {
 
 	private JButton formsBtn;
 	private JButton reportsBtn;
@@ -116,6 +119,11 @@ public class MainMenuFrame extends JFrame {
 		}
 	}
 
+	@Override
+	public void onApplicationEvent(SysDateUpdateEvent event) {
+		refreshDate();
+	}
+
 	public JButton getFormsBtn() {
 		return formsBtn;
 	}
@@ -131,5 +139,4 @@ public class MainMenuFrame extends JFrame {
 	public JLabel getLogoLabel() {
 		return logoLabel;
 	}
-
 }

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
 
 public class DateUtil {
@@ -21,8 +22,13 @@ public class DateUtil {
 		return sysDate;
 	}
 
-	public static void setSysDate(Date sysDate1) {
-		sysDate = sysDate1;
+	public static void setSysDate(Date date) {
+		if (!sysDate.equals(date)) {
+			Date oldDate = sysDate;
+			sysDate = date;
+			ApplicationContextUtil.getApplicationContext().publishEvent(
+					new SysDateUpdateEvent(oldDate, sysDate));
+		}
 	}
 
 	public static void clearSysDate() {
