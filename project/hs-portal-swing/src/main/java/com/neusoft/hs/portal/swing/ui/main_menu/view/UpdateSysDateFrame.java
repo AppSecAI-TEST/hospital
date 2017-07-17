@@ -25,8 +25,9 @@ public class UpdateSysDateFrame extends JFrame {
 
 	private SpinnerDate sysDateSD;
 
-	private final static int Width = 370;
-	private final static int Height = 230;
+	private static final int DEFAULT_WIDTH = 400;
+
+	private static final int DEFAULT_HEIGHT = 100;
 
 	public UpdateSysDateFrame() {
 		setFrameUp();
@@ -35,16 +36,11 @@ public class UpdateSysDateFrame extends JFrame {
 	}
 
 	private void setFrameUp() {
-		getRootPane().setBorder(Borders.createEmptyBorder());
-		Image iconImage = UIUtil.getImage("eve.jpg");
-		setIconImage(iconImage);
-		setTitle(ConstMessagesCN.Labels.MAIN_MENU);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setSize(Width, Height);
+		setTitle(ConstMessagesCN.Labels.UpdateSysDate);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		LookAndFeelUtils.setWindowsLookAndFeel();
-		setLayout(new BorderLayout());
 	}
 
 	private void initComponents() {

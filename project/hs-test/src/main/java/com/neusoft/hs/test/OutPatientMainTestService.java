@@ -429,9 +429,15 @@ public class OutPatientMainTestService extends AppTestService {
 
 		// 2016-12-28
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-28"));
-		changedCount = visitDomainService.changeVisitState(admin001);
+		patientNightTestService.calculate(admin001);
 
-		assertTrue(changedCount == 2);
+		theVisit = visitFacade.find(visit001.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_LeaveHospital));
+
+		theVisit = visitFacade.find(visit003.getId());
+
+		assertTrue(theVisit.getState().equals(Visit.State_LeaveHospital));
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 09:00"));
 

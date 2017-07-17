@@ -2,9 +2,11 @@ package com.neusoft.hs.platform.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -138,6 +140,17 @@ public class DateUtil {
 		} else {
 			return new Long(dayTime / 86400000).intValue();
 		}
+	}
+
+	public static List<Date> calDayStart(Date startDate, Date endDate) {
+		List<Date> dayStarts = new ArrayList<Date>();
+		Date dayStart = getDateStart(startDate);
+		dayStart = addDay(dayStart, 1);
+		while (dayStart.before(endDate)) {
+			dayStarts.add(dayStart);
+			dayStart = addDay(dayStart, 1);
+		}
+		return dayStarts;
 	}
 
 	/**

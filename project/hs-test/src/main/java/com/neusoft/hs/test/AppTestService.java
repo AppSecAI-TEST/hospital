@@ -86,6 +86,9 @@ public abstract class AppTestService extends DataIniter {
 
 	@Autowired
 	protected OrderDAO orderDAO;
+	
+	@Autowired
+	protected PatientNightTestService patientNightTestService;
 
 	public void init() {
 		clear();
