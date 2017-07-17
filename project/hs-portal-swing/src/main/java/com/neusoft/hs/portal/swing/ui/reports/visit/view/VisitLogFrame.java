@@ -32,7 +32,7 @@ public class VisitLogFrame extends JFrame {
 	VisitLogTableModel visitLogTableModel;
 	JTable table;
 
-	JTextField stateTF;
+	JLabel stateJL;
 
 	private JButton closeBtn;
 
@@ -77,10 +77,8 @@ public class VisitLogFrame extends JFrame {
 		operationPanel.add(visitLbl);
 		operationPanel.add(visitCB);
 
-		JLabel stateLbl = new JLabel(ConstMessagesCN.Labels.State);
-		stateTF = new JTextField();
-		operationPanel.add(stateLbl);
-		operationPanel.add(stateTF);
+		stateJL = new JLabel();
+		operationPanel.add(stateJL);
 
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
@@ -107,8 +105,8 @@ public class VisitLogFrame extends JFrame {
 		return visitLogTableModel;
 	}
 
-	public JTextField getStateTF() {
-		return stateTF;
+	public JLabel getStateJL() {
+		return stateJL;
 	}
 
 	public JButton getCloseBtn() {

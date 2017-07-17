@@ -70,7 +70,7 @@ public class VisitLogController extends AbstractFrameController {
 
 		if (visit != null) {
 
-			visitLogFrame.getStateTF().setText(visit.getState());
+			visitLogFrame.getStateJL().setText(visit.getState());
 
 			Sort sort = new Sort("createDate");
 			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
