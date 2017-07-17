@@ -17,4 +17,7 @@ interface AbstractUserRepo extends
 
 	@Query("select n from Nurse n where n.dept in (:depts)")
 	List<Nurse> findNurse(@Param("depts") List<Dept> depts, Pageable pageable);
+
+	@Query("select a from Admin a")
+	List<Admin> findAdmin(Pageable pageable);
 }

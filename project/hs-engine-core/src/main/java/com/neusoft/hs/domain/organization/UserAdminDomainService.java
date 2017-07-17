@@ -38,6 +38,10 @@ public class UserAdminDomainService {
 		return userRepo.findNurse(depts, pageable);
 	}
 
+	public List<Admin> findAdmin(Pageable pageable) {
+		return userRepo.findAdmin(pageable);
+	}
+	
 	public void clear() {
 		userRepo.deleteAll();
 	}
