@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.swing.ui.reports.cost.controller.ChargeRecordReportController;
+import com.neusoft.hs.portal.swing.ui.reports.medicalrecord.controller.MedicalRecordReportController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderExecuteController;
 import com.neusoft.hs.portal.swing.ui.reports.outpatientoffice.controller.OutPatientPlanRecordController;
@@ -40,6 +41,9 @@ public class ReportsController extends AbstractFrameController {
 	private TreatmentReportController treatmentReportController;
 	
 	@Autowired
+	private MedicalRecordReportController medicalrecordReportController;
+	
+	@Autowired
 	private OutPatientPlanRecordController outPatientPlanRecordController;
 
 	@Autowired
@@ -55,6 +59,8 @@ public class ReportsController extends AbstractFrameController {
 				(e) -> openOrderExecuteWindow());
 		registerAction(mainMenuFrame.getTreatmentBtn(),
 				(e) -> openTreatmentWindow());
+		registerAction(mainMenuFrame.getMedicalrecordBtn(),
+				(e) -> openMedicalrecordWindow());
 		registerAction(mainMenuFrame.getCreateOutPatientPlanRecordBtn(),
 				(e) -> openOutPatientPlanRecordWindow());
 		registerAction(mainMenuFrame.getRunTestBtn(), (e) -> runTest());
@@ -101,6 +107,15 @@ public class ReportsController extends AbstractFrameController {
 	private void openTreatmentWindow() {
 		try {
 			treatmentReportController.prepareAndOpenFrame();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+	
+	private void openMedicalrecordWindow() {
+		try {
+			medicalrecordReportController.prepareAndOpenFrame();
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

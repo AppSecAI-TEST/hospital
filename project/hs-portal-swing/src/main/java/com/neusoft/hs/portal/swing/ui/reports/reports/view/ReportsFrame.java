@@ -21,6 +21,8 @@ public class ReportsFrame extends JFrame {
 
 	private JButton treatmentBtn;
 
+	private JButton medicalrecordBtn;
+
 	private JButton visitLogBtn;
 
 	private JButton createOutPatientPlanRecordBtn;
@@ -49,13 +51,14 @@ public class ReportsFrame extends JFrame {
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(7, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(8, 2, 20, 20));
 
 		visitLogBtn = new JButton(ConstMessagesCN.Labels.VisitLog);
 		chargeRecordReportBtn = new JButton(ConstMessagesCN.Labels.ChargeRecord);
 		orderBtn = new JButton(ConstMessagesCN.Labels.OrderList);
 		orderExecuteBtn = new JButton(ConstMessagesCN.Labels.OrderExecuteList);
 		treatmentBtn = new JButton(ConstMessagesCN.Labels.Treatment);
+		medicalrecordBtn = new JButton(ConstMessagesCN.Labels.MedicalRecords);
 		createOutPatientPlanRecordBtn = new JButton(
 				ConstMessagesCN.Labels.CreateOutPatientPlanRecord);
 		runTestBtn = new JButton(ConstMessagesCN.Labels.RunTest);
@@ -65,6 +68,7 @@ public class ReportsFrame extends JFrame {
 		menuPanel.add(orderBtn);
 		menuPanel.add(orderExecuteBtn);
 		menuPanel.add(treatmentBtn);
+		menuPanel.add(medicalrecordBtn);
 		menuPanel.add(createOutPatientPlanRecordBtn);
 
 		menuPanel.add(runTestBtn);
@@ -104,6 +108,10 @@ public class ReportsFrame extends JFrame {
 
 	public void setTreatmentBtn(JButton treatmentBtn) {
 		this.treatmentBtn = treatmentBtn;
+	}
+
+	public JButton getMedicalrecordBtn() {
+		return medicalrecordBtn;
 	}
 
 	public JButton getCreateOutPatientPlanRecordBtn() {
