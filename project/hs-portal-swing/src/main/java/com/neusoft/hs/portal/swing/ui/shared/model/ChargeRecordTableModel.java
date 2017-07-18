@@ -23,7 +23,7 @@ public class ChargeRecordTableModel extends DefaultTableModel<ChargeRecord> {
 		case 5:
 			return chargeRecord.getType();
 		case 6:
-			return DateFormatter.formatDate(chargeRecord.getCreateDate());
+			return DateFormatter.formatDateTime(chargeRecord.getCreateDate());
 		default:
 			return "";
 		}

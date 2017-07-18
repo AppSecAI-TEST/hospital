@@ -18,7 +18,7 @@ public class DateFormatter {
 		if (date == null) {
 			return null;
 		} else {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			return formatter.format(date);
 		}
 	}
