@@ -62,21 +62,25 @@ public class CashierInitAccountTableFrame extends JFrame {
 
 		add(paneWithTable, BorderLayout.CENTER);
 
-		JPanel buttonPanel = new JPanel();
+		JPanel operationPanel = new JPanel(new BorderLayout());
 
 		JLabel nameLbl = new JLabel(ConstMessagesCN.Labels.InitBlanace);
-		buttonPanel.add(nameLbl);
+		operationPanel.add(nameLbl, BorderLayout.WEST);
 
 		balanceSN = new SpinnerNumber();
-		buttonPanel.add(balanceSN);
+		operationPanel.add(balanceSN, BorderLayout.CENTER);
+		
+		JPanel buttonPanel = new JPanel();
 
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
 		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
 		buttonPanel.add(closeBtn);
+		
+		operationPanel.add(buttonPanel, BorderLayout.EAST);
 
-		add(buttonPanel, BorderLayout.SOUTH);
+		add(operationPanel, BorderLayout.SOUTH);
 	}
 
 	public Float getBalance() throws UIException {
@@ -95,7 +99,7 @@ public class CashierInitAccountTableFrame extends JFrame {
 	}
 
 	public void clearBalance() {
-		balanceSN.setValue(null);
+		balanceSN.setValue(0);
 	}
 
 	public VisitTableModel getVisitTableModel() {
