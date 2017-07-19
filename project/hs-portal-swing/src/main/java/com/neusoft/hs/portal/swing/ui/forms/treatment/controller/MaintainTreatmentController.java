@@ -1,4 +1,4 @@
-package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
+package com.neusoft.hs.portal.swing.ui.forms.treatment.controller;
 
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
-import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.MaintainTreatmentFrame;
+import com.neusoft.hs.portal.swing.ui.forms.treatment.view.MaintainTreatmentFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;

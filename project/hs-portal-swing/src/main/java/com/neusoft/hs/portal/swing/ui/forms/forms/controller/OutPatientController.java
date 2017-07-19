@@ -5,13 +5,13 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.OutPatientFrame;
-import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.CreateMedicalRecordController;
-import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.MaintainTreatmentController;
 import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
+import com.neusoft.hs.portal.swing.ui.forms.medicalrecord.controller.CreateMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
 import com.neusoft.hs.portal.swing.ui.forms.outpatientdept.controller.OutPatientDeptController;
 import com.neusoft.hs.portal.swing.ui.forms.registration.controller.RegistrationController;
+import com.neusoft.hs.portal.swing.ui.forms.treatment.controller.MaintainTreatmentController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
