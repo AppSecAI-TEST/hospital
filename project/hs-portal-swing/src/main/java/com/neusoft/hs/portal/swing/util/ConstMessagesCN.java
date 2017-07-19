@@ -192,6 +192,9 @@ public interface ConstMessagesCN {
 		String createInWardRecord = "创建入院记录";
 		String createTemporaryOrderListMR = "创建临时医嘱单";
 		String createInspectResultMR = "生成检查单病历";
+		String createOutPatientRecordMR = "创建门诊记录";
+		
+		
 		String transferMedicalRecord = "移交档案室";
 		String pass = "通过";
 		String archive = "归档";

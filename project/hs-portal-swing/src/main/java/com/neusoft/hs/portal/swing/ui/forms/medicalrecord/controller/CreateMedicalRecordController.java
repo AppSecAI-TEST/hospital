@@ -16,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
@@ -51,6 +53,9 @@ public class CreateMedicalRecordController extends AbstractFrameController {
 		registerAction(createMedicalRecordFrame.getVisitCB(),
 				(e) -> refreshMedicalRecord());
 
+		registerAction(createMedicalRecordFrame.getCreateOutPatientRecordBtn(),
+				(e) -> createOutPatientRecordMR());
+
 		registerAction(createMedicalRecordFrame.getCloseBtn(),
 				(e) -> closeWindow());
 
@@ -83,10 +88,23 @@ public class CreateMedicalRecordController extends AbstractFrameController {
 		visitComboBoxModel.addElements(entities);
 	}
 
-	private void createInspectResultMR() {
+	private void createOutPatientRecordMR() {
 		Visit visit = this.getVisit();
 		if (visit == null) {
 			Notifications.showFormValidationAlert("请选择患者");
+		}
+
+		try {
+			MedicalRecord medicalRecord = medicalRecordAppService.create(
+					MedicalRecordType.OutPatientRecord, visit,
+					UserUtil.getUser());
+
+			JFrame viewJFrame = (JFrame) medicalRecord.getRender().play(
+					medicalRecord);
+			viewJFrame.setVisible(true);
+		} catch (HsException e1) {
+			e1.printStackTrace();
+			Notifications.showFormValidationAlert(e1.getMessage());
 		}
 	}
 

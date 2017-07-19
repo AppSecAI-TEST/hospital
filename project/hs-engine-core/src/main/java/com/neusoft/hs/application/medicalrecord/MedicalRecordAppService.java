@@ -14,9 +14,11 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.exception.HsException;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -27,6 +29,26 @@ public class MedicalRecordAppService {
 
 	@Autowired
 	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
+
+	/**
+	 * 创建病历
+	 * 
+	 * @param typeId
+	 * @param visit
+	 * @param user
+	 * @return
+	 * @throws HsException
+	 */
+	public MedicalRecord create(String typeId, Visit visit, AbstractUser user)
+			throws HsException {
+
+		MedicalRecordType type = medicalRecordAdminDomainService
+				.getMedicalRecordType(typeId);
+
+		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
+
+		return medicalRecordDomainService.create(builder, visit, type, user);
+	}
 
 	/**
 	 * 创建病历

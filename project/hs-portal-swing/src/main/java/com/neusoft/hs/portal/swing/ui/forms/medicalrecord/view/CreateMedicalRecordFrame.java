@@ -27,6 +27,8 @@ public class CreateMedicalRecordFrame extends JFrame {
 
 	private MedicalRecordListPanel medicalRecordListPanel;
 
+	private JButton createOutPatientRecordBtn;
+
 	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
@@ -61,6 +63,11 @@ public class CreateMedicalRecordFrame extends JFrame {
 
 		interactivePanel.add(visitCB);
 
+		createOutPatientRecordBtn = new JButton(
+				ConstMessagesCN.Labels.createOutPatientRecordMR);
+
+		interactivePanel.add(createOutPatientRecordBtn);
+
 		workspacePanel.add(interactivePanel, BorderLayout.NORTH);
 
 		workspacePanel.add(medicalRecordListPanel, BorderLayout.CENTER);
@@ -90,6 +97,10 @@ public class CreateMedicalRecordFrame extends JFrame {
 
 	public JTable getTable() {
 		return medicalRecordListPanel.getTable();
+	}
+
+	public JButton getCreateOutPatientRecordBtn() {
+		return createOutPatientRecordBtn;
 	}
 
 	public JButton getCloseBtn() {
