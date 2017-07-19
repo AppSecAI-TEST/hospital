@@ -31,6 +31,9 @@ public class ReportsFrame extends JFrame {
 
 	private JLabel tipLbl;
 
+	private final static int Width = 225;
+	private final static int Height = 650;
+
 	public ReportsFrame() {
 		setFrameUp();
 		initComponents();
@@ -41,6 +44,7 @@ public class ReportsFrame extends JFrame {
 		getRootPane().setBorder(Borders.createEmptyBorder());
 		setTitle(ConstMessagesCN.Labels.REPORTS);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setSize(Width, Height);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		LookAndFeelUtils.setWindowsLookAndFeel();

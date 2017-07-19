@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.cashier.controller.CashierController;
-import com.neusoft.hs.portal.swing.ui.forms.forms.view.FormsFrame;
+import com.neusoft.hs.portal.swing.ui.forms.forms.view.InPatientFrame;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ArrangementMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.CreateMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.MaintainTreatmentController;
@@ -25,19 +25,13 @@ import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
-public class FormsController extends AbstractFrameController {
+public class InPatientController extends AbstractFrameController {
 
 	@Autowired
-	private FormsFrame mainMenuFrame;
+	private InPatientFrame mainMenuFrame;
 
 	@Autowired
 	private LoginController loginController;
-
-	@Autowired
-	private RegistrationController registrationController;
-	
-	@Autowired
-	private OutPatientDeptController outPatientDeptController;
 
 	@Autowired
 	private RegisterController registerController;
@@ -80,10 +74,6 @@ public class FormsController extends AbstractFrameController {
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
-		registerAction(mainMenuFrame.getCreateVoucherBtn(),
-				(e) -> openCreateVoucherWindow());
-		registerAction(mainMenuFrame.getNextVoucherBtn(),
-				(e) -> openNextVoucherWindow());
 		registerAction(mainMenuFrame.getRegisterBtn(),
 				(e) -> openRegisterWindow());
 		registerAction(mainMenuFrame.getCashierBtn(),
@@ -115,24 +105,6 @@ public class FormsController extends AbstractFrameController {
 	private void openLoginWindow() {
 		try {
 			loginController.prepareAndOpenFrame();
-		} catch (HsException e) {
-			e.printStackTrace();
-			Notifications.showFormValidationAlert(e.getMessage());
-		}
-	}
-
-	private void openCreateVoucherWindow() {
-		try {
-			registrationController.prepareAndOpenFrame();
-		} catch (HsException e) {
-			e.printStackTrace();
-			Notifications.showFormValidationAlert(e.getMessage());
-		}
-	}
-
-	private void openNextVoucherWindow() {
-		try {
-			outPatientDeptController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

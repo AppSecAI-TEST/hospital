@@ -6,9 +6,10 @@ import java.awt.event.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.neusoft.hs.portal.swing.ui.forms.forms.controller.FormsController;
+import com.neusoft.hs.portal.swing.ui.forms.forms.controller.InPatientController;
+import com.neusoft.hs.portal.swing.ui.forms.forms.controller.OutPatientController;
 import com.neusoft.hs.portal.swing.ui.main_menu.view.MainMenuFrame;
-import com.neusoft.hs.portal.swing.ui.reports.reports.controller.ReportsController;
+import com.neusoft.hs.portal.swing.ui.reports.reports.controller.MaintainController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 
 @Controller
@@ -18,11 +19,14 @@ public class MainMenuController extends AbstractFrameController {
 	private MainMenuFrame mainMenuFrame;
 
 	@Autowired
-	private FormsController formsController;
+	private InPatientController inPatientController;
+	
+	@Autowired
+	private OutPatientController outPatientController;
 
 	@Autowired
-	private ReportsController reportsController;
-	
+	private MaintainController maintainController;
+
 	@Autowired
 	private UpdateSysDateController updateSysDateController;
 
@@ -30,9 +34,12 @@ public class MainMenuController extends AbstractFrameController {
 	private LogoController logoController;
 
 	public void prepareAndOpenFrame() {
-		registerAction(mainMenuFrame.getFormsBtn(), (e) -> openFormsWindow());
-		registerAction(mainMenuFrame.getReportsBtn(),
-				(e) -> openReportsWindow());
+		registerAction(mainMenuFrame.getOutPatientBtn(),
+				(e) -> openOutPatientWindow());
+		registerAction(mainMenuFrame.getInPatientBtn(),
+				(e) -> openInPatientWindow());
+		registerAction(mainMenuFrame.getMaintainBtn(),
+				(e) -> openMaintainWindow());
 		registerAction(mainMenuFrame.getUpdateSysDateBtn(),
 				(e) -> openUpdateSysDateWindow());
 		registerAction(mainMenuFrame.getLogoLabel(), new MouseAdapter() {
@@ -44,16 +51,20 @@ public class MainMenuController extends AbstractFrameController {
 
 		mainMenuFrame.setVisible(true);
 	}
-
-	private void openFormsWindow() {
-		formsController.prepareAndOpenFrame();
-	}
-
-	private void openReportsWindow() {
-		reportsController.prepareAndOpenFrame();
-	}
 	
-	private void openUpdateSysDateWindow(){
+	private void openOutPatientWindow() {
+		outPatientController.prepareAndOpenFrame();
+	}
+
+	private void openInPatientWindow() {
+		inPatientController.prepareAndOpenFrame();
+	}
+
+	private void openMaintainWindow() {
+		maintainController.prepareAndOpenFrame();
+	}
+
+	private void openUpdateSysDateWindow() {
 		updateSysDateController.prepareAndOpenFrame();
 	}
 

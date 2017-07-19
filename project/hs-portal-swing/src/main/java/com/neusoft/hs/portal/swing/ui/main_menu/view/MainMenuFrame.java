@@ -29,8 +29,11 @@ import com.neusoft.hs.portal.swing.util.UIUtil;
 public class MainMenuFrame extends JFrame implements
 		ApplicationListener<SysDateUpdateEvent> {
 
-	private JButton formsBtn;
-	private JButton reportsBtn;
+	private JButton outPatientBtn;
+
+	private JButton inPatientBtn;
+
+	private JButton maintainBtn;
 
 	private JLabel logoLabel;
 
@@ -64,13 +67,15 @@ public class MainMenuFrame extends JFrame implements
 		JPanel workspacePanel = new JPanel(new GridLayout(2, 1, 20, 20));
 
 		JPanel operationPanel = new JPanel();
-		operationPanel.setLayout(new GridLayout(1, 2, 20, 20));
+		operationPanel.setLayout(new GridLayout(1, 3, 20, 20));
 
-		formsBtn = new JButton(ConstMessagesCN.Labels.FORMS);
-		reportsBtn = new JButton(ConstMessagesCN.Labels.REPORTS);
+		outPatientBtn = new JButton(ConstMessagesCN.Labels.OutPatient);
+		inPatientBtn = new JButton(ConstMessagesCN.Labels.InPatient);
+		maintainBtn = new JButton(ConstMessagesCN.Labels.REPORTS);
 
-		operationPanel.add(formsBtn);
-		operationPanel.add(reportsBtn);
+		operationPanel.add(outPatientBtn);
+		operationPanel.add(inPatientBtn);
+		operationPanel.add(maintainBtn);
 
 		workspacePanel.add(operationPanel);
 
@@ -124,12 +129,16 @@ public class MainMenuFrame extends JFrame implements
 		refreshDate();
 	}
 
-	public JButton getFormsBtn() {
-		return formsBtn;
+	public JButton getOutPatientBtn() {
+		return outPatientBtn;
 	}
 
-	public JButton getReportsBtn() {
-		return reportsBtn;
+	public JButton getInPatientBtn() {
+		return inPatientBtn;
+	}
+
+	public JButton getMaintainBtn() {
+		return maintainBtn;
 	}
 
 	public JButton getUpdateSysDateBtn() {

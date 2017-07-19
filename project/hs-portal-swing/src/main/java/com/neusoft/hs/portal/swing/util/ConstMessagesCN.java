@@ -34,11 +34,11 @@ public interface ConstMessagesCN {
 		String MAIN_MENU = "医院业务（RealOne Suite）";
 		String Version = "版本";
 		String BuildDate = "构建日期";
-		
+
 		String SimulationSysDate = "模拟的系统时间";
 		String SysDate = "系统时间";
 		String UpdateSysDate = "修改系统时间";
-		
+
 		String CLIENTS = "Clients";
 		String RESERVATIONS = "Reservations";
 		String ADDRESSES = "Addresses";
@@ -51,7 +51,7 @@ public interface ConstMessagesCN {
 		String ReCreate_BTN = "重新生成";
 		String Create_BTN = "生成";
 		String Sign_BTN = "签名";
-		
+
 		String REMOVE_BTN = "删除";
 
 		String SURNAME = "Surname";
@@ -93,8 +93,9 @@ public interface ConstMessagesCN {
 		String ROOM_X_RESERVATIONS = "Rooms reservations";
 		String RESERVATION = "Reservation";
 		String PRICE = "Price";
-		String FORMS = "日常业务";
-		String REPORTS = "统计业务";
+		String OutPatient = "门诊业务";
+		String InPatient = "住院业务";
+		String REPORTS = "维护和统计业务";
 		String PAYMENT_COUNT = "Payment coun";
 		String NUMBER_OF_COUNT = "Number of count";
 		String NUMBER_OF_RESERVATIONS = "Number of reservations";
@@ -107,7 +108,7 @@ public interface ConstMessagesCN {
 		String Login = "登录";
 		String CreateVoucher = "挂号";
 		String NextVoucher = "叫号";
-		String Register = "送诊";
+		String Register = "住院登记";
 		String InPatientDept = "住院科室";
 		String InPatientArea = "住院病区";
 		String RespDoctor = "责任医生";
@@ -115,7 +116,7 @@ public interface ConstMessagesCN {
 		String Account = "账号";
 		String OutPatientPlanRecord = "出诊计划";
 		String InitAccount = "预存住院费";
-		String ReceiveVisit = "接诊";
+		String ReceiveVisit = "住院科室接诊";
 		String InitBlanace = "预存金额";
 		String Bed = "床位";
 		String RespNurse = "责任护士";

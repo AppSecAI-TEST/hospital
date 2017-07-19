@@ -21,7 +21,7 @@ import com.neusoft.hs.portal.swing.util.Notifications;
 import com.neusoft.hs.test.PatientMainTestService;
 
 @Controller
-public class ReportsController extends AbstractFrameController {
+public class MaintainController extends AbstractFrameController {
 
 	@Autowired
 	private ReportsFrame mainMenuFrame;
