@@ -82,6 +82,8 @@ public class InPatientController extends AbstractFrameController {
 				(e) -> openReceiveWindow());
 		registerAction(mainMenuFrame.getCreateOrderBtn(),
 				(e) -> openCreateOrderWindow());
+		registerAction(mainMenuFrame.getCreateMedicalRecordBtn(),
+				(e) -> openCreateMedicalRecordWindow());
 		registerAction(mainMenuFrame.getVerifyOrderBtn(),
 				(e) -> openVerifyOrderWindow());
 		registerAction(mainMenuFrame.getSendOrderExecuteBtn(),
@@ -177,6 +179,15 @@ public class InPatientController extends AbstractFrameController {
 	private void openMaintainTreatmentWindow() {
 		try {
 			maintainTreatmentController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openCreateMedicalRecordWindow() {
+		try {
+			createMedicalRecordController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

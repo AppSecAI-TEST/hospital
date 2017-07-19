@@ -54,6 +54,8 @@ public class OutPatientController extends AbstractFrameController {
 				(e) -> openFinishOrderExecuteWindow());
 		registerAction(mainMenuFrame.getMaintainTreatmentBtn(),
 				(e) -> openMaintainTreatmentWindow());
+		registerAction(mainMenuFrame.getCreateMedicalRecordBtn(),
+				(e) -> openCreateMedicalRecordWindow());
 
 		mainMenuFrame.setVisible(true);
 	}
@@ -106,6 +108,15 @@ public class OutPatientController extends AbstractFrameController {
 	private void openMaintainTreatmentWindow() {
 		try {
 			maintainTreatmentController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openCreateMedicalRecordWindow() {
+		try {
+			createMedicalRecordController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
