@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.neusoft.hospital</groupId>
 	<artifactId>hs</artifactId>
@@ -40,15 +41,17 @@
 	</dependencies>
 
 	<modules>
-		<module>hs-test</module>
-		<module>hs-test-local</module>
-		<module>hs-test-server</module>
-
 		<module>hs-portal-swing-mysql</module>
 		<module>hs-portal-swing-h2</module>
 
 		<module>hs-portal-thymeleaf</module>
 		<module>hs-portal-swing</module>
+
+		<module>hs-portal</module>
+
+		<module>hs-test</module>
+		<module>hs-test-local</module>
+		<module>hs-test-server</module>
 
 		<module>hs-data-init</module>
 		<module>hs-data-init-test</module>
@@ -73,8 +76,9 @@
 		<module>hs-server-registration</module>
 
 		<module>hs-platform</module>
-    	<module>hs-platform-test</module>
-  </modules>
+		<module>hs-platform-test</module>
+
+	</modules>
 
 	<build>
 		<plugins>
