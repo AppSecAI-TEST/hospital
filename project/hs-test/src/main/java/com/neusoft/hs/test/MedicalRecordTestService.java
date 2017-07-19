@@ -30,7 +30,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
-@Transactional(rollbackFor = Exception.class)
+//@Transactional(rollbackFor = Exception.class)
 public class MedicalRecordTestService {
 
 	@Autowired
@@ -135,6 +135,7 @@ public class MedicalRecordTestService {
 
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public List<MedicalRecord> createInspectResultMedicalRecord(Visit visit,
 			MedicalRecordType medicalRecordType, Doctor doctor)
 			throws HsException {

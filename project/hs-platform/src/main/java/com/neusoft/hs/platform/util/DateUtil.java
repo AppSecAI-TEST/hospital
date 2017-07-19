@@ -23,7 +23,7 @@ public class DateUtil {
 	}
 
 	public static void setSysDate(Date date) {
-		if (!sysDate.equals(date)) {
+		if (sysDate == null || !sysDate.equals(date)) {
 			Date oldDate = sysDate;
 			sysDate = date;
 			ApplicationContextUtil.getApplicationContext().publishEvent(
