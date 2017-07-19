@@ -18,10 +18,7 @@ import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class OutPatientFrame extends JFrame implements
-		ApplicationListener<LoginEvent> {
-
-	private JButton loginBtn;
+public class OutPatientFrame extends JFrame {
 
 	private JButton createVoucherBtn;
 
@@ -60,9 +57,8 @@ public class OutPatientFrame extends JFrame implements
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(7, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(6, 2, 20, 20));
 
-		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
 		createVoucherBtn = new JButton(ConstMessagesCN.Labels.CreateVoucher);
 		nextVoucherBtn = new JButton(ConstMessagesCN.Labels.NextVoucher);
 		createOrderBtn = new JButton(ConstMessagesCN.Labels.CreateOrder);
@@ -73,7 +69,6 @@ public class OutPatientFrame extends JFrame implements
 		maintainTreatmentBtn = new JButton(
 				ConstMessagesCN.Labels.MaintainTreatment);
 
-		menuPanel.add(loginBtn);
 		menuPanel.add(createVoucherBtn);
 		menuPanel.add(nextVoucherBtn);
 		menuPanel.add(createOrderBtn);
@@ -83,16 +78,6 @@ public class OutPatientFrame extends JFrame implements
 
 		add(menuPanel, BorderLayout.CENTER);
 
-		JPanel statePanel = new JPanel();
-		loginLbl = new JLabel(ConstMessagesCN.Labels.LogoutState);
-		statePanel.add(loginLbl);
-
-		add(statePanel, BorderLayout.SOUTH);
-
-	}
-
-	public JButton getLoginBtn() {
-		return loginBtn;
 	}
 
 	public JButton getCreateVoucherBtn() {
@@ -117,15 +102,5 @@ public class OutPatientFrame extends JFrame implements
 
 	public JButton getMaintainTreatmentBtn() {
 		return maintainTreatmentBtn;
-	}
-
-	@Override
-	public void onApplicationEvent(LoginEvent event) {
-		AbstractUser user = (AbstractUser) event.getSource();
-		if (user != null) {
-			loginLbl.setText(user.getName());
-		} else {
-			loginLbl.setText(ConstMessagesCN.Labels.LogoutState);
-		}
 	}
 }

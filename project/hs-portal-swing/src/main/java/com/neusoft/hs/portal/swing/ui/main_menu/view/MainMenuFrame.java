@@ -13,21 +13,25 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.platform.util.SysDateUpdateEvent;
 import com.neusoft.hs.platform.util.VersionUtil;
+import com.neusoft.hs.portal.framework.security.LoginEvent;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.LookAndFeelUtils;
 import com.neusoft.hs.portal.swing.util.UIUtil;
 
 @Component
-public class MainMenuFrame extends JFrame implements
-		ApplicationListener<SysDateUpdateEvent> {
+public class MainMenuFrame extends JFrame implements ApplicationListener {
+
+	private JButton loginBtn;
 
 	private JButton outPatientBtn;
 
@@ -39,6 +43,8 @@ public class MainMenuFrame extends JFrame implements
 
 	private JLabel sysDateLbl;
 	private JButton updateSysDateBtn;
+	
+	private JLabel loginLbl;
 
 	private final static int Width = 370;
 	private final static int Height = 230;
@@ -67,12 +73,14 @@ public class MainMenuFrame extends JFrame implements
 		JPanel workspacePanel = new JPanel(new GridLayout(2, 1, 20, 20));
 
 		JPanel operationPanel = new JPanel();
-		operationPanel.setLayout(new GridLayout(1, 3, 20, 20));
+		operationPanel.setLayout(new GridLayout(2, 2, 20, 20));
 
+		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
 		outPatientBtn = new JButton(ConstMessagesCN.Labels.OutPatient);
 		inPatientBtn = new JButton(ConstMessagesCN.Labels.InPatient);
 		maintainBtn = new JButton(ConstMessagesCN.Labels.REPORTS);
 
+		operationPanel.add(loginBtn);
 		operationPanel.add(outPatientBtn);
 		operationPanel.add(inPatientBtn);
 		operationPanel.add(maintainBtn);
@@ -102,6 +110,8 @@ public class MainMenuFrame extends JFrame implements
 		workspacePanel.add(versionPanel);
 
 		add(workspacePanel, BorderLayout.CENTER);
+		
+		JPanel statusPanel = new JPanel(new GridLayout(2, 1, 2, 2));
 
 		JPanel sysDatePanel = new JPanel(new GridLayout(1, 2, 2, 2));
 		sysDateLbl = new JLabel();
@@ -109,8 +119,16 @@ public class MainMenuFrame extends JFrame implements
 
 		updateSysDateBtn = new JButton(ConstMessagesCN.Labels.UpdateSysDate);
 		sysDatePanel.add(updateSysDateBtn);
-
-		add(sysDatePanel, BorderLayout.SOUTH);
+		
+		statusPanel.add(sysDatePanel);
+		
+		JPanel loginPanel = new JPanel();
+		loginLbl = new JLabel(ConstMessagesCN.Labels.LogoutState);
+		loginPanel.add(loginLbl);
+		
+		statusPanel.add(loginPanel);
+		
+		add(statusPanel, BorderLayout.SOUTH);
 
 		refreshDate();
 	}
@@ -125,8 +143,21 @@ public class MainMenuFrame extends JFrame implements
 	}
 
 	@Override
-	public void onApplicationEvent(SysDateUpdateEvent event) {
-		refreshDate();
+	public void onApplicationEvent(ApplicationEvent event) {
+		if (event instanceof SysDateUpdateEvent) {
+			refreshDate();
+		}else if (event instanceof LoginEvent) {
+			AbstractUser user = (AbstractUser) event.getSource();
+			if (user != null) {
+				loginLbl.setText(user.getName());
+			} else {
+				loginLbl.setText(ConstMessagesCN.Labels.LogoutState);
+			}
+		}
+	}
+
+	public JButton getLoginBtn() {
+		return loginBtn;
 	}
 
 	public JButton getOutPatientBtn() {
