@@ -34,8 +34,8 @@ import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
-import com.neusoft.hs.platform.user.User;
 import com.neusoft.hs.platform.util.DateUtil;
+import com.neusoft.hs.portal.businessview.visit.VisitBusinessView;
 import com.neusoft.hs.portal.framework.exception.UIException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.CreateOrderFrame;
@@ -58,9 +58,6 @@ public class CreateOrderController extends AbstractFrameController {
 	private OrderAppService orderAppService;
 
 	@Autowired
-	private VisitDomainService visitDomainService;
-
-	@Autowired
 	private OrderAdminDomainService orderAdminDomainService;
 
 	@Autowired
@@ -71,6 +68,9 @@ public class CreateOrderController extends AbstractFrameController {
 
 	@Autowired
 	private OutPatientDeptAppService outPatientDeptAppService;
+	
+	@Autowired
+	private VisitBusinessView visitBusinessView;
 
 	private VisitComboBoxModel visitComboBoxModel;
 
@@ -130,21 +130,7 @@ public class CreateOrderController extends AbstractFrameController {
 
 		AbstractUser user = UserUtil.getUser();
 
-		List<Visit> entities = new ArrayList<Visit>();
-		// 获取医生住院患者列表
-		List<Visit> patientVisits = visitDomainService.findByStateAndDept(
-				Visit.State_IntoWard, UserUtil.getUser().getDept(), pageable);
-		entities.addAll(patientVisits);
-
-		// 获取医生门诊患者列表
-		OutPatientRoom outPatientRoom = outPatientDeptAppService
-				.findOutPatientRoom(user, DateUtil.getSysDate());
-		if (outPatientRoom != null) {
-			List<Visit> outPatientVisits = visitDomainService
-					.findByStateAndDept(Visit.State_Diagnosing, outPatientRoom,
-							pageable);
-			entities.addAll(outPatientVisits);
-		}
+		List<Visit> entities = visitBusinessView.findVisits(user, pageable);
 
 		visitComboBoxModel = this.createOrderFrame.getCreateOrderPanel()
 				.getVisitComboBoxModel();

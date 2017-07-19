@@ -15,6 +15,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-portal</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.neusoft.hospital</groupId>
 			<artifactId>hs-test</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>

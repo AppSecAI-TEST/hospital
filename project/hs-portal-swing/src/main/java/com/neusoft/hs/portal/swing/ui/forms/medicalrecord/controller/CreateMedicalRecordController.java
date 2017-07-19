@@ -13,15 +13,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.portal.businessview.visit.VisitBusinessView;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.medicalrecord.view.CreateMedicalRecordFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
@@ -43,6 +42,9 @@ public class CreateMedicalRecordController extends AbstractFrameController {
 
 	@Autowired
 	private MedicalRecordAppService medicalRecordAppService;
+
+	@Autowired
+	private VisitBusinessView visitBusinessView;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -71,9 +73,8 @@ public class CreateMedicalRecordController extends AbstractFrameController {
 	private void loadVisits() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<Visit> entities = visitDomainService.findByStateAndDepts(
-				Visit.State_OutHospital,
-				UserUtil.getUser().getOperationDepts(), pageable);
+		List<Visit> entities = visitBusinessView.findVisits(UserUtil.getUser(),
+				pageable);
 
 		VisitComboBoxModel visitComboBoxModel = createMedicalRecordFrame
 				.getVisitComboBoxModel();
