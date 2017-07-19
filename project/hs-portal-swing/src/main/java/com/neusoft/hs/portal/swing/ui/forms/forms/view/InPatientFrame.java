@@ -5,16 +5,23 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.portal.framework.security.LoginEvent;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class InPatientFrame extends JFrame {
+public class InPatientFrame extends JFrame implements
+		ApplicationListener<LoginEvent> {
+
+	private JButton loginBtn;
 
 	private JButton registerBtn;
 
@@ -42,6 +49,8 @@ public class InPatientFrame extends JFrame {
 
 	private JButton archiveMedicalRecordBtn;
 
+	private JLabel loginLbl;
+
 	private final static int Width = 225;
 	private final static int Height = 650;
 
@@ -65,8 +74,9 @@ public class InPatientFrame extends JFrame {
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(13, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(14, 2, 20, 20));
 
+		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
 		registerBtn = new JButton(ConstMessagesCN.Labels.Register);
 		cashierBtn = new JButton(ConstMessagesCN.Labels.InitAccount);
 		receiveBtn = new JButton(ConstMessagesCN.Labels.ReceiveVisit);
@@ -88,6 +98,7 @@ public class InPatientFrame extends JFrame {
 		archiveMedicalRecordBtn = new JButton(
 				ConstMessagesCN.Labels.ArchiveMedicalRecord);
 
+		menuPanel.add(loginBtn);
 		menuPanel.add(registerBtn);
 		menuPanel.add(cashierBtn);
 		menuPanel.add(receiveBtn);
@@ -103,6 +114,17 @@ public class InPatientFrame extends JFrame {
 		menuPanel.add(archiveMedicalRecordBtn);
 
 		add(menuPanel, BorderLayout.CENTER);
+
+		JPanel statePanel = new JPanel();
+		loginLbl = new JLabel(ConstMessagesCN.Labels.LogoutState);
+		statePanel.add(loginLbl);
+
+		add(statePanel, BorderLayout.SOUTH);
+
+	}
+
+	public JButton getLoginBtn() {
+		return loginBtn;
 	}
 
 	public JButton getRegisterBtn() {
@@ -155,5 +177,15 @@ public class InPatientFrame extends JFrame {
 
 	public JButton getArchiveMedicalRecordBtn() {
 		return archiveMedicalRecordBtn;
+	}
+
+	@Override
+	public void onApplicationEvent(LoginEvent event) {
+		AbstractUser user = (AbstractUser) event.getSource();
+		if (user != null) {
+			loginLbl.setText(user.getName());
+		} else {
+			loginLbl.setText(ConstMessagesCN.Labels.LogoutState);
+		}
 	}
 }

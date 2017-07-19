@@ -13,11 +13,14 @@ import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.OrderExecut
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ReceiveVisitController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.TransferMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.VerifyOrderController;
+import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
+import com.neusoft.hs.portal.swing.ui.forms.outpatientdept.controller.OutPatientDeptController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.ArchiveMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.QualityControlController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
+import com.neusoft.hs.portal.swing.ui.forms.registration.controller.RegistrationController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -26,6 +29,9 @@ public class InPatientController extends AbstractFrameController {
 
 	@Autowired
 	private InPatientFrame mainMenuFrame;
+
+	@Autowired
+	private LoginController loginController;
 
 	@Autowired
 	private RegisterController registerController;
@@ -67,6 +73,7 @@ public class InPatientController extends AbstractFrameController {
 	private ArchiveMedicalRecordController archiveMedicalRecordController;
 
 	public void prepareAndOpenFrame() {
+		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
 		registerAction(mainMenuFrame.getRegisterBtn(),
 				(e) -> openRegisterWindow());
 		registerAction(mainMenuFrame.getCashierBtn(),
@@ -93,6 +100,15 @@ public class InPatientController extends AbstractFrameController {
 				(e) -> openArchiveMedicalRecordWindow());
 
 		mainMenuFrame.setVisible(true);
+	}
+
+	private void openLoginWindow() {
+		try {
+			loginController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
 	}
 
 	private void openRegisterWindow() {

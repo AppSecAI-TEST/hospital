@@ -7,6 +7,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.OutPatientFrame;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.CreateMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.MaintainTreatmentController;
+import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
 import com.neusoft.hs.portal.swing.ui.forms.outpatientdept.controller.OutPatientDeptController;
@@ -19,6 +20,9 @@ public class OutPatientController extends AbstractFrameController {
 
 	@Autowired
 	private OutPatientFrame mainMenuFrame;
+
+	@Autowired
+	private LoginController loginController;
 
 	@Autowired
 	private RegistrationController registrationController;
@@ -39,6 +43,7 @@ public class OutPatientController extends AbstractFrameController {
 	private OrderExecuteFinishController orderExecuteFinishController;
 
 	public void prepareAndOpenFrame() {
+		registerAction(mainMenuFrame.getLoginBtn(), (e) -> openLoginWindow());
 		registerAction(mainMenuFrame.getCreateVoucherBtn(),
 				(e) -> openCreateVoucherWindow());
 		registerAction(mainMenuFrame.getNextVoucherBtn(),
@@ -51,6 +56,15 @@ public class OutPatientController extends AbstractFrameController {
 				(e) -> openMaintainTreatmentWindow());
 
 		mainMenuFrame.setVisible(true);
+	}
+
+	private void openLoginWindow() {
+		try {
+			loginController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
 	}
 
 	private void openCreateVoucherWindow() {
