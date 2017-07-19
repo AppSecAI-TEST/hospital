@@ -32,7 +32,7 @@ public class ReportsFrame extends JFrame {
 	private JLabel tipLbl;
 
 	private final static int Width = 225;
-	private final static int Height = 650;
+	private final static int Height = 450;
 
 	public ReportsFrame() {
 		setFrameUp();
