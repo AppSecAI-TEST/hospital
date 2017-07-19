@@ -21,6 +21,7 @@ import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.portal.businessview.visit.VisitBusinessView;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.treatment.view.MaintainTreatmentFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
@@ -34,7 +35,7 @@ public class MaintainTreatmentController extends AbstractFrameController {
 	private MaintainTreatmentFrame maintainTreatmentFrame;
 
 	@Autowired
-	private VisitDomainService visitDomainService;
+	private VisitBusinessView visitBusinessView;
 
 	@Autowired
 	private TreatmentDomainService treatmentDomainService;
@@ -62,12 +63,8 @@ public class MaintainTreatmentController extends AbstractFrameController {
 	private void loadVisits() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<String> states = new ArrayList<String>();
-		states.add(Visit.State_OutHospital);
-		states.add(Visit.State_IntoWard);
-
-		List<Visit> entities = visitDomainService.findByStatesAndDepts(states,
-				UserUtil.getUser().getOperationDepts(), pageable);
+		List<Visit> entities = visitBusinessView.findVisits(UserUtil.getUser(),
+				pageable);
 
 		VisitComboBoxModel visitComboBoxModel = maintainTreatmentFrame
 				.getVisitComboBoxModel();
