@@ -89,6 +89,9 @@ public class DateUtil {
 	}
 
 	public static String toString(Date date) throws HsException {
+		if (date == null) {
+			return null;
+		}
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm");
 		return simpleDateFormat.format(date);

@@ -8,6 +8,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.portal.swing.business.medicalrecord.InWardRecordMRRender;
+import com.neusoft.hs.portal.swing.business.medicalrecord.OutPatientRecordMRRender;
 import com.neusoft.hs.portal.swing.business.medicalrecord.TemporaryOrderListMRRender;
 
 @Service
@@ -34,6 +35,13 @@ public class SwingDataInitService {
 				.getMedicalRecordType(MedicalRecordType.IntoWardRecord);
 		type.setRender(new InWardRecordMRRender(
 				MedicalRecordRender.IntoWardRecord));
+
+		type.save();
+
+		type = medicalRecordAdminDomainService
+				.getMedicalRecordType(MedicalRecordType.OutPatientRecord);
+		type.setRender(new OutPatientRecordMRRender(
+				MedicalRecordRender.OutPatientRecord));
 
 		type.save();
 	}
