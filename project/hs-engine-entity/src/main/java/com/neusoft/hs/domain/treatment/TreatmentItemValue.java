@@ -102,4 +102,8 @@ public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 		this.getService(TreatmentItemValueRepo.class).save(this);
 	}
 
+	@Override
+	public void delete() {
+		this.getService(TreatmentItemValueRepo.class).delete(this);
+	}
 }

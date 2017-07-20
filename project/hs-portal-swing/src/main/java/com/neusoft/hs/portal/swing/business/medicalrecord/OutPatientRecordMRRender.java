@@ -1,5 +1,8 @@
 package com.neusoft.hs.portal.swing.business.medicalrecord;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.swing.JButton;
@@ -8,9 +11,9 @@ import javax.swing.JFrame;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
+import com.neusoft.hs.domain.treatment.ItemValue;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
-import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -43,13 +46,15 @@ public class OutPatientRecordMRRender extends MedicalRecordRender {
 							TreatmentItemSpec.MainDescribe);
 					if (item.getValues() != null
 							&& item.getValues().size() >= 0) {
-						item.setValues(null);
+						// 修改主诉
+						((SimpleTreatmentItemValue) item.getValues().get(0))
+								.setInfo(mainDescribe);
+					} else {
+						// 创建主诉
+						SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
+						value.setInfo(mainDescribe);
+						item.addValue(value);
 					}
-					// 创建主诉
-					SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
-					value.setInfo(mainDescribe);
-
-					item.addValue(value);
 
 					getService(MedicalRecordAppService.class).save(
 							medicalRecord);

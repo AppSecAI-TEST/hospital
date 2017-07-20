@@ -16,4 +16,6 @@ public interface ItemValue {
 
 	public Itemable getItem();
 
+	public void delete();
+
 }

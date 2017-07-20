@@ -21,6 +21,8 @@ public interface Itemable {
 	public void setValues(List<ItemValue> values);
 
 	public void addValue(ItemValue value);
+	
+	public void updateValue(ItemValue value);
 
 	public void save();
 

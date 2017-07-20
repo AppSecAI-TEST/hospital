@@ -122,6 +122,19 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 		medicalRecordItemValue.setVisit(visit);
 	}
 
+	@Override
+	public void updateValue(ItemValue value) {
+		// 删除原value
+		if (this.values != null && this.values.size() >= 0) {
+			for (ItemValue oldValue : this.values) {
+				oldValue.delete();
+			}
+		}
+		this.values = null;
+		// 增加新value
+		this.addValue(value);
+	}
+
 	public Visit getVisit() {
 		return visit;
 	}
