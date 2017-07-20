@@ -95,7 +95,7 @@ public class CreateMedicalRecordController extends AbstractFrameController {
 
 		try {
 			MedicalRecord medicalRecord = medicalRecordAppService.create(
-					MedicalRecordType.OutPatientRecord, visit,
+					MedicalRecordType.OutPatientRecord, visit, false,
 					UserUtil.getUser());
 
 			JFrame viewJFrame = (JFrame) medicalRecord.getRender().play(

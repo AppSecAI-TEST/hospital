@@ -39,13 +39,14 @@ public class MedicalRecordAppService {
 	 * @return
 	 * @throws HsException
 	 */
-	public MedicalRecord create(String typeId, Visit visit, AbstractUser user)
-			throws HsException {
+	public MedicalRecord create(String typeId, Visit visit,
+			boolean needTreatment, AbstractUser user) throws HsException {
 
 		MedicalRecordType type = medicalRecordAdminDomainService
 				.getMedicalRecordType(typeId);
 
 		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
+		builder.setNeedTreatment(needTreatment);
 
 		return medicalRecordDomainService.create(builder, visit, type, user);
 	}

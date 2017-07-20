@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentException;
@@ -35,6 +36,9 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 
 	@OneToOne(mappedBy = "builder", cascade = { CascadeType.ALL })
 	private MedicalRecord record;
+
+	@Transient
+	private boolean needTreatment = true;
 
 	/**
 	 * 创建病历数据
@@ -74,4 +78,11 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 		this.record = record;
 	}
 
+	public boolean isNeedTreatment() {
+		return needTreatment;
+	}
+
+	public void setNeedTreatment(boolean needTreatment) {
+		this.needTreatment = needTreatment;
+	}
 }

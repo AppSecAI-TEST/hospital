@@ -119,6 +119,7 @@ public class MaintainTreatmentFrame extends JFrame {
 		} else {
 			treatments.get(spec).setText("");
 		}
+		treatments.get(spec).repaint();
 	}
 
 	public JComboBox<Visit> getVisitCB() {
