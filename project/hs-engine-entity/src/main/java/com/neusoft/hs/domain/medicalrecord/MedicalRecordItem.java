@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.treatment.ItemValue;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemValue;
@@ -105,18 +106,20 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 		return values;
 	}
 
-	public void setValues(List<MedicalRecordItemValue> values) {
+	public void setValues(List values) {
 		this.values = values;
 	}
 
-	public void addValue(MedicalRecordItemValue value) {
+	public void addValue(ItemValue value) {
+
+		MedicalRecordItemValue medicalRecordItemValue = (MedicalRecordItemValue) value;
 		if (this.values == null) {
 			this.values = new ArrayList<MedicalRecordItemValue>();
 		}
-		this.values.add(value);
+		this.values.add(medicalRecordItemValue);
 
-		value.setItem(this);
-		value.setVisit(visit);
+		medicalRecordItemValue.setItem(this);
+		medicalRecordItemValue.setVisit(visit);
 	}
 
 	public Visit getVisit() {

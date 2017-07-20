@@ -8,6 +8,10 @@ import javax.swing.JFrame;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
+import com.neusoft.hs.domain.treatment.Itemable;
+import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
+import com.neusoft.hs.domain.treatment.TreatmentItem;
+import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Entity
@@ -30,15 +34,31 @@ public class OutPatientRecordMRRender extends MedicalRecordRender {
 			frame.dispose();
 		});
 		JButton saveBtn = frame.getSaveBtn();
-		saveBtn.addActionListener((e) -> {
-			try {
-				getService(MedicalRecordAppService.class).save(medicalRecord);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				Notifications.showFormValidationAlert(e1.getMessage());
-			}
-		});
+		if (saveBtn != null) {
+			saveBtn.addActionListener((e) -> {
+				try {
+					// 修改主诉
+					String mainDescribe = frame.getMainDescribeTF().getText();
+					Itemable item = medicalRecord.getDatas().get(
+							TreatmentItemSpec.MainDescribe);
+					if (item.getValues() != null
+							&& item.getValues().size() >= 0) {
+						item.setValues(null);
+					}
+					// 创建主诉
+					SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
+					value.setInfo(mainDescribe);
 
+					item.addValue(value);
+
+					getService(MedicalRecordAppService.class).save(
+							medicalRecord);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					Notifications.showFormValidationAlert(e1.getMessage());
+				}
+			});
+		}
 		return frame;
 	}
 }

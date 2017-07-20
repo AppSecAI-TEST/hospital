@@ -121,20 +121,23 @@ public class TreatmentItem extends IdEntity implements Itemable {
 		}
 		return info.toString();
 	}
-
-	public void setValues(List<TreatmentItemValue> values) {
+	
+	public void setValues(List values){
 		this.values = values;
 	}
 
-	public void addValue(TreatmentItemValue value) {
+	public void addValue(ItemValue value) {
+
+		TreatmentItemValue treatmentItemValue = (TreatmentItemValue) value;
+
 		if (this.values == null) {
 			this.values = new ArrayList<TreatmentItemValue>();
 		}
-		this.values.add(value);
+		this.values.add(treatmentItemValue);
 
-		value.setItem(this);
-		value.setVisit(visit);
-		value.setTreatmentItemSpec(treatmentItemSpec);
+		treatmentItemValue.setItem(this);
+		treatmentItemValue.setVisit(visit);
+		treatmentItemValue.setTreatmentItemSpec(treatmentItemSpec);
 	}
 
 	public AbstractUser getCreator() {

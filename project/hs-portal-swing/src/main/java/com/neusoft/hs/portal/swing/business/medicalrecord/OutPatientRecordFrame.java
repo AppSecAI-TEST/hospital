@@ -8,11 +8,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordItem;
 import com.neusoft.hs.domain.medicalrecord.SimpleMedicalRecordItemValue;
+import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -25,6 +27,8 @@ public class OutPatientRecordFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 600;
 
 	private MedicalRecord medicalRecord;
+
+	private JTextField mainDescribeTF;
 
 	private JButton saveBtn;
 
@@ -73,14 +77,15 @@ public class OutPatientRecordFrame extends JFrame {
 
 		contentPanel.add(titlePanel, BorderLayout.NORTH);
 
-		MedicalRecordItem item = medicalRecord
-				.getTheItem(TreatmentItemSpec.MainDescribe);
+		Itemable item = medicalRecord.getDatas().get(
+				TreatmentItemSpec.MainDescribe);
 
-		JLabel mainDescribeJL = new JLabel();
-		mainDescribeJL.setText(((SimpleMedicalRecordItemValue) item.getValues()
-				.get(0)).getInfo());
+		mainDescribeTF = new JTextField();
+		if (item != null && item.getValues() != null) {
+			mainDescribeTF.setText(item.getValues().get(0).toString());
+		}
 
-		contentPanel.add(mainDescribeJL, BorderLayout.CENTER);
+		contentPanel.add(mainDescribeTF, BorderLayout.CENTER);
 
 		add(contentPanel, BorderLayout.CENTER);
 
@@ -93,6 +98,10 @@ public class OutPatientRecordFrame extends JFrame {
 		buttonPanel.add(closeBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
+	}
+
+	public JTextField getMainDescribeTF() {
+		return mainDescribeTF;
 	}
 
 	public JButton getSaveBtn() {

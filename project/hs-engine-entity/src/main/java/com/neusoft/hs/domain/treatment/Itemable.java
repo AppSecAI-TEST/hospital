@@ -18,6 +18,10 @@ public interface Itemable {
 
 	public List<? extends ItemValue> getValues();
 
+	public void setValues(List<ItemValue> values);
+
+	public void addValue(ItemValue value);
+
 	public void save();
 
 	public Visit getVisit();
@@ -29,4 +33,5 @@ public interface Itemable {
 	public AbstractUser getCreator();
 
 	public void setCreator(AbstractUser user);
+
 }

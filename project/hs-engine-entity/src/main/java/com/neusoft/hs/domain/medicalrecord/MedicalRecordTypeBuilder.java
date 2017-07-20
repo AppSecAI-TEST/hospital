@@ -46,9 +46,14 @@ public class MedicalRecordTypeBuilder extends MedicalRecordBuilder {
 		TreatmentItem item;
 		for (TreatmentItemSpec itemSpec : this.type.getItems()) {
 			item = itemSpec.getTheItem(this.getVisit());
+			// 判断是否存在诊疗信息
 			if (item == null && this.isNeedTreatment()) {
 				throw new TreatmentException("患者[%s]的诊疗信息[%s]还没有生成", this
 						.getVisit().getName(), itemSpec.getName());
+			}
+			// 创建空的诊疗信息
+			if (item == null) {
+				item = itemSpec.createEmptyTreatmentItem(this.getVisit());
 			}
 			datas.put(itemSpec.getName(), item);
 		}

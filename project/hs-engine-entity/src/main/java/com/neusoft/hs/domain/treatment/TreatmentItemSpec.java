@@ -108,6 +108,22 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	public abstract TreatmentItem createTreatmentItem(Visit visit)
 			throws TreatmentException;
 
+	/**
+	 * 创建一个空的诊疗信息项
+	 * 
+	 * @param visit
+	 * @return
+	 */
+	public TreatmentItem createEmptyTreatmentItem(Visit visit) {
+
+		TreatmentItem item = new TreatmentItem();
+		item.setTreatmentItemSpec(this);
+		item.setVisit(visit);
+
+		return item;
+
+	}
+
 	public String getId() {
 		return id;
 	}

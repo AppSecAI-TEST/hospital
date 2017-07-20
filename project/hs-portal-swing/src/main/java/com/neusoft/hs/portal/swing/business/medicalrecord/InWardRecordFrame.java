@@ -13,6 +13,7 @@ import javax.swing.WindowConstants;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordItem;
 import com.neusoft.hs.domain.medicalrecord.SimpleMedicalRecordItemValue;
+import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -72,13 +73,19 @@ public class InWardRecordFrame extends JFrame {
 		titlePanel.add(subtitlePanel);
 
 		contentPanel.add(titlePanel, BorderLayout.NORTH);
-
-		MedicalRecordItem item = medicalRecord
-				.getTheItem(TreatmentItemSpec.MainDescribe);
+		
+		Itemable item = medicalRecord.getDatas().get(
+				TreatmentItemSpec.MainDescribe);
 
 		JLabel mainDescribeJL = new JLabel();
-		mainDescribeJL.setText(((SimpleMedicalRecordItemValue) item.getValues()
-				.get(0)).getInfo());
+		mainDescribeJL.setText(item.getValues().get(0).toString());
+
+//		MedicalRecordItem item = medicalRecord
+//				.getTheItem(TreatmentItemSpec.MainDescribe);
+//
+//		JLabel mainDescribeJL = new JLabel();
+//		mainDescribeJL.setText(((SimpleMedicalRecordItemValue) item.getValues()
+//				.get(0)).getInfo());
 
 		contentPanel.add(mainDescribeJL, BorderLayout.CENTER);
 

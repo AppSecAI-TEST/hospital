@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -142,10 +141,14 @@ public class CreateMedicalRecordController extends AbstractFrameController {
 					.getEntityByRow(currentRow);
 
 			try {
+
+				medicalRecord = medicalRecordAppService.find(medicalRecord
+						.getId());
+
 				JFrame viewJFrame = (JFrame) medicalRecord.getRender().play(
 						medicalRecord);
 				viewJFrame.setVisible(true);
-			} catch (MedicalRecordException e1) {
+			} catch (HsException e1) {
 				e1.printStackTrace();
 				Notifications.showFormValidationAlert(e1.getMessage());
 			}
