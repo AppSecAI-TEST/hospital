@@ -121,8 +121,8 @@ public class TreatmentItem extends IdEntity implements Itemable {
 		}
 		return info.toString();
 	}
-	
-	public void setValues(List values){
+
+	public void setValues(List values) {
 		this.values = values;
 	}
 
@@ -137,6 +137,7 @@ public class TreatmentItem extends IdEntity implements Itemable {
 
 		treatmentItemValue.setItem(this);
 		treatmentItemValue.setVisit(visit);
+		treatmentItemValue.setVisitName(visitName);
 		treatmentItemValue.setTreatmentItemSpec(treatmentItemSpec);
 	}
 

@@ -98,7 +98,7 @@ public class MedicalRecordDomainService {
 		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
 
 		LogUtil.log(this.getClass(), "医生[{}]为患者一次就诊[{}]创建病历[{}],病历类型为[{}]",
-				record.getDoctor().getId(), record.getVisit().getName(),
+				record.getDoctorName(), record.getVisitName(),
 				record.getId(), record.getType().getId());
 	}
 

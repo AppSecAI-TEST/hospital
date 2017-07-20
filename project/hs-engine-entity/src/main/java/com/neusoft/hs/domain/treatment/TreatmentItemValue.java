@@ -76,7 +76,6 @@ public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 
 	public void setVisit(Visit visit) {
 		this.visit = visit;
-		this.visitName = visit.getName();
 	}
 
 	public String getVisitName() {
