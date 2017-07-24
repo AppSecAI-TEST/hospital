@@ -99,7 +99,7 @@ public class MaintainTreatmentController extends AbstractFrameController {
 
 		if (visit != null) {
 			refreshTreatment(visit);
-		}else{
+		} else {
 			clearTreatment();
 		}
 	}
@@ -111,7 +111,7 @@ public class MaintainTreatmentController extends AbstractFrameController {
 			maintainTreatmentFrame.showTheTreatment(spec, item);
 		}
 	}
-	
+
 	private void clearTreatment() {
 		for (TreatmentItemSpec spec : specs) {
 			maintainTreatmentFrame.clearTheTreatment(spec);
@@ -149,10 +149,20 @@ public class MaintainTreatmentController extends AbstractFrameController {
 			Notifications.showFormValidationAlert("请录入诊疗信息");
 		}
 		try {
-			SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
-			value.setInfo(valueInfo);
+			TreatmentItem item = maintainTreatmentFrame.getTreatmentItems()
+					.get(spec);
+			if (item != null) {
+				((SimpleTreatmentItemValue) item.getValues().get(0))
+						.setInfo(valueInfo);
 
-			treatmentAppService.create(visit, spec, value, UserUtil.getUser());
+				treatmentAppService.update(item, UserUtil.getUser());
+			} else {
+				SimpleTreatmentItemValue value = new SimpleTreatmentItemValue();
+				value.setInfo(valueInfo);
+
+				treatmentAppService.create(visit, spec, value,
+						UserUtil.getUser());
+			}
 			refreshTreatment(visit);
 		} catch (TreatmentException e) {
 			e.printStackTrace();

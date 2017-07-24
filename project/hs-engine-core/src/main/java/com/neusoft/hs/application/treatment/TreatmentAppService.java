@@ -65,6 +65,10 @@ public class TreatmentAppService {
 
 		treatmentDomainService.create(item);
 	}
+	
+	public void update(TreatmentItem item, AbstractUser user) {
+		treatmentDomainService.update(item);
+	}
 
 	/**
 	 * 得到需要生成的诊疗信息项列表
@@ -80,5 +84,7 @@ public class TreatmentAppService {
 		return treatmentDomainService.getShouldTreatmentItemSpecs(visit,
 				shouldDate, user);
 	}
+
+
 
 }

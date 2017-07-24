@@ -36,6 +36,8 @@ public class MaintainTreatmentFrame extends JFrame {
 
 	private Map<TreatmentItemSpec, JTextField> treatments;
 
+	private Map<TreatmentItemSpec, TreatmentItem> treatmentItems;
+
 	private Map<JButton, TreatmentItemSpec> autoCreateButtons;
 
 	private Map<JButton, TreatmentItemSpec> inputCreateButtons;
@@ -93,6 +95,7 @@ public class MaintainTreatmentFrame extends JFrame {
 	public void showTreatment(List<TreatmentItemSpec> specs) {
 
 		treatments = new HashMap<TreatmentItemSpec, JTextField>();
+		treatmentItems = new HashMap<TreatmentItemSpec, TreatmentItem>();
 		autoCreateButtons = new HashMap<JButton, TreatmentItemSpec>();
 		inputCreateButtons = new HashMap<JButton, TreatmentItemSpec>();
 
@@ -125,6 +128,7 @@ public class MaintainTreatmentFrame extends JFrame {
 			treatments.get(spec).setText("");
 		}
 		treatments.get(spec).repaint();
+		treatmentItems.put(spec, item);
 	}
 
 	public void clearTheTreatment(TreatmentItemSpec spec) {
@@ -142,6 +146,10 @@ public class MaintainTreatmentFrame extends JFrame {
 
 	public Map<TreatmentItemSpec, JTextField> getTreatments() {
 		return treatments;
+	}
+
+	public Map<TreatmentItemSpec, TreatmentItem> getTreatmentItems() {
+		return treatmentItems;
 	}
 
 	public Map<JButton, TreatmentItemSpec> getAutoCreateButtons() {
