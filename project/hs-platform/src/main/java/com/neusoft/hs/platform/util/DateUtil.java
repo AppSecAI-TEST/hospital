@@ -88,7 +88,7 @@ public class DateUtil {
 		}
 	}
 
-	public static String toString(Date date) throws HsException {
+	public static String toString(Date date) {
 		if (date == null) {
 			return null;
 		}

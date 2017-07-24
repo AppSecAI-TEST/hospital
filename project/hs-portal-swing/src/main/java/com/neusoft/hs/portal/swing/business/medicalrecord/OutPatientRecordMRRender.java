@@ -1,8 +1,5 @@
 package com.neusoft.hs.portal.swing.business.medicalrecord;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.swing.JButton;
@@ -11,7 +8,6 @@ import javax.swing.JFrame;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
-import com.neusoft.hs.domain.treatment.ItemValue;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;

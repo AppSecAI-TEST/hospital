@@ -70,23 +70,19 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 				.getApplicationContext().getBean(OrderRepo.class)
 				.findTemporaryOrder(visit, states, pageable);
 
-		try {
-			for (TemporaryOrder order : orders) {
-				value = new ListTreatmentItemValue();
+		for (TemporaryOrder order : orders) {
+			value = new ListTreatmentItemValue();
 
-				value.putData("name", order.getName());
-				value.putData("count", order.getCount() == null ? null : order
-						.getCount().toString());
-				value.putData("executeDate",
-						DateUtil.toString(order.getExecuteDate()));
-				value.putData("creator", order.getCreatorName());
-				value.putData("createDate",
-						DateUtil.toString(order.getCreateDate()));
+			value.putData("name", order.getName());
+			value.putData("count", order.getCount() == null ? null : order
+					.getCount().toString());
+			value.putData("executeDate",
+					DateUtil.toString(order.getExecuteDate()));
+			value.putData("creator", order.getCreatorName());
+			value.putData("createDate",
+					DateUtil.toString(order.getCreateDate()));
 
-				treatmentItem.addValue(value);
-			}
-		} catch (HsException e) {
-			throw new TreatmentException(e);
+			treatmentItem.addValue(value);
 		}
 
 		return treatmentItem;

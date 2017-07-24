@@ -116,12 +116,8 @@ public class MainMenuFrame extends JFrame implements
 	}
 
 	private void refreshDate() {
-		try {
-			sysDateLbl.setText(ConstMessagesCN.Labels.SimulationSysDate + ":"
-					+ DateUtil.toString(DateUtil.getSysDate()));
-		} catch (HsException e) {
-			e.printStackTrace();
-		}
+		sysDateLbl.setText(ConstMessagesCN.Labels.SimulationSysDate + ":"
+				+ DateUtil.toString(DateUtil.getSysDate()));
 	}
 
 	@Override

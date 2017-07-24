@@ -66,12 +66,8 @@ public class OutPatientRecordFrame extends JFrame {
 		JPanel subtitlePanel = new JPanel(new GridLayout(1, 2));
 
 		subtitlePanel.add(new JLabel(medicalRecord.getVisitName()));
-		try {
-			subtitlePanel.add(new JLabel(DateUtil.toString(medicalRecord
-					.getCreateDate())));
-		} catch (HsException e) {
-			e.printStackTrace();
-		}
+		subtitlePanel.add(new JLabel(DateUtil.toString(medicalRecord
+				.getCreateDate())));
 
 		titlePanel.add(subtitlePanel);
 

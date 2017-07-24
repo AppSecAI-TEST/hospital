@@ -29,9 +29,8 @@ interface OrderRepo extends PagingAndSortingRepository<Order, String> {
 	List<Order> findByVisitAndOrderTypeAndState(Visit visit,
 			OrderType orderType, String state);
 
-	@Query("select o from LongOrder o where o.state = :state and o.placeType = :placeType")
-	List<LongOrder> findLongOrder(@Param("state") String state,
-			@Param("placeType") String placeType);
+	@Query("select o from LongOrder o where o.state = :state")
+	List<LongOrder> findLongOrder(@Param("state") String state);
 
 	@Query("select o from LongOrder o where o.visit = :visit and o.state in(:states)")
 	List<LongOrder> findLongOrderByVisit(@Param("visit") Visit visit,

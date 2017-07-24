@@ -276,6 +276,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		// 2016-12-29
 		DateUtil.setSysDate(DateUtil.createDay("2016-12-29", dayCount));
 		patientNightTestService.calculate(admin001);
+		patientNightTestService.calculate(admin001);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 09:10", dayCount));
 

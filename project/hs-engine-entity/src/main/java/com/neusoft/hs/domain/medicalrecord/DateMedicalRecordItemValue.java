@@ -39,11 +39,6 @@ public class DateMedicalRecordItemValue extends MedicalRecordItemValue {
 
 	@Override
 	public String toString() {
-		try {
-			return DateUtil.toString(date);
-		} catch (HsException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return DateUtil.toString(date);
 	}
 }

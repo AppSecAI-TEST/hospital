@@ -183,7 +183,7 @@ public class OrderExecuteDomainService {
 	 * 
 	 * @roseuid 584F691702B2
 	 */
-	public int start(Admin admin) throws OrderExecuteException {
+	public int start(Admin admin) {
 		Date sysDate = DateUtil.getSysDate();
 		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
 		int count = orderExecuteRepo.start(OrderExecute.State_Executing,

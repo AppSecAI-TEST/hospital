@@ -10,17 +10,25 @@ public class LogUtil {
 	public static void log(Class c, String format, Object... arguments) {
 
 		Object[] args = new Object[arguments.length + 1];
-		try {
-			args[0] = DateUtil.toString(DateUtil.getSysDate());
-		} catch (HsException e) {
-			e.printStackTrace();
-		}
+		args[0] = DateUtil.toString(DateUtil.getSysDate());
 
 		for (int i = 0; i < arguments.length; i++) {
 			args[i + 1] = arguments[i];
 		}
 
 		LoggerFactory.getLogger(c).info("{} " + format, args);
+	}
+
+	public static void error(Class c, String format, Object... arguments) {
+
+		Object[] args = new Object[arguments.length + 1];
+		args[0] = DateUtil.toString(DateUtil.getSysDate());
+
+		for (int i = 0; i < arguments.length; i++) {
+			args[i + 1] = arguments[i];
+		}
+
+		LoggerFactory.getLogger(c).error("{} " + format, args);
 	}
 
 }

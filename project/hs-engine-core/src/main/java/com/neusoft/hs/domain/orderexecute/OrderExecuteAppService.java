@@ -72,7 +72,7 @@ public class OrderExecuteAppService {
 	 * 
 	 * @roseuid 584F67A6034B
 	 */
-	public int start(Admin admin) throws OrderExecuteException {
+	public int start(Admin admin) {
 		return orderExecuteDomainService.start(admin);
 	}
 

@@ -17,6 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
+import com.neusoft.hs.platform.util.DateUtil;
 
 /**
  * 与患者一次就诊关联的自动收费项目
@@ -56,6 +57,21 @@ public class VisitChargeItem extends IdEntity {
 	 * @throws CostException
 	 */
 	public void charge() throws CostException {
+
+		if (chargeItem.getChargingMode().equals(ChargeItem.ChargingMode_Day)) {
+			Date sysDate = DateUtil.getSysDate();
+			Date startDate = DateUtil.getSysDateStart();
+			Date endDate = DateUtil.addDay(startDate, 1);
+			List<ChargeRecord> oldChargeRecords = this.getService(
+					ChargeRecordRepo.class)
+					.findByVisitAndChargeItemAndCreateDate(visit, chargeItem,
+							startDate, endDate);
+			if (oldChargeRecords.size() > 0) {
+				throw new CostException("患者[%s]的收费项目[%s]在[%s]时间的已经收费",
+						visit.getName(), chargeItem.getName(),
+						DateUtil.toString(sysDate));
+			}
+		}
 
 		List<ChargeRecord> chargeRecords = new ArrayList<ChargeRecord>();
 		ChargeRecord chargeRecord;

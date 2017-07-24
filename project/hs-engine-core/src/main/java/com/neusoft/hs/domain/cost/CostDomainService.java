@@ -233,16 +233,21 @@ public class CostDomainService {
 	 * 
 	 * @throws CostException
 	 */
-	public int calculate(Admin admin) throws CostException {
+	public int calculate(Admin admin) {
 		List<VisitChargeItem> visitChargeItems = visitChargeItemRepo
 				.findByState(VisitChargeItem.State_Normal);
 		int count = 0;
 		if (visitChargeItems != null) {
 			for (VisitChargeItem visitChargeItem : visitChargeItems) {
-				visitChargeItem.charge();
+				try {
+					visitChargeItem.charge();
+					count++;
+				} catch (CostException e) {
+					e.printStackTrace();
+					LogUtil.error(CostDomainService.class, e.getMessage());
+				}
 
 			}
-			count = visitChargeItems.size();
 		}
 
 		LogUtil.log(this.getClass(), "系统自动计算了[{}]张床位费", count);

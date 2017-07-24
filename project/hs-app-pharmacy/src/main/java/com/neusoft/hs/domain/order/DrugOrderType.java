@@ -119,9 +119,10 @@ public class DrugOrderType extends OrderType {
 				}
 			} else {
 				// 门诊长嘱，分解的最后一条就是last
-				order.getResolveOrderExecutes()
-						.get(order.getResolveOrderExecutes().size() - 1)
-						.setLast(true);
+				int size = order.getResolveOrderExecutes().size();
+				if (size > 0) {
+					order.getResolveOrderExecutes().get(size - 1).setLast(true);
+				}
 			}
 		}
 	}
