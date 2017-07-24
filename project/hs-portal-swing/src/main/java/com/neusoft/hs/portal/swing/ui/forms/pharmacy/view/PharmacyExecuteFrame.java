@@ -16,10 +16,10 @@ import javax.swing.WindowConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
+import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
-import com.neusoft.hs.portal.swing.ui.shared.model.DispenseDrugWinComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugBatchComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
@@ -28,6 +28,9 @@ public class PharmacyExecuteFrame extends JFrame {
 
 	JComboBox<DispensingDrugBatch> dispensingDrugBatchCB;
 	DispensingDrugBatchComboBoxModel dispensingDrugBatchComboBoxModel;
+
+	JComboBox<InPatientAreaDept> inPatientAreaDeptCB;
+	InPatientAreaDeptComboBoxModel inPatientAreaDeptComboBoxModel;
 
 	private OrderExecuteTableModel orderExecuteTableModel;
 
@@ -68,15 +71,24 @@ public class PharmacyExecuteFrame extends JFrame {
 
 		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		JLabel dispenseDrugWinLbl = new JLabel(
-				ConstMessagesCN.Labels.DispenseDrugWin);
+		JLabel dispensingDrugBatchLbl = new JLabel(
+				ConstMessagesCN.Labels.DispensingDrugBatch);
 
 		this.dispensingDrugBatchComboBoxModel = new DispensingDrugBatchComboBoxModel();
 		dispensingDrugBatchCB = new JComboBox<>(
 				dispensingDrugBatchComboBoxModel);
 
-		operationPanel.add(dispenseDrugWinLbl);
+		operationPanel.add(dispensingDrugBatchLbl);
 		operationPanel.add(dispensingDrugBatchCB);
+
+		JLabel inPatientAreaDeptLbl = new JLabel(
+				ConstMessagesCN.Labels.InPatientAreaDept);
+
+		this.inPatientAreaDeptComboBoxModel = new InPatientAreaDeptComboBoxModel();
+		inPatientAreaDeptCB = new JComboBox<>(inPatientAreaDeptComboBoxModel);
+
+		operationPanel.add(inPatientAreaDeptLbl);
+		operationPanel.add(inPatientAreaDeptCB);
 
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
@@ -97,6 +109,14 @@ public class PharmacyExecuteFrame extends JFrame {
 
 	public DispensingDrugBatchComboBoxModel getDispensingDrugBatchComboBoxModel() {
 		return dispensingDrugBatchComboBoxModel;
+	}
+
+	public JComboBox<InPatientAreaDept> getInPatientAreaDeptCB() {
+		return inPatientAreaDeptCB;
+	}
+
+	public InPatientAreaDeptComboBoxModel getInPatientAreaDeptComboBoxModel() {
+		return inPatientAreaDeptComboBoxModel;
 	}
 
 	public OrderExecuteTableModel getOrderExecuteTableModel() {

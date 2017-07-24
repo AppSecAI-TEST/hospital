@@ -179,6 +179,8 @@ public interface ConstMessagesCN {
 
 		String VisitLog = "患者就诊日志";
 		String DispenseDrugWin = "摆药窗口";
+		String DispensingDrugBatch = "摆药批次";
+		String InPatientAreaDept = "住院病区";
 		String ChargeBill = "收费单";
 		String ChargeRecord = "收费记录";
 		String OrderList = "医嘱单";
