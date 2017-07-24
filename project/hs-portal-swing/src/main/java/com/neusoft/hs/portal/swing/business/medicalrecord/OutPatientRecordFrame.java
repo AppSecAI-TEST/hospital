@@ -88,14 +88,24 @@ public class OutPatientRecordFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
-		saveBtn = new JButton(ConstMessagesCN.Labels.SAVE_BTN);
-		buttonPanel.add(saveBtn);
+		if (medicalRecord.getState() == null
+				|| medicalRecord.getState().equals(MedicalRecord.State_Created)) {
+			saveBtn = new JButton(ConstMessagesCN.Labels.SAVE_BTN);
+			buttonPanel.add(saveBtn);
+		}
 
-		fixBtn = new JButton(ConstMessagesCN.Labels.FIX_BTN);
-		buttonPanel.add(fixBtn);
+		if (medicalRecord.getState().equals(MedicalRecord.State_Created)) {
+			fixBtn = new JButton(ConstMessagesCN.Labels.FIX_BTN);
+			buttonPanel.add(fixBtn);
+		}
 
-		signBtn = new JButton(ConstMessagesCN.Labels.SIGN_BTN);
-		buttonPanel.add(signBtn);
+		if (medicalRecord.getType().isNeedSign()
+				&& (medicalRecord.getState()
+						.equals(MedicalRecord.State_Created) || medicalRecord
+						.getState().equals(MedicalRecord.State_Fixed))) {
+			signBtn = new JButton(ConstMessagesCN.Labels.SIGN_BTN);
+			buttonPanel.add(signBtn);
+		}
 
 		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
 		buttonPanel.add(closeBtn);
