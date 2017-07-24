@@ -101,4 +101,11 @@ public class DispensingDrugBatch extends SuperEntity {
 		this.planExecuteDate = planExecuteDate;
 	}
 
+	@Override
+	public String toString() {
+		return this.name;
+	}
+	
+	
+
 }

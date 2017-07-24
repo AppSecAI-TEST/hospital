@@ -13,7 +13,7 @@ import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
-import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
+import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
@@ -21,7 +21,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.pharmacy.view.PharmacyExecuteFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
-import com.neusoft.hs.portal.swing.ui.shared.model.DispenseDrugWinComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugBatchComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 
 @Controller
@@ -57,15 +57,15 @@ public class PharmacyExecuteController extends AbstractFrameController {
 
 		Dept dept = UserUtil.getUser().getDept();
 
-		List<DispenseDrugWin> entities = pharmacyAdminService
-				.findDispenseDrugWins((Pharmacy) dept);
+		List<DispensingDrugBatch> entities = pharmacyAdminService
+				.findDispensingDrugBatchs((Pharmacy) dept);
 
-		DispenseDrugWinComboBoxModel dispenseDrugWinComboBoxModel = pharmacyExecuteFrame
-				.getDispenseDrugWinComboBoxModel();
+		DispensingDrugBatchComboBoxModel batchComboBoxModel = pharmacyExecuteFrame
+				.getDispensingDrugBatchComboBoxModel();
 
-		dispenseDrugWinComboBoxModel.clear();
-		dispenseDrugWinComboBoxModel.addElement(null);
-		dispenseDrugWinComboBoxModel.addElements(entities);
+		batchComboBoxModel.clear();
+		batchComboBoxModel.addElement(null);
+		batchComboBoxModel.addElements(entities);
 	}
 
 	private void loadOrderExecutes() throws HsException {

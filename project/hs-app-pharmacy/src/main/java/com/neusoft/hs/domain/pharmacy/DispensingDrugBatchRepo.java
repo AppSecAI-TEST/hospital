@@ -2,8 +2,12 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.List;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 interface DispensingDrugBatchRepo extends
 		PagingAndSortingRepository<DispensingDrugBatch, String> {
+
+	List<DispensingDrugBatch> findByPharmacy(Pharmacy pharmacy);
 }

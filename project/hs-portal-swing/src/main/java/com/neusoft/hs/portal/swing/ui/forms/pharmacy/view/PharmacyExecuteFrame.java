@@ -17,15 +17,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
+import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
 import com.neusoft.hs.portal.swing.ui.shared.model.DispenseDrugWinComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugBatchComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
 public class PharmacyExecuteFrame extends JFrame {
 
-	JComboBox<DispenseDrugWin> dispenseDrugWinCB;
-	DispenseDrugWinComboBoxModel dispenseDrugWinComboBoxModel;
+	JComboBox<DispensingDrugBatch> dispensingDrugBatchCB;
+	DispensingDrugBatchComboBoxModel dispensingDrugBatchComboBoxModel;
 
 	private OrderExecuteTableModel orderExecuteTableModel;
 
@@ -69,11 +71,12 @@ public class PharmacyExecuteFrame extends JFrame {
 		JLabel dispenseDrugWinLbl = new JLabel(
 				ConstMessagesCN.Labels.DispenseDrugWin);
 
-		this.dispenseDrugWinComboBoxModel = new DispenseDrugWinComboBoxModel();
-		dispenseDrugWinCB = new JComboBox<>(dispenseDrugWinComboBoxModel);
+		this.dispensingDrugBatchComboBoxModel = new DispensingDrugBatchComboBoxModel();
+		dispensingDrugBatchCB = new JComboBox<>(
+				dispensingDrugBatchComboBoxModel);
 
 		operationPanel.add(dispenseDrugWinLbl);
-		operationPanel.add(dispenseDrugWinCB);
+		operationPanel.add(dispensingDrugBatchCB);
 
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
@@ -88,12 +91,12 @@ public class PharmacyExecuteFrame extends JFrame {
 
 	}
 
-	public JComboBox<DispenseDrugWin> getDispenseDrugWinCB() {
-		return dispenseDrugWinCB;
+	public JComboBox<DispensingDrugBatch> getDispensingDrugBatchCB() {
+		return dispensingDrugBatchCB;
 	}
 
-	public DispenseDrugWinComboBoxModel getDispenseDrugWinComboBoxModel() {
-		return dispenseDrugWinComboBoxModel;
+	public DispensingDrugBatchComboBoxModel getDispensingDrugBatchComboBoxModel() {
+		return dispensingDrugBatchComboBoxModel;
 	}
 
 	public OrderExecuteTableModel getOrderExecuteTableModel() {
