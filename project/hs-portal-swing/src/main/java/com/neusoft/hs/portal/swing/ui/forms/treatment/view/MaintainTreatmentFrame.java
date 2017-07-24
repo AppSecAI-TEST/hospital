@@ -32,6 +32,8 @@ public class MaintainTreatmentFrame extends JFrame {
 
 	private JPanel workspacePanel;
 
+	private JPanel specPanel;
+
 	private Map<TreatmentItemSpec, JTextField> treatments;
 
 	private Map<JButton, TreatmentItemSpec> autoCreateButtons;
@@ -77,6 +79,9 @@ public class MaintainTreatmentFrame extends JFrame {
 
 		add(workspacePanel, BorderLayout.CENTER);
 
+		specPanel = new JPanel();
+		workspacePanel.add(specPanel, BorderLayout.CENTER);
+
 		JPanel buttonPanel = new JPanel();
 
 		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
@@ -91,7 +96,9 @@ public class MaintainTreatmentFrame extends JFrame {
 		autoCreateButtons = new HashMap<JButton, TreatmentItemSpec>();
 		inputCreateButtons = new HashMap<JButton, TreatmentItemSpec>();
 
-		JPanel specPanel = new JPanel(new GridLayout(specs.size(), 4));
+		specPanel.removeAll();
+		specPanel.setLayout(new GridLayout(specs.size(), 4));
+
 		for (TreatmentItemSpec spec : specs) {
 			specPanel.add(new JLabel(spec.getName()));
 
@@ -109,8 +116,6 @@ public class MaintainTreatmentFrame extends JFrame {
 			autoCreateButtons.put(reCreateJB, spec);
 			inputCreateButtons.put(createJB, spec);
 		}
-
-		workspacePanel.add(specPanel, BorderLayout.CENTER);
 	}
 
 	public void showTheTreatment(TreatmentItemSpec spec, TreatmentItem item) {
