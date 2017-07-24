@@ -134,6 +134,7 @@ public interface ConstMessagesCN {
 		String MaintainTreatment = "维护诊疗信息";
 		String ArrangementMedicalRecord = "整理病历";
 		String TransferMedicalRecord = "移交档案室";
+		String PharmacyExecute = "药房执行";
 		String QualityControl = "确认诊疗过程合格";
 		String ArchiveMedicalRecord = "归档病历";
 		String CreateOutPatientRecord = "创建出诊记录";
@@ -177,6 +178,7 @@ public interface ConstMessagesCN {
 		String Price = "价格";
 
 		String VisitLog = "患者就诊日志";
+		String DispenseDrugWin = "摆药窗口";
 		String ChargeBill = "收费单";
 		String ChargeRecord = "收费记录";
 		String OrderList = "医嘱单";

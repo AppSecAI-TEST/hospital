@@ -37,7 +37,7 @@ public class DispenseDrugWin extends SuperEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pharmacy_id")
 	private Pharmacy pharmacy;
-	
+
 	public static final String State_Normal = "正常";
 
 	public String getId() {
@@ -71,4 +71,10 @@ public class DispenseDrugWin extends SuperEntity {
 	public void setPharmacy(Pharmacy pharmacy) {
 		this.pharmacy = pharmacy;
 	}
+
+	@Override
+	public String toString() {
+		return this.name;
+	}
+
 }

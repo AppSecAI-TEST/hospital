@@ -15,11 +15,10 @@ import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.medicalrecord.controller.CreateMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
-import com.neusoft.hs.portal.swing.ui.forms.outpatientdept.controller.OutPatientDeptController;
+import com.neusoft.hs.portal.swing.ui.forms.pharmacy.controller.PharmacyExecuteController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.ArchiveMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.QualityControlController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
-import com.neusoft.hs.portal.swing.ui.forms.registration.controller.RegistrationController;
 import com.neusoft.hs.portal.swing.ui.forms.treatment.controller.MaintainTreatmentController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -67,6 +66,9 @@ public class InPatientController extends AbstractFrameController {
 	private TransferMedicalRecordController transferMedicalRecordController;
 
 	@Autowired
+	private PharmacyExecuteController pharmacyExecuteController;
+
+	@Autowired
 	private QualityControlController qualityControlController;
 
 	@Autowired
@@ -96,6 +98,8 @@ public class InPatientController extends AbstractFrameController {
 				(e) -> openArrangementMedicalRecordWindow());
 		registerAction(mainMenuFrame.getTransferMedicalRecordBtn(),
 				(e) -> openTransferMedicalRecordWindow());
+		registerAction(mainMenuFrame.getPharmacyExecuteBtn(),
+				(e) -> openPharmacyExecuteWindow());
 		registerAction(mainMenuFrame.getQualityControlBtn(),
 				(e) -> openQualityControlWindow());
 		registerAction(mainMenuFrame.getArchiveMedicalRecordBtn(),
@@ -206,6 +210,15 @@ public class InPatientController extends AbstractFrameController {
 	private void openTransferMedicalRecordWindow() {
 		try {
 			transferMedicalRecordController.prepareAndOpenFrame();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void openPharmacyExecuteWindow() {
+		try {
+			pharmacyExecuteController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

@@ -53,6 +53,10 @@ public class PharmacyAdminService {
 	public List<DrugUseMode> findDrugUseMode(Pageable pageable) {
 		return orderUseModeRepo.findAll(pageable).getContent();
 	}
+	
+	public List<DispenseDrugWin> findDispenseDrugWins(Pharmacy pharmacy){
+		return dispenseDrugWinRepo.findByPharmacy(pharmacy);
+	}
 
 	public void createDrugTypeSpecs(List<DrugTypeSpec> drugTypeSpecs) {
 		drugTypeSpecRepo.save(drugTypeSpecs);

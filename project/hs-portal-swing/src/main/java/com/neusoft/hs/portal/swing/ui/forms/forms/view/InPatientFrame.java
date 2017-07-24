@@ -45,6 +45,8 @@ public class InPatientFrame extends JFrame implements
 
 	private JButton transferMedicalRecordBtn;
 
+	private JButton pharmacyExecuteBtn;
+
 	private JButton qualityControlBtn;
 
 	private JButton archiveMedicalRecordBtn;
@@ -74,7 +76,7 @@ public class InPatientFrame extends JFrame implements
 		setLayout(new BorderLayout());
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(14, 2, 20, 20));
+		menuPanel.setLayout(new GridLayout(15, 2, 20, 20));
 
 		loginBtn = new JButton(ConstMessagesCN.Labels.Login);
 		registerBtn = new JButton(ConstMessagesCN.Labels.Register);
@@ -94,6 +96,7 @@ public class InPatientFrame extends JFrame implements
 				ConstMessagesCN.Labels.ArrangementMedicalRecord);
 		transferMedicalRecordBtn = new JButton(
 				ConstMessagesCN.Labels.TransferMedicalRecord);
+		pharmacyExecuteBtn = new JButton(ConstMessagesCN.Labels.PharmacyExecute);
 		qualityControlBtn = new JButton(ConstMessagesCN.Labels.QualityControl);
 		archiveMedicalRecordBtn = new JButton(
 				ConstMessagesCN.Labels.ArchiveMedicalRecord);
@@ -110,6 +113,7 @@ public class InPatientFrame extends JFrame implements
 		menuPanel.add(finishOrderExecuteBtn);
 		menuPanel.add(arrangementMedicalRecordBtn);
 		menuPanel.add(transferMedicalRecordBtn);
+		menuPanel.add(pharmacyExecuteBtn);
 		menuPanel.add(qualityControlBtn);
 		menuPanel.add(archiveMedicalRecordBtn);
 
@@ -169,6 +173,10 @@ public class InPatientFrame extends JFrame implements
 
 	public JButton getTransferMedicalRecordBtn() {
 		return transferMedicalRecordBtn;
+	}
+
+	public JButton getPharmacyExecuteBtn() {
+		return pharmacyExecuteBtn;
 	}
 
 	public JButton getQualityControlBtn() {
