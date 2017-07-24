@@ -11,6 +11,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
+import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Entity
@@ -54,6 +55,32 @@ public class OutPatientRecordMRRender extends MedicalRecordRender {
 
 					getService(MedicalRecordAppService.class).save(
 							medicalRecord);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					Notifications.showFormValidationAlert(e1.getMessage());
+				}
+			});
+		}
+
+		JButton fixBtn = frame.getFixBtn();
+		if (fixBtn != null) {
+			fixBtn.addActionListener((e) -> {
+				try {
+					getService(MedicalRecordAppService.class).fix(
+							medicalRecord.getId(), UserUtil.getUser());
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					Notifications.showFormValidationAlert(e1.getMessage());
+				}
+			});
+		}
+
+		JButton signBtn = frame.getSignBtn();
+		if (signBtn != null) {
+			signBtn.addActionListener((e) -> {
+				try {
+					getService(MedicalRecordAppService.class).sign(
+							medicalRecord.getId(), UserUtil.getUser());
 				} catch (Exception e1) {
 					e1.printStackTrace();
 					Notifications.showFormValidationAlert(e1.getMessage());

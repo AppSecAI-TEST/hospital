@@ -55,8 +55,17 @@ public class MedicalRecordDomainService {
 	 * 保存病历
 	 * 
 	 * @param record
+	 * @throws MedicalRecordException
 	 */
-	public void save(MedicalRecord record) {
+	public void save(MedicalRecord record) throws MedicalRecordException {
+
+		if (record.getState() != null
+				&& (record.getState().equals(MedicalRecord.State_Fixed) || record
+						.getState().equals(MedicalRecord.State_Signed))) {
+			throw new MedicalRecordException(record,
+					"患者[%s]的病历[%s][%s]处于[%s]状态，不能修改", record.getVisitName(),
+					record.getTypeName(), record.getId(), record.getState());
+		}
 
 		if (record.getType().isUnique()) {
 			List<MedicalRecord> records = this.getMedicalRecords(
@@ -98,8 +107,8 @@ public class MedicalRecordDomainService {
 		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
 
 		LogUtil.log(this.getClass(), "医生[{}]为患者一次就诊[{}]创建病历[{}],病历类型为[{}]",
-				record.getDoctorName(), record.getVisitName(),
-				record.getId(), record.getType().getId());
+				record.getDoctorName(), record.getVisitName(), record.getId(),
+				record.getType().getId());
 	}
 
 	/**

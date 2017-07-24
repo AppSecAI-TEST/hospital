@@ -48,6 +48,8 @@ public interface ConstMessagesCN {
 		String CONFIRM_BTN = "确定";
 		String FINISH_BTN = "完成";
 		String SAVE_BTN = "保存";
+		String FIX_BTN = "锁定";
+		String SIGN_BTN = "签名";
 		String CLOSE_BTN = "关闭";
 		String ReCreate_BTN = "重新生成";
 		String Create_BTN = "生成";
@@ -194,8 +196,7 @@ public interface ConstMessagesCN {
 		String createTemporaryOrderListMR = "创建临时医嘱单";
 		String createInspectResultMR = "生成检查单病历";
 		String createOutPatientRecordMR = "创建门诊记录";
-		
-		
+
 		String transferMedicalRecord = "移交档案室";
 		String pass = "通过";
 		String archive = "归档";

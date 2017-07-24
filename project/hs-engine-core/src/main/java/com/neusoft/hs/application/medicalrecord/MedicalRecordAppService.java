@@ -71,8 +71,9 @@ public class MedicalRecordAppService {
 	 * 保存病历
 	 * 
 	 * @param record
+	 * @throws MedicalRecordException
 	 */
-	public void save(MedicalRecord record) {
+	public void save(MedicalRecord record) throws MedicalRecordException {
 		medicalRecordDomainService.save(record);
 	}
 

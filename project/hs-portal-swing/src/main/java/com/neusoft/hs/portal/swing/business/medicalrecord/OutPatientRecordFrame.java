@@ -12,11 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordItem;
-import com.neusoft.hs.domain.medicalrecord.SimpleMedicalRecordItemValue;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
-import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
@@ -31,6 +28,10 @@ public class OutPatientRecordFrame extends JFrame {
 	private JTextField mainDescribeTF;
 
 	private JButton saveBtn;
+
+	private JButton fixBtn;
+
+	private JButton signBtn;
 
 	private JButton closeBtn;
 
@@ -90,6 +91,15 @@ public class OutPatientRecordFrame extends JFrame {
 		saveBtn = new JButton(ConstMessagesCN.Labels.SAVE_BTN);
 		buttonPanel.add(saveBtn);
 
+		fixBtn = new JButton(ConstMessagesCN.Labels.FIX_BTN);
+		buttonPanel.add(fixBtn);
+
+		signBtn = new JButton(ConstMessagesCN.Labels.SIGN_BTN);
+		buttonPanel.add(signBtn);
+
+		saveBtn = new JButton(ConstMessagesCN.Labels.SAVE_BTN);
+		buttonPanel.add(saveBtn);
+
 		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
 		buttonPanel.add(closeBtn);
 
@@ -102,6 +112,14 @@ public class OutPatientRecordFrame extends JFrame {
 
 	public JButton getSaveBtn() {
 		return saveBtn;
+	}
+
+	public JButton getFixBtn() {
+		return fixBtn;
+	}
+
+	public JButton getSignBtn() {
+		return signBtn;
 	}
 
 	public JButton getCloseBtn() {
