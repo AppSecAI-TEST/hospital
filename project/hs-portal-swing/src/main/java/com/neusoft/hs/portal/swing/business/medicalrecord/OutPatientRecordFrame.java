@@ -97,9 +97,6 @@ public class OutPatientRecordFrame extends JFrame {
 		signBtn = new JButton(ConstMessagesCN.Labels.SIGN_BTN);
 		buttonPanel.add(signBtn);
 
-		saveBtn = new JButton(ConstMessagesCN.Labels.SAVE_BTN);
-		buttonPanel.add(saveBtn);
-
 		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
 		buttonPanel.add(closeBtn);
 
