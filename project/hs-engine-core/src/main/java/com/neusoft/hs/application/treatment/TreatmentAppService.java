@@ -67,7 +67,7 @@ public class TreatmentAppService {
 	}
 	
 	public void update(TreatmentItem item, AbstractUser user) {
-		treatmentDomainService.update(item);
+		treatmentDomainService.update(item, user);
 	}
 
 	/**

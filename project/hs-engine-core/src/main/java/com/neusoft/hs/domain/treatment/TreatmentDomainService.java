@@ -110,9 +110,12 @@ public class TreatmentDomainService {
 	 * 
 	 * @roseuid 58A148900388
 	 */
-	public void update(TreatmentItem item) {
+	public void update(TreatmentItem item, AbstractUser user) {
 		treatmentItemRepo.save(item);
 		applicationContext.publishEvent(new TreatmentItemUpdatedEvent(item));
+
+		LogUtil.log(TreatmentDomainService.class, "用户[{}]修改了患者[{}]的诊疗信息[{}]",
+				user.getName(), item.getVisitName(), item.getName());
 	}
 
 	public List<TreatmentItemSpec> getAllTreatmentItemSpecs(Pageable pageable) {

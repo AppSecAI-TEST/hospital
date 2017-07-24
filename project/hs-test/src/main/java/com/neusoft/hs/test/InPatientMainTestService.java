@@ -263,7 +263,7 @@ public class InPatientMainTestService extends InPatientTestService {
 				mainDescribeTreatmentItemSpec);
 		((SimpleTreatmentItemValue) item.getValues().get(0))
 				.setInfo("患者咳嗽发烧三天，体温38.5，嗜睡");
-		treatmentDomainService.update(item);
+		treatmentDomainService.update(item, user002);
 
 		intoWardRecord = medicalRecordAppService.find(intoWardRecord.getId());
 
@@ -759,7 +759,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:33", dayCount));
 
-		//将当天已收的二级护理给退了费
+		// 将当天已收的二级护理给退了费
 		List<ChargeRecord> records = costDomainService.getChargeRecords(
 				visit004, user003.getOperationDepts(), pageable);
 
