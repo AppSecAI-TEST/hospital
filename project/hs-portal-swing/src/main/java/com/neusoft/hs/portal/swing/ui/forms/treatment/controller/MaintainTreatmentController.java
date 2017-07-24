@@ -99,6 +99,8 @@ public class MaintainTreatmentController extends AbstractFrameController {
 
 		if (visit != null) {
 			refreshTreatment(visit);
+		}else{
+			clearTreatment();
 		}
 	}
 
@@ -107,6 +109,12 @@ public class MaintainTreatmentController extends AbstractFrameController {
 			TreatmentItem item = this.treatmentDomainService
 					.getTheTreatmentItem(visit, spec);
 			maintainTreatmentFrame.showTheTreatment(spec, item);
+		}
+	}
+	
+	private void clearTreatment() {
+		for (TreatmentItemSpec spec : specs) {
+			maintainTreatmentFrame.clearTheTreatment(spec);
 		}
 	}
 

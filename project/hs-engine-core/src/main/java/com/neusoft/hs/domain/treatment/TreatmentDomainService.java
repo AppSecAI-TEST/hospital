@@ -54,8 +54,8 @@ public class TreatmentDomainService {
 					.publishEvent(new TreatmentItemCreatedEvent(item));
 
 			LogUtil.log(this.getClass(), "用户[{}]为患者一次就诊[{}]创建诊疗信息[{}],类型为[{}]",
-					item.getCreator().getId(), item.getVisit().getName(),
-					item.getId(), item.getTreatmentItemSpec().getId());
+					item.getCreatorName(), item.getVisitName(), item.getId(),
+					item.getTreatmentItemSpec().getName());
 		} else {
 			// 删除原Values
 			treatmentItemValueRepo.delete(oldItem.getValues());
@@ -70,7 +70,7 @@ public class TreatmentDomainService {
 
 			LogUtil.log(this.getClass(), "用户[{}]更新患者一次就诊[{}]的诊疗信息[{}],类型为[{}]",
 					item.getCreatorName(), item.getVisitName(),
-					oldItem.getId(), item.getTreatmentItemSpec().getId());
+					oldItem.getId(), item.getTreatmentItemSpec().getName());
 		}
 	}
 
