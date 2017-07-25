@@ -103,4 +103,9 @@ public class ConfigureFluidBatch extends SuperEntity {
 		this.planExecuteDate = planExecuteDate;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

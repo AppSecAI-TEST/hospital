@@ -134,6 +134,7 @@ public interface ConstMessagesCN {
 		String MaintainTreatment = "维护诊疗信息";
 		String ArrangementMedicalRecord = "整理病历";
 		String TransferMedicalRecord = "移交档案室";
+		String ConfigureFluidExecute = "配液执行";
 		String PharmacyExecute = "药房执行";
 		String QualityControl = "确认诊疗过程合格";
 		String ArchiveMedicalRecord = "归档病历";

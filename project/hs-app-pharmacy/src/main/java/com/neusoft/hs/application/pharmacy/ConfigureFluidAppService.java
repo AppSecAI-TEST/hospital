@@ -45,8 +45,7 @@ public class ConfigureFluidAppService {
 	 * @roseuid 592E613203CB
 	 */
 	public ConfigureFluidOrder print(InPatientAreaDept area,
-			ConfigureFluidBatch batch, AbstractUser user)
-			throws HsException {
+			ConfigureFluidBatch batch, AbstractUser user) throws HsException {
 		ConfigureFluidBatchFilter filter = new ConfigureFluidBatchFilter();
 
 		filter.setArea(area);
@@ -96,5 +95,11 @@ public class ConfigureFluidAppService {
 		configureFluidDomainService.finishOrder(fluidOrder, user);
 
 		return fluidOrder;
+	}
+
+	public List<ConfigureFluidOrder> find(InPatientAreaDept area,
+			ConfigureFluidBatch batch, Pageable pageable) {
+		return configureFluidDomainService.findConfigureFluidOrder(area, batch,
+				pageable);
 	}
 }

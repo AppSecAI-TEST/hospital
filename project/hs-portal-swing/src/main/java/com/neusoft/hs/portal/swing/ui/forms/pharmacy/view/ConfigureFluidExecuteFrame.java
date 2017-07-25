@@ -17,22 +17,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
-import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
-import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugBatchComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugOrderTableModel;
+import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
+import com.neusoft.hs.portal.swing.ui.shared.model.ConfigureFluidBatchComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.ConfigureFluidOrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class PharmacyExecuteFrame extends JFrame {
+public class ConfigureFluidExecuteFrame extends JFrame {
 
-	JComboBox<DispensingDrugBatch> dispensingDrugBatchCB;
-	DispensingDrugBatchComboBoxModel dispensingDrugBatchComboBoxModel;
+	JComboBox<ConfigureFluidBatch> configureFluidBatchCB;
+	ConfigureFluidBatchComboBoxModel configureFluidBatchComboBoxModel;
 
 	JComboBox<InPatientAreaDept> inPatientAreaDeptCB;
 	InPatientAreaDeptComboBoxModel inPatientAreaDeptComboBoxModel;
 
-	private DispensingDrugOrderTableModel dispensingDrugOrderTableModel;
+	private ConfigureFluidOrderTableModel configureFluidOrderTableModel;
 
 	protected JTable table;
 
@@ -43,7 +43,7 @@ public class PharmacyExecuteFrame extends JFrame {
 	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
-	public PharmacyExecuteFrame() {
+	public ConfigureFluidExecuteFrame() {
 		setFrameUp();
 		initComponents();
 	}
@@ -61,8 +61,8 @@ public class PharmacyExecuteFrame extends JFrame {
 
 		JPanel workspacePanel = new JPanel(new BorderLayout());
 
-		this.dispensingDrugOrderTableModel = new DispensingDrugOrderTableModel();
-		table = new JTable(this.dispensingDrugOrderTableModel);
+		this.configureFluidOrderTableModel = new ConfigureFluidOrderTableModel();
+		table = new JTable(this.configureFluidOrderTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane paneWithTable = new JScrollPane(table);
@@ -74,12 +74,12 @@ public class PharmacyExecuteFrame extends JFrame {
 		JLabel dispensingDrugBatchLbl = new JLabel(
 				ConstMessagesCN.Labels.DispensingDrugBatch);
 
-		this.dispensingDrugBatchComboBoxModel = new DispensingDrugBatchComboBoxModel();
-		dispensingDrugBatchCB = new JComboBox<>(
-				dispensingDrugBatchComboBoxModel);
+		this.configureFluidBatchComboBoxModel = new ConfigureFluidBatchComboBoxModel();
+		configureFluidBatchCB = new JComboBox<>(
+				configureFluidBatchComboBoxModel);
 
 		operationPanel.add(dispensingDrugBatchLbl);
-		operationPanel.add(dispensingDrugBatchCB);
+		operationPanel.add(configureFluidBatchCB);
 
 		JLabel inPatientAreaDeptLbl = new JLabel(
 				ConstMessagesCN.Labels.InPatientAreaDept);
@@ -103,12 +103,12 @@ public class PharmacyExecuteFrame extends JFrame {
 
 	}
 
-	public JComboBox<DispensingDrugBatch> getDispensingDrugBatchCB() {
-		return dispensingDrugBatchCB;
+	public JComboBox<ConfigureFluidBatch> getConfigureFluidBatchCB() {
+		return configureFluidBatchCB;
 	}
 
-	public DispensingDrugBatchComboBoxModel getDispensingDrugBatchComboBoxModel() {
-		return dispensingDrugBatchComboBoxModel;
+	public ConfigureFluidBatchComboBoxModel getConfigureFluidBatchComboBoxModel() {
+		return configureFluidBatchComboBoxModel;
 	}
 
 	public JComboBox<InPatientAreaDept> getInPatientAreaDeptCB() {
@@ -119,8 +119,8 @@ public class PharmacyExecuteFrame extends JFrame {
 		return inPatientAreaDeptComboBoxModel;
 	}
 
-	public DispensingDrugOrderTableModel getDispensingDrugOrderTableModel() {
-		return dispensingDrugOrderTableModel;
+	public ConfigureFluidOrderTableModel getConfigureFluidOrderTableModel() {
+		return configureFluidOrderTableModel;
 	}
 
 	public JButton getCloseBtn() {

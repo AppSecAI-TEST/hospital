@@ -15,7 +15,7 @@ import com.neusoft.hs.portal.swing.ui.forms.login.controller.LoginController;
 import com.neusoft.hs.portal.swing.ui.forms.medicalrecord.controller.CreateMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.CreateOrderController;
 import com.neusoft.hs.portal.swing.ui.forms.order.controller.OrderExecuteFinishController;
-import com.neusoft.hs.portal.swing.ui.forms.pharmacy.controller.PharmacyExecuteController;
+import com.neusoft.hs.portal.swing.ui.forms.pharmacy.controller.ConfigureFluidExecuteController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.ArchiveMedicalRecordController;
 import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.QualityControlController;
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
@@ -66,7 +66,7 @@ public class InPatientController extends AbstractFrameController {
 	private TransferMedicalRecordController transferMedicalRecordController;
 
 	@Autowired
-	private PharmacyExecuteController pharmacyExecuteController;
+	private ConfigureFluidExecuteController configureFluidExecuteController;
 
 	@Autowired
 	private QualityControlController qualityControlController;
@@ -98,8 +98,8 @@ public class InPatientController extends AbstractFrameController {
 				(e) -> openArrangementMedicalRecordWindow());
 		registerAction(mainMenuFrame.getTransferMedicalRecordBtn(),
 				(e) -> openTransferMedicalRecordWindow());
-		registerAction(mainMenuFrame.getPharmacyExecuteBtn(),
-				(e) -> openPharmacyExecuteWindow());
+		registerAction(mainMenuFrame.getConfigureFluidExecuteBtn(),
+				(e) -> openConfigureFluidExecuteWindow());
 		registerAction(mainMenuFrame.getQualityControlBtn(),
 				(e) -> openQualityControlWindow());
 		registerAction(mainMenuFrame.getArchiveMedicalRecordBtn(),
@@ -216,9 +216,9 @@ public class InPatientController extends AbstractFrameController {
 		}
 	}
 
-	private void openPharmacyExecuteWindow() {
+	private void openConfigureFluidExecuteWindow() {
 		try {
-			pharmacyExecuteController.prepareAndOpenFrame();
+			configureFluidExecuteController.prepareAndOpenFrame();
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());

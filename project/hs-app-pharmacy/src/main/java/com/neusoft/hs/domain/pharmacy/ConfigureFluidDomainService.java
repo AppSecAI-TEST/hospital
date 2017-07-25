@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +53,7 @@ public class ConfigureFluidDomainService {
 		fluidOrder.setState(ConfigureFluidOrder.State_NeedExecute);
 
 		fluidOrder.save();
-		
+
 		applicationContext.publishEvent(new ConfigureFluidOrderCreatedEvent(
 				fluidOrder));
 
@@ -99,6 +100,12 @@ public class ConfigureFluidDomainService {
 
 	public void clearConfigureFluidBatch() {
 		configureFluidBatchRepo.deleteAll();
+	}
+
+	public List<ConfigureFluidOrder> findConfigureFluidOrder(
+			InPatientAreaDept area, ConfigureFluidBatch batch, Pageable pageable) {
+		return this.configureFluidOrderRepo.findByAreaAndBatch(area, batch,
+				pageable);
 	}
 
 }

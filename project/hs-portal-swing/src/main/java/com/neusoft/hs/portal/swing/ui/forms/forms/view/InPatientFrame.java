@@ -45,7 +45,7 @@ public class InPatientFrame extends JFrame implements
 
 	private JButton transferMedicalRecordBtn;
 
-	private JButton pharmacyExecuteBtn;
+	private JButton configureFluidExecuteBtn;
 
 	private JButton qualityControlBtn;
 
@@ -96,7 +96,8 @@ public class InPatientFrame extends JFrame implements
 				ConstMessagesCN.Labels.ArrangementMedicalRecord);
 		transferMedicalRecordBtn = new JButton(
 				ConstMessagesCN.Labels.TransferMedicalRecord);
-		pharmacyExecuteBtn = new JButton(ConstMessagesCN.Labels.PharmacyExecute);
+		configureFluidExecuteBtn = new JButton(
+				ConstMessagesCN.Labels.ConfigureFluidExecute);
 		qualityControlBtn = new JButton(ConstMessagesCN.Labels.QualityControl);
 		archiveMedicalRecordBtn = new JButton(
 				ConstMessagesCN.Labels.ArchiveMedicalRecord);
@@ -113,7 +114,7 @@ public class InPatientFrame extends JFrame implements
 		menuPanel.add(finishOrderExecuteBtn);
 		menuPanel.add(arrangementMedicalRecordBtn);
 		menuPanel.add(transferMedicalRecordBtn);
-		menuPanel.add(pharmacyExecuteBtn);
+		menuPanel.add(configureFluidExecuteBtn);
 		menuPanel.add(qualityControlBtn);
 		menuPanel.add(archiveMedicalRecordBtn);
 
@@ -175,8 +176,8 @@ public class InPatientFrame extends JFrame implements
 		return transferMedicalRecordBtn;
 	}
 
-	public JButton getPharmacyExecuteBtn() {
-		return pharmacyExecuteBtn;
+	public JButton getConfigureFluidExecuteBtn() {
+		return configureFluidExecuteBtn;
 	}
 
 	public JButton getQualityControlBtn() {

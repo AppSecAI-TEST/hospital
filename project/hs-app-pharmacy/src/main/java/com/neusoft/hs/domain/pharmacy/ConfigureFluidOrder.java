@@ -50,6 +50,9 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 	@OneToMany(mappedBy = "fluidOrder", cascade = { CascadeType.REFRESH })
 	private List<ConfigureFluidOrderExecute> executes;
 
+	@Column(name = "execute_count")
+	private int executeCount;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id")
 	private AbstractUser creator;
@@ -111,9 +114,26 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 		this.state = state;
 	}
 
+	public Date getFinishDate() {
+		return finishDate;
+	}
+
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
+	}
+
+	public int getExecuteCount() {
+		return executeCount;
+	}
+
+	public void setExecuteCount(int executeCount) {
+		this.executeCount = executeCount;
+	}
+
 	public void setExecutes(List<ConfigureFluidOrderExecute> executes) {
 		this.executes = executes;
-
+		this.executeCount = executes.size();
+		
 		this.executes.forEach(item -> {
 			item.setFluidOrder(this);
 		});
