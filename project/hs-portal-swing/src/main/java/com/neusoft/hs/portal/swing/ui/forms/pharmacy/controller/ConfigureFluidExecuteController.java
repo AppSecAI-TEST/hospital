@@ -50,6 +50,10 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(configureFluidExecuteFrame.getConfigureFluidBatchCB(), (
+				e) -> loadConfigureFluidOrders());
+		registerAction(configureFluidExecuteFrame.getInPatientAreaDeptCB(),
+				(e) -> loadConfigureFluidOrders());
 		registerAction(configureFluidExecuteFrame.getCloseBtn(),
 				(e) -> closeWindow());
 	}
@@ -90,7 +94,7 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 		inPatientAreaComboBoxModel.addElements(entities);
 	}
 
-	private void loadConfigureFluidOrders() throws HsException {
+	private void loadConfigureFluidOrders() {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
 		InPatientAreaDept area = configureFluidExecuteFrame
