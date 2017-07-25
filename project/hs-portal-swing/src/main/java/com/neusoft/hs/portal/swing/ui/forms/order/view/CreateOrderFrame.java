@@ -58,6 +58,15 @@ public class CreateOrderFrame extends JFrame {
 
 	}
 
+	public Integer getExecuteDay() {
+		Integer executeDay = this.createOrderPanel.executeDaySN.getInteger();
+		if (executeDay == null || executeDay == 0) {
+			return null;
+		} else {
+			return executeDay;
+		}
+	}
+
 	public Integer getCount() {
 		Integer count = this.createOrderPanel.countSN.getInteger();
 		if (count == null || count == 0) {

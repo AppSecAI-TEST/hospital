@@ -68,7 +68,7 @@ public class CreateOrderController extends AbstractFrameController {
 
 	@Autowired
 	private OutPatientDeptAppService outPatientDeptAppService;
-	
+
 	@Autowired
 	private VisitBusinessView visitBusinessView;
 
@@ -201,6 +201,7 @@ public class CreateOrderController extends AbstractFrameController {
 					.getSelectedItem();
 
 			Date planStartDate = this.createOrderFrame.getPlanStartDate();
+			Integer executeDay = this.createOrderFrame.getExecuteDay();
 
 			Integer count = this.createOrderFrame.getCount();
 
@@ -209,15 +210,20 @@ public class CreateOrderController extends AbstractFrameController {
 			Order order = null;
 			if (frequencyType == null) {
 				order = new TemporaryOrder();
+				order.setPlanStartDate(planStartDate);
 			} else {
 				order = new LongOrder();
 				LongOrder longOrder = (LongOrder) order;
 				longOrder.setFrequencyType(frequencyType);
+				longOrder.setPlanStartDate(planStartDate);
+				if (executeDay != null) {
+					longOrder.setPlanEndDate(DateUtil.addDay(
+							longOrder.getPlanStartDate(), executeDay));
+				}
 			}
 			order.setVisit(visitComboBoxModel.getSelectedItem());
 			order.setName(orderType.getName());
 			order.setOrderType(orderType);
-			order.setPlanStartDate(planStartDate);
 			order.setCount(count);
 
 			if (orderType instanceof DrugOrderType) {

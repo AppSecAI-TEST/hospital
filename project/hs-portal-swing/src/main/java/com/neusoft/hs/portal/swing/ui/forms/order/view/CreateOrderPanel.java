@@ -32,6 +32,8 @@ import com.neusoft.hs.portal.swing.widget.SpinnerNumber;
 public class CreateOrderPanel extends JPanel {
 
 	SpinnerDate planStartDateSD;
+	
+	SpinnerNumber executeDaySN;
 
 	JTextField placeTypeTF;
 
@@ -93,13 +95,17 @@ public class CreateOrderPanel extends JPanel {
 		JLabel orderTypeLbl = new JLabel(ConstMessagesCN.Labels.OrderType);
 		JLabel planStartDateLbl = new JLabel(
 				ConstMessagesCN.Labels.PlanStartDate);
+		JLabel executeDayLbl = new JLabel(
+				ConstMessagesCN.Labels.ExecuteDay);
 		JLabel frequencyTypeLbl = new JLabel(
 				ConstMessagesCN.Labels.FrequencyType);
 		JLabel orderUseModeLbl = new JLabel(ConstMessagesCN.Labels.OrderUseMode);
 		JLabel countLbl = new JLabel(ConstMessagesCN.Labels.Count);
 		JLabel pharmacyLbl = new JLabel(ConstMessagesCN.Labels.Pharmacy);
 
-		planStartDateSD = new SpinnerDate("yyyy-MM-dd");
+		planStartDateSD = new SpinnerDate("yyyy-MM-dd HH:mm");
+		
+		executeDaySN = new SpinnerNumber();
 		
 		countSN = new SpinnerNumber();
 
@@ -119,6 +125,9 @@ public class CreateOrderPanel extends JPanel {
 
 		formPanl.add(planStartDateLbl);
 		formPanl.add(planStartDateSD);
+		
+		formPanl.add(executeDayLbl);
+		formPanl.add(executeDaySN);
 
 		formPanl.add(frequencyTypeLbl);
 		formPanl.add(frequencyTypeCB);

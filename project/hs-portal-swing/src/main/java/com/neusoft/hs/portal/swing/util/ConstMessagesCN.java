@@ -168,6 +168,7 @@ public interface ConstMessagesCN {
 		String VoucherNumber = "诊号";
 		String OrderType = "医嘱类型";
 		String PlanStartDate = "计划开始时间";
+		String ExecuteDay = "执行天数";
 		String PlanEndDate = "计划结束时间";
 		String PlaceType = "位置";
 
