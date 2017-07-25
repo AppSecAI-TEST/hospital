@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.swing.JTable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +33,6 @@ import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 import com.neusoft.hs.portal.businessview.visit.VisitBusinessView;
@@ -84,6 +84,7 @@ public class CreateOrderController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(createOrderFrame.getCompsiteBtn(), (e) -> compsite());
 		registerAction(createOrderFrame.getConfirmBtn(), (e) -> create());
 		registerAction(createOrderFrame.getCloseBtn(), (e) -> closeWindow());
 
@@ -257,6 +258,18 @@ public class CreateOrderController extends AbstractFrameController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	public void compsite() {
+		OrderTableModel orderTableModel = this.createOrderFrame
+				.getOrderListPanel().getOrderTableModel();
+		JTable table = this.createOrderFrame.getOrderListPanel().getTable();
+		int[] rows = table.getSelectedRows();
+		if (rows != null && rows.length == 2) {
+
+		} else {
+			Notifications.showFormValidationAlert("请选择两条医嘱");
 		}
 	}
 

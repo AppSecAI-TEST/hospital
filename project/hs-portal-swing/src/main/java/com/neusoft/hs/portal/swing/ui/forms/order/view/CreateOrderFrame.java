@@ -22,6 +22,8 @@ public class CreateOrderFrame extends JFrame {
 
 	private CreateOrderPanel createOrderPanel;
 
+	JButton compsiteBtn;
+
 	JButton confirmBtn;
 
 	JButton closeBtn;
@@ -61,6 +63,9 @@ public class CreateOrderFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
+		compsiteBtn = new JButton(ConstMessagesCN.Labels.COMPSITE_BTN);
+		buttonPanel.add(compsiteBtn);
+
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
@@ -99,6 +104,10 @@ public class CreateOrderFrame extends JFrame {
 
 	public CreateOrderPanel getCreateOrderPanel() {
 		return createOrderPanel;
+	}
+
+	public JButton getCompsiteBtn() {
+		return compsiteBtn;
 	}
 
 	public JButton getConfirmBtn() {

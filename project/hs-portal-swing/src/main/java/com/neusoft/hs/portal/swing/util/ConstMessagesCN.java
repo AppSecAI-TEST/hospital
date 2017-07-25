@@ -45,6 +45,7 @@ public interface ConstMessagesCN {
 		String ADD_BTN = "增加";
 		String NEXT_BTN = "下一个";
 		String OPEN_BTN = "打开";
+		String COMPSITE_BTN = "组合";
 		String CONFIRM_BTN = "确定";
 		String FINISH_BTN = "完成";
 		String SAVE_BTN = "保存";

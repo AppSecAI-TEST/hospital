@@ -35,7 +35,7 @@ public class OrderListPanel extends JPanel {
 
 		this.orderTableModel = new OrderTableModel();
 		table = new JTable(this.orderTableModel);
-		
+
 		JScrollPane paneWithTable = new JScrollPane(table);
 
 		add(paneWithTable, BorderLayout.CENTER);
@@ -43,5 +43,9 @@ public class OrderListPanel extends JPanel {
 
 	public OrderTableModel getOrderTableModel() {
 		return orderTableModel;
+	}
+
+	public JTable getTable() {
+		return table;
 	}
 }
