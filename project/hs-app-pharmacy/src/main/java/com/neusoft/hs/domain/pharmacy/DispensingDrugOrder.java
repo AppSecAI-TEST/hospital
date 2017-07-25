@@ -50,6 +50,9 @@ public class DispensingDrugOrder extends IdEntity implements Printable {
 	@OneToMany(mappedBy = "dispensingDrugOrder", cascade = { CascadeType.REFRESH })
 	private List<DispensingDrugOrderExecute> executes;
 
+	@Column(name = "execute_count")
+	private int executeCount;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id")
 	private AbstractUser creator;
@@ -113,6 +116,7 @@ public class DispensingDrugOrder extends IdEntity implements Printable {
 
 	public void setExecutes(List<DispensingDrugOrderExecute> executes) {
 		this.executes = executes;
+		this.executeCount = executes.size();
 
 		this.executes.forEach(item -> {
 			item.setDispensingDrugOrder(this);
@@ -126,6 +130,22 @@ public class DispensingDrugOrder extends IdEntity implements Printable {
 
 	public void distribute(AbstractUser user) {
 		this.state = State_Sended;
+	}
+
+	public Date getFinishDate() {
+		return finishDate;
+	}
+
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
+	}
+
+	public int getExecuteCount() {
+		return executeCount;
+	}
+
+	public void setExecuteCount(int executeCount) {
+		this.executeCount = executeCount;
 	}
 
 	@Override

@@ -9,12 +9,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.application.pharmacy.InPatientPharmacyAppService;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
+import com.neusoft.hs.domain.pharmacy.DispensingDrugOrder;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
@@ -23,8 +24,8 @@ import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.pharmacy.view.PharmacyExecuteFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugBatchComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugOrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaDeptComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 
 @Controller
 public class PharmacyExecuteController extends AbstractFrameController {
@@ -42,6 +43,9 @@ public class PharmacyExecuteController extends AbstractFrameController {
 	private PharmacyDomainService pharmacyDomainService;
 
 	@Autowired
+	private InPatientPharmacyAppService inPatientPharmacyAppService;
+
+	@Autowired
 	private PharmacyAdminService pharmacyAdminService;
 
 	@PostConstruct
@@ -53,6 +57,7 @@ public class PharmacyExecuteController extends AbstractFrameController {
 	public void prepareAndOpenFrame() throws HsException {
 		loadDispensingDrugBatchs();
 		loadInPatientAreaDepts();
+		loadDispensingDrugOrders();
 		pharmacyExecuteFrame.setVisible(true);
 	}
 
@@ -84,16 +89,24 @@ public class PharmacyExecuteController extends AbstractFrameController {
 		inPatientAreaComboBoxModel.addElements(entities);
 	}
 
-	private void loadOrderExecutes() throws HsException {
+	private void loadDispensingDrugOrders() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		List<OrderExecute> entities = orderExecuteAppService
-				.getNeedExecuteOrderExecutes(UserUtil.getUser(), pageable);
+		InPatientAreaDept area = pharmacyExecuteFrame
+				.getInPatientAreaDeptComboBoxModel().getSelectedItem();
 
-		OrderExecuteTableModel orderExecuteTableModel = this.pharmacyExecuteFrame
-				.getOrderExecuteTableModel();
-		orderExecuteTableModel.clear();
-		orderExecuteTableModel.addEntities(entities);
+		DispensingDrugBatch batch = pharmacyExecuteFrame
+				.getDispensingDrugBatchComboBoxModel().getSelectedItem();
+
+		if (area != null && batch != null) {
+			List<DispensingDrugOrder> entities = inPatientPharmacyAppService
+					.find(area, batch, pageable);
+
+			DispensingDrugOrderTableModel dispensingDrugOrderTableModel = this.pharmacyExecuteFrame
+					.getDispensingDrugOrderTableModel();
+			dispensingDrugOrderTableModel.clear();
+			dispensingDrugOrderTableModel.addEntities(entities);
+		}
 	}
 
 	private void closeWindow() {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -144,6 +145,12 @@ public class PharmacyDomainService {
 
 	public DispensingDrugOrder getDispensingDrugOrder(String id) {
 		return this.dispensingDrugOrderRepo.findOne(id);
+	}
+
+	public List<DispensingDrugOrder> findDispensingDrugOrder(
+			InPatientAreaDept area, DispensingDrugBatch batch, Pageable pageable) {
+		return this.dispensingDrugOrderRepo.findByAreaAndBatch(area, batch,
+				pageable);
 	}
 
 }

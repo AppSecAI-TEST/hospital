@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.order.DispensingDrugBatchFilter;
 import com.neusoft.hs.domain.order.DispensingDrugOrderExecute;
 import com.neusoft.hs.domain.order.OrderExecute;
-import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -27,7 +26,7 @@ import com.neusoft.hs.platform.print.PrintDomainService;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class PatientPharmacyAppService {
+public class InPatientPharmacyAppService {
 
 	@Autowired
 	private PharmacyDomainService pharmacyDomainService;
@@ -111,5 +110,11 @@ public class PatientPharmacyAppService {
 		pharmacyDomainService.distributeOrder(dispensingDrugOrder, user);
 
 		return dispensingDrugOrder;
+	}
+
+	public List<DispensingDrugOrder> find(InPatientAreaDept area,
+			DispensingDrugBatch batch, Pageable pageable) {
+		return pharmacyDomainService.findDispensingDrugOrder(area, batch,
+				pageable);
 	}
 }

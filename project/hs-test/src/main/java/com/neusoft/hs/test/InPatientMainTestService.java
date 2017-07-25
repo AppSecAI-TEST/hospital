@@ -13,7 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.neusoft.hs.application.pharmacy.PatientPharmacyAppService;
+import com.neusoft.hs.application.pharmacy.InPatientPharmacyAppService;
 import com.neusoft.hs.data.init.ChoiceItem;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.inspect.InspectApply;
@@ -42,7 +42,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class InPatientMainTestService extends InPatientTestService {
 
 	@Autowired
-	private PatientPharmacyAppService patientPharmacyAppService;
+	private InPatientPharmacyAppService patientPharmacyAppService;
 
 	@Override
 	protected void treatment() throws HsException {

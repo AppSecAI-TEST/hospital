@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
 import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugBatchComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.DispensingDrugOrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaDeptComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
@@ -32,7 +32,7 @@ public class PharmacyExecuteFrame extends JFrame {
 	JComboBox<InPatientAreaDept> inPatientAreaDeptCB;
 	InPatientAreaDeptComboBoxModel inPatientAreaDeptComboBoxModel;
 
-	private OrderExecuteTableModel orderExecuteTableModel;
+	private DispensingDrugOrderTableModel dispensingDrugOrderTableModel;
 
 	protected JTable table;
 
@@ -61,8 +61,8 @@ public class PharmacyExecuteFrame extends JFrame {
 
 		JPanel workspacePanel = new JPanel(new BorderLayout());
 
-		this.orderExecuteTableModel = new OrderExecuteTableModel();
-		table = new JTable(this.orderExecuteTableModel);
+		this.dispensingDrugOrderTableModel = new DispensingDrugOrderTableModel();
+		table = new JTable(this.dispensingDrugOrderTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane paneWithTable = new JScrollPane(table);
@@ -119,8 +119,8 @@ public class PharmacyExecuteFrame extends JFrame {
 		return inPatientAreaDeptComboBoxModel;
 	}
 
-	public OrderExecuteTableModel getOrderExecuteTableModel() {
-		return orderExecuteTableModel;
+	public DispensingDrugOrderTableModel getDispensingDrugOrderTableModel() {
+		return dispensingDrugOrderTableModel;
 	}
 
 	public JButton getCloseBtn() {

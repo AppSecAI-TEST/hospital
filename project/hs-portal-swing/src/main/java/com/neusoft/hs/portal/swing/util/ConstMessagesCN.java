@@ -152,8 +152,10 @@ public interface ConstMessagesCN {
 		String BelongDept = "所属部门";
 		String ExecuteDept = "执行部门";
 		String Operator = "操作人";
+		String ExecuteCount = "执行条目数量";
 		String CreateDate = "创建时间";
 		String ExecuteDate = "执行时间";
+		String FinishDate = "完成时间";
 
 		String CarNumber = "身份证号";
 		String Birthday = "生日";
