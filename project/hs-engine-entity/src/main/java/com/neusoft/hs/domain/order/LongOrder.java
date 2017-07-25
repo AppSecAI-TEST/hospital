@@ -38,6 +38,8 @@ public class LongOrder extends Order {
 	@Column(name = "end_date")
 	public Date endDate;
 
+	public static final String Category = "L";
+
 	/**
 	 * 住院长嘱自动分解的天数，1为今天，2为今明两天。。。。
 	 */
@@ -142,5 +144,10 @@ public class LongOrder extends Order {
 		if (!this.frequencyType.equals(longOrder.frequencyType)) {
 			throw new OrderException(this, "频次不同");
 		}
+	}
+
+	@Override
+	protected void setCategory(OrderExecute orderExecute) {
+		orderExecute.setOrderCategory(Category);
 	}
 }

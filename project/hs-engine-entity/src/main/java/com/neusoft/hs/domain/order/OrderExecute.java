@@ -105,7 +105,7 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "actual_executor_id")
 	private AbstractUser actualExecutor;
 
-	@Column(length = 32)
+	@Column(name = "actual_executor_name", length = 32)
 	private String actualExecutorName;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -123,21 +123,21 @@ public class OrderExecute extends IdEntity {
 	@JoinColumn(name = "belong_dept_id")
 	private Dept belongDept;
 
-	@Column(length = 32)
+	@Column(name = "belong_dept_name", length = 32)
 	private String belongDeptName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "execute_dept_id")
 	private Dept executeDept;
 
-	@Column(length = 32)
+	@Column(name = "execute_dept_name", length = 32)
 	private String executeDeptName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_dept_id")
 	private Dept chargeDept;
 
-	@Column(length = 32)
+	@Column(name = "charge_dept_name", length = 32)
 	private String chargeDeptName;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -146,6 +146,9 @@ public class OrderExecute extends IdEntity {
 
 	@Column(length = 16)
 	private String visitName;
+
+	@Column(name = "order_category", length = 8)
+	private String orderCategory;
 
 	public static final String State_NeedSend = "待发送";
 
@@ -688,6 +691,14 @@ public class OrderExecute extends IdEntity {
 
 	public void setVisitName(String visitName) {
 		this.visitName = visitName;
+	}
+
+	public String getOrderCategory() {
+		return orderCategory;
+	}
+
+	public void setOrderCategory(String orderCategory) {
+		this.orderCategory = orderCategory;
 	}
 
 	/**

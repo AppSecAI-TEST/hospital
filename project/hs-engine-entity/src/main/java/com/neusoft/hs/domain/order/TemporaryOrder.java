@@ -30,6 +30,8 @@ public class TemporaryOrder extends Order {
 	@JoinColumn(name = "execute_user_id")
 	private AbstractUser executeUser;
 
+	public static final String Category = "T";
+
 	@Override
 	public void updateState(OrderExecute orderExecute) {
 		this.setState(Order.State_Finished);
@@ -50,5 +52,10 @@ public class TemporaryOrder extends Order {
 
 	public void setExecuteUser(AbstractUser executeUser) {
 		this.executeUser = executeUser;
+	}
+
+	@Override
+	protected void setCategory(OrderExecute orderExecute) {
+		orderExecute.setOrderCategory(Category);
 	}
 }
