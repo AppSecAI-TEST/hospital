@@ -7,12 +7,12 @@ import java.util.Map;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
-import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
+import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
 import com.neusoft.hs.platform.util.DateUtil;
 
 public class ConfigureFluidBatchFilter implements OrderExecuteFilter {
 
-	private ConfigureFluidBatch batch;
+	private DispensingDrugBatch batch;
 
 	private InPatientAreaDept area;
 
@@ -39,11 +39,11 @@ public class ConfigureFluidBatchFilter implements OrderExecuteFilter {
 		return condition;
 	}
 
-	public ConfigureFluidBatch getBatch() {
+	public DispensingDrugBatch getBatch() {
 		return batch;
 	}
 
-	public void setBatch(ConfigureFluidBatch batch) {
+	public void setBatch(DispensingDrugBatch batch) {
 		this.batch = batch;
 	}
 

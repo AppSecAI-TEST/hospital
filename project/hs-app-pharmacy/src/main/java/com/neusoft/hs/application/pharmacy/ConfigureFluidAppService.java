@@ -18,9 +18,9 @@ import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
-import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidDomainService;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
+import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
 import com.neusoft.hs.domain.pharmacy.PharmacyException;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.print.PrintDomainService;
@@ -45,7 +45,7 @@ public class ConfigureFluidAppService {
 	 * @roseuid 592E613203CB
 	 */
 	public ConfigureFluidOrder print(InPatientAreaDept area,
-			ConfigureFluidBatch batch, AbstractUser user)
+			DispensingDrugBatch batch, AbstractUser user)
 			throws HsException {
 		ConfigureFluidBatchFilter filter = new ConfigureFluidBatchFilter();
 
