@@ -62,6 +62,7 @@ import com.neusoft.hs.domain.outpatientoffice.VoucherType;
 import com.neusoft.hs.domain.patient.PatientAdminDomainService;
 import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.domain.pharmacy.AssistMaterial;
+import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidDomainService;
 import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
 import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
@@ -272,9 +273,9 @@ public class DataIniter {
 
 	protected Disease hypoglycemiaDisease;// 低血糖
 
-	protected DispensingDrugBatch morningConfigureFluidBatch;// 上午配液批次
+	protected ConfigureFluidBatch morningConfigureFluidBatch;// 上午配液批次
 
-	protected DispensingDrugBatch afternoonConfigureFluidBatch;// 下午配液批次
+	protected ConfigureFluidBatch afternoonConfigureFluidBatch;// 下午配液批次
 
 	protected DispensingDrugBatch dayDispensingDrugBatch;// 一天一次住院摆药批次
 
@@ -555,6 +556,8 @@ public class DataIniter {
 		patientAdminDomainService.clear();
 		// 清空配液单
 		configureFluidDomainService.clearConfigureFluidOrder();
+		// 清空配液批次
+		configureFluidDomainService.clearConfigureFluidBatch();
 		// 清空住院药房摆药单
 		pharmacyAdminService.clearDispensingDrugOrder();
 		// 清空住院药房摆药批次
@@ -1653,9 +1656,9 @@ public class DataIniter {
 
 	private void initConfigureFluidBatchs() {
 
-		List<DispensingDrugBatch> batchs = new ArrayList<DispensingDrugBatch>();
+		List<ConfigureFluidBatch> batchs = new ArrayList<ConfigureFluidBatch>();
 
-		morningConfigureFluidBatch = new DispensingDrugBatch();
+		morningConfigureFluidBatch = new ConfigureFluidBatch();
 		morningConfigureFluidBatch.setId("上午配液");
 		morningConfigureFluidBatch.setCode("上午配液");
 		morningConfigureFluidBatch.setName("上午配液");
@@ -1666,7 +1669,7 @@ public class DataIniter {
 
 		batchs.add(morningConfigureFluidBatch);
 
-		afternoonConfigureFluidBatch = new DispensingDrugBatch();
+		afternoonConfigureFluidBatch = new ConfigureFluidBatch();
 		afternoonConfigureFluidBatch.setId("下午配液");
 		afternoonConfigureFluidBatch.setCode("下午配液");
 		afternoonConfigureFluidBatch.setName("下午配液");
@@ -1677,7 +1680,7 @@ public class DataIniter {
 
 		batchs.add(afternoonConfigureFluidBatch);
 
-		pharmacyAdminService.createDispensingDrugBatchs(batchs);
+		configureFluidDomainService.createConfigureFluidBatchs(batchs);
 	}
 
 	private void initDispensingDrugBatchs() {

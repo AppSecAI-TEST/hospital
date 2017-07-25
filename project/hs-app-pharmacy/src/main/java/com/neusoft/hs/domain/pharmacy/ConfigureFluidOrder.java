@@ -30,7 +30,7 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "batch_id")
-	private DispensingDrugBatch batch;
+	private ConfigureFluidBatch batch;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "area_id")
@@ -67,11 +67,11 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 		this.getService(ConfigureFluidOrderRepo.class).save(this);
 	}
 
-	public DispensingDrugBatch getBatch() {
+	public ConfigureFluidBatch getBatch() {
 		return batch;
 	}
 
-	public void setBatch(DispensingDrugBatch batch) {
+	public void setBatch(ConfigureFluidBatch batch) {
 		this.batch = batch;
 	}
 

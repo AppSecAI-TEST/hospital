@@ -21,6 +21,9 @@ import com.neusoft.hs.platform.log.LogUtil;
 public class ConfigureFluidDomainService {
 
 	@Autowired
+	private ConfigureFluidBatchRepo configureFluidBatchRepo;
+
+	@Autowired
 	private ConfigureFluidOrderRepo configureFluidOrderRepo;
 
 	@Autowired
@@ -37,7 +40,7 @@ public class ConfigureFluidDomainService {
 	 * @roseuid 592E6DFF034D
 	 */
 	public ConfigureFluidOrder createOrder(InPatientAreaDept area,
-			DispensingDrugBatch batch,
+			ConfigureFluidBatch batch,
 			List<ConfigureFluidOrderExecute> executes, AbstractUser user) {
 		ConfigureFluidOrder fluidOrder = new ConfigureFluidOrder();
 
@@ -89,4 +92,13 @@ public class ConfigureFluidDomainService {
 	public void clearConfigureFluidOrder() {
 		configureFluidOrderRepo.deleteAll();
 	}
+
+	public void createConfigureFluidBatchs(List<ConfigureFluidBatch> batchs) {
+		configureFluidBatchRepo.save(batchs);
+	}
+
+	public void clearConfigureFluidBatch() {
+		configureFluidBatchRepo.deleteAll();
+	}
+
 }
