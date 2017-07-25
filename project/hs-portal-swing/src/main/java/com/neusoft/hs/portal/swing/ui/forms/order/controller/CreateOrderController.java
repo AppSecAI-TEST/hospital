@@ -14,12 +14,14 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
+import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.EnterHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
+import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
@@ -267,7 +269,20 @@ public class CreateOrderController extends AbstractFrameController {
 		JTable table = this.createOrderFrame.getOrderListPanel().getTable();
 		int[] rows = table.getSelectedRows();
 		if (rows != null && rows.length == 2) {
+			Order order1 = orderTableModel.getEntityByRow(rows[0]);
+			Order order2 = orderTableModel.getEntityByRow(rows[1]);
 
+			try {
+				CompsiteOrder compsiteOrder = new CompsiteOrder();
+				compsiteOrder.addOrder(order1);
+				compsiteOrder.addOrder(order2);
+
+				orderAppService.compsite(compsiteOrder,
+						(Doctor) UserUtil.getUser());
+			} catch (Exception e) {
+				e.printStackTrace();
+				Notifications.showFormValidationAlert(e.getMessage());
+			}
 		} else {
 			Notifications.showFormValidationAlert("请选择两条医嘱");
 		}
