@@ -36,6 +36,8 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 
 	protected JTable table;
 
+	private JButton createBtn;
+
 	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
@@ -90,6 +92,9 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 		operationPanel.add(inPatientAreaDeptLbl);
 		operationPanel.add(inPatientAreaDeptCB);
 
+		createBtn = new JButton(ConstMessagesCN.Labels.Create_BTN);
+		operationPanel.add(createBtn);
+
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
 		add(workspacePanel, BorderLayout.CENTER);
@@ -121,6 +126,10 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 
 	public ConfigureFluidOrderTableModel getConfigureFluidOrderTableModel() {
 		return configureFluidOrderTableModel;
+	}
+
+	public JButton getCreateBtn() {
+		return createBtn;
 	}
 
 	public JButton getCloseBtn() {

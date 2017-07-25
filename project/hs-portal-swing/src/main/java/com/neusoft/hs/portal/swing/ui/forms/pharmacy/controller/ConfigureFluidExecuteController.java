@@ -26,6 +26,7 @@ import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.ConfigureFluidBatchComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.ConfigureFluidOrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaDeptComboBoxModel;
+import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class ConfigureFluidExecuteController extends AbstractFrameController {
@@ -54,6 +55,8 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 				e) -> loadConfigureFluidOrders());
 		registerAction(configureFluidExecuteFrame.getInPatientAreaDeptCB(),
 				(e) -> loadConfigureFluidOrders());
+		registerAction(configureFluidExecuteFrame.getCreateBtn(),
+				(e) -> createConfigureFluidOrder());
 		registerAction(configureFluidExecuteFrame.getCloseBtn(),
 				(e) -> closeWindow());
 	}
@@ -111,6 +114,32 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 					.getConfigureFluidOrderTableModel();
 			dispensingDrugOrderTableModel.clear();
 			dispensingDrugOrderTableModel.addEntities(entities);
+		}
+	}
+
+	private void createConfigureFluidOrder() {
+
+		InPatientAreaDept area = configureFluidExecuteFrame
+				.getInPatientAreaDeptComboBoxModel().getSelectedItem();
+
+		ConfigureFluidBatch batch = configureFluidExecuteFrame
+				.getConfigureFluidBatchComboBoxModel().getSelectedItem();
+
+		if (area != null && batch != null) {
+
+			try {
+				ConfigureFluidOrder fluidOrder = configureFluidAppService
+						.print(area, batch, UserUtil.getUser());
+				if (fluidOrder == null) {
+					Notifications.showFormValidationAlert("没有配液任务");
+				} else {
+					loadConfigureFluidOrders();
+				}
+			} catch (HsException e) {
+				e.printStackTrace();
+				Notifications.showFormValidationAlert(e.getMessage());
+			}
+
 		}
 	}
 
