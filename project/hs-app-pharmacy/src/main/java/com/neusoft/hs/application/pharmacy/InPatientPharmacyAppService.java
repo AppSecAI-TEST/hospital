@@ -22,6 +22,7 @@ import com.neusoft.hs.domain.pharmacy.DispensingDrugBatch;
 import com.neusoft.hs.domain.pharmacy.DispensingDrugOrder;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.pharmacy.PharmacyException;
+import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.print.PrintDomainService;
 
 @Service
@@ -40,12 +41,12 @@ public class InPatientPharmacyAppService {
 	/**
 	 * @param batch
 	 * @param inpatientAreaDept
-	 * @throws OrderExecuteException
+	 * @throws HsException
 	 * @roseuid 592E613203CB
 	 */
 	public DispensingDrugOrder print(InPatientAreaDept area,
 			DispensingDrugBatch batch, AbstractUser user)
-			throws OrderExecuteException {
+			throws HsException {
 		DispensingDrugBatchFilter filter = new DispensingDrugBatchFilter();
 
 		filter.setArea(area);

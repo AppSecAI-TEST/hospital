@@ -19,6 +19,7 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
 
 @Service
@@ -94,7 +95,8 @@ public class OrderExecuteAppService {
 	}
 
 	public List<OrderExecute> find(OrderExecuteFilter filter,
-			Map<String, Object> params, AbstractUser user, Pageable pageable) {
+			Map<String, Object> params, AbstractUser user, Pageable pageable)
+			throws HsException {
 		return orderExecuteDomainService.find(filter, params, user, pageable);
 	}
 

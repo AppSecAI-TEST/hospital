@@ -32,6 +32,7 @@ public class ConfigureFluidBatchFilter implements OrderExecuteFilter {
 		condition.setBegin(begin);
 		condition.setEnd(end);
 		condition.addType(OrderExecute.Type_Configure_Fluid);
+		condition.setCategory(LongOrder.Category);
 
 		condition.setBelongDepts(area.getDepts());
 

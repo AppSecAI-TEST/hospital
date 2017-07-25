@@ -155,43 +155,42 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:15", dayCount));
 
-		// pageable = new PageRequest(0, Integer.MAX_VALUE);
-		// executes =
-		// orderExecuteAppService.getNeedExecuteOrderExecutes(userc01,
-		// pageable);
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userc01,
+				pageable);
+
+		assertTrue(executes.size() == 2);
+
+		// 完成摆药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, userc01);
+		}
+
+		// dispensingDrugOrder = patientPharmacyAppService.print(dept000n,
+		// dayDispensingDrugBatch, userc01);
 		//
-		// assertTrue(executes.size() == 1);
+		// assertTrue(dispensingDrugOrder.getExecutes().size() == 2);
 		//
-		// // 完成摆药医嘱执行条目
-		// orderExecuteAppService.finish(executes.get(0).getId(), null,
-		// userc01);
-
-		dispensingDrugOrder = patientPharmacyAppService.print(dept000n,
-				dayDispensingDrugBatch, userc01);
-
-		assertTrue(dispensingDrugOrder.getExecutes().size() == 2);
-
-		patientPharmacyAppService
-				.dispense(dispensingDrugOrder.getId(), userc01);
+		// patientPharmacyAppService
+		// .dispense(dispensingDrugOrder.getId(), userc01);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:30", dayCount));
 
-		// pageable = new PageRequest(0, Integer.MAX_VALUE);
-		// executes =
-		// orderExecuteAppService.getNeedExecuteOrderExecutes(userc03,
-		// pageable);
-		//
-		// assertTrue(executes.size() == 1);
-		//
-		// // 完成发药医嘱执行条目
-		// for (OrderExecute execute : executes) {
-		// orderExecuteAppService.finish(execute.getId(), null, userc03);
-		// }
+		pageable = new PageRequest(0, Integer.MAX_VALUE);
+		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userc03,
+				pageable);
 
-		dispensingDrugOrder = patientPharmacyAppService.distribute(
-				dispensingDrugOrder.getId(), userc01);
+		assertTrue(executes.size() == 2);
 
-		assertTrue(dispensingDrugOrder.getExecutes().size() == 2);
+		// 完成发药医嘱执行条目
+		for (OrderExecute execute : executes) {
+			orderExecuteAppService.finish(execute.getId(), null, userc03);
+		}
+
+		// dispensingDrugOrder = patientPharmacyAppService.distribute(
+		// dispensingDrugOrder.getId(), userc01);
+		//
+		// assertTrue(dispensingDrugOrder.getExecutes().size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-28 11:32", dayCount));
 

@@ -19,6 +19,7 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.log.LogUtil;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -117,43 +118,94 @@ public class OrderExecuteDomainService {
 	 * @param user
 	 * @param pageable
 	 * @return
+	 * @throws HsException
 	 */
 	public List<OrderExecute> find(OrderExecuteFilter filter,
-			Map<String, Object> params, AbstractUser user, Pageable pageable) {
+			Map<String, Object> params, AbstractUser user, Pageable pageable)
+			throws HsException {
 		OrderExecuteFilterCondition condition = filter.createCondition(params,
 				user);
 
 		Date begin = condition.getBegin();
 		Date end = condition.getEnd();
 		List<String> types = condition.getTypes();
+		String category = condition.getCategory();
 
 		List<? extends Dept> belongDepts = condition.getBelongDepts();
 
 		if (belongDepts.size() > 1) {
-			if (types.size() > 0) {
-				return orderExecuteRepo
-						.findByStateAndBelongDeptInAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
-								OrderExecute.State_Executing, belongDepts,
-								types, begin, end, pageable);
+			if (types.size() > 1) {
+				if (category == null) {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptInAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing, belongDepts,
+									types, begin, end, pageable);
+				} else {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptInAndTypeInAndOrderCategoryAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing, belongDepts,
+									types, category, begin, end, pageable);
+				}
+			} else if (types.size() == 1) {
+				if (category == null) {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptInAndTypeAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing, belongDepts,
+									types.get(0), begin, end, pageable);
+				} else {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptInAndTypeAndOrderCategoryAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing, belongDepts,
+									types.get(0), category, begin, end,
+									pageable);
+				}
 			} else {
-				return orderExecuteRepo
-						.findByStateAndBelongDeptInAndTypeAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
-								OrderExecute.State_Executing, belongDepts,
-								types.get(0), begin, end, pageable);
+				if (category == null) {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing, belongDepts,
+									begin, end, pageable);
+				} else {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptInAndOrderCategoryAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing, belongDepts,
+									category, begin, end, pageable);
+				}
+			}
+		} else if (belongDepts.size() > 1) {
+			if (types.size() > 1) {
+				if (category == null) {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing,
+									belongDepts.get(0), types, begin, end,
+									pageable);
+				} else {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptAndTypeInAndOrderCategoryAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing,
+									belongDepts.get(0), types, category, begin,
+									end, pageable);
+				}
+			} else if (types.size() == 1) {
+				if (category == null) {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptAndTypeAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing,
+									belongDepts.get(0), types.get(0), begin,
+									end, pageable);
+				} else {
+					return orderExecuteRepo
+							.findByStateAndBelongDeptAndTypeAndOrderCategoryAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
+									OrderExecute.State_Executing,
+									belongDepts.get(0), types.get(0), category,
+									begin, end, pageable);
+				}
+			} else {
+				throw new HsException("代码未编写");
 			}
 		} else {
-			if (types.size() > 0) {
-				return orderExecuteRepo
-						.findByStateAndBelongDeptAndTypeInAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
-								OrderExecute.State_Executing,
-								belongDepts.get(0), types, begin, end, pageable);
-			} else {
-				return orderExecuteRepo
-						.findByStateAndBelongDeptAndTypeAndPlanStartDateGreaterThanAndPlanEndDateLessThan(
-								OrderExecute.State_Executing,
-								belongDepts.get(0), types.get(0), begin, end,
-								pageable);
-			}
+			throw new HsException("代码未编写");
 		}
 	}
 

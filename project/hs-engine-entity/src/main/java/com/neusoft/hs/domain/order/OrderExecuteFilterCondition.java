@@ -26,6 +26,8 @@ public class OrderExecuteFilterCondition {
 
 	private List<String> types;
 
+	private String category;
+
 	public Date getBegin() {
 		return begin;
 	}
@@ -71,6 +73,14 @@ public class OrderExecuteFilterCondition {
 			this.types = new ArrayList<String>();
 		}
 		this.types.add(type);
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }
