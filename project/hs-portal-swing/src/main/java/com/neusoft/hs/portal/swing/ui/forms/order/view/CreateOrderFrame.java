@@ -1,10 +1,12 @@
 package com.neusoft.hs.portal.swing.ui.forms.order.view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,10 @@ public class CreateOrderFrame extends JFrame {
 	private OrderListPanel orderListPanel;
 
 	private CreateOrderPanel createOrderPanel;
+
+	JButton confirmBtn;
+
+	JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 1000;
 
@@ -43,14 +49,25 @@ public class CreateOrderFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		setLayout(new GridLayout(2, 1));
 
-		add(orderListPanel);
-		add(createOrderPanel);
-	}
+		setLayout(new BorderLayout());
 
-	public JButton getConfirmBtn() {
-		return this.createOrderPanel.confirmBtn;
+		JPanel workspacePanel = new JPanel(new GridLayout(2, 1));
+
+		workspacePanel.add(orderListPanel);
+		workspacePanel.add(createOrderPanel);
+
+		add(workspacePanel, BorderLayout.CENTER);
+
+		JPanel buttonPanel = new JPanel();
+
+		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
+		buttonPanel.add(confirmBtn);
+
+		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
+		buttonPanel.add(closeBtn);
+
+		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
 	public Date getPlanStartDate() throws HsException {
@@ -84,8 +101,12 @@ public class CreateOrderFrame extends JFrame {
 		return createOrderPanel;
 	}
 
+	public JButton getConfirmBtn() {
+		return this.confirmBtn;
+	}
+
 	public JButton getCloseBtn() {
-		return createOrderPanel.getCloseBtn();
+		return closeBtn;
 	}
 
 }

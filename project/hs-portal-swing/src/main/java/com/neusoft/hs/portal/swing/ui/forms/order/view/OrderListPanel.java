@@ -35,8 +35,7 @@ public class OrderListPanel extends JPanel {
 
 		this.orderTableModel = new OrderTableModel();
 		table = new JTable(this.orderTableModel);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+		
 		JScrollPane paneWithTable = new JScrollPane(table);
 
 		add(paneWithTable, BorderLayout.CENTER);

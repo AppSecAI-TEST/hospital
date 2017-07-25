@@ -32,7 +32,7 @@ import com.neusoft.hs.portal.swing.widget.SpinnerNumber;
 public class CreateOrderPanel extends JPanel {
 
 	SpinnerDate planStartDateSD;
-	
+
 	SpinnerNumber executeDaySN;
 
 	JTextField placeTypeTF;
@@ -57,10 +57,6 @@ public class CreateOrderPanel extends JPanel {
 
 	JComboBox<Pharmacy> pharmacyCB;
 	PharmacyComboBoxModel pharmacyComboBoxModel;
-
-	JButton confirmBtn;
-	
-	JButton closeBtn;
 
 	private static final int LAYOUT_ROWS = 4;
 	private static final int LAYOUT_COLS = 2;
@@ -87,16 +83,14 @@ public class CreateOrderPanel extends JPanel {
 		this.orderUseModeComboBoxModel = new DrugUseModeComboBoxModel();
 		this.pharmacyComboBoxModel = new PharmacyComboBoxModel();
 
-		JPanel formPanl = new JPanel();
-		formPanl.setLayout(new GridLayout(LAYOUT_ROWS, LAYOUT_COLS,
-				HORIZONTAL_GAP, VERTICAL_GAP));
+		setLayout(new GridLayout(LAYOUT_ROWS, LAYOUT_COLS, HORIZONTAL_GAP,
+				VERTICAL_GAP));
 
 		JLabel visitLbl = new JLabel(ConstMessagesCN.Labels.Visit);
 		JLabel orderTypeLbl = new JLabel(ConstMessagesCN.Labels.OrderType);
 		JLabel planStartDateLbl = new JLabel(
 				ConstMessagesCN.Labels.PlanStartDate);
-		JLabel executeDayLbl = new JLabel(
-				ConstMessagesCN.Labels.ExecuteDay);
+		JLabel executeDayLbl = new JLabel(ConstMessagesCN.Labels.ExecuteDay);
 		JLabel frequencyTypeLbl = new JLabel(
 				ConstMessagesCN.Labels.FrequencyType);
 		JLabel orderUseModeLbl = new JLabel(ConstMessagesCN.Labels.OrderUseMode);
@@ -104,54 +98,42 @@ public class CreateOrderPanel extends JPanel {
 		JLabel pharmacyLbl = new JLabel(ConstMessagesCN.Labels.Pharmacy);
 
 		planStartDateSD = new SpinnerDate("yyyy-MM-dd HH:mm");
-		
+
 		executeDaySN = new SpinnerNumber();
-		
+
 		countSN = new SpinnerNumber();
 
 		visitCB = new JComboBox<>(visitComboBoxModel);
 		orderTypeCB = new JComboBox<>(orderTypeComboBoxModel);
-	
+
 		frequencyTypeCB = new JComboBox<>(frequencyTypeComboBoxModel);
 
 		orderUseModeCB = new JComboBox<>(orderUseModeComboBoxModel);
 		pharmacyCB = new JComboBox<>(pharmacyComboBoxModel);
 
-		formPanl.add(visitLbl);
-		formPanl.add(visitCB);
+		add(visitLbl);
+		add(visitCB);
 
-		formPanl.add(orderTypeLbl);
-		formPanl.add(orderTypeCB);
+		add(orderTypeLbl);
+		add(orderTypeCB);
 
-		formPanl.add(planStartDateLbl);
-		formPanl.add(planStartDateSD);
-		
-		formPanl.add(executeDayLbl);
-		formPanl.add(executeDaySN);
+		add(planStartDateLbl);
+		add(planStartDateSD);
 
-		formPanl.add(frequencyTypeLbl);
-		formPanl.add(frequencyTypeCB);
+		add(executeDayLbl);
+		add(executeDaySN);
 
-		formPanl.add(orderUseModeLbl);
-		formPanl.add(orderUseModeCB);
+		add(frequencyTypeLbl);
+		add(frequencyTypeCB);
 
-		formPanl.add(pharmacyLbl);
-		formPanl.add(pharmacyCB);
+		add(orderUseModeLbl);
+		add(orderUseModeCB);
 
-		formPanl.add(countLbl);
-		formPanl.add(countSN);
+		add(pharmacyLbl);
+		add(pharmacyCB);
 
-		add(formPanl, BorderLayout.CENTER);
-
-		JPanel buttonPanel = new JPanel();
-
-		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
-		buttonPanel.add(confirmBtn);
-		
-		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
-		buttonPanel.add(closeBtn);
-
-		add(buttonPanel, BorderLayout.SOUTH);
+		add(countLbl);
+		add(countSN);
 	}
 
 	public VisitComboBoxModel getVisitComboBoxModel() {
@@ -173,9 +155,4 @@ public class CreateOrderPanel extends JPanel {
 	public PharmacyComboBoxModel getPharmacyComboBoxModel() {
 		return pharmacyComboBoxModel;
 	}
-	
-	public JButton getCloseBtn() {
-		return closeBtn;
-	}
-
 }
