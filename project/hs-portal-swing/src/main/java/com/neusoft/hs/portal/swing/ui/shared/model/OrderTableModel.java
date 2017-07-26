@@ -23,7 +23,7 @@ public class OrderTableModel extends DefaultTableModel<Order> {
 		case 5:
 			return order.getPlaceType();
 		case 6:
-			return DateFormatter.formatDate(order.getCreateDate());
+			return DateFormatter.formatDateTime(order.getCreateDate());
 		default:
 			return "";
 		}

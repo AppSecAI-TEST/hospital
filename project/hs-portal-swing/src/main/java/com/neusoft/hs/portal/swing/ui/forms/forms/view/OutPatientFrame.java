@@ -48,7 +48,7 @@ public class OutPatientFrame extends JFrame implements
 
 	private void setFrameUp() {
 		getRootPane().setBorder(Borders.createEmptyBorder());
-		setTitle(ConstMessagesCN.Labels.InPatient);
+		setTitle(ConstMessagesCN.Labels.OutPatient);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setSize(Width, Height);
 		setLocationRelativeTo(null);
