@@ -40,8 +40,7 @@ public class OrderExecuteSendListPanel extends JPanel {
 
 		this.orderExecuteTableModel = new OrderExecuteTableModel();
 		table = new JTable(this.orderExecuteTableModel);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+		
 		JScrollPane paneWithTable = new JScrollPane(table);
 
 		add(paneWithTable, BorderLayout.CENTER);
