@@ -26,7 +26,6 @@ import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Role;
-import com.neusoft.hs.domain.pharmacy.PharmacyException;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
