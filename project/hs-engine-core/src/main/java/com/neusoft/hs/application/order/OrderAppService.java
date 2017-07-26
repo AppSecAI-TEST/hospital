@@ -21,7 +21,6 @@ import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.platform.exception.HsException;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -76,10 +75,16 @@ public class OrderAppService {
 		if (order1 == null) {
 			throw new OrderException(null, "orderId=[" + orderId1 + "]不存在");
 		}
+		if (order1.getCompsiteOrder() != null) {
+			throw new OrderException(null, "orderId=[" + orderId1 + "]已经成为组合医嘱");
+		}
 
 		Order order2 = orderDomainService.find(orderId2);
 		if (order2 == null) {
 			throw new OrderException(null, "orderId=[" + orderId2 + "]不存在");
+		}
+		if (order2.getCompsiteOrder() != null) {
+			throw new OrderException(null, "orderId=[" + orderId2 + "]已经成为组合医嘱");
 		}
 
 		CompsiteOrder compsiteOrder = new CompsiteOrder();
