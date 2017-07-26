@@ -3,6 +3,7 @@ package com.neusoft.hs.portal.swing.ui.forms.pharmacy.controller;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.swing.JTable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -57,6 +58,8 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 				(e) -> loadConfigureFluidOrders());
 		registerAction(configureFluidExecuteFrame.getCreateBtn(),
 				(e) -> createConfigureFluidOrder());
+		registerAction(configureFluidExecuteFrame.getFinishBtn(),
+				(e) -> finishConfigureFluidOrder());
 		registerAction(configureFluidExecuteFrame.getCloseBtn(),
 				(e) -> closeWindow());
 	}
@@ -140,6 +143,19 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 				Notifications.showFormValidationAlert(e.getMessage());
 			}
 
+		}
+	}
+
+	private void finishConfigureFluidOrder() {
+		ConfigureFluidOrder configureFluidOrder = this.configureFluidExecuteFrame
+				.getConfigureFluidOrder();
+		try {
+			configureFluidAppService.finish(configureFluidOrder.getId(),
+					UserUtil.getUser());
+			loadConfigureFluidOrders();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
 

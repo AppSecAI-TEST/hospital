@@ -18,10 +18,12 @@ import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidBatch;
+import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
 import com.neusoft.hs.portal.swing.ui.shared.model.ConfigureFluidBatchComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.ConfigureFluidOrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaDeptComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
+import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Component
 public class ConfigureFluidExecuteFrame extends JFrame {
@@ -37,6 +39,8 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 	protected JTable table;
 
 	private JButton createBtn;
+
+	private JButton finishBtn;
 
 	private JButton closeBtn;
 
@@ -95,6 +99,9 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 		createBtn = new JButton(ConstMessagesCN.Labels.Create_BTN);
 		operationPanel.add(createBtn);
 
+		finishBtn = new JButton(ConstMessagesCN.Labels.FINISH_BTN);
+		operationPanel.add(finishBtn);
+
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
 		add(workspacePanel, BorderLayout.CENTER);
@@ -128,8 +135,20 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 		return configureFluidOrderTableModel;
 	}
 
+	public ConfigureFluidOrder getConfigureFluidOrder() {
+		if (this.table.getSelectedRow() == -1) {
+			Notifications.showFormValidationAlert("请选择配液单");
+		}
+		return configureFluidOrderTableModel.getEntityByRow(this.table
+				.getSelectedRow());
+	}
+
 	public JButton getCreateBtn() {
 		return createBtn;
+	}
+
+	public JButton getFinishBtn() {
+		return finishBtn;
 	}
 
 	public JButton getCloseBtn() {
