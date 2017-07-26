@@ -69,6 +69,20 @@ public class OrderExecuteAppService {
 	}
 
 	/**
+	 * 发送执行条目
+	 * 
+	 * @param executeIds
+	 * @param nurse
+	 * @throws OrderExecuteException
+	 */
+	public void send(List<String> executeIds, AbstractUser nurse)
+			throws OrderExecuteException {
+		for (String executeId : executeIds) {
+			send(executeId, nurse);
+		}
+	}
+
+	/**
 	 * 启动需要启动的执行条目
 	 * 
 	 * @roseuid 584F67A6034B

@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.application.order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +111,24 @@ public class OrderAppService {
 			throw new OrderException(null, "orderId=[" + orderId + "]不存在");
 		}
 		return orderDomainService.verify(order, nurse);
+	}
+
+	/**
+	 * 核对医嘱
+	 * 
+	 * @param nurse
+	 * @param orderIds
+	 * @throws OrderExecuteException
+	 * @throws OrderException
+	 * @roseuid 584F48660279
+	 */
+	public List<Order> verify(List<String> orderIds, AbstractUser nurse)
+			throws OrderException, OrderExecuteException {
+		List<Order> orders = new ArrayList<Order>();
+		for (String orderId : orderIds) {
+			orders.add(verify(orderId, nurse));
+		}
+		return orders;
 	}
 
 	/**

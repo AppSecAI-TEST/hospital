@@ -1,5 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -57,10 +58,11 @@ public class OrderExecuteSendController extends AbstractFrameController {
 			List<OrderExecute> orderExecutes = this.orderExecuteSendFrame
 					.getSelectedOrderExecutes();
 
+			List<String> orderExecuteIds = new ArrayList<String>();
 			for (OrderExecute orderExecute : orderExecutes) {
-				orderExecuteAppService.send(orderExecute.getId(),
-						UserUtil.getUser());
+				orderExecuteIds.add(orderExecute.getId());
 			}
+			orderExecuteAppService.send(orderExecuteIds, UserUtil.getUser());
 			loadOrderExecutes();
 
 		} catch (Exception e) {

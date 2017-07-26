@@ -1,5 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -54,13 +55,13 @@ public class VerifyOrderController extends AbstractFrameController {
 	private void verify() {
 		try {
 			List<Order> orders = this.orderVerifyFrame.getSelectedOrders();
-
+			List<String> orderIds = new ArrayList<String>();
 			for (Order order : orders) {
-				orderAppService.verify(order.getId(), UserUtil.getUser());
+				orderIds.add(order.getId());
 			}
+			orderAppService.verify(orderIds, UserUtil.getUser());
 
 			loadOrders();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
