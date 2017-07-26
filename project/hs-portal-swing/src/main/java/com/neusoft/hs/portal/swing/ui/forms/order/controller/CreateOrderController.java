@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.order.OrderAppService;
@@ -104,10 +105,10 @@ public class CreateOrderController extends AbstractFrameController {
 	}
 
 	private void loadOrders() throws HsException {
-		
-		Sort sort = new Sort("createDate");
+
+		Sort sort = new Sort(Direction.DESC, "createDate");
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
-	
+
 		AbstractUser user = UserUtil.getUser();
 
 		List<Dept> depts = new ArrayList<Dept>();
