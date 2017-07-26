@@ -94,7 +94,8 @@ public class OutPatientRecordFrame extends JFrame {
 			buttonPanel.add(saveBtn);
 		}
 
-		if (medicalRecord.getState().equals(MedicalRecord.State_Created)) {
+		if (medicalRecord.getState() != null
+				&& medicalRecord.getState().equals(MedicalRecord.State_Created)) {
 			fixBtn = new JButton(ConstMessagesCN.Labels.FIX_BTN);
 			buttonPanel.add(fixBtn);
 		}
