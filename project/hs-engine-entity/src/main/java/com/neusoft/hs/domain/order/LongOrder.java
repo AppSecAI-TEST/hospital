@@ -137,7 +137,8 @@ public class LongOrder extends Order {
 			throw new OrderException(this, "计划结束时间不同");
 		}
 
-		if (!this.planEndDate.equals(longOrder.planEndDate)) {
+		if (this.planEndDate != null && longOrder.planEndDate != null
+				&& !this.planEndDate.equals(longOrder.planEndDate)) {
 			throw new OrderException(this, "计划结束时间不同");
 		}
 

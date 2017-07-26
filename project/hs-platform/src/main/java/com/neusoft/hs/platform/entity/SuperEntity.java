@@ -7,7 +7,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler",
+		"fieldHandler" })
 public abstract class SuperEntity implements Serializable {
 
 	public abstract String getId();
@@ -30,8 +31,6 @@ public abstract class SuperEntity implements Serializable {
 		if (this == obj)
 			return true;
 		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
 			return false;
 		SuperEntity other = (SuperEntity) obj;
 		if (getId() == null) {
