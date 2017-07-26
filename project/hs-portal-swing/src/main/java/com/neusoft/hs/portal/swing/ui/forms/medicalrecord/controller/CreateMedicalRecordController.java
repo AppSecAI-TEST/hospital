@@ -164,6 +164,8 @@ public class CreateMedicalRecordController extends AbstractFrameController
 
 	@Override
 	public void onApplicationEvent(MedicalRecordOperationEvent event) {
-		refreshMedicalRecord();
+		if (createMedicalRecordFrame.isVisible()) {
+			refreshMedicalRecord();
+		}
 	}
 }
