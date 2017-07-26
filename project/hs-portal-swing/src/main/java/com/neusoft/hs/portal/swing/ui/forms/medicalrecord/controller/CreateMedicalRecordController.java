@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordEvent;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordOperationEvent;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -32,7 +32,7 @@ import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class CreateMedicalRecordController extends AbstractFrameController
-		implements ApplicationListener<MedicalRecordEvent> {
+		implements ApplicationListener<MedicalRecordOperationEvent> {
 
 	@Autowired
 	private CreateMedicalRecordFrame createMedicalRecordFrame;
@@ -163,7 +163,7 @@ public class CreateMedicalRecordController extends AbstractFrameController
 	}
 
 	@Override
-	public void onApplicationEvent(MedicalRecordEvent event) {
+	public void onApplicationEvent(MedicalRecordOperationEvent event) {
 		refreshMedicalRecord();
 	}
 }

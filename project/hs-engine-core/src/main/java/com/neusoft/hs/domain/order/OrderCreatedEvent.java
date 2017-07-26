@@ -2,9 +2,8 @@
 
 package com.neusoft.hs.domain.order;
 
-import org.springframework.context.ApplicationEvent;
 
-public class OrderCreatedEvent extends ApplicationEvent {
+public class OrderCreatedEvent extends OrderOperationEvent {
 
 	public OrderCreatedEvent(Object source) {
 		super(source);

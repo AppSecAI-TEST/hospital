@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordEvent;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordOperationEvent;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;

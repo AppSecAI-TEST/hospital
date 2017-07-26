@@ -2,9 +2,9 @@ package com.neusoft.hs.domain.medicalrecord;
 
 import org.springframework.context.ApplicationEvent;
 
-public class MedicalRecordEvent extends ApplicationEvent {
+public class MedicalRecordOperationEvent extends ApplicationEvent {
 
-	public MedicalRecordEvent(Object source) {
+	public MedicalRecordOperationEvent(Object source) {
 		super(source);
 	}
 
