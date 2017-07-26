@@ -175,15 +175,18 @@ public class OrderExecuteDomainService {
 	 * @throws OrderExecuteException
 	 * @roseuid 584FB6AF013C
 	 */
-	public void finish(OrderExecute execute, Map<String, Object> params,
-			AbstractUser user) throws OrderExecuteException {
+	public OrderExecute finish(OrderExecute execute,
+			Map<String, Object> params, AbstractUser user)
+			throws OrderExecuteException {
 
-		execute.finish(params, user);
+		OrderExecute next = execute.finish(params, user);
 
 		applicationContext.publishEvent(new OrderExecuteFinishedEvent(execute));
 
 		LogUtil.log(this.getClass(), "用户[{}]完成了患者一次就诊[{}]的医嘱执行条目{},类型为[{}]",
 				user.getId(), execute.getVisit().getName(), execute.getId(),
 				execute.getType());
+
+		return next;
 	}
 }

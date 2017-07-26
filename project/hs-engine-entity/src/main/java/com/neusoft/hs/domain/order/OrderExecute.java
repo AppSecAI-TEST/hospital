@@ -245,9 +245,10 @@ public class OrderExecute extends IdEntity {
 	 * @param user
 	 * @param params
 	 * @throws OrderExecuteException
+	 * @return 下一条执行条目
 	 * @roseuid 584FB6EB03E5
 	 */
-	public void finish(Map<String, Object> params, AbstractUser user)
+	public OrderExecute finish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
 
 		if (!this.state.equals(State_Executing)) {
@@ -283,7 +284,10 @@ public class OrderExecute extends IdEntity {
 			} else {
 				this.order.updateState(this);
 			}
+
+			return next;
 		}
+		return null;
 	}
 
 	/**
