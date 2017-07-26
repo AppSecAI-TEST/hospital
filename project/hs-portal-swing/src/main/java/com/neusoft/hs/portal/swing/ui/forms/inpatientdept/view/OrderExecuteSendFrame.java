@@ -1,6 +1,7 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +22,7 @@ public class OrderExecuteSendFrame extends JFrame {
 	private OrderExecuteSendListPanel orderExecuteSendListPanel;
 
 	JButton confirmBtn;
-	
+
 	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
@@ -54,7 +55,7 @@ public class OrderExecuteSendFrame extends JFrame {
 
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
-		
+
 		closeBtn = new JButton(ConstMessagesCN.Labels.CLOSE_BTN);
 		buttonPanel.add(closeBtn);
 
@@ -65,14 +66,14 @@ public class OrderExecuteSendFrame extends JFrame {
 		return this.confirmBtn;
 	}
 
-	public OrderExecute getSelectedOrderExecute() throws UIException {
-		return orderExecuteSendListPanel.getSelectedOrderExecute();
+	public List<OrderExecute> getSelectedOrderExecutes() throws UIException {
+		return orderExecuteSendListPanel.getSelectedOrderExecutes();
 	}
 
 	public OrderExecuteTableModel getOrderExecuteTableModel() {
 		return orderExecuteSendListPanel.getOrderExecuteTableModel();
 	}
-	
+
 	public JButton getCloseBtn() {
 		return closeBtn;
 	}

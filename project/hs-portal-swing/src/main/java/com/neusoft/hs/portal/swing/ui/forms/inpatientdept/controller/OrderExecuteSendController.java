@@ -30,8 +30,9 @@ public class OrderExecuteSendController extends AbstractFrameController {
 	@PostConstruct
 	private void prepareListeners() {
 		registerAction(orderExecuteSendFrame.getConfirmBtn(), (e) -> send());
-		registerAction(orderExecuteSendFrame.getCloseBtn(), (e) -> closeWindow());
-		
+		registerAction(orderExecuteSendFrame.getCloseBtn(),
+				(e) -> closeWindow());
+
 	}
 
 	@Override
@@ -53,12 +54,13 @@ public class OrderExecuteSendController extends AbstractFrameController {
 
 	private void send() {
 		try {
-			OrderExecute orderExecute = this.orderExecuteSendFrame
-					.getSelectedOrderExecute();
+			List<OrderExecute> orderExecutes = this.orderExecuteSendFrame
+					.getSelectedOrderExecutes();
 
-			orderExecuteAppService.send(orderExecute.getId(),
-					UserUtil.getUser());
-
+			for (OrderExecute orderExecute : orderExecutes) {
+				orderExecuteAppService.send(orderExecute.getId(),
+						UserUtil.getUser());
+			}
 			loadOrderExecutes();
 
 		} catch (Exception e) {
@@ -66,7 +68,7 @@ public class OrderExecuteSendController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void closeWindow() {
 		orderExecuteSendFrame.dispose();
 	}

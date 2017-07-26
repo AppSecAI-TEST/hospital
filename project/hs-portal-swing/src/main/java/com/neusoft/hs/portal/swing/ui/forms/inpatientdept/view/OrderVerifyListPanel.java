@@ -1,11 +1,12 @@
 package com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,18 +38,23 @@ public class OrderVerifyListPanel extends JPanel {
 
 		this.orderTableModel = new OrderTableModel();
 		table = new JTable(this.orderTableModel);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane paneWithTable = new JScrollPane(table);
 
 		add(paneWithTable, BorderLayout.CENTER);
 	}
 
-	public Order getSelectedOrder() throws UIException {
-		if (this.table.getSelectedRow() == -1) {
+	public List<Order> getSelectedOrders() throws UIException {
+		int[] rows = this.table.getSelectedRows();
+		if (rows == null || rows.length == 0) {
 			throw new UIException("请选择要核对的医嘱");
 		}
-		return orderTableModel.getEntityByRow(this.table.getSelectedRow());
+		List<Order> orders = new ArrayList<Order>();
+		for (int row : rows) {
+			orders.add(orderTableModel.getEntityByRow(row));
+		}
+
+		return orders;
 	}
 
 	public OrderTableModel getOrderTableModel() {

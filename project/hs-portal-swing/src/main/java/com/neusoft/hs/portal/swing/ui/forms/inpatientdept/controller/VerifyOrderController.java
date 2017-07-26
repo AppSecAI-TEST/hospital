@@ -31,7 +31,7 @@ public class VerifyOrderController extends AbstractFrameController {
 	private void prepareListeners() {
 		registerAction(orderVerifyFrame.getConfirmBtn(), (e) -> verify());
 		registerAction(orderVerifyFrame.getCloseBtn(), (e) -> closeWindow());
-		
+
 	}
 
 	@Override
@@ -53,9 +53,11 @@ public class VerifyOrderController extends AbstractFrameController {
 
 	private void verify() {
 		try {
-			Order order = this.orderVerifyFrame.getSelectedOrder();
+			List<Order> orders = this.orderVerifyFrame.getSelectedOrders();
 
-			orderAppService.verify(order.getId(), UserUtil.getUser());
+			for (Order order : orders) {
+				orderAppService.verify(order.getId(), UserUtil.getUser());
+			}
 
 			loadOrders();
 
@@ -64,7 +66,7 @@ public class VerifyOrderController extends AbstractFrameController {
 			Notifications.showFormValidationAlert(e.getMessage());
 		}
 	}
-	
+
 	private void closeWindow() {
 		orderVerifyFrame.dispose();
 	}
