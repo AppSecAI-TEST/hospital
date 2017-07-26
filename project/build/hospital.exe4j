@@ -8,9 +8,9 @@
   </application>
   <executable name="Hospital64" type="2" iconSet="true" iconFile="./hospital.ico" executableDir="." redirectStderr="true" stderrFile="output.log" stderrMode="append" redirectStdout="true" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="true" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="false" amd64="true">
     <messageSet>
-      <message id="NoJvmFound" text="Cooper need JDK1.7+,No JVM could be found on your system.&#xA;Please define EXE4J_JAVA_HOME&#xA;to point to an installed JDK or JRE or download a JRE from www.java.com." />
       <message id="JvmEnvVar32" text="Cooper need JDK1.7+,The {0} environment variable does not&#xA;point to a working 32-bit JDK or JRE." />
       <message id="JvmEnvVar64" text="Cooper need JDK1.7+,The {0} environment variable does not&#xA;point to a working 64-bit JDK or JRE." />
+      <message id="NoJvmFound" text="EVE need JDK1.7+,No JVM could be found on your system.&#xA;Please define EXE4J_JAVA_HOME&#xA;to point to an installed JDK or JRE or download a JRE from www.java.com." />
     </messageSet>
     <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" companyName="" productVersion="" />
   </executable>
@@ -20,98 +20,98 @@
       <versionLine x="20" y="40" text="version %VERSION%" fontSize="8" fontColor="0,0,0" bold="false" />
     </text>
   </splashScreen>
-  <java mainClass="com.neusoft.hs.portal.swing.Application" vmParameters="-Xms512m -Xmx6144m" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.7" maxVersion="1.8" allowBetaVM="false" jdkOnly="false">
+  <java mainClass="com.neusoft.hs.portal.swing.Application" vmParameters="-Xms512m -Xmx6144m" arguments="" allowVMPassthroughParameters="true" preferredVM="server" bundleRuntime="true" minVersion="1.7" maxVersion="1.8" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />
       <envVar name="JDK_HOME" />
     </searchSequence>
     <classPath>
-      	<archive location="/lib/accessors-smart-1.1.jar" failOnError="false" />
-	<archive location="/lib/android-json-0.0.20131108.vaadin1.jar" failOnError="false" />
-	<archive location="/lib/antlr-2.7.7.jar" failOnError="false" />
-	<archive location="/lib/asm-5.0.3.jar" failOnError="false" />
-	<archive location="/lib/aspectjweaver-1.8.10.jar" failOnError="false" />
-	<archive location="/lib/assertj-core-2.6.0.jar" failOnError="false" />
-	<archive location="/lib/byte-buddy-1.6.6.jar" failOnError="false" />
-	<archive location="/lib/classmate-1.3.0.jar" failOnError="false" />
-	<archive location="/lib/commons-lang3-3.4.jar" failOnError="false" />
-	<archive location="/lib/dom4j-1.6.1.jar" failOnError="false" />
-	<archive location="/lib/ehcache-2.10.2.jar" failOnError="false" />
-	<archive location="/lib/h2-1.4.184.jar" failOnError="false" />
-	<archive location="/lib/hamcrest-core-1.3.jar" failOnError="false" />
-	<archive location="/lib/hamcrest-library-1.3.jar" failOnError="false" />
-	<archive location="/lib/hibernate-commons-annotations-5.0.1.Final.jar" failOnError="false" />
-	<archive location="/lib/hibernate-core-5.2.10.Final.jar" failOnError="false" />
-	<archive location="/lib/hibernate-ehcache-5.2.10.Final.jar" failOnError="false" />
-	<archive location="/lib/hibernate-entitymanager-5.2.10.Final.jar" failOnError="false" />
-	<archive location="/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar" failOnError="false" />
-	<archive location="/lib/hibernate-validator-5.4.1.Final.jar" failOnError="false" />
-	<archive location="/lib/hs-app-cost-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-app-inpatient-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-app-inspect-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-app-outpatient-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-app-pharmacy-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-app-recordroom-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-data-init-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-engine-core-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-engine-entity-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-engine-interface-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-engine-interface-impl-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-engine-listener-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-platform-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-portal-swing-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-portal-swing-h2-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/hs-test-0.0.1-SNAPSHOT.jar" failOnError="false" />
-	<archive location="/lib/jackson-annotations-2.8.0.jar" failOnError="false" />
-	<archive location="/lib/jackson-core-2.8.7.jar" failOnError="false" />
-	<archive location="/lib/jackson-databind-2.8.7.jar" failOnError="false" />
-	<archive location="/lib/jandex-2.0.3.Final.jar" failOnError="false" />
-	<archive location="/lib/javassist-3.20.0-GA.jar" failOnError="false" />
-	<archive location="/lib/javax.el-api-2.2.4.jar" failOnError="false" />
-	<archive location="/lib/javax.transaction-api-1.2.jar" failOnError="false" />
-	<archive location="/lib/jboss-logging-3.3.0.Final.jar" failOnError="false" />
-	<archive location="/lib/jboss-transaction-api_1.2_spec-1.0.1.Final.jar" failOnError="false" />
-	<archive location="/lib/jcl-over-slf4j-1.7.25.jar" failOnError="false" />
-	<archive location="/lib/jsonassert-1.4.0.jar" failOnError="false" />
-	<archive location="/lib/json-path-2.2.0.jar" failOnError="false" />
-	<archive location="/lib/json-smart-2.2.1.jar" failOnError="false" />
-	<archive location="/lib/jul-to-slf4j-1.7.25.jar" failOnError="false" />
-	<archive location="/lib/junit-4.12.jar" failOnError="false" />
-	<archive location="/lib/log4j-over-slf4j-1.7.25.jar" failOnError="false" />
-	<archive location="/lib/logback-classic-1.1.11.jar" failOnError="false" />
-	<archive location="/lib/logback-core-1.1.11.jar" failOnError="false" />
-	<archive location="/lib/mockito-core-1.10.19.jar" failOnError="false" />
-	<archive location="/lib/objenesis-2.2.jar" failOnError="false" />
-	<archive location="/lib/rt.jar" failOnError="false" />
-	<archive location="/lib/slf4j-api-1.7.21.jar" failOnError="false" />
-	<archive location="/lib/snakeyaml-1.17.jar" failOnError="false" />
-	<archive location="/lib/spring-aop-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-aspects-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-beans-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-autoconfigure-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-starter-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-starter-aop-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-starter-data-jpa-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-starter-jdbc-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-starter-logging-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-starter-test-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-test-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-boot-test-autoconfigure-1.5.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-context-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-context-support-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-core-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-data-commons-1.13.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-data-jpa-1.11.4.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-expression-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-jdbc-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-orm-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-test-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/spring-tx-4.3.9.RELEASE.jar" failOnError="false" />
-	<archive location="/lib/tomcat-jdbc-8.5.15.jar" failOnError="false" />
-	<archive location="/lib/tomcat-juli-8.5.15.jar" failOnError="false" />
-	<archive location="/lib/validation-api-1.1.0.Final.jar" failOnError="false" />
+      <archive location="/lib/accessors-smart-1.1.jar" failOnError="false" />
+      <archive location="/lib/android-json-0.0.20131108.vaadin1.jar" failOnError="false" />
+      <archive location="/lib/antlr-2.7.7.jar" failOnError="false" />
+      <archive location="/lib/asm-5.0.3.jar" failOnError="false" />
+      <archive location="/lib/aspectjweaver-1.8.10.jar" failOnError="false" />
+      <archive location="/lib/assertj-core-2.6.0.jar" failOnError="false" />
+      <archive location="/lib/byte-buddy-1.6.6.jar" failOnError="false" />
+      <archive location="/lib/classmate-1.3.0.jar" failOnError="false" />
+      <archive location="/lib/commons-lang3-3.4.jar" failOnError="false" />
+      <archive location="/lib/dom4j-1.6.1.jar" failOnError="false" />
+      <archive location="/lib/ehcache-2.10.2.jar" failOnError="false" />
+      <archive location="/lib/h2-1.4.184.jar" failOnError="false" />
+      <archive location="/lib/hamcrest-core-1.3.jar" failOnError="false" />
+      <archive location="/lib/hamcrest-library-1.3.jar" failOnError="false" />
+      <archive location="/lib/hibernate-commons-annotations-5.0.1.Final.jar" failOnError="false" />
+      <archive location="/lib/hibernate-core-5.2.10.Final.jar" failOnError="false" />
+      <archive location="/lib/hibernate-ehcache-5.2.10.Final.jar" failOnError="false" />
+      <archive location="/lib/hibernate-entitymanager-5.2.10.Final.jar" failOnError="false" />
+      <archive location="/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar" failOnError="false" />
+      <archive location="/lib/hibernate-validator-5.4.1.Final.jar" failOnError="false" />
+      <archive location="/lib/hs-app-cost-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-app-inpatient-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-app-inspect-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-app-outpatient-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-app-pharmacy-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-app-recordroom-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-data-init-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-engine-core-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-engine-entity-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-engine-interface-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-engine-interface-impl-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-engine-listener-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-platform-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-portal-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-portal-swing-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-portal-swing-h2-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/hs-test-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="/lib/jackson-annotations-2.8.0.jar" failOnError="false" />
+      <archive location="/lib/jackson-core-2.8.7.jar" failOnError="false" />
+      <archive location="/lib/jackson-databind-2.8.7.jar" failOnError="false" />
+      <archive location="/lib/jandex-2.0.3.Final.jar" failOnError="false" />
+      <archive location="/lib/javassist-3.20.0-GA.jar" failOnError="false" />
+      <archive location="/lib/javax.el-api-2.2.4.jar" failOnError="false" />
+      <archive location="/lib/javax.transaction-api-1.2.jar" failOnError="false" />
+      <archive location="/lib/jboss-logging-3.3.0.Final.jar" failOnError="false" />
+      <archive location="/lib/jboss-transaction-api_1.2_spec-1.0.1.Final.jar" failOnError="false" />
+      <archive location="/lib/jcl-over-slf4j-1.7.25.jar" failOnError="false" />
+      <archive location="/lib/jsonassert-1.4.0.jar" failOnError="false" />
+      <archive location="/lib/json-path-2.2.0.jar" failOnError="false" />
+      <archive location="/lib/json-smart-2.2.1.jar" failOnError="false" />
+      <archive location="/lib/jul-to-slf4j-1.7.25.jar" failOnError="false" />
+      <archive location="/lib/junit-4.12.jar" failOnError="false" />
+      <archive location="/lib/log4j-over-slf4j-1.7.25.jar" failOnError="false" />
+      <archive location="/lib/logback-classic-1.1.11.jar" failOnError="false" />
+      <archive location="/lib/logback-core-1.1.11.jar" failOnError="false" />
+      <archive location="/lib/mockito-core-1.10.19.jar" failOnError="false" />
+      <archive location="/lib/objenesis-2.2.jar" failOnError="false" />
+      <archive location="/lib/slf4j-api-1.7.21.jar" failOnError="false" />
+      <archive location="/lib/snakeyaml-1.17.jar" failOnError="false" />
+      <archive location="/lib/spring-aop-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-aspects-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-beans-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-autoconfigure-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-starter-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-starter-aop-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-starter-data-jpa-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-starter-jdbc-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-starter-logging-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-starter-test-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-test-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-boot-test-autoconfigure-1.5.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-context-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-context-support-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-core-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-data-commons-1.13.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-data-jpa-1.11.4.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-expression-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-jdbc-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-orm-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-test-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/spring-tx-4.3.9.RELEASE.jar" failOnError="false" />
+      <archive location="/lib/tomcat-jdbc-8.5.15.jar" failOnError="false" />
+      <archive location="/lib/tomcat-juli-8.5.15.jar" failOnError="false" />
+      <archive location="/lib/validation-api-1.1.0.Final.jar" failOnError="false" />
     </classPath>
     <nativeLibraryDirectories />
   </java>
