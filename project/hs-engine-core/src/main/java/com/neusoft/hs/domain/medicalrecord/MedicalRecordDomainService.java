@@ -94,21 +94,39 @@ public class MedicalRecordDomainService {
 			}
 		}
 
+		boolean isCreate = true;
+		if (record.getId() != null) {
+			isCreate = false;
+		}
 		record.save();
 
 		MedicalRecordLog recordLog = new MedicalRecordLog();
 		recordLog.setRecord(record);
-		recordLog.setType(MedicalRecordLog.Type_Create);
+		if (isCreate) {
+			recordLog.setType(MedicalRecordLog.Type_Create);
+		} else {
+			recordLog.setType(MedicalRecordLog.Type_Update);
+		}
 		recordLog.setOperator(record.getDoctor());
 		recordLog.setCreateDate(DateUtil.getSysDate());
 
 		recordLog.save();
 
-		applicationContext.publishEvent(new MedicalRecordCreatedEvent(record));
+		if (isCreate) {
+			applicationContext.publishEvent(new MedicalRecordCreatedEvent(
+					record));
 
-		LogUtil.log(this.getClass(), "医生[{}]为患者一次就诊[{}]创建病历[{}],病历类型为[{}]",
-				record.getDoctorName(), record.getVisitName(), record.getId(),
-				record.getType().getId());
+			LogUtil.log(this.getClass(), "医生[{}]为患者一次就诊[{}]创建病历[{}],病历类型为[{}]",
+					record.getDoctorName(), record.getVisitName(),
+					record.getId(), record.getType().getId());
+		} else {
+			applicationContext.publishEvent(new MedicalRecordUpdatedEvent(
+					record));
+
+			LogUtil.log(this.getClass(), "医生[{}]为患者一次就诊[{}]修改病历[{}],病历类型为[{}]",
+					record.getDoctorName(), record.getVisitName(),
+					record.getId(), record.getType().getId());
+		}
 	}
 
 	/**
