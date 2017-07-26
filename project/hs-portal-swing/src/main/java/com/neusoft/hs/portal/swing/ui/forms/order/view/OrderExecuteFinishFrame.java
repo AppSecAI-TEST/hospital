@@ -1,6 +1,7 @@
 package com.neusoft.hs.portal.swing.ui.forms.order.view;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,8 +67,8 @@ public class OrderExecuteFinishFrame extends JFrame {
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public OrderExecute getSelectedOrderExecute() throws UIException {
-		return orderExecuteFinishListPanel.getSelectedOrderExecute();
+	public List<OrderExecute> getSelectedOrderExecutes() throws UIException {
+		return orderExecuteFinishListPanel.getSelectedOrderExecutes();
 	}
 
 	public OrderExecuteTableModel getOrderExecuteTableModel() {

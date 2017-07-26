@@ -75,10 +75,13 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 
 	private void open() {
 		try {
-			OrderExecute orderExecute = this.orderExecuteFinishFrame
-					.getSelectedOrderExecute();
+			List<OrderExecute> orderExecutes = this.orderExecuteFinishFrame
+					.getSelectedOrderExecutes();
+			if (orderExecutes == null || orderExecutes.size() != 1) {
+				Notifications.showFormValidationAlert("请选择一条执行条目");
+			}
 
-			this.prepareAndOpenPanel(orderExecute);
+			this.prepareAndOpenPanel(orderExecutes.get(0));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,7 +93,7 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 			throws HsException {
 
 		orderExecuteOpenFrame.init(orderExecute);
-		
+
 		OrderExecutePanel orderExecutePanel = orderExecuteOpenFrame.getPanel();
 		if (orderExecutePanel instanceof EnterHospitalIntoWardOrderExecutePanel) {
 			loadNurses((EnterHospitalIntoWardOrderExecutePanel) orderExecutePanel);
@@ -119,10 +122,15 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 
 	private void finish() {
 		try {
-			OrderExecute orderExecute = this.orderExecuteFinishFrame
-					.getSelectedOrderExecute();
+			List<OrderExecute> orderExecutes = this.orderExecuteFinishFrame
+					.getSelectedOrderExecutes();
 
-			orderExecuteAppService.finish(orderExecute.getId(), null,
+			List<String> orderExecuteIds = new ArrayList<String>();
+			for (OrderExecute orderExecute : orderExecutes) {
+				orderExecuteIds.add(orderExecute.getId());
+			}
+
+			orderExecuteAppService.finish(orderExecuteIds, null,
 					UserUtil.getUser());
 
 			loadOrderExecutes();

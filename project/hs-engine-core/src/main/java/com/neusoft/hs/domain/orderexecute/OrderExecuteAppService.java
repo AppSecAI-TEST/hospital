@@ -108,6 +108,21 @@ public class OrderExecuteAppService {
 		orderExecuteDomainService.finish(execute, params, user);
 	}
 
+	/**
+	 * 完成执行条目
+	 * 
+	 * @param executeIds
+	 * @param params
+	 * @param user
+	 * @throws OrderExecuteException
+	 */
+	public void finish(List<String> executeIds, Map<String, Object> params,
+			AbstractUser user) throws OrderExecuteException {
+		for (String executeId : executeIds) {
+			finish(executeId, params, user);
+		}
+	}
+
 	public List<OrderExecute> find(OrderExecuteFilter filter,
 			Map<String, Object> params, AbstractUser user, Pageable pageable)
 			throws HsException {
