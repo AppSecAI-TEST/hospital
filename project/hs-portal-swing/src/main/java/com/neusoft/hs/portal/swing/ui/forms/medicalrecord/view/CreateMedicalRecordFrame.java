@@ -11,8 +11,10 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordEvent;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
@@ -106,5 +108,4 @@ public class CreateMedicalRecordFrame extends JFrame {
 	public JButton getCloseBtn() {
 		return closeBtn;
 	}
-
 }

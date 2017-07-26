@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordEvent;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -29,7 +31,8 @@ import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
-public class CreateMedicalRecordController extends AbstractFrameController {
+public class CreateMedicalRecordController extends AbstractFrameController
+		implements ApplicationListener<MedicalRecordEvent> {
 
 	@Autowired
 	private CreateMedicalRecordFrame createMedicalRecordFrame;
@@ -157,5 +160,10 @@ public class CreateMedicalRecordController extends AbstractFrameController {
 
 	private void closeWindow() {
 		createMedicalRecordFrame.dispose();
+	}
+
+	@Override
+	public void onApplicationEvent(MedicalRecordEvent event) {
+		refreshMedicalRecord();
 	}
 }
