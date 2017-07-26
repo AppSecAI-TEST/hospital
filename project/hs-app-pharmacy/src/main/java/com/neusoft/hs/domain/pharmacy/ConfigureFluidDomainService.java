@@ -68,10 +68,11 @@ public class ConfigureFluidDomainService {
 	/**
 	 * @param fluidOrder
 	 * @throws OrderExecuteException
+	 * @throws PharmacyException
 	 * @roseuid 5930F4D20354
 	 */
 	public void finishOrder(ConfigureFluidOrder fluidOrder, AbstractUser user)
-			throws OrderExecuteException {
+			throws OrderExecuteException, PharmacyException {
 		for (ConfigureFluidOrderExecute execute : fluidOrder.getExecutes()) {
 			orderExecuteDomainService.finish(execute, null, user);
 		}

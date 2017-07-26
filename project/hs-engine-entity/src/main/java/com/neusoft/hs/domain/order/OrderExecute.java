@@ -26,6 +26,7 @@ import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Role;
+import com.neusoft.hs.domain.pharmacy.PharmacyException;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.util.DateUtil;
@@ -249,6 +250,11 @@ public class OrderExecute extends IdEntity {
 	 */
 	public void finish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
+
+		if (!this.state.equals(State_Executing)) {
+			throw new OrderExecuteException(this, "执行条目[%s]的状态为[%s]不能执行完成",
+					this.getId(), this.state);
+		}
 
 		this.doFinish(params, user);
 

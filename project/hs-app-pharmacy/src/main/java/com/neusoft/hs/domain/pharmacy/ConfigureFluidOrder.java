@@ -133,7 +133,7 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 	public void setExecutes(List<ConfigureFluidOrderExecute> executes) {
 		this.executes = executes;
 		this.executeCount = executes.size();
-		
+
 		this.executes.forEach(item -> {
 			item.setFluidOrder(this);
 		});
@@ -145,9 +145,14 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 		return null;
 	}
 
-	public void finish(AbstractUser user) {
-		this.state = State_Executed;
-		this.finishDate = DateUtil.getSysDate();
+	public void finish(AbstractUser user) throws PharmacyException {
+		if (this.state.equals(State_NeedExecute)) {
+			this.state = State_Executed;
+			this.finishDate = DateUtil.getSysDate();
+		} else {
+			throw new PharmacyException("配液单[%s]的状态为[%s]不能执行完成", this.getId(),
+					this.state);
+		}
 	}
 
 }
