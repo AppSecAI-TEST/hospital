@@ -55,6 +55,8 @@ public interface ConstMessagesCN {
 		String ReCreate_BTN = "重新生成";
 		String Create_BTN = "生成";
 		String Sign_BTN = "签名";
+		String PASS_BTN = "通过";
+		String ARCHIVE_BTN = "归档";
 
 		String REMOVE_BTN = "删除";
 
@@ -207,9 +209,9 @@ public interface ConstMessagesCN {
 		String createOutPatientRecordMR = "创建门诊记录";
 
 		String transferMedicalRecord = "移交档案室";
-		String pass = "通过";
-		String archive = "归档";
 
+		
+		String DisplayAll = "显示全部";
 		String position = "位置";
 	}
 

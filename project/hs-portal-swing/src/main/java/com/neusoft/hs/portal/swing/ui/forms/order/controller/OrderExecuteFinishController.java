@@ -1,13 +1,17 @@
 package com.neusoft.hs.portal.swing.ui.forms.order.controller;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.swing.JCheckBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.domain.order.OrderExecute;
@@ -43,6 +47,8 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(orderExecuteFinishFrame.getDisplayAllCB(),
+				(e) -> loadOrderExecutes());
 		registerAction(orderExecuteFinishFrame.getOpenBtn(), (e) -> open());
 		registerAction(orderExecuteFinishFrame.getConfirmBtn(), (e) -> finish());
 		registerAction(orderExecuteFinishFrame.getCloseBtn(),
@@ -61,16 +67,32 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 		orderExecuteFinishFrame.setVisible(true);
 	}
 
-	private void loadOrderExecutes() throws HsException {
-		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+	private void loadOrderExecutes() {
+		try {
+			Sort sort = new Sort(Direction.DESC, "planStartDate");
+			Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
 
-		List<OrderExecute> entities = orderExecuteAppService
-				.getNeedExecuteOrderExecutes(UserUtil.getUser(), pageable);
+			List<OrderExecute> entities = null;
+			JCheckBox displayAllCB = this.orderExecuteFinishFrame
+					.getDisplayAllCB();
+			if (displayAllCB.isSelected()) {
+				entities = orderExecuteAppService
+						.getAllNeedExecuteOrderExecutes(UserUtil.getUser(),
+								pageable);
+			} else {
+				entities = orderExecuteAppService.getNeedExecuteOrderExecutes(
+						UserUtil.getUser(), pageable);
+			}
 
-		OrderExecuteTableModel orderExecuteTableModel = this.orderExecuteFinishFrame
-				.getOrderExecuteTableModel();
-		orderExecuteTableModel.clear();
-		orderExecuteTableModel.addEntities(entities);
+			OrderExecuteTableModel orderExecuteTableModel = this.orderExecuteFinishFrame
+					.getOrderExecuteTableModel();
+			orderExecuteTableModel.clear();
+			orderExecuteTableModel.addEntities(entities);
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+
 	}
 
 	private void open() {

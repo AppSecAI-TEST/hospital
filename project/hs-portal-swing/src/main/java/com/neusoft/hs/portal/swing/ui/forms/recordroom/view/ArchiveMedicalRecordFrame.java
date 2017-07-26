@@ -65,7 +65,7 @@ public class ArchiveMedicalRecordFrame extends JFrame {
 
 		interactivePanel.add(medicalRecordClipCB);
 
-		archiveBtn = new JButton(ConstMessagesCN.Labels.archive);
+		archiveBtn = new JButton(ConstMessagesCN.Labels.ARCHIVE_BTN);
 
 		interactivePanel.add(archiveBtn);
 

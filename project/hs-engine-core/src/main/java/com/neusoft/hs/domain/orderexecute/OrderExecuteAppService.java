@@ -147,6 +147,19 @@ public class OrderExecuteAppService {
 	/**
 	 * 得到需要执行的执行条目
 	 * 
+	 * @param user
+	 * @param pageable
+	 * @return
+	 */
+	public List<OrderExecute> getAllNeedExecuteOrderExecutes(AbstractUser user,
+			Pageable pageable) {
+		return orderExecuteDomainService.getAllNeedExecuteOrderExecutes(user,
+				pageable);
+	}
+
+	/**
+	 * 得到需要执行的执行条目
+	 * 
 	 * @param visit
 	 * @param type
 	 * @param user

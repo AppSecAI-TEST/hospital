@@ -1,9 +1,11 @@
 package com.neusoft.hs.portal.swing.ui.forms.order.view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -19,6 +21,8 @@ import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 @Component
 public class OrderExecuteFinishFrame extends JFrame {
 
+	JCheckBox displayAllCB;
+
 	private OrderExecuteFinishListPanel orderExecuteFinishListPanel;
 
 	JButton openBtn;
@@ -29,7 +33,7 @@ public class OrderExecuteFinishFrame extends JFrame {
 
 	private static final int DEFAULT_WIDTH = 800;
 
-	private static final int DEFAULT_HEIGHT = 300;
+	private static final int DEFAULT_HEIGHT = 350;
 
 	@Autowired
 	public OrderExecuteFinishFrame(
@@ -50,6 +54,12 @@ public class OrderExecuteFinishFrame extends JFrame {
 
 	private void initComponents() {
 		setLayout(new BorderLayout());
+
+		JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		displayAllCB = new JCheckBox(ConstMessagesCN.Labels.DisplayAll);
+		operationPanel.add(displayAllCB);
+
+		add(operationPanel, BorderLayout.NORTH);
 
 		add(orderExecuteFinishListPanel, BorderLayout.CENTER);
 
@@ -73,6 +83,14 @@ public class OrderExecuteFinishFrame extends JFrame {
 
 	public OrderExecuteTableModel getOrderExecuteTableModel() {
 		return this.orderExecuteFinishListPanel.getOrderExecuteTableModel();
+	}
+
+	public JCheckBox getDisplayAllCB() {
+		return displayAllCB;
+	}
+
+	public void setDisplayAllCB(JCheckBox displayAllCB) {
+		this.displayAllCB = displayAllCB;
 	}
 
 	public JButton getOpenBtn() {

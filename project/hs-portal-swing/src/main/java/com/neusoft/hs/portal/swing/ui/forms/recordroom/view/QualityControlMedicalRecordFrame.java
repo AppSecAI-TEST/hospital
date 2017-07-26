@@ -65,7 +65,7 @@ public class QualityControlMedicalRecordFrame extends JFrame {
 
 		interactivePanel.add(medicalRecordClipCB);
 
-		passBtn = new JButton(ConstMessagesCN.Labels.pass);
+		passBtn = new JButton(ConstMessagesCN.Labels.PASS_BTN);
 
 		interactivePanel.add(passBtn);
 

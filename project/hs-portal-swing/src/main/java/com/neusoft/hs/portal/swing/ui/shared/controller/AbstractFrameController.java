@@ -5,6 +5,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -13,22 +14,26 @@ import com.neusoft.hs.platform.exception.HsException;
 
 public abstract class AbstractFrameController {
 
-    public abstract void prepareAndOpenFrame() throws HsException;
+	public abstract void prepareAndOpenFrame() throws HsException;
 
-    protected void registerAction(JButton button, ActionListener listener) {
-        button.addActionListener(listener);
-    }
-    
-    protected void registerAction(JComboBox comboBox, ItemListener listener) {
-    	comboBox.addItemListener(listener);
-    }
-    
-    protected void registerAction(JLabel label, MouseListener listener) {
-    	label.addMouseListener(listener);
+	protected void registerAction(JButton button, ActionListener listener) {
+		button.addActionListener(listener);
 	}
-    
-    protected void registerAction(JTable table, MouseListener listener) {
-    	table.addMouseListener(listener);
+
+	protected void registerAction(JComboBox comboBox, ItemListener listener) {
+		comboBox.addItemListener(listener);
+	}
+
+	protected void registerAction(JLabel label, MouseListener listener) {
+		label.addMouseListener(listener);
+	}
+
+	protected void registerAction(JTable table, MouseListener listener) {
+		table.addMouseListener(listener);
+	}
+
+	protected void registerAction(JCheckBox checkBox, ItemListener listener) {
+		checkBox.addItemListener(listener);
 	}
 
 }

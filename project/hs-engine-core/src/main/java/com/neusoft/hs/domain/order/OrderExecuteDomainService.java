@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.order;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
-import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Staff;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
@@ -65,6 +65,24 @@ public class OrderExecuteDomainService {
 				.findByStateAndExecuteDeptInAndPlanStartDateLessThan(
 						OrderExecute.State_Executing, user.getOperationDepts(),
 						planStartDate, pageable);
+	}
+
+	/**
+	 * 得到需要执行的执行条目列表
+	 * 
+	 * @param user
+	 * @param planStartDate
+	 * @param pageable
+	 * @return
+	 */
+	public List<OrderExecute> getAllNeedExecuteOrderExecutes(AbstractUser user,
+			Pageable pageable) {
+		List<String> states = new ArrayList<String>();
+		states.add(OrderExecute.State_NeedExecute);
+		states.add(OrderExecute.State_Executing);
+
+		return orderExecuteRepo.findByStateInAndExecuteDeptIn(states,
+				user.getOperationDepts(), pageable);
 	}
 
 	/**
