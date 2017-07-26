@@ -44,7 +44,7 @@ public class InPatientCompsiteOrderTestService extends InPatientTestService {
 
 		drug002Order.setTypeApp(new DrugOrderTypeApp(deptbbb,
 				infusionOrderUseModeToInPatient));
-		
+
 		orderAppService.create(drug002Order, user002);
 
 		// 创建药品003长期医嘱
@@ -62,21 +62,22 @@ public class InPatientCompsiteOrderTestService extends InPatientTestService {
 
 		drug003Order.setTypeApp(new DrugOrderTypeApp(deptbbb,
 				infusionOrderUseModeToInPatient));
-		
+
 		orderAppService.create(drug003Order, user002);
 
 		CompsiteOrder drug002003Order = new CompsiteOrder();
 		drug002003Order.addOrder(drug002Order);
 		drug002003Order.addOrder(drug003Order);
 
-		orderAppService.compsite(drug002003Order, user002);
+		orderAppService.compsite(drug002Order.getId(), drug003Order.getId(),
+				user002);
 	}
 
 	@Override
 	public void execute() throws HsException {
-		
+
 		this.createVisit001();
-		
+
 		this.createVisit004();
 
 		this.intoWard();

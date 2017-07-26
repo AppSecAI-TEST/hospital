@@ -69,8 +69,23 @@ public class OrderAppService {
 	 * @param doctor
 	 * @throws OrderException
 	 */
-	public void compsite(CompsiteOrder compsiteOrder, Doctor doctor)
+	public void compsite(String orderId1, String orderId2, Doctor doctor)
 			throws OrderException {
+
+		Order order1 = orderDomainService.find(orderId1);
+		if (order1 == null) {
+			throw new OrderException(null, "orderId=[" + orderId1 + "]不存在");
+		}
+
+		Order order2 = orderDomainService.find(orderId2);
+		if (order2 == null) {
+			throw new OrderException(null, "orderId=[" + orderId2 + "]不存在");
+		}
+
+		CompsiteOrder compsiteOrder = new CompsiteOrder();
+		compsiteOrder.addOrder(order1);
+		compsiteOrder.addOrder(order2);
+
 		orderDomainService.comsite(compsiteOrder, doctor);
 	}
 

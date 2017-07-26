@@ -14,14 +14,12 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.application.order.OrderAppService;
 import com.neusoft.hs.application.outpatientdept.OutPatientDeptAppService;
-import com.neusoft.hs.domain.order.CompsiteOrder;
 import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.DrugOrderTypeApp;
 import com.neusoft.hs.domain.order.EnterHospitalOrderType;
 import com.neusoft.hs.domain.order.LongOrder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderAdminDomainService;
-import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
@@ -273,11 +271,7 @@ public class CreateOrderController extends AbstractFrameController {
 			Order order2 = orderTableModel.getEntityByRow(rows[1]);
 
 			try {
-				CompsiteOrder compsiteOrder = new CompsiteOrder();
-				compsiteOrder.addOrder(order1);
-				compsiteOrder.addOrder(order2);
-
-				orderAppService.compsite(compsiteOrder,
+				orderAppService.compsite(order1.getId(), order2.getId(),
 						(Doctor) UserUtil.getUser());
 			} catch (Exception e) {
 				e.printStackTrace();
