@@ -336,7 +336,7 @@ public class InPatientMainTestService extends InPatientTestService {
 			orderExecuteAppService.send(execute.getId(), user003);
 		}
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05", dayCount));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 14:00", dayCount));
 
 		// 打印配液单
 		fluidOrder = configureFluidAppService.print(dept000n,
@@ -344,7 +344,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(fluidOrder.getConfigureFluidExecutes().size() == 2);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:30", dayCount));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 14:30", dayCount));
 
 		// 配液完成
 		fluidOrder = configureFluidAppService.finish(fluidOrder.getId(),
@@ -352,7 +352,7 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		assertTrue(fluidOrder.getConfigureFluidExecutes().size() == 2);
 
-		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:35", dayCount));
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 14:35", dayCount));
 
 		// 发送配液单
 		fluidOrder = configureFluidAppService.distribute(fluidOrder.getId(),

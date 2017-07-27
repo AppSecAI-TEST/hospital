@@ -42,6 +42,8 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 
 	private JButton finishBtn;
 
+	private JButton sendBtn;
+
 	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
@@ -102,6 +104,9 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 		finishBtn = new JButton(ConstMessagesCN.Labels.FINISH_BTN);
 		operationPanel.add(finishBtn);
 
+		sendBtn = new JButton(ConstMessagesCN.Labels.SEND_BTN);
+		operationPanel.add(sendBtn);
+
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
 		add(workspacePanel, BorderLayout.CENTER);
@@ -149,6 +154,10 @@ public class ConfigureFluidExecuteFrame extends JFrame {
 
 	public JButton getFinishBtn() {
 		return finishBtn;
+	}
+
+	public JButton getSendBtn() {
+		return sendBtn;
 	}
 
 	public JButton getCloseBtn() {

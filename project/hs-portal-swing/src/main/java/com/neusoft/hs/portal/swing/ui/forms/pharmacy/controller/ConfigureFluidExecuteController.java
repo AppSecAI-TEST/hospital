@@ -60,6 +60,8 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 				(e) -> createConfigureFluidOrder());
 		registerAction(configureFluidExecuteFrame.getFinishBtn(),
 				(e) -> finishConfigureFluidOrder());
+		registerAction(configureFluidExecuteFrame.getSendBtn(),
+				(e) -> sendConfigureFluidOrder());
 		registerAction(configureFluidExecuteFrame.getCloseBtn(),
 				(e) -> closeWindow());
 	}
@@ -151,6 +153,19 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 				.getConfigureFluidOrder();
 		try {
 			configureFluidAppService.finish(configureFluidOrder.getId(),
+					UserUtil.getUser());
+			loadConfigureFluidOrders();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	private void sendConfigureFluidOrder() {
+		ConfigureFluidOrder configureFluidOrder = this.configureFluidExecuteFrame
+				.getConfigureFluidOrder();
+		try {
+			configureFluidAppService.distribute(configureFluidOrder.getId(),
 					UserUtil.getUser());
 			loadConfigureFluidOrders();
 		} catch (HsException e) {

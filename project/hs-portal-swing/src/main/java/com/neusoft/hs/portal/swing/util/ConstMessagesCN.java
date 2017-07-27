@@ -57,6 +57,7 @@ public interface ConstMessagesCN {
 		String Sign_BTN = "签名";
 		String PASS_BTN = "通过";
 		String ARCHIVE_BTN = "归档";
+		String SEND_BTN = "发送";
 
 		String REMOVE_BTN = "删除";
 
