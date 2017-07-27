@@ -8,7 +8,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.test.PatientMainTestService;
 
 @Service
-public class DataService {
+public class TestDataInitService {
 
 	@Autowired
 	private PatientMainTestService patientMainTestService;

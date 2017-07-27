@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
-import com.neusoft.hs.portal.swing.init.DataService;
+import com.neusoft.hs.portal.swing.init.TestDataInitService;
 import com.neusoft.hs.portal.swing.ui.reports.cost.controller.ChargeRecordReportController;
 import com.neusoft.hs.portal.swing.ui.reports.medicalrecord.controller.MedicalRecordReportController;
 import com.neusoft.hs.portal.swing.ui.reports.order.controller.OrderController;
@@ -48,7 +48,7 @@ public class MaintainController extends AbstractFrameController {
 	private OutPatientPlanRecordController outPatientPlanRecordController;
 
 	@Autowired
-	private DataService dataService;
+	private TestDataInitService dataService;
 
 	public void prepareAndOpenFrame() {
 		registerAction(mainMenuFrame.getVisitLogBtn(),
