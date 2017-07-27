@@ -1,9 +1,12 @@
 package com.neusoft.hs.portal.swing.ui.forms.forms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Controller;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.portal.framework.security.LoginEvent;
 import com.neusoft.hs.portal.swing.ui.forms.cashier.controller.CashierController;
 import com.neusoft.hs.portal.swing.ui.forms.forms.view.InPatientFrame;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.controller.ArrangementMedicalRecordController;
@@ -21,10 +24,12 @@ import com.neusoft.hs.portal.swing.ui.forms.recordroom.controller.QualityControl
 import com.neusoft.hs.portal.swing.ui.forms.register.controller.RegisterController;
 import com.neusoft.hs.portal.swing.ui.forms.treatment.controller.MaintainTreatmentController;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
-public class InPatientController extends AbstractFrameController {
+public class InPatientController extends AbstractFrameController implements
+		ApplicationListener<LoginEvent> {
 
 	@Autowired
 	private InPatientFrame mainMenuFrame;
@@ -240,6 +245,19 @@ public class InPatientController extends AbstractFrameController {
 		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
+	@Override
+	public void onApplicationEvent(LoginEvent event) {
+		if (mainMenuFrame.isVisible()) {
+			AbstractUser user = (AbstractUser) event.getSource();
+			if (user != null) {
+				mainMenuFrame.getLoginLbl().setText(user.getName());
+			} else {
+				mainMenuFrame.getLoginLbl().setText(
+						ConstMessagesCN.Labels.LogoutState);
+			}
 		}
 	}
 

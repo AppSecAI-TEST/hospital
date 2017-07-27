@@ -9,17 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.portal.framework.security.LoginEvent;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class InPatientFrame extends JFrame implements
-		ApplicationListener<LoginEvent> {
+public class InPatientFrame extends JFrame {
 
 	private JButton loginBtn;
 
@@ -128,6 +124,10 @@ public class InPatientFrame extends JFrame implements
 
 	}
 
+	public JLabel getLoginLbl() {
+		return loginLbl;
+	}
+
 	public JButton getLoginBtn() {
 		return loginBtn;
 	}
@@ -186,15 +186,5 @@ public class InPatientFrame extends JFrame implements
 
 	public JButton getArchiveMedicalRecordBtn() {
 		return archiveMedicalRecordBtn;
-	}
-
-	@Override
-	public void onApplicationEvent(LoginEvent event) {
-		AbstractUser user = (AbstractUser) event.getSource();
-		if (user != null) {
-			loginLbl.setText(user.getName());
-		} else {
-			loginLbl.setText(ConstMessagesCN.Labels.LogoutState);
-		}
 	}
 }

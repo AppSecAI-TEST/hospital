@@ -18,8 +18,7 @@ import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class OutPatientFrame extends JFrame implements
-		ApplicationListener<LoginEvent> {
+public class OutPatientFrame extends JFrame {
 
 	private JButton loginBtn;
 
@@ -91,6 +90,10 @@ public class OutPatientFrame extends JFrame implements
 
 	}
 
+	public JLabel getLoginLbl() {
+		return loginLbl;
+	}
+
 	public JButton getLoginBtn() {
 		return loginBtn;
 	}
@@ -117,15 +120,5 @@ public class OutPatientFrame extends JFrame implements
 
 	public JButton getMaintainTreatmentBtn() {
 		return maintainTreatmentBtn;
-	}
-
-	@Override
-	public void onApplicationEvent(LoginEvent event) {
-		AbstractUser user = (AbstractUser) event.getSource();
-		if (user != null) {
-			loginLbl.setText(user.getName());
-		} else {
-			loginLbl.setText(ConstMessagesCN.Labels.LogoutState);
-		}
 	}
 }
