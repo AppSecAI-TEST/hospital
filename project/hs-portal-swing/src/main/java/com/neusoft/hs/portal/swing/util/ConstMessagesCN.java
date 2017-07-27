@@ -58,6 +58,7 @@ public interface ConstMessagesCN {
 		String PASS_BTN = "通过";
 		String ARCHIVE_BTN = "归档";
 		String SEND_BTN = "发送";
+		String RESET_BTN = "重置";
 
 		String REMOVE_BTN = "删除";
 

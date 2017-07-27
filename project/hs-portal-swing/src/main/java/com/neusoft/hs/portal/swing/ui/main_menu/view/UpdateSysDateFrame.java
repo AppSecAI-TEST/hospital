@@ -20,7 +20,10 @@ import com.neusoft.hs.portal.swing.widget.SpinnerDate;
 @Component
 public class UpdateSysDateFrame extends JFrame {
 
+	private JButton resetBtn;
+
 	private JButton confirmBtn;
+
 	private JButton closeBtn;
 
 	private SpinnerDate sysDateSD;
@@ -59,6 +62,9 @@ public class UpdateSysDateFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 
+		resetBtn = new JButton(ConstMessagesCN.Labels.RESET_BTN);
+		buttonPanel.add(resetBtn);
+
 		confirmBtn = new JButton(ConstMessagesCN.Labels.CONFIRM_BTN);
 		buttonPanel.add(confirmBtn);
 
@@ -67,6 +73,14 @@ public class UpdateSysDateFrame extends JFrame {
 
 		add(buttonPanel, BorderLayout.SOUTH);
 
+	}
+
+	public JButton getResetBtn() {
+		return resetBtn;
+	}
+
+	public void setResetBtn(JButton resetBtn) {
+		this.resetBtn = resetBtn;
 	}
 
 	public JButton getConfirmBtn() {

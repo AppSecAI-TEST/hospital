@@ -30,9 +30,14 @@ public class SysDateService {
 		SysDate sysDate = sysDateRepo.findOne(SysDate.Id);
 		if (sysDate == null) {
 			sysDate = new SysDate();
+			sysDate.setId(SysDate.Id);
 		}
 		sysDate.setSysDate(currentDate);
 
 		sysDateRepo.save(sysDate);
+	}
+
+	public void reset() {
+		sysDateRepo.delete(SysDate.Id);
 	}
 }

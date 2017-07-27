@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.neusoft.hs.portal.framework.util.SysDateService;
 import com.neusoft.hs.portal.swing.ui.forms.forms.controller.InPatientController;
 import com.neusoft.hs.portal.swing.ui.forms.forms.controller.OutPatientController;
 import com.neusoft.hs.portal.swing.ui.main_menu.view.MainMenuFrame;
@@ -32,8 +33,14 @@ public class MainMenuController extends AbstractFrameController {
 
 	@Autowired
 	private LogoController logoController;
+	
+	@Autowired
+	private SysDateService sysDateService;
 
 	public void prepareAndOpenFrame() {
+		
+		sysDateService.init();
+		
 		registerAction(mainMenuFrame.getOutPatientBtn(),
 				(e) -> openOutPatientWindow());
 		registerAction(mainMenuFrame.getInPatientBtn(),

@@ -15,6 +15,7 @@ import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.util.DateUtil;
+import com.neusoft.hs.portal.framework.util.SysDateService;
 import com.neusoft.hs.portal.swing.ui.main_menu.view.UpdateSysDateFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -32,8 +33,12 @@ public class UpdateSysDateController extends AbstractFrameController {
 	@Autowired
 	private UserAdminDomainService userAdminDomainService;
 
+	@Autowired
+	private SysDateService sysDateService;
+
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(updateSysDateFrame.getResetBtn(), (e) -> resetSysDate());
 		registerAction(updateSysDateFrame.getConfirmBtn(),
 				(e) -> updateSysDate());
 		registerAction(updateSysDateFrame.getCloseBtn(), (e) -> closeWindow());
@@ -42,6 +47,18 @@ public class UpdateSysDateController extends AbstractFrameController {
 	@Override
 	public void prepareAndOpenFrame() {
 		updateSysDateFrame.setVisible(true);
+	}
+
+	private void resetSysDate() {
+
+		int result = JOptionPane.showConfirmDialog(null, "该操作将重新恢复与系统时间同步",
+				"标题", JOptionPane.YES_NO_OPTION);
+
+		if (result == JOptionPane.YES_OPTION) {
+			DateUtil.setSysDate(new Date());
+			sysDateService.reset();
+		}
+
 	}
 
 	private void updateSysDate() {
@@ -68,6 +85,7 @@ public class UpdateSysDateController extends AbstractFrameController {
 				}
 				DateUtil.setSysDate(newDate);
 
+				sysDateService.save();
 			} catch (Exception e) {
 				e.printStackTrace();
 				Notifications.showFormValidationAlert(e.getMessage());
