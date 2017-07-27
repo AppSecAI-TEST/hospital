@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
 import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
 
 @Entity
@@ -19,6 +20,10 @@ public class DistributeDrugOrderExecute extends DrugOrderExecute {
 	@JoinColumn(name = "dispense_drug_win_id")
 	private DispenseDrugWin dispenseDrugWin;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fluid_order2_id")
+	private ConfigureFluidOrder fluidOrder;
+
 	@Override
 	protected void doExecuteBefore() throws OrderExecuteException {
 		OrderExecute previos = this.getPrevious();
@@ -28,12 +33,19 @@ public class DistributeDrugOrderExecute extends DrugOrderExecute {
 				this.dispenseDrugWin = dispensingDrugOrderExecute
 						.getDispenseDrugWin();
 			}
-//			if (previos instanceof DrugOrderExecute) {
-//				DrugOrderExecute drugOrderExecute = (DrugOrderExecute) previos;
-//				this.setDrugType(drugOrderExecute.getDrugType());
-//			}
+			// if (previos instanceof DrugOrderExecute) {
+			// DrugOrderExecute drugOrderExecute = (DrugOrderExecute) previos;
+			// this.setDrugType(drugOrderExecute.getDrugType());
+			// }
 		}
+	}
 
+	public ConfigureFluidOrder getFluidOrder() {
+		return fluidOrder;
+	}
+
+	public void setFluidOrder(ConfigureFluidOrder fluidOrder) {
+		this.fluidOrder = fluidOrder;
 	}
 
 }

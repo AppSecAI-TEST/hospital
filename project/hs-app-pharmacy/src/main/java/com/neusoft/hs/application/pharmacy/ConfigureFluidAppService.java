@@ -80,6 +80,8 @@ public class ConfigureFluidAppService {
 	}
 
 	/**
+	 * 完成配液单
+	 * 
 	 * @param fluidOrderId
 	 * @throws PharmacyException
 	 * @throws OrderExecuteException
@@ -93,6 +95,26 @@ public class ConfigureFluidAppService {
 			throw new PharmacyException("fluidOrderId=[%s]不存在", fluidOrderId);
 		}
 		configureFluidDomainService.finishOrder(fluidOrder, user);
+
+		return fluidOrder;
+	}
+
+	/**
+	 * 发送配液单
+	 * 
+	 * @param fluidOrderId
+	 * @throws PharmacyException
+	 * @throws OrderExecuteException
+	 * @roseuid 5930F45401DC
+	 */
+	public ConfigureFluidOrder distribute(String fluidOrderId, AbstractUser user)
+			throws PharmacyException, OrderExecuteException {
+		ConfigureFluidOrder fluidOrder = configureFluidDomainService
+				.getConfigureFluidOrder(fluidOrderId);
+		if (fluidOrder == null) {
+			throw new PharmacyException("fluidOrderId=[%s]不存在", fluidOrderId);
+		}
+		configureFluidDomainService.distributeOrder(fluidOrder, user);
 
 		return fluidOrder;
 	}

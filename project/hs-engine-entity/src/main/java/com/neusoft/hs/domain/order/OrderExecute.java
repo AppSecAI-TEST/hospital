@@ -38,7 +38,7 @@ import com.neusoft.hs.platform.util.DateUtil;
  */
 @Entity
 @Table(name = "domain_order_execute")
-public class OrderExecute extends IdEntity {
+public abstract class OrderExecute extends IdEntity {
 
 	@NotEmpty(message = "状态不能为空")
 	@Column(length = 32)

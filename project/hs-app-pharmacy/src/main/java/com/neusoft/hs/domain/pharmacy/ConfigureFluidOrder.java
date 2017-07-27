@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.pharmacy;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,11 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.order.ConfigureFluidOrderExecute;
+import com.neusoft.hs.domain.order.DistributeDrugOrderExecute;
+import com.neusoft.hs.domain.order.DistributeDrugOrderExecuteRepo;
+import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteDomainService;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.InPatientAreaDept;
 import com.neusoft.hs.platform.entity.IdEntity;
@@ -47,8 +53,14 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 	@Column(name = "finish_date")
 	private Date finishDate;
 
+	@Column(name = "distribute_date")
+	private Date distributeDate;
+
 	@OneToMany(mappedBy = "fluidOrder", cascade = { CascadeType.REFRESH })
-	private List<ConfigureFluidOrderExecute> executes;
+	private List<ConfigureFluidOrderExecute> configureFluidExecutes;
+
+	@OneToMany(mappedBy = "fluidOrder", cascade = { CascadeType.REFRESH })
+	private List<DistributeDrugOrderExecute> distributeDrugExecutes;
 
 	@Column(name = "execute_count")
 	private int executeCount;
@@ -102,8 +114,8 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 		this.creator = creator;
 	}
 
-	public List<ConfigureFluidOrderExecute> getExecutes() {
-		return executes;
+	public List<ConfigureFluidOrderExecute> getConfigureFluidExecutes() {
+		return configureFluidExecutes;
 	}
 
 	public String getState() {
@@ -122,6 +134,14 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 		this.finishDate = finishDate;
 	}
 
+	public Date getDistributeDate() {
+		return distributeDate;
+	}
+
+	public void setDistributeDate(Date distributeDate) {
+		this.distributeDate = distributeDate;
+	}
+
 	public int getExecuteCount() {
 		return executeCount;
 	}
@@ -130,11 +150,25 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 		this.executeCount = executeCount;
 	}
 
-	public void setExecutes(List<ConfigureFluidOrderExecute> executes) {
-		this.executes = executes;
+	public void setConfigureFluidExecutes(
+			List<ConfigureFluidOrderExecute> executes) {
+		this.configureFluidExecutes = executes;
 		this.executeCount = executes.size();
 
-		this.executes.forEach(item -> {
+		this.configureFluidExecutes.forEach(item -> {
+			item.setFluidOrder(this);
+		});
+	}
+
+	public List<DistributeDrugOrderExecute> getDistributeDrugExecutes() {
+		return distributeDrugExecutes;
+	}
+
+	public void setDistributeDrugExecutes(
+			List<DistributeDrugOrderExecute> distributeDrugExecutes) {
+		this.distributeDrugExecutes = distributeDrugExecutes;
+
+		this.distributeDrugExecutes.forEach(item -> {
 			item.setFluidOrder(this);
 		});
 	}
@@ -145,12 +179,62 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 		return null;
 	}
 
-	public void finish(AbstractUser user) throws PharmacyException {
+	/**
+	 * 完成病区配液
+	 * 
+	 * @param user
+	 * @throws PharmacyException
+	 * @throws OrderExecuteException
+	 */
+	public void finish(AbstractUser user) throws PharmacyException,
+			OrderExecuteException {
 		if (this.state.equals(State_NeedExecute)) {
+
+			List<DistributeDrugOrderExecute> nexts = new ArrayList<DistributeDrugOrderExecute>();
+			OrderExecute next;
+			DistributeDrugOrderExecute next1;
+			OrderExecuteDomainService orderExecuteDomainService = this
+					.getService(OrderExecuteDomainService.class);
+			DistributeDrugOrderExecuteRepo distributeDrugOrderExecuteRepo = this
+					.getService(DistributeDrugOrderExecuteRepo.class);
+
+			for (ConfigureFluidOrderExecute execute : this.configureFluidExecutes) {
+				// 完成执行条目
+				next = orderExecuteDomainService.finish(execute, null, user);
+				next1 = distributeDrugOrderExecuteRepo.findOne(next.getId());
+				// 收集下一步执行条目
+				nexts.add(next1);
+			}
+			// 更新下一步发药执行条目
+			this.setDistributeDrugExecutes(nexts);
+
 			this.state = State_Executed;
 			this.finishDate = DateUtil.getSysDate();
 		} else {
 			throw new PharmacyException("配液单[%s]的状态为[%s]不能执行完成", this.getId(),
+					this.state);
+		}
+	}
+
+	/**
+	 * 发送病区液
+	 * 
+	 * @param user
+	 * @throws PharmacyException
+	 * @throws OrderExecuteException
+	 */
+	public void distribute(AbstractUser user) throws PharmacyException,
+			OrderExecuteException {
+		if (this.state.equals(State_Executed)) {
+			for (DistributeDrugOrderExecute execute : this.distributeDrugExecutes) {
+				this.getService(OrderExecuteDomainService.class).finish(
+						execute, null, user);
+			}
+
+			this.state = State_Sended;
+			this.distributeDate = DateUtil.getSysDate();
+		} else {
+			throw new PharmacyException("配液单[%s]的状态为[%s]不能执行发送", this.getId(),
 					this.state);
 		}
 	}

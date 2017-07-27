@@ -45,7 +45,7 @@ public class ConfigureFluidDomainService {
 			List<ConfigureFluidOrderExecute> executes, AbstractUser user) {
 		ConfigureFluidOrder fluidOrder = new ConfigureFluidOrder();
 
-		fluidOrder.setExecutes(executes);
+		fluidOrder.setConfigureFluidExecutes(executes);
 		fluidOrder.setCreator(user);
 		fluidOrder.setArea(area);
 		fluidOrder.setBatch(batch);
@@ -66,6 +66,8 @@ public class ConfigureFluidDomainService {
 	}
 
 	/**
+	 * 完成配液
+	 * 
 	 * @param fluidOrder
 	 * @throws OrderExecuteException
 	 * @throws PharmacyException
@@ -73,9 +75,6 @@ public class ConfigureFluidDomainService {
 	 */
 	public void finishOrder(ConfigureFluidOrder fluidOrder, AbstractUser user)
 			throws OrderExecuteException, PharmacyException {
-		for (ConfigureFluidOrderExecute execute : fluidOrder.getExecutes()) {
-			orderExecuteDomainService.finish(execute, null, user);
-		}
 
 		fluidOrder.finish(user);
 
@@ -83,6 +82,27 @@ public class ConfigureFluidDomainService {
 				fluidOrder));
 
 		LogUtil.log(this.getClass(), "人员[{}]将配液单[{}]设置为完成", user.getId(),
+				fluidOrder.getId());
+
+	}
+
+	/**
+	 * 发送配液任务
+	 * 
+	 * @param fluidOrder
+	 * @throws OrderExecuteException
+	 * @throws PharmacyException
+	 * @roseuid 5930F4D20354
+	 */
+	public void distributeOrder(ConfigureFluidOrder fluidOrder,
+			AbstractUser user) throws OrderExecuteException, PharmacyException {
+
+		fluidOrder.distribute(user);
+
+		applicationContext.publishEvent(new ConfigureFluidOrderDispensedEvent(
+				fluidOrder));
+
+		LogUtil.log(this.getClass(), "人员[{}]将配液单[{}]设置为已发送", user.getId(),
 				fluidOrder.getId());
 
 	}

@@ -57,6 +57,7 @@ public class InPatientMainTestService extends InPatientTestService {
 		Order drug001Order4;
 		TreatmentItem item;
 		Visit visit;
+		ConfigureFluidOrder fluidOrder;
 
 		NursingOrderBuilder nursingOrderBuilder;
 		TemporaryDrugOrderBuilder drugOrderBuilder;
@@ -337,25 +338,27 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:05", dayCount));
 
-		// //以执行条目方式完成配液
-		// pageable = new PageRequest(0, Integer.MAX_VALUE);
-		// executes =
-		// orderExecuteAppService.getNeedExecuteOrderExecutes(userb02,
-		// pageable);
-		//
-		// assertTrue(executes.size() == 2);
-		//
-		// // 完成配液医嘱执行条目
-		// for (OrderExecute execute : executes) {
-		// orderExecuteAppService.finish(execute.getId(), null, userb02);
-		// }
+		// 打印配液单
+		fluidOrder = configureFluidAppService.print(dept000n,
+				afternoonConfigureFluidBatch, userb02);
 
-		ConfigureFluidOrder fluidOrder = configureFluidAppService.print(
-				dept000n, afternoonConfigureFluidBatch, userb02);
+		assertTrue(fluidOrder.getConfigureFluidExecutes().size() == 2);
 
-		assertTrue(fluidOrder.getExecutes().size() == 2);
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:30", dayCount));
 
-		configureFluidAppService.finish(fluidOrder.getId(), userb02);
+		// 配液完成
+		fluidOrder = configureFluidAppService.finish(fluidOrder.getId(),
+				userb02);
+
+		assertTrue(fluidOrder.getConfigureFluidExecutes().size() == 2);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 13:35", dayCount));
+
+		// 发送配液单
+		fluidOrder = configureFluidAppService.distribute(fluidOrder.getId(),
+				userb03);
+
+		assertTrue(fluidOrder.getDistributeDrugExecutes().size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-29 15:30", dayCount));
 
@@ -389,16 +392,24 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:50", dayCount));
 
-		pageable = new PageRequest(0, Integer.MAX_VALUE);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userb02,
-				pageable);
+		// 打印配液单
+		fluidOrder = configureFluidAppService.print(dept000n,
+				morningConfigureFluidBatch, userb02);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(fluidOrder.getConfigureFluidExecutes().size() == 2);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 08:55", dayCount));
 
 		// 完成配液医嘱执行条目
-		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), null, userb02);
-		}
+		configureFluidAppService.finish(fluidOrder.getId(), userb02);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 09:00", dayCount));
+
+		// 发送配液单
+		fluidOrder = configureFluidAppService.distribute(fluidOrder.getId(),
+				userb03);
+
+		assertTrue(fluidOrder.getDistributeDrugExecutes().size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 09:10", dayCount));
 
@@ -415,16 +426,24 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 14:00", dayCount));
 
-		pageable = new PageRequest(0, Integer.MAX_VALUE);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(userb02,
-				pageable);
+		// 打印配液单
+		fluidOrder = configureFluidAppService.print(dept000n,
+				afternoonConfigureFluidBatch, userb02);
 
-		assertTrue(executes.size() == 2);
+		assertTrue(fluidOrder.getConfigureFluidExecutes().size() == 2);
 
-		// 完成配液医嘱执行条目
-		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), null, userb02);
-		}
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 14:30", dayCount));
+
+		// 完成配液
+		configureFluidAppService.finish(fluidOrder.getId(), userb02);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 14:35", dayCount));
+
+		// 发送配液单
+		fluidOrder = configureFluidAppService.distribute(fluidOrder.getId(),
+				userb03);
+
+		assertTrue(fluidOrder.getDistributeDrugExecutes().size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-30 15:10", dayCount));
 
@@ -464,10 +483,24 @@ public class InPatientMainTestService extends InPatientTestService {
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 08:50", dayCount));
 
-		// 完成配液医嘱执行条目
-		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), null, userb02);
-		}
+		// 打印配液单
+		fluidOrder = configureFluidAppService.print(dept000n,
+				morningConfigureFluidBatch, userb02);
+
+		assertTrue(fluidOrder.getConfigureFluidExecutes().size() == 2);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 09:00", dayCount));
+
+		// 配液完成
+		configureFluidAppService.finish(fluidOrder.getId(), userb02);
+
+		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 09:05", dayCount));
+
+		// 发送配液单
+		fluidOrder = configureFluidAppService.distribute(fluidOrder.getId(),
+				userb03);
+
+		assertTrue(fluidOrder.getDistributeDrugExecutes().size() == 2);
 
 		DateUtil.setSysDate(DateUtil.createMinute("2016-12-31 09:10", dayCount));
 

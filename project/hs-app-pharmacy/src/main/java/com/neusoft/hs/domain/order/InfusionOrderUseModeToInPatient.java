@@ -40,6 +40,18 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		configureFluidDrugExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
 		
 		team.addOrderExecute(configureFluidDrugExecute);
+		
+		// 发药执行条目
+		DistributeDrugOrderExecute distributeDrugExecute = new DistributeDrugOrderExecute();
+		distributeDrugExecute.setOrder(order);
+		distributeDrugExecute.setVisit(order.getVisit());
+		distributeDrugExecute.setBelongDept(order.getBelongDept());
+		distributeDrugExecute.setType(OrderExecute.Type_Distribute_Drug);
+		distributeDrugExecute.setExecuteDept(pharmacy);
+		distributeDrugExecute.setCount(order.getCount());
+		distributeDrugExecute.setState(OrderExecute.State_NeedExecute);
+
+		team.addOrderExecute(distributeDrugExecute);
 
 		// 输液执行条目
 		TransportFluidOrderExecute transportFluidExecute = new TransportFluidOrderExecute();
