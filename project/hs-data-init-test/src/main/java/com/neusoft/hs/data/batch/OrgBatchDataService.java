@@ -18,7 +18,7 @@ public class OrgBatchDataService {
 	@Autowired
 	private OrganizationAdminDomainService organizationAdminDomainService;
 
-	private final static int DeptCount = 2000;
+	public final static int DeptCount = 2000;
 
 	public void init() {
 
@@ -32,7 +32,7 @@ public class OrgBatchDataService {
 			dept = new CommonDept();
 
 			dept.setId("dept-test-" + i);
-			dept.setName("dept-test-name" + i);
+			dept.setName("dept-test-name-" + i);
 			dept.setParent(org);
 			dept.setOrg(org);
 

@@ -42,8 +42,12 @@ public class UserAdminDomainService {
 		return userRepo.findAdmin(pageable);
 	}
 	
+	public void delete(String id) {
+		AbstractUser user = userRepo.findOne(id);
+		user.delete();
+	}
+	
 	public void clear() {
 		userRepo.deleteAll();
 	}
-
 }

@@ -56,10 +56,14 @@ public abstract class AbstractUser extends SuperEntity implements User {
 	 * @return
 	 */
 	public abstract List<Dept> getOperationDepts();
+	
+
+	public void delete() {
+		this.getService(AbstractUserRepo.class).delete(this);
+	}
 
 	@Override
 	public String toString() {
 		return name;
 	}
-
 }
