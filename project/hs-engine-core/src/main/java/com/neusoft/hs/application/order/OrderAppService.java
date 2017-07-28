@@ -5,6 +5,7 @@ package com.neusoft.hs.application.order;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -219,7 +220,12 @@ public class OrderAppService {
 	 * @return
 	 */
 	public List<Order> findByBelongDepts(List<Dept> depts, Pageable pageable) {
-		return orderDomainService.findByBelongDepts(depts, pageable);
+		List<Order> orders = orderDomainService.findByBelongDepts(depts,
+				pageable);
+		for (Order order : orders) {
+			Hibernate.initialize(order.getOrderType());
+		}
+		return orders;
 	}
 
 }

@@ -1,6 +1,9 @@
 package com.neusoft.hs.portal.framework.security;
 
+import org.springframework.context.ApplicationContext;
+
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -12,6 +15,7 @@ public class UserUtil {
 		if (user == null) {
 			throw new HsException("没有登录");
 		}
+
 		return user;
 	}
 
@@ -21,16 +25,17 @@ public class UserUtil {
 
 	public static void setUser(AbstractUser u) {
 
+		ApplicationContext context = ApplicationContextUtil
+				.getApplicationContext();
+
 		AbstractUser loginUser = user;
-		user = u;
+		user = context.getBean(UserAdminDomainService.class).find(u.getId());
 
 		if (user != null) {
-			ApplicationContextUtil.getApplicationContext().publishEvent(
-					new LoginEvent(user));
+			context.publishEvent(new LoginEvent(user));
 		} else {
 			if (loginUser != null) {
-				ApplicationContextUtil.getApplicationContext().publishEvent(
-						new LogoutEvent(loginUser));
+				context.publishEvent(new LogoutEvent(loginUser));
 			}
 		}
 	}

@@ -15,6 +15,7 @@ import com.neusoft.hs.domain.outpatientdept.OutPatientDeptException;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanDomainService;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientPlanRecord;
 import com.neusoft.hs.domain.outpatientoffice.OutPatientRoom;
+import com.neusoft.hs.domain.registration.Voucher;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -45,6 +46,9 @@ public class OutPatientDeptAppService {
 				.findPlanRecord(doctor, date);
 		if (record != null) {
 			Hibernate.initialize(record.getVouchers());
+			for (Voucher voucher : record.getVouchers()) {
+				Hibernate.initialize(voucher.getVisit());
+			}
 		}
 		return record;
 	}
