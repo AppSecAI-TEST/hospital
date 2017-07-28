@@ -72,8 +72,8 @@ public class TemporaryOrderListFrame extends JFrame {
 
 		contentPanel.add(titlePanel, BorderLayout.NORTH);
 
-		MedicalRecordItem item = medicalRecord
-				.getTheItem(TreatmentItemSpec.TemporaryOrderList);
+		MedicalRecordItem item = (MedicalRecordItem) medicalRecord.getDatas()
+				.get(TreatmentItemSpec.TemporaryOrderList);
 
 		DefaultTableModel tableModel = new DefaultTableModel();
 		tableModel.addColumn(ConstMessagesCN.Labels.Name);

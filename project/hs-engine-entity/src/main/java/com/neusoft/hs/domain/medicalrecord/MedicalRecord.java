@@ -298,11 +298,6 @@ public class MedicalRecord extends IdEntity {
 		item.setRecord(this);
 	}
 
-	public MedicalRecordItem getTheItem(String name) {
-		return this.getService(MedicalRecordItemRepo.class)
-				.findByRecordAndName(this, name);
-	}
-
 	public List<MedicalRecordLog> getLogs() {
 		return logs;
 	}
