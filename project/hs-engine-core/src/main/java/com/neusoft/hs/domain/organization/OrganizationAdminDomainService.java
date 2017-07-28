@@ -46,6 +46,10 @@ public class OrganizationAdminDomainService {
 	public Dept getInChargeDept(Dept dept) {
 		return findTheDept(dept.getId()).getOrg().getInChargeDept();
 	}
+	
+	public Dept getRecordRoomDept(Dept dept) {
+		return findTheDept(dept.getId()).getOrg().getRecordRoomDept();
+	}
 
 	public Dept findTheDept(String id) {
 		return (Dept) unitRepo.findOne(id);

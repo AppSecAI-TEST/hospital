@@ -21,6 +21,7 @@ import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordTypeBuilder;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.organization.UnitException;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
@@ -46,6 +47,9 @@ public class InPatientAppService {
 
 	@Autowired
 	private CostDomainService costDomainService;
+
+	@Autowired
+	private OrganizationAdminDomainService organizationAdminDomainService;
 
 	public List<Visit> getNeedReceiveVisits(AbstractUser user, Pageable pageable) {
 		return visitDomainService.findByStateAndArea(Visit.State_NeedIntoWard,
@@ -92,7 +96,8 @@ public class InPatientAppService {
 	public void transfer(String visitId, AbstractUser user)
 			throws MedicalRecordException, VisitException, UnitException {
 
-		Dept dept = user.getDept().getOrg().getRecordRoomDept();
+		Dept dept = organizationAdminDomainService.getRecordRoomDept(user
+				.getDept());
 		if (dept == null) {
 			throw new UnitException(user.getDept().getOrg(), "组织[%s]没有配置病案室",
 					user.getDept().getOrg().getName());
