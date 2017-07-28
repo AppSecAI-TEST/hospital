@@ -113,11 +113,7 @@ public class MedicalRecordAppService {
 	}
 
 	public MedicalRecord find(String id) throws TreatmentException {
-		MedicalRecord medicalRecord = medicalRecordDomainService.find(id);
-		if (medicalRecord != null) {
-			Hibernate.initialize(medicalRecord.getType());
-		}
-		return medicalRecord;
+		return medicalRecordDomainService.find(id);
 	}
 
 	public List<MedicalRecord> getMedicalRecords(Visit visit, Pageable pageable) {

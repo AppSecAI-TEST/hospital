@@ -146,6 +146,9 @@ public class MedicalRecord extends IdEntity {
 	 * @throws TreatmentException
 	 */
 	public void load() throws TreatmentException {
+
+		Hibernate.initialize(this.type);
+
 		if (this.state.equals(State_Signed) || this.state.equals(State_Fixed)) {
 			this.loadData();
 		} else {
