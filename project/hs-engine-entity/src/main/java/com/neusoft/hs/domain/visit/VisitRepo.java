@@ -18,11 +18,16 @@ interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 	List<Visit> findByState(String state, Pageable pageable);
 
 	List<Visit> findByStateAndDept(String state, Dept dept, Pageable pageable);
-	
-	List<Visit> findByStateAndDeptIn(String state, List<Dept> depts, Pageable pageable);
-	
-	List<Visit> findByStateInAndDeptIn(List<String> states, List<Dept> depts, Pageable pageable);
-	
+
+	List<Visit> findByStateAndDeptIn(String state, List<Dept> depts,
+			Pageable pageable);
+
+	List<Visit> findByStateInAndDeptIn(List<String> states, List<Dept> depts,
+			Pageable pageable);
+
+	List<Visit> findByStateInAndDept(List<String> states, Dept dept,
+			Pageable pageable);
+
 	List<Visit> findByStateAndArea(String state, Dept area, Pageable pageable);
 
 	List<Visit> findByDept(Dept dept, Pageable pageable);
@@ -32,9 +37,9 @@ interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 	int changeVisitState(@Param("newState") String newState,
 			@Param("oldState") String oldState,
 			@Param("changeDate") Date changeDate);
-	
-	
+
 	List<Visit> findByStateAndVoucherDateLessThan(String state, Date voucherDate);
 
 	Visit findByLastAndCardNumber(Boolean last, String cardNumber);
+
 }

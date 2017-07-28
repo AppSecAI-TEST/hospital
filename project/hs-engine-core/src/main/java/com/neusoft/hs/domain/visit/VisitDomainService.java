@@ -19,8 +19,6 @@ import com.neusoft.hs.domain.order.OrderStopedEvent;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
-import com.neusoft.hs.domain.organization.Doctor;
-import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.patient.Patient;
 import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
@@ -308,6 +306,11 @@ public class VisitDomainService {
 	public List<Visit> findByStateAndDept(String state, Dept dept,
 			Pageable pageable) {
 		return visitRepo.findByStateAndDept(state, dept, pageable);
+	}
+	
+	public List<Visit> findByStatesAndDept(List<String> states, Dept dept,
+			Pageable pageable) {
+		return visitRepo.findByStateInAndDept(states, dept, pageable);
 	}
 
 	public List<Visit> findByStateAndArea(String state, Dept area,

@@ -18,9 +18,11 @@ import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.portal.businessview.visit.VisitBusinessView;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.inpatientdept.view.ArrangementMedicalRecordFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
@@ -38,13 +40,13 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 	private InPatientAppService inPatientAppService;
 
 	@Autowired
-	private VisitDomainService visitDomainService;
-
-	@Autowired
 	private InspectDomainService inspectDomainService;
 
 	@Autowired
 	private MedicalRecordAppService medicalRecordAppService;
+	
+	@Autowired
+	private VisitBusinessView visitBusinessView;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -82,10 +84,10 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 
 	private void loadVisits() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		
+		AbstractUser user = UserUtil.getUser();
 
-		List<Visit> entities = visitDomainService.findByStateAndDepts(
-				Visit.State_OutHospital,
-				UserUtil.getUser().getOperationDepts(), pageable);
+		List<Visit> entities = visitBusinessView.findVisits(user, pageable);
 
 		VisitComboBoxModel visitComboBoxModel = arrangementMedicalRecordFrame
 				.getVisitComboBoxModel();

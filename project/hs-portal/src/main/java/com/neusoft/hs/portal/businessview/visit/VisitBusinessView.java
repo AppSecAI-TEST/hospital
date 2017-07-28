@@ -34,9 +34,12 @@ public class VisitBusinessView {
 
 		List<Visit> visits = new ArrayList<Visit>();
 
+		List<String> states = new ArrayList<String>();
+		states.add(Visit.State_IntoWard);
+		states.add(Visit.State_OutHospital);
 		// 获取医生住院患者列表
-		List<Visit> patientVisits = visitDomainService.findByStateAndDept(
-				Visit.State_IntoWard, doctor.getDept(), pageable);
+		List<Visit> patientVisits = visitDomainService.findByStatesAndDept(
+				states, doctor.getDept(), pageable);
 		visits.addAll(patientVisits);
 
 		// 获取医生门诊患者列表
