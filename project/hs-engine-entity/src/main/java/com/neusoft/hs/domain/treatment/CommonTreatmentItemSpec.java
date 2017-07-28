@@ -16,8 +16,9 @@ public class CommonTreatmentItemSpec extends TreatmentItemSpec {
 
 		TreatmentItem item = this.getService(TreatmentItemRepo.class)
 				.findByVisitAndTreatmentItemSpec(visit, this);
-
-		Hibernate.initialize(item.getValues());
+		if (item != null) {
+			Hibernate.initialize(item.getValues());
+		}
 
 		return item;
 	}

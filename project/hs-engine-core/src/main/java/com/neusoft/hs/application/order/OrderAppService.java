@@ -198,7 +198,12 @@ public class OrderAppService {
 	 * @return
 	 */
 	public List<Order> getNeedVerifyOrders(AbstractUser nurse, Pageable pageable) {
-		return orderDomainService.getNeedVerifyOrders(nurse, pageable);
+		List<Order> orders = orderDomainService.getNeedVerifyOrders(nurse,
+				pageable);
+		for (Order order : orders) {
+			Hibernate.initialize(order.getOrderType());
+		}
+		return orders;
 	}
 
 	/**
