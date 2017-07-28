@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
+import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
@@ -40,7 +41,7 @@ public class EnterHospitalOrderType extends OrderType {
 		visit.setArea(wardArea);
 		visit.setRespDoctor(respDoctor);
 		visit.setState(Visit.State_WaitingEnterHospital);
-		
+
 		visit.save();
 	}
 
@@ -50,6 +51,15 @@ public class EnterHospitalOrderType extends OrderType {
 		Order order = orderTypeApp.getOrder();
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
+
+		OrganizationAdminDomainService organizationAdminDomainService = this
+				.getService(OrganizationAdminDomainService.class);
+
+		Dept inPatientOfficeDept = organizationAdminDomainService
+				.getInPatientOfficeDept(order.getExecuteDept());
+
+		Dept inChargeDept = organizationAdminDomainService
+				.getInChargeDept(order.getExecuteDept());
 
 		// 入院登记执行条目
 		EnterHospitalRegisterOrderExecute register = new EnterHospitalRegisterOrderExecute();
@@ -61,7 +71,7 @@ public class EnterHospitalOrderType extends OrderType {
 		register.setPlanStartDate(order.getPlanStartDate());
 		register.setPlanEndDate(order.getPlanStartDate());
 
-		register.setExecuteDept(order.getExecuteDept().getOrg().getInPatientOfficeDept());
+		register.setExecuteDept(inPatientOfficeDept);
 		register.setState(OrderExecute.State_Executing);
 
 		team.addOrderExecute(register);
@@ -76,7 +86,7 @@ public class EnterHospitalOrderType extends OrderType {
 		supply.setPlanStartDate(order.getPlanStartDate());
 		supply.setPlanEndDate(order.getPlanStartDate());
 
-		supply.setExecuteDept(order.getExecuteDept().getOrg().getInChargeDept());
+		supply.setExecuteDept(inChargeDept);
 		supply.setState(OrderExecute.State_NeedExecute);
 
 		team.addOrderExecute(supply);
