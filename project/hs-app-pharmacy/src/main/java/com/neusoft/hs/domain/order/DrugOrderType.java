@@ -28,7 +28,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 @DiscriminatorValue("Drug")
 public class DrugOrderType extends OrderType {
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
 
@@ -65,8 +65,9 @@ public class DrugOrderType extends OrderType {
 	public void resolveOrder(OrderTypeApp orderTypeApp) throws OrderException {
 
 		Order order = orderTypeApp.getOrder();
-		DrugUseMode drugUseMode = ((DrugOrderTypeApp) orderTypeApp)
-				.getDrugUseMode();
+
+		DrugUseMode drugUseMode = this.getService(DrugOrderTypeAppRepo.class)
+				.findOne(orderTypeApp.getId()).getDrugUseMode();
 
 		if (order instanceof TemporaryOrder) {
 			// 分解执行条目

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.PageRequest;
@@ -101,8 +102,12 @@ public class TreatmentDomainService {
 
 	public TreatmentItem getTheTreatmentItem(Visit visit,
 			TreatmentItemSpec treatmentItemSpec) {
-		return treatmentItemRepo.findByVisitAndTreatmentItemSpec(visit,
-				treatmentItemSpec);
+		TreatmentItem item = treatmentItemRepo.findByVisitAndTreatmentItemSpec(
+				visit, treatmentItemSpec);
+
+		Hibernate.initialize(item.getValues());
+
+		return item;
 	}
 
 	/**

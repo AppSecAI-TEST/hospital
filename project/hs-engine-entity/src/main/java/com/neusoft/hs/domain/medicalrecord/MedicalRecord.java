@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -48,7 +49,7 @@ public class MedicalRecord extends IdEntity {
 	@JoinColumn(name = "clip_id")
 	private MedicalRecordClip clip;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "type_id")
 	private MedicalRecordType type;
 
@@ -392,6 +393,9 @@ public class MedicalRecord extends IdEntity {
 
 	private void loadData() {
 		for (MedicalRecordItem item : this.items) {
+			
+			Hibernate.initialize(item.getValues());
+			
 			datas.put(item.getName(), item);
 		}
 	}

@@ -108,7 +108,7 @@ public abstract class OrderExecute extends IdEntity {
 	@Column(name = "actual_executor_name", length = 32)
 	private String actualExecutorName;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private Order order;
 

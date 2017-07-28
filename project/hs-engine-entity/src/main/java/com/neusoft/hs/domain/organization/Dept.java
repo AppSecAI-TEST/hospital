@@ -22,7 +22,7 @@ import com.neusoft.hs.domain.visit.Visit;
 public abstract class Dept extends Unit {
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "org_id")
 	private Org org;
 

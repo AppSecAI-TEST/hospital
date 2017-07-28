@@ -28,7 +28,7 @@ public class Voucher extends IdEntity {
 
 	private Integer number;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
@@ -40,7 +40,7 @@ public class Voucher extends IdEntity {
 
 	private Boolean repeatVisit;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plan_record_id")
 	private OutPatientPlanRecord planRecord;
 

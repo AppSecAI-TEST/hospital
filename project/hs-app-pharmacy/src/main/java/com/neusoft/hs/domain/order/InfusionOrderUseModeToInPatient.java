@@ -17,8 +17,8 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 	public void resolve(Order order) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
-		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
-				.getTypeApp();
+		DrugOrderTypeApp drugOrderTypeApp = this.getService(
+				DrugOrderTypeAppRepo.class).findOne(order.getTypeApp().getId());
 
 		Pharmacy pharmacy = drugOrderTypeApp.getPharmacy();
 
@@ -31,16 +31,17 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		configureFluidDrugExecute.addChargeItem(drugOrderTypeApp
 				.getDrugTypeSpec().getChargeItem());
 		configureFluidDrugExecute.setCount(order.getCount());
-	
+
 		configureFluidDrugExecute.setExecuteDept(pharmacy);
 		configureFluidDrugExecute.setChargeDept(pharmacy);
 		configureFluidDrugExecute.setState(OrderExecute.State_NeedSend);
-		
+
 		configureFluidDrugExecute.setPharmacy(pharmacy);
-		configureFluidDrugExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
-		
+		configureFluidDrugExecute.setDrugTypeSpec(drugOrderTypeApp
+				.getDrugTypeSpec());
+
 		team.addOrderExecute(configureFluidDrugExecute);
-		
+
 		// 发药执行条目
 		DistributeDrugOrderExecute distributeDrugExecute = new DistributeDrugOrderExecute();
 		distributeDrugExecute.setOrder(order);
@@ -84,9 +85,10 @@ public class InfusionOrderUseModeToInPatient extends DrugUseMode {
 		transportFluidExecute.setExecuteDept(order.getBelongDept());
 		transportFluidExecute.setChargeDept(order.getBelongDept());
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
-		
+
 		transportFluidExecute.setPharmacy(pharmacy);
-		transportFluidExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
+		transportFluidExecute.setDrugTypeSpec(drugOrderTypeApp
+				.getDrugTypeSpec());
 
 		team.addOrderExecute(transportFluidExecute);
 

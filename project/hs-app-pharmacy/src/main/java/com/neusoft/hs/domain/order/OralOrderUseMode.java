@@ -4,6 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.neusoft.hs.domain.cost.ChargeOrderExecute;
+import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.visit.Visit;
@@ -17,11 +18,14 @@ public class OralOrderUseMode extends DrugUseMode {
 
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
-		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
-				.getTypeApp();
+		DrugOrderTypeApp drugOrderTypeApp = this.getService(
+				DrugOrderTypeAppRepo.class).findOne(order.getTypeApp().getId());
 
 		Visit visit = order.getVisit();
 		Pharmacy pharmacy = drugOrderTypeApp.getPharmacy();
+
+		OrganizationAdminDomainService organizationAdminDomainService = this
+				.getService(OrganizationAdminDomainService.class);
 
 		ChargeOrderExecute chargeOrderExecute = null;
 		if (!order.isInPatient()) {
@@ -32,8 +36,8 @@ public class OralOrderUseMode extends DrugUseMode {
 			chargeOrderExecute.setBelongDept(order.getBelongDept());
 			chargeOrderExecute.setType(OrderExecute.Type_Change);
 
-			chargeOrderExecute.setExecuteDept(visit.getDept().getOrg()
-					.getOutChargeDept());
+			chargeOrderExecute.setExecuteDept(organizationAdminDomainService
+					.getOutChargeDept(visit.getDept()));
 			chargeOrderExecute.setChargeDept(pharmacy);
 			chargeOrderExecute.setState(OrderExecute.State_Executing);
 
@@ -60,8 +64,8 @@ public class OralOrderUseMode extends DrugUseMode {
 			chargeOrderExecute.setCharge(dispensingDrugExecute);
 		}
 		dispensingDrugExecute.setPharmacy(pharmacy);
-		dispensingDrugExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
-		
+		dispensingDrugExecute.setDrugTypeSpec(drugOrderTypeApp
+				.getDrugTypeSpec());
 
 		team.addOrderExecute(dispensingDrugExecute);
 
@@ -74,9 +78,10 @@ public class OralOrderUseMode extends DrugUseMode {
 		distributeDrugExecute.setExecuteDept(pharmacy);
 		distributeDrugExecute.setMain(true);
 		distributeDrugExecute.setState(OrderExecute.State_NeedExecute);
-		
+
 		distributeDrugExecute.setPharmacy(pharmacy);
-		distributeDrugExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
+		distributeDrugExecute.setDrugTypeSpec(drugOrderTypeApp
+				.getDrugTypeSpec());
 
 		team.addOrderExecute(distributeDrugExecute);
 

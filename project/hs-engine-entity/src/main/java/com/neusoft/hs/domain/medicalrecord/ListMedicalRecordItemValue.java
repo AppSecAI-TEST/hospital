@@ -19,7 +19,7 @@ import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 @DiscriminatorValue("List")
 public class ListMedicalRecordItemValue extends MedicalRecordItemValue {
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "domain_medical_record_item_value_list", joinColumns = @JoinColumn(name = "value_id"))
 	@Column(name = "data")
 	private Map<String, String> data;

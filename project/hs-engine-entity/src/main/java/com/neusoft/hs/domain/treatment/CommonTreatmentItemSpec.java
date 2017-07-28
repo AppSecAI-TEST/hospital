@@ -3,6 +3,8 @@ package com.neusoft.hs.domain.treatment;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.Hibernate;
+
 import com.neusoft.hs.domain.visit.Visit;
 
 @Entity
@@ -11,8 +13,13 @@ public class CommonTreatmentItemSpec extends TreatmentItemSpec {
 
 	@Override
 	public TreatmentItem getTheItem(Visit visit) throws TreatmentException {
-		return this.getService(TreatmentItemRepo.class)
+
+		TreatmentItem item = this.getService(TreatmentItemRepo.class)
 				.findByVisitAndTreatmentItemSpec(visit, this);
+
+		Hibernate.initialize(item.getValues());
+
+		return item;
 	}
 
 	@Override

@@ -13,22 +13,22 @@ import javax.persistence.OneToOne;
 @DiscriminatorValue("Org")
 public class Org extends Unit {
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE,
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "out_charge_dept_id")
 	private Dept outChargeDept;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE,
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "in_charge_dept_id")
 	private Dept inChargeDept;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE,
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "record_room_dept_id")
 	private Dept recordRoomDept;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE,
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "in_patient_office_dept_id")
 	private Dept inPatientOfficeDept;

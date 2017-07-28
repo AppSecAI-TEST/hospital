@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ import com.neusoft.hs.platform.util.DateUtil;
 @DiscriminatorValue("TemporaryOrderList")
 public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	@CollectionTable(name = "domain_treatment_spec_state", joinColumns = @JoinColumn(name = "spec_id"))
 	@Column(name = "state")
@@ -45,6 +46,8 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 		if (treatmentItem == null) {
 			treatmentItem = this.createTreatmentItem(visit);
 			this.getService(TreatmentItemDAO.class).save(treatmentItem);
+		} else {
+			Hibernate.initialize(treatmentItem.getValues());
 		}
 
 		return treatmentItem;

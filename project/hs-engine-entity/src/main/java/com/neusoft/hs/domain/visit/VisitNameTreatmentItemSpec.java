@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.Hibernate;
+
 import com.neusoft.hs.domain.treatment.SimpleTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
@@ -25,6 +27,8 @@ public class VisitNameTreatmentItemSpec extends TreatmentItemSpec {
 		if (treatmentItem == null) {
 			treatmentItem = createTreatmentItem(visit);
 			this.getService(TreatmentItemDAO.class).save(treatmentItem);
+		} else {
+			Hibernate.initialize(treatmentItem.getValues());
 		}
 
 		return treatmentItem;

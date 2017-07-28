@@ -57,7 +57,7 @@ public class DrugTypeSpec extends SuperEntity {
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
 	private List<DrugTypeSpec> children;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_item_id")
 	private ChargeItem chargeItem;
 

@@ -21,7 +21,7 @@ public class DiagnosisTreatmentItemValue extends TreatmentItemValue {
 	@Column(length = 128)
 	private String remark;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "disease_id")
 	private Disease disease;
 

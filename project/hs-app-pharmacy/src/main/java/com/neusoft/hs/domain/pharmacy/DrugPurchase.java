@@ -12,7 +12,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Table(name = "app_pharmacy_drug_purchase")
 public class DrugPurchase extends IdEntity {
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "drug_type_spec_id")
 	private DrugTypeSpec drugTypeSpec;
 

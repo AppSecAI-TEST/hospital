@@ -34,6 +34,10 @@ public class OrganizationAdminDomainService {
 		Hibernate.initialize(inPatientDept.getAreas());
 		return inPatientDept.getAreas();
 	}
+	
+	public Dept getOutChargeDept(Dept dept){
+		return findTheDept(dept.getId()).getOrg().getOutChargeDept();
+	}
 
 	public Dept findTheDept(String id) {
 		return (Dept) unitRepo.findOne(id);

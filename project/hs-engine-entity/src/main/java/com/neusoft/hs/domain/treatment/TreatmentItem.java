@@ -39,11 +39,11 @@ public class TreatmentItem extends IdEntity implements Itemable {
 	@Column(length = 32)
 	private String type;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "treatment_spec_id")
 	private TreatmentItemSpec treatmentItemSpec;
 
-	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private List<TreatmentItemValue> values;
 
 	@ManyToOne(fetch = FetchType.LAZY)

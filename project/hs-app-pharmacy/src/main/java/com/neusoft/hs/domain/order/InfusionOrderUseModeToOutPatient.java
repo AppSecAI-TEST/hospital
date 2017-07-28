@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import com.neusoft.hs.domain.cost.ChargeItem;
 import com.neusoft.hs.domain.cost.ChargeOrderExecute;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.pharmacy.DrugType;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
 import com.neusoft.hs.domain.pharmacy.DrugUseModeAssistMaterial;
@@ -25,14 +26,19 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 	public void resolve(Order order) {
 		OrderExecuteTeam team = new OrderExecuteTeam();
 
-		DrugOrderTypeApp drugOrderTypeApp = (DrugOrderTypeApp) order
-				.getTypeApp();
+		DrugOrderTypeApp drugOrderTypeApp = this.getService(
+				DrugOrderTypeAppRepo.class).findOne(order.getTypeApp().getId());
 
 		Visit visit = order.getVisit();
 		Pharmacy pharmacy = drugOrderTypeApp.getPharmacy();
 
 		Date sysDate = DateUtil.getSysDate();
-		Dept chargeDept = visit.getDept().getOrg().getOutChargeDept();
+
+		OrganizationAdminDomainService organizationAdminDomainService = this
+				.getService(OrganizationAdminDomainService.class);
+
+		Dept chargeDept = organizationAdminDomainService.getOutChargeDept(visit
+				.getDept());
 
 		ChargeItem assistMaterialChargeItem = null;
 
@@ -77,8 +83,8 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 				// 统一缴费
 				assistMaterialChargeOrderExecute.setPlanStartDate(sysDate);
 				assistMaterialChargeOrderExecute.setPlanEndDate(sysDate);
-				
-				//不隶属于执行链中
+
+				// 不隶属于执行链中
 				assistMaterialChargeOrderExecute.setAlone(true);
 
 				team.addOrderExecute(assistMaterialChargeOrderExecute);
@@ -99,9 +105,10 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		dispensingDrugExecute.setChargeDept(pharmacy);
 
 		dispensingDrugExecute.setState(OrderExecute.State_NeedExecute);
-		
+
 		dispensingDrugExecute.setPharmacy(pharmacy);
-		dispensingDrugExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
+		dispensingDrugExecute.setDrugTypeSpec(drugOrderTypeApp
+				.getDrugTypeSpec());
 		// 统一摆药
 		dispensingDrugExecute.setPlanStartDate(sysDate);
 		dispensingDrugExecute.setPlanEndDate(sysDate);
@@ -138,9 +145,10 @@ public class InfusionOrderUseModeToOutPatient extends DrugUseMode {
 		transportFluidExecute.setState(OrderExecute.State_NeedExecute);
 
 		transportFluidExecute.setMain(true);
-		
+
 		transportFluidExecute.setPharmacy(pharmacy);
-		transportFluidExecute.setDrugTypeSpec(drugOrderTypeApp.getDrugTypeSpec());
+		transportFluidExecute.setDrugTypeSpec(drugOrderTypeApp
+				.getDrugTypeSpec());
 
 		team.addOrderExecute(transportFluidExecute);
 		if (assistMaterialChargeOrderExecute != null) {

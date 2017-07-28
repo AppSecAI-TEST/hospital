@@ -5,6 +5,8 @@ package com.neusoft.hs.domain.diagnosis;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.Hibernate;
+
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemDAO;
@@ -17,8 +19,12 @@ public class DiagnosisTreatmentItemSpec extends TreatmentItemSpec {
 
 	@Override
 	public TreatmentItem getTheItem(Visit visit) throws TreatmentException {
-		return this.getService(TreatmentItemDAO.class).findTheTreatmentItem(
-				visit, this);
+		TreatmentItem item = this.getService(TreatmentItemDAO.class)
+				.findTheTreatmentItem(visit, this);
+
+		Hibernate.initialize(item.getValues());
+
+		return item;
 	}
 
 	@Override

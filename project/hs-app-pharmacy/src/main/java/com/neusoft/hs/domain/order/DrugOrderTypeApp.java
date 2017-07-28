@@ -73,7 +73,8 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 	}
 
 	public DrugTypeSpec getDrugTypeSpec() {
-		return ((DrugOrderType) this.getOrder().getOrderType())
+		return this.getService(DrugOrderTypeRepo.class)
+				.findOne(this.getOrder().getOrderType().getId())
 				.getDrugTypeSpec();
 	}
 

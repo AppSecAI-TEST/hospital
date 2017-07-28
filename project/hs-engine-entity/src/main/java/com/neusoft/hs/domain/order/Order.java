@@ -53,7 +53,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@Column(name = "state_desc", length = 128)
 	private String stateDesc;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_type_id")
 	private OrderType orderType;
 
@@ -67,7 +67,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	private Integer count;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "type_app_id")
 	private OrderTypeApp typeApp;
 
