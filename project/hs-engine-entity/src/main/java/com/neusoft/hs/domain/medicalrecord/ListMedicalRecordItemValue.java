@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 
+import org.hibernate.Hibernate;
+
 import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 
 @Entity
@@ -49,6 +51,11 @@ public class ListMedicalRecordItemValue extends MedicalRecordItemValue {
 
 	public Map<String, String> getData() {
 		return data;
+	}
+	
+	@Override
+	public void doLoad() {
+		Hibernate.initialize(data);
 	}
 
 	@Override

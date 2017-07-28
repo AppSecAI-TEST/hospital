@@ -27,6 +27,9 @@ public class TreatmentDomainService {
 	private TreatmentItemRepo treatmentItemRepo;
 
 	@Autowired
+	private TreatmentItemDAO treatmentItemDAO;
+
+	@Autowired
 	private TreatmentItemValueRepo treatmentItemValueRepo;
 
 	@Autowired
@@ -102,12 +105,8 @@ public class TreatmentDomainService {
 
 	public TreatmentItem getTheTreatmentItem(Visit visit,
 			TreatmentItemSpec treatmentItemSpec) {
-		TreatmentItem item = treatmentItemRepo.findByVisitAndTreatmentItemSpec(
-				visit, treatmentItemSpec);
-		if (item != null) {
-			Hibernate.initialize(item.getValues());
-		}
-		return item;
+		return treatmentItemDAO.findTheTreatmentItem(visit, treatmentItemSpec);
+
 	}
 
 	/**

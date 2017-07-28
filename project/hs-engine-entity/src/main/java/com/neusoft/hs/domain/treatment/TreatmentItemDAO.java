@@ -13,8 +13,12 @@ public class TreatmentItemDAO {
 
 	public TreatmentItem findTheTreatmentItem(Visit visit,
 			TreatmentItemSpec treatmentItemSpec) {
-		return treatmentItemRepo.findByVisitAndTreatmentItemSpec(visit,
-				treatmentItemSpec);
+		TreatmentItem item = treatmentItemRepo.findByVisitAndTreatmentItemSpec(
+				visit, treatmentItemSpec);
+		if (item != null) {
+			item.doLoad();
+		}
+		return item;
 	}
 
 	public void save(TreatmentItem treatmentItem) {

@@ -27,8 +27,6 @@ public class VisitNameTreatmentItemSpec extends TreatmentItemSpec {
 		if (treatmentItem == null) {
 			treatmentItem = createTreatmentItem(visit);
 			this.getService(TreatmentItemDAO.class).save(treatmentItem);
-		} else {
-			Hibernate.initialize(treatmentItem.getValues());
 		}
 
 		return treatmentItem;

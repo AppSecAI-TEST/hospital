@@ -62,4 +62,7 @@ public abstract class MedicalRecordItemValue extends IdEntity implements
 		this.getService(MedicalRecordItemValueRepo.class).delete(this);
 	}
 
+	@Override
+	public void doLoad() {
+	}
 }

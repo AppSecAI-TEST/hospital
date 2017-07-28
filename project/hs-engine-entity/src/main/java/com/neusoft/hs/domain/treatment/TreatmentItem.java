@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -185,5 +186,11 @@ public class TreatmentItem extends IdEntity implements Itemable {
 
 	public void delete() {
 		this.getService(TreatmentItemRepo.class).delete(this);
+	}
+
+	public void doLoad() {
+		for (TreatmentItemValue value : values) {
+			value.doLoad();
+		}
 	}
 }

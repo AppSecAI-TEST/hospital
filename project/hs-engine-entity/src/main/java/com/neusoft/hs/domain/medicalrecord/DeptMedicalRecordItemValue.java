@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.Hibernate;
+
 import com.neusoft.hs.domain.organization.Dept;
 
 @Entity
@@ -40,5 +42,10 @@ public class DeptMedicalRecordItemValue extends MedicalRecordItemValue {
 	@Override
 	public String toString() {
 		return dept.getName();
+	}
+	
+	@Override
+	public void doLoad() {
+		Hibernate.initialize(dept);
 	}
 }

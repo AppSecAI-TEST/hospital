@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.Hibernate;
+
 import com.neusoft.hs.domain.medicalrecord.DiagnosisMedicalRecordItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordItemValue;
@@ -53,7 +55,12 @@ public class DiagnosisTreatmentItemValue extends TreatmentItemValue {
 			throws MedicalRecordException {
 		return new DiagnosisMedicalRecordItemValue(this);
 	}
-
+	
+	@Override
+	public void doLoad() {
+		Hibernate.initialize(disease);
+	}
+	
 	@Override
 	public String toString() {
 		

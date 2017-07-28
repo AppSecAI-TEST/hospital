@@ -46,8 +46,6 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 		if (treatmentItem == null) {
 			treatmentItem = this.createTreatmentItem(visit);
 			this.getService(TreatmentItemDAO.class).save(treatmentItem);
-		} else {
-			Hibernate.initialize(treatmentItem.getValues());
 		}
 
 		return treatmentItem;

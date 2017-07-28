@@ -393,9 +393,7 @@ public class MedicalRecord extends IdEntity {
 
 	private void loadData() {
 		for (MedicalRecordItem item : this.items) {
-			
-			Hibernate.initialize(item.getValues());
-			
+			item.doLoad();
 			datas.put(item.getName(), item);
 		}
 	}

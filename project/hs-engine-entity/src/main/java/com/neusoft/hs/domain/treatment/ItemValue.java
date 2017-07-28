@@ -9,7 +9,7 @@ import com.neusoft.hs.domain.visit.Visit;
  *
  */
 public interface ItemValue {
-	
+
 	public String toString();
 
 	public Visit getVisit();
@@ -17,5 +17,7 @@ public interface ItemValue {
 	public Itemable getItem();
 
 	public void delete();
+
+	public void doLoad();
 
 }

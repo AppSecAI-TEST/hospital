@@ -181,4 +181,10 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 	@Override
 	public void setCreator(AbstractUser user) {
 	}
+
+	public void doLoad() {
+		for (MedicalRecordItemValue value : values) {
+			value.doLoad();
+		}
+	}
 }
