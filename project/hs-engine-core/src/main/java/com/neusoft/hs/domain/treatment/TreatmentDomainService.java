@@ -104,9 +104,9 @@ public class TreatmentDomainService {
 			TreatmentItemSpec treatmentItemSpec) {
 		TreatmentItem item = treatmentItemRepo.findByVisitAndTreatmentItemSpec(
 				visit, treatmentItemSpec);
-
-		Hibernate.initialize(item.getValues());
-
+		if (item != null) {
+			Hibernate.initialize(item.getValues());
+		}
 		return item;
 	}
 
