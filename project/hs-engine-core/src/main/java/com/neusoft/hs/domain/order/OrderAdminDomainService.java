@@ -2,6 +2,7 @@ package com.neusoft.hs.domain.order;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,23 +32,29 @@ public class OrderAdminDomainService {
 	public List<Order> findAll(Pageable pageable) {
 		return orderRepo.findAll(pageable).getContent();
 	}
-	
+
 	public List<Order> find(Visit visit, Pageable pageable) {
-		return orderRepo.findByVisit(visit, pageable);
+		List<Order> orders = orderRepo.findByVisit(visit, pageable);
+
+		for (Order order : orders) {
+			Hibernate.initialize(order.getOrderType());
+		}
+
+		return orders;
 	}
-	
-	public List<OrderType> findOrderType(Pageable pageable){
+
+	public List<OrderType> findOrderType(Pageable pageable) {
 		return orderTypeRepo.findAll(pageable).getContent();
 	}
 
-	public List<OrderFrequencyType> findFrequencyType(Pageable pageable){
+	public List<OrderFrequencyType> findFrequencyType(Pageable pageable) {
 		return orderFrequencyTypeRepo.findAll(pageable).getContent();
 	}
-	
+
 	public void createOrderTypes(List<OrderType> orderTypes) {
 		orderTypeRepo.save(orderTypes);
 	}
-	
+
 	public void createOrderFrequencyTypes(
 			List<OrderFrequencyType> orderFrequencyTypes) {
 		orderFrequencyTypeRepo.save(orderFrequencyTypes);
