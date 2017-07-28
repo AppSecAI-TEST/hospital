@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import com.neusoft.hs.application.inpatientdept.InPatientAppService;
 import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordOperationEvent;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
@@ -31,7 +33,8 @@ import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
-public class ArrangementMedicalRecordController extends AbstractFrameController {
+public class ArrangementMedicalRecordController extends AbstractFrameController
+		implements ApplicationListener<MedicalRecordOperationEvent> {
 
 	@Autowired
 	private ArrangementMedicalRecordFrame arrangementMedicalRecordFrame;
@@ -44,7 +47,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 
 	@Autowired
 	private MedicalRecordAppService medicalRecordAppService;
-	
+
 	@Autowired
 	private VisitBusinessView visitBusinessView;
 
@@ -84,7 +87,7 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 
 	private void loadVisits() throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
-		
+
 		AbstractUser user = UserUtil.getUser();
 
 		List<Visit> entities = visitBusinessView.findVisits(user, pageable);
@@ -181,10 +184,10 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 					.getEntityByRow(currentRow);
 
 			try {
-				
+
 				medicalRecord = medicalRecordAppService.find(medicalRecord
 						.getId());
-				
+
 				JFrame viewJFrame = (JFrame) medicalRecord.getRender().play(
 						medicalRecord);
 				viewJFrame.setVisible(true);
@@ -196,6 +199,13 @@ public class ArrangementMedicalRecordController extends AbstractFrameController 
 	}
 
 	private void closeWindow() {
-		arrangementMedicalRecordFrame.dispose();
+		arrangementMedicalRecordFrame.dispose();	
+	}
+	
+	@Override
+	public void onApplicationEvent(MedicalRecordOperationEvent event) {
+		if (arrangementMedicalRecordFrame.isVisible()) {
+			refreshMedicalRecord();
+		}
 	}
 }
