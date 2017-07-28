@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.hibernate.Hibernate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -57,6 +59,23 @@ public class InPatientAreaDept extends Dept {
 			this.depts = new ArrayList<InPatientDept>();
 		}
 		this.depts.add(dept);
+	}
+
+	/**
+	 * 住院病区关联的可操作的科室
+	 */
+	@Override
+	public List<Dept> getOperationDepts() {
+		List<Dept> operationDepts = new ArrayList<Dept>();
+		for (InPatientDept dept : depts) {
+			operationDepts.add(dept);
+		}
+		return operationDepts;
+	}
+
+	@Override
+	public void doLoad() {
+		Hibernate.initialize(depts);
 	}
 
 }

@@ -88,6 +88,13 @@ public abstract class Unit extends SuperEntity {
 		this.getService(UnitRepo.class).delete(this);
 	}
 
+	/**
+	 * 加载后的回调函数
+	 */
+	public void doLoad() {
+
+	}
+
 	@Override
 	public String toString() {
 		return name;

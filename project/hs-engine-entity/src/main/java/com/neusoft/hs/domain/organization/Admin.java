@@ -63,11 +63,4 @@ public class Admin extends AbstractUser {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public List<Dept> getOperationDepts() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neusoft.hs.domain.visit.Visit;
 
@@ -86,21 +89,4 @@ public class Nurse extends AbstractUser {
 	public void setDept(Dept dept) {
 		this.dept = dept;
 	}
-
-	/**
-	 * 护士通过所属病区来获得可操作的科室
-	 */
-	public List<Dept> getOperationDepts() {
-
-		List<Dept> depts = new ArrayList<Dept>();
-
-		if (dept instanceof InPatientAreaDept) {
-			depts.addAll(((InPatientAreaDept) dept).getDepts());
-		} else {
-			depts.add(dept);
-		}
-
-		return depts;
-	}
-
 }

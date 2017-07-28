@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Nurse;
+import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.domain.visit.ReceiveVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
@@ -33,6 +34,9 @@ public class EnterHospitalIntoWardOrderExecute extends OrderExecute {
 			throw new OrderExecuteException(this, "没有向params.[%s]设置责任护士",
 					RespNurse);
 		}
+		//重新获取护士实体
+		nurse = (Nurse) this.getService(UserAdminDomainService.class).find(
+				nurse.getId());
 
 		Visit visit = this.getVisit();
 		ReceiveVisitVO receiveVisitVO = new ReceiveVisitVO();

@@ -29,7 +29,7 @@ public class UserAdminDomainService {
 
 	public AbstractUser find(String id) {
 		AbstractUser user = userRepo.findOne(id);
-		Hibernate.initialize(user.getDept());
+		user.doLoad();
 		return user;
 	}
 

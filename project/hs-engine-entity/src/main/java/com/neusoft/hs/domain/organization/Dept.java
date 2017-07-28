@@ -112,6 +112,17 @@ public abstract class Dept extends Unit {
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
+	
+	/**
+	 * 部门关联的可操作部门
+	 * 
+	 * @return
+	 */
+	public List<Dept> getOperationDepts() {
+		List<Dept> operationDepts = new ArrayList<Dept>();
+		operationDepts.add(this);
+		return operationDepts;
+	}
 
 	public static List<String> getNames(List<Dept> depts) {
 		List<String> names = new ArrayList<String>();
