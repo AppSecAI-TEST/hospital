@@ -15,6 +15,10 @@ public class OrganizationAdminDomainService {
 	@Autowired
 	private UnitRepo unitRepo;
 
+	public List<Org> getOrgs() {
+		return unitRepo.findOrgs();
+	}
+
 	public List<InPatientDept> findInPatientDept(Pageable pageable) {
 		return unitRepo.findInPatientDept(pageable);
 	}
@@ -43,6 +47,11 @@ public class OrganizationAdminDomainService {
 		unitRepo.save(units);
 	}
 
+	public void delete(String id) {
+		Unit unit = unitRepo.findOne(id);
+		unit.delete();
+	}
+
 	public void clear() {
 		List<Org> orgs = unitRepo.findOrgs();
 		if (orgs != null) {
@@ -51,4 +60,5 @@ public class OrganizationAdminDomainService {
 			}
 		}
 	}
+
 }

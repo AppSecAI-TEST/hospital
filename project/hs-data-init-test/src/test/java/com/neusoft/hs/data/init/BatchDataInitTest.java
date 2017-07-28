@@ -7,18 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.data.batch.OrgBatchDataService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class ClearDataTest{
+public class BatchDataInitTest{
 
 	@Autowired
-	private InitDataService initDataService;
+	private OrgBatchDataService orgBatchDataService;
 
 	@Test
-	public void testClear() throws HsException {
-		initDataService.clear();
+	public void init() {
+		orgBatchDataService.init();
 	}
-
 }

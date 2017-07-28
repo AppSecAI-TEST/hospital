@@ -7,15 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.neusoft.hs.data.batch.OrgBatchDataService;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class InitDataTest{
+public class BatchDataClearTest{
 
 	@Autowired
-	private InitDataService initDataService;
+	private OrgBatchDataService orgBatchDataService;
 
 	@Test
-	public void testInit() {
-		initDataService.init();
+	public void clear() {
+		orgBatchDataService.clear();
 	}
 }

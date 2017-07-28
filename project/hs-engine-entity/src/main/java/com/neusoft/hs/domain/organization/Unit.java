@@ -31,7 +31,7 @@ import com.neusoft.hs.platform.entity.SuperEntity;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "unitCache")
-@JsonTypeInfo(use=com.fasterxml.jackson.annotation.JsonTypeInfo.Id.CLASS,include=As.PROPERTY,property="@class")
+@JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.CLASS, include = As.PROPERTY, property = "@class")
 public abstract class Unit extends SuperEntity {
 
 	@Id
@@ -84,9 +84,12 @@ public abstract class Unit extends SuperEntity {
 		this.children = children;
 	}
 
+	public void delete() {
+		this.getService(UnitRepo.class).delete(this);
+	}
+
 	@Override
 	public String toString() {
 		return name;
 	}
-
 }
