@@ -2,7 +2,6 @@
 
 package com.neusoft.hs.domain.organization;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,7 +22,7 @@ public class Doctor extends AbstractUser {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
-	private InPatientDept dept;
+	private Dept dept;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "superior_id")
@@ -98,11 +97,11 @@ public class Doctor extends AbstractUser {
 		this.subordinates = subordinates;
 	}
 
-	public InPatientDept getDept() {
+	public Dept getDept() {
 		return dept;
 	}
 
 	public void setDept(Dept dept) {
-		this.dept = (InPatientDept) dept;
+		this.dept = dept;
 	}
 }

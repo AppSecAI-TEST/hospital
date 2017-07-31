@@ -36,7 +36,7 @@ public class UserBatchDataService {
 
 		Dept dept;
 		String deptId;
-		Random random = new Random();
+		random = new Random();
 
 		for (int i = 0; i < UserCount; i++) {
 
