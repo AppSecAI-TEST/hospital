@@ -114,4 +114,8 @@ public class VisitLog extends IdEntity {
 		this.getService(VisitLogRepo.class).save(this);
 	}
 
+	public void delete() {
+		this.getService(VisitLogRepo.class).delete(this);
+	}
+
 }

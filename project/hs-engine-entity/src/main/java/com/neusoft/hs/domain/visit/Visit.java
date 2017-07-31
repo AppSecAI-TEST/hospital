@@ -52,7 +52,7 @@ public class Visit extends IdEntity {
 	private String cardNumber;
 
 	@NotEmpty(message = "名称不能为空")
-	@Column(length = 16)
+	@Column(length = 32)
 	private String name;
 
 	@NotEmpty(message = "状态不能为空")
@@ -716,6 +716,10 @@ public class Visit extends IdEntity {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public void delete() {
+		this.getService(VisitRepo.class).delete(this);
 	}
 
 }

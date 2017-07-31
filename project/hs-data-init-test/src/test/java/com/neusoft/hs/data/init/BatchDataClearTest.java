@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.neusoft.hs.data.batch.OrgBatchDataService;
 import com.neusoft.hs.data.batch.UserBatchDataService;
+import com.neusoft.hs.data.batch.VisitBatchDataService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -18,10 +19,14 @@ public class BatchDataClearTest {
 
 	@Autowired
 	private UserBatchDataService userBatchDataService;
+	
+	@Autowired
+	private VisitBatchDataService visitBatchDataService;
 
 	@Test
 	public void clear() {
 		userBatchDataService.clear();
 		orgBatchDataService.clear();
+		visitBatchDataService.clear();
 	}
 }

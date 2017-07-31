@@ -37,4 +37,9 @@ public class VisitAdminDomainService {
 		return visitLogRepo.findByVisit(visit, pageable);
 	}
 
+	public void delete(String cardNumber) {
+		this.visitRepo.findByCardNumber(cardNumber).delete();
+
+	}
+
 }

@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.neusoft.hs.data.batch.OrgBatchDataService;
 import com.neusoft.hs.data.batch.UserBatchDataService;
+import com.neusoft.hs.data.batch.VisitBatchDataService;
 import com.neusoft.hs.platform.exception.HsException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,10 +20,14 @@ public class BatchDataInitTest {
 
 	@Autowired
 	private UserBatchDataService userBatchDataService;
+	
+	@Autowired
+	private VisitBatchDataService visitBatchDataService;
 
 	@Test
 	public void init() throws HsException {
 		orgBatchDataService.init();
 		userBatchDataService.init();
+		visitBatchDataService.init();
 	}
 }
