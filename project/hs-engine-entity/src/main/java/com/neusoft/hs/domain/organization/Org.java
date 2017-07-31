@@ -6,32 +6,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Org")
 public class Org extends Unit {
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
-	@JoinColumn(name = "out_charge_dept_id")
-	private Dept outChargeDept;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
-	@JoinColumn(name = "in_charge_dept_id")
-	private Dept inChargeDept;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
-	@JoinColumn(name = "record_room_dept_id")
-	private Dept recordRoomDept;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
-	@JoinColumn(name = "in_patient_office_dept_id")
-	private Dept inPatientOfficeDept;
+	@OneToOne(mappedBy = "org", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private OrgExtend orgExtend;
 
 	/**
 	 * 门诊收费处
@@ -39,11 +21,15 @@ public class Org extends Unit {
 	 * @return
 	 */
 	public Dept getOutChargeDept() {
-		return outChargeDept;
+		return orgExtend.getOutChargeDept();
 	}
 
 	public void setOutChargeDept(Dept outChargeDept) {
-		this.outChargeDept = outChargeDept;
+		if (this.orgExtend == null) {
+			this.orgExtend = new OrgExtend();
+			this.orgExtend.setOrg(this);
+		}
+		this.orgExtend.setOutChargeDept(outChargeDept);
 	}
 
 	/**
@@ -52,11 +38,15 @@ public class Org extends Unit {
 	 * @return
 	 */
 	public Dept getInChargeDept() {
-		return inChargeDept;
+		return orgExtend.getInChargeDept();
 	}
 
 	public void setInChargeDept(Dept inChargeDept) {
-		this.inChargeDept = inChargeDept;
+		if (this.orgExtend == null) {
+			this.orgExtend = new OrgExtend();
+			this.orgExtend.setOrg(this);
+		}
+		this.orgExtend.setInChargeDept(inChargeDept);
 	}
 
 	/**
@@ -65,11 +55,15 @@ public class Org extends Unit {
 	 * @return
 	 */
 	public Dept getRecordRoomDept() {
-		return recordRoomDept;
+		return orgExtend.getRecordRoomDept();
 	}
 
 	public void setRecordRoomDept(Dept recordRoomDept) {
-		this.recordRoomDept = recordRoomDept;
+		if (this.orgExtend == null) {
+			this.orgExtend = new OrgExtend();
+			this.orgExtend.setOrg(this);
+		}
+		this.orgExtend.setRecordRoomDept(recordRoomDept);
 	}
 
 	/**
@@ -78,11 +72,15 @@ public class Org extends Unit {
 	 * @return
 	 */
 	public Dept getInPatientOfficeDept() {
-		return inPatientOfficeDept;
+		return orgExtend.getInPatientOfficeDept();
 	}
 
 	public void setInPatientOfficeDept(Dept inPatientOfficeDept) {
-		this.inPatientOfficeDept = inPatientOfficeDept;
+		if (this.orgExtend == null) {
+			this.orgExtend = new OrgExtend();
+			this.orgExtend.setOrg(this);
+		}
+		this.orgExtend.setInPatientOfficeDept(inPatientOfficeDept);
 	}
 
 }

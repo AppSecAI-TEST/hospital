@@ -2,7 +2,6 @@ package com.neusoft.hs.application.medicalrecord;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
