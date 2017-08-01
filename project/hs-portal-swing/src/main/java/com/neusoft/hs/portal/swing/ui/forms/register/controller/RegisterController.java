@@ -88,6 +88,8 @@ public class RegisterController extends AbstractFrameController {
 		visitStateComboBoxModel.clear();
 		visitStateComboBoxModel.addElement(null);
 		visitStateComboBoxModel.addElements(Visit.getStates());
+		
+		visitStateComboBoxModel.setSelectedItem(Visit.State_NeedInitAccount);
 	}
 
 	private void loadEntities() {
