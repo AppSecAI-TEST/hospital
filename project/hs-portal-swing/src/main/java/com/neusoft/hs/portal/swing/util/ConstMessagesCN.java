@@ -59,6 +59,7 @@ public interface ConstMessagesCN {
 		String ARCHIVE_BTN = "归档";
 		String SEND_BTN = "发送";
 		String RESET_BTN = "重置";
+		String NextPage_BTN = "下一页";
 
 		String REMOVE_BTN = "删除";
 

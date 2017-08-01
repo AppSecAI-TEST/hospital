@@ -210,6 +210,7 @@ public class ChargeBill extends IdEntity {
 	public void setVisit(Visit visit) {
 		this.visit = visit;
 		this.visitName = visit.getName();
+		this.visit.setChargeBill(this);
 	}
 
 	public String getVisitName() {

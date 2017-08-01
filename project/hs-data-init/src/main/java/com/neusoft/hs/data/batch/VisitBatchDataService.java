@@ -102,6 +102,7 @@ public class VisitBatchDataService {
 	public void create(CreateVisitVO createVisitVO) {
 		Visit visit = visitDomainService.create(createVisitVO);
 		costDomainService.createChargeBill(visit, 0, admin);
+		visit.save();
 	}
 
 	public void clear() {

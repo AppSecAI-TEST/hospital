@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
-import com.neusoft.hs.domain.cost.ChargeBill;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitAdminDomainService;
 import com.neusoft.hs.domain.visit.VisitLog;
@@ -20,6 +19,7 @@ import com.neusoft.hs.portal.swing.ui.reports.visit.view.VisitLogFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitLogTableModel;
+import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class VisitLogController extends AbstractFrameController {
@@ -34,6 +34,7 @@ public class VisitLogController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(visitLogFrame.getNextPageBtn(), (e) -> nextPage());
 		registerAction(visitLogFrame.getVisitCB(), (e) -> refreshVisitLog(e));
 		registerAction(visitLogFrame.getCloseBtn(), (e) -> closeWindow());
 
@@ -41,6 +42,8 @@ public class VisitLogController extends AbstractFrameController {
 
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
+
+		this.visitLogFrame.setPageNumber(0);
 
 		loadVisits();
 
@@ -50,8 +53,20 @@ public class VisitLogController extends AbstractFrameController {
 		visitLogFrame.setVisible(true);
 	}
 
+	public void nextPage() {
+		this.visitLogFrame.nextPage();
+		try {
+			this.loadVisits();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
+
 	private void loadVisits() throws HsException {
-		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+
+		Pageable pageable = new PageRequest(this.visitLogFrame.getPageNumber(),
+				15);
 
 		List<Visit> entities = visitAdminDomainService.find(pageable);
 

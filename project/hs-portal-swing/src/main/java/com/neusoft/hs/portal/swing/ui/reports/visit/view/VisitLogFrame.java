@@ -34,6 +34,10 @@ public class VisitLogFrame extends JFrame {
 
 	JLabel stateJL;
 
+	private int pageNumber;
+
+	private JButton nextPageBtn;
+
 	private JButton closeBtn;
 
 	private static final int DEFAULT_WIDTH = 800;
@@ -80,6 +84,9 @@ public class VisitLogFrame extends JFrame {
 		stateJL = new JLabel();
 		operationPanel.add(stateJL);
 
+		nextPageBtn = new JButton(ConstMessagesCN.Labels.NextPage_BTN);
+		operationPanel.add(nextPageBtn);
+
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
 		add(workspacePanel, BorderLayout.CENTER);
@@ -90,7 +97,6 @@ public class VisitLogFrame extends JFrame {
 		buttonPanel.add(closeBtn);
 
 		add(buttonPanel, BorderLayout.SOUTH);
-
 	}
 
 	public VisitComboBoxModel getVisitComboBoxModel() {
@@ -107,6 +113,22 @@ public class VisitLogFrame extends JFrame {
 
 	public JLabel getStateJL() {
 		return stateJL;
+	}
+
+	public JButton getNextPageBtn() {
+		return nextPageBtn;
+	}
+
+	public int getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+	public void nextPage() {
+		this.pageNumber++;
 	}
 
 	public JButton getCloseBtn() {
