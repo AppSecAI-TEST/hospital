@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,7 +25,7 @@ import com.neusoft.hs.platform.entity.IdEntity;
  *
  */
 @Entity
-@Table(name = "domain_patient")
+@Table(name = "domain_patient", indexes = {@Index(columnList = "card_number")})
 public class Patient extends IdEntity {
 
 	@Column(name = "card_number", length = 64)
@@ -106,6 +107,10 @@ public class Patient extends IdEntity {
 
 	public void save() {
 		this.getService(PatientRepo.class).save(this);
+	}
+
+	public void delete() {
+		this.getService(PatientRepo.class).delete(this);
 	}
 
 }

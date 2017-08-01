@@ -54,6 +54,10 @@ public class OrganizationAdminDomainService {
 	public Dept findTheDept(String id) {
 		return (Dept) unitRepo.findOne(id);
 	}
+	
+	public List<Dept> findDept(Pageable pageable) {
+		return unitRepo.findDepts(pageable);
+	}
 
 	public void save(Unit unit) {
 		unitRepo.save(unit);

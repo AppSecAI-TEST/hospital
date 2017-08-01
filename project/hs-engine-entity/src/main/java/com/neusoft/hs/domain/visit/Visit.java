@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -45,7 +46,7 @@ import com.neusoft.hs.platform.util.DateUtil;
  *
  */
 @Entity
-@Table(name = "domain_visit")
+@Table(name = "domain_visit", indexes = {@Index(columnList = "card_number")})
 public class Visit extends IdEntity {
 
 	@Column(name = "card_number", length = 64)

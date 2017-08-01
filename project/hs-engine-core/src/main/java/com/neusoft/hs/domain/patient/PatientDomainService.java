@@ -16,4 +16,11 @@ public class PatientDomainService {
 		return patientRepo.findByCardNumber(cardNumber);
 	}
 
+	public void delete(String cardNumber) {
+		Patient patient = patientRepo.findByCardNumber(cardNumber);
+		if (patient != null) {
+			patient.delete();
+		}
+	}
+
 }

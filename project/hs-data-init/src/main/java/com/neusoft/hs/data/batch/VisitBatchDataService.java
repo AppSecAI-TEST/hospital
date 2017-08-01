@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.organization.Admin;
@@ -14,6 +15,7 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.OrganizationAdminDomainService;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
+import com.neusoft.hs.domain.patient.PatientDomainService;
 import com.neusoft.hs.domain.visit.CreateVisitVO;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitAdminDomainService;
@@ -31,11 +33,14 @@ public class VisitBatchDataService {
 	private VisitAdminDomainService visitAdminDomainService;
 
 	@Autowired
+	private PatientDomainService patientDomainService;
+
+	@Autowired
 	private OrganizationAdminDomainService organizationAdminDomainService;
 
 	@Autowired
 	private UserAdminDomainService userAdminDomainService;
-	
+
 	@Autowired
 	private CostDomainService costDomainService;
 
@@ -47,11 +52,12 @@ public class VisitBatchDataService {
 
 	private Random randomRespDoctor;
 
-	public final static int VisitCount = 100000;
+	private Admin admin;
+
+	public final static int VisitCount = 5000;
 
 	public void init() throws HsException {
 
-		Visit visit;
 		CreateVisitVO createVisitVO;
 
 		random = new Random();
@@ -59,14 +65,14 @@ public class VisitBatchDataService {
 		randomInPatient = new Random();
 		randomRespDoctor = new Random();
 
-		Dept dept;
-		String deptId;
-
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		Admin admin = userAdminDomainService.findAdmin(pageable).get(0);
+		admin = userAdminDomainService.findAdmin(pageable).get(0);
 
 		List<Doctor> doctors = userAdminDomainService.findDoctor(pageable);
+
+		List<Dept> depts = organizationAdminDomainService.findDept(pageable);
+		int deptCount = depts.size();
 
 		int respDoctorCount = doctors.size();
 
@@ -78,14 +84,7 @@ public class VisitBatchDataService {
 			createVisitVO.setName("v-t-n-" + i);
 			createVisitVO.setSex(randomSex.nextInt(2) == 1 ? "男" : "女");
 
-			deptId = "dept-test-"
-					+ random.nextInt(OrgBatchDataService.DeptCount - 1);
-			dept = organizationAdminDomainService.findTheDept(deptId);
-			if (dept == null) {
-				throw new HsException("部门[%s]不存在", deptId);
-			}
-
-			createVisitVO.setDept(dept);
+			createVisitVO.setDept(depts.get(deptCount - 1));
 
 			createVisitVO.setInPatient(randomInPatient.nextInt(2) == 1 ? true
 					: false);
@@ -94,17 +93,27 @@ public class VisitBatchDataService {
 			createVisitVO.setState(Visit.State_Archived);
 			createVisitVO.setRespDoctor(doctors.get(respDoctorCount - 1));
 			createVisitVO.setBirthday(DateUtil.createDay("2009-01-01"));
-		
-			visit = visitDomainService.create(createVisitVO);
-			costDomainService.createChargeBill(visit, 0, admin);
-		}
 
+			this.create(createVisitVO);
+		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void create(CreateVisitVO createVisitVO) {
+		Visit visit = visitDomainService.create(createVisitVO);
+		costDomainService.createChargeBill(visit, 0, admin);
 	}
 
 	public void clear() {
 		for (int i = 0; i < VisitCount; i++) {
-			visitAdminDomainService.delete("v-t-cardNumber-" + i);
+			clear("v-t-cardNumber-" + i);
 		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void clear(String id) {
+		visitAdminDomainService.delete(id);
+		patientDomainService.delete(id);
 	}
 
 }

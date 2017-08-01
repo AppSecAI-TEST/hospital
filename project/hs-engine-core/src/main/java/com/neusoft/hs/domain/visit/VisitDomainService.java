@@ -332,7 +332,7 @@ public class VisitDomainService {
 		return visitRepo.findByDept(respDept, pageable);
 	}
 
-	public List<Visit> listInPatientVisit(Pageable pageable) {
+	public List<Visit> listVisit(Pageable pageable) {
 		return visitRepo.findAll(pageable).getContent();
 	}
 

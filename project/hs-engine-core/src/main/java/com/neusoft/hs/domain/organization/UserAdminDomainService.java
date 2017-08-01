@@ -53,4 +53,8 @@ public class UserAdminDomainService {
 	public void clear() {
 		userRepo.deleteAll();
 	}
+
+	public Doctor findDoctor(String id) {
+		return userRepo.findDoctor(id);
+	}
 }

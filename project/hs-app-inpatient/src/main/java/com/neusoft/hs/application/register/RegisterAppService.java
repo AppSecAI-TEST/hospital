@@ -31,7 +31,7 @@ public class RegisterAppService {
 	}
 
 	public List<Visit> listVisit(Pageable pageable) {
-		return visitDomainService.listInPatientVisit(pageable);
+		return visitDomainService.listVisit(pageable);
 	}
 
 	public List<RegisterCount> getRegisterCount() {

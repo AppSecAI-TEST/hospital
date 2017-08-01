@@ -38,7 +38,10 @@ public class VisitAdminDomainService {
 	}
 
 	public void delete(String cardNumber) {
-		this.visitRepo.findByCardNumber(cardNumber).delete();
+		Visit visit = this.visitRepo.findByCardNumber(cardNumber);
+		if (visit != null) {
+			visit.delete();
+		}
 
 	}
 
