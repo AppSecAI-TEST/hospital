@@ -29,6 +29,7 @@ import com.neusoft.hs.domain.order.Apply;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.domain.organization.AbstractUserDAO;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
@@ -250,7 +251,7 @@ public class Visit extends IdEntity {
 		} else {
 			chargeBill.setChargeMode(ChargeBill.ChargeMode_NoPreCharge);
 		}
-		
+
 		chargeBill.save();
 
 		VisitLog visitLog = new VisitLog();
@@ -284,8 +285,11 @@ public class Visit extends IdEntity {
 
 		Date sysDate = DateUtil.getSysDate();
 
-		this.setRespNurse(receiveVisitVO.getNurse());
-		this.setArea(receiveVisitVO.getNurse().getDept());
+		Nurse nurse = this.getService(AbstractUserDAO.class).findNurse(
+				receiveVisitVO.getNurse().getId());
+
+		this.setRespNurse(nurse);
+		this.setArea(nurse.getDept());
 
 		this.bed = receiveVisitVO.getBed();
 

@@ -23,4 +23,7 @@ interface AbstractUserRepo extends
 
 	@Query("select d from Doctor d where id = :id")
 	Doctor findDoctor(@Param("id") String id);
+
+	@Query("select n from Nurse n where n.id = :id")
+	Nurse findNurse(@Param("id") String id);
 }
