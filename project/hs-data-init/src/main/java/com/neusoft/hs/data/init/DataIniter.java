@@ -510,8 +510,6 @@ public class DataIniter {
 		outPatientPlanAdminDomainService.clearPlanRecord();
 		// 清空病案
 		recordRoomDomainService.clear();
-		// 清空病历数据
-		medicalRecordAdminDomainService.clear();
 		// 清空处方
 		pharmacyAdminService.clearPrescriptions();
 		// 清空药品消费记录
@@ -548,10 +546,10 @@ public class DataIniter {
 		diseaseAdminDomainService.clearDiseases();
 		// 清空成本记录
 		costAdminDomainService.clearCostRecords();
-		// 清空收费单
-		costAdminDomainService.clearChargeBill();
 		// 清空患者一次住院
 		visitAdminDomainService.clear();
+		// 清空病历基础数据
+		medicalRecordAdminDomainService.clear();
 		// 清空患者
 		patientAdminDomainService.clear();
 		// 清空配液单

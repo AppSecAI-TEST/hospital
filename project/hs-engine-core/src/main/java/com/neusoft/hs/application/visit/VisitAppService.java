@@ -1,5 +1,6 @@
 package com.neusoft.hs.application.visit;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,4 +37,12 @@ public class VisitAppService {
 
 	}
 
+	public Visit find(String visitId) {
+		Visit visit = visitDomainService.find(visitId);
+
+		Hibernate.initialize(visit.getMedicalRecordClip());
+		Hibernate.initialize(visit.getChargeBill());
+
+		return visit;
+	}
 }

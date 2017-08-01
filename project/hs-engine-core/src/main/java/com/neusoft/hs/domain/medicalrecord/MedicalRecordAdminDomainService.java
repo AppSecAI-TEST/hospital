@@ -41,10 +41,8 @@ public class MedicalRecordAdminDomainService {
 	public void clear() {
 		// 清空病历渲染器
 		this.clearRender();
-		// 清空病历数据
-		this.clearClip();
 		// 清空病历类型
-		this.cleartype();
+		this.clearType();
 	}
 
 	public void clearRender() {
@@ -55,7 +53,7 @@ public class MedicalRecordAdminDomainService {
 		medicalRecordClipRepo.deleteAll();
 	}
 
-	public void cleartype() {
+	public void clearType() {
 		medicalRecordTypeRepo.deleteAll();
 	}
 }

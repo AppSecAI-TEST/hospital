@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -406,7 +405,7 @@ public abstract class InPatientTestService extends AppTestService {
 		// 病历移交档案室
 		inPatientAppService.transfer(visit001.getId(), user003);
 
-		visit = visitDomainService.find(visit001.getId());
+		visit = visitAppService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_IntoRecordRoom));
 		assertTrue(visit.getMedicalRecordClip().getState()
@@ -422,7 +421,7 @@ public abstract class InPatientTestService extends AppTestService {
 		// 审查病历
 		qualityControlAppService.pass(clips.get(0).getId(), user601);
 
-		visit = visitDomainService.find(visit001.getId());
+		visit = visitAppService.find(visit001.getId());
 
 		assertTrue(visit.getState().equals(Visit.State_IntoRecordRoom));
 		assertTrue(visit.getMedicalRecordClip().getState()
@@ -435,7 +434,7 @@ public abstract class InPatientTestService extends AppTestService {
 		recordRoomDomainService
 				.archive(clips.get(0).getId(), position, user602);
 
-		visit = visitDomainService.find(visit001.getId());
+		visit = visitAppService.find(visit001.getId());
 		assertTrue(visit.getState().equals(Visit.State_Archived));
 		assertTrue(visit.getMedicalRecordClip().getState()
 				.equals(MedicalRecordClip.State_Archived));

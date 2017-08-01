@@ -150,13 +150,15 @@ public class Visit extends IdEntity {
 	private List<OrderExecute> executes;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
+	@JoinColumn(name = "charge_bill_id")
 	private ChargeBill chargeBill;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "visit", cascade = { CascadeType.PERSIST,
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE, CascadeType.REFRESH })
+	@JoinColumn(name = "clip_id")
 	private MedicalRecordClip medicalRecordClip;
 
 	@JsonIgnore
