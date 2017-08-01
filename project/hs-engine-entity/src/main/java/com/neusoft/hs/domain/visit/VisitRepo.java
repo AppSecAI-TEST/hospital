@@ -16,6 +16,8 @@ import com.neusoft.hs.domain.organization.Dept;
 interface VisitRepo extends PagingAndSortingRepository<Visit, String> {
 
 	List<Visit> findByState(String state, Pageable pageable);
+	
+	List<Visit> findByStateIn(List<String> states, Pageable pageable);
 
 	List<Visit> findByStateAndDept(String state, Dept dept, Pageable pageable);
 

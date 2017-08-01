@@ -21,6 +21,7 @@ import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.forms.register.view.VisitTableBtnPanel;
 import com.neusoft.hs.portal.swing.ui.forms.register.view.VisitTableFrame;
+import com.neusoft.hs.portal.swing.ui.forms.register.view.VisitTablePanel;
 import com.neusoft.hs.portal.swing.ui.forms.register.view.modal.AddVisitFrame;
 import com.neusoft.hs.portal.swing.ui.forms.register.view.modal.VisitFormBtnPanel;
 import com.neusoft.hs.portal.swing.ui.forms.register.view.modal.VisitFormPanel;
@@ -28,6 +29,7 @@ import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientAreaComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.InPatientDeptComboBoxModel;
+import com.neusoft.hs.portal.swing.ui.shared.model.StringComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 import com.neusoft.hs.portal.swing.validation.ValidationError;
@@ -53,14 +55,16 @@ public class RegisterController extends AbstractFrameController {
 
 	@Autowired
 	private VisitValidator validator;
-	
+
 	private VisitTableModel tableModel;
 
 	@PostConstruct
 	private void prepareListeners() {
 		VisitTableBtnPanel tableBtnPanel = tableFrame.getTableBtnPanel();
 		VisitFormBtnPanel formBtnPanel = addFrame.getFormBtnPanel();
+		VisitTablePanel visitTablePanel = tableFrame.getTablePanel();
 
+		registerAction(visitTablePanel.getVisitStateCB(), (e) -> loadEntities());
 		registerAction(tableBtnPanel.getAddBtn(), (e) -> showAddModal());
 		registerAction(formBtnPanel.getSaveBtn(), (e) -> saveEntity());
 		registerAction(formBtnPanel.getCancelBtn(), (e) -> closeModalWindow());
@@ -69,6 +73,7 @@ public class RegisterController extends AbstractFrameController {
 
 	@Override
 	public void prepareAndOpenFrame() throws HsException {
+		loadVisitStates();
 		loadEntities();
 		loadInPatientDepts();
 		loadInPatientAreas();
@@ -76,13 +81,27 @@ public class RegisterController extends AbstractFrameController {
 		showTableFrame();
 	}
 
-	private void loadEntities() {
-		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
-		List<Visit> entities = registerAppService.listVisit(pageable);
+	public void loadVisitStates() {
+		StringComboBoxModel visitStateComboBoxModel = this.tableFrame
+				.getTablePanel().getVisitStateComboBoxModel();
 
-		tableModel = this.tableFrame.getTablePanel().getTableModel();
-		tableModel.clear();
-		tableModel.addEntities(entities);
+		visitStateComboBoxModel.clear();
+		visitStateComboBoxModel.addElement(null);
+		visitStateComboBoxModel.addElements(Visit.getStates());
+	}
+
+	private void loadEntities() {
+		StringComboBoxModel visitStateComboBoxModel = this.tableFrame
+				.getTablePanel().getVisitStateComboBoxModel();
+		String visitState = visitStateComboBoxModel.getSelectedItem();
+		if (visitState != null) {
+			Pageable pageable = new PageRequest(0, 15);
+			List<Visit> entities = registerAppService.listVisit(visitState, pageable);
+
+			tableModel = this.tableFrame.getTablePanel().getTableModel();
+			tableModel.clear();
+			tableModel.addEntities(entities);
+		}
 	}
 
 	private void loadInPatientDepts() {
@@ -148,7 +167,7 @@ public class RegisterController extends AbstractFrameController {
 		addFrame.getFormPanel().clearForm();
 		addFrame.dispose();
 	}
-	
+
 	private void closeWindow() {
 		tableFrame.dispose();
 	}

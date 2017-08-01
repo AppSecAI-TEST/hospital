@@ -303,6 +303,10 @@ public class VisitDomainService {
 		return visitRepo.findByState(state, pageable);
 	}
 
+	public List<Visit> findByStates(List<String> states, Pageable pageable) {
+		return visitRepo.findByStateIn(states, pageable);
+	}
+	
 	public List<Visit> findByStateAndDept(String state, Dept dept,
 			Pageable pageable) {
 		return visitRepo.findByStateAndDept(state, dept, pageable);

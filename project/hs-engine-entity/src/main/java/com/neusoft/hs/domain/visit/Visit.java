@@ -2,6 +2,7 @@
 
 package com.neusoft.hs.domain.visit;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +47,7 @@ import com.neusoft.hs.platform.util.DateUtil;
  *
  */
 @Entity
-@Table(name = "domain_visit", indexes = {@Index(columnList = "card_number")})
+@Table(name = "domain_visit", indexes = { @Index(columnList = "card_number") })
 public class Visit extends IdEntity {
 
 	@Column(name = "card_number", length = 64)
@@ -188,6 +189,26 @@ public class Visit extends IdEntity {
 	public static final String State_IntoRecordRoom = "在病案室";
 
 	public static final String State_Archived = "已归档";
+
+	public static List<String> getStates() {
+		List<String> visitStates = new ArrayList<String>();
+
+		visitStates.add(Visit.State_WaitingDiagnose);
+		visitStates.add(Visit.State_Diagnosing);
+		visitStates.add(Visit.State_Diagnosed_Executing);
+		visitStates.add(Visit.State_LeaveHospital);
+		visitStates.add(Visit.State_WaitingEnterHospital);
+		visitStates.add(Visit.State_NeedInitAccount);
+		visitStates.add(Visit.State_NeedIntoWard);
+		visitStates.add(Visit.State_IntoWard);
+		visitStates.add(Visit.State_TransferDepting);
+		visitStates.add(Visit.State_NeedLeaveHospitalBalance);
+		visitStates.add(Visit.State_OutHospital);
+		visitStates.add(Visit.State_IntoRecordRoom);
+		visitStates.add(Visit.State_Archived);
+
+		return visitStates;
+	}
 
 	/**
 	 * 是否初始化过收费单

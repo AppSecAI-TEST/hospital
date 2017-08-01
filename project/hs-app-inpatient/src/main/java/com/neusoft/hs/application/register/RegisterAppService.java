@@ -20,7 +20,6 @@ public class RegisterAppService {
 	@Autowired
 	private VisitDomainService visitDomainService;
 
-
 	/**
 	 * @roseuid 584A697D031B
 	 */
@@ -30,8 +29,8 @@ public class RegisterAppService {
 		return visitDomainService.create(createVisitVO);
 	}
 
-	public List<Visit> listVisit(Pageable pageable) {
-		return visitDomainService.listVisit(pageable);
+	public List<Visit> listVisit(String state, Pageable pageable) {
+		return visitDomainService.findByState(state, pageable);
 	}
 
 	public List<RegisterCount> getRegisterCount() {
