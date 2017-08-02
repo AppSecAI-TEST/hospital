@@ -39,7 +39,11 @@ import com.neusoft.hs.platform.log.LogUtil;
  *
  */
 @Entity
-@Table(name = "domain_order", indexes = { @Index(columnList = "state") })
+@Table(name = "domain_order", indexes = { @Index(columnList = "state"),
+		@Index(columnList = "belong_dept_id"),
+		@Index(columnList = "execute_dept_id"),
+		@Index(columnList = "plan_start_date"),
+		@Index(columnList = "place_type") })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Order extends IdEntity implements OrderCreateCommand {
 

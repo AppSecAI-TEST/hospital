@@ -38,7 +38,11 @@ import com.neusoft.hs.platform.util.DateUtil;
  *
  */
 @Entity
-@Table(name = "domain_order_execute", indexes = { @Index(columnList = "state") })
+@Table(name = "domain_order_execute", indexes = { @Index(columnList = "state"),
+		@Index(columnList = "belong_dept_id"),
+		@Index(columnList = "execute_dept_id"),
+		@Index(columnList = "plan_start_date"),
+		@Index(columnList = "charge_state") })
 public abstract class OrderExecute extends IdEntity {
 
 	@NotEmpty(message = "状态不能为空")

@@ -109,29 +109,20 @@ public class OrderBatchDataService {
 
 			orders = orderAppService.create(drugOrderBuilder, doctor002);
 
-			List<OrderExecute> orderExecutes;
+			Order order1;
 			for (Order order : orders) {
-				orderAppService.verify(order.getId(), nurse003);
+				order1 = orderAppService.verify(order.getId(), nurse003);
 
-				orderExecutes = orderExecuteAppService
-						.getNeedSendOrderExecutes(nurse003, pageable);
-
-				for (OrderExecute orderExecute : orderExecutes) {
+				for (OrderExecute orderExecute : order1.getOrderExecutes()) {
 					orderExecuteAppService.send(orderExecute.getId(), nurse003);
 				}
 
-				orderExecutes = orderExecuteAppService
-						.getNeedExecuteOrderExecutes(userc01, pageable);
-
-				for (OrderExecute orderExecute : orderExecutes) {
+				for (OrderExecute orderExecute : order1.getOrderExecutes()) {
 					orderExecuteAppService.finish(orderExecute.getId(), null,
 							userc01);
 				}
 
-				orderExecutes = orderExecuteAppService
-						.getNeedExecuteOrderExecutes(userc03, pageable);
-
-				for (OrderExecute orderExecute : orderExecutes) {
+				for (OrderExecute orderExecute : order1.getOrderExecutes()) {
 					orderExecuteAppService.finish(orderExecute.getId(), null,
 							userc03);
 				}
