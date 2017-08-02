@@ -52,6 +52,8 @@ public class VisitBatchDataService {
 
 	private Random randomRespDoctor;
 
+	private Random randomDept;
+
 	private Admin admin;
 
 	public final static int VisitCount = 1000;
@@ -64,6 +66,7 @@ public class VisitBatchDataService {
 		randomSex = new Random();
 		randomInPatient = new Random();
 		randomRespDoctor = new Random();
+		randomDept = new Random();
 
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
@@ -84,14 +87,15 @@ public class VisitBatchDataService {
 			createVisitVO.setName("v-t-n-" + i);
 			createVisitVO.setSex(randomSex.nextInt(2) == 1 ? "男" : "女");
 
-			createVisitVO.setDept(depts.get(deptCount - 1));
+			createVisitVO.setDept(depts.get(randomDept.nextInt(deptCount - 1)));
 
 			createVisitVO.setInPatient(randomInPatient.nextInt(2) == 1 ? true
 					: false);
 
 			createVisitVO.setOperator(admin);
 			createVisitVO.setState(Visit.State_Archived);
-			createVisitVO.setRespDoctor(doctors.get(respDoctorCount - 1));
+			createVisitVO.setRespDoctor(doctors.get(randomRespDoctor
+					.nextInt(respDoctorCount - 1)));
 			createVisitVO.setBirthday(DateUtil.createDay("2009-01-01"));
 
 			this.create(createVisitVO);

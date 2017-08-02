@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -38,7 +39,7 @@ import com.neusoft.hs.platform.log.LogUtil;
  *
  */
 @Entity
-@Table(name = "domain_order")
+@Table(name = "domain_order", indexes = { @Index(columnList = "state") })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Order extends IdEntity implements OrderCreateCommand {
 

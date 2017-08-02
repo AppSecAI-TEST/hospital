@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -37,7 +38,7 @@ import com.neusoft.hs.platform.util.DateUtil;
  *
  */
 @Entity
-@Table(name = "domain_order_execute")
+@Table(name = "domain_order_execute", indexes = { @Index(columnList = "state") })
 public abstract class OrderExecute extends IdEntity {
 
 	@NotEmpty(message = "状态不能为空")
