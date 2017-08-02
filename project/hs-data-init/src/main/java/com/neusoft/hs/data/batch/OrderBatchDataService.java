@@ -6,6 +6,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderDomainService;
 import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.order.TemporaryDrugOrderBuilder;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
@@ -57,6 +59,9 @@ public class OrderBatchDataService {
 	private OrderExecuteAppService orderExecuteAppService;
 
 	@Autowired
+	private OrderExecuteDomainService orderExecuteDomainService;
+
+	@Autowired
 	private PharmacyAdminService pharmacyAdminService;
 
 	@Autowired
@@ -75,7 +80,7 @@ public class OrderBatchDataService {
 
 	private Staff userc03;
 
-	public final static int OrderCount = 5000;
+	public final static int OrderCount = 2000;
 
 	public void init() throws HsException {
 
@@ -130,25 +135,25 @@ public class OrderBatchDataService {
 		}
 	}
 
-	@Transactional(rollbackFor = Exception.class)
 	public void executeOrder(Order order) throws OrderException,
 			OrderExecuteException {
 
 		orderAppService.verify(order.getId(), nurse003);
 
-		Order order1 = orderDomainService.find(order.getId());
+		Sort sort = new Sort("teamSequence");
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, sort);
 
-		for (OrderExecute orderExecute : order1.getOrderExecutes()) {
-			orderExecuteAppService.send(orderExecute.getId(), nurse003);
-		}
+		List<OrderExecute> orderExecutes = orderExecuteDomainService
+				.findByOrder(order.getId(), pageable);
 
-		for (OrderExecute orderExecute : order1.getOrderExecutes()) {
-			orderExecuteAppService.finish(orderExecute.getId(), null, userc01);
-		}
+		orderExecuteAppService.send(orderExecutes.get(0).getId(), nurse003);
 
-		for (OrderExecute orderExecute : order1.getOrderExecutes()) {
-			orderExecuteAppService.finish(orderExecute.getId(), null, userc03);
-		}
+		orderExecuteAppService.finish(orderExecutes.get(0).getId(), null,
+				userc01);
+
+		orderExecuteAppService.finish(orderExecutes.get(1).getId(), null,
+				userc03);
+
 	}
 
 	@Transactional(rollbackFor = Exception.class)

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,9 @@ public class OrderExecuteDomainService {
 
 	@Autowired
 	private OrderExecuteRepo orderExecuteRepo;
+
+	@Autowired
+	private OrderRepo orderRepo;
 
 	@Autowired
 	private OrderExecuteDAO orderExecuteDAO;
@@ -123,6 +127,11 @@ public class OrderExecuteDomainService {
 
 	public List<OrderExecute> findByState(String state, Pageable pageable) {
 		return orderExecuteRepo.findByState(state, pageable);
+	}
+
+	public List<OrderExecute> findByOrder(String orderId, Pageable pageable) {
+		Order order = orderRepo.findOne(orderId);
+		return orderExecuteRepo.findByOrder(order, pageable);
 	}
 
 	public List<OrderExecute> findByChargeState(String chargeState,

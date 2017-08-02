@@ -27,7 +27,7 @@ public class UserBatchDataService {
 
 	private Random random;
 
-	public final static int UserCount = 400;
+	public final static int UserCount = 200;
 
 	public void init() throws HsException {
 

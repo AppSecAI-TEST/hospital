@@ -93,4 +93,6 @@ interface OrderExecuteRepo extends
 			@Param("sysDate") Date sysDate, @Param("startDate") Date startDate);
 
 	List<OrderExecute> findByVisit(Visit visit, Pageable pageable);
+
+	List<OrderExecute> findByOrder(Order order, Pageable pageable);
 }

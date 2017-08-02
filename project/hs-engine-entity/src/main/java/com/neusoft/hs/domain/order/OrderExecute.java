@@ -81,6 +81,9 @@ public abstract class OrderExecute extends IdEntity {
 	@Column(name = "is_alone")
 	private boolean isAlone = false;
 
+	@Column(name = "team_sequence")
+	private Integer teamSequence;
+
 	@Column(name = "charge_state", length = 32)
 	private String chargeState;
 
@@ -224,8 +227,8 @@ public abstract class OrderExecute extends IdEntity {
 	 */
 	public void send() throws OrderExecuteException {
 		if (!this.state.equals(State_NeedSend)) {
-			throw new OrderExecuteException(this, "state=[%s]不是[%s]",
-					this.state, State_NeedSend);
+			throw new OrderExecuteException(this, "id=[%s]state=[%s]不是[%s]",
+					this.getId(), this.state, State_NeedSend);
 		}
 
 		this.updateState();
@@ -713,6 +716,14 @@ public abstract class OrderExecute extends IdEntity {
 
 	public void setOrderCategory(String orderCategory) {
 		this.orderCategory = orderCategory;
+	}
+
+	public Integer getTeamSequence() {
+		return teamSequence;
+	}
+
+	public void setTeamSequence(Integer teamSequence) {
+		this.teamSequence = teamSequence;
 	}
 
 	/**

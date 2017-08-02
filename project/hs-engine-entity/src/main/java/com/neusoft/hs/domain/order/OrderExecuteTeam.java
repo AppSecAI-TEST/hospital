@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.neusoft.hs.platform.entity.IdEntity;
 
@@ -22,6 +23,9 @@ public class OrderExecuteTeam extends IdEntity {
 
 	@OneToMany(mappedBy = "team", cascade = { CascadeType.ALL })
 	private List<OrderExecute> executes;
+
+	@Transient
+	private int sequence = 0;
 
 	public OrderExecuteTeam() {
 	}
@@ -42,6 +46,7 @@ public class OrderExecuteTeam extends IdEntity {
 				previous.setNext(execute);
 			}
 			execute.setPrevious(previous);
+			execute.setTeamSequence(sequence++);
 		}
 		execute.setTeam(this);
 
