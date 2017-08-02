@@ -34,14 +34,14 @@ import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.pharmacy.PharmacyAdminService;
 import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitAdminDomainService;
+import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 
 @Service
 public class OrderBatchDataService {
 
 	@Autowired
-	private VisitAdminDomainService visitAdminDomainService;
+	private VisitDomainService visitDomainService;
 
 	@Autowired
 	private OrganizationAdminDomainService organizationAdminDomainService;
@@ -101,7 +101,8 @@ public class OrderBatchDataService {
 		Pharmacy deptccc = (Pharmacy) organizationAdminDomainService
 				.findTheDept("deptccc");
 
-		List<Visit> visits = visitAdminDomainService.find(pageable);
+		List<Visit> visits = visitDomainService.findByState(
+				Visit.State_IntoWard, pageable);
 		int visitCount = visits.size();
 
 		DrugOrderType drugOrderType001 = drugOrderTypeDAO

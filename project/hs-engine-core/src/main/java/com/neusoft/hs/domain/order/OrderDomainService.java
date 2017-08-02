@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neusoft.hs.domain.cost.CostException;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Admin;
 import com.neusoft.hs.domain.organization.Dept;
@@ -56,6 +57,14 @@ public class OrderDomainService {
 
 		// 更新为数据库最新的患者一次就诊信息
 		Visit visit = visitDomainService.find(orderCommand.getVisit().getId());
+		if (visit.getState().equals(Visit.State_OutHospital)
+				|| visit.getState().equals(Visit.State_LeaveHospital)
+				|| visit.getState().equals(Visit.State_Archived)
+				|| visit.getState().equals(Visit.State_IntoRecordRoom)) {
+			throw new OrderException(null, "患者一次就诊[%s]状态为[%s],不能创建医嘱",
+					visit.getName(), visit.getState());
+		}
+
 		orderCommand.setVisit(visit);
 
 		for (Order order : orderCommand.getOrders()) {
