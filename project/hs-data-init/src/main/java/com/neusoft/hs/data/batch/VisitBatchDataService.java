@@ -93,7 +93,7 @@ public class VisitBatchDataService {
 					: false);
 
 			createVisitVO.setOperator(admin);
-			createVisitVO.setState(Visit.State_Archived);
+			createVisitVO.setState(Visit.State_IntoWard);
 			createVisitVO.setRespDoctor(doctors.get(randomRespDoctor
 					.nextInt(respDoctorCount - 1)));
 			createVisitVO.setBirthday(DateUtil.createDay("2009-01-01"));
@@ -105,7 +105,7 @@ public class VisitBatchDataService {
 	@Transactional(rollbackFor = Exception.class)
 	public void create(CreateVisitVO createVisitVO) {
 		Visit visit = visitDomainService.create(createVisitVO);
-		costDomainService.createChargeBill(visit, 0, admin);
+		costDomainService.createChargeBill(visit, 20000, admin);
 		visit.save();
 	}
 
