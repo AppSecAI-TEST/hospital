@@ -54,6 +54,10 @@ public class PharmacyAdminService {
 		return orderUseModeRepo.findAll(pageable).getContent();
 	}
 
+	public DrugUseMode findDrugUseMode(String id) {
+		return orderUseModeRepo.findOne(id);
+	}
+
 	public List<DispenseDrugWin> findDispenseDrugWins(Pharmacy pharmacy) {
 		return dispenseDrugWinRepo.findByPharmacy(pharmacy);
 	}

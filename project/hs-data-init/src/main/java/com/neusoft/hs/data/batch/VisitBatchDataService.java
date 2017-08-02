@@ -54,7 +54,7 @@ public class VisitBatchDataService {
 
 	private Admin admin;
 
-	public final static int VisitCount = 5000;
+	public final static int VisitCount = 1000;
 
 	public void init() throws HsException {
 

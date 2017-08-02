@@ -2,7 +2,6 @@ package com.neusoft.hs.domain.organization;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,7 @@ public class UserAdminDomainService {
 	}
 
 	public AbstractUser find(String id) {
-		AbstractUser user = userRepo.findOne(id);
-		user.doLoad();
-		return user;
+		return userRepo.findOne(id);
 	}
 
 	public List<Doctor> findDoctor(Pageable pageable) {
@@ -56,5 +53,13 @@ public class UserAdminDomainService {
 
 	public Doctor findDoctor(String id) {
 		return userRepo.findDoctor(id);
+	}
+
+	public Nurse findNurse(String id) {
+		return userRepo.findNurse(id);
+	}
+
+	public Staff findStaff(String id) {
+		return userRepo.findStaff(id);
 	}
 }

@@ -2,8 +2,8 @@ package com.neusoft.hs.portal.framework.security;
 
 import org.springframework.context.ApplicationContext;
 
+import com.neusoft.hs.application.organization.UserAdminAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
-import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.platform.bean.ApplicationContextUtil;
 import com.neusoft.hs.platform.exception.HsException;
 
@@ -29,7 +29,7 @@ public class UserUtil {
 				.getApplicationContext();
 
 		AbstractUser loginUser = user;
-		user = context.getBean(UserAdminDomainService.class).find(u.getId());
+		user = context.getBean(UserAdminAppService.class).find(u.getId());
 
 		if (user != null) {
 			context.publishEvent(new LoginEvent(user));

@@ -21,9 +21,12 @@ interface AbstractUserRepo extends
 	@Query("select a from Admin a")
 	List<Admin> findAdmin(Pageable pageable);
 
-	@Query("select d from Doctor d where id = :id")
+	@Query("select d from Doctor d where d.id = :id")
 	Doctor findDoctor(@Param("id") String id);
 
 	@Query("select n from Nurse n where n.id = :id")
 	Nurse findNurse(@Param("id") String id);
+
+	@Query("select s from Staff s where s.id = :id")
+	Staff findStaff(@Param("id") String id);
 }
