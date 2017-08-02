@@ -75,9 +75,9 @@ public class OrderBatchDataService {
 
 		Nurse nurse003 = userAdminAppService.findNurse("nurse003");
 
-		Staff userc01 = userAdminAppService.findStaff("userc01");
+		Staff userc01 = userAdminAppService.findStaff("staffc01");
 
-		Staff userc03 = userAdminAppService.findStaff("userc03");
+		Staff userc03 = userAdminAppService.findStaff("staffc03");
 
 		Pharmacy deptccc = (Pharmacy) organizationAdminDomainService
 				.findTheDept("deptccc");
