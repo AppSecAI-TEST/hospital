@@ -15,7 +15,10 @@ import com.neusoft.hs.domain.order.DrugOrderType;
 import com.neusoft.hs.domain.order.DrugOrderTypeDAO;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
+import com.neusoft.hs.domain.order.OrderDomainService;
+import com.neusoft.hs.domain.order.OrderException;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.order.TemporaryDrugOrderBuilder;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -48,6 +51,9 @@ public class OrderBatchDataService {
 	private OrderAppService orderAppService;
 
 	@Autowired
+	private OrderDomainService orderDomainService;
+
+	@Autowired
 	private OrderExecuteAppService orderExecuteAppService;
 
 	@Autowired
@@ -61,6 +67,14 @@ public class OrderBatchDataService {
 
 	private Random randomVisit;
 
+	private Doctor doctor002;
+
+	private Nurse nurse003;
+
+	private Staff userc01;
+
+	private Staff userc03;
+
 	public final static int OrderCount = 5000;
 
 	public void init() throws HsException {
@@ -71,13 +85,13 @@ public class OrderBatchDataService {
 
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
-		Doctor doctor002 = userAdminAppService.findDoctor("doctor002");
+		doctor002 = userAdminAppService.findDoctor("doctor002");
 
-		Nurse nurse003 = userAdminAppService.findNurse("nurse003");
+		nurse003 = userAdminAppService.findNurse("nurse003");
 
-		Staff userc01 = userAdminAppService.findStaff("staffc01");
+		userc01 = userAdminAppService.findStaff("staffc01");
 
-		Staff userc03 = userAdminAppService.findStaff("staffc03");
+		userc03 = userAdminAppService.findStaff("staffc03");
 
 		Pharmacy deptccc = (Pharmacy) organizationAdminDomainService
 				.findTheDept("deptccc");
@@ -109,25 +123,31 @@ public class OrderBatchDataService {
 
 			orders = orderAppService.create(drugOrderBuilder, doctor002);
 
-			Order order1;
 			for (Order order : orders) {
-				order1 = orderAppService.verify(order.getId(), nurse003);
-
-				for (OrderExecute orderExecute : order1.getOrderExecutes()) {
-					orderExecuteAppService.send(orderExecute.getId(), nurse003);
-				}
-
-				for (OrderExecute orderExecute : order1.getOrderExecutes()) {
-					orderExecuteAppService.finish(orderExecute.getId(), null,
-							userc01);
-				}
-
-				for (OrderExecute orderExecute : order1.getOrderExecutes()) {
-					orderExecuteAppService.finish(orderExecute.getId(), null,
-							userc03);
-				}
+				this.executeOrder(order);
 
 			}
+		}
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public void executeOrder(Order order) throws OrderException,
+			OrderExecuteException {
+
+		orderAppService.verify(order.getId(), nurse003);
+
+		Order order1 = orderDomainService.find(order.getId());
+
+		for (OrderExecute orderExecute : order1.getOrderExecutes()) {
+			orderExecuteAppService.send(orderExecute.getId(), nurse003);
+		}
+
+		for (OrderExecute orderExecute : order1.getOrderExecutes()) {
+			orderExecuteAppService.finish(orderExecute.getId(), null, userc01);
+		}
+
+		for (OrderExecute orderExecute : order1.getOrderExecutes()) {
+			orderExecuteAppService.finish(orderExecute.getId(), null, userc03);
 		}
 	}
 
