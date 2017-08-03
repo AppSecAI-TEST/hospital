@@ -54,14 +54,14 @@ public class DrugTypeSpec extends SuperEntity {
 	@JoinColumn(name = "parent_id")
 	private DrugTypeSpec parent;
 
-	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "parent")
 	private List<DrugTypeSpec> children;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_item_id")
 	private ChargeItem chargeItem;
 
-	@OneToMany(mappedBy = "drugTypeSpec", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "drugTypeSpec")
 	private List<DrugType> drugTypes;
 
 	public String getId() {

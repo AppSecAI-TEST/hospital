@@ -53,10 +53,10 @@ public class InspectApplyItem extends IdEntity {
 	@Column(name = "execute_date")
 	private Date executeDate;
 
-	@OneToOne(mappedBy = "inspectApplyItem", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "inspectApplyItem", fetch = FetchType.LAZY)
 	private InspectArrangeOrderExecute inspectArrangeOrderExecute;
 
-	@OneToOne(mappedBy = "inspectApplyItem", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "inspectApplyItem", fetch = FetchType.LAZY)
 	private InspectConfirmOrderExecute inspectConfirmOrderExecute;
 
 	public static final String State_Executing = "执行中";

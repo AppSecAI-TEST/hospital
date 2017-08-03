@@ -26,7 +26,8 @@ public abstract class DrugOrderExecute extends OrderExecute {
 	private DrugTypeSpec drugTypeSpec;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "drugOrderExecute", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "drugOrderExecute", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<DrugTypeConsumeRecord> consumeRecords;
 
 	public DrugTypeSpec getDrugTypeSpec() {

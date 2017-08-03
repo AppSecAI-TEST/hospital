@@ -47,7 +47,7 @@ public class DispensingDrugOrder extends IdEntity implements Printable {
 	@Column(name = "finish_date")
 	private Date finishDate;
 
-	@OneToMany(mappedBy = "dispensingDrugOrder", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "dispensingDrugOrder")
 	private List<DispensingDrugOrderExecute> executes;
 
 	@Column(name = "execute_count")

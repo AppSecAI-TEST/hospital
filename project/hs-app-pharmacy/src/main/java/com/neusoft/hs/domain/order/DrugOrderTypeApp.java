@@ -32,7 +32,8 @@ public class DrugOrderTypeApp extends OrderTypeApp {
 	private Pharmacy pharmacy;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "drugOrderTypeApp", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "drugOrderTypeApp", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<DrugTypeConsumeRecord> consumeRecords;
 
 	public DrugOrderTypeApp() {

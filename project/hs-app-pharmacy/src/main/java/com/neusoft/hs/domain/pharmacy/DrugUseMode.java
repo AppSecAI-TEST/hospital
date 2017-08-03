@@ -49,7 +49,7 @@ public abstract class DrugUseMode extends SuperEntity {
 	@Column(length = 64)
 	private String name;
 
-	@OneToMany(mappedBy = "orderUseMode", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "orderUseMode")
 	private List<DrugUseModeAssistMaterial> orderUseModeAssistMaterials;
 
 	/**

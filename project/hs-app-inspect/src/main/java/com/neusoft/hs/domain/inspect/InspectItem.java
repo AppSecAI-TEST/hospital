@@ -48,7 +48,7 @@ public class InspectItem extends SuperEntity {
 	@JoinColumn(name = "charge_item_id")
 	private ChargeItem chargeItem;
 
-	@OneToMany(mappedBy = "inspectItem", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "inspectItem")
 	private List<InspectApplyItem> inspectApplyItems;
 
 	public String getId() {

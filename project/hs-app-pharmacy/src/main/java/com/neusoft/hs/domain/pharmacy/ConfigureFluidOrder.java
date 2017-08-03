@@ -56,10 +56,10 @@ public class ConfigureFluidOrder extends IdEntity implements Printable {
 	@Column(name = "distribute_date")
 	private Date distributeDate;
 
-	@OneToMany(mappedBy = "fluidOrder", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "fluidOrder")
 	private List<ConfigureFluidOrderExecute> configureFluidExecutes;
 
-	@OneToMany(mappedBy = "fluidOrder", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "fluidOrder")
 	private List<DistributeDrugOrderExecute> distributeDrugExecutes;
 
 	@Column(name = "execute_count")

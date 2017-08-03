@@ -22,10 +22,12 @@ import com.neusoft.hs.domain.order.Apply;
 @Table(name = "app_inspect_apply")
 public class InspectApply extends Apply {
 
-	@OneToMany(mappedBy = "inspectApply", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "inspectApply", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<InspectApplyItem> inspectApplyItems;
 
-	@OneToMany(mappedBy = "inspectApply", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "inspectApply", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<InspectResult> inspectResults;
 
 	public List<InspectApplyItem> getInspectApplyItems() {
