@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.order.DispensingDrugOrderExecute;
-import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderExecuteDomainService;
 import com.neusoft.hs.domain.order.OrderExecuteException;
 import com.neusoft.hs.domain.organization.AbstractUser;
@@ -84,11 +83,13 @@ public class PharmacyDomainService {
 			List<DispensingDrugOrderExecute> executes, AbstractUser user) {
 		DispensingDrugOrder dispensingDrugOrder = new DispensingDrugOrder();
 
+		Pharmacy pharmacy = this.findPharmacy(user.getDept().getId());
+
 		dispensingDrugOrder.setExecutes(executes);
 		dispensingDrugOrder.setCreator(user);
 		dispensingDrugOrder.setArea(area);
 		dispensingDrugOrder.setBatch(batch);
-		dispensingDrugOrder.setPharmacy((Pharmacy) user.getDept());
+		dispensingDrugOrder.setPharmacy(pharmacy);
 		dispensingDrugOrder.setState(ConfigureFluidOrder.State_NeedExecute);
 
 		dispensingDrugOrder.save();
@@ -151,6 +152,10 @@ public class PharmacyDomainService {
 			InPatientAreaDept area, DispensingDrugBatch batch, Pageable pageable) {
 		return this.dispensingDrugOrderRepo.findByAreaAndBatch(area, batch,
 				pageable);
+	}
+
+	public Pharmacy findPharmacy(String id) {
+		return pharmacyRepo.findOne(id);
 	}
 
 }

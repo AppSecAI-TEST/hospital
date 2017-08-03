@@ -28,6 +28,9 @@ public class ConfigureFluidDomainService {
 	private ConfigureFluidOrderRepo configureFluidOrderRepo;
 
 	@Autowired
+	private PharmacyRepo pharmacyRepo;
+
+	@Autowired
 	private OrderExecuteDomainService orderExecuteDomainService;
 
 	@Autowired
@@ -45,11 +48,14 @@ public class ConfigureFluidDomainService {
 			List<ConfigureFluidOrderExecute> executes, AbstractUser user) {
 		ConfigureFluidOrder fluidOrder = new ConfigureFluidOrder();
 
+		Pharmacy pharmacy = this.pharmacyRepo.findOne(user.getDept()
+				.getId());
+
 		fluidOrder.setConfigureFluidExecutes(executes);
 		fluidOrder.setCreator(user);
 		fluidOrder.setArea(area);
 		fluidOrder.setBatch(batch);
-		fluidOrder.setPharmacy((Pharmacy) user.getDept());
+		fluidOrder.setPharmacy(pharmacy);
 		fluidOrder.setState(ConfigureFluidOrder.State_NeedExecute);
 
 		fluidOrder.save();

@@ -78,8 +78,10 @@ public class ConfigureFluidExecuteController extends AbstractFrameController {
 
 		Dept dept = UserUtil.getUser().getDept();
 
+		Pharmacy pharmacy = pharmacyDomainService.findPharmacy(dept.getId());
+
 		List<ConfigureFluidBatch> entities = configureFluidAdminService
-				.findConfigureFluidBatchs((Pharmacy) dept);
+				.findConfigureFluidBatchs(pharmacy);
 
 		ConfigureFluidBatchComboBoxModel batchComboBoxModel = configureFluidExecuteFrame
 				.getConfigureFluidBatchComboBoxModel();
