@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.util.DateUtil;
 
@@ -70,12 +71,16 @@ public class LongOrder extends Order {
 	}
 
 	@Override
-	public void updateState(OrderExecute orderExecute) {
+	public void doFinish(OrderExecute orderExecute) {
 		if (orderExecute.isLast()) {
 			this.setState(Order.State_Finished);
 			this.setEndDate(DateUtil.getSysDate());
 			this.setStateDesc("已完成");
 		}
+	}
+
+	@Override
+	protected void doExecute(OrderExecute orderExecute) {
 	}
 
 	/**

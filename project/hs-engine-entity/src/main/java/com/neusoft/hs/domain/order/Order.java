@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.visit.Visit;
@@ -183,6 +184,20 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	}
 
 	/**
+	 * 医嘱执行中的回调函数
+	 * 
+	 * @param orderExecute
+	 */
+	protected abstract void doExecute(OrderExecute orderExecute);
+
+	/**
+	 * 医嘱执行到最后一条时的回调函数
+	 * 
+	 * @param orderExecute
+	 */
+	protected abstract void doFinish(OrderExecute orderExecute);
+
+	/**
 	 * 医嘱核对 当医嘱核对后自动分解 该操作将回调@OrderType.verify
 	 * 
 	 * @return
@@ -279,13 +294,6 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 		this.getService(OrderRepo.class).delete(this);
 	}
-
-	/**
-	 * 执行条目执行完成后，更新医嘱条目状态
-	 * 
-	 * @param orderExecute
-	 */
-	protected abstract void updateState(OrderExecute orderExecute);
 
 	/**
 	 * @roseuid 584F5C1E019C

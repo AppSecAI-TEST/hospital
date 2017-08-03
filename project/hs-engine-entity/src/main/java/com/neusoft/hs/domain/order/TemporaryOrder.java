@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.organization.AbstractUser;
+import com.neusoft.hs.platform.util.DateUtil;
 
 /**
  * 临时医嘱条目
@@ -33,7 +34,7 @@ public class TemporaryOrder extends Order {
 	public static final String Category = "T";
 
 	@Override
-	public void updateState(OrderExecute orderExecute) {
+	public void doFinish(OrderExecute orderExecute) {
 		this.setState(Order.State_Finished);
 		this.setStateDesc("已完成");
 	}
@@ -57,5 +58,13 @@ public class TemporaryOrder extends Order {
 	@Override
 	protected void setCategory(OrderExecute orderExecute) {
 		orderExecute.setOrderCategory(Category);
+	}
+
+	@Override
+	protected void doExecute(OrderExecute orderExecute) {
+		if (orderExecute.isMain()) {
+			this.setExecuteDate(DateUtil.getSysDate());
+			this.setExecuteUser(orderExecute.getActualExecutor());
+		}
 	}
 }

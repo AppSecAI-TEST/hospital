@@ -272,13 +272,8 @@ public abstract class OrderExecute extends IdEntity {
 		this.setActualExecutor(user);
 
 		if (!this.isAlone) {
-			if (order instanceof TemporaryOrder) {
-				if (this.isMain) {
-					TemporaryOrder temporaryOrder = (TemporaryOrder) order;
-					temporaryOrder.setExecuteDate(DateUtil.getSysDate());
-					temporaryOrder.setExecuteUser(user);
-				}
-			}
+
+			order.doExecute(this);
 
 			OrderExecute next = this.getNext();
 			if (next != null) {
@@ -290,7 +285,7 @@ public abstract class OrderExecute extends IdEntity {
 
 				this.order.setStateDesc(this.type + "执行条目已完成");
 			} else {
-				this.order.updateState(this);
+				this.order.doFinish(this);
 			}
 
 			return next;
