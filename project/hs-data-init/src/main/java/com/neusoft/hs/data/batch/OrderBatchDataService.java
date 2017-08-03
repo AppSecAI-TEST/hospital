@@ -84,8 +84,6 @@ public class OrderBatchDataService {
 
 	public void init() throws HsException {
 
-		TemporaryDrugOrderBuilder drugOrderBuilder;
-
 		randomVisit = new Random();
 
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
@@ -113,6 +111,8 @@ public class OrderBatchDataService {
 
 		readyDrugType();
 
+		TemporaryDrugOrderBuilder drugOrderBuilder;
+
 		List<Order> orders;
 
 		for (int i = 0; i < OrderCount; i++) {
@@ -131,7 +131,6 @@ public class OrderBatchDataService {
 
 			for (Order order : orders) {
 				this.executeOrder(order);
-
 			}
 		}
 	}
@@ -154,7 +153,6 @@ public class OrderBatchDataService {
 
 		orderExecuteAppService.finish(orderExecutes.get(1).getId(), null,
 				userc03);
-
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -168,10 +166,4 @@ public class OrderBatchDataService {
 			drugType.save();
 		}
 	}
-
-	@Transactional(rollbackFor = Exception.class)
-	private void create() {
-
-	}
-
 }

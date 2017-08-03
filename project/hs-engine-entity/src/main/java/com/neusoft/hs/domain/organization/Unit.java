@@ -48,8 +48,7 @@ public abstract class Unit extends SuperEntity {
 	private Unit parent;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "parent", cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@OneToMany(mappedBy = "parent", cascade = { CascadeType.REMOVE })
 	private List<Unit> children;
 
 	public String getId() {

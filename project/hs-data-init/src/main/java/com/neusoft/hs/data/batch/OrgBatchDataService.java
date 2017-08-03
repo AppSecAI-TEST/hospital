@@ -27,7 +27,7 @@ public class OrgBatchDataService {
 
 	private Random random;
 
-	public final static int DeptCount = 50;
+	public final static int DeptCount = 200;
 
 	public void init() {
 

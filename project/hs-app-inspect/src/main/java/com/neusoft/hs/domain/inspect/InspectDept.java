@@ -15,7 +15,7 @@ import com.neusoft.hs.domain.organization.Dept;
 public class InspectDept extends Dept {
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "inspectDept", cascade = { CascadeType.DETACH })
+	@OneToMany(mappedBy = "inspectDept")
 	private List<InspectResult> inspectResults;
 
 	public List<InspectResult> getInspectResults() {

@@ -39,4 +39,11 @@ public class CostAdminDomainService {
 		chargeBillRepo.deleteAll();
 	}
 
+	public void delete(String id) {
+		ChargeItem chargeItem = chargeItemRepo.findOne(id);
+		if(chargeItem != null){
+			chargeItem.delete();
+		}
+	}
+
 }

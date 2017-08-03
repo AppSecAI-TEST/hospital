@@ -51,16 +51,16 @@ public class ChargeItem extends SuperEntity {
 	@Column(name = "charging_mode", length = 16)
 	private String chargingMode;
 
-	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "chargeItem")
 	private List<ChargeRecord> chargeRecords;
 
-	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "chargeItem")
 	private List<OrderType> orderTypes;
 
-	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "chargeItem")
 	private List<OrderExecuteChargeItemRecord> orderExecuteChargeItemRecords;
 
-	@OneToMany(mappedBy = "chargeItem", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "chargeItem")
 	private List<VisitChargeItem> visitChargeItems;
 
 	public static final String ChargingMode_Day = "每天";
@@ -145,6 +145,10 @@ public class ChargeItem extends SuperEntity {
 	public void setOrderExecuteChargeItemRecords(
 			List<OrderExecuteChargeItemRecord> orderExecuteChargeItemRecords) {
 		this.orderExecuteChargeItemRecords = orderExecuteChargeItemRecords;
+	}
+
+	public void delete() {
+		this.getService(ChargeItemRepo.class).delete(this);
 	}
 
 }

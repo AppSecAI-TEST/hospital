@@ -25,11 +25,11 @@ import com.neusoft.hs.platform.util.DateUtil;
 public class Pharmacy extends Dept {
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "pharmacy", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "pharmacy")
 	private List<DrugType> drugTypes;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "pharmacy", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "pharmacy")
 	private List<DispenseDrugWin> dispenseDrugWins;
 
 	public List<DrugTypeConsumeRecord> withhold(DrugTypeSpec drugTypeSpec,

@@ -12,7 +12,8 @@ import javax.persistence.OneToOne;
 @DiscriminatorValue("Org")
 public class Org extends Unit {
 
-	@OneToOne(mappedBy = "org", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "org", fetch = FetchType.LAZY, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private OrgExtend orgExtend;
 
 	/**

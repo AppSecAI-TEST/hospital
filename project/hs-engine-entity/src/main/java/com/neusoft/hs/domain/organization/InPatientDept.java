@@ -23,11 +23,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class InPatientDept extends Dept {
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "dept")
 	private List<Doctor> doctors;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "depts", cascade = { CascadeType.REFRESH })
+	@ManyToMany(mappedBy = "depts")
 	private List<InPatientAreaDept> areas;
 
 	public InPatientDept() {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.neusoft.hs.data.batch.ChargeItemBatchDataService;
 import com.neusoft.hs.data.batch.OrderBatchDataService;
 import com.neusoft.hs.data.batch.OrgBatchDataService;
 import com.neusoft.hs.data.batch.UserBatchDataService;
@@ -23,6 +24,9 @@ public class BatchDataInitTest {
 	private UserBatchDataService userBatchDataService;
 	
 	@Autowired
+	private ChargeItemBatchDataService chargeItemBatchDataService;
+	
+	@Autowired
 	private VisitBatchDataService visitBatchDataService;
 	
 	@Autowired
@@ -30,9 +34,10 @@ public class BatchDataInitTest {
 
 	@Test
 	public void init() throws HsException {
-		orgBatchDataService.init();
-		userBatchDataService.init();
-		visitBatchDataService.init();
-		orderBatchDataService.init();
+//		orgBatchDataService.init();
+//		userBatchDataService.init();
+		chargeItemBatchDataService.init();
+//		visitBatchDataService.init();
+//		orderBatchDataService.init();
 	}
 }

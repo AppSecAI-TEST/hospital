@@ -15,7 +15,7 @@ import com.neusoft.hs.domain.organization.Dept;
 @DiscriminatorValue("OutPatientRoom")
 public class OutPatientRoom extends Dept {
 
-	@OneToMany(mappedBy = "room", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "room")
 	private List<OutPatientPlanRecord> planRecords;
 
 	public List<OutPatientPlanRecord> getPlanRecords() {

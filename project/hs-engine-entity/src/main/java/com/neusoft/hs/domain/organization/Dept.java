@@ -5,7 +5,6 @@ package com.neusoft.hs.domain.organization;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -27,27 +26,27 @@ public abstract class Dept extends Unit {
 	private Org org;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "belongDept")
 	private List<Order> belongOrders;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "belongDept", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "belongDept")
 	private List<OrderExecute> belongOrderExecutes;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "executeDept")
 	private List<Order> orders;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "executeDept", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "executeDept")
 	private List<OrderExecute> orderExecutes;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "chargeDept", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "chargeDept")
 	private List<ChargeRecord> chargeRecords;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "dept", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "dept")
 	private List<Visit> visits;
 
 	public Dept() {

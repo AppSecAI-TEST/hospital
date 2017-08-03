@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.neusoft.hs.data.batch.ChargeItemBatchDataService;
 import com.neusoft.hs.data.batch.OrgBatchDataService;
 import com.neusoft.hs.data.batch.UserBatchDataService;
 import com.neusoft.hs.data.batch.VisitBatchDataService;
@@ -19,14 +20,18 @@ public class BatchDataClearTest {
 
 	@Autowired
 	private UserBatchDataService userBatchDataService;
-	
+
+	@Autowired
+	private ChargeItemBatchDataService chargeItemBatchDataService;
+
 	@Autowired
 	private VisitBatchDataService visitBatchDataService;
 
 	@Test
 	public void clear() {
+		visitBatchDataService.clear();
+		chargeItemBatchDataService.clear();
 		userBatchDataService.clear();
 		orgBatchDataService.clear();
-		visitBatchDataService.clear();
 	}
 }
