@@ -35,7 +35,7 @@ public class DiseaseType extends SuperEntity {
 	@Column(length = 128)
 	private String name;
 
-	@OneToMany(mappedBy = "diseaseType")
+	@OneToMany(mappedBy = "diseaseType", cascade = { CascadeType.REMOVE })
 	private List<Disease> diseases;
 
 	@ManyToOne(fetch = FetchType.LAZY)

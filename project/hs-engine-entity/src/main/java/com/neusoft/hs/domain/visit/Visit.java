@@ -34,6 +34,7 @@ import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.patient.Patient;
+import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.platform.entity.IdEntity;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.platform.log.LogUtil;
@@ -125,38 +126,42 @@ public class Visit extends IdEntity {
 	private Patient patient;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit")
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
 	private List<VisitChargeItem> visitChargeItems;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit")
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
 	@OrderBy("createDate DESC")
 	private List<VisitLog> logs;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit")
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
 	private List<Order> orders;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit")
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
 	private List<Apply> applys;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit")
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
 	private List<OrderExecute> executes;
 
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
+	private List<TreatmentItem> treatmentItems;
+
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
 	@JoinColumn(name = "charge_bill_id")
 	private ChargeBill chargeBill;
 
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
 	@JoinColumn(name = "clip_id")
 	private MedicalRecordClip medicalRecordClip;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit")
+	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
 	private List<VisitChargeItem> chargeItems;
 
 	public static final String State_WaitingDiagnose = "待门诊";
@@ -730,6 +735,14 @@ public class Visit extends IdEntity {
 
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
+	}
+
+	public List<TreatmentItem> getTreatmentItems() {
+		return treatmentItems;
+	}
+
+	public void setTreatmentItems(List<TreatmentItem> treatmentItems) {
+		this.treatmentItems = treatmentItems;
 	}
 
 	@Override

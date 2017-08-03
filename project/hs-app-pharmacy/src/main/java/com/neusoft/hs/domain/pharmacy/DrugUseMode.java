@@ -49,7 +49,7 @@ public abstract class DrugUseMode extends SuperEntity {
 	@Column(length = 64)
 	private String name;
 
-	@OneToMany(mappedBy = "orderUseMode")
+	@OneToMany(mappedBy = "orderUseMode", cascade = { CascadeType.REMOVE })
 	private List<DrugUseModeAssistMaterial> orderUseModeAssistMaterials;
 
 	/**
@@ -122,7 +122,7 @@ public abstract class DrugUseMode extends SuperEntity {
 			List<DrugUseModeAssistMaterial> orderUseModeChargeItems) {
 		this.orderUseModeAssistMaterials = orderUseModeChargeItems;
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;
