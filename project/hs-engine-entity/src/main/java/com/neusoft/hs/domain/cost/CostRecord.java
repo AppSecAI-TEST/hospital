@@ -31,7 +31,7 @@ public class CostRecord extends IdEntity {
 	@Column(length = 32)
 	private String state;
 
-	@OneToMany(mappedBy = "costRecord", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "costRecord")
 	private List<ChargeRecord> chargeRecords;
 
 	@Column(name = "create_date")

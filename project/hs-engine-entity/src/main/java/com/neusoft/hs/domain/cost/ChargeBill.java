@@ -45,7 +45,8 @@ public class ChargeBill extends IdEntity {
 	@Column(length = 32, name = "charge_mode")
 	private String chargeMode;
 
-	@OneToMany(mappedBy = "chargeBill", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "chargeBill", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE, CascadeType.MERGE })
 	@OrderBy("createDate DESC")
 	private List<ChargeRecord> chargeRecords;
 

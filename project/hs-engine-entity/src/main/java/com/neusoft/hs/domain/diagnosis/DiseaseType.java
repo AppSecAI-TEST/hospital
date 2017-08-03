@@ -35,14 +35,14 @@ public class DiseaseType extends SuperEntity {
 	@Column(length = 128)
 	private String name;
 
-	@OneToMany(mappedBy = "diseaseType", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "diseaseType")
 	private List<Disease> diseases;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
 	private DiseaseType parent;
 
-	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "parent")
 	private List<DiseaseType> children;
 
 	/**

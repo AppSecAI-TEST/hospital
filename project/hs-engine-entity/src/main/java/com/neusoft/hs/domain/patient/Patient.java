@@ -44,7 +44,7 @@ public class Patient extends IdEntity {
 	private Date createDate;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "patient", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "patient")
 	private List<Visit> visits;
 	
 	public static final String Sex_Male = "男";

@@ -125,46 +125,38 @@ public class Visit extends IdEntity {
 	private Patient patient;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
-			CascadeType.REMOVE, CascadeType.MERGE })
+	@OneToMany(mappedBy = "visit")
 	private List<VisitChargeItem> visitChargeItems;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
-			CascadeType.REMOVE, CascadeType.MERGE })
+	@OneToMany(mappedBy = "visit")
 	@OrderBy("createDate DESC")
 	private List<VisitLog> logs;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
-			CascadeType.REMOVE, CascadeType.MERGE })
+	@OneToMany(mappedBy = "visit")
 	private List<Order> orders;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
-			CascadeType.REMOVE, CascadeType.MERGE })
+	@OneToMany(mappedBy = "visit")
 	private List<Apply> applys;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
-			CascadeType.REMOVE, CascadeType.MERGE })
+	@OneToMany(mappedBy = "visit")
 	private List<OrderExecute> executes;
 
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
-			CascadeType.REMOVE, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "charge_bill_id")
 	private ChargeBill chargeBill;
 
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
-			CascadeType.REMOVE, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "clip_id")
 	private MedicalRecordClip medicalRecordClip;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "visit", cascade = { CascadeType.PERSIST,
-			CascadeType.REMOVE, CascadeType.MERGE })
+	@OneToMany(mappedBy = "visit")
 	private List<VisitChargeItem> chargeItems;
 
 	public static final String State_WaitingDiagnose = "待门诊";

@@ -59,7 +59,8 @@ public class ChargeRecord extends IdEntity {
 	@JoinColumn(name = "original_id")
 	private ChargeRecord original;
 
-	@OneToOne(mappedBy = "original", cascade = { CascadeType.ALL })
+	@OneToOne(mappedBy = "original", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private ChargeRecord newChargeRecord;
 
 	@ManyToOne(fetch = FetchType.LAZY)

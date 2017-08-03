@@ -80,13 +80,16 @@ public class MedicalRecord extends IdEntity {
 	@Column(name = "create_date")
 	private Date createDate;
 
-	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "record", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<MedicalRecordItem> items;
 
-	@OneToMany(mappedBy = "record", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "record", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<MedicalRecordLog> logs;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "builder_id")
 	private MedicalRecordBuilder builder;
 

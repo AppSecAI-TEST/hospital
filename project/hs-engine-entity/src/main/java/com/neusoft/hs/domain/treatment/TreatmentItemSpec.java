@@ -54,7 +54,7 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	@Column(name = "repeat_create")
 	private boolean repeatCreate = false;
 
-	@OneToMany(mappedBy = "treatmentItemSpec", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "treatmentItemSpec")
 	private List<TreatmentItem> treatmentItems;
 
 	@ManyToOne(fetch = FetchType.LAZY)
