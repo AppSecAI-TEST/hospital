@@ -21,7 +21,8 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Table(name = "domain_order_execute_team")
 public class OrderExecuteTeam extends IdEntity {
 
-	@OneToMany(mappedBy = "team", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "team", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<OrderExecute> executes;
 
 	@Transient

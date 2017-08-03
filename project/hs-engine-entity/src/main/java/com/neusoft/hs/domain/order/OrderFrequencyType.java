@@ -47,7 +47,7 @@ public abstract class OrderFrequencyType extends SuperEntity {
 	@Column(length = 32)
 	private String name;
 
-	@OneToMany(mappedBy = "frequencyType", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "frequencyType")
 	private List<LongOrder> orders;
 
 	public OrderFrequencyType() {

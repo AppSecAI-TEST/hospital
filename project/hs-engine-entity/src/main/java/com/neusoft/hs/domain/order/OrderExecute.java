@@ -120,10 +120,12 @@ public abstract class OrderExecute extends IdEntity {
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<OrderExecuteChargeItemRecord> chargeItemRecords;
 
-	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "orderExecute", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	@OrderBy("createDate DESC")
 	private List<ChargeRecord> chargeRecords;
 

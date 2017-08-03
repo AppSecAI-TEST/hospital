@@ -30,10 +30,12 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Table(name = "domain_order_team")
 public class CompsiteOrder extends IdEntity implements OrderCreateCommand {
 
-	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.REMOVE })
+	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<Order> orders;
 
-	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "compsiteOrder", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private List<OrderExecute> orderExecutes;
 
 	@ManyToOne(fetch = FetchType.LAZY)

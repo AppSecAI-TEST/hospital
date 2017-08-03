@@ -55,7 +55,7 @@ public class MedicalRecordType extends SuperEntity {
 	@Column(name = "is_unique")
 	private boolean unique;
 
-	@OneToMany(mappedBy = "type", cascade = { CascadeType.REMOVE })
+	@OneToMany(mappedBy = "type")
 	private List<MedicalRecord> records;
 
 	@ManyToMany(fetch = FetchType.LAZY)

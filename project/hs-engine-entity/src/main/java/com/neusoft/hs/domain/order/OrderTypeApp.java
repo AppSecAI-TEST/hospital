@@ -25,7 +25,8 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class OrderTypeApp extends IdEntity {
 
-	@OneToOne(mappedBy = "typeApp", cascade = { CascadeType.ALL })
+	@OneToOne(mappedBy = "typeApp", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private Order order;
 
 	public OrderTypeApp() {

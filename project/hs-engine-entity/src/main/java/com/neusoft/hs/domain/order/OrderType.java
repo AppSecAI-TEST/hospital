@@ -59,10 +59,10 @@ public abstract class OrderType extends SuperEntity {
 	@JoinColumn(name = "charge_item_id")
 	private ChargeItem chargeItem;
 
-	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "parent")
 	private List<OrderType> children;
 
-	@OneToMany(mappedBy = "orderType", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "orderType")
 	private List<Order> orders;
 
 	/**

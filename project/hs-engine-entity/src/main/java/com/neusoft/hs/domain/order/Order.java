@@ -77,11 +77,11 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	@JoinColumn(name = "type_app_id")
 	private OrderTypeApp typeApp;
 
-	@OneToOne(mappedBy = "order", cascade = { CascadeType.ALL })
+	@OneToOne(mappedBy = "order", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	private Apply apply;
 
-	@OneToMany(mappedBy = "order", cascade = { CascadeType.REFRESH,
-			CascadeType.REMOVE })
+	@OneToMany(mappedBy = "order", cascade = { CascadeType.REMOVE })
 	@OrderBy("planStartDate ASC")
 	private List<OrderExecute> orderExecutes;
 
