@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -310,7 +311,10 @@ public class CostDomainService {
 	}
 
 	public ChargeBill getChargeBill(Visit visit) {
-		return visitDomainService.find(visit.getId()).getChargeBill();
+		ChargeBill chargeBill = visitDomainService.find(visit.getId())
+				.getChargeBill();
+		Hibernate.initialize(chargeBill);
+		return chargeBill;
 	}
 
 	public ChargeRecord findChargeRecord(String recordId) {
