@@ -40,6 +40,7 @@ public class MedicalRecordReportController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(medicalRecordReportFrame.getNextPageBtn(), (e) -> nextPage());
 		registerAction(medicalRecordReportFrame.getVisitCB(),
 				(e) -> refreshMedicalRecord());
 
@@ -61,9 +62,20 @@ public class MedicalRecordReportController extends AbstractFrameController {
 
 		medicalRecordReportFrame.setVisible(true);
 	}
+	
+	public void nextPage() {
+		this.medicalRecordReportFrame.nextPage();
+		try {
+			this.loadVisits();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
 
 	private void loadVisits() throws HsException {
-		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		Pageable pageable = new PageRequest(this.medicalRecordReportFrame.getPageNumber(),
+				15);
 
 		List<Visit> entities = visitAdminDomainService.find(pageable);
 

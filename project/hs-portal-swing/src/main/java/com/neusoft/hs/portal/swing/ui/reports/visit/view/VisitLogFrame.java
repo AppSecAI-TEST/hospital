@@ -5,44 +5,28 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.portal.swing.ui.shared.model.ChargeRecordTableModel;
+import com.neusoft.hs.portal.swing.ui.reports.reports.view.VisitComboBoxFrame;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitLogTableModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class VisitLogFrame extends JFrame {
-
-	JComboBox<Visit> visitCB;
-	VisitComboBoxModel visitComboBoxModel;
+public class VisitLogFrame extends VisitComboBoxFrame {
 
 	VisitLogTableModel visitLogTableModel;
 	JTable table;
 
 	JLabel stateJL;
-
-	private int pageNumber;
-
-	private JButton nextPageBtn;
-
-	private JButton closeBtn;
-
-	private static final int DEFAULT_WIDTH = 800;
-
-	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
 	public VisitLogFrame() {
@@ -99,14 +83,6 @@ public class VisitLogFrame extends JFrame {
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public VisitComboBoxModel getVisitComboBoxModel() {
-		return visitComboBoxModel;
-	}
-
-	public JComboBox<Visit> getVisitCB() {
-		return visitCB;
-	}
-
 	public VisitLogTableModel getVisitLogTableModel() {
 		return visitLogTableModel;
 	}
@@ -114,25 +90,4 @@ public class VisitLogFrame extends JFrame {
 	public JLabel getStateJL() {
 		return stateJL;
 	}
-
-	public JButton getNextPageBtn() {
-		return nextPageBtn;
-	}
-
-	public int getPageNumber() {
-		return pageNumber;
-	}
-
-	public void setPageNumber(int pageNumber) {
-		this.pageNumber = pageNumber;
-	}
-
-	public void nextPage() {
-		this.pageNumber++;
-	}
-
-	public JButton getCloseBtn() {
-		return closeBtn;
-	}
-
 }

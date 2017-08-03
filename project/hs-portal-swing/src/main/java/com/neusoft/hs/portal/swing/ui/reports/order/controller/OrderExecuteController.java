@@ -20,6 +20,7 @@ import com.neusoft.hs.portal.swing.ui.reports.order.view.OrderExecuteFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
+import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class OrderExecuteController extends AbstractFrameController {
@@ -37,6 +38,7 @@ public class OrderExecuteController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(orderExecuteFrame.getNextPageBtn(), (e) -> nextPage());
 		registerAction(orderExecuteFrame.getVisitCB(), (e) -> refreshOrderExecute(e));
 		registerAction(orderExecuteFrame.getCloseBtn(), (e) -> closeWindow());
 		
@@ -51,9 +53,20 @@ public class OrderExecuteController extends AbstractFrameController {
 		
 		orderExecuteFrame.setVisible(true);
 	}
+	
+	public void nextPage() {
+		this.orderExecuteFrame.nextPage();
+		try {
+			this.loadVisits();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
 
 	private void loadVisits() throws HsException {
-		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		Pageable pageable = new PageRequest(this.orderExecuteFrame.getPageNumber(),
+				15);
 
 		List<Visit> entities = visitAdminDomainService.find(pageable);
 

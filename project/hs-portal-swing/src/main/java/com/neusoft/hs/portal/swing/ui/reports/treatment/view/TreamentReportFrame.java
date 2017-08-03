@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,25 +20,17 @@ import org.springframework.stereotype.Component;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.portal.swing.ui.reports.reports.view.VisitComboBoxFrame;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class TreamentReportFrame extends JFrame {
-
-	JComboBox<Visit> visitCB;
-	VisitComboBoxModel visitComboBoxModel;
+public class TreamentReportFrame extends VisitComboBoxFrame {
 
 	private JPanel workspacePanel;
 
 	private Map<TreatmentItemSpec, JTextField> treatments;
-
-	private JButton closeBtn;
-
-	private static final int DEFAULT_WIDTH = 800;
-
-	private static final int DEFAULT_HEIGHT = 300;
-
+	
 	@Autowired
 	public TreamentReportFrame() {
 		setFrameUp();
@@ -68,6 +59,9 @@ public class TreamentReportFrame extends JFrame {
 
 		operationPanel.add(visitLbl);
 		operationPanel.add(visitCB);
+		
+		nextPageBtn = new JButton(ConstMessagesCN.Labels.NextPage_BTN);
+		operationPanel.add(nextPageBtn);
 
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 

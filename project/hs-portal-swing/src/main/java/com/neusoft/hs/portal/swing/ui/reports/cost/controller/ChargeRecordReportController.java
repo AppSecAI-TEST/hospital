@@ -22,6 +22,7 @@ import com.neusoft.hs.portal.swing.ui.reports.cost.view.ChargeRecordReportFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.ChargeRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
+import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class ChargeRecordReportController extends AbstractFrameController {
@@ -39,6 +40,7 @@ public class ChargeRecordReportController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(chargeRecordReportFrame.getNextPageBtn(), (e) -> nextPage());
 		registerAction(chargeRecordReportFrame.getVisitCB(),
 				(e) -> refreshChargeRecord(e));
 		registerAction(chargeRecordReportFrame.getCloseBtn(),
@@ -57,9 +59,20 @@ public class ChargeRecordReportController extends AbstractFrameController {
 
 		chargeRecordReportFrame.setVisible(true);
 	}
+	
+	public void nextPage() {
+		this.chargeRecordReportFrame.nextPage();
+		try {
+			this.loadVisits();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
 
 	private void loadVisits() throws HsException {
-		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		Pageable pageable = new PageRequest(this.chargeRecordReportFrame.getPageNumber(),
+				15);
 
 		List<Visit> entities = visitAdminDomainService.find(pageable);
 

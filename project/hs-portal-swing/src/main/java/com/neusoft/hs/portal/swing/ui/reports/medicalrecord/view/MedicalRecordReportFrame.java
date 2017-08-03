@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
@@ -14,25 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.portal.swing.ui.reports.reports.view.VisitComboBoxFrame;
 import com.neusoft.hs.portal.swing.ui.shared.model.MedicalRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.view.MedicalRecordListPanel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class MedicalRecordReportFrame extends JFrame {
+public class MedicalRecordReportFrame extends VisitComboBoxFrame {
 
-	private JComboBox<Visit> visitCB;
-	private VisitComboBoxModel visitComboBoxModel;
-
+	
 	private MedicalRecordListPanel medicalRecordListPanel;
-
-	private JButton closeBtn;
-
-	private static final int DEFAULT_WIDTH = 800;
-
-	private static final int DEFAULT_HEIGHT = 300;
-
+	
 	@Autowired
 	public MedicalRecordReportFrame() {
 		this.medicalRecordListPanel = new MedicalRecordListPanel();
@@ -60,6 +52,9 @@ public class MedicalRecordReportFrame extends JFrame {
 		visitCB = new JComboBox<>(visitComboBoxModel);
 
 		interactivePanel.add(visitCB);
+		
+		nextPageBtn = new JButton(ConstMessagesCN.Labels.NextPage_BTN);
+		interactivePanel.add(nextPageBtn);
 
 		workspacePanel.add(interactivePanel, BorderLayout.NORTH);
 

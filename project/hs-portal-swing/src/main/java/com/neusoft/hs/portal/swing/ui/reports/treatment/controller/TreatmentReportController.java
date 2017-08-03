@@ -19,6 +19,7 @@ import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.swing.ui.reports.treatment.view.TreamentReportFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
+import com.neusoft.hs.portal.swing.util.Notifications;
 
 @Controller
 public class TreatmentReportController extends AbstractFrameController {
@@ -36,6 +37,7 @@ public class TreatmentReportController extends AbstractFrameController {
 
 	@PostConstruct
 	private void prepareListeners() {
+		registerAction(treamentReportFrame.getNextPageBtn(), (e) -> nextPage());
 		registerAction(treamentReportFrame.getVisitCB(), (e) -> refreshTreatment(e));
 		registerAction(treamentReportFrame.getCloseBtn(), (e) -> closeWindow());
 
@@ -47,9 +49,20 @@ public class TreatmentReportController extends AbstractFrameController {
 		loadTreatmentSpecs();
 		treamentReportFrame.setVisible(true);
 	}
+	
+	public void nextPage() {
+		this.treamentReportFrame.nextPage();
+		try {
+			this.loadVisits();
+		} catch (HsException e) {
+			e.printStackTrace();
+			Notifications.showFormValidationAlert(e.getMessage());
+		}
+	}
 
 	private void loadVisits() throws HsException {
-		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+		Pageable pageable = new PageRequest(this.treamentReportFrame.getPageNumber(),
+				15);
 
 		List<Visit> entities = visitAdminDomainService.find(pageable);
 

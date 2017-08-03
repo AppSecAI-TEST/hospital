@@ -5,12 +5,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
@@ -18,26 +16,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.portal.swing.ui.reports.reports.view.VisitComboBoxFrame;
 import com.neusoft.hs.portal.swing.ui.shared.model.ChargeRecordTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class ChargeRecordReportFrame extends JFrame {
-
-	JComboBox<Visit> visitCB;
-	VisitComboBoxModel visitComboBoxModel;
+public class ChargeRecordReportFrame extends VisitComboBoxFrame {
 
 	ChargeRecordTableModel chargeRecordTableModel;
 	JTable table;
 
 	private JLabel chargeBillLbl;
-
-	private JButton closeBtn;
-
-	private static final int DEFAULT_WIDTH = 800;
-
-	private static final int DEFAULT_HEIGHT = 300;
 
 	@Autowired
 	public ChargeRecordReportFrame() {
@@ -78,6 +68,9 @@ public class ChargeRecordReportFrame extends JFrame {
 
 		chargeBillLbl = new JLabel();
 		operationPanel.add(chargeBillLbl);
+		
+		nextPageBtn = new JButton(ConstMessagesCN.Labels.NextPage_BTN);
+		operationPanel.add(nextPageBtn);
 
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
@@ -92,14 +85,6 @@ public class ChargeRecordReportFrame extends JFrame {
 
 	}
 
-	public VisitComboBoxModel getVisitComboBoxModel() {
-		return visitComboBoxModel;
-	}
-
-	public JComboBox<Visit> getVisitCB() {
-		return visitCB;
-	}
-
 	public ChargeRecordTableModel getChargeRecordTableModel() {
 		return chargeRecordTableModel;
 	}
@@ -107,9 +92,4 @@ public class ChargeRecordReportFrame extends JFrame {
 	public JLabel getChargeBillLbl() {
 		return chargeBillLbl;
 	}
-
-	public JButton getCloseBtn() {
-		return closeBtn;
-	}
-
 }

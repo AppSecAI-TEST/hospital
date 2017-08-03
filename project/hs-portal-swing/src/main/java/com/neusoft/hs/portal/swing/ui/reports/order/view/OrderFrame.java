@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -14,20 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.portal.swing.ui.reports.reports.view.VisitComboBoxFrame;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
 
 @Component
-public class OrderFrame extends JFrame {
-
-	JComboBox<Visit> visitCB;
-	VisitComboBoxModel visitComboBoxModel;
+public class OrderFrame extends VisitComboBoxFrame {
 
 	private OrderListAdminPanel orderListAdminPanel;
-
-	private JButton closeBtn;
-
+	
 	private static final int DEFAULT_WIDTH = 1000;
 
 	private static final int DEFAULT_HEIGHT = 600;
@@ -61,6 +56,9 @@ public class OrderFrame extends JFrame {
 
 		operationPanel.add(visitLbl);
 		operationPanel.add(visitCB);
+		
+		nextPageBtn = new JButton(ConstMessagesCN.Labels.NextPage_BTN);
+		operationPanel.add(nextPageBtn);
 
 		workspacePanel.add(operationPanel, BorderLayout.NORTH);
 
