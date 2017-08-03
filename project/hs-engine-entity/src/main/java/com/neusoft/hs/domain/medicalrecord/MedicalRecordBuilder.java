@@ -34,7 +34,7 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
-	@OneToOne(mappedBy = "builder")
+	@OneToOne(mappedBy = "builder", fetch = FetchType.LAZY)
 	private MedicalRecord record;
 
 	@Transient

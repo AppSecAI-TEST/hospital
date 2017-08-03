@@ -80,7 +80,7 @@ public class OutPatientPlanRecord extends IdEntity {
 	@JoinColumn(name = "voucher_type_id")
 	private VoucherType voucherType;
 
-	@OneToMany(mappedBy = "planRecord", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "planRecord")
 	private List<Voucher> vouchers;
 
 	public static final int MaxAllotNumber = 50;

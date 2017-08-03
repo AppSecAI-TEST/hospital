@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -27,7 +28,7 @@ public class InPatientDept extends Dept {
 	private List<Doctor> doctors;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "depts")
+	@ManyToMany(mappedBy = "depts", fetch = FetchType.LAZY)
 	private List<InPatientAreaDept> areas;
 
 	public InPatientDept() {
