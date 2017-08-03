@@ -15,7 +15,7 @@ public class ChargeItemBatchDataService {
 	@Autowired
 	private CostAdminDomainService costAdminDomainService;
 
-	public final static int ChargeItemCount = 100;
+	public final static int ChargeItemCount = 5000;
 
 	public void init() {
 
