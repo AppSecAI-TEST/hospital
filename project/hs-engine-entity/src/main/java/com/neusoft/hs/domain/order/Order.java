@@ -73,12 +73,13 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 
 	private Integer count;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "type_app_id")
 	private OrderTypeApp typeApp;
 
-	@OneToOne(mappedBy = "order", cascade = { CascadeType.PERSIST,
-			CascadeType.MERGE, CascadeType.REMOVE })
+	@OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private Apply apply;
 
 	@OneToMany(mappedBy = "order", cascade = { CascadeType.REMOVE })

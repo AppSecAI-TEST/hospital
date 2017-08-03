@@ -36,6 +36,7 @@ import com.neusoft.hs.domain.pharmacy.PharmacyDomainService;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
+import com.neusoft.hs.platform.log.LogUtil;
 
 @Service
 public class OrderBatchDataService {
@@ -80,7 +81,7 @@ public class OrderBatchDataService {
 
 	private Staff userc03;
 
-	public final static int OrderCount = 2000;
+	public final static int OrderCount = 1;
 
 	public void init() throws HsException {
 
@@ -110,12 +111,14 @@ public class OrderBatchDataService {
 				.findDrugUseMode("oralOrderUseMode");
 
 		readyDrugType();
-
+		
 		TemporaryDrugOrderBuilder drugOrderBuilder;
 
 		List<Order> orders;
 
 		for (int i = 0; i < OrderCount; i++) {
+			
+			LogUtil.log(OrderBatchDataService.class, "startCreateBatchOrder");
 
 			drugOrderBuilder = new TemporaryDrugOrderBuilder();
 			drugOrderBuilder.setVisit(visits.get(randomVisit
@@ -128,10 +131,14 @@ public class OrderBatchDataService {
 			drugOrderBuilder.setDrugUseMode(oralOrderUseMode);
 
 			orders = orderAppService.create(drugOrderBuilder, doctor002);
+			
+			LogUtil.log(OrderBatchDataService.class, "endCreateBatchOrder");
 
 			for (Order order : orders) {
 				this.executeOrder(order);
 			}
+			
+			LogUtil.log(OrderBatchDataService.class, "endExecuteBatchOrder");
 		}
 	}
 

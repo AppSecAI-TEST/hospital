@@ -34,10 +34,10 @@ public class BatchDataInitTest {
 
 	@Test
 	public void init() throws HsException {
-		orgBatchDataService.init();
-		userBatchDataService.init();
-		chargeItemBatchDataService.init();
-		visitBatchDataService.init();
+//		orgBatchDataService.init();
+//		userBatchDataService.init();
+//		chargeItemBatchDataService.init();
+//		visitBatchDataService.init();
 		orderBatchDataService.init();
 	}
 }
