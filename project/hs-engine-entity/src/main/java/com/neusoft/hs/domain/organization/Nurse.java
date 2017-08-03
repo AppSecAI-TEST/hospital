@@ -28,7 +28,7 @@ public class Nurse extends AbstractUser {
 	private Dept dept;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "respNurse", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "respNurse")
 	private List<Visit> visits;
 
 	public Nurse() {

@@ -23,10 +23,10 @@ public class Role extends IdEntity {
 	@Column(length = 32)
 	private String name;
 
-	@OneToMany(mappedBy = "role", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "role")
 	private List<UserRole> userRoles;
 
-	@OneToMany(mappedBy = "executeRole", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "executeRole")
 	private List<OrderExecute> theOrderExecutes;
 
 	public String getName() {

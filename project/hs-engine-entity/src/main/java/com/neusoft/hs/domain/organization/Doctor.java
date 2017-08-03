@@ -29,11 +29,11 @@ public class Doctor extends AbstractUser {
 	private Doctor superior;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "superior", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "superior")
 	private List<Doctor> subordinates;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "creator", cascade = { CascadeType.REFRESH })
+	@OneToMany(mappedBy = "creator")
 	@OrderBy("createDate DESC")
 	private List<Order> orders;
 
