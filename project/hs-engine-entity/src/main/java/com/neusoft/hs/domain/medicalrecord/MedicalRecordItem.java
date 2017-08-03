@@ -51,10 +51,12 @@ public class MedicalRecordItem extends IdEntity implements Itemable {
 	@Column(name = "visit_name", length = 16)
 	private String visitName;
 
-	@OneToMany(mappedBy = "item", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "item", cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	private List<MedicalRecordItemValue> values;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE })
 	@JoinColumn(name = "treatment_item_id")
 	private TreatmentItem treatmentItem;
 

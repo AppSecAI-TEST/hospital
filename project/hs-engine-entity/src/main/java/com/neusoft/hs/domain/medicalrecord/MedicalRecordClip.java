@@ -54,7 +54,7 @@ public class MedicalRecordClip extends IdEntity {
 	@JoinColumn(name = "checker_id")
 	private AbstractUser checker;
 
-	@OneToMany(mappedBy = "clip", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "clip", cascade = { CascadeType.REMOVE })
 	private List<MedicalRecord> records;
 
 	public static final String State_Writing = "编写中";
