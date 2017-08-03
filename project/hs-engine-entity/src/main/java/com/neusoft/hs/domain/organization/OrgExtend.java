@@ -29,23 +29,19 @@ public class OrgExtend extends SuperEntity {
 	@JoinColumn(name = "org_id")
 	private Org org;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
 	@JoinColumn(name = "out_charge_dept_id")
 	private Dept outChargeDept;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE})
 	@JoinColumn(name = "in_charge_dept_id")
 	private Dept inChargeDept;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE})
 	@JoinColumn(name = "record_room_dept_id")
 	private Dept recordRoomDept;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-			CascadeType.REFRESH })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE})
 	@JoinColumn(name = "in_patient_office_dept_id")
 	private Dept inPatientOfficeDept;
 
