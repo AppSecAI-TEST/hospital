@@ -41,7 +41,7 @@ public class VoucherType extends SuperEntity {
 	@Column(length = 32)
 	private String name;
 
-	@OneToMany(mappedBy = "voucherType", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "voucherType")
 	private List<OutPatientPlanRecord> planRecords;
 
 	@ManyToOne(fetch = FetchType.LAZY)
