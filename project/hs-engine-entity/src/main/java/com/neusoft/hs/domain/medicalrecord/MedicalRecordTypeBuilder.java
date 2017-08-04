@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
@@ -39,13 +40,13 @@ public class MedicalRecordTypeBuilder extends MedicalRecordBuilder {
 	}
 
 	@Override
-	public Map<String, Itemable> doCreate() throws TreatmentException {
+	public Map<String, Itemable> doCreate(AbstractUser user) throws TreatmentException {
 
 		Map<String, Itemable> datas = new HashMap<String, Itemable>();
 
 		TreatmentItem item;
 		for (TreatmentItemSpec itemSpec : this.type.getItems()) {
-			item = itemSpec.getTheItem(this.getVisit());
+			item = itemSpec.getTheItem(this.getVisit(), user);
 			// 判断是否存在诊疗信息
 			if (item == null && this.isNeedTreatment()) {
 				throw new TreatmentException("患者[%s]的诊疗信息[%s]还没有生成", this

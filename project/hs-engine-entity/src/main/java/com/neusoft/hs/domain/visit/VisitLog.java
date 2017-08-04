@@ -29,7 +29,7 @@ public class VisitLog extends IdEntity {
 	@Column(length = 256)
 	private String info;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "operator_id")
 	private AbstractUser operator;
 

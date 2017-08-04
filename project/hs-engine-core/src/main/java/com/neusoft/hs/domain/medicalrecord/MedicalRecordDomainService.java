@@ -225,7 +225,7 @@ public class MedicalRecordDomainService {
 	public MedicalRecord find(String id) throws TreatmentException {
 		MedicalRecord record = medicalRecordRepo.findOne(id);
 		if (record != null) {
-			record.load();
+			record.load(null);
 		}
 
 		return record;

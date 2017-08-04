@@ -100,7 +100,7 @@ public class Visit extends IdEntity {
 	@Column(name = "doctor_name", length = 32)
 	private String respDoctorName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "dept_id")
 	private Dept dept;
 
@@ -121,9 +121,20 @@ public class Visit extends IdEntity {
 	@Column(name = "area_name", length = 32)
 	private String areaName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
+
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
+	@JoinColumn(name = "charge_bill_id")
+	private ChargeBill chargeBill;
+
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@JoinColumn(name = "clip_id")
+	private MedicalRecordClip medicalRecordClip;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
@@ -149,16 +160,6 @@ public class Visit extends IdEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })
 	private List<TreatmentItem> treatmentItems;
-
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
-	@JoinColumn(name = "charge_bill_id")
-	private ChargeBill chargeBill;
-
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
-	@JoinColumn(name = "clip_id")
-	private MedicalRecordClip medicalRecordClip;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "visit", cascade = { CascadeType.REMOVE })

@@ -23,6 +23,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Role;
 import com.neusoft.hs.domain.visit.Visit;
 import com.neusoft.hs.platform.entity.SuperEntity;
@@ -95,7 +96,7 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	 * @return
 	 * @throws TreatmentException
 	 */
-	public abstract TreatmentItem getTheItem(Visit visit)
+	public abstract TreatmentItem getTheItem(Visit visit, AbstractUser user)
 			throws TreatmentException;
 
 	/**
@@ -105,8 +106,8 @@ public abstract class TreatmentItemSpec extends SuperEntity {
 	 * @return
 	 * @throws TreatmentException
 	 */
-	public abstract TreatmentItem createTreatmentItem(Visit visit)
-			throws TreatmentException;
+	public abstract TreatmentItem createTreatmentItem(Visit visit,
+			AbstractUser user) throws TreatmentException;
 
 	/**
 	 * 创建一个空的诊疗信息项

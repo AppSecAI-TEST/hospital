@@ -40,7 +40,7 @@ public class TreatmentItem extends IdEntity implements Itemable {
 	@Column(length = 32)
 	private String type;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "treatment_spec_id")
 	private TreatmentItemSpec treatmentItemSpec;
 
@@ -48,14 +48,14 @@ public class TreatmentItem extends IdEntity implements Itemable {
 			CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	private List<TreatmentItemValue> values;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
 	@Column(name = "visit_name", length = 16)
 	private String visitName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "creator_id")
 	private AbstractUser creator;
 

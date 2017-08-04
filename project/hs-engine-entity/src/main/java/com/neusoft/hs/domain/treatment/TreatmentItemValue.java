@@ -27,18 +27,18 @@ import com.neusoft.hs.platform.entity.IdEntity;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class TreatmentItemValue extends IdEntity implements ItemValue {
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "item_id")
 	private TreatmentItem item;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "treatment_spec_id")
 	private TreatmentItemSpec treatmentItemSpec;
 
 	@Column(name = "treatment_spec_name", length = 128)
 	private String treatmentItemSpecName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 

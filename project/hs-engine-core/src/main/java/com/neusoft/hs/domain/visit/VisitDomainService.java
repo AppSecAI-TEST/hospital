@@ -91,14 +91,13 @@ public class VisitDomainService {
 		visit.setLast(true);
 
 		visit.setPatient(patient);
-
-		visit.save();
-
+		//创建病历夹
 		MedicalRecordClip medicalRecordClip = new MedicalRecordClip();
 		medicalRecordClip.setVisit(visit);
 		medicalRecordClip.setState(MedicalRecordClip.State_Writing);
 
-		medicalRecordClip.save();
+		visit.save();
+
 
 		LogUtil.log(this.getClass(), "用户[{}]创建了患者一次就诊[{}]的病历夹[{}]",
 				createVisitVO.getOperator().getId(), visit.getName(),

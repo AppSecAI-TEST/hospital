@@ -14,6 +14,7 @@ import com.neusoft.hs.domain.medicalrecord.DeptMedicalRecordItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordItem;
 import com.neusoft.hs.domain.medicalrecord.SimpleMedicalRecordItemValue;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 
@@ -35,7 +36,7 @@ public class InspectResultMedicalRecordBuilder extends MedicalRecordBuilder {
 	}
 
 	@Override
-	public Map<String, Itemable> doCreate() throws TreatmentException{
+	public Map<String, Itemable> doCreate(AbstractUser user) throws TreatmentException{
 		Map<String, Itemable> datas = new HashMap<String, Itemable>();
 
 		MedicalRecordItem item;

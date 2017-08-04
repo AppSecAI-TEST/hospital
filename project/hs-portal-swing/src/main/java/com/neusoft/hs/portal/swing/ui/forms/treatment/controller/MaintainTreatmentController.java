@@ -1,7 +1,6 @@
 package com.neusoft.hs.portal.swing.ui.forms.treatment.controller;
 
 import java.awt.event.ItemEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +18,6 @@ import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
 import com.neusoft.hs.domain.treatment.TreatmentItemSpec;
 import com.neusoft.hs.domain.visit.Visit;
-import com.neusoft.hs.domain.visit.VisitDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.businessview.visit.VisitBusinessView;
 import com.neusoft.hs.portal.framework.security.UserUtil;
@@ -126,9 +124,10 @@ public class MaintainTreatmentController extends AbstractFrameController {
 			Notifications.showFormValidationAlert("请选择患者");
 		}
 		try {
-			treatmentDomainService.create(spec.createTreatmentItem(visit));
+			treatmentDomainService.create(spec.createTreatmentItem(visit,
+					UserUtil.getUser()));
 			refreshTreatment(visit);
-		} catch (TreatmentException e) {
+		} catch (HsException e) {
 			e.printStackTrace();
 			Notifications.showFormValidationAlert(e.getMessage());
 		}

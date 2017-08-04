@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.treatment.Itemable;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.visit.Visit;
@@ -46,8 +47,8 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 	 * @return
 	 * @throws TreatmentException
 	 */
-	public final Map<String, Itemable> create() throws TreatmentException {
-		return this.doCreate();
+	public final Map<String, Itemable> create(AbstractUser user) throws TreatmentException {
+		return this.doCreate(user);
 	}
 
 	/**
@@ -56,7 +57,7 @@ public abstract class MedicalRecordBuilder extends IdEntity {
 	 * @return
 	 * @throws TreatmentException
 	 */
-	public abstract Map<String, Itemable> doCreate() throws TreatmentException;
+	public abstract Map<String, Itemable> doCreate(AbstractUser user) throws TreatmentException;
 
 	public void save() {
 		this.getService(MedicalRecordBuilderRepo.class).save(this);

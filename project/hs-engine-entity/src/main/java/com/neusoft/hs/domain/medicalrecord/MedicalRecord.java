@@ -45,18 +45,18 @@ public class MedicalRecord extends IdEntity {
 	@Column(length = 32)
 	private String state;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "clip_id")
 	private MedicalRecordClip clip;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "type_id")
 	private MedicalRecordType type;
 
 	@Column(name = "type_name", length = 128)
 	private String typeName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "doctor_id")
 	private AbstractUser doctor;
 
@@ -70,7 +70,7 @@ public class MedicalRecord extends IdEntity {
 	@Column(name = "sign_doctor_name", length = 16)
 	private String signDoctorName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
@@ -120,7 +120,7 @@ public class MedicalRecord extends IdEntity {
 
 		this.builder = builder;
 
-		this.init();
+		this.init(doctor);
 	}
 
 	/**
@@ -128,9 +128,9 @@ public class MedicalRecord extends IdEntity {
 	 * 
 	 * @throws TreatmentException
 	 */
-	public void init() throws TreatmentException {
+	public void init(AbstractUser user) throws TreatmentException {
 
-		datas = this.builder.create();
+		datas = this.builder.create(user);
 
 		MedicalRecordItem medicalRecordItem;
 		for (Itemable item : datas.values()) {
@@ -148,14 +148,14 @@ public class MedicalRecord extends IdEntity {
 	 * 
 	 * @throws TreatmentException
 	 */
-	public void load() throws TreatmentException {
+	public void load(AbstractUser user) throws TreatmentException {
 
 		Hibernate.initialize(this.type);
 
 		if (this.state.equals(State_Signed) || this.state.equals(State_Fixed)) {
 			this.loadData();
 		} else {
-			this.init();
+			this.init(user);
 		}
 	}
 
@@ -177,7 +177,7 @@ public class MedicalRecord extends IdEntity {
 		}
 
 		if (!this.state.equals(State_Fixed)) {
-			this.doFix();
+			this.doFix(doctor);
 		}
 
 		this.state = State_Signed;
@@ -202,7 +202,7 @@ public class MedicalRecord extends IdEntity {
 	 */
 	public void fix(AbstractUser user) throws MedicalRecordException,
 			TreatmentException {
-		this.doFix();
+		this.doFix(user);
 		this.state = State_Fixed;
 
 		MedicalRecordLog recordLog = new MedicalRecordLog();
@@ -232,8 +232,9 @@ public class MedicalRecord extends IdEntity {
 	 * @throws MedicalRecordException
 	 * @throws TreatmentException
 	 */
-	protected void doFix() throws MedicalRecordException, TreatmentException {
-		this.init();
+	protected void doFix(AbstractUser user) throws MedicalRecordException,
+			TreatmentException {
+		this.init(user);
 		this.fixedItems();
 	}
 

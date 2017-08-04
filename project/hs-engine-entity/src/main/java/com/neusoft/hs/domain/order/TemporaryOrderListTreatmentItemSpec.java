@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.treatment.ListTreatmentItemValue;
 import com.neusoft.hs.domain.treatment.TreatmentException;
 import com.neusoft.hs.domain.treatment.TreatmentItem;
@@ -39,19 +40,20 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 	private List<String> states;
 
 	@Override
-	public TreatmentItem getTheItem(Visit visit) throws TreatmentException {
+	public TreatmentItem getTheItem(Visit visit, AbstractUser user)
+			throws TreatmentException {
 
 		TreatmentItem treatmentItem = this.getService(TreatmentItemDAO.class)
 				.findTheTreatmentItem(visit, this);
 		if (treatmentItem == null) {
-			treatmentItem = this.createTreatmentItem(visit);
+			treatmentItem = this.createTreatmentItem(visit, user);
 			this.getService(TreatmentItemDAO.class).save(treatmentItem);
 		}
 
 		return treatmentItem;
 	}
 
-	public TreatmentItem createTreatmentItem(Visit visit)
+	public TreatmentItem createTreatmentItem(Visit visit, AbstractUser user)
 			throws TreatmentException {
 
 		if (this.states == null || this.states.size() == 0) {
@@ -61,6 +63,8 @@ public class TemporaryOrderListTreatmentItemSpec extends TreatmentItemSpec {
 		TreatmentItem treatmentItem = new TreatmentItem();
 		treatmentItem.setTreatmentItemSpec(this);
 		treatmentItem.setVisit(visit);
+		treatmentItem.setCreator(user);
+		treatmentItem.setCreateDate(DateUtil.getSysDate());
 
 		ListTreatmentItemValue value;
 
