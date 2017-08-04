@@ -67,11 +67,11 @@ public class ChargeRecord extends IdEntity {
 	@JoinColumn(name = "order_execute_id")
 	private OrderExecute orderExecute;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "charge_bill_id")
 	private ChargeBill chargeBill;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 
