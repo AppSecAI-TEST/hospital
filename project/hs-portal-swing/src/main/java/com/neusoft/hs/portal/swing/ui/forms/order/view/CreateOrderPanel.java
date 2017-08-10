@@ -3,7 +3,6 @@ package com.neusoft.hs.portal.swing.ui.forms.order.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,14 +13,14 @@ import org.springframework.stereotype.Component;
 
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderType;
+import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.pharmacy.DrugUseMode;
-import com.neusoft.hs.domain.pharmacy.Pharmacy;
 import com.neusoft.hs.domain.visit.Visit;
+import com.neusoft.hs.portal.swing.ui.shared.model.DeptComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.DrugUseModeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderFrequencyTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.PharmacyComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.PlaceTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Borders;
 import com.neusoft.hs.portal.swing.util.ConstMessagesCN;
@@ -55,8 +54,8 @@ public class CreateOrderPanel extends JPanel {
 	JComboBox<DrugUseMode> orderUseModeCB;
 	DrugUseModeComboBoxModel orderUseModeComboBoxModel;
 
-	JComboBox<Pharmacy> pharmacyCB;
-	PharmacyComboBoxModel pharmacyComboBoxModel;
+	JComboBox<Dept> executeDeptCB;
+	DeptComboBoxModel executeDeptComboBoxModel;
 
 	private static final int LAYOUT_ROWS = 4;
 	private static final int LAYOUT_COLS = 2;
@@ -81,7 +80,7 @@ public class CreateOrderPanel extends JPanel {
 		this.orderTypeComboBoxModel = new OrderTypeComboBoxModel();
 		this.frequencyTypeComboBoxModel = new OrderFrequencyTypeComboBoxModel();
 		this.orderUseModeComboBoxModel = new DrugUseModeComboBoxModel();
-		this.pharmacyComboBoxModel = new PharmacyComboBoxModel();
+		this.executeDeptComboBoxModel = new DeptComboBoxModel();
 
 		setLayout(new GridLayout(LAYOUT_ROWS, LAYOUT_COLS, HORIZONTAL_GAP,
 				VERTICAL_GAP));
@@ -95,7 +94,7 @@ public class CreateOrderPanel extends JPanel {
 				ConstMessagesCN.Labels.FrequencyType);
 		JLabel orderUseModeLbl = new JLabel(ConstMessagesCN.Labels.OrderUseMode);
 		JLabel countLbl = new JLabel(ConstMessagesCN.Labels.Count);
-		JLabel pharmacyLbl = new JLabel(ConstMessagesCN.Labels.Pharmacy);
+		JLabel pharmacyLbl = new JLabel(ConstMessagesCN.Labels.ExecuteDept);
 
 		planStartDateSD = new SpinnerDate("yyyy-MM-dd HH:mm");
 
@@ -109,7 +108,7 @@ public class CreateOrderPanel extends JPanel {
 		frequencyTypeCB = new JComboBox<>(frequencyTypeComboBoxModel);
 
 		orderUseModeCB = new JComboBox<>(orderUseModeComboBoxModel);
-		pharmacyCB = new JComboBox<>(pharmacyComboBoxModel);
+		executeDeptCB = new JComboBox<>(executeDeptComboBoxModel);
 
 		add(visitLbl);
 		add(visitCB);
@@ -130,7 +129,7 @@ public class CreateOrderPanel extends JPanel {
 		add(orderUseModeCB);
 
 		add(pharmacyLbl);
-		add(pharmacyCB);
+		add(executeDeptCB);
 
 		add(countLbl);
 		add(countSN);
@@ -152,7 +151,7 @@ public class CreateOrderPanel extends JPanel {
 		return orderUseModeComboBoxModel;
 	}
 
-	public PharmacyComboBoxModel getPharmacyComboBoxModel() {
-		return pharmacyComboBoxModel;
+	public DeptComboBoxModel getExecuteDeptComboBoxModel() {
+		return executeDeptComboBoxModel;
 	}
 }

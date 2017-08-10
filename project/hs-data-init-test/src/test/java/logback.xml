@@ -53,14 +53,14 @@
 
 	<!-- hibernate日志输入 -->
 	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"
-		level="TRACE" />
+		level="ERROR" />
 	<logger name="org.hibernate.type.descriptor.sql.BasicExtractor"
-		level="TRACE" />
-	<logger name="org.hibernate.SQL" level="INFO" />
-	<logger name="org.hibernate.engine.QueryParameters" level="INFO" />
-	<logger name="org.hibernate.engine.query.HQLQueryPlan" level="INFO" />
+		level="ERROR" />
+	<logger name="org.hibernate.SQL" level="ERROR" />
+	<logger name="org.hibernate.engine.QueryParameters" level="ERROR" />
+	<logger name="org.hibernate.engine.query.HQLQueryPlan" level="ERROR" />
 
-	<logger name="com.neusoft.hs" level="INFO"/>
+	<logger name="com.neusoft.hs" level="ERROR"/>
 	<!-- 
 	<logger name="com.neusoft.hs">
 		<appender-ref ref="INFO_FILE" />

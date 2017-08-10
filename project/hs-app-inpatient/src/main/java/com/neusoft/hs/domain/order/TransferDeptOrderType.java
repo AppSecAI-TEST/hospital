@@ -8,6 +8,14 @@ import javax.persistence.Entity;
 public class TransferDeptOrderType extends OrderType {
 
 	@Override
+	protected void check(Order order) throws OrderException,
+			OrderExecuteException {
+		if (order.getExecuteDept() == null) {
+			throw new OrderException(order, "没有指定转科科室");
+		}
+	}
+
+	@Override
 	public void resolveOrder(OrderTypeApp orderTypeApp) throws OrderException {
 		Order order = orderTypeApp.getOrder();
 

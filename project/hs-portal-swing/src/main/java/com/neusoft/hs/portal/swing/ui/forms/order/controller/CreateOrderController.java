@@ -25,6 +25,7 @@ import com.neusoft.hs.domain.order.OrderAdminDomainService;
 import com.neusoft.hs.domain.order.OrderFrequencyType;
 import com.neusoft.hs.domain.order.OrderType;
 import com.neusoft.hs.domain.order.TemporaryOrder;
+import com.neusoft.hs.domain.order.TransferDeptOrderType;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -42,11 +43,11 @@ import com.neusoft.hs.portal.framework.exception.UIException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.CreateOrderFrame;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.ui.shared.model.DeptComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.DrugUseModeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderFrequencyTypeComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTableModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderTypeComboBoxModel;
-import com.neusoft.hs.portal.swing.ui.shared.model.PharmacyComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.VisitComboBoxModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
 
@@ -82,7 +83,7 @@ public class CreateOrderController extends AbstractFrameController {
 
 	private OrderTypeComboBoxModel orderTypeComboBoxModel;
 
-	private PharmacyComboBoxModel pharmacyComboBoxModel;
+	private DeptComboBoxModel executeDeptComboBoxModel;
 
 	@PostConstruct
 	private void prepareListeners() {
@@ -98,7 +99,7 @@ public class CreateOrderController extends AbstractFrameController {
 		loadVisits();
 		loadOrderTypes();
 		loadFrequencyTypes();
-		loadPharmacys();
+		loadDepts();
 		loadOrderUseModes();
 
 		createOrderFrame.setVisible(true);
@@ -173,15 +174,15 @@ public class CreateOrderController extends AbstractFrameController {
 		frequencyTypeComboBoxModel.addElements(entities);
 	}
 
-	private void loadPharmacys() {
+	private void loadDepts() {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
-		List<Pharmacy> pharmacys = pharmacyAdminService.findPharmacy(pageable);
+		List<Dept> depts = organizationAdminDomainService.findDept(pageable);
 
-		pharmacyComboBoxModel = this.createOrderFrame.getCreateOrderPanel()
-				.getPharmacyComboBoxModel();
-		pharmacyComboBoxModel.clear();
-		pharmacyComboBoxModel.addElement(null);
-		pharmacyComboBoxModel.addElements(pharmacys);
+		executeDeptComboBoxModel = this.createOrderFrame.getCreateOrderPanel()
+				.getExecuteDeptComboBoxModel();
+		executeDeptComboBoxModel.clear();
+		executeDeptComboBoxModel.addElement(null);
+		executeDeptComboBoxModel.addElements(depts);
 	}
 
 	private void loadOrderUseModes() throws HsException {
@@ -232,7 +233,8 @@ public class CreateOrderController extends AbstractFrameController {
 			order.setCount(count);
 
 			if (orderType instanceof DrugOrderType) {
-				Pharmacy pharmacy = pharmacyComboBoxModel.getSelectedItem();
+				Pharmacy pharmacy = (Pharmacy) executeDeptComboBoxModel
+						.getSelectedItem();
 				if (pharmacy == null) {
 					throw new UIException("请选择药房");
 				}
@@ -253,6 +255,12 @@ public class CreateOrderController extends AbstractFrameController {
 				order.addParam(EnterHospitalOrderType.WardArea,
 						organizationAdminDomainService.findInPatientArea(dept)
 								.get(0));
+				order.setExecuteDept(dept);
+			} else if (orderType instanceof TransferDeptOrderType) {
+				Dept dept = executeDeptComboBoxModel.getSelectedItem();
+				if (dept == null) {
+					throw new UIException("请选择转科科室");
+				}
 				order.setExecuteDept(dept);
 			}
 

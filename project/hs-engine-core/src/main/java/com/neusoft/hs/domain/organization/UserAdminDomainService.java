@@ -37,6 +37,10 @@ public class UserAdminDomainService {
 	public List<Nurse> findNurse(List<Dept> depts, Pageable pageable) {
 		return userRepo.findNurse(depts, pageable);
 	}
+	
+	public List<Doctor> findDoctor(List<Dept> depts, Pageable pageable) {
+		return userRepo.findDoctor(depts, pageable);
+	}
 
 	public List<Admin> findAdmin(Pageable pageable) {
 		return userRepo.findAdmin(pageable);

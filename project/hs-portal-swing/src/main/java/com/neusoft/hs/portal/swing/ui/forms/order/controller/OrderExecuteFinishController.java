@@ -16,15 +16,20 @@ import org.springframework.stereotype.Controller;
 import com.neusoft.hs.domain.order.OrderExecute;
 import com.neusoft.hs.domain.orderexecute.OrderExecuteAppService;
 import com.neusoft.hs.domain.organization.Dept;
+import com.neusoft.hs.domain.organization.Doctor;
 import com.neusoft.hs.domain.organization.Nurse;
 import com.neusoft.hs.domain.organization.UserAdminDomainService;
 import com.neusoft.hs.platform.exception.HsException;
 import com.neusoft.hs.portal.framework.security.UserUtil;
+import com.neusoft.hs.portal.swing.ui.forms.order.model.DoctorComboBoxModelPanel;
+import com.neusoft.hs.portal.swing.ui.forms.order.model.NurseComboBoxModelPanel;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.EnterHospitalIntoWardOrderExecutePanel;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecuteFinishFrame;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecuteOpenFrame;
 import com.neusoft.hs.portal.swing.ui.forms.order.view.OrderExecutePanel;
+import com.neusoft.hs.portal.swing.ui.forms.order.view.TransferDeptConfirmOrderExecutePanel;
 import com.neusoft.hs.portal.swing.ui.shared.controller.AbstractFrameController;
+import com.neusoft.hs.portal.swing.ui.shared.model.DoctorComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.NurseComboBoxModel;
 import com.neusoft.hs.portal.swing.ui.shared.model.OrderExecuteTableModel;
 import com.neusoft.hs.portal.swing.util.Notifications;
@@ -118,13 +123,32 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 		OrderExecutePanel orderExecutePanel = orderExecuteOpenFrame.getPanel();
 		if (orderExecutePanel instanceof EnterHospitalIntoWardOrderExecutePanel) {
 			loadNurses((EnterHospitalIntoWardOrderExecutePanel) orderExecutePanel);
+		} else if (orderExecutePanel instanceof TransferDeptConfirmOrderExecutePanel) {
+			loadDoctors((TransferDeptConfirmOrderExecutePanel) orderExecutePanel);
+			loadNurses((TransferDeptConfirmOrderExecutePanel) orderExecutePanel);
 		}
 
 		orderExecuteOpenFrame.setVisible(true);
 	}
 
-	private void loadNurses(EnterHospitalIntoWardOrderExecutePanel intoWardPanel)
-			throws HsException {
+	private void loadDoctors(DoctorComboBoxModelPanel panel) throws HsException {
+		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
+
+		List<Dept> depts = new ArrayList<Dept>();
+		Dept dept = panel.getOrderExecute().getExecuteDept();
+		depts.add(dept);
+
+		List<Doctor> doctors = this.userAdminDomainService.findDoctor(depts,
+				pageable);
+
+		DoctorComboBoxModel doctorComboBoxModel = panel
+				.getRespDoctorComboBoxModel();
+
+		doctorComboBoxModel.clear();
+		doctorComboBoxModel.addElements(doctors);
+	}
+
+	private void loadNurses(NurseComboBoxModelPanel panel) throws HsException {
 		Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
 
 		List<Dept> depts = new ArrayList<Dept>();
@@ -134,7 +158,7 @@ public class OrderExecuteFinishController extends AbstractFrameController {
 		List<Nurse> nurses = this.userAdminDomainService.findNurse(depts,
 				pageable);
 
-		NurseComboBoxModel nurseComboBoxModel = intoWardPanel
+		NurseComboBoxModel nurseComboBoxModel = panel
 				.getRespNurseComboBoxModel();
 
 		nurseComboBoxModel.clear();

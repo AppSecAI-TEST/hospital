@@ -81,7 +81,7 @@ public class OrderBatchDataService {
 
 	private Staff userc03;
 
-	public final static int OrderCount = 1;
+	public final static int OrderCount = 5000;
 
 	public void init() throws HsException {
 
