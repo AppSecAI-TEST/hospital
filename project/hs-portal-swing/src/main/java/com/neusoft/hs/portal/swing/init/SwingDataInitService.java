@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordRender;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.portal.swing.business.medicalrecord.InWardRecordMRRender;
@@ -16,7 +16,7 @@ import com.neusoft.hs.portal.swing.business.medicalrecord.TemporaryOrderListMRRe
 public class SwingDataInitService {
 
 	@Autowired
-	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
+	private MedicalRecordAdminService medicalRecordAdminDomainService;
 
 	public void init() {
 

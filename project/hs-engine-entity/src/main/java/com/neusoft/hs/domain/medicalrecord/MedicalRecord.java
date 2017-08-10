@@ -119,6 +119,7 @@ public class MedicalRecord extends IdEntity {
 		this.setDoctor(doctor);
 
 		this.builder = builder;
+		this.builder.setVisit(visit);
 
 		this.init(doctor);
 	}

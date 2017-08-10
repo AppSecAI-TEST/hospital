@@ -45,19 +45,19 @@ public class MedicalRecordTestService {
 	protected TreatmentAppService treatmentAppService;
 
 	private int dayCount;
-	
+
 	public static int temporaryOrderCount;
-	
+
 	public MedicalRecord createOutPatientRecord(Visit visit,
 			MedicalRecordType medicalRecordType, Doctor doctor)
 			throws HsException {
 
 		// 创建门诊记录
 		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(
-				medicalRecordType, visit);
+				medicalRecordType);
 
-		MedicalRecord outPatientRecord = medicalRecordAppService.create(builder,
-				visit, medicalRecordType, doctor);
+		MedicalRecord outPatientRecord = medicalRecordAppService.create(
+				builder, visit, medicalRecordType, doctor);
 
 		Map<String, Itemable> datas = outPatientRecord.getDatas();
 
@@ -82,7 +82,7 @@ public class MedicalRecordTestService {
 
 		// 创建入院记录
 		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(
-				medicalRecordType, visit);
+				medicalRecordType);
 
 		MedicalRecord intoWardRecord = medicalRecordAppService.create(builder,
 				visit, medicalRecordType, doctor);
@@ -109,7 +109,7 @@ public class MedicalRecordTestService {
 			throws HsException {
 
 		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(
-				medicalRecordType, visit);
+				medicalRecordType);
 
 		MedicalRecord temporaryOrderListRecord = medicalRecordAppService
 				.create(builder, visit, medicalRecordType, doctor);
@@ -122,9 +122,9 @@ public class MedicalRecordTestService {
 		assertTrue(itemValue.get(0).toString().equals("测试患者001"));
 
 		itemValue = datas.get("临时医嘱列表").getValues();
-		
+
 		assertTrue(itemValue.size() == temporaryOrderCount);
-		
+
 		assertTrue(((ListTreatmentItemValue) itemValue.get(0)).getData()
 				.get("name").equals("阿司匹林"));
 
@@ -143,7 +143,7 @@ public class MedicalRecordTestService {
 		// 生成检查单病历
 		List<InspectResult> results = inspectDomainService
 				.findInspectResults(visit);
-		
+
 		assertTrue(results.size() == 1);
 
 		List<MedicalRecord> records = new ArrayList<MedicalRecord>();

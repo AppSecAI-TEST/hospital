@@ -39,11 +39,11 @@ public class VisitChargeItem extends IdEntity {
 	@Column(length = 32)
 	private String state;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "charge_item_id")
 	private ChargeItem chargeItem;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 

@@ -50,7 +50,7 @@ public class ChargeBill extends IdEntity {
 	@OrderBy("createDate DESC")
 	private List<ChargeRecord> chargeRecords;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "visit_id")
 	private Visit visit;
 

@@ -15,9 +15,15 @@ public class CostAdminDomainService {
 
 	@Autowired
 	private CostRecordRepo costRecordRepo;
+	
+	@Autowired
+	private ChargeRecordRepo chargeRecordRepo;
 
 	@Autowired
 	private ChargeBillRepo chargeBillRepo;
+	
+	@Autowired
+	private VisitChargeItemRepo visitChargeItemRepo;
 
 	public void create(List<ChargeItem> chargeItems) {
 		chargeItemRepo.save(chargeItems);
@@ -31,6 +37,14 @@ public class CostAdminDomainService {
 		chargeItemRepo.deleteAll();
 	}
 
+	public void clearVisitChargeItems() {
+		visitChargeItemRepo.deleteAll();
+	}
+	
+	public void clearChargeRecords() {
+		chargeRecordRepo.deleteAll();
+	}
+	
 	public void clearCostRecords() {
 		costRecordRepo.deleteAll();
 	}

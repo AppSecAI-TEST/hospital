@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordClip;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
@@ -28,7 +28,7 @@ public class MedicalRecordAppService {
 	private MedicalRecordDomainService medicalRecordDomainService;
 
 	@Autowired
-	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
+	private MedicalRecordAdminService medicalRecordAdminDomainService;
 
 	/**
 	 * 创建病历
@@ -45,7 +45,7 @@ public class MedicalRecordAppService {
 		MedicalRecordType type = medicalRecordAdminDomainService
 				.getMedicalRecordType(typeId);
 
-		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
+		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type);
 		builder.setNeedTreatment(needTreatment);
 
 		return medicalRecordDomainService.create(builder, visit, type, user);

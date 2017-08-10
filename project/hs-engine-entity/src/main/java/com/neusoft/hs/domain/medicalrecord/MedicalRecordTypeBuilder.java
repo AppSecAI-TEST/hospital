@@ -33,14 +33,14 @@ public class MedicalRecordTypeBuilder extends MedicalRecordBuilder {
 	public MedicalRecordTypeBuilder() {
 	}
 
-	public MedicalRecordTypeBuilder(MedicalRecordType type, Visit visit) {
+	public MedicalRecordTypeBuilder(MedicalRecordType type) {
 		super();
 		this.type = type;
-		this.setVisit(visit);
 	}
 
 	@Override
-	public Map<String, Itemable> doCreate(AbstractUser user) throws TreatmentException {
+	public Map<String, Itemable> doCreate(AbstractUser user)
+			throws TreatmentException {
 
 		Map<String, Itemable> datas = new HashMap<String, Itemable>();
 

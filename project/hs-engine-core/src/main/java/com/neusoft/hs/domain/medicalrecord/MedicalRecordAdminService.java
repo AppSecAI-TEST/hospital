@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class MedicalRecordAdminDomainService {
+public class MedicalRecordAdminService {
 
 	@Autowired
 	private MedicalRecordClipRepo medicalRecordClipRepo;
@@ -39,6 +39,8 @@ public class MedicalRecordAdminDomainService {
 	}
 
 	public void clear() {
+		//清空病历
+		this.clearMedicalRecord();
 		// 清空病历渲染器
 		this.clearRender();
 		// 清空病历类型
@@ -51,6 +53,10 @@ public class MedicalRecordAdminDomainService {
 
 	public void clearClip() {
 		medicalRecordClipRepo.deleteAll();
+	}
+
+	public void clearMedicalRecord() {
+		medicalRecordRepo.deleteAll();
 	}
 
 	public void clearType() {

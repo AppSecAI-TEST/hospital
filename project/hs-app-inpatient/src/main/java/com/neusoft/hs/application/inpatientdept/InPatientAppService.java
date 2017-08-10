@@ -13,7 +13,7 @@ import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.cost.CostDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordException;
@@ -43,7 +43,7 @@ public class InPatientAppService {
 	private MedicalRecordDomainService medicalRecordDomainService;
 
 	@Autowired
-	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
+	private MedicalRecordAdminService medicalRecordAdminDomainService;
 
 	@Autowired
 	private CostDomainService costDomainService;
@@ -83,7 +83,7 @@ public class InPatientAppService {
 		MedicalRecordType type = medicalRecordAdminDomainService
 				.getMedicalRecordType(typeId);
 
-		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type, visit);
+		MedicalRecordBuilder builder = new MedicalRecordTypeBuilder(type);
 
 		MedicalRecord medicalRecord = medicalRecordAppService.create(builder,
 				visit, type, user);

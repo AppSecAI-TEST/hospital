@@ -17,7 +17,7 @@ import com.neusoft.hs.domain.diagnosis.DiseaseAdminDomainService;
 import com.neusoft.hs.domain.inspect.InspectDept;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectItem;
-import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminDomainService;
+import com.neusoft.hs.domain.medicalrecord.MedicalRecordAdminService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordDomainService;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;
 import com.neusoft.hs.domain.order.DrugOrderType;
@@ -317,6 +317,9 @@ public class DataIniter {
 
 	@Autowired
 	protected MedicalRecordDomainService medicalRecordDomainService;
+	
+	@Autowired
+	protected MedicalRecordAdminService medicalRecordAdminService;
 
 	@Autowired
 	protected TreatmentDomainService treatmentDomainService;
@@ -344,9 +347,6 @@ public class DataIniter {
 
 	@Autowired
 	private CostAdminDomainService costAdminDomainService;
-
-	@Autowired
-	private MedicalRecordAdminDomainService medicalRecordAdminDomainService;
 
 	@Autowired
 	protected OrderAdminDomainService orderAdminDomainService;
@@ -510,6 +510,8 @@ public class DataIniter {
 		outPatientPlanAdminDomainService.clearPlanRecord();
 		// 清空病案
 		recordRoomDomainService.clear();
+		//清空病历
+		medicalRecordAdminService.clear();
 		// 清空处方
 		pharmacyAdminService.clearPrescriptions();
 		// 清空药品消费记录
@@ -536,6 +538,10 @@ public class DataIniter {
 		inspectDomainService.clearInspectItems();
 		// 清空挂号类型
 		outPatientPlanAdminDomainService.clearVoucherType();
+		//清空收费记录
+		costAdminDomainService.clearChargeRecords();
+		//清空患者一次就诊订阅的计费项目
+		costAdminDomainService.clearVisitChargeItems();
 		// 清空计费项目
 		costAdminDomainService.clearChargeItems();
 		// 清空诊疗项目信息
@@ -549,7 +555,7 @@ public class DataIniter {
 		// 清空患者一次住院
 		visitAdminDomainService.clear();
 		// 清空病历基础数据
-		medicalRecordAdminDomainService.clear();
+		medicalRecordAdminService.clear();
 		// 清空患者
 		patientAdminDomainService.clear();
 		// 清空配液单
@@ -1615,7 +1621,7 @@ public class DataIniter {
 
 		medicalRecordTypes.add(outPatientRecordMedicalRecordType);
 
-		medicalRecordAdminDomainService
+		medicalRecordAdminService
 				.createMedicalRecordTypes(medicalRecordTypes);
 	}
 
