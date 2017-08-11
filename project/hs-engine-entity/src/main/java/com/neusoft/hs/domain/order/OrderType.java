@@ -70,10 +70,11 @@ public abstract class OrderType extends SuperEntity {
 	 * 
 	 * @param order
 	 * @throws OrderException
-	 * @throws OrderExecuteException 
+	 * @throws OrderExecuteException
 	 * @roseuid 584E66D50265
 	 */
-	protected void check(Order order) throws OrderException, OrderExecuteException {
+	protected void check(Order order) throws OrderException,
+			OrderExecuteException {
 
 	}
 
@@ -163,7 +164,7 @@ public abstract class OrderType extends SuperEntity {
 	public void setChildren(List<OrderType> children) {
 		this.children = children;
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;

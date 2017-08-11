@@ -200,8 +200,6 @@ public abstract class OrderExecute extends IdEntity {
 
 	public static final String Type_SecondNursing = "二级护理";
 
-	public static final String Type_Transfer_Dept_Send = "发起转科";
-
 	public static final String Type_Transfer_Dept_Confirm = "确认转科";
 
 	public static final String Type_Enter_Hospital_Register = "入院登记";
@@ -227,11 +225,12 @@ public abstract class OrderExecute extends IdEntity {
 	 * @throws OrderExecuteException
 	 * @roseuid 584F624D0233
 	 */
-	public void send() throws OrderExecuteException {
+	public void send(AbstractUser user) throws OrderExecuteException {
 		if (!this.state.equals(State_NeedSend)) {
 			throw new OrderExecuteException(this, "id=[%s]state=[%s]不是[%s]",
 					this.getId(), this.state, State_NeedSend);
 		}
+		this.doSend(user);
 
 		this.updateState();
 		this.sendDate = DateUtil.getSysDate();
@@ -240,11 +239,12 @@ public abstract class OrderExecute extends IdEntity {
 	}
 
 	/**
-	 * 医嘱条目执行前回调函数
+	 * 停止一条执行条目回调函数
 	 * 
 	 * @throws OrderExecuteException
 	 */
-	protected void doExecuteBefore() throws OrderExecuteException {
+	protected void doSend(AbstractUser user) throws OrderExecuteException {
+
 	}
 
 	/**
@@ -293,6 +293,14 @@ public abstract class OrderExecute extends IdEntity {
 			return next;
 		}
 		return null;
+	}
+
+	/**
+	 * 医嘱条目执行前回调函数
+	 * 
+	 * @throws OrderExecuteException
+	 */
+	protected void doExecuteBefore() throws OrderExecuteException {
 	}
 
 	/**

@@ -25,6 +25,18 @@ public class TransferDeptConfirmOrderExecute extends OrderExecute {
 	public static final String Area = "Area";
 
 	@Override
+	protected void doSend(AbstractUser user) throws OrderExecuteException {
+		Visit visit = this.getVisit();
+		try {
+			this.getService(VisitDomainService.class).transferDeptSend(visit,
+					this.getOrder(), user);
+		} catch (VisitException e) {
+			e.printStackTrace();
+			throw new OrderExecuteException(this, e);
+		}
+	}
+
+	@Override
 	protected void doFinish(Map<String, Object> params, AbstractUser user)
 			throws OrderExecuteException {
 		if (params == null) {

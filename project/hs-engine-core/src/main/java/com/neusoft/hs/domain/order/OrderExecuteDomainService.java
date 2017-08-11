@@ -166,7 +166,7 @@ public class OrderExecuteDomainService {
 	public void send(OrderExecute execute, AbstractUser nurse)
 			throws OrderExecuteException {
 
-		execute.send();
+		execute.send(nurse);
 
 		applicationContext.publishEvent(new OrderExecuteSendedEvent(execute));
 

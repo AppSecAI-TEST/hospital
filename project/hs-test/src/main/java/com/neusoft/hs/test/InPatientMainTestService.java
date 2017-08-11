@@ -19,12 +19,12 @@ import com.neusoft.hs.domain.cost.ChargeRecord;
 import com.neusoft.hs.domain.inspect.InspectApply;
 import com.neusoft.hs.domain.inspect.InspectApplyItem;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
-import com.neusoft.hs.domain.order.TemporaryDrugOrderBuilder;
 import com.neusoft.hs.domain.order.LongDrugOrderBuilder;
 import com.neusoft.hs.domain.order.NursingOrderBuilder;
 import com.neusoft.hs.domain.order.Order;
 import com.neusoft.hs.domain.order.OrderCreateCommand;
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.order.TemporaryDrugOrderBuilder;
 import com.neusoft.hs.domain.order.TemporaryOrder;
 import com.neusoft.hs.domain.order.TransferDeptConfirmOrderExecute;
 import com.neusoft.hs.domain.order.TransferDeptOrderBuilder;
@@ -809,14 +809,14 @@ public class InPatientMainTestService extends InPatientTestService {
 		DateUtil.setSysDate(DateUtil.createMinute("2017-01-06 09:35", dayCount));
 
 		pageable = new PageRequest(0, Integer.MAX_VALUE);
-		executes = orderExecuteAppService.getNeedExecuteOrderExecutes(user003,
+		executes = orderExecuteAppService.getNeedSendOrderExecutes(user003,
 				pageable);
 
 		assertTrue(executes.size() == 1);
 
-		// 完成转科申请
+		// 发送转科申请
 		for (OrderExecute execute : executes) {
-			orderExecuteAppService.finish(execute.getId(), null, user003);
+			orderExecuteAppService.send(execute.getId(), user003);
 		}
 
 		visit = visitDomainService.find(visit004.getId());
