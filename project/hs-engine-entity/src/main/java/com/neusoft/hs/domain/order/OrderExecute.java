@@ -232,7 +232,7 @@ public abstract class OrderExecute extends IdEntity {
 		}
 		this.doSend(user);
 
-		this.updateState();
+		this.updateState(user);
 		this.sendDate = DateUtil.getSysDate();
 
 		this.order.setStateDesc(this.type + "执行条目已发送");
@@ -279,7 +279,7 @@ public abstract class OrderExecute extends IdEntity {
 
 			OrderExecute next = this.getNext();
 			if (next != null) {
-				next.doExecuteBefore();
+				next.doExecuteBefore(user);
 				next.setState(OrderExecute.State_Executing);
 				next.setStartDate(sysDate);
 
@@ -300,7 +300,7 @@ public abstract class OrderExecute extends IdEntity {
 	 * 
 	 * @throws OrderExecuteException
 	 */
-	protected void doExecuteBefore() throws OrderExecuteException {
+	protected void doExecuteBefore(AbstractUser user) throws OrderExecuteException {
 	}
 
 	/**
@@ -348,9 +348,9 @@ public abstract class OrderExecute extends IdEntity {
 	 * @throws OrderExecuteException
 	 * @roseuid 5850B1970103
 	 */
-	public void cancel() throws OrderExecuteException {
+	public void cancel(AbstractUser user) throws OrderExecuteException {
 
-		this.doCancel();
+		this.doCancel(user);
 
 		this.state = State_Canceled;
 		if (this.chargeState.equals(ChargeState_Charge)) {
@@ -363,7 +363,7 @@ public abstract class OrderExecute extends IdEntity {
 	 * 
 	 * @throws OrderExecuteException
 	 */
-	protected void doCancel() throws OrderExecuteException {
+	protected void doCancel(AbstractUser user) throws OrderExecuteException {
 
 	}
 
@@ -372,9 +372,9 @@ public abstract class OrderExecute extends IdEntity {
 	 * 
 	 * @throws OrderExecuteException
 	 */
-	public void stop() throws OrderExecuteException {
+	public void stop(AbstractUser user) throws OrderExecuteException {
 
-		doStop();
+		doStop(user);
 
 		if (this.state.equals(State_NeedSend)
 				|| this.state.equals(State_NeedExecute)
@@ -388,7 +388,7 @@ public abstract class OrderExecute extends IdEntity {
 	 * 
 	 * @throws OrderExecuteException
 	 */
-	protected void doStop() throws OrderExecuteException {
+	protected void doStop(AbstractUser user) throws OrderExecuteException {
 
 	}
 
@@ -397,16 +397,6 @@ public abstract class OrderExecute extends IdEntity {
 	 */
 	public void save() {
 		this.getService(OrderExecuteRepo.class).save(this);
-	}
-
-	private Float calAmout(OrderExecuteChargeItemRecord chargeItemRecord) {
-		if (chargeItemRecord.getCount() == null
-				|| chargeItemRecord.getCount() == 0) {
-			return chargeItemRecord.getChargeItem().getPrice();
-		} else {
-			return chargeItemRecord.getChargeItem().getPrice()
-					* chargeItemRecord.getCount();
-		}
 	}
 
 	/**
@@ -736,11 +726,11 @@ public abstract class OrderExecute extends IdEntity {
 	 * 
 	 * @throws OrderExecuteException
 	 */
-	void updateState() throws OrderExecuteException {
+	void updateState(AbstractUser user) throws OrderExecuteException {
 		Date sysDate = DateUtil.getSysDate();
 		Date startDate = DateUtil.addDay(DateUtil.getSysDateStart(), 1);
 		if (this.planStartDate != null && this.planStartDate.before(startDate)) {
-			this.doExecuteBefore();
+			this.doExecuteBefore(user);
 			this.state = State_Executing;
 			this.startDate = sysDate;
 		} else {
@@ -767,6 +757,16 @@ public abstract class OrderExecute extends IdEntity {
 			} else {
 				this.costState = CostState_NoCost;
 			}
+		}
+	}
+	
+	private Float calAmout(OrderExecuteChargeItemRecord chargeItemRecord) {
+		if (chargeItemRecord.getCount() == null
+				|| chargeItemRecord.getCount() == 0) {
+			return chargeItemRecord.getChargeItem().getPrice();
+		} else {
+			return chargeItemRecord.getChargeItem().getPrice()
+					* chargeItemRecord.getCount();
 		}
 	}
 }

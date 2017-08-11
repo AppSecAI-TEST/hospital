@@ -31,7 +31,7 @@ public class DispensingDrugOrderExecute extends DrugOrderExecute {
 	private DispenseDrugWin dispenseDrugWin;
 
 	@Override
-	protected void doExecuteBefore() throws OrderExecuteException {
+	protected void doExecuteBefore(AbstractUser user) throws OrderExecuteException {
 		List<DispenseDrugWin> wins = this.getPharmacy().getDispenseDrugWins();
 		if (wins != null && wins.size() > 0) {
 			dispenseDrugWin = wins.get(NumberUtil.random(wins.size()));
@@ -51,7 +51,7 @@ public class DispensingDrugOrderExecute extends DrugOrderExecute {
 	}
 
 	@Override
-	protected void doCancel() throws OrderExecuteException {
+	protected void doCancel(AbstractUser user) throws OrderExecuteException {
 		try {
 			this.getPharmacy().unSend(this.getConsumeRecords());
 		} catch (HsException e) {

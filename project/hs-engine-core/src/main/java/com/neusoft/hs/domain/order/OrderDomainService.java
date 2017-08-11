@@ -102,7 +102,7 @@ public class OrderDomainService {
 		// 对于门诊开立的医嘱自动分解
 		for (Order order : orderCommand.getOrders()) {
 			if (!order.isInPatient()) {
-				order.resolve();
+				order.resolve(doctor);
 			}
 		}
 
@@ -166,7 +166,7 @@ public class OrderDomainService {
 	public Order verify(Order order, AbstractUser nurse) throws OrderException,
 			OrderExecuteException {
 
-		order.verify();
+		order.verify(nurse);
 
 		applicationContext.publishEvent(new OrderVerifyedEvent(order));
 
@@ -189,7 +189,7 @@ public class OrderDomainService {
 		int count = 0;
 		for (LongOrder longOrder : longOrders) {
 			try {
-				count += longOrder.resolve();
+				count += longOrder.resolve(admin);
 			} catch (OrderException e) {
 				e.printStackTrace();
 			} catch (OrderExecuteException e) {
@@ -231,7 +231,7 @@ public class OrderDomainService {
 	 */
 	public void stop(LongOrder order, Doctor doctor) throws OrderException {
 		try {
-			order.stop();
+			order.stop(doctor);
 		} catch (OrderExecuteException e) {
 			throw new OrderException(order, e);
 		}

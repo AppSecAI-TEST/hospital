@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.neusoft.hs.domain.order.OrderExecute;
+import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.pharmacy.ConfigureFluidOrder;
 import com.neusoft.hs.domain.pharmacy.DispenseDrugWin;
 
@@ -25,7 +26,7 @@ public class DistributeDrugOrderExecute extends DrugOrderExecute {
 	private ConfigureFluidOrder fluidOrder;
 
 	@Override
-	protected void doExecuteBefore() throws OrderExecuteException {
+	protected void doExecuteBefore(AbstractUser user) throws OrderExecuteException {
 		OrderExecute previos = this.getPrevious();
 		if (previos != null) {
 			if (previos instanceof DispensingDrugOrderExecute) {

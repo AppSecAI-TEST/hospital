@@ -111,7 +111,7 @@ public class InspectDomainService {
 				.getInspectArrangeOrderExecute();
 		if (arrange != null) {
 			try {
-				arrange.cancel();
+				arrange.cancel(user);
 			} catch (OrderExecuteException e) {
 				throw new InspectException(e);
 			}
@@ -120,7 +120,7 @@ public class InspectDomainService {
 				.getInspectConfirmOrderExecute();
 		if (confirm != null) {
 			try {
-				confirm.cancel();
+				confirm.cancel(user);
 			} catch (OrderExecuteException e) {
 				throw new InspectException(e);
 			}

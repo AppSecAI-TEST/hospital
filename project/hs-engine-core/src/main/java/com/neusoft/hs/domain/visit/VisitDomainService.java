@@ -204,7 +204,7 @@ public class VisitDomainService {
 					|| !currentOrder.getId().equals(order.getId())) {
 				if (order.getState().equals(Order.State_Executing)) {
 					if (order instanceof LongOrder) {
-						((LongOrder) order).stop();
+						((LongOrder) order).stop(user);
 						// 发出停止长嘱事件
 						ApplicationContextUtil.getApplicationContext()
 								.publishEvent(new OrderStopedEvent(visit));
@@ -255,7 +255,7 @@ public class VisitDomainService {
 					|| !currentOrder.getId().equals(order.getId())) {
 				if (order.getState().equals(Order.State_Executing)) {
 					if (order instanceof LongOrder) {
-						((LongOrder) order).stop();
+						((LongOrder) order).stop(user);
 						// 发出停止长嘱事件
 						ApplicationContextUtil.getApplicationContext()
 								.publishEvent(new OrderStopedEvent(visit));

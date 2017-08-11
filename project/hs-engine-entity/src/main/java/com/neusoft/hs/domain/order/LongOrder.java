@@ -88,9 +88,9 @@ public class LongOrder extends Order {
 	 * 
 	 * @throws OrderExecuteException
 	 */
-	public void stop() throws OrderExecuteException {
+	public void stop(AbstractUser doctor) throws OrderExecuteException {
 		for (OrderExecute execute : this.getOrderExecutes()) {
-			execute.stop();
+			execute.stop(doctor);
 		}
 		this.setState(State_Stoped);
 		this.setEndDate(DateUtil.getSysDate());

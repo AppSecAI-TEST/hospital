@@ -39,7 +39,7 @@ public class ConfigureFluidOrderExecute extends DrugOrderExecute {
 	}
 
 	@Override
-	protected void doCancel() throws OrderExecuteException {
+	protected void doCancel(AbstractUser user) throws OrderExecuteException {
 		try {
 			this.getPharmacy().unSend(this.getConsumeRecords());
 		} catch (HsException e) {

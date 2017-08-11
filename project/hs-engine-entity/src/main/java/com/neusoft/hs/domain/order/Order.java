@@ -205,9 +205,9 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * @throws OrderException
 	 * @throws OrderExecuteException
 	 */
-	public int verify() throws OrderException, OrderExecuteException {
+	public int verify(AbstractUser user) throws OrderException, OrderExecuteException {
 		this.setState(State_Executing);
-		int count = this.resolve();
+		int count = this.resolve(user);
 		this.orderType.verify(this);
 		return count;
 	}
@@ -219,7 +219,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 * @throws OrderExecuteException
 	 * @roseuid 584F494100C2
 	 */
-	public int resolve() throws OrderException, OrderExecuteException {
+	public int resolve(AbstractUser user) throws OrderException, OrderExecuteException {
 		if (!this.state.equals(State_Executing)) {
 			throw new OrderException(this, "医嘱[%s]的状态为[%s],不能分解", this.getId(),
 					this.state);
@@ -237,7 +237,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 				if (orderExecute.getPrevious() == null
 						&& !orderExecute.getState().equals(
 								OrderExecute.State_NeedSend)) {
-					orderExecute.updateState();
+					orderExecute.updateState(user);
 				}
 				orderExecute.updateChargeState();
 				orderExecute.updateCostState();
@@ -271,7 +271,7 @@ public abstract class Order extends IdEntity implements OrderCreateCommand {
 	 */
 	public void cancel(Doctor doctor) throws OrderExecuteException {
 		for (OrderExecute execute : this.orderExecutes) {
-			execute.cancel();
+			execute.cancel(doctor);
 		}
 		this.state = State_Canceled;
 	}
