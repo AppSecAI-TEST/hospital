@@ -23,6 +23,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
 			<version>${spring.cloud.eureka.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jackson-dataformat-xml</artifactId>
+					<groupId>com.fasterxml.jackson.dataformat</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
