@@ -14,6 +14,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.neusoft.hospital</groupId>
+			<artifactId>hs-app-cost</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.neusoft.hospital</groupId>
 			<artifactId>hs-engine-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
