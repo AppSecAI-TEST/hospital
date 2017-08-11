@@ -117,6 +117,7 @@ public abstract class Dept extends Unit {
 	 * 
 	 * @return
 	 */
+	@JsonIgnore
 	public List<Dept> getOperationDepts() {
 		List<Dept> operationDepts = new ArrayList<Dept>();
 		operationDepts.add(this);

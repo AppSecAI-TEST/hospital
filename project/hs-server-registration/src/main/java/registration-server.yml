@@ -12,4 +12,7 @@ server:
 # Discovery Server Dashboard uses FreeMarker.  Don't want Thymeleaf templates
 spring:
   thymeleaf:
-    enabled: false     # Disable Thymeleaf 
+    enabled: false     # Disable Thymeleaf
+
+logging:
+  level: error
