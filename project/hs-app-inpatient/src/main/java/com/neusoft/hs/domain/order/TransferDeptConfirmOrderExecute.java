@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.neusoft.hs.application.organization.UserAdminAppService;
 import com.neusoft.hs.domain.organization.AbstractUser;
 import com.neusoft.hs.domain.organization.Dept;
 import com.neusoft.hs.domain.organization.Doctor;
@@ -53,7 +54,9 @@ public class TransferDeptConfirmOrderExecute extends OrderExecute {
 		transferDeptVO.setBed((String) params.get(Bed));
 
 		if (!params.containsKey(Area)) {
-			transferDeptVO.setArea(transferDeptVO.getNurse().getDept());
+			Nurse nurse = this.getService(UserAdminAppService.class).findNurse(
+					transferDeptVO.getNurse().getId());
+			transferDeptVO.setArea(nurse.getDept());
 		} else {
 			transferDeptVO.setArea((Dept) params.get(Area));
 		}

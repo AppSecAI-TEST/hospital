@@ -14,7 +14,7 @@ import com.neusoft.hs.application.medicalrecord.MedicalRecordAppService;
 import com.neusoft.hs.application.treatment.TreatmentAppService;
 import com.neusoft.hs.domain.inspect.InspectDomainService;
 import com.neusoft.hs.domain.inspect.InspectResult;
-import com.neusoft.hs.domain.inspect.InspectResultMedicalRecordBuilder;
+import com.neusoft.hs.domain.medicalrecord.InspectResultMedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecord;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordType;

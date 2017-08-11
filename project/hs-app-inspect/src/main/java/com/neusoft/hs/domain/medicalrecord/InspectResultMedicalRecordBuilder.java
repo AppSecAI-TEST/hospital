@@ -1,4 +1,4 @@
-package com.neusoft.hs.domain.inspect;
+package com.neusoft.hs.domain.medicalrecord;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.neusoft.hs.domain.inspect.InspectResult;
 import com.neusoft.hs.domain.medicalrecord.DateMedicalRecordItemValue;
 import com.neusoft.hs.domain.medicalrecord.DeptMedicalRecordItemValue;
 import com.neusoft.hs.domain.medicalrecord.MedicalRecordBuilder;
