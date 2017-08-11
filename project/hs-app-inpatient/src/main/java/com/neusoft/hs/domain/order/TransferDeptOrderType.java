@@ -26,7 +26,7 @@ public class TransferDeptOrderType extends OrderType {
 		transferConfirm.setOrder(order);
 		transferConfirm.setVisit(order.getVisit());
 		transferConfirm.setBelongDept(order.getBelongDept());
-		transferConfirm.setType(OrderExecute.Type_Transfer_Dept_Confirm);
+		transferConfirm.setType(OrderExecute.Type_Transfer_Dept);
 		transferConfirm.setMain(true);
 
 		transferConfirm.setPlanStartDate(order.getPlanStartDate());
